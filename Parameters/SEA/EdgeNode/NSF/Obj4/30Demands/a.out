@@ -1,0 +1,846 @@
+PARAMETER FILE: ../Parameters/SEA/EdgeNode/NSF/Obj4/30Demands/onlineParameters.txt
+Getting input file paths...
+Getting topology file...
+... /mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/NSF/Link.csv
+WARNING: Field 'initialMappingDemandFile=' is empty.
+WARNING: Field 'initialMappingAssignmentFile=' is empty.
+Getting GNPY parameters...
+Getting formulation parameters...
+Getting optimization parameters...
+Getting execution parameters...
+Getting subgradient parameters...
+Populating online demand files...
+Finish reading input.
+TOPOLOGY FILE: /mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/NSF/Link.csv
+ROUTED DEMANDS FILE: 
+INITIAL ASSIGNMENT FILE: 
+All information from input is consistent.
+> Number of online demand files: 1
+--- READING INSTANCE... --- 
+--- CREATING INITIAL MAPPING... --- 
+Reading /mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/NSF/Link.csv.
+Creating edge #1. 1 -- 2. nb slices: 120, length: 447, cost: 1
+Creating edge #2. 1 -- 3. nb slices: 120, length: 304, cost: 1
+Creating edge #3. 2 -- 4. nb slices: 120, length: 568, cost: 1
+Creating edge #4. 2 -- 3. nb slices: 120, length: 434, cost: 1
+Creating edge #5. 3 -- 5. nb slices: 120, length: 443, cost: 1
+Creating edge #6. 4 -- 5. nb slices: 120, length: 273, cost: 1
+Creating edge #7. 4 -- 6. nb slices: 120, length: 462, cost: 1
+Creating edge #8. 5 -- 7. nb slices: 120, length: 230, cost: 1
+Creating edge #9. 6 -- 8. nb slices: 120, length: 233, cost: 1
+Creating edge #10. 6 -- 7. nb slices: 120, length: 348, cost: 1
+Creating edge #11. 7 -- 9. nb slices: 120, length: 467, cost: 1
+Creating edge #12. 7 -- 8. nb slices: 120, length: 302, cost: 1
+Creating edge #13. 8 -- 9. nb slices: 120, length: 93, cost: 1
+Starting with an empty initial mapping. 
+0 are present in the initial mapping.
+--- READING NEW DEMANDS TO BE ROUTED... --- 
+Reading /mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/NSF/Obj4/30Demands/Demand/30Demands.csv ...
+out
+
+--- The Non Routed Demands ---
+#1. 8 -- 5. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#2. 5 -- 2. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#3. 9 -- 6. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#4. 7 -- 5. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#5. 8 -- 5. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#6. 6 -- 8. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#7. 1 -- 7. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#8. 8 -- 1. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#9. 8 -- 1. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#10. 5 -- 6. nbSlices: 6, maxLength: 600, ROUTED: NO
+#11. 3 -- 1. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#12. 6 -- 3. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#13. 5 -- 6. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#14. 1 -- 6. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#15. 6 -- 2. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#16. 9 -- 5. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#17. 8 -- 2. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#18. 8 -- 1. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#19. 2 -- 3. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#20. 1 -- 8. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#21. 1 -- 8. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#22. 2 -- 3. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#23. 8 -- 4. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#24. 6 -- 2. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#25. 5 -- 6. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#26. 5 -- 1. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#27. 5 -- 1. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#28. 2 -- 6. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#29. 2 -- 6. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#30. 7 -- 4. nbSlices: 3, maxLength: 3000, ROUTED: NO
+
+30 demands to be routed.
+--- ROUTING DEMANDS --- 
+#1 (8, 5), requiring 5 slices and having Max length 1500
+#2 (5, 2), requiring 5 slices and having Max length 1500
+#3 (9, 6), requiring 5 slices and having Max length 1500
+#4 (7, 5), requiring 5 slices and having Max length 1500
+#5 (8, 5), requiring 5 slices and having Max length 1500
+#6 (6, 8), requiring 5 slices and having Max length 1500
+#7 (1, 7), requiring 3 slices and having Max length 3000
+#8 (8, 1), requiring 5 slices and having Max length 1500
+#9 (8, 1), requiring 5 slices and having Max length 1500
+#10 (5, 6), requiring 6 slices and having Max length 600
+#11 (3, 1), requiring 5 slices and having Max length 1500
+#12 (6, 3), requiring 5 slices and having Max length 1500
+#13 (5, 6), requiring 3 slices and having Max length 3000
+#14 (1, 6), requiring 5 slices and having Max length 1500
+#15 (6, 2), requiring 5 slices and having Max length 1500
+#16 (9, 5), requiring 5 slices and having Max length 1500
+#17 (8, 2), requiring 3 slices and having Max length 3000
+#18 (8, 1), requiring 5 slices and having Max length 1500
+#19 (2, 3), requiring 5 slices and having Max length 1500
+#20 (1, 8), requiring 5 slices and having Max length 1500
+#21 (1, 8), requiring 5 slices and having Max length 1500
+#22 (2, 3), requiring 5 slices and having Max length 1500
+#23 (8, 4), requiring 3 slices and having Max length 3000
+#24 (6, 2), requiring 3 slices and having Max length 3000
+#25 (5, 6), requiring 3 slices and having Max length 3000
+#26 (5, 1), requiring 5 slices and having Max length 1500
+#27 (5, 1), requiring 5 slices and having Max length 1500
+#28 (2, 6), requiring 5 slices and having Max length 1500
+#29 (2, 6), requiring 5 slices and having Max length 1500
+#30 (7, 4), requiring 3 slices and having Max length 3000
+--> THE DIFFERENT ROUTING LOADS: 5, 3, 6.
+--- Edge-Node formulation has been chosen. |K| = 30, |S| = 120. ---
+X variables were created.
+Z variables were created.
+T variables were created.
+MaxSlicePerLink variables were created.
+MaxSliceOverall variable was created.
+Origin constraints have been defined...
+Destination constraints have been defined...
+Degree constraints have been defined...
+Transmission reach constraints have been defined...
+Channel selection constraints have been defined...
+Forbidden slots constraints have been defined...
+Edge-slots constraints have been defined...
+Demand-edge-slots constraints have been defined...
+Non-overlapping constraints have been defined...
+Max Used Slice Per Link constraints have been defined...
+Max Used Slice Overall constraints have been defined...
+Objective obj_4 has been defined.
+--- Edge-Node formulation has been defined ---
+--- CPLEX has been initialized ---
+CPLEX parameters have been defined...
+CPLEX variables have been defined...
+CPLEX constraints have been defined...
+CPLEX objective has been defined...
+LP model has been exported.
+Solving...
+Chosen objective: obj_4
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_MIP_Display                             3
+CPXPARAM_TimeLimit                               7200
+Lazy constraint(s) or lazy constraint/branch callback is present.
+    Disabling dual reductions (CPX_PARAM_REDUCE) in presolve.
+    Disabling presolve reductions that prevent crushing forms.
+Tried aggregator 2 times.
+MIP Presolve eliminated 468 rows and 545 columns.
+MIP Presolve modified 3493 coefficients.
+Aggregator did 12 substitutions.
+Reduced MIP has 95460 rows, 145677 columns, and 590490 nonzeros.
+Reduced MIP has 50671 binaries, 14 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.44 sec. (474.23 ticks)
+Probing fixed 968 vars, tightened 46805 bounds.
+Probing time = 11.96 sec. (2214.14 ticks)
+Cover probing fixed 0 vars, tightened 21 bounds.
+Tried aggregator 2 times.
+MIP Presolve eliminated 981 rows and 1941 columns.
+Aggregator did 2 substitutions.
+Reduced MIP has 94477 rows, 143734 columns, and 583717 nonzeros.
+Reduced MIP has 49701 binaries, 14 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.64 sec. (612.11 ticks)
+Probing fixed 0 vars, tightened 1 bounds.
+Probing time = 0.17 sec. (44.19 ticks)
+Cover probing fixed 0 vars, tightened 12 bounds.
+Clique table members: 392762.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 8 threads.
+Root relaxation solution time = 37.44 sec. (13725.35 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0    13708.0000   501                  13708.0000        6         
+      0     0    15833.0000   501                    Cuts: 96    11802         
+      0     0    17761.5000   501                    Cuts: 49    27927         
+      0     0    19212.0000   501                   Cuts: 119    35403         
+      0     0    20821.5000   501                   Cuts: 172    43900         
+      0     0    21543.5000   501                    Cuts: 72    53245         
+      0     0    22041.0000   501                    Cuts: 53    62610         
+      0     0    22953.5000   501                   Cuts: 340    71362         
+      0     0    23129.5000   501                    Cuts: 32    75018         
+      0     0    23674.0000   501                    Cuts: 69    79256         
+      0     0    23826.0000   501                    Cuts: 44    86197         
+*     0     0      integral     0    24018.0000      Cuts: 36   103096    0.00%
+Found incumbent of value 24018.000000 after 251.92 sec. (106198.15 ticks)
+      0     0        cutoff          24018.0000    24018.0000   103096    0.00%
+Elapsed time = 251.99 sec. (106201.85 ticks, tree = 0.01 MB, solutions = 1)
+
+GUB cover cuts applied:  9
+Clique cuts applied:  11
+Cover cuts applied:  12
+Mixed integer rounding cuts applied:  5
+Zero-half cuts applied:  91
+User cuts applied:  242
+
+Root node processing (before b&c):
+  Real time             =  252.00 sec. (106206.66 ticks)
+Parallel b&c, 8 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =  252.00 sec. (106206.66 ticks)
+Objective Function Value: 24018
+Optimization done in 252.077 secs.
+Status: Optimal
+Objective Function Value: 24018
+x(8,9,3) = 1
+x(8,9,16) = 1
+x(7,8,1) = 1
+x(7,8,5) = 1
+x(7,8,8) = 1
+x(7,8,9) = 1
+x(7,8,16) = 1
+x(7,8,18) = 1
+x(7,8,20) = 1
+x(7,8,21) = 1
+x(6,7,10) = 1
+x(6,7,12) = 1
+x(6,7,13) = 1
+x(6,7,14) = 1
+x(6,7,25) = 1
+x(6,8,3) = 1
+x(6,8,6) = 1
+x(6,8,17) = 1
+x(6,8,23) = 1
+x(5,7,1) = 1
+x(5,7,4) = 1
+x(5,7,5) = 1
+x(5,7,7) = 1
+x(5,7,8) = 1
+x(5,7,9) = 1
+x(5,7,10) = 1
+x(5,7,12) = 1
+x(5,7,13) = 1
+x(5,7,14) = 1
+x(5,7,16) = 1
+x(5,7,18) = 1
+x(5,7,20) = 1
+x(5,7,21) = 1
+x(5,7,25) = 1
+x(5,7,30) = 1
+x(4,6,15) = 1
+x(4,6,17) = 1
+x(4,6,23) = 1
+x(4,6,24) = 1
+x(4,6,28) = 1
+x(4,6,29) = 1
+x(4,5,2) = 1
+x(4,5,30) = 1
+x(3,5,7) = 1
+x(3,5,8) = 1
+x(3,5,9) = 1
+x(3,5,12) = 1
+x(3,5,14) = 1
+x(3,5,18) = 1
+x(3,5,20) = 1
+x(3,5,21) = 1
+x(3,5,26) = 1
+x(3,5,27) = 1
+x(2,3,19) = 1
+x(2,3,22) = 1
+x(2,4,2) = 1
+x(2,4,15) = 1
+x(2,4,17) = 1
+x(2,4,24) = 1
+x(2,4,28) = 1
+x(2,4,29) = 1
+x(1,3,7) = 1
+x(1,3,8) = 1
+x(1,3,9) = 1
+x(1,3,11) = 1
+x(1,3,14) = 1
+x(1,3,18) = 1
+x(1,3,20) = 1
+x(1,3,21) = 1
+x(1,3,26) = 1
+x(1,3,27) = 1
+z(8,2) = 1
+z(15,4) = 1
+z(18,7) = 1
+z(20,6) = 1
+z(27,1) = 1
+z(33,14) = 1
+z(37,30) = 1
+z(38,11) = 1
+z(46,21) = 1
+z(48,29) = 1
+z(51,18) = 1
+z(51,24) = 1
+z(54,25) = 1
+z(56,15) = 1
+z(62,9) = 1
+z(63,23) = 1
+z(69,20) = 1
+z(75,12) = 1
+z(84,26) = 1
+z(86,16) = 1
+z(87,19) = 1
+z(89,27) = 1
+z(95,22) = 1
+z(102,28) = 1
+z(104,10) = 1
+z(105,17) = 1
+z(110,8) = 1
+z(111,3) = 1
+z(115,5) = 1
+z(118,13) = 1
+t(13,82,16) = 1
+t(13,83,16) = 1
+t(13,84,16) = 1
+t(13,85,16) = 1
+t(13,86,16) = 1
+t(13,107,3) = 1
+t(13,108,3) = 1
+t(13,109,3) = 1
+t(13,110,3) = 1
+t(13,111,3) = 1
+t(12,23,1) = 1
+t(12,24,1) = 1
+t(12,25,1) = 1
+t(12,26,1) = 1
+t(12,27,1) = 1
+t(12,42,21) = 1
+t(12,43,21) = 1
+t(12,44,21) = 1
+t(12,45,21) = 1
+t(12,46,21) = 1
+t(12,47,18) = 1
+t(12,48,18) = 1
+t(12,49,18) = 1
+t(12,50,18) = 1
+t(12,51,18) = 1
+t(12,58,9) = 1
+t(12,59,9) = 1
+t(12,60,9) = 1
+t(12,61,9) = 1
+t(12,62,9) = 1
+t(12,65,20) = 1
+t(12,66,20) = 1
+t(12,67,20) = 1
+t(12,68,20) = 1
+t(12,69,20) = 1
+t(12,82,16) = 1
+t(12,83,16) = 1
+t(12,84,16) = 1
+t(12,85,16) = 1
+t(12,86,16) = 1
+t(12,106,8) = 1
+t(12,107,8) = 1
+t(12,108,8) = 1
+t(12,109,8) = 1
+t(12,110,8) = 1
+t(12,111,5) = 1
+t(12,112,5) = 1
+t(12,113,5) = 1
+t(12,114,5) = 1
+t(12,115,5) = 1
+t(10,29,14) = 1
+t(10,30,14) = 1
+t(10,31,14) = 1
+t(10,32,14) = 1
+t(10,33,14) = 1
+t(10,52,25) = 1
+t(10,53,25) = 1
+t(10,54,25) = 1
+t(10,71,12) = 1
+t(10,72,12) = 1
+t(10,73,12) = 1
+t(10,74,12) = 1
+t(10,75,12) = 1
+t(10,99,10) = 1
+t(10,100,10) = 1
+t(10,101,10) = 1
+t(10,102,10) = 1
+t(10,103,10) = 1
+t(10,104,10) = 1
+t(10,116,13) = 1
+t(10,117,13) = 1
+t(10,118,13) = 1
+t(9,16,6) = 1
+t(9,17,6) = 1
+t(9,18,6) = 1
+t(9,19,6) = 1
+t(9,20,6) = 1
+t(9,61,23) = 1
+t(9,62,23) = 1
+t(9,63,23) = 1
+t(9,103,17) = 1
+t(9,104,17) = 1
+t(9,105,17) = 1
+t(9,107,3) = 1
+t(9,108,3) = 1
+t(9,109,3) = 1
+t(9,110,3) = 1
+t(9,111,3) = 1
+t(8,11,4) = 1
+t(8,12,4) = 1
+t(8,13,4) = 1
+t(8,14,4) = 1
+t(8,15,4) = 1
+t(8,16,7) = 1
+t(8,17,7) = 1
+t(8,18,7) = 1
+t(8,23,1) = 1
+t(8,24,1) = 1
+t(8,25,1) = 1
+t(8,26,1) = 1
+t(8,27,1) = 1
+t(8,29,14) = 1
+t(8,30,14) = 1
+t(8,31,14) = 1
+t(8,32,14) = 1
+t(8,33,14) = 1
+t(8,35,30) = 1
+t(8,36,30) = 1
+t(8,37,30) = 1
+t(8,42,21) = 1
+t(8,43,21) = 1
+t(8,44,21) = 1
+t(8,45,21) = 1
+t(8,46,21) = 1
+t(8,47,18) = 1
+t(8,48,18) = 1
+t(8,49,18) = 1
+t(8,50,18) = 1
+t(8,51,18) = 1
+t(8,52,25) = 1
+t(8,53,25) = 1
+t(8,54,25) = 1
+t(8,58,9) = 1
+t(8,59,9) = 1
+t(8,60,9) = 1
+t(8,61,9) = 1
+t(8,62,9) = 1
+t(8,65,20) = 1
+t(8,66,20) = 1
+t(8,67,20) = 1
+t(8,68,20) = 1
+t(8,69,20) = 1
+t(8,71,12) = 1
+t(8,72,12) = 1
+t(8,73,12) = 1
+t(8,74,12) = 1
+t(8,75,12) = 1
+t(8,82,16) = 1
+t(8,83,16) = 1
+t(8,84,16) = 1
+t(8,85,16) = 1
+t(8,86,16) = 1
+t(8,99,10) = 1
+t(8,100,10) = 1
+t(8,101,10) = 1
+t(8,102,10) = 1
+t(8,103,10) = 1
+t(8,104,10) = 1
+t(8,106,8) = 1
+t(8,107,8) = 1
+t(8,108,8) = 1
+t(8,109,8) = 1
+t(8,110,8) = 1
+t(8,111,5) = 1
+t(8,112,5) = 1
+t(8,113,5) = 1
+t(8,114,5) = 1
+t(8,115,5) = 1
+t(8,116,13) = 1
+t(8,117,13) = 1
+t(8,118,13) = 1
+t(7,44,29) = 1
+t(7,45,29) = 1
+t(7,46,29) = 1
+t(7,47,29) = 1
+t(7,48,29) = 1
+t(7,49,24) = 1
+t(7,50,24) = 1
+t(7,51,24) = 1
+t(7,52,15) = 1
+t(7,53,15) = 1
+t(7,54,15) = 1
+t(7,55,15) = 1
+t(7,56,15) = 1
+t(7,61,23) = 1
+t(7,62,23) = 1
+t(7,63,23) = 1
+t(7,98,28) = 1
+t(7,99,28) = 1
+t(7,100,28) = 1
+t(7,101,28) = 1
+t(7,102,28) = 1
+t(7,103,17) = 1
+t(7,104,17) = 1
+t(7,105,17) = 1
+t(6,4,2) = 1
+t(6,5,2) = 1
+t(6,6,2) = 1
+t(6,7,2) = 1
+t(6,8,2) = 1
+t(6,35,30) = 1
+t(6,36,30) = 1
+t(6,37,30) = 1
+t(5,16,7) = 1
+t(5,17,7) = 1
+t(5,18,7) = 1
+t(5,29,14) = 1
+t(5,30,14) = 1
+t(5,31,14) = 1
+t(5,32,14) = 1
+t(5,33,14) = 1
+t(5,42,21) = 1
+t(5,43,21) = 1
+t(5,44,21) = 1
+t(5,45,21) = 1
+t(5,46,21) = 1
+t(5,47,18) = 1
+t(5,48,18) = 1
+t(5,49,18) = 1
+t(5,50,18) = 1
+t(5,51,18) = 1
+t(5,58,9) = 1
+t(5,59,9) = 1
+t(5,60,9) = 1
+t(5,61,9) = 1
+t(5,62,9) = 1
+t(5,65,20) = 1
+t(5,66,20) = 1
+t(5,67,20) = 1
+t(5,68,20) = 1
+t(5,69,20) = 1
+t(5,71,12) = 1
+t(5,72,12) = 1
+t(5,73,12) = 1
+t(5,74,12) = 1
+t(5,75,12) = 1
+t(5,80,26) = 1
+t(5,81,26) = 1
+t(5,82,26) = 1
+t(5,83,26) = 1
+t(5,84,26) = 1
+t(5,85,27) = 1
+t(5,86,27) = 1
+t(5,87,27) = 1
+t(5,88,27) = 1
+t(5,89,27) = 1
+t(5,106,8) = 1
+t(5,107,8) = 1
+t(5,108,8) = 1
+t(5,109,8) = 1
+t(5,110,8) = 1
+t(4,83,19) = 1
+t(4,84,19) = 1
+t(4,85,19) = 1
+t(4,86,19) = 1
+t(4,87,19) = 1
+t(4,91,22) = 1
+t(4,92,22) = 1
+t(4,93,22) = 1
+t(4,94,22) = 1
+t(4,95,22) = 1
+t(3,4,2) = 1
+t(3,5,2) = 1
+t(3,6,2) = 1
+t(3,7,2) = 1
+t(3,8,2) = 1
+t(3,44,29) = 1
+t(3,45,29) = 1
+t(3,46,29) = 1
+t(3,47,29) = 1
+t(3,48,29) = 1
+t(3,49,24) = 1
+t(3,50,24) = 1
+t(3,51,24) = 1
+t(3,52,15) = 1
+t(3,53,15) = 1
+t(3,54,15) = 1
+t(3,55,15) = 1
+t(3,56,15) = 1
+t(3,98,28) = 1
+t(3,99,28) = 1
+t(3,100,28) = 1
+t(3,101,28) = 1
+t(3,102,28) = 1
+t(3,103,17) = 1
+t(3,104,17) = 1
+t(3,105,17) = 1
+t(2,16,7) = 1
+t(2,17,7) = 1
+t(2,18,7) = 1
+t(2,29,14) = 1
+t(2,30,14) = 1
+t(2,31,14) = 1
+t(2,32,14) = 1
+t(2,33,14) = 1
+t(2,34,11) = 1
+t(2,35,11) = 1
+t(2,36,11) = 1
+t(2,37,11) = 1
+t(2,38,11) = 1
+t(2,42,21) = 1
+t(2,43,21) = 1
+t(2,44,21) = 1
+t(2,45,21) = 1
+t(2,46,21) = 1
+t(2,47,18) = 1
+t(2,48,18) = 1
+t(2,49,18) = 1
+t(2,50,18) = 1
+t(2,51,18) = 1
+t(2,58,9) = 1
+t(2,59,9) = 1
+t(2,60,9) = 1
+t(2,61,9) = 1
+t(2,62,9) = 1
+t(2,65,20) = 1
+t(2,66,20) = 1
+t(2,67,20) = 1
+t(2,68,20) = 1
+t(2,69,20) = 1
+t(2,80,26) = 1
+t(2,81,26) = 1
+t(2,82,26) = 1
+t(2,83,26) = 1
+t(2,84,26) = 1
+t(2,85,27) = 1
+t(2,86,27) = 1
+t(2,87,27) = 1
+t(2,88,27) = 1
+t(2,89,27) = 1
+t(2,106,8) = 1
+t(2,107,8) = 1
+t(2,108,8) = 1
+t(2,109,8) = 1
+t(2,110,8) = 1
+maxSlice(12) = 120
+maxSlice(11) = 120
+maxSlice(10) = 120
+maxSlice(9) = 120
+maxSlice(8) = 120
+maxSlice(7) = 120
+maxSlice(6) = 120
+maxSlice(5) = 120
+maxSlice(4) = 120
+maxSlice(3) = 120
+maxSlice(2) = 120
+maxSlice(1) = 120
+maxSlice(0) = 120
+maxSlice = 117
+Update RSA
+Feasible
+
+--- Slice occupation ---
+#1.                                                                                                                         
+#2.                ***          **********   **********      *****  *****          **********                *****          
+#3.    *****                                   *************                                         ********               
+#4.                                                                                   *****   *****                         
+#5.                ***          *****        **********      *****  ***** *****    **********                *****          
+#6.    *****                          ***                                                                                   
+#7.                                            *************    ***                                  ********               
+#8.           ********    ***** ***** ***    *************   *****  ***** *****      *****            ****** *************  
+#9.                *****                                        ***                                       *** *****         
+#10.                             *****                  ***                *****                       ******           ***  
+#11.                                                                                                                         
+#12.                       *****              **********      *****  *****            *****                   **********     
+#13.                                                                                  *****                    *****         
+
+For demand 1 : 
+(8--7, 27)
+(7--5, 27)
+
+For demand 2 : 
+(5--4, 8)
+(4--2, 8)
+
+For demand 3 : 
+(9--8, 111)
+(8--6, 111)
+
+For demand 4 : 
+(7--5, 15)
+
+For demand 5 : 
+(8--7, 115)
+(7--5, 115)
+
+For demand 6 : 
+(6--8, 20)
+
+For demand 7 : 
+(5--7, 18)
+(5--3, 18)
+(3--5, 18)
+(1--3, 18)
+
+For demand 8 : 
+(8--7, 110)
+(7--5, 110)
+(5--7, 110)
+(5--3, 110)
+(3--5, 110)
+(3--1, 110)
+
+For demand 9 : 
+(8--7, 62)
+(7--5, 62)
+(5--7, 62)
+(5--3, 62)
+(3--5, 62)
+(3--1, 62)
+
+For demand 10 : 
+(7--6, 104)
+(5--7, 104)
+
+For demand 11 : 
+(3--1, 38)
+
+For demand 12 : 
+(7--5, 75)
+(6--7, 75)
+(5--7, 75)
+(5--3, 75)
+
+For demand 13 : 
+(7--6, 118)
+(5--7, 118)
+
+For demand 14 : 
+(7--6, 33)
+(7--5, 33)
+(5--7, 33)
+(5--3, 33)
+(3--5, 33)
+(1--3, 33)
+
+For demand 15 : 
+(6--4, 56)
+(4--2, 56)
+
+For demand 16 : 
+(9--8, 86)
+(8--7, 86)
+(7--8, 86)
+(7--5, 86)
+
+For demand 17 : 
+(8--6, 105)
+(6--4, 105)
+(4--6, 105)
+(4--2, 105)
+
+For demand 18 : 
+(8--7, 51)
+(7--5, 51)
+(5--7, 51)
+(5--3, 51)
+(3--5, 51)
+(3--1, 51)
+
+For demand 19 : 
+(2--3, 87)
+
+For demand 20 : 
+(7--8, 69)
+(7--5, 69)
+(5--7, 69)
+(5--3, 69)
+(3--5, 69)
+(1--3, 69)
+
+For demand 21 : 
+(7--8, 46)
+(7--5, 46)
+(5--7, 46)
+(5--3, 46)
+(3--5, 46)
+(1--3, 46)
+
+For demand 22 : 
+(2--3, 95)
+
+For demand 23 : 
+(8--6, 63)
+(6--4, 63)
+
+For demand 24 : 
+(6--4, 51)
+(4--2, 51)
+
+For demand 25 : 
+(7--6, 54)
+(5--7, 54)
+
+For demand 26 : 
+(5--3, 84)
+(3--1, 84)
+
+For demand 27 : 
+(5--3, 89)
+(3--1, 89)
+
+For demand 28 : 
+(4--6, 102)
+(2--4, 102)
+
+For demand 29 : 
+(4--6, 48)
+(2--4, 48)
+
+For demand 30 : 
+(7--5, 37)
+(5--4, 37)
+
+Output 30Demands_1
+Output EdgeSliceHols: 30Demands_1
+Time taken by iteration is : 254.808578 sec
+Output 30Demands_FINAL
+Output EdgeSliceHols: 30Demands_FINAL
+
+--- The Demands ---
+#1. 8 -- 5. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#2. 5 -- 2. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#3. 9 -- 6. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#4. 7 -- 5. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#5. 8 -- 5. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#6. 6 -- 8. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#7. 1 -- 7. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#8. 8 -- 1. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#9. 8 -- 1. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#10. 5 -- 6. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#11. 3 -- 1. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#12. 6 -- 3. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#13. 5 -- 6. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#14. 1 -- 6. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#15. 6 -- 2. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#16. 9 -- 5. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#17. 8 -- 2. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#18. 8 -- 1. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#19. 2 -- 3. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#20. 1 -- 8. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#21. 1 -- 8. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#22. 2 -- 3. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#23. 8 -- 4. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#24. 6 -- 2. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#25. 5 -- 6. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#26. 5 -- 1. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#27. 5 -- 1. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#28. 2 -- 6. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#29. 2 -- 6. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#30. 7 -- 4. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+
+Time taken by optimization is : 254.828574100 sec
+Total time taken by program is : 254.846875500 sec

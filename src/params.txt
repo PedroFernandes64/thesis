@@ -1,0 +1,4 @@
+topologyFile=../Parameters/Instances/Benchmark/leipzig/spain_21nodes_35links/15demands/Link.csv
+initialMappingDemandFile=
+initialMappingAssignmentFile=
+demandToBeRoutedFolder=../Parameters/Instances/Benchmark/leipzig/spain_21nodes_35links/15demands/Demands

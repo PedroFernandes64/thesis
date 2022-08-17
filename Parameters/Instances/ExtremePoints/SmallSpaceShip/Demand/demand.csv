@@ -1,0 +1,5 @@
+index;origin;destination;slots;max_reach;mode;spacing;path_bandwidth
+1;1;5;4;10;1;75e9;400e9
+2;1;6;4;10;1;75e9;400e9
+3;2;5;4;10;1;75e9;400e9
+4;2;6;4;10;1;75e9;400e9

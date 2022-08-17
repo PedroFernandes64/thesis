@@ -1,0 +1,55 @@
+******* Input File Paths *******
+topologyFile=/mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/German/Link.csv
+initialMappingDemandFile=
+initialMappingAssignmentFile=
+demandToBeRoutedFolder=/mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/German/Obj8/50Demands/Demand
+
+******* GNPY parameters *******
+GNPY_activation=0
+GNPY_topologyFile=../oopt-gnpy/gnpy/example-data/spain_topo.json
+GNPY_equipmentFile=../oopt-gnpy/gnpy/example-data/spain_eqpt_config.json
+
+
+******* Formulation parameters *******
+nbDemandsAtOnce=50
+formulation=1
+userCuts=1
+obj=8
+allowBlocking=0
+hopPenalty=0
+partitionPolicy=0
+partitionLoad=4
+partitionSlice=15
+
+
+******* Optimization parameters *******
+solver=0
+method=0
+preprocessingLevel=0
+linearRelaxation=0
+
+******* Execution parameters *******
+outputPath=/mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/German/Obj8/50Demands/Output/
+outputLevel=2
+nbSlicesInOutputFile=320
+globalTimeLimit=7200
+timeLimit=7200
+
+******* Fields below are reserved for team LIMOS ********
+lagrangianMultiplier_zero=0 
+lagrangianLambda_zero=2.0 
+nbIterationsWithoutImprovement=15 
+maxNbIterations=100 
+
+lagMethod=0 
+lagFormulation=0  
+heuristic=0 
+
+directionMethod=0 
+crowderParam=0 
+carmeriniParam=0 
+
+projection=0 
+alternativeStop=0 
+warmstart=0  
+WithoutImprovement=5

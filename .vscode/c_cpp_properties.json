@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/ibm/ILOG/CPLEX_Studio1210/cplex/include/",
+                "/opt/ibm/ILOG/CPLEX_Studio1210/concert/include/",
+                "/home/pedro/lemon/include/",
+                "/home/pedro/boost_1_78_0/"
+            ],
+            "defines": [
+                "fPIC",
+                "fexceptions",
+                "DNDEBUG",
+                "DIL_STD"
+            ],
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

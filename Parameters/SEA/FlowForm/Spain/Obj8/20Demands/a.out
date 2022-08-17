@@ -1,0 +1,383 @@
+PARAMETER FILE: ../Parameters/SEA/FlowForm/Spain/Obj8/20Demands/onlineParameters.txt
+Getting input file paths...
+Getting topology file...
+... /mnt/c/FlexOptim/RSA/Parameters/SEA/FlowForm/Spain/Link.csv
+WARNING: Field 'initialMappingDemandFile=' is empty.
+WARNING: Field 'initialMappingAssignmentFile=' is empty.
+Getting GNPY parameters...
+Getting formulation parameters...
+Getting optimization parameters...
+Getting execution parameters...
+Getting subgradient parameters...
+Populating online demand files...
+Finish reading input.
+TOPOLOGY FILE: /mnt/c/FlexOptim/RSA/Parameters/SEA/FlowForm/Spain/Link.csv
+ROUTED DEMANDS FILE: 
+INITIAL ASSIGNMENT FILE: 
+All information from input is consistent.
+> Number of online demand files: 1
+--- READING INSTANCE... --- 
+--- CREATING INITIAL MAPPING... --- 
+Reading /mnt/c/FlexOptim/RSA/Parameters/SEA/FlowForm/Spain/Link.csv.
+Creating edge #1. 1 -- 3. nb slices: 30, length: 280, cost: 1
+Creating edge #2. 1 -- 5. nb slices: 30, length: 250, cost: 1
+Creating edge #3. 1 -- 2. nb slices: 30, length: 460, cost: 1
+Creating edge #4. 1 -- 4. nb slices: 30, length: 350, cost: 1
+Creating edge #5. 2 -- 3. nb slices: 30, length: 280, cost: 1
+Creating edge #6. 2 -- 5. nb slices: 30, length: 230, cost: 1
+Creating edge #7. 3 -- 4. nb slices: 30, length: 320, cost: 1
+Starting with an empty initial mapping. 
+0 are present in the initial mapping.
+--- READING NEW DEMANDS TO BE ROUTED... --- 
+Reading /mnt/c/FlexOptim/RSA/Parameters/SEA/FlowForm/Spain/Obj8/20Demands/Demand/Demand.csv ...
+out
+
+--- The Non Routed Demands ---
+#1. 5 -- 2. nbSlices: 6, maxLength: 600, ROUTED: NO
+#2. 2 -- 3. nbSlices: 4, maxLength: 1500, ROUTED: NO
+#3. 1 -- 2. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#4. 2 -- 4. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#5. 4 -- 2. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#6. 3 -- 4. nbSlices: 4, maxLength: 1500, ROUTED: NO
+#7. 2 -- 3. nbSlices: 4, maxLength: 1500, ROUTED: NO
+#8. 5 -- 3. nbSlices: 6, maxLength: 600, ROUTED: NO
+#9. 3 -- 1. nbSlices: 6, maxLength: 600, ROUTED: NO
+#10. 4 -- 1. nbSlices: 4, maxLength: 1500, ROUTED: NO
+#11. 2 -- 1. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#12. 2 -- 1. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#13. 1 -- 2. nbSlices: 6, maxLength: 600, ROUTED: NO
+#14. 3 -- 2. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#15. 2 -- 3. nbSlices: 6, maxLength: 600, ROUTED: NO
+#16. 4 -- 2. nbSlices: 6, maxLength: 600, ROUTED: NO
+#17. 4 -- 3. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#18. 1 -- 2. nbSlices: 4, maxLength: 1500, ROUTED: NO
+#19. 2 -- 5. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#20. 1 -- 2. nbSlices: 5, maxLength: 1500, ROUTED: NO
+
+20 demands to be routed.
+--- ROUTING DEMANDS --- 
+#1 (5, 2), requiring 6 slices and having Max length 600
+#2 (2, 3), requiring 4 slices and having Max length 1500
+#3 (1, 2), requiring 3 slices and having Max length 3000
+#4 (2, 4), requiring 3 slices and having Max length 3000
+#5 (4, 2), requiring 3 slices and having Max length 3000
+#6 (3, 4), requiring 4 slices and having Max length 1500
+#7 (2, 3), requiring 4 slices and having Max length 1500
+#8 (5, 3), requiring 6 slices and having Max length 600
+#9 (3, 1), requiring 6 slices and having Max length 600
+#10 (4, 1), requiring 4 slices and having Max length 1500
+#11 (2, 1), requiring 3 slices and having Max length 3000
+#12 (2, 1), requiring 5 slices and having Max length 1500
+#13 (1, 2), requiring 6 slices and having Max length 600
+#14 (3, 2), requiring 5 slices and having Max length 1500
+#15 (2, 3), requiring 6 slices and having Max length 600
+#16 (4, 2), requiring 6 slices and having Max length 600
+#17 (4, 3), requiring 3 slices and having Max length 3000
+#18 (1, 2), requiring 4 slices and having Max length 1500
+#19 (2, 5), requiring 5 slices and having Max length 1500
+#20 (1, 2), requiring 5 slices and having Max length 1500
+--> THE DIFFERENT ROUTING LOADS: 6, 4, 3, 5.
+--- Flow formulation has been chosen. |K| = 20, |S| = 30. ---
+Flow variables have been defined...
+Max slice variables have been defined...
+Max slice overall variable has been defined...
+Source constraints have been defined...
+Flow conservation constraints have been defined...
+Target constraints have been defined...
+Length constraints have been defined...
+Non-Overlapping constraints has been defined...
+Max Used Slice Per Link constraints have been defined...
+Max Used Slice Overall constraints have been defined...
+Max Used Slice Overall2 constraints have been defined...
+Max Used Slice Overall3 constraints have been defined...
+Flow Node cuts have been defined...
+Flow Edge cuts have been defined...
+Objective obj_8 has been defined.
+--- Flow formulation has been defined ---
+--- CPLEX has been initialized ---
+CPLEX parameters have been defined...
+CPLEX variables have been defined...
+CPLEX constraints have been defined...
+CPLEX objective has been defined...
+LP model has been exported.
+Solving...
+Chosen objective: obj_8
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_MIP_Display                             3
+CPXPARAM_TimeLimit                               7200
+Tried aggregator 3 times.
+MIP Presolve eliminated 1110 rows and 2663 columns.
+MIP Presolve modified 13865 coefficients.
+Aggregator did 715 substitutions.
+Reduced MIP has 1331 rows, 2631 columns, and 45576 nonzeros.
+Reduced MIP has 2630 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.21 sec. (277.88 ticks)
+Found incumbent of value 30.000000 after 0.31 sec. (387.09 ticks)
+Probing time = 0.01 sec. (6.24 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 1 rows and 2 columns.
+MIP Presolve modified 20 coefficients.
+Reduced MIP has 1330 rows, 2629 columns, and 45489 nonzeros.
+Reduced MIP has 2628 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.03 sec. (33.81 ticks)
+Probing time = 0.01 sec. (6.36 ticks)
+Clique table members: 3925.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 8 threads.
+Root relaxation solution time = 0.18 sec. (239.08 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                           30.0000        5.0000            83.33%
+Found incumbent of value 30.000000 after 0.56 sec. (694.50 ticks)
+      0     0       13.9565   200       30.0000       13.9565       25   53.48%
+*     0+    0                           29.0000       13.9565            51.87%
+Found incumbent of value 29.000000 after 0.59 sec. (720.09 ticks)
+*     0+    0                           22.0000       13.9565            36.56%
+Found incumbent of value 22.000000 after 1.46 sec. (1537.29 ticks)
+      0     0       13.9751   200       22.0000      Cuts: 58     3398   19.35%
+      0     0       20.1111   200       22.0000      Cuts: 33     4861    8.59%
+
+Repeating presolve.
+Tried aggregator 2 times.
+MIP Presolve eliminated 555 rows and 1176 columns.
+MIP Presolve modified 927 coefficients.
+Aggregator did 61 substitutions.
+Reduced MIP has 714 rows, 1392 columns, and 24781 nonzeros.
+Reduced MIP has 1391 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.03 sec. (38.50 ticks)
+Probing time = 0.01 sec. (4.91 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 714 rows, 1392 columns, and 24781 nonzeros.
+Reduced MIP has 1391 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (15.04 ticks)
+Represolve time = 0.06 sec. (69.49 ticks)
+Probing time = 0.00 sec. (4.87 ticks)
+Clique table members: 1942.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 8 threads.
+Root relaxation solution time = 0.11 sec. (145.43 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                           22.0000       20.1111             8.59%
+Found incumbent of value 22.000000 after 2.36 sec. (2308.21 ticks)
+      0     0       20.1111   135       22.0000       20.1111     6024    8.59%
+      0     0       20.2588   135       22.0000      Cuts: 11     6377    7.91%
+      0     0       20.2588   135       22.0000      Cuts: 45     6445    7.91%
+      0     0       20.2588   135       22.0000      Cuts: 27     6493    7.91%
+      0     0       21.2609   135       22.0000   MIRcuts: 14     6598    1.77%
+      0     0       21.6109   135       22.0000      Cuts: 33     6674    1.77%
+      0     0       21.6109   135       22.0000      Cuts: 23     6767    1.77%
+      0     2       21.6109    38       22.0000       21.6109     6767    1.77%
+Elapsed time = 3.13 sec. (2947.01 ticks, tree = 0.02 MB, solutions = 3)
+    419   218       21.7500    38       22.0000       21.6109    33004    1.77%
+                                                     Cuts: 12                  
+   1216   365       21.6109    54       22.0000       21.6109    62647    1.77%
+                                                      Cuts: 9                  
+   1967   522        cutoff             22.0000       21.6109    92815    1.77%
+                                                     Cuts: 20                  
+   2538   694       21.6392    76       22.0000       21.6109   122832    1.77%
+                                                  Impl Bds: 3                  
+   2989   892        cutoff             22.0000       21.6109   156292    1.77%
+                                                      Cuts: 5                  
+   3410   998        cutoff             22.0000       21.6109   178218    1.77%
+                                                   Cliques: 1                  
+   3850  1241        cutoff             22.0000       21.6109   220909    1.77%
+   4369  1348        cutoff             22.0000       21.6109   245540    1.77%
+   5065  1526       21.6409    43       22.0000       21.6109   281976    1.77%
+                                                  Impl Bds: 2                  
+
+Performing restart 1
+
+Repeating presolve.
+Tried aggregator 1 time.
+MIP Presolve eliminated 195 rows and 75 columns.
+MIP Presolve modified 10000 coefficients.
+Reduced MIP has 519 rows, 1317 columns, and 10826 nonzeros.
+Reduced MIP has 1316 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.04 sec. (49.70 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 0 rows and 1 columns.
+Reduced MIP has 519 rows, 1316 columns, and 10822 nonzeros.
+Reduced MIP has 1315 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (8.13 ticks)
+Represolve time = 0.08 sec. (82.38 ticks)
+
+GUB cover cuts applied:  1
+Clique cuts applied:  21
+Implied bound cuts applied:  30
+Mixed integer rounding cuts applied:  2
+Zero-half cuts applied:  5
+Gomory fractional cuts applied:  9
+
+Root node processing (before b&c):
+  Real time             =    3.12 sec. (2936.08 ticks)
+Parallel b&c, 8 threads:
+  Real time             =    3.84 sec. (2627.95 ticks)
+  Sync time (average)   =    0.45 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    6.96 sec. (5564.03 ticks)
+Objective Function Value: 22
+Optimization done in 6.96598 secs.
+Status: Optimal
+Objective Function Value: 22
+x(1,5,2,11) = 1
+x(2,2,1,22) = 1
+x(2,1,3,22) = 1
+x(3,1,2,12) = 1
+x(4,2,3,12) = 1
+x(4,3,4,12) = 1
+x(5,4,1,23) = 1
+x(5,5,2,23) = 1
+x(5,1,5,23) = 1
+x(6,3,4,22) = 1
+x(7,4,3,4) = 1
+x(7,2,1,4) = 1
+x(7,1,4,4) = 1
+x(8,5,1,9) = 1
+x(8,1,3,9) = 1
+x(9,3,1,18) = 1
+x(10,4,1,8) = 1
+x(11,2,3,3) = 1
+x(11,3,1,3) = 1
+x(12,2,1,9) = 1
+x(13,1,2,18) = 1
+x(14,3,2,23) = 1
+x(15,2,3,9) = 1
+x(16,4,3,18) = 1
+x(16,3,2,18) = 1
+x(17,4,3,9) = 1
+x(18,5,2,15) = 1
+x(18,1,5,15) = 1
+x(19,2,5,5) = 1
+x(20,5,2,20) = 1
+x(20,1,5,20) = 1
+maxSlice(1) = 30
+maxSlice(2) = 30
+maxSlice(3) = 30
+maxSlice(4) = 30
+maxSlice(5) = 30
+maxSlice(6) = 30
+maxSlice(7) = 30
+maxSliceOverall = 22
+Update RSA
+Feasible
+
+--- Slice occupation ---
+#1. *********   **********        
+#2.    ******  ************       
+#3. **********************        
+#4. ********            ***       
+#5. ***********************       
+#6. ***********************       
+#7. ****  ****************        
+
+For demand 1 : 
+(5--2, 11)
+
+For demand 2 : 
+(2--1, 22)
+(1--3, 22)
+
+For demand 3 : 
+(1--2, 12)
+
+For demand 4 : 
+(2--3, 12)
+(3--4, 12)
+
+For demand 5 : 
+(4--1, 23)
+(5--2, 23)
+(1--5, 23)
+
+For demand 6 : 
+(3--4, 22)
+
+For demand 7 : 
+(4--3, 4)
+(2--1, 4)
+(1--4, 4)
+
+For demand 8 : 
+(5--1, 9)
+(1--3, 9)
+
+For demand 9 : 
+(3--1, 18)
+
+For demand 10 : 
+(4--1, 8)
+
+For demand 11 : 
+(2--3, 3)
+(3--1, 3)
+
+For demand 12 : 
+(2--1, 9)
+
+For demand 13 : 
+(1--2, 18)
+
+For demand 14 : 
+(3--2, 23)
+
+For demand 15 : 
+(2--3, 9)
+
+For demand 16 : 
+(4--3, 18)
+(3--2, 18)
+
+For demand 17 : 
+(4--3, 9)
+
+For demand 18 : 
+(5--2, 15)
+(1--5, 15)
+
+For demand 19 : 
+(2--5, 5)
+
+For demand 20 : 
+(5--2, 20)
+(1--5, 20)
+
+Output Demand_1
+Output EdgeSliceHols: Demand_1
+Time taken by iteration is : 7.476119 sec
+Output Demand_FINAL
+Output EdgeSliceHols: Demand_FINAL
+
+--- The Demands ---
+#1. 5 -- 2. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#2. 2 -- 3. nbSlices: 4, maxLength: 1500.000000000, ROUTED: YES
+#3. 1 -- 2. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#4. 2 -- 4. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#5. 4 -- 2. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#6. 3 -- 4. nbSlices: 4, maxLength: 1500.000000000, ROUTED: YES
+#7. 2 -- 3. nbSlices: 4, maxLength: 1500.000000000, ROUTED: YES
+#8. 5 -- 3. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#9. 3 -- 1. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#10. 4 -- 1. nbSlices: 4, maxLength: 1500.000000000, ROUTED: YES
+#11. 2 -- 1. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#12. 2 -- 1. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#13. 1 -- 2. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#14. 3 -- 2. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#15. 2 -- 3. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#16. 4 -- 2. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#17. 4 -- 3. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#18. 1 -- 2. nbSlices: 4, maxLength: 1500.000000000, ROUTED: YES
+#19. 2 -- 5. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#20. 1 -- 2. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+
+Time taken by optimization is : 7.488656800 sec
+Total time taken by program is : 7.491565100 sec

@@ -1,0 +1,546 @@
+PARAMETER FILE: ../Parameters/SEA/EdgeNode/Spain/Obj1/15Demands/onlineParameters.txt
+Getting input file paths...
+Getting topology file...
+... /mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/Spain/Link.csv
+WARNING: Field 'initialMappingDemandFile=' is empty.
+WARNING: Field 'initialMappingAssignmentFile=' is empty.
+Getting GNPY parameters...
+Getting formulation parameters...
+Getting optimization parameters...
+Getting execution parameters...
+Getting subgradient parameters...
+Populating online demand files...
+Finish reading input.
+TOPOLOGY FILE: /mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/Spain/Link.csv
+ROUTED DEMANDS FILE: 
+INITIAL ASSIGNMENT FILE: 
+All information from input is consistent.
+> Number of online demand files: 1
+--- READING INSTANCE... --- 
+--- CREATING INITIAL MAPPING... --- 
+Reading /mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/Spain/Link.csv.
+Creating edge #1. 1 -- 3. nb slices: 30, length: 280, cost: 1
+Creating edge #2. 1 -- 5. nb slices: 30, length: 250, cost: 1
+Creating edge #3. 1 -- 2. nb slices: 30, length: 460, cost: 1
+Creating edge #4. 1 -- 4. nb slices: 30, length: 350, cost: 1
+Creating edge #5. 2 -- 3. nb slices: 30, length: 280, cost: 1
+Creating edge #6. 2 -- 5. nb slices: 30, length: 230, cost: 1
+Creating edge #7. 3 -- 4. nb slices: 30, length: 320, cost: 1
+Starting with an empty initial mapping. 
+0 are present in the initial mapping.
+--- READING NEW DEMANDS TO BE ROUTED... --- 
+Reading /mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/Spain/Obj1/15Demands/Demand/Demand.csv ...
+out
+
+--- The Non Routed Demands ---
+#1. 1 -- 2. nbSlices: 6, maxLength: 600, ROUTED: NO
+#2. 1 -- 2. nbSlices: 6, maxLength: 600, ROUTED: NO
+#3. 1 -- 2. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#4. 1 -- 3. nbSlices: 6, maxLength: 600, ROUTED: NO
+#5. 1 -- 3. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#6. 1 -- 4. nbSlices: 6, maxLength: 600, ROUTED: NO
+#7. 1 -- 4. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#8. 1 -- 5. nbSlices: 6, maxLength: 600, ROUTED: NO
+#9. 1 -- 5. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#10. 2 -- 3. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#11. 2 -- 4. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#12. 2 -- 5. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#13. 3 -- 4. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#14. 3 -- 5. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#15. 4 -- 5. nbSlices: 3, maxLength: 3000, ROUTED: NO
+
+15 demands to be routed.
+--- ROUTING DEMANDS --- 
+#1 (1, 2), requiring 6 slices and having Max length 600
+#2 (1, 2), requiring 6 slices and having Max length 600
+#3 (1, 2), requiring 5 slices and having Max length 1500
+#4 (1, 3), requiring 6 slices and having Max length 600
+#5 (1, 3), requiring 5 slices and having Max length 1500
+#6 (1, 4), requiring 6 slices and having Max length 600
+#7 (1, 4), requiring 5 slices and having Max length 1500
+#8 (1, 5), requiring 6 slices and having Max length 600
+#9 (1, 5), requiring 5 slices and having Max length 1500
+#10 (2, 3), requiring 3 slices and having Max length 3000
+#11 (2, 4), requiring 3 slices and having Max length 3000
+#12 (2, 5), requiring 3 slices and having Max length 3000
+#13 (3, 4), requiring 3 slices and having Max length 3000
+#14 (3, 5), requiring 3 slices and having Max length 3000
+#15 (4, 5), requiring 3 slices and having Max length 3000
+--> THE DIFFERENT ROUTING LOADS: 6, 5, 3.
+--- Edge-Node formulation has been chosen. |K| = 15, |S| = 30. ---
+X variables were created.
+Z variables were created.
+T variables were created.
+MaxSlicePerLink variables were created.
+MaxSliceOverall variable was created.
+Origin constraints have been defined...
+Destination constraints have been defined...
+Degree constraints have been defined...
+Transmission reach constraints have been defined...
+Channel selection constraints have been defined...
+Forbidden slots constraints have been defined...
+Edge-slots constraints have been defined...
+Demand-edge-slots constraints have been defined...
+Non-overlapping constraints have been defined...
+Max Used Slice Per Link constraints have been defined...
+Max Used Slice Overall constraints have been defined...
+Objective obj_1 has been defined.
+--- Edge-Node formulation has been defined ---
+--- CPLEX has been initialized ---
+CPLEX parameters have been defined...
+CPLEX variables have been defined...
+CPLEX constraints have been defined...
+CPLEX objective has been defined...
+LP model has been exported.
+Solving...
+Chosen objective: obj_1
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_MIP_Display                             3
+CPXPARAM_TimeLimit                               7200
+Lazy constraint(s) or lazy constraint/branch callback is present.
+    Disabling dual reductions (CPX_PARAM_REDUCE) in presolve.
+    Disabling presolve reductions that prevent crushing forms.
+Tried aggregator 2 times.
+MIP Presolve eliminated 214 rows and 310 columns.
+MIP Presolve modified 397 coefficients.
+Aggregator did 10 substitutions.
+Reduced MIP has 6526 rows, 9976 columns, and 38220 nonzeros.
+Reduced MIP has 3580 binaries, 8 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.03 sec. (32.97 ticks)
+Probing fixed 93 vars, tightened 3091 bounds.
+Probing time = 0.18 sec. (48.61 ticks)
+Cover probing fixed 0 vars, tightened 9 bounds.
+Tried aggregator 2 times.
+MIP Presolve eliminated 97 rows and 187 columns.
+Aggregator did 1 substitutions.
+Reduced MIP has 6428 rows, 9788 columns, and 37571 nonzeros.
+Reduced MIP has 3486 binaries, 8 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.03 sec. (27.83 ticks)
+Probing time = 0.02 sec. (6.22 ticks)
+Clique table members: 26741.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 8 threads.
+Root relaxation solution time = 0.36 sec. (351.97 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0       81.2500   691                     81.2500     2872         
+      0     0       84.4273   691                   Cuts: 304     5529         
+      0     0       88.4847   691                   Cuts: 877     7441         
+      0     0       90.8669   691                   Cuts: 348     8575         
+*     0+    0                          167.0000       90.8669            45.59%
+Found incumbent of value 167.000000 after 4.50 sec. (2857.21 ticks)
+      0     0       93.8835   691      167.0000     Cuts: 283    10270   43.78%
+      0     0       95.6560   691      167.0000     Cuts: 248    11338   42.72%
+      0     0       98.8441   691      167.0000     Cuts: 281    12974   40.81%
+*     0+    0                          121.0000       98.8441            18.31%
+Found incumbent of value 121.000000 after 5.96 sec. (3728.29 ticks)
+      0     0      100.7059   691      121.0000     Cuts: 251    14078   16.77%
+      0     0      102.4271   691      121.0000     Cuts: 200    15391   15.35%
+      0     0      103.1668   691      121.0000     Cuts: 148    16496   14.74%
+      0     0      104.4283   691      121.0000     Cuts: 199    18251   13.70%
+      0     0      105.2511   691      121.0000     Cuts: 188    19750   13.02%
+      0     0      105.7734   691      121.0000     Cuts: 158    20726   12.58%
+      0     0      106.3064   691      121.0000     Cuts: 145    21636   12.14%
+      0     0      106.7849   691      121.0000     Cuts: 170    22478   11.75%
+      0     0      107.1563   691      121.0000     Cuts: 150    23319   11.44%
+      0     0      107.6273   691      121.0000     Cuts: 108    23949   11.05%
+      0     0      107.9309   691      121.0000     Cuts: 107    24461   10.80%
+      0     0      108.0854   691      121.0000     Cuts: 123    25011   10.67%
+      0     0      108.1526   691      121.0000     Cuts: 106    25403   10.62%
+      0     0      108.2928   691      121.0000     Cuts: 118    26007   10.50%
+      0     0      108.4093   691      121.0000     Cuts: 106    26395   10.41%
+      0     0      108.4333   691      121.0000      Cuts: 83    26577   10.39%
+      0     0      108.4574   691      121.0000      Cuts: 91    26777   10.37%
+      0     0      108.4892   691      121.0000      Cuts: 45    26970   10.34%
+      0     0      108.4965   691      121.0000      Cuts: 42    27077   10.33%
+      0     2      108.4965   567      121.0000      108.4965    27077   10.33%
+Elapsed time = 14.06 sec. (7767.92 ticks, tree = 0.02 MB, solutions = 2)
+      9    11      109.9272   466      121.0000      108.4970    29368   10.33%
+                                                     Cuts: 17                  
+     28    17      109.3202   414      121.0000      108.5447    32173   10.29%
+                                                     Cuts: 45                  
+     48    37      112.0435   400      121.0000      108.5447    41254   10.29%
+                                                     Cuts: 14                  
+     79    69        cutoff            121.0000      108.5447    58270   10.29%
+    110    83      116.0317   305      121.0000      108.5447    63286   10.29%
+*   133+   69                          120.0000      108.5447             9.55%
+                                                      User: 2                  
+Found incumbent of value 120.000000 after 16.81 sec. (9096.60 ticks)
+    166   108      114.6422   207      120.0000      108.5447    71294    9.55%
+    207   142      117.0000    85      120.0000      108.5447    83138    9.55%
+                                                     Cuts: 26                  
+*   216   142      integral     0      119.0000      108.5447    83381    8.79%
+Found incumbent of value 119.000000 after 17.84 sec. (9530.42 ticks)
+    238   131      111.7486   349      119.0000      108.5447    79354    8.79%
+    328   204      109.9559   352      119.0000      108.5447   117557    8.79%
+                                                     Cuts: 10                  
+Elapsed time = 20.93 sec. (10730.00 ticks, tree = 5.53 MB, solutions = 4)
+    468   289      110.6770   376      119.0000      108.6564   148624    8.69%
+                                                     Cuts: 48                  
+    620   350      112.7507   436      119.0000      108.6564   173546    8.69%
+                                                     Cuts: 13                  
+    805   488      114.6287   336      119.0000      108.8336   215196    8.54%
+                                                     Cuts: 46                  
+    930   630      116.1271   452      119.0000      108.8336   255350    8.54%
+                                                     Cuts: 62                  
+*   964+  609                          117.0000      108.8336             6.98%
+                                                      User: 2                  
+Found incumbent of value 117.000000 after 30.78 sec. (14952.39 ticks)
+   1007   574      113.3601   379      117.0000      109.1718   281676    6.69%
+                                                    Covers: 4                  
+   1155   664      114.5105   442      117.0000      109.1718   325586    6.69%
+                                                     Cuts: 17                  
+   1310   702      110.7499   500      117.0000      109.2980   344938    6.58%
+                                                     Cuts: 28                  
+   1488   847      110.4852   451      117.0000      109.3479   385094    6.54%
+                                                     Cuts: 31                  
+   1668   957      114.2347   435      117.0000      109.4373   418198    6.46%
+                                                     Cuts: 19                  
+   1827  1094      112.3468   410      117.0000      109.5581   460270    6.36%
+                                                     Cuts: 20                  
+Elapsed time = 44.73 sec. (20372.98 ticks, tree = 47.04 MB, solutions = 5)
+   1991  1234      114.7120   359      117.0000      109.6149   501509    6.31%
+                                                     Cuts: 22                  
+   2144  1380      110.8003   502      117.0000      109.7424   542404    6.20%
+                                                      Cuts: 7                  
+   2349  1460      115.4023   369      117.0000      109.8113   561240    6.14%
+                                                     Cuts: 48                  
+   2574  1625      115.2821   357      117.0000      109.8547   605182    6.11%
+                                                     Cuts: 13                  
+   2787  1733      111.9010   382      117.0000      109.9533   631740    6.02%
+                                                     Cuts: 24                  
+   2882  1951      113.7508   480      117.0000      110.0233   690009    5.96%
+                                                     Cuts: 26                  
+   3053  2007      111.7504   511      117.0000      110.0527   711649    5.94%
+                                                     Cuts: 14                  
+   3263  2148      115.3412   344      117.0000      110.1209   754094    5.88%
+                                                      Cuts: 9                  
+   3410  2231      111.3665   485      117.0000      110.1209   776442    5.88%
+                                                     Cuts: 17                  
+
+Performing restart 1
+
+Repeating presolve.
+Tried aggregator 1 time.
+MIP Presolve eliminated 290 rows and 568 columns.
+MIP Presolve modified 7913 coefficients.
+Reduced MIP has 6138 rows, 9220 columns, and 28596 nonzeros.
+Reduced MIP has 3203 binaries, 8 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.05 sec. (36.89 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 75 rows and 75 columns.
+Reduced MIP has 6063 rows, 9145 columns, and 28371 nonzeros.
+Reduced MIP has 3203 binaries, 8 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.03 sec. (19.03 ticks)
+Represolve time = 0.26 sec. (125.18 ticks)
+   3413     0      109.0033   664      117.0000     Cuts: 194   820714    5.81%
+   3413     0      109.2377   664      117.0000     Cuts: 133   821234    5.81%
+   3413     0      109.3880   664      117.0000     Cuts: 140   821723    5.81%
+   3413     0      109.6546   664      117.0000     Cuts: 151   822328    5.81%
+   3413     0      109.7941   664      117.0000     Cuts: 106   822700    5.81%
+   3413     0      110.0559   664      117.0000     Cuts: 113   823291    5.81%
+   3413     0      110.1370   664      117.0000     Cuts: 123   823719    5.81%
+   3413     0      110.2172   664      117.0000      Cuts: 98   824081    5.80%
+   3413     0      110.3682   664      117.0000      Cuts: 93   824488    5.67%
+   3413     0      110.5776   664      117.0000     Cuts: 112   824866    5.49%
+   3413     0      110.6707   664      117.0000      Cuts: 70   825134    5.41%
+   3413     0      110.7297   664      117.0000      Cuts: 77   825337    5.36%
+   3413     0      110.7534   664      117.0000      Cuts: 71   825498    5.34%
+   3413     0      110.7803   664      117.0000      Cuts: 66   825670    5.32%
+   3413     0      110.8166   664      117.0000      Cuts: 77   825898    5.28%
+   3413     0      110.8611   664      117.0000      Cuts: 69   826139    5.25%
+   3413     0      110.8634   664      117.0000      Cuts: 67   826219    5.24%
+   3413     0      110.8740   664      117.0000      Cuts: 26   826363    5.24%
+   3413     0      110.8819   664      117.0000      Cuts: 86   826558    5.23%
+   3413     0      110.8841   664      117.0000      Cuts: 45   826638    5.23%
+   3413     0      110.8854   664      117.0000      Cuts: 40   826770    5.23%
+   3413     2      110.8854   621      117.0000      110.8854   826770    5.23%
+Elapsed time = 121.48 sec. (52956.85 ticks, tree = 0.02 MB, solutions = 5)
+   3415     4      110.9427   595      117.0000      110.8860   827495    5.23%
+   3420     4      111.3806   561      117.0000      110.8860   828358    5.23%
+                                                     Cuts: 52                  
+   3429     9      112.5211   483      117.0000      111.1283   832020    5.02%
+                                                     Cuts: 42                  
+   3445    20      112.8972   409      117.0000      111.1283   847437    5.02%
+                                                     Cuts: 27                  
+   3488    42      112.6589   414      117.0000      111.1283   875221    5.02%
+   3724   142      115.8827   294      117.0000      111.1283   895814    5.02%
+                                                     Cuts: 18                  
+   3871   183      113.8569   348      117.0000      111.4221   901883    4.77%
+                                                     Cuts: 45                  
+   3941   260      112.8125   519      117.0000      111.4221   941037    4.77%
+                                                     Cuts: 13                  
+   3988   279        cutoff            117.0000      111.8965   957264    4.36%
+                                                     Cuts: 26                  
+   4136   294      113.4228   351      117.0000      111.8965   966182    4.36%
+Elapsed time = 152.80 sec. (62829.96 ticks, tree = 7.01 MB, solutions = 5)
+   4251   364      115.1443   371      117.0000      111.9458   981694    4.32%
+                                                     Cuts: 26                  
+   4352   441        cutoff            117.0000      112.1096  1013000    4.18%
+                                                     Cuts: 23                  
+   4470   461      115.5086   488      117.0000      112.1684  1019918    4.13%
+                                                      User: 3                  
+   4614   527      115.1007   423      117.0000      112.2847  1066986    4.03%
+                                                     Cuts: 40                  
+   4703   535      113.2462   295      117.0000      112.2965  1072716    4.02%
+                                                     Cuts: 11                  
+   4765   567        cutoff            117.0000      112.5312  1110509    3.82%
+                                                      Cuts: 6                  
+   4821   562        cutoff            117.0000      112.6948  1121480    3.68%
+                                                      Cuts: 7                  
+   4869   552      116.0384   590      117.0000      112.9011  1127433    3.50%
+   4938   546        cutoff            117.0000      112.9182  1151266    3.49%
+                                                      Cuts: 4                  
+   5031   555        cutoff            117.0000      113.3320  1170248    3.14%
+Elapsed time = 188.81 sec. (72523.38 ticks, tree = 12.07 MB, solutions = 5)
+   5170   561      114.8551   580      117.0000      113.3353  1184115    3.13%
+                                                     Cuts: 12                  
+   5368   589      115.3655   584      117.0000      113.4323  1195507    3.05%
+   5482   611        cutoff            117.0000      113.6943  1229910    2.83%
+                                                      Cuts: 9                  
+   5567   550        cutoff            117.0000      113.9918  1263072    2.57%
+                                                     Cuts: 23                  
+   5629   532      114.5964   432      117.0000      114.2245  1271618    2.37%
+                                                     Cuts: 14                  
+   5708   514        cutoff            117.0000      114.3765  1291702    2.24%
+                                                      Cuts: 5                  
+   5861   384        cutoff            117.0000      114.6922  1312501    1.97%
+                                                      Cuts: 9                  
+   6198   145        cutoff            117.0000      115.2430  1342190    1.50%
+                                                  Impl Bds: 1                  
+
+GUB cover cuts applied:  16
+Clique cuts applied:  16
+Cover cuts applied:  115
+Implied bound cuts applied:  1
+Flow cuts applied:  16
+Mixed integer rounding cuts applied:  138
+Zero-half cuts applied:  393
+Lift and project cuts applied:  120
+Gomory fractional cuts applied:  5
+User cuts applied:  63
+
+Root node processing (before b&c):
+  Real time             =   13.93 sec. (7660.63 ticks)
+Parallel b&c, 8 threads:
+  Real time             =  204.22 sec. (72601.61 ticks)
+  Sync time (average)   =   24.79 sec.
+  Wait time (average)   =    0.01 sec.
+                          ------------
+Total (root+branch&cut) =  218.15 sec. (80262.24 ticks)
+Objective Function Value: 117
+Optimization done in 218.157 secs.
+Status: Optimal
+Objective Function Value: 117
+x(3,4,11) = 1
+x(3,4,13) = 1
+x(3,4,15) = 1
+x(2,5,12) = 1
+x(2,5,14) = 1
+x(2,5,15) = 1
+x(2,3,10) = 1
+x(2,3,11) = 1
+x(2,3,14) = 1
+x(2,3,15) = 1
+x(1,4,6) = 1
+x(1,4,7) = 1
+x(1,2,1) = 1
+x(1,2,2) = 1
+x(1,2,3) = 1
+x(1,5,8) = 1
+x(1,5,9) = 1
+x(1,3,4) = 1
+x(1,3,5) = 1
+z(3,10) = 1
+z(3,12) = 1
+z(3,13) = 1
+z(5,3) = 1
+z(5,5) = 1
+z(5,7) = 1
+z(5,9) = 1
+z(6,15) = 1
+z(9,14) = 1
+z(11,1) = 1
+z(11,4) = 1
+z(11,6) = 1
+z(11,8) = 1
+z(12,11) = 1
+z(17,2) = 1
+t(7,1,13) = 1
+t(7,2,13) = 1
+t(7,3,13) = 1
+t(7,4,15) = 1
+t(7,5,15) = 1
+t(7,6,15) = 1
+t(7,10,11) = 1
+t(7,11,11) = 1
+t(7,12,11) = 1
+t(6,1,12) = 1
+t(6,2,12) = 1
+t(6,3,12) = 1
+t(6,4,15) = 1
+t(6,5,15) = 1
+t(6,6,15) = 1
+t(6,7,14) = 1
+t(6,8,14) = 1
+t(6,9,14) = 1
+t(5,1,10) = 1
+t(5,2,10) = 1
+t(5,3,10) = 1
+t(5,4,15) = 1
+t(5,5,15) = 1
+t(5,6,15) = 1
+t(5,7,14) = 1
+t(5,8,14) = 1
+t(5,9,14) = 1
+t(5,10,11) = 1
+t(5,11,11) = 1
+t(5,12,11) = 1
+t(4,1,7) = 1
+t(4,2,7) = 1
+t(4,3,7) = 1
+t(4,4,7) = 1
+t(4,5,7) = 1
+t(4,6,6) = 1
+t(4,7,6) = 1
+t(4,8,6) = 1
+t(4,9,6) = 1
+t(4,10,6) = 1
+t(4,11,6) = 1
+t(3,1,3) = 1
+t(3,2,3) = 1
+t(3,3,3) = 1
+t(3,4,3) = 1
+t(3,5,3) = 1
+t(3,6,1) = 1
+t(3,7,1) = 1
+t(3,8,1) = 1
+t(3,9,1) = 1
+t(3,10,1) = 1
+t(3,11,1) = 1
+t(3,12,2) = 1
+t(3,13,2) = 1
+t(3,14,2) = 1
+t(3,15,2) = 1
+t(3,16,2) = 1
+t(3,17,2) = 1
+t(2,1,9) = 1
+t(2,2,9) = 1
+t(2,3,9) = 1
+t(2,4,9) = 1
+t(2,5,9) = 1
+t(2,6,8) = 1
+t(2,7,8) = 1
+t(2,8,8) = 1
+t(2,9,8) = 1
+t(2,10,8) = 1
+t(2,11,8) = 1
+t(1,1,5) = 1
+t(1,2,5) = 1
+t(1,3,5) = 1
+t(1,4,5) = 1
+t(1,5,5) = 1
+t(1,6,4) = 1
+t(1,7,4) = 1
+t(1,8,4) = 1
+t(1,9,4) = 1
+t(1,10,4) = 1
+t(1,11,4) = 1
+maxSlice(6) = 30
+maxSlice(5) = 30
+maxSlice(4) = 30
+maxSlice(3) = 30
+maxSlice(2) = 30
+maxSlice(1) = 30
+maxSlice(0) = 30
+maxSlice = 30
+Update RSA
+Feasible
+
+--- Slice occupation ---
+#1. ***********                   
+#2. ***********                   
+#3. *****************             
+#4. ***********                   
+#5. ************                  
+#6. *********                     
+#7. ******   ***                  
+
+For demand 1 : 
+(1--2, 11)
+
+For demand 2 : 
+(1--2, 17)
+
+For demand 3 : 
+(1--2, 5)
+
+For demand 4 : 
+(1--3, 11)
+
+For demand 5 : 
+(1--3, 5)
+
+For demand 6 : 
+(1--4, 11)
+
+For demand 7 : 
+(1--4, 5)
+
+For demand 8 : 
+(1--5, 11)
+
+For demand 9 : 
+(1--5, 5)
+
+For demand 10 : 
+(2--3, 3)
+
+For demand 11 : 
+(2--3, 12)
+(3--4, 12)
+
+For demand 12 : 
+(2--5, 3)
+
+For demand 13 : 
+(3--4, 3)
+
+For demand 14 : 
+(2--5, 9)
+(3--2, 9)
+
+For demand 15 : 
+(4--3, 6)
+(2--5, 6)
+(2--3, 6)
+(3--2, 6)
+
+Output Demand_1
+Output EdgeSliceHols: Demand_1
+Time taken by iteration is : 218.293084 sec
+Output Demand_FINAL
+Output EdgeSliceHols: Demand_FINAL
+
+--- The Demands ---
+#1. 1 -- 2. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#2. 1 -- 2. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#3. 1 -- 2. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#4. 1 -- 3. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#5. 1 -- 3. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#6. 1 -- 4. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#7. 1 -- 4. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#8. 1 -- 5. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#9. 1 -- 5. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#10. 2 -- 3. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#11. 2 -- 4. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#12. 2 -- 5. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#13. 3 -- 4. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#14. 3 -- 5. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#15. 4 -- 5. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+
+Time taken by optimization is : 218.320446700 sec
+Total time taken by program is : 218.323615900 sec

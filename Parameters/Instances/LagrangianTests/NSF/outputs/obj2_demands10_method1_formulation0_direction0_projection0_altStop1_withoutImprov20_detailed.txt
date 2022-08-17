@@ -1,0 +1,2 @@
+Iter  | Wout Imp | LB         | Lagr Cost | Real Cost | UB     | Step   | Lambda   | Feasibility | Time      | 
+1     | 0        | 20.000000  | 20.000000 | 20.000000 | 20.000 | 0.0000 | 2.000000 | NO          | 0.018725  | 

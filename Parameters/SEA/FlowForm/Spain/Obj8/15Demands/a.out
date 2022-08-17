@@ -1,0 +1,332 @@
+PARAMETER FILE: ../Parameters/SEA/FlowForm/Spain/Obj8/15Demands/onlineParameters.txt
+Getting input file paths...
+Getting topology file...
+... /mnt/c/FlexOptim/RSA/Parameters/SEA/FlowForm/Spain/Link.csv
+WARNING: Field 'initialMappingDemandFile=' is empty.
+WARNING: Field 'initialMappingAssignmentFile=' is empty.
+Getting GNPY parameters...
+Getting formulation parameters...
+Getting optimization parameters...
+Getting execution parameters...
+Getting subgradient parameters...
+Populating online demand files...
+Finish reading input.
+TOPOLOGY FILE: /mnt/c/FlexOptim/RSA/Parameters/SEA/FlowForm/Spain/Link.csv
+ROUTED DEMANDS FILE: 
+INITIAL ASSIGNMENT FILE: 
+All information from input is consistent.
+> Number of online demand files: 1
+--- READING INSTANCE... --- 
+--- CREATING INITIAL MAPPING... --- 
+Reading /mnt/c/FlexOptim/RSA/Parameters/SEA/FlowForm/Spain/Link.csv.
+Creating edge #1. 1 -- 3. nb slices: 30, length: 280, cost: 1
+Creating edge #2. 1 -- 5. nb slices: 30, length: 250, cost: 1
+Creating edge #3. 1 -- 2. nb slices: 30, length: 460, cost: 1
+Creating edge #4. 1 -- 4. nb slices: 30, length: 350, cost: 1
+Creating edge #5. 2 -- 3. nb slices: 30, length: 280, cost: 1
+Creating edge #6. 2 -- 5. nb slices: 30, length: 230, cost: 1
+Creating edge #7. 3 -- 4. nb slices: 30, length: 320, cost: 1
+Starting with an empty initial mapping. 
+0 are present in the initial mapping.
+--- READING NEW DEMANDS TO BE ROUTED... --- 
+Reading /mnt/c/FlexOptim/RSA/Parameters/SEA/FlowForm/Spain/Obj8/15Demands/Demand/Demand.csv ...
+out
+
+--- The Non Routed Demands ---
+#1. 1 -- 2. nbSlices: 6, maxLength: 600, ROUTED: NO
+#2. 1 -- 2. nbSlices: 6, maxLength: 600, ROUTED: NO
+#3. 1 -- 2. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#4. 1 -- 3. nbSlices: 6, maxLength: 600, ROUTED: NO
+#5. 1 -- 3. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#6. 1 -- 4. nbSlices: 6, maxLength: 600, ROUTED: NO
+#7. 1 -- 4. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#8. 1 -- 5. nbSlices: 6, maxLength: 600, ROUTED: NO
+#9. 1 -- 5. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#10. 2 -- 3. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#11. 2 -- 4. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#12. 2 -- 5. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#13. 3 -- 4. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#14. 3 -- 5. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#15. 4 -- 5. nbSlices: 3, maxLength: 3000, ROUTED: NO
+
+15 demands to be routed.
+--- ROUTING DEMANDS --- 
+#1 (1, 2), requiring 6 slices and having Max length 600
+#2 (1, 2), requiring 6 slices and having Max length 600
+#3 (1, 2), requiring 5 slices and having Max length 1500
+#4 (1, 3), requiring 6 slices and having Max length 600
+#5 (1, 3), requiring 5 slices and having Max length 1500
+#6 (1, 4), requiring 6 slices and having Max length 600
+#7 (1, 4), requiring 5 slices and having Max length 1500
+#8 (1, 5), requiring 6 slices and having Max length 600
+#9 (1, 5), requiring 5 slices and having Max length 1500
+#10 (2, 3), requiring 3 slices and having Max length 3000
+#11 (2, 4), requiring 3 slices and having Max length 3000
+#12 (2, 5), requiring 3 slices and having Max length 3000
+#13 (3, 4), requiring 3 slices and having Max length 3000
+#14 (3, 5), requiring 3 slices and having Max length 3000
+#15 (4, 5), requiring 3 slices and having Max length 3000
+--> THE DIFFERENT ROUTING LOADS: 6, 5, 3.
+--- Flow formulation has been chosen. |K| = 15, |S| = 30. ---
+Flow variables have been defined...
+Max slice variables have been defined...
+Max slice overall variable has been defined...
+Source constraints have been defined...
+Flow conservation constraints have been defined...
+Target constraints have been defined...
+Length constraints have been defined...
+Non-Overlapping constraints has been defined...
+Max Used Slice Per Link constraints have been defined...
+Max Used Slice Overall constraints have been defined...
+Max Used Slice Overall2 constraints have been defined...
+Max Used Slice Overall3 constraints have been defined...
+Flow Node cuts have been defined...
+Flow Edge cuts have been defined...
+Objective obj_8 has been defined.
+--- Flow formulation has been defined ---
+--- CPLEX has been initialized ---
+CPLEX parameters have been defined...
+CPLEX variables have been defined...
+CPLEX constraints have been defined...
+CPLEX objective has been defined...
+LP model has been exported.
+Solving...
+Chosen objective: obj_8
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_MIP_Display                             3
+CPXPARAM_TimeLimit                               7200
+Tried aggregator 2 times.
+MIP Presolve eliminated 812 rows and 2006 columns.
+MIP Presolve modified 9642 coefficients.
+Aggregator did 497 substitutions.
+Reduced MIP has 1245 rows, 2167 columns, and 35663 nonzeros.
+Reduced MIP has 2166 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.13 sec. (173.29 ticks)
+Found incumbent of value 30.000000 after 0.25 sec. (309.11 ticks)
+Probing time = 0.01 sec. (5.86 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve modified 18 coefficients.
+Reduced MIP has 1245 rows, 2167 columns, and 35636 nonzeros.
+Reduced MIP has 2166 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.03 sec. (33.38 ticks)
+Probing time = 0.01 sec. (5.94 ticks)
+Clique table members: 3213.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 8 threads.
+Root relaxation solution time = 0.14 sec. (178.04 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                           30.0000        5.0000            83.33%
+Found incumbent of value 30.000000 after 0.46 sec. (550.15 ticks)
+      0     0        9.0679    91       30.0000        9.0679       17   69.77%
+*     0+    0                           17.0000        9.0679            46.66%
+Found incumbent of value 17.000000 after 0.48 sec. (564.10 ticks)
+*     0+    0                           15.0000        9.0679            39.55%
+Found incumbent of value 15.000000 after 0.81 sec. (826.76 ticks)
+      0     0        9.3734    91       15.0000      Cuts: 33     1413   33.06%
+      0     0       10.0410    91       15.0000      Cuts: 92     2172   33.06%
+
+Repeating presolve.
+Tried aggregator 1 time.
+MIP Presolve eliminated 640 rows and 1139 columns.
+MIP Presolve modified 534 coefficients.
+Reduced MIP has 605 rows, 1028 columns, and 14466 nonzeros.
+Reduced MIP has 1027 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (15.33 ticks)
+Probing fixed 14 vars, tightened 0 bounds.
+Probing time = 0.01 sec. (14.52 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 0 rows and 14 columns.
+Reduced MIP has 605 rows, 1014 columns, and 14316 nonzeros.
+Reduced MIP has 1013 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (8.85 ticks)
+Probing time = 0.00 sec. (4.55 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 605 rows, 1014 columns, and 14316 nonzeros.
+Reduced MIP has 1013 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (10.26 ticks)
+Represolve time = 0.07 sec. (73.50 ticks)
+Probing time = 0.00 sec. (4.58 ticks)
+Clique table members: 1190.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 8 threads.
+Root relaxation solution time = 0.04 sec. (42.64 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                           15.0000       10.0410            33.06%
+Found incumbent of value 15.000000 after 1.16 sec. (1144.84 ticks)
+      0     0       10.0410    75       15.0000       10.0410     3116   33.06%
+      0     0       10.2150    75       15.0000      Cuts: 64     3519   31.90%
+      0     0       10.2170    75       15.0000      Cuts: 35     3563   31.89%
+      0     0       10.2200    75       15.0000      Cuts: 25     3612   31.87%
+      0     0       10.2220    75       15.0000      Cuts: 28     3640   31.85%
+      0     0       10.2235    75       15.0000      Cuts: 13     3652   31.84%
+      0     0       10.2263    75       15.0000      Cuts: 12     3686   31.82%
+      0     0       10.2317    75       15.0000       Cuts: 8     3704   31.79%
+      0     0       10.2349    75       15.0000      Cuts: 16     3724   31.77%
+      0     0       10.2389    75       15.0000   MIRcuts: 10     3739   31.74%
+      0     0       10.2786    75       15.0000      Cuts: 14     3807   31.48%
+      0     0       10.2807    75       15.0000       Cuts: 8     3824   31.46%
+      0     0       10.2942    75       15.0000       Cuts: 9     3870   31.37%
+      0     0       10.2951    75       15.0000       Cuts: 7     3899   31.37%
+      0     0       10.2959    75       15.0000       Cuts: 7     3928   31.36%
+      0     2       10.2959   122       15.0000       10.2959     3928   31.36%
+Elapsed time = 1.71 sec. (1578.17 ticks, tree = 0.02 MB, solutions = 3)
+     67     8        cutoff             15.0000       10.3526     9854   30.98%
+                                                      Cuts: 7                  
+*   105    31      integral     0       15.0000       10.3526    11233   30.98%
+Found incumbent of value 15.000000 after 1.98 sec. (1832.60 ticks)
+    730   211        cutoff             15.0000       10.6356    32121   29.10%
+                                                      Cuts: 7                  
+   1852   693       12.5916    72       15.0000       11.0000    59143   26.67%
+                                                     Cuts: 11                  
+   2778   756        cutoff             15.0000       13.3064    90757   11.29%
+                                                  Impl Bds: 2                  
+   3634   521       14.0000    48       15.0000       14.0000   117101    6.67%
+                                                      Cuts: 2                  
+   4331   472        cutoff             15.0000       14.0000   140103    6.67%
+   4912   308        cutoff             15.0000       14.0000   177634    6.67%
+
+Clique cuts applied:  17
+Implied bound cuts applied:  9
+Flow cuts applied:  1
+Mixed integer rounding cuts applied:  20
+Zero-half cuts applied:  9
+Lift and project cuts applied:  1
+Gomory fractional cuts applied:  5
+
+Root node processing (before b&c):
+  Real time             =    1.70 sec. (1577.52 ticks)
+Parallel b&c, 8 threads:
+  Real time             =    2.48 sec. (1768.79 ticks)
+  Sync time (average)   =    0.45 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    4.18 sec. (3346.30 ticks)
+Objective Function Value: 15
+Optimization done in 4.18345 secs.
+Status: Optimal
+Objective Function Value: 15
+x(1,1,2,15) = 1
+x(2,1,2,9) = 1
+x(3,5,2,5) = 1
+x(3,1,5,5) = 1
+x(4,1,3,15) = 1
+x(5,1,3,8) = 1
+x(6,1,4,6) = 1
+x(7,1,4,16) = 1
+x(8,1,5,11) = 1
+x(9,1,5,16) = 1
+x(10,2,3,9) = 1
+x(11,2,3,5) = 1
+x(11,3,4,5) = 1
+x(12,2,5,9) = 1
+x(13,3,4,9) = 1
+x(14,2,5,12) = 1
+x(14,3,2,12) = 1
+x(15,4,3,15) = 1
+x(15,2,5,15) = 1
+x(15,3,2,15) = 1
+maxSlice(1) = 30
+maxSlice(2) = 30
+maxSlice(3) = 30
+maxSlice(4) = 30
+maxSlice(5) = 30
+maxSlice(6) = 30
+maxSlice(7) = 30
+maxSliceOverall = 15
+Update RSA
+Feasible
+
+--- Slice occupation ---
+#1.    ***** ******               
+#2. ****************              
+#3.    ************               
+#4. ******     *****              
+#5.   *** *********               
+#6. ***** *********               
+#7.   *** ***   ***               
+
+For demand 1 : 
+(1--2, 15)
+
+For demand 2 : 
+(1--2, 9)
+
+For demand 3 : 
+(5--2, 5)
+(1--5, 5)
+
+For demand 4 : 
+(1--3, 15)
+
+For demand 5 : 
+(1--3, 8)
+
+For demand 6 : 
+(1--4, 6)
+
+For demand 7 : 
+(1--4, 16)
+
+For demand 8 : 
+(1--5, 11)
+
+For demand 9 : 
+(1--5, 16)
+
+For demand 10 : 
+(2--3, 9)
+
+For demand 11 : 
+(2--3, 5)
+(3--4, 5)
+
+For demand 12 : 
+(2--5, 9)
+
+For demand 13 : 
+(3--4, 9)
+
+For demand 14 : 
+(2--5, 12)
+(3--2, 12)
+
+For demand 15 : 
+(4--3, 15)
+(2--5, 15)
+(3--2, 15)
+
+Output Demand_1
+Output EdgeSliceHols: Demand_1
+Time taken by iteration is : 4.534987 sec
+Output Demand_FINAL
+Output EdgeSliceHols: Demand_FINAL
+
+--- The Demands ---
+#1. 1 -- 2. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#2. 1 -- 2. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#3. 1 -- 2. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#4. 1 -- 3. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#5. 1 -- 3. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#6. 1 -- 4. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#7. 1 -- 4. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#8. 1 -- 5. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#9. 1 -- 5. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#10. 2 -- 3. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#11. 2 -- 4. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#12. 2 -- 5. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#13. 3 -- 4. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#14. 3 -- 5. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#15. 4 -- 5. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+
+Time taken by optimization is : 4.541599000 sec
+Total time taken by program is : 4.544510200 sec
