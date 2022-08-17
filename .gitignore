@@ -1,0 +1,9 @@
+# Do not track content of these files
+Output/
+doc/
+Parameters/Small_Instance/
+Tests/
+UML/
+doxygen/
+
+
