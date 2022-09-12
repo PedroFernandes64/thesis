@@ -4,6 +4,6 @@
 4 - clonar repositorio 
 5 - instalar lemon (readme nao funciona, usei minha pasta)
 6 - instalar boost (readme funciona mais ou menos, pegar outra versao no proprio site)
-7 - instalar cbc (usar coinbrew na pasta thesis ressources, copiar cbc do drive e instalar com sudo apt install)
+7 - instalar cbc (usar coinbrew na pasta thesis ressources cbc master, copiar cbc do drive e instalar com sudo apt install)
 8 - instalar CPLEX (readme funciona)
 
