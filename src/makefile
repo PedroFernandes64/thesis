@@ -33,17 +33,17 @@ CONCERTLIBDIR = $(CONCERTDIR)/lib/$(SYSTEM)/$(LIBFORMAT)
 CONCERTLIBFLAGS = -L$(CONCERTLIBDIR) -lconcert -lm -lpthread -ldl
 
 # CHANGEME: LEMON paths ok
-LEMONINCDIR = /home/pedro/lemon/include/
-LEMONLIBDIR = /home/pedro/lemon/lib/
+LEMONINCDIR = /home/phfernan/ressources_thesis/lemon/include/
+LEMONLIBDIR = /home/phfernan/ressources_thesis/lemon/lib/
 LEMONINCFLAGS = -I$(LEMONINCDIR)
 LEMONLIBFLAGS = -L$(LEMONLIBDIR) -lemon
 
 # CHANGEME: Boost paths ok
-BOOSTINCDIR = /home/pedro/boost_1_78_0/
+BOOSTINCDIR = /home/phfernan/ressources_thesis/boost_1_78_0/
 BOOSTINCFLAGS = -I$(BOOSTINCDIR)
 
 # CHANGEME: CBC flags  OK
-OSIFLAGS = /home/pedro/Cbc-2.9.8/Osi/
+OSIFLAGS = /home/phfernan/ressources_thesis/CBCmaster/Osi/
 
 
 # To compile other examples, either changed the following line, or
@@ -59,14 +59,14 @@ OBJS = main.o formulation/edgeNodeForm.o formulation/flowForm.o formulation/form
 
 # extra object files that are required by some examples (we just link them into each one)
 EXTRAOBJS = \
-	/home/pedro/Cbc-2.9.8/Cbc/examples/CbcCompareUser.o \
-	/home/pedro/Cbc-2.9.8/Cbc/examples/CbcSolver2.o \
-	/home/pedro/Cbc-2.9.8/Cbc/examples/CbcSolver3.o \
-	/home/pedro/Cbc-2.9.8/Cbc/examples/CbcSolverLongThin.o \
-	/home/pedro/Cbc-2.9.8/Cbc/examples/ClpQuadInterface.o \
-	/home/pedro/Cbc-2.9.8/Cbc/examples/CbcBranchFollow2.o \
-	/home/pedro/Cbc-2.9.8/Cbc/examples/CbcBranchUser.o \
-	/home/pedro/Cbc-2.9.8/Cbc/examples/CbcBranchLink.o 
+	/home/phfernan/ressources_thesis/CBCmaster/Cbc/examples/CbcCompareUser.o \
+	/home/phfernan/ressources_thesis/CBCmaster/Cbc/examples/CbcSolver2.o \
+	/home/phfernan/ressources_thesis/CBCmaster/Cbc/examples/CbcSolver3.o \
+	/home/phfernan/ressources_thesis/CBCmaster/Cbc/examples/CbcSolverLongThin.o \
+	/home/phfernan/ressources_thesis/CBCmaster/Cbc/examples/ClpQuadInterface.o \
+	/home/phfernan/ressources_thesis/CBCmaster/Cbc/examples/CbcBranchFollow2.o \
+	/home/phfernan/ressources_thesis/CBCmaster/Cbc/examples/CbcBranchUser.o \
+	/home/phfernan/ressources_thesis/CBCmaster/Cbc/examples/CbcBranchLink.o 
 
 # CHANGEME: Additional libraries
 # e.g., for driver2, put -lOsiCbc here
@@ -105,39 +105,39 @@ CXXLINKFLAGS =  -Wl,--rpath -Wl,/usr/local/lib
 # Sample data directory
 ifeq ($(COIN_HAS_SAMPLE), TRUE)
   ifeq ($(COIN_HAS_PKGCONFIG), TRUE)
-    CXXFLAGS += -DSAMPLEDIR=\"`PKG_CONFIG_PATH=/home/pedro/Cbc-2.9.8/Cbc/lib/pkgconfig:/home/pedro/Cbc-2.9.8/Cbc/libpkgconfig:/home/pedro/Cbc-2.9.8/share/pkgconfig:  --variable=datadir coindatasample`\"
-      CFLAGS += -DSAMPLEDIR=\"`PKG_CONFIG_PATH=/home/pedro/Cbc-2.9.8/Cbc/lib/pkgconfig:/home/pedro/Cbc-2.9.8/Cbc/libpkgconfig:/home/pedro/Cbc-2.9.8/share/pkgconfig:  --variable=datadir coindatasample`\"
+    CXXFLAGS += -DSAMPLEDIR=\"`PKG_CONFIG_PATH=/home/phfernan/ressources_thesis/CBCmaster/Cbc/lib/pkgconfig:/home/phfernan/ressources_thesis/CBCmaster/Cbc/libpkgconfig:/home/phfernan/ressources_thesis/CBCmaster/share/pkgconfig:  --variable=datadir coindatasample`\"
+      CFLAGS += -DSAMPLEDIR=\"`PKG_CONFIG_PATH=/home/phfernan/ressources_thesis/CBCmaster/Cbc/lib/pkgconfig:/home/phfernan/ressources_thesis/CBCmaster/Cbc/libpkgconfig:/home/phfernan/ressources_thesis/CBCmaster/share/pkgconfig:  --variable=datadir coindatasample`\"
   else
-    CXXFLAGS += -DSAMPLEDIR=\"/home/pedro/Cbc-2.9.8/share/coin/Data/Sample\"
-      CFLAGS += -DSAMPLEDIR=\"/home/pedro/Cbc-2.9.8/share/coin/Data/Sample\"
+    CXXFLAGS += -DSAMPLEDIR=\"/home/phfernan/ressources_thesis/CBCmaster/share/coin/Data/Sample\"
+      CFLAGS += -DSAMPLEDIR=\"/home/phfernan/ressources_thesis/CBCmaster/share/coin/Data/Sample\"
   endif
 endif
 
 # Miplib3 data directory
 ifeq ($(COIN_HAS_MIPLIB3), TRUE)
   ifeq ($(COIN_HAS_PKGCONFIG), TRUE)
-    CXXFLAGS += -DMIPLIB3DIR=\"`PKG_CONFIG_PATH=/home/pedro/Cbc-2.9.8/Cbc/lib/pkgconfig:/home/pedro/Cbc-2.9.8/Cbc/libpkgconfig:/home/pedro/Cbc-2.9.8/share/pkgconfig:  --variable=datadir coindatamiplib3`\"
+    CXXFLAGS += -DMIPLIB3DIR=\"`PKG_CONFIG_PATH=/home/phfernan/ressources_thesis/CBCmaster/Cbc/lib/pkgconfig:/home/phfernan/ressources_thesis/CBCmaster/Cbc/libpkgconfig:/home/phfernan/ressources_thesis/CBCmaster/share/pkgconfig:  --variable=datadir coindatamiplib3`\"
   else
-    CXXFLAGS += -DMIPLIB3DIR=\"/home/pedro/Cbc-2.9.8/share/coin/Data/miplib3\"
+    CXXFLAGS += -DMIPLIB3DIR=\"/home/phfernan/ressources_thesis/CBCmaster/share/coin/Data/miplib3\"
   endif
 endif
 
 # Include directories (we use the CYGPATH_W variables to allow compilation with Windows compilers)
 ifeq ($(COIN_HAS_PKGCONFIG), TRUE)
-  INCL = `PKG_CONFIG_PATH=/home/pedro/Cbc-2.9.8/Cbc/lib/pkgconfig:/home/pedro/Cbc-2.9.8/Cbc/libpkgconfig:/home/pedro/Cbc-2.9.8/share/pkgconfig:  --cflags cbc`
+  INCL = `PKG_CONFIG_PATH=/home/phfernan/ressources_thesis/CBCmaster/Cbc/lib/pkgconfig:/home/phfernan/ressources_thesis/CBCmaster/Cbc/libpkgconfig:/home/phfernan/ressources_thesis/CBCmaster/share/pkgconfig:  --cflags cbc`
 else
-  INCL =  -I/home/pedro/Cbc-2.9.8/include/coin  -I/home/pedro/Cbc-2.9.8/include/coin  -I/home/pedro/Cbc-2.9.8/include/coin  -I/home/pedro/Cbc-2.9.8/include/coin   -I/home/pedro/Cbc-2.9.8/include/coin  -I/home/pedro/Cbc-2.9.8/include/coin  -I/home/pedro/Cbc-2.9.8/include/coin  -I/home/pedro/Cbc-2.9.8/include/coin  -I/home/pedro/Cbc-2.9.8/include/coin  
+  INCL =  -I/home/phfernan/ressources_thesis/CBCmaster/include/coin  -I/home/phfernan/ressources_thesis/CBCmaster/include/coin  -I/home/phfernan/ressources_thesis/CBCmaster/include/coin  -I/home/phfernan/ressources_thesis/CBCmaster/include/coin   -I/home/phfernan/ressources_thesis/CBCmaster/include/coin  -I/home/phfernan/ressources_thesis/CBCmaster/include/coin  -I/home/phfernan/ressources_thesis/CBCmaster/include/coin  -I/home/phfernan/ressources_thesis/CBCmaster/include/coin  -I/home/phfernan/ressources_thesis/CBCmaster/include/coin  
 endif
 INCL += -I. $(ADDINCFLAGS)
 
 # Linker flags
 ifeq ($(COIN_HAS_PKGCONFIG), TRUE)
-  LIBS = `PKG_CONFIG_PATH=/home/pedro/Cbc-2.9.8/Cbc/lib/pkgconfig:/home/pedro/Cbc-2.9.8/Cbc/libpkgconfig:/home/pedro/Cbc-2.9.8/share/pkgconfig:  --libs cbc`
+  LIBS = `PKG_CONFIG_PATH=/home/phfernan/ressources_thesis/CBCmaster/Cbc/lib/pkgconfig:/home/phfernan/ressources_thesis/CBCmaster/Cbc/libpkgconfig:/home/phfernan/ressources_thesis/CBCmaster/share/pkgconfig:  --libs cbc`
 else
   ifeq ($(COIN_CXX_IS_CL), TRUE)
-    LIBS = -link -libpath:`$(CYGPATH_W) /home/pedro/Cbc-2.9.8/lib` libCbcSolver.lib libCbc.lib libOsiCbc.lib  -L/home/pedro/Cbc-2.9.8/lib -lOsiClp   -L/home/pedro/Cbc-2.9.8/lib -lClpSolver -lClp   -L/home/pedro/Cbc-2.9.8/lib -lOsi   -L/home/pedro/Cbc-2.9.8/lib -lCoinUtils -lm    -L/home/pedro/Cbc-2.9.8/lib -lCgl   -L/home/pedro/Cbc-2.9.8/lib -lOsiClp   -L/home/pedro/Cbc-2.9.8/lib -lClpSolver -lClp   -L/home/pedro/Cbc-2.9.8/lib -lOsi   -L/home/pedro/Cbc-2.9.8/lib -lCoinUtils -lm   
+    LIBS = -link -libpath:`$(CYGPATH_W) /home/phfernan/ressources_thesis/CBCmaster/lib` libCbcSolver.lib libCbc.lib libOsiCbc.lib  -L/home/phfernan/ressources_thesis/CBCmaster/lib -lOsiClp   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lClpSolver -lClp   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lOsi   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lCoinUtils -lm    -L/home/phfernan/ressources_thesis/CBCmaster/lib -lCgl   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lOsiClp   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lClpSolver -lClp   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lOsi   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lCoinUtils -lm   
   else
-    LIBS = -L/home/pedro/Cbc-2.9.8/lib -lCbcSolver -lCbc -lOsiCbc  -L/home/pedro/Cbc-2.9.8/lib -lOsiClp   -L/home/pedro/Cbc-2.9.8/lib -lClpSolver -lClp   -L/home/pedro/Cbc-2.9.8/lib -lOsi   -L/home/pedro/Cbc-2.9.8/lib -lCoinUtils -lm    -L/home/pedro/Cbc-2.9.8/lib -lCgl   -L/home/pedro/Cbc-2.9.8/lib -lOsiClp   -L/home/pedro/Cbc-2.9.8/lib -lClpSolver -lClp   -L/home/pedro/Cbc-2.9.8/lib -lOsi   -L/home/pedro/Cbc-2.9.8/lib -lCoinUtils -lm   
+    LIBS = -L/home/phfernan/ressources_thesis/CBCmaster/lib -lCbcSolver -lCbc -lOsiCbc  -L/home/phfernan/ressources_thesis/CBCmaster/lib -lOsiClp   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lClpSolver -lClp   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lOsi   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lCoinUtils -lm    -L/home/phfernan/ressources_thesis/CBCmaster/lib -lCgl   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lOsiClp   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lClpSolver -lClp   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lOsi   -L/home/phfernan/ressources_thesis/CBCmaster/lib -lCoinUtils -lm   
   endif
 endif
 
