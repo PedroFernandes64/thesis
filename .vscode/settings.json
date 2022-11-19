@@ -82,7 +82,18 @@
         "cuchar": "cpp",
         "bit": "cpp",
         "charconv": "cpp",
-        "source_location": "cpp"
+        "source_location": "cpp",
+        "barrier": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "coroutine": "cpp",
+        "latch": "cpp",
+        "numbers": "cpp",
+        "ranges": "cpp",
+        "semaphore": "cpp",
+        "span": "cpp",
+        "stop_token": "cpp",
+        "syncstream": "cpp"
     },
     "VSCodeCounter.showInStatusBar": true
 }

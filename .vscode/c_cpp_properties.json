@@ -6,8 +6,8 @@
                 "${workspaceFolder}/**",
                 "/opt/ibm/ILOG/CPLEX_Studio1210/cplex/include/",
                 "/opt/ibm/ILOG/CPLEX_Studio1210/concert/include/",
-                "/home/pedro/lemon/include/",
-                "/home/pedro/boost_1_78_0/"
+                "/home/phfernan/ressources_thesis/lemon/include/",
+                "/home/phfernan/ressources_thesis/boost_1_78_0/"
             ],
             "defines": [
                 "fPIC",

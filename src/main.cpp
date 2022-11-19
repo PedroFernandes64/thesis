@@ -1,7 +1,5 @@
 #include <ilcplex/ilocplex.h>
 ILOSTLBEGIN
-// cplex10Test.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <bits/stdc++.h> 
 #include <chrono> 
@@ -13,16 +11,12 @@ ILOSTLBEGIN
 #include "topology/instance.h"
 #include "solver/solverFactory.h"
 
-//#include "YoussoufForm.h"
-//#include "subgradient.h"
-
-
-#include "OsiClpSolverInterface.hpp"
-
 using namespace lemon;
 
 int main(int argc, char *argv[]) {
+	std::cout << "PIKA DE CRISTAL 33: " << std::endl;
 	ClockTime GLOBAL_TIME(ClockTime::getTimeNow());
+
 	/********************************************************************/
 	/* 						Get Parameter file 							*/
 	/********************************************************************/
@@ -94,15 +88,14 @@ int main(int argc, char *argv[]) {
 			//solver->outputLogResults(outputCode);
 			/*PEDRO PEDRO PEDRO*/
 
-			//std::cout << "call update" << std::endl;
 			std::cout << " Time: " << solver->getDurationTime() << std::endl << std::endl;
 			solver->updateRSA(instance);
 			
-			/*PEDRO PEDRO PEDRO*/
+			//PEDRO PEDRO PEDRO
 			//std::cout << "GN MODEL ANALYSIS" << std::endl;
 			//instance.followPaths();
-			/*Aqui, no objeto instance, posso consultar cada edge da rede, em cada edge da rede posso consultar como esta a ocupação dos slices"
-			/*PEDRO PEDRO PEDRO*/
+			//Aqui, no objeto instance, posso consultar cada edge da rede, em cada edge da rede posso consultar como esta a ocupação dos slices"
+			//PEDRO PEDRO PEDRO
 
 			/********************************************************************/
 			/* 							Finalization							*/

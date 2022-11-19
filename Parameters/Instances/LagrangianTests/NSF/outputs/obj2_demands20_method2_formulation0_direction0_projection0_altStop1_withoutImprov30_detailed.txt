@@ -1,2 +1,0 @@
-Iter  | Wout Imp | Green It | Nb Yello | Nb Red I | LB         | Lagr Cost | Real Cost | Primal Co | UB     | Step   | Lambda   | Alpha    | Feasibility | Time      | 
-1     | 0        | 1        | 0        | 0        | 49.000000  | 49.000000 | 49.000000 | 49.000000 | 49.000 | 0.0000 | 2.000000 | 0.100000 | NO          | 0.115412  | 

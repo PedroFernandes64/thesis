@@ -3,8 +3,7 @@
 
 // include all concrete solvers
 #include "solverCplex.h"
-#include "solverCBC.h"
-#include "lagSolverCBC.h"
+
 
 /*********************************************************************************************
 * This class implements a factory for Formulations. It provides a concrete formulation.
@@ -26,13 +25,9 @@ public:
                 break;
             }
             case Input::MIP_SOLVER_CBC:{
-                if(instance.getInput().getChosenNodeMethod() != Input::NODE_METHOD_LINEAR_RELAX){
-                    return new lagSolverCBC(instance);
-                    break;
-                }else{
-                    return new SolverCBC(instance);
-                    break;
-                }
+               std::cout << "Not implemented yet. Should create solverCBC." << std::endl;
+                exit(0);
+                break;
             }
             default:{
                 std::cout << "ERROR: Invalid MIP_Solver." << std::endl;

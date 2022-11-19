@@ -227,7 +227,7 @@ void RSA::gnModel(){
         //std::cout << "for demand " << i+1 <<std::endl;
         for (int j = 0; j <allpaths[i].size(); ++j){
             length = 0;
-            vertexamplis = -1;
+            vertexamplis = 0;
             //std::cout << "path " << j+1 << " : ";
             for (int k = 0; k <allpaths[i][j].size()-1; ++k){
                 //std::cout << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " "; 
@@ -239,6 +239,7 @@ void RSA::gnModel(){
                 //std::cout << "LENGTH= " << length << std::endl;
 
             }
+            vertexamplis = vertexamplis +1;
             thisdemanddistances.push_back(length);
             thisdemandvertexamplis.push_back(vertexamplis);
             //std::cout << allpaths[i][j][k+1]<<" with total lenght = " << length << std::endl;
@@ -295,42 +296,29 @@ void RSA::gnModel(){
     //DEMANDE
 	int origin_demande;
 	int destination_demande;
-	double debit_client;
-
+    int slots;
 	//CHEMIN
 	std::vector<int> edges;
 	double distance;
-	int slots_disponibles;
-
-	//TRANSPONDEUR
-	double modulation;
-	double vitesse;
-	double debit;
-	double osnr_limite;
-	double slots_transpondeur;
 
 	//GN MODEL
 	//PASE
+    double pase;
 	double h = 6.62 * pow(10,-34);
-	double pase;
 	double lambda = 1545 * pow(10,-9);
 	double c = 3 *pow(10,8);
 	double nu = c/lambda;
 	double NF = 5;
 	double nsp = (1.0/2.0) * pow(10,NF/10);
 	double alpha = 0.2;				//db/km
-	double ls = 100;				//km
+	double ls = 80;				//km
 	double Gdb = alpha * ls;
 	double Glin = pow(10,Gdb/10);
 	double Bn = 12.5 * pow(10,9);
-	//std::cout << "nu" << nu << std::endl;
-	//std::cout << "nsp" << nsp << std::endl;
- 	//std::cout << "Glin " << Glin << std::endl;
 	pase = 2.0* h * nu * nsp * (Glin-1.0) * Bn; 
-	//std::cout << "pase " << pase << std::endl;
 
 	//GNLI
-	double gnliinc;
+	double gnli;
 	double D = 17;
 	double beta = abs(D) * pow(lambda,2)/(2*M_1_PIl*c);
 	double n2 = 2.96 * pow (10,-20); //m2/watt
@@ -340,83 +328,47 @@ void RSA::gnModel(){
 	double Psat = 50 * pow(10,-3);
 	double gwdm = Psat/bwdm;
 	double leff = (1.0 - exp(-2.0*alpha*ls))/(2.0*alpha);
-	gnliinc = (8.0/27.0) * pow(gama,2) * pow(gwdm,3) * pow(leff,2) * (asinh(pow(M_1_PIl/2,2)*beta*leff*pow(bwdm,2))/(M_1_PIl*beta*leff));
-	//std::cout << "gnliinc " << gnliinc << std::endl;
-    double harmonic;
-    double gnlic;
+	gnli = (8.0/27.0) * pow(gama,2) * pow(gwdm,3) * pow(leff,2) * (asinh(pow(M_1_PIl/2,2)*beta*leff*pow(bwdm,2))/(M_1_PIl*beta*leff));
 
 	//PNLI
 	double pnli;
-	double bch = 12.5 * pow(10,9);
+    pnli = gnli * Bn;
 	double pch;
-	double beqch;
+
+    //Epsilon
+
+    double epsilon;	
+    epsilon = (3.0/8.0) * log(1 + (6.0/ls) * (leff/(asinh(pow(M_1_PIl/2,2)*beta*leff*pow(bwdm,2)))));
+    std::cout << epsilon << std::endl;
 
 	//OSNR
-
-	double epsilon = 0.03;	
-	double na;
-    double nav;		
+	double l_amp;
+    double n_amp;		
 	double osnr;						
 
 	std::cout << "Calculating OSNR " << std::endl;
 	for (int i = 0 ; i <toBeRouted.size(); i++){			
 		std::cout << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;		
-		// WITH DJIKISTRA
-        /*
-        distance = djikistradistancesdemand[i];
-        std::cout << "distance " << distance << std::endl;
-        */
         for (int j = 0; j< alldemandsdistances[i].size(); ++j){
-            std::cout << "-Path " << j+1 << std::endl;
-            std::cout << "---Nodes = ";
-            for (int k = 0; k <allpaths[i][j].size(); ++k)
-                std::cout << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
-            std::cout << std::endl;
-            distance = alldemandsdistances[i][j];
-            std::cout << "---Distance = " << distance << std::endl;
-            nav =  alldemandsvertexamplis[i][j];
-            std::cout << "---Amplis at vertex = " << nav << std::endl;
-            debit = toBeRouted[i].getMaxLength()/10;
-            
-            slots_disponibles = toBeRouted[i].getLoad();
-            slots_transpondeur = slots_disponibles;
-        
-            pch = slots_transpondeur * Bn * gwdm;	
-            //std::cout << "slots_transpondeur " << slots_transpondeur << std::endl;
-            //std::cout << "pch " << pch << std::endl;
-            //beqch = pch/gwdm;
-            na = distance/ls;
-            harmonic = 1.0;
-            float harmonic = 1.00;
-            for (int i = 2; i <= na; i++) {
-                harmonic += 1.0 / i;
+            if(alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()){
+                std::cout << "-Path " << j+1 << std::endl;
+                std::cout << "---Nodes = ";
+                for (int k = 0; k <allpaths[i][j].size(); ++k)
+                    std::cout << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
+                std::cout << std::endl;
+                distance = alldemandsdistances[i][j];
+                std::cout << "---Distance = " << distance << std::endl;
+                n_amp =  alldemandsvertexamplis[i][j]; //amplis at vertex
+                std::cout << "---Amplis at vertex = " << n_amp << std::endl;                
+                slots = toBeRouted[i].getLoad();        
+                pch = slots * Bn * gwdm;	
+                l_amp = floor(distance/ls); //amplis inline vertex
+                std::cout << "---Amplis at edges = " << l_amp << std::endl;   			
+                osnr = pch/(pase * (l_amp + n_amp) + pnli * pow(l_amp,1+epsilon));
+                osnr = 10.0 * log10(osnr);
+                std::cout << "---OSNR en db = " << osnr << std::endl;
+
             }
-            //std::cout << "harmonic " << harmonic << std::endl;
-            gnlic = (16.0/27.0) * (pow(gama,2) / M_1_PIl) *	(pow(leff,2)/(beta*ls)) * ( 1.0-na + na * harmonic) *	pow(gwdm,3);
-            //std::cout << "gnlic " << gnlic << std::endl;					
-            pnli = Bn * (na*gnliinc + gnlic);
-            osnr = pch/(pase * (na + nav) + pnli);
-            //std::cout << "pase * ns " << pase * ns << std::endl;
-            //std::cout << "pnli" <<  pnli  << std::endl;
-            //std::cout << "OSNR: " << osnr << std::endl;
-            osnr = 10.0 * log10(osnr);
-            std::cout << "---OSNR en db = " << osnr << std::endl;
-            /*if (osnr >= osnr_limite){
-                std::cout << "OSNR available for this transpondeur" << std::endl;
-                if (debit_client <= debit){
-                    std::cout << "Debit available for this transpondeur" << std::endl;
-                    if (slots_disponibles <= slots_transpondeur){
-                        std::cout << "Slots available for this transpondeur" << std::endl;
-                        std::cout << "This demand can be routed" << std::endl;
-                    }else{
-                        std::cout << "This demand cant be routed" << std::endl;
-                    }
-                }else{
-                    std::cout << "This demand cant be routed" << std::endl;
-                }
-            }else{
-                    std::cout << "This demand cant be routed" << std::endl;
-            }*/
         }
          std::cout << "---------" << std::endl;
     }

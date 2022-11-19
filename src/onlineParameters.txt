@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../Parameters/Instances/Pedro/leipzig/6nodes_9links/30demands_1_3/Link.csv
+topologyFile=../Parameters/Instances/Pedro/German_D17/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../Parameters/Instances/Pedro/leipzig/6nodes_9links/30demands_1_3/Demands
+demandToBeRoutedFolder=../Parameters/Instances/Pedro/German_D17/10demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -13,7 +13,7 @@ GNPY_equipmentFile=../oopt-gnpy/gnpy/example-data/spain_eqpt_config.json
 nbDemandsAtOnce=29
 formulation=0
 userCuts=1
-obj=2p
+obj=2
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
@@ -29,7 +29,7 @@ linearRelaxation=0
 relaxMethod=0
 
 ******* Execution parameters *******
-outputPath=../Parameters/Instances/Benchmark/leipzig/6nodes_9links/30demands_1_3/Demands/
+outputPath=../Parameters/Instances/Pedro/German_D17/10demands
 outputLevel=0
 nbSlicesInOutputFile=320
 globalTimeLimit=7200 
