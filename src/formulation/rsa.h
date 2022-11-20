@@ -71,6 +71,10 @@ protected:
         \note (*vecArcLength[i])[a] is the length of arc a in the graph associated with the i-th demand to be routed. **/
     std::vector< std::shared_ptr<ArcCost> > vecArcLength;
 
+    /** A list of pointers to the map storing the arc amplifiers of the graph associated with each demand to be routed. 
+        \note (*vecArcLineAmplifiers[i])[a] is the arc amplifiers of arc a in the graph associated with the i-th demand to be routed. **/
+    //std::vector< std::shared_ptr<ArcMap> > vecArcLineAmplifiers;
+
     /** A list of pointers to the map storing the arc lengths with hop penalties included of the graph associated with each demand to be routed. 
         \note (*vecArcLengthWithPenalty[i])[a] is the length with penalties of arc a in the graph associated with the i-th demand to be routed. **/
     std::vector< std::shared_ptr<ArcCost> > vecArcLengthWithPenalty;
@@ -113,6 +117,7 @@ protected:
     EdgeMap compactEdgeId;              /**< EdgeMap storing the edge ids of the simple graph associated with the initial mapping. **/
     EdgeMap compactEdgeLabel;           /**< EdgeMap storing the edge labels of the simple graph associated with the initial mapping. **/
     EdgeCost compactEdgeLength;         /**< EdgeMap storing the edge lengths of the simple graph associated with the initial mapping. **/
+    //EdgeMap compactEdgeLineAmplifiers;/**< EdgeMap storing the edge line amplifiers of the simple graph associated with the initial mapping. **/
     CompactNodeMap compactNodeId;       /**< NodeMap storing the LEMON node ids of the simple graph associated with the initial mapping. **/
     CompactNodeMap compactNodeLabel;    /**< NodeMap storing the node labels of the simple graph associated with the initial mapping. **/
     
@@ -190,6 +195,9 @@ public:
     /** Returns the length of an arc in a graph. @param a The arc. @param d The graph index. **/
     double getArcLength(const ListDigraph::Arc &a, int d) const  {return (*vecArcLength[d])[a]; }
 
+    /** Returns the line amplifiers of an arc in a graph. @param a The arc. @param d The graph index. **/
+    //int getArcLineAmplifiers(const ListDigraph::Arc &a, int d) const  {return (*vecArcLineAmplifiers[d])[a]; }
+
     /** Returns the length with hop penalties of an arc in a graph. @param a The arc. @param d The graph index. **/
     double getArcLengthWithPenalties(const ListDigraph::Arc &a, int d) const  {return (*vecArcLengthWithPenalty[d])[a]; }
 
@@ -249,6 +257,9 @@ public:
     /** Returns the length of an edge on the compact graph. @param e The edge. */
     double getCompactLength(const ListGraph::Edge &e) { return compactEdgeLength[e]; }
 
+     /** Returns the line amplifiers of an edge on the compact graph. @param e The edge. */
+    //int getCompactLineAmplifiers(const ListGraph::Edge &e) { return compactEdgeLineAmplifiers[e]; }
+
     ListGraph::Node getCompactNodeFromLabel(int label) const;
     
     int getNbSlicesGlobalLimit() const{ return std::min(instance.getMaxSlice(), instance.getMaxUsedSlicePosition() + 1 + getTotalLoadsToBeRouted());}
@@ -290,7 +301,10 @@ public:
     
     /** Changes the length of an arc in a graph. @param a The arc. @param d The graph index. @param val The new length. **/
     void setArcLength(const ListDigraph::Arc &a, int d, double val) { (*vecArcLength[d])[a] = val; }
-    
+
+    /** Changes the line amplifiers of an arc in a graph. @param a The arc. @param d The graph index. @param val The new line amplifiers. **/
+    //void setArcLineAmplifiers(const ListDigraph::Arc &a, int d, int val) { (*vecArcLineAmplifiers[d])[a] = val; }
+
     /** Changes the length with hop penalty of an arc in a graph. @param a The arc. @param d The graph index. @param val The new length. **/
     void setArcLengthWithPenalty(const ListDigraph::Arc &a, int d, double val) { (*vecArcLengthWithPenalty[d])[a] = val; }
 
@@ -313,6 +327,10 @@ public:
     
     /** Changes the length of an edge on the compact graph. @param e The edge. @param val The new length value. */
     void setCompactLength(const ListGraph::Edge &e, double val) { compactEdgeLength[e] = val; }
+
+    /** Changes the line amplifiers of an edge on the compact graph. @param e The edge. @param val The new line amplifiers  value. */
+    //void setCompactLineAmplifiers(const ListGraph::Edge &e, int val) { compactEdgeLineAmplifiers[e] = val; }
+    
     
 	/****************************************************************************************/
 	/*										Methods											*/
@@ -323,6 +341,8 @@ public:
 
     /** Creates an arc -- and its nodes if necessary -- between nodes (source,slice) and (target,slice) on a graph. @param d The graph index. @param source The source node's id. @param target The target node's id. @param linkLabel The arc's label. @param slice The arc's slice position. @param l The arc's length. **/
     void addArcs(int d, int source, int target, int linkLabel, int slice, double l);    
+    /** Creates an arc -- and its nodes if necessary -- between nodes (source,slice) and (target,slice) on a graph. @param d The graph index. @param source The source node's id. @param target The target node's id. @param linkLabel The arc's label. @param slice The arc's slice position. @param l The arc's length. @param la The arc's line amplifiers. **/
+    //void addArcs(int d, int source, int target, int linkLabel, int slice, double l, int la);    
     
     /** Updates the mapping stored in the given instance with the results obtained from RSA solution (i.e., vecOnPath). @param i The instance to be updated.*/
     void updateInstance(Instance &i);

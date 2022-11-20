@@ -30,6 +30,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
         vecArcLabel.emplace_back( std::make_shared<ArcMap>((*vecGraph[d])) );
         vecArcSlice.emplace_back( std::make_shared<ArcMap>((*vecGraph[d])) );
         vecArcLength.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
+        //vecArcLineAmplifiers.emplace_back( std::make_shared<ArcMap>((*vecGraph[d])) );
         vecArcLengthWithPenalty.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
         vecNodeId.emplace_back( std::make_shared<NodeMap>((*vecGraph[d])) );
         vecNodeLabel.emplace_back( std::make_shared<NodeMap>((*vecGraph[d])) );
@@ -64,6 +65,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
                     }
                     else{
                         /* CREATE NODES (u, s) AND (v, s) IF THEY DO NOT ALREADY EXIST AND ADD AN ARC BETWEEN THEM */
+                        //addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
                         addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
                         addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
                     }
@@ -410,12 +412,14 @@ void RSA::buildCompactGraph(){
             compactEdgeId[e] = compactGraph.id(e);
             compactEdgeLabel[e] = edge.getIndex();
             compactEdgeLength[e] = edge.getLength();
+            //compactEdgeLineAmplifiers[e] = edge.getLineAmplifiers()
         }
     }
 }
 
 /* Creates an arc -- and its nodes if necessary -- between nodes (source,slice) and (target,slice) on a graph. */
 void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l){
+//void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l, int la){
     ListDigraph::Node arcSource = getNode(d, linkSourceLabel, slice);
     ListDigraph::Node arcTarget = getNode(d, linkTargetLabel, slice);
 
@@ -443,6 +447,7 @@ void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel
     setArcLabel(a, d, linkLabel);
     setArcSlice(a, d, slice);
     setArcLength(a, d, l);
+    //setArcLineAmplifiers(a, d, la);
     int hop = instance.getInput().getHopPenalty();
     if (linkSourceLabel == getToBeRouted_k(d).getSource()){
         setArcLengthWithPenalty(a, d, l);
