@@ -65,8 +65,9 @@ int main(int argc, char *argv[]) {
 		//instance.output(outputCode);
 		bool feasibility = true;
 		bool lastIterationFeas = true;
+		
 		while(instance.getNextDemandToBeRoutedIndex() < instance.getNbDemands() && feasibility == true && (instance.getInput().getOptimizationTimeLimit() >= OPTIMIZATION_TIME.getTimeInSecFromStart())){
-				
+			
 			/********************************************************************/
 			/* 							Initialization	 						*/
 			/********************************************************************/
@@ -76,7 +77,7 @@ int main(int argc, char *argv[]) {
 			if ((instance.getInput().getOptimizationTimeLimit() - OPTIMIZATION_TIME.getTimeInSecFromStart()) < instance.getInput().getIterationTimeLimit()){
 				instance.setTimeLimit(std::max(0, instance.getInput().getOptimizationTimeLimit() - (int)OPTIMIZATION_TIME.getTimeInSecFromStart()));
 			}
-
+			
 			/********************************************************************/
 			/* 								Solve	 							*/
 			/********************************************************************/

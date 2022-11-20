@@ -16,7 +16,7 @@ public:
         Input::MIP_Solver chosenSolver = instance.getInput().getChosenMIPSolver();
         switch (chosenSolver){
             case Input::MIP_SOLVER_CPLEX:{
-                return new SolverCplex(instance);
+                return new SolverCplex(instance);	
                 break;
             }
             case Input::MIP_SOLVER_GUROBI:{

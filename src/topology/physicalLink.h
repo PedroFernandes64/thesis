@@ -23,14 +23,15 @@ private:
 	double length;					/**< Length of the fiber in the physical network. **/
 	double cost;					/**< Cost of routing a demand through the fiber. **/
 	std::vector<Slice> spectrum;	/**< Fiber's spectrum. **/
+	int lineAmplifiers;				/**< Number of line amplifiers. **/
 
 public:
 	/****************************************************************************************/
 	/*										Constructor										*/
 	/****************************************************************************************/
 
-	/** Constructor. @param i Id. @param ind Index. @param s Source node's id. @param t Target node's id. @param len Fiber's length n the physical network. @param nb Number of slices its frequency spectrum is divided into. @param c Cost of routing a demand through the fiber. **/
-	Fiber(int i, int ind, int s, int t, double len = 0.0, int nb = 1, double c = 0.0);
+	/** Constructor. @param i Id. @param ind Index. @param s Source node's id. @param t Target node's id. @param len Fiber's length n the physical network. @param nb Number of slices its frequency spectrum is divided into. @param c Cost of routing a demand through the fiber. @param la Number of line amplifiers.**/
+	Fiber(int i, int ind, int s, int t, double len = 0.0, int nb = 1, double c = 0.0, int la = 1);
 
 	Fiber(const Fiber &);
 
@@ -58,6 +59,9 @@ public:
 
 	/** Returns the cost of routing a demand through the fiber. \note This attribute is not really used for now but may be useful in the future. **/
 	double getCost() const { return cost; }
+
+	/** Returns the number of line amplifiers **/
+	int getLineAmplifiers() const { return lineAmplifiers; }
 	
 	/** Returns the frequency spectrum as a vector of Slices. **/
 	std::vector<Slice> getSlices() const { return spectrum; }
@@ -98,6 +102,9 @@ public:
 	
 	/** Changes the cost of routing a demand through the fiber. @param c New cost. **/
 	void setCost(double c) { this->cost = c; }
+
+	/** Changes the number of line amplifiers @param la New number **/
+	void setLineAmplifiers(int la) { this->lineAmplifiers = la; }
 
 	/****************************************************************************************/
 	/*										Methods											*/

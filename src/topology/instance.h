@@ -198,10 +198,6 @@ public:
 
 	/** Builds file results.csv containing information about the main obtained results. @param fileName The name of demand file being optimized. **/
 	void outputLogResults(std::string fileName, double time);
-
-	/*PEDRO PEDRO PEDRO*/
-	void followPaths();
-	/*PEDRO PEDRO PEDRO*/
 	
 	/****************************************************************************************/
 	/*										Display											*/

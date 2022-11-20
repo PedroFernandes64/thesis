@@ -4,6 +4,7 @@
 /* Constructor. Builds the Online RSA mixed-integer program and solves it using a defined solver (CPLEX or CBC). */
 FlowForm::FlowForm(const Instance &inst) : AbstractFormulation(inst){
     
+    std::cout << "comecar a criar flow" << std::endl;
     if(inst.getInput().getChosenNodeMethod() == Input::NODE_METHOD_LINEAR_RELAX){
         ClockTime time(ClockTime::getTimeNow());
         ClockTime time2(ClockTime::getTimeNow());
@@ -21,6 +22,7 @@ FlowForm::FlowForm(const Instance &inst) : AbstractFormulation(inst){
         objImpleTime = time.getTimeInSecFromStart() ;
         std::cout << "--- Flow formulation has been defined ---" << std::endl;
         totalImpleTime = time2.getTimeInSecFromStart() ;
+        std::cout << "fim a criar flow" << std::endl;
         //std::cout << "Time: " << time.getTimeInSecFromStart() << std::endl;
     }
 }
@@ -283,8 +285,14 @@ void FlowForm::setConstraints(){
     this->setSourceConstraints();
     this->setFlowConservationConstraints();
     this->setTargetConstraints();
-    //this->setLengthConstraints();
-    this->setStrongLengthConstraints();
+
+    if (this->getInstance().getInput().isGNModelEnabled() == true){
+        this->setOSNRConstraints();
+    }
+    else{
+        this->setLengthConstraints();
+    }
+    //this->setStrongLengthConstraints();
     this->setNonOverlappingConstraints();    
 
     this->setMaxUsedSlicePerLinkConstraints();    
@@ -494,6 +502,36 @@ Constraint FlowForm::getLengthConstraint(const Demand &demand, int d){
     Constraint constraint(rls, exp, rhs, constraintName.str());
     return constraint;
 }
+
+/* Defines OSNR constraints. Demands must be routed within a OSNR limit. */
+void FlowForm::setOSNRConstraints(){
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
+        std::cout << "adicionando osnr constraint para " << d<< std::endl;
+        const Constraint & OSNRConstraint = getOSNRConstraint(getToBeRouted_k(d), d);
+        constraintSet.push_back(OSNRConstraint);
+    }
+    std::cout << "OSNR constraints have been defined..." << std::endl;
+}
+
+/* Returns the OSNR constraint associated with a demand. */
+Constraint FlowForm::getOSNRConstraint(const Demand &demand, int d){
+    Expression exp;
+    double rhs; double rls;
+    rhs = demand.getMaxLength(); rls = 0;
+    
+    for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+        int arc = getArcIndex(a, d); 
+        double coeff = getArcLength(a, d);
+        Term term(x[d][arc], coeff);
+        exp.addTerm(term);
+    }
+    std::ostringstream constraintName;
+    constraintName << "OSNR_" << demand.getId()+1;
+    Constraint constraint(rls, exp, rhs, constraintName.str());
+    constraint.display();
+    return constraint;
+}
+
 
 /* Defines the second set of Improved Non-Overlapping constraints. */
 void FlowForm::setNonOverlappingConstraints(){

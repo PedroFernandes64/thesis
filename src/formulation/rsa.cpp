@@ -121,7 +121,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
    
     /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/
     //Modulo GN MODEL
-    std::cout << "GN MODEL PRE PROCESSING" << std::endl;
+    std::cout << "GN Model pre processing" << std::endl;
     gnModel();
     /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/
 }
@@ -345,7 +345,7 @@ void RSA::gnModel(){
 	double l_amp;
     double n_amp;		
 	double osnr;						
-
+    /*
 	std::cout << "Calculating OSNR " << std::endl;
 	for (int i = 0 ; i <toBeRouted.size(); i++){			
 		std::cout << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;		
@@ -372,6 +372,7 @@ void RSA::gnModel(){
         }
          std::cout << "---------" << std::endl;
     }
+    */
 }
 
 /** Returns the total number of loads to be routed. **/

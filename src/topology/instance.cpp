@@ -149,7 +149,15 @@ void Instance::readTopology(){
 		double edgeLength = std::stod(dataList[i][3]);
 		int edgeNbSlices = std::stoi(dataList[i][4]);
 		double edgeCost = std::stod(dataList[i][5]);
-		Fiber edge(idEdge, edgeIndex, edgeSource, edgeTarget, edgeLength, edgeNbSlices, edgeCost);
+		// Only read amplis if GNModel activated, if not consider instance length/80
+		int edgeAmplis = 0;
+		if (this->input.isGNModelEnabled() == true ){
+			edgeAmplis = std::stod(dataList[i][6]);
+		}
+		else{
+			edgeAmplis = floor(edgeLength/80);
+		}
+		Fiber edge(idEdge, edgeIndex, edgeSource, edgeTarget, edgeLength, edgeNbSlices, edgeCost, edgeAmplis);
 		this->tabEdge.push_back(edge);
 		if (edgeSource > maxNode) {
 			maxNode = edgeSource;
@@ -647,149 +655,3 @@ Fiber Instance::getPhysicalLinkBetween(int u, int v){
 	Fiber link(-1,-1,-1,-1);
 	return link;
 }
-
-/*PEDRO PEDRO PEDRO*/
-/*void Instance::followPaths(){
-
-	// BUILDING PATH MAP
-	std::vector<std::vector<int> > pathMap;
-	std::vector<int> currentPath;	
-
-	for (unsigned int i = 0; i < getNbDemands(); i++){
-		int currentVertexId = getDemandFromIndex(i).getSource();
-		int lastVertexId = -1;
-		while (currentVertexId != getDemandFromIndex(i).getTarget()){	
-			for (unsigned int e = 0; e < tabEdge.size(); e++){
-				if((tabEdge[e].getSource() ==  currentVertexId) && (tabEdge[e].getTarget() != lastVertexId)){
-					if(tabEdge[e].getSlice_i(getDemandFromIndex(i).getSliceAllocation()).getAssignment() == getDemandFromIndex(i).getId()){
-						lastVertexId = currentVertexId;
-						currentVertexId = tabEdge[e].getTarget();
-						currentPath.push_back(tabEdge[e].getId());
-						break;
-					}
-				}else{
-				if((tabEdge[e].getTarget() ==  currentVertexId) && (tabEdge[e].getSource() != lastVertexId)){
-					if(tabEdge[e].getSlice_i(getDemandFromIndex(i).getSliceAllocation()).getAssignment() == getDemandFromIndex(i).getId()){
-						lastVertexId = currentVertexId;
-						currentVertexId = tabEdge[e].getSource();
-						currentPath.push_back(tabEdge[e].getId());
-						break;
-					}
-				}
-				}
-			}
-		}
-		pathMap.push_back(currentPath);
-		currentPath.clear();
-	}
-
-	//DEMANDE
-	int origin;
-	int destination;
-	double debit_client;
-
-	//CHEMIN
-	std::vector<int> edges;
-	double distance;
-	int slots_disponibles;
-
-	//TRANSPONDEUR
-	double modulation;
-	double vitesse;
-	double debit;
-	double osnr_limite;
-	double slots_transpondeur;
-
-	//GN MODEL
-	//PASE
-	double h = 6.62 * pow(10,-34);
-	double pase;
-	double lambda = 1545 * pow(10,-9);
-	double c = 3 *pow(10,8);
-	double nu = c/lambda;
-	double NF = 5;
-	double nsp = (1.0/2.0) * pow(10,NF/10);
-	double alpha = 0.2;				//db/km
-	double ls = 100;				//km
-	double Gdb = alpha * ls;
-	double Glin = pow(10,Gdb/10);
-	double Bn = 12.5 * pow(10,9);
-	std::cout << "h " << h << std::endl;
-	std::cout << "nu" << nu << std::endl;
-	std::cout << "nsp" << nsp << std::endl;
- 	std::cout << "Glin " << Glin << std::endl;
-	std::cout << "Bn " << Bn << std::endl;
-	pase = 2.0* h * nu * nsp * (1.0-Glin) * Bn; 
-	std::cout << "pase " << pase << std::endl;
-	std::cout << "mano que porra " << std::endl;
-
-	//GNLI
-	double gnli;
-	double D = 17;
-	double beta = abs(D) * pow(lambda,2)/(2*M_1_PIl*c);
-	double n2 = 2.96 * pow (10,-20);
-	double aeff = 80 * pow (10,-12);
-	double gama = (n2/aeff) * (2*M_1_PIl/lambda);
-	double bwdm = 4000 * pow(10,9); 			
-	double Psat = 50 * pow(10,-3);
-	double gwdm = Psat/bwdm;
-	double leff = (1.0 - exp(-2.0*alpha*ls))/(2.0*alpha);
-	gnli = (8.0/27.0) * pow(gama,2) * pow(gwdm,3) * pow(leff,2) * (asinh(pow(M_1_PIl/2,2)*beta*leff*pow(bwdm,2))/(M_1_PIl*beta*leff));
-	std::cout << "gnli " << gnli << std::endl;
-	//PNLI
-	double pnli;
-	double bch = 12.5 * pow(10,9);
-	double pch;
-	double beqch;
-
-	//OSNR
-	double epsilon = 0.03;	
-	double ns;		
-	double osnr;						
-
-	std::cout << "Calculating OSNR " << std::endl;
-	for (int i = 0 ; i <pathMap.size(); i++){			
-		std::cout << "OSNR demand: "  << i+1 << std::endl;		
-		for (int j = 0 ; j <pathMap[i].size(); j++){
-			distance += tabEdge[pathMap[i][j]-1].getLength();
-		}
-		debit = tabDemand[i].getMaxLength()/10;
-		
-		slots_disponibles = tabDemand[i].getLoad();
-		slots_transpondeur = slots_disponibles;
-	
-		pch = slots_transpondeur * bch * gwdm;	
-		beqch = pch/gwdm;
-		ns = distance/ls;							
-		ns = distance/ls;
-		pnli = gnli * Bn * pow(pch,-3) * pow(beqch,3);
-		osnr = pch/(pase * ns + pnli * pow(ns,1+epsilon) * pow(pch,3) * pow(beqch,-3));
-		std::cout << "pase * ns " << pase * ns << std::endl;
-		std::cout << "pnli * pow(ns,1+epsilon)" <<  pnli * pow(ns,1+epsilon) << std::endl;
-		std::cout << "pow(beqch,-3)" << pow(beqch,-3) << std::endl;
-		std::cout << "valor de baixo" << (pase * ns + pnli * pow(ns,1+epsilon) * pow(pch,3) * pow(beqch,-3)) << std::endl;
-		std::cout << "OSNR: " << osnr << std::endl;
-		osnr = 10.0 * log10(osnr);
-		std::cout << "OSNR: " << osnr << std::endl;
-		if (osnr >= osnr_limite){
-			std::cout << "OSNR available for this transpondeur" << std::endl;
-			if (debit_client <= debit){
-				std::cout << "Debit available for this transpondeur" << std::endl;
-				if (slots_disponibles <= slots_transpondeur){
-					std::cout << "Slots available for this transpondeur" << std::endl;
-					std::cout << "This demand can be routed" << std::endl;
-				}else{
-					std::cout << "This demand cant be routed" << std::endl;
-				}
-			}else{
-				std::cout << "This demand cant be routed" << std::endl;
-			}
-		}else{
-				std::cout << "This demand cant be routed" << std::endl;
-		}
-		std::cout << "---------" << std::endl;
-	}
-	
-}
-*/
-/*PEDRO PEDRO PEDRO*/

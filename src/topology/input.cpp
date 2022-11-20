@@ -21,6 +21,8 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
         GNPY_equipmentFile = getParameterValue("GNPY_equipmentFile=");
     }
 
+    std::cout << "Getting GNMODEL_Pedro parameters..." << std::endl;
+    GNModel_activation = std::stoi(getParameterValue("GNModel_activation="));
 
     std::cout << "Getting formulation parameters..." << std::endl;
 
@@ -97,7 +99,7 @@ Input::Input(const Input &i) : PARAMETER_FILE(i.getParameterFile()){
         GNPY_topologyFile = i.getGNPYTopologyFile();
         GNPY_equipmentFile = i.getGNPYEquipmentFile();
     }
-
+    GNModel_activation = i.isGNModelEnabled();
     nbDemandsAtOnce = i.getNbDemandsAtOnce();
     chosenObj = i.getChosenObj();
     allowBlocking = i.isBlockingAllowed();

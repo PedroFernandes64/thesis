@@ -150,6 +150,9 @@ private:
 	int nbIterationsWithoutImprovement;	/**< The maximal number of iterations allowed in the subgradient method.**/
 	int maxNbIterations;				/**< The maximal number of iterations allowed without improving the lower bound in the subgradient method.**/
 
+	/******** INCLUSION FOR GN MODEL *********/
+	bool GNModel_activation;			/**< If GNModel will be used. **/
+
 	/******** INCLUSION FOR LAGRANGIAN *********/
 	bool lagrangianRelaxation;               /**< If this option is active, the lagrangian relaxation is run. **/
 	LagFormulation lagChosenFormulation;     /**< The chosen Lagrangian Formulation. **/
@@ -235,6 +238,9 @@ public:
 
 	/** Returns true if GNPY should be used. **/
     bool isGNPYEnabled() const { return GNPY_activation; }
+
+	/** Returns true if GNModel should be used. **/
+	bool isGNModelEnabled() const { return GNModel_activation; }
 
 	bool isObj8(int i) const;
 

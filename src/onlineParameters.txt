@@ -9,6 +9,9 @@ GNPY_activation=0
 GNPY_topologyFile=../oopt-gnpy/gnpy/example-data/spain_topo.json 
 GNPY_equipmentFile=../oopt-gnpy/gnpy/example-data/spain_eqpt_config.json 
 
+******* GNModel parameters *******
+GNModel_activation=1
+
 ******* Formulation parameters *******
 nbDemandsAtOnce=29
 formulation=0

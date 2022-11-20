@@ -6,7 +6,7 @@
 /****************************************************************************************/
 
 /** Constructor. **/
-Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c) {
+Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la) {
 	this->setId(i);
 	this->setIndex(ind);
 	this->setSource(s);
@@ -17,6 +17,7 @@ Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c) {
 		this->spectrum.push_back(Slice());
 	}
 	this->setCost(c);
+	this->setLineAmplifiers(la);
 }
 
 Fiber::Fiber(const Fiber & f){
@@ -30,6 +31,7 @@ Fiber::Fiber(const Fiber & f){
 		this->spectrum.push_back(f.spectrum[i]);
 	}
 	this->setCost(f.cost);
+	this->setLineAmplifiers(f.lineAmplifiers);
 }
 
 /****************************************************************************************/
@@ -56,6 +58,7 @@ void Fiber::copyFiber(Fiber & edge){
 	}	
 	this->setLength(edge.getLength());
 	this->setCost(edge.getCost());
+	this->setLineAmplifiers(edge.getLineAmplifiers());
 }
 
 /* Verifies if the fiber is routing a demand. */
@@ -109,13 +112,13 @@ int Fiber::getNbUsedSlices() const {
 /* Displays summarized information about the fiber. */
 void Fiber::displayFiber(){
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
-	std::cout << ". nb slices: " << this->getNbSlices() << ", length: " << this->getLength() << ", cost: " << this->getCost() << std::endl;
+	std::cout << ". nb slices: " << this->getNbSlices() << ", length: " << this->getLength() << ", cost: " << this->getCost() << ", amplis: " << this->getLineAmplifiers() << std::endl;
 }
 
 /* Displays detailed information about state of the fiber. */
 void Fiber::displayDetailedFiber(){
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
-	std::cout << ". lenght: " << this->getLength() << ", cost: " << this->getCost() << std::endl;
+	std::cout << ". lenght: " << this->getLength() << ", cost: " << this->getCost() << ", amplis: " << this->getLineAmplifiers() << std::endl;
 	for (int i = 0; i < this->getNbSlices(); i++){
 		std::cout << "\tSlice #" << i+1 << ". ";
 		if (this->spectrum[i].isUsed()) {

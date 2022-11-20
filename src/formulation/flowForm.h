@@ -78,6 +78,9 @@ public:
 	/** Defines Length constraints. Demands must be routed within a length limit. **/
     void setLengthConstraints();
 
+	/** Defines OSNR constraints. Demands must be routed within a OSNR limit. **/
+    void setOSNRConstraints();
+
 	/** Defines Non-Overlapping constraints. Demands must not overlap eachother's slices. **/
     void setNonOverlappingConstraints();
 	
@@ -92,6 +95,9 @@ public:
 	
     /** Returns the length constraint associated with a demand. @param demand The demand. @param d The demand index. **/
     Constraint getLengthConstraint(const Demand &demand, int d);
+
+	/** Returns the OSNR constraint associated with a demand. @param demand The demand. @param d The demand index. **/
+    Constraint getOSNRConstraint(const Demand &demand, int d);
 
 	/** Returns the non-overlapping constraint associated with an edge and a slice. @param linkLabel The arc label. @param slice The arc slice. **/
 	Constraint getNonOverlappingConstraint(int linkLabel, int slice);
