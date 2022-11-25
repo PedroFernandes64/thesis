@@ -2,7 +2,7 @@
 
 /* Constructor. A graph associated to the initial mapping (instance) is built as well as an extended graph for each demand to be routed. */
 RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), compactEdgeLabel(compactGraph), 
-                                compactEdgeLength(compactGraph), compactNodeId(compactGraph), 
+                                compactEdgeLength(compactGraph), compactEdgeLineAmplifiers(compactGraph), compactNodeId(compactGraph), 
                                 compactNodeLabel(compactGraph){
     setStatus(STATUS_UNKNOWN);
     /* Creates compact graph. */
@@ -30,7 +30,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
         vecArcLabel.emplace_back( std::make_shared<ArcMap>((*vecGraph[d])) );
         vecArcSlice.emplace_back( std::make_shared<ArcMap>((*vecGraph[d])) );
         vecArcLength.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
-        //vecArcLineAmplifiers.emplace_back( std::make_shared<ArcMap>((*vecGraph[d])) );
+        vecArcLineAmplifiers.emplace_back( std::make_shared<ArcMap>((*vecGraph[d])) );
         vecArcLengthWithPenalty.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
         vecNodeId.emplace_back( std::make_shared<NodeMap>((*vecGraph[d])) );
         vecNodeLabel.emplace_back( std::make_shared<NodeMap>((*vecGraph[d])) );
@@ -55,19 +55,24 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
                             onLeftRegion = false;
                         }
                         if ( (onLeftRegion) && (s < instance.getInput().getPartitionSlice()) ){
-                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
-                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
+                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
+                            //addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
+                            //addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
+                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
                         }
                         if ( (!onLeftRegion) && (s >= instance.getInput().getPartitionSlice()) ){
-                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
-                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
+                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
+                            //addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
+                            //addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
+                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
                         }
                     }
                     else{
                         /* CREATE NODES (u, s) AND (v, s) IF THEY DO NOT ALREADY EXIST AND ADD AN ARC BETWEEN THEM */
-                        //addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
-                        addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
-                        addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
+                        addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
+                        //addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
+                        //addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
+                        addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
                     }
                 }
             }
@@ -218,18 +223,22 @@ void RSA::gnModel(){
         }
     }*/
     std::vector<std::vector<double> > alldemandsdistances;
+    std::vector<std::vector<int> > alldemandslineamplis;
     std::vector<std::vector<int> > alldemandsvertexamplis;
     std::vector<double> thisdemanddistances;
+    std::vector<int> thisdemandlineamplis;
     std::vector<int> thisdemandvertexamplis;
     int currentnode;
     int nextnode;
     double length;
+    int lineamplis;
     int vertexamplis;
     for (int i = 0; i <allpaths.size(); ++i){
         //std::cout << "for demand " << i+1 <<std::endl;
         for (int j = 0; j <allpaths[i].size(); ++j){
             length = 0;
             vertexamplis = 0;
+            lineamplis = 0;
             //std::cout << "path " << j+1 << " : ";
             for (int k = 0; k <allpaths[i][j].size()-1; ++k){
                 //std::cout << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " "; 
@@ -237,18 +246,22 @@ void RSA::gnModel(){
                 nextnode = getCompactNodeLabel(allpaths[i][j][k+1]);
                 //std::cout << currentnode << " " << nextnode << " ";
                 length += instance.getPhysicalLinkBetween(currentnode,nextnode).getLength();
+                lineamplis += instance.getPhysicalLinkBetween(currentnode,nextnode).getLineAmplifiers();
                 vertexamplis++;
                 //std::cout << "LENGTH= " << length << std::endl;
 
             }
             vertexamplis = vertexamplis +1;
             thisdemanddistances.push_back(length);
+            thisdemandlineamplis.push_back(lineamplis);
             thisdemandvertexamplis.push_back(vertexamplis);
             //std::cout << allpaths[i][j][k+1]<<" with total lenght = " << length << std::endl;
         }
         alldemandsdistances.push_back(thisdemanddistances);
+        alldemandslineamplis.push_back(thisdemandlineamplis);
         alldemandsvertexamplis.push_back(thisdemandvertexamplis);
         thisdemanddistances.clear();
+        thisdemandlineamplis.clear();
         thisdemandvertexamplis.clear();
 
     }
@@ -260,7 +273,7 @@ void RSA::gnModel(){
         }
     }*/
 
-
+    /*
     //DJIKISTRA MODULE     
     std::vector<std::vector<ListGraph::Node> > djikistrapathsdemand;
     std::vector<double> djikistradistancesdemand;
@@ -290,11 +303,13 @@ void RSA::gnModel(){
         for (auto p = path.rbegin(); p != path.rend(); ++p)
             std::cout << compactNodeLabel[*p]+1 << " ";
         std::cout << std::endl << "Total cost for the shortest path is: "<< cost << std::endl;
-        int j = 0;*/
+        int j = 0;
         djikistrapathsdemand.push_back(path);
         djikistradistancesdemand.push_back(cost);
     }
-
+    */
+    
+    /*
     //DEMANDE
 	int origin_demande;
 	int destination_demande;
@@ -347,6 +362,63 @@ void RSA::gnModel(){
 	double l_amp;
     double n_amp;		
 	double osnr;						
+    */
+
+    //DEMANDE
+    int origin_demande;
+    int destination_demande;
+    int slots;
+
+    //PATH
+    std::vector<int> edges;
+	double distance;
+
+	//GN MODEL
+	//PASE
+    double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
+    double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
+    double c = 3.0 *pow(10,8);                          //SI meters by second, m 
+    double nu = c/lambd;                                //SI hertz
+    double NF = 5.0;                                    //SI dB
+    double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
+    double alpha = 0.2;                                 //NOT SI dB/kilometer 
+    double a = log(10)*alpha/20 * pow(10,-3);           //SI 1/km
+    double ls = 80;                                     //NOT SI kilometers
+    double Ls = 80 * pow(10,3);                         //SI meters
+    double Gdb = alpha * ls;                            //SI #dB
+    double Glin = pow(10,Gdb/10);                       //LINEAR
+    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
+    double pase = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
+
+	//GNLI
+    double D = 16.5;                                            //#NOT SI ps/(nm km)
+    double SI_D = D * pow (10,-6);                              //#SI s/m^2)
+    double beta2 = abs(SI_D) * pow(lambd,2)/(2*M_PIl*c);      //#SI s^2/m   
+    double n2 = 2.7 * pow (10,-20);                             //#SI m^2/W               #Usually micrometer^2
+    double aeff = 85 * pow (10,-12);                            //#SI m^2                 #Usually micrometer^2
+    double gam = (n2/aeff) * (2*M_PIl/lambd);                 //#SI 1/W m
+    double bwdm = 5000 * pow(10,9);                             //#SI #Hz                 #Usually gigahertz
+    double Psat = 50 * pow(10,-3);                              //#SI #W                  #Usually mW
+    double gwdm = Psat/bwdm;                                    //#SI #W/Hz
+    double leff = (1.0 - exp(-2.0*a*Ls))/(2.0*a);               //#SI #km
+    double leff_a = 1.0/(2.0 *a);                               //#SI #km 
+    double gnli = (8.0/27.0) * pow(gam,2) * pow(gwdm,3) * pow(leff,2) * (asinh(pow(M_PIl/2,2)*beta2*leff_a*pow(bwdm,2))/(M_PIl*beta2*leff_a));
+
+    //PNLI
+    double pnli = gnli * Bn;
+    double pch;
+
+    //Epsilon
+    double  epsilon = (3.0/10.0) * log(1 + (6.0/Ls) * (leff_a/(asinh((pow(M_PIl,2)/2)*beta2*leff_a*pow(bwdm,2))))); 
+
+	//OSNR
+    double osnrdb;
+    double osnrlimdb = 20.0;
+    double osnrlim = pow(10,osnrlimdb/10);
+    int n_amp;
+    int l_amp;
+    double osnr;
+    
     /*
 	std::cout << "Calculating OSNR " << std::endl;
 	for (int i = 0 ; i <toBeRouted.size(); i++){			
@@ -364,17 +436,25 @@ void RSA::gnModel(){
                 std::cout << "---Amplis at vertex = " << n_amp << std::endl;                
                 slots = toBeRouted[i].getLoad();        
                 pch = slots * Bn * gwdm;	
-                l_amp = floor(distance/ls); //amplis inline vertex
+                l_amp = alldemandslineamplis[i][j]; //amplis inline vertex
                 std::cout << "---Amplis at edges = " << l_amp << std::endl;   			
                 osnr = pch/(pase * (l_amp + n_amp) + pnli * pow(l_amp,1+epsilon));
-                osnr = 10.0 * log10(osnr);
-                std::cout << "---OSNR en db = " << osnr << std::endl;
+                osnrdb = 10.0 * log10(osnr);
+                std::cout << "---OSNR en db = " << osnrdb << std::endl;
 
             }
         }
-         std::cout << "---------" << std::endl;
-    }
-    */
+    }*/
+    //GN VERIFIER
+    std::cout << "VERIFICATING GN COMPONENTS" << std::endl;
+    pch = 5 * Bn * gwdm;
+    osnr = pch/(pase * (5 + 5) + pnli * pow(5,1+epsilon));
+    osnrdb = 10.0 * log10(osnr);
+    std::cout << "---OSNR en db = " << osnrdb << std::endl;
+    std::cout << "C1 = Pch = "<<pch<< std::endl;
+    std::cout << "C2 = Pase = "<< pase<< std::endl;
+    std::cout << "C3 = Pnli = "<<pnli<< std::endl;
+    std::cout << "C4 = Epsilon = " << epsilon<< std::endl;
 }
 
 /** Returns the total number of loads to be routed. **/
@@ -412,14 +492,14 @@ void RSA::buildCompactGraph(){
             compactEdgeId[e] = compactGraph.id(e);
             compactEdgeLabel[e] = edge.getIndex();
             compactEdgeLength[e] = edge.getLength();
-            //compactEdgeLineAmplifiers[e] = edge.getLineAmplifiers()
+            compactEdgeLineAmplifiers[e] = edge.getLineAmplifiers();
         }
     }
 }
 
 /* Creates an arc -- and its nodes if necessary -- between nodes (source,slice) and (target,slice) on a graph. */
-void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l){
-//void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l, int la){
+//void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l){
+void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l, int la){
     ListDigraph::Node arcSource = getNode(d, linkSourceLabel, slice);
     ListDigraph::Node arcTarget = getNode(d, linkTargetLabel, slice);
 
@@ -447,7 +527,7 @@ void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel
     setArcLabel(a, d, linkLabel);
     setArcSlice(a, d, slice);
     setArcLength(a, d, l);
-    //setArcLineAmplifiers(a, d, la);
+    setArcLineAmplifiers(a, d, la);
     int hop = instance.getInput().getHopPenalty();
     if (linkSourceLabel == getToBeRouted_k(d).getSource()){
         setArcLengthWithPenalty(a, d, l);
@@ -971,6 +1051,7 @@ RSA::~RSA() {
     vecArcLabel.clear();
     vecArcSlice.clear();
     vecArcLength.clear();
+    vecArcLineAmplifiers.clear();
     vecNodeId.clear();
     vecNodeLabel.clear();
     vecNodeSlice.clear();

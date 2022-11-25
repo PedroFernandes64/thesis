@@ -14,7 +14,7 @@ ILOSTLBEGIN
 using namespace lemon;
 
 int main(int argc, char *argv[]) {
-	std::cout << "PIKA DE CRISTAL 33: " << std::endl;
+
 	ClockTime GLOBAL_TIME(ClockTime::getTimeNow());
 
 	/********************************************************************/

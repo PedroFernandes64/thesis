@@ -4,7 +4,6 @@
 /* Constructor. Builds the Online RSA mixed-integer program and solves it using a defined solver (CPLEX or CBC). */
 FlowForm::FlowForm(const Instance &inst) : AbstractFormulation(inst){
     
-    std::cout << "comecar a criar flow" << std::endl;
     if(inst.getInput().getChosenNodeMethod() == Input::NODE_METHOD_LINEAR_RELAX){
         ClockTime time(ClockTime::getTimeNow());
         ClockTime time2(ClockTime::getTimeNow());
@@ -22,7 +21,6 @@ FlowForm::FlowForm(const Instance &inst) : AbstractFormulation(inst){
         objImpleTime = time.getTimeInSecFromStart() ;
         std::cout << "--- Flow formulation has been defined ---" << std::endl;
         totalImpleTime = time2.getTimeInSecFromStart() ;
-        std::cout << "fim a criar flow" << std::endl;
         //std::cout << "Time: " << time.getTimeInSecFromStart() << std::endl;
     }
 }
@@ -283,6 +281,7 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
 
 void FlowForm::setConstraints(){
     this->setSourceConstraints();
+    std::cout << "o tamanho da trolha" << std::endl;
     this->setFlowConservationConstraints();
     this->setTargetConstraints();
 
@@ -351,9 +350,11 @@ Constraint FlowForm::getSourceConstraint_d_n(const Demand & demand, int d, int n
 
 /* Defines Flow Conservation constraints. If an arc enters a node, then an arc must leave it. */
 void FlowForm::setFlowConservationConstraints(){
-    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){ 
+        std::cout << "o tamanho da trolha2" << std::endl << std::flush;  
         for (ListDigraph::NodeIt v(*vecGraph[d]); v != INVALID; ++v){
             int label = getNodeLabel(v, d);
+            //std::cout << "demanda" << d+1 << "no " << label << std::endl << std::flush;  
             if( (label != getToBeRouted_k(d).getSource()) && (label != getToBeRouted_k(d).getTarget()) ){
                 const Constraint & flow = getFlowConservationConstraint_i_d(v, getToBeRouted_k(d), d);
                 constraintSet.push_back(flow);
@@ -521,14 +522,14 @@ Constraint FlowForm::getOSNRConstraint(const Demand &demand, int d){
     
     for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
         int arc = getArcIndex(a, d); 
-        double coeff = getArcLength(a, d);
+        double coeff = getArcLength(a, d); // CHANGE HERE TO AMPLIFIERS
         Term term(x[d][arc], coeff);
         exp.addTerm(term);
     }
     std::ostringstream constraintName;
     constraintName << "OSNR_" << demand.getId()+1;
     Constraint constraint(rls, exp, rhs, constraintName.str());
-    constraint.display();
+    //constraint.display();
     return constraint;
 }
 
@@ -1164,7 +1165,9 @@ void FlowForm::writePathRequest(std::ofstream &serviceFile, int d){
 
 void FlowForm::setLagConstraints(){
     this->setSourceConstraints();
+    std::cout << "bau aca" << std::endl;
     this->setFlowConservationConstraints();
+    std::cout << "bau aca" << std::endl;
     this->setTargetConstraints();
     this->setLengthConstraints();
     this->setNonOverlappingConstraints();    
