@@ -152,10 +152,10 @@ void Instance::readTopology(){
 		// Only read amplis if GNModel activated, if not consider instance length/80
 		int edgeAmplis = 0;
 		if (this->input.isGNModelEnabled() == true ){
-			edgeAmplis = std::stod(dataList[i][6]);
+			edgeAmplis = std::stoi(dataList[i][6]);
 		}
 		else{
-			edgeAmplis = floor(edgeLength/80);
+			edgeAmplis = int(floor(edgeLength/80));
 		}
 		Fiber edge(idEdge, edgeIndex, edgeSource, edgeTarget, edgeLength, edgeNbSlices, edgeCost, edgeAmplis);
 		this->tabEdge.push_back(edge);

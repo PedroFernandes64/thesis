@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../Parameters/Instances/Pedro/German_D17/Link.csv
+topologyFile=../Parameters/Instances/Pedro/mini/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../Parameters/Instances/Pedro/German_D17/10demands
+demandToBeRoutedFolder=../Parameters/Instances/Pedro/mini/2demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -13,7 +13,7 @@ GNPY_equipmentFile=../oopt-gnpy/gnpy/example-data/spain_eqpt_config.json
 GNModel_activation=1
 
 ******* Formulation parameters *******
-nbDemandsAtOnce=29
+nbDemandsAtOnce=30
 formulation=0
 userCuts=1
 obj=2

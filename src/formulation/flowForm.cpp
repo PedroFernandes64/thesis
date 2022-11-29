@@ -281,7 +281,6 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
 
 void FlowForm::setConstraints(){
     this->setSourceConstraints();
-    std::cout << "o tamanho da trolha" << std::endl;
     this->setFlowConservationConstraints();
     this->setTargetConstraints();
 
@@ -291,6 +290,7 @@ void FlowForm::setConstraints(){
     else{
         this->setLengthConstraints();
     }
+    this->setLengthConstraints();
     //this->setStrongLengthConstraints();
     this->setNonOverlappingConstraints();    
 
@@ -350,11 +350,10 @@ Constraint FlowForm::getSourceConstraint_d_n(const Demand & demand, int d, int n
 
 /* Defines Flow Conservation constraints. If an arc enters a node, then an arc must leave it. */
 void FlowForm::setFlowConservationConstraints(){
-    for (int d = 0; d < getNbDemandsToBeRouted(); d++){ 
-        std::cout << "o tamanho da trolha2" << std::endl << std::flush;  
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
         for (ListDigraph::NodeIt v(*vecGraph[d]); v != INVALID; ++v){
+            //std::cout << "neymar peladao" << std::flush << std::endl;
             int label = getNodeLabel(v, d);
-            //std::cout << "demanda" << d+1 << "no " << label << std::endl << std::flush;  
             if( (label != getToBeRouted_k(d).getSource()) && (label != getToBeRouted_k(d).getTarget()) ){
                 const Constraint & flow = getFlowConservationConstraint_i_d(v, getToBeRouted_k(d), d);
                 constraintSet.push_back(flow);
@@ -507,7 +506,6 @@ Constraint FlowForm::getLengthConstraint(const Demand &demand, int d){
 /* Defines OSNR constraints. Demands must be routed within a OSNR limit. */
 void FlowForm::setOSNRConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
-        std::cout << "adicionando osnr constraint para " << d<< std::endl;
         const Constraint & OSNRConstraint = getOSNRConstraint(getToBeRouted_k(d), d);
         constraintSet.push_back(OSNRConstraint);
     }
@@ -522,14 +520,15 @@ Constraint FlowForm::getOSNRConstraint(const Demand &demand, int d){
     
     for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
         int arc = getArcIndex(a, d); 
-        double coeff = getArcLength(a, d); // CHANGE HERE TO AMPLIFIERS
+        double coeff = getArcLineAmplifiers(a, d); // CHANGE HERE TO AMPLIFIERS
         Term term(x[d][arc], coeff);
         exp.addTerm(term);
     }
     std::ostringstream constraintName;
     constraintName << "OSNR_" << demand.getId()+1;
     Constraint constraint(rls, exp, rhs, constraintName.str());
-    //constraint.display();
+    std::cout << "For demand " << d<< std::endl;
+    constraint.display();
     return constraint;
 }
 

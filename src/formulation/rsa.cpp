@@ -308,62 +308,7 @@ void RSA::gnModel(){
         djikistradistancesdemand.push_back(cost);
     }
     */
-    
     /*
-    //DEMANDE
-	int origin_demande;
-	int destination_demande;
-    int slots;
-	//CHEMIN
-	std::vector<int> edges;
-	double distance;
-
-	//GN MODEL
-	//PASE
-    double pase;
-	double h = 6.62 * pow(10,-34);
-	double lambda = 1545 * pow(10,-9);
-	double c = 3 *pow(10,8);
-	double nu = c/lambda;
-	double NF = 5;
-	double nsp = (1.0/2.0) * pow(10,NF/10);
-	double alpha = 0.2;				//db/km
-	double ls = 80;				//km
-	double Gdb = alpha * ls;
-	double Glin = pow(10,Gdb/10);
-	double Bn = 12.5 * pow(10,9);
-	pase = 2.0* h * nu * nsp * (Glin-1.0) * Bn; 
-
-	//GNLI
-	double gnli;
-	double D = 17;
-	double beta = abs(D) * pow(lambda,2)/(2*M_1_PIl*c);
-	double n2 = 2.96 * pow (10,-20); //m2/watt
-	double aeff = 80 * pow (10,-12);
-	double gama = (n2/aeff) * (2*M_1_PIl/lambda);
-	double bwdm = 4500 * pow(10,9); 			
-	double Psat = 50 * pow(10,-3);
-	double gwdm = Psat/bwdm;
-	double leff = (1.0 - exp(-2.0*alpha*ls))/(2.0*alpha);
-	gnli = (8.0/27.0) * pow(gama,2) * pow(gwdm,3) * pow(leff,2) * (asinh(pow(M_1_PIl/2,2)*beta*leff*pow(bwdm,2))/(M_1_PIl*beta*leff));
-
-	//PNLI
-	double pnli;
-    pnli = gnli * Bn;
-	double pch;
-
-    //Epsilon
-
-    double epsilon;	
-    epsilon = (3.0/8.0) * log(1 + (6.0/ls) * (leff/(asinh(pow(M_1_PIl/2,2)*beta*leff*pow(bwdm,2)))));
-    std::cout << epsilon << std::endl;
-
-	//OSNR
-	double l_amp;
-    double n_amp;		
-	double osnr;						
-    */
-
     //DEMANDE
     int origin_demande;
     int destination_demande;
@@ -419,7 +364,6 @@ void RSA::gnModel(){
     int l_amp;
     double osnr;
     
-    /*
 	std::cout << "Calculating OSNR " << std::endl;
 	for (int i = 0 ; i <toBeRouted.size(); i++){			
 		std::cout << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;		
@@ -444,7 +388,7 @@ void RSA::gnModel(){
 
             }
         }
-    }*/
+    }
     //GN VERIFIER
     std::cout << "VERIFICATING GN COMPONENTS" << std::endl;
     pch = 5 * Bn * gwdm;
@@ -455,6 +399,7 @@ void RSA::gnModel(){
     std::cout << "C2 = Pase = "<< pase<< std::endl;
     std::cout << "C3 = Pnli = "<<pnli<< std::endl;
     std::cout << "C4 = Epsilon = " << epsilon<< std::endl;
+    */
 }
 
 /** Returns the total number of loads to be routed. **/

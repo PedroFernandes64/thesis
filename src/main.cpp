@@ -130,10 +130,10 @@ int main(int argc, char *argv[]) {
 		instance.displayAllDemands();
 		std::cout << "Time taken by optimization is : ";
 		std::cout << std::fixed  << OPTIMIZATION_TIME.getTimeInSecFromStart() << std::setprecision(9); 
-		std::cout << " sec" << std::endl; 
+		std::cout << " sec" << std::endl;
 	}
-
-	std::cout << "Total time taken by program is : ";
+	
+	std::cout << "Total time taken by program is : " << std::flush;
 	std::cout << std::fixed  << GLOBAL_TIME.getTimeInSecFromStart() << std::setprecision(9); 
 	std::cout << " sec" << std::endl;
 

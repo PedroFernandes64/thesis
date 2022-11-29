@@ -81,22 +81,25 @@ if __name__ == "__main__":
     c3 = pnli
     print("C4 = Epsilon = ", epsilon)
     c4 = epsilon
-    """
+    
     osnrlim = pow(10,osnrlimdb/10)
-    print(osnr)
-    print(osnrlim)
     aux = c1/osnrlim
-    normalizer = 1.0 #c2*c3*aux
+    normalizer = 1 #c2*c3*aux
+    print("normalizador ", normalizer)
     aa = c2/normalizer
     cc = c3/normalizer
     rhs = aux/normalizer
     lhs = aa * (l_amp + n_amp) +  cc * l_amp
+    print(lhs,rhs)
     if lhs <= rhs:
         print("ok")
     else:
         print("not ok")
-    print("restriçao")
+    print("Constraint")
     print(aa ,"(Alin + Anoeud) +", cc, "Alin <=", rhs)
     print(aa ," ( ", l_amp, " + ", n_amp, " ) + ", cc, " ", l_amp, " <= ", rhs)
     print(aa * (l_amp + n_amp) +  cc * l_amp, " <= ", rhs)
-    """
+    print("Testing OSNR approximation without 1 + epsilon")
+    osnrtest = pch/(pase * (l_amp + n_amp) + pnli * l_amp)
+    osnrtestdb = 10.0 * math.log10(osnrtest)
+    print("Approached OSNR =", osnrtestdb)

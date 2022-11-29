@@ -4,22 +4,36 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/opt/ibm/ILOG/CPLEX_Studio1210/cplex/include/",
-                "/opt/ibm/ILOG/CPLEX_Studio1210/concert/include/",
-                "/home/phfernan/ressources_thesis/lemon/include/",
-                "/home/phfernan/ressources_thesis/boost_1_78_0/"
+                "/opt/ibm/ILOG/CPLEX_Studio1210/cplex/include/**",
+                "/opt/ibm/ILOG/CPLEX_Studio1210/concert/include/**",
+                "/home/phfernan/ressources_thesis/lemon/include/**",
+                "/home/phfernan/ressources_thesis/boost_1_78_0/**",
+                "/usr/include/**",
+                "/usr/local/include/**",
+                "/usr/local/lib"
             ],
             "defines": [
                 "fPIC",
                 "fexceptions",
                 "DNDEBUG",
-                "DIL_STD"
+                "DIL_STD",
+                "IL_STD"
             ],
             "compilerPath": "/usr/bin/g++",
             "cStandard": "c11",
-            "cppStandard": "c++17",
+            "cppStandard": "c++11",
             "intelliSenseMode": "clang-x64",
-            "configurationProvider": "ms-vscode.makefile-tools"
+            "configurationProvider": "ms-vscode.makefile-tools",
+            "compilerArgs": [
+                "-m64",
+                "-O",
+                "-fPIC",
+                "-fno-strict-aliasing",
+                "-fexceptions",
+                "-DNDEBUG",
+                "-DIL_STD",
+                "-Wno-ignored-attributes "
+            ]
         }
     ],
     "version": 4

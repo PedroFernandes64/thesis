@@ -95,5 +95,11 @@
         "stop_token": "cpp",
         "syncstream": "cpp"
     },
-    "VSCodeCounter.showInStatusBar": true
+    "VSCodeCounter.showInStatusBar": true,
+    "makefile.configurations": [
+        {
+            "name": "Default",
+            "makeArgs": []
+        }
+    ]
 }
