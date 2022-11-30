@@ -283,7 +283,6 @@ void FlowForm::setConstraints(){
     this->setSourceConstraints();
     this->setFlowConservationConstraints();
     this->setTargetConstraints();
-
     if (this->getInstance().getInput().isGNModelEnabled() == true){
         this->setOSNRConstraints();
     }
@@ -298,6 +297,7 @@ void FlowForm::setConstraints(){
     this->setMaxUsedSliceOverallConstraints();    
     this->setMaxUsedSliceOverallConstraints2();    
     this->setMaxUsedSliceOverallConstraints3();   
+
 } 
 
 /* Defines Source constraints. At most one arc leaves each node and exactly one arc leaves the source. */
@@ -516,19 +516,40 @@ void FlowForm::setOSNRConstraints(){
 Constraint FlowForm::getOSNRConstraint(const Demand &demand, int d){
     Expression exp;
     double rhs; double rls;
-    rhs = demand.getMaxLength(); rls = 0;
+
+    
+    double osnrlimdb = 10.0; //should get from demand
+    //passar tudo isso pra dentro do GNModel
+    double osnrlim = pow(10,osnrlimdb/10);
+    double constant2FromGNModel = 19.72;
+    double constant3FromGNModel = 2.12;
+    double constantAuxFromGNModel = 12500; //Bn * gwdm *10^8
+    constantAuxFromGNModel = constantAuxFromGNModel * getToBeRouted_k(d).getLoad();
+    constantAuxFromGNModel = constantAuxFromGNModel/osnrlim;
+    constantAuxFromGNModel = round(constantAuxFromGNModel*100)/100;
+
+    rhs = constantAuxFromGNModel - constant2FromGNModel ; rls = 0;
     
     for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+        //First term
         int arc = getArcIndex(a, d); 
-        double coeff = getArcLineAmplifiers(a, d); // CHANGE HERE TO AMPLIFIERS
+        double coeff = getArcLineAmplifiers(a, d) * constant2FromGNModel;
         Term term(x[d][arc], coeff);
         exp.addTerm(term);
+        //Second term
+        coeff = 1.0 * constant2FromGNModel;
+        Term term2(x[d][arc], coeff);
+        exp.addTerm(term2);
+        //Third term
+        coeff = getArcLineAmplifiers(a, d) * constant3FromGNModel;
+        Term term3(x[d][arc], coeff);
+        exp.addTerm(term3);
     }
     std::ostringstream constraintName;
     constraintName << "OSNR_" << demand.getId()+1;
     Constraint constraint(rls, exp, rhs, constraintName.str());
-    std::cout << "For demand " << d<< std::endl;
-    constraint.display();
+    //std::cout << "For demand " << d<< std::endl;
+    //constraint.display();
     return constraint;
 }
 

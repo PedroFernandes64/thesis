@@ -58,7 +58,7 @@ if __name__ == "__main__":
     l_amp = 0
     n_amp = 0
     osnrdb = 0.0
-    osnrlimdb = 20.0
+    osnrlimdb = 10.0
     slots = int(input("Slots: "))
     n_amp = int(input("Node amplis: "))
     l_amp = int(input("Line amplis: "))
@@ -84,13 +84,20 @@ if __name__ == "__main__":
     
     osnrlim = pow(10,osnrlimdb/10)
     aux = c1/osnrlim
-    normalizer = 1 #c2*c3*aux
-    print("normalizador ", normalizer)
-    aa = c2/normalizer
-    cc = c3/normalizer
-    rhs = aux/normalizer
+    print("rounding stuff")
+    print("aux ", aux)
+    aux = round(aux*100*pow(10,8))/100
+    print("aux rounded", aux)
+    print("c2 ", c2)
+    c2 = round(c2*100*pow(10,8))/100
+    print("c2 rounded", c2)
+    print("c3 ", c3)
+    c3 = round(c3*100*pow(10,8))/100
+    print("aux rounded", c3)
+    aa = c2
+    cc = c3
+    rhs = aux
     lhs = aa * (l_amp + n_amp) +  cc * l_amp
-    print(lhs,rhs)
     if lhs <= rhs:
         print("ok")
     else:
@@ -103,3 +110,9 @@ if __name__ == "__main__":
     osnrtest = pch/(pase * (l_amp + n_amp) + pnli * l_amp)
     osnrtestdb = 10.0 * math.log10(osnrtest)
     print("Approached OSNR =", osnrtestdb)
+
+    print("testonha")
+    tt =Bn * gwdm * pow(10,8)
+    print(tt)
+    print(tt*slots)
+    print(tt*slots/osnrlim)

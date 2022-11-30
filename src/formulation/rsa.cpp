@@ -128,8 +128,10 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
    
     /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/
     //Modulo GN MODEL
-    std::cout << "GN Model pre processing" << std::endl;
-    gnModel();
+    if (this->getInstance().getInput().isGNModelEnabled() == true){
+        std::cout << "GN Model pre processing" << std::endl;
+        gnModel();
+    }
     /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/
 }
 
@@ -180,17 +182,6 @@ void RSA::gnModel(){
         adj_list[compactGraph.id(compactGraph.u(i))].push_back(compactGraph.id(compactGraph.v(i)));
         adj_list[compactGraph.id(compactGraph.v(i))].push_back(compactGraph.id(compactGraph.u(i)));
     }
-    /*std::cout << std::endl;
-    for (int i=0; i< adj_list.size() ; ++i){   
-        std::cout << "adj for " << i << " : ";
-        for (int j=0; j<adj_list[i].size();++j){
-            std::cout << adj_list[i][j]<< " ";
-        }
-        std::cout << std::endl;
-    }*/
-    // ADAPTED DFS
-    //std::vector<std::vector<ListGraph::Node> >  pathsdemand;
-    //std::vector<double> distancesdemand;
     int origin;
     int destination;
     for (int i = 0; i < toBeRouted.size(); ++i){
@@ -212,16 +203,6 @@ void RSA::gnModel(){
         allpaths.push_back(pathsdemand);
         pathsdemand.clear();
     }
-    /*for (int i = 0; i <allpaths.size(); ++i){
-        std::cout << "for demand " << i+1 <<std::endl;
-        for (int j = 0; j <allpaths[i].size(); ++j){
-            std::cout << "path " << j+1 << " : ";
-            for (int k = 0; k <allpaths[i][j].size(); ++k){
-                std::cout << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " "; ;
-            }
-            std::cout << std::endl;
-        }
-    }*/
     std::vector<std::vector<double> > alldemandsdistances;
     std::vector<std::vector<int> > alldemandslineamplis;
     std::vector<std::vector<int> > alldemandsvertexamplis;
@@ -308,7 +289,7 @@ void RSA::gnModel(){
         djikistradistancesdemand.push_back(cost);
     }
     */
-    /*
+    
     //DEMANDE
     int origin_demande;
     int destination_demande;
@@ -390,6 +371,7 @@ void RSA::gnModel(){
         }
     }
     //GN VERIFIER
+    /*
     std::cout << "VERIFICATING GN COMPONENTS" << std::endl;
     pch = 5 * Bn * gwdm;
     osnr = pch/(pase * (5 + 5) + pnli * pow(5,1+epsilon));

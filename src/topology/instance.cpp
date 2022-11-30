@@ -297,7 +297,6 @@ void Instance::displayRoutedDemands(){
 
 /* Adds non-routed demands to the pool by reading the information from onlineDemands Input file. */
 void Instance::generateDemandsFromFile(std::string filePath){
-	
 	std::cout << "Reading " << filePath << " ..." << std::endl;
 	CSVReader reader(filePath);
 	/* dataList is a vector of vectors of strings. */
