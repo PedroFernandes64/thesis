@@ -1,6 +1,14 @@
 #include "solverCplex.h"
 
 
+/*
+ILOMIPINFOCALLBACK0(pedroback){
+    if (hasIncumbent() == IloTrue){
+        std::cout << "que pasa?" << std::endl;
+    }
+}*/
+
+
 int SolverCplex::count = 0;
 
 /****************************************************************************************/
@@ -47,6 +55,9 @@ CPXLONG SolverCplex::context(Input::ObjectiveMetric obj, const Input &i){
     if(i.isUserCutsActivated()){
         contextMask |= IloCplex::Callback::Context::Id::Relaxation;
     }
+    if(i.isGNModelEnabled()){
+        contextMask |= IloCplex::Callback::Context::Id::Candidate;
+    }
     return contextMask;
 }
 
@@ -66,8 +77,10 @@ void SolverCplex::solve(){
                                         formulation->getInstance().getInput().isObj8(i));
         CPXLONG contextMask = context(myObjectives[i].getId(), formulation->getInstance().getInput());
         
-        //if(!formulation->getInstance().getInput().isRelaxed()){
+        
+            //if(!formulation->getInstance().getInput().isRelaxed()){
         cplex.use(&myGenericCallback, contextMask);
+        //cplex.use(pedroback(cplex.getEnv()));
         //}
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
         cplex.solve();
@@ -353,3 +366,4 @@ SolverCplex::~SolverCplex(){
     model.end();
     env.end();
 }
+

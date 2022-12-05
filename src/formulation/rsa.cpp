@@ -130,7 +130,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     //Modulo GN MODEL
     if (this->getInstance().getInput().isGNModelEnabled() == true){
         std::cout << "GN Model pre processing" << std::endl;
-        gnModel();
+        gnModelAllPaths();
     }
     /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/
 }
@@ -172,7 +172,7 @@ void RSA::printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_
 }
 
 
-void RSA::gnModel(){
+void RSA::gnModelAllPaths(){
     // ADJACENCY LIST
     std::vector<std::vector<int> > aux(instance.getNbNodes());
     adj_list = aux;
@@ -383,6 +383,7 @@ void RSA::gnModel(){
     std::cout << "C4 = Epsilon = " << epsilon<< std::endl;
     */
 }
+
 
 /** Returns the total number of loads to be routed. **/
 int RSA::getTotalLoadsToBeRouted() const{ 

@@ -153,6 +153,8 @@ public:
 
 	std::vector<Constraint> solveSeparationGnpy(const std::vector<double> &value, const int threadNo);
 
+	//std::vector<Constraint> solveSeparationGNModel(const std::vector<double> &value, const int threadNo);
+
 	/** Defines the pool of cuts. **/
     void setCutPool() override;
 	
@@ -164,6 +166,8 @@ public:
 
 	/** Defines the flow cuts for edges. **/
 	void setFlowEdgeCuts();
+
+
 	/****************************************************************************************/
 	/*									Objective Functions									*/
 	/****************************************************************************************/

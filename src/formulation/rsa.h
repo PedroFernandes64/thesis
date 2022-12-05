@@ -372,7 +372,7 @@ public:
     std::vector<std::vector<int> > adj_list;
     std::vector<std::vector<ListGraph::Node> >  pathsdemand;
     std::vector<std::vector<std::vector<ListGraph::Node> > > allpaths;
-    void gnModel();
+    void gnModelAllPaths();
     void printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_index);
 
 	/****************************************************************************************/

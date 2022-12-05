@@ -6,6 +6,7 @@ CplexCallback::CplexCallback(const IloNumVarArray _var, AbstractFormulation* &_f
 }
 
 void CplexCallback::invoke (const IloCplex::Callback::Context &context){
+    std::cout<<"Verifying if callback should be called" << std::endl;
     if ( context.inRelaxation() ){
         if (isObj8()){
             //fixVariables(context);
@@ -21,7 +22,9 @@ void CplexCallback::invoke (const IloCplex::Callback::Context &context){
         if (input.isGNPYEnabled()){
             addGnpyConstraints(context);
         }
-        
+        if (input.isGNModelEnabled()){
+            addGNModelConstraints(context);
+        }
     }
 }
 
@@ -43,6 +46,32 @@ void CplexCallback::addGnpyConstraints(const IloCplex::Callback::Context &contex
                 context.rejectCandidate(cut);
             }
         }
+    }
+    catch (...) {
+        throw;
+    }
+}
+
+void CplexCallback::addGNModelConstraints(const IloCplex::Callback::Context &context) const{
+    std::cout << "Callback GN Model constraints..." << std::endl;
+    if ( !context.isCandidatePoint() ){
+        throw IloCplex::Exception(-1, "Unbounded solution");
+    }
+    try {
+        
+        int const threadNo = context.getIntInfo(IloCplex::Callback::Context::Info::ThreadId);
+        //std::vector<Constraint> constraint = formulation->solveSeparationGnpy(getIntegerSolution(context), threadNo);
+        std::vector<Constraint> constraint = formulation->solveSeparationGNModel(getIntegerSolution(context), threadNo);
+        /*
+        if (!constraint.empty()){
+            std::cout << "A lazy constraint was found:";
+            for (unsigned int i = 0; i < constraint.size(); i++){
+                constraint[i].display();
+                IloRange cut(context.getEnv(), constraint[i].getLb(), to_IloExpr(context, constraint[i].getExpression()), constraint[i].getUb());
+                //std::cout << "CPLEX add lazy: " << cut << std::endl;
+                context.rejectCandidate(cut);
+            }
+        }*/
     }
     catch (...) {
         throw;
@@ -159,3 +188,4 @@ IloExpr CplexCallback::to_IloExpr(const IloCplex::Callback::Context &context, co
 
 // Destructor
 CplexCallback::~CplexCallback(){}
+

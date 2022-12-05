@@ -23,6 +23,7 @@ public:
     
     void addLazyConstraints(const IloCplex::Callback::Context &context) const;
     void addGnpyConstraints(const IloCplex::Callback::Context &context) const;
+	void addGNModelConstraints(const IloCplex::Callback::Context &context) const;
 
 	void fixVariables(const IloCplex::Callback::Context &context);
     

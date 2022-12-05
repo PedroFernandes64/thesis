@@ -1,0 +1,932 @@
+{
+	"path-request": [
+	{
+		"request-id": "Demand 1",
+		"source": "3.1",
+		"destination": "12.1",
+		"src-tp-id": "3.1",
+		"dst-tp-id": "12.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "3",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "2",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 2,
+					"num-unnum-hop": {
+						"node-id": "5",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 3,
+					"num-unnum-hop": {
+						"node-id": "11",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 4,
+					"num-unnum-hop": {
+						"node-id": "12",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	},
+	{
+		"request-id": "Demand 2",
+		"source": "3.1",
+		"destination": "5.1",
+		"src-tp-id": "3.1",
+		"dst-tp-id": "5.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "3",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "5",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	},
+	{
+		"request-id": "Demand 3",
+		"source": "12.1",
+		"destination": "14.1",
+		"src-tp-id": "12.1",
+		"dst-tp-id": "14.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "12",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "14",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	},
+	{
+		"request-id": "Demand 4",
+		"source": "5.1",
+		"destination": "14.1",
+		"src-tp-id": "5.1",
+		"dst-tp-id": "14.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "5",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "11",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 2,
+					"num-unnum-hop": {
+						"node-id": "12",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 3,
+					"num-unnum-hop": {
+						"node-id": "14",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	},
+	{
+		"request-id": "Demand 5",
+		"source": "3.1",
+		"destination": "17.1",
+		"src-tp-id": "3.1",
+		"dst-tp-id": "17.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "3",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "5",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 2,
+					"num-unnum-hop": {
+						"node-id": "9",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 3,
+					"num-unnum-hop": {
+						"node-id": "8",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 4,
+					"num-unnum-hop": {
+						"node-id": "11",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 5,
+					"num-unnum-hop": {
+						"node-id": "13",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 6,
+					"num-unnum-hop": {
+						"node-id": "17",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	},
+	{
+		"request-id": "Demand 6",
+		"source": "14.1",
+		"destination": "17.1",
+		"src-tp-id": "14.1",
+		"dst-tp-id": "17.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "14",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "15",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 2,
+					"num-unnum-hop": {
+						"node-id": "16",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 3,
+					"num-unnum-hop": {
+						"node-id": "17",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	},
+	{
+		"request-id": "Demand 7",
+		"source": "3.1",
+		"destination": "13.1",
+		"src-tp-id": "3.1",
+		"dst-tp-id": "13.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "3",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "5",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 2,
+					"num-unnum-hop": {
+						"node-id": "10",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 3,
+					"num-unnum-hop": {
+						"node-id": "13",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	},
+	{
+		"request-id": "Demand 8",
+		"source": "13.1",
+		"destination": "14.1",
+		"src-tp-id": "13.1",
+		"dst-tp-id": "14.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "13",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "15",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 2,
+					"num-unnum-hop": {
+						"node-id": "14",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	},
+	{
+		"request-id": "Demand 9",
+		"source": "2.1",
+		"destination": "12.1",
+		"src-tp-id": "2.1",
+		"dst-tp-id": "12.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "2",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "3",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 2,
+					"num-unnum-hop": {
+						"node-id": "1",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 3,
+					"num-unnum-hop": {
+						"node-id": "9",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 4,
+					"num-unnum-hop": {
+						"node-id": "8",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 5,
+					"num-unnum-hop": {
+						"node-id": "11",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 6,
+					"num-unnum-hop": {
+						"node-id": "12",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	},
+	{
+		"request-id": "Demand 10",
+		"source": "2.1",
+		"destination": "5.1",
+		"src-tp-id": "2.1",
+		"dst-tp-id": "5.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "2",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "5",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	},
+	{
+		"request-id": "Demand 11",
+		"source": "1.1",
+		"destination": "17.1",
+		"src-tp-id": "1.1",
+		"dst-tp-id": "17.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "1",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "9",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 2,
+					"num-unnum-hop": {
+						"node-id": "8",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 3,
+					"num-unnum-hop": {
+						"node-id": "11",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 4,
+					"num-unnum-hop": {
+						"node-id": "13",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 5,
+					"num-unnum-hop": {
+						"node-id": "17",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	},
+	{
+		"request-id": "Demand 12",
+		"source": "2.1",
+		"destination": "16.1",
+		"src-tp-id": "2.1",
+		"dst-tp-id": "16.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "2",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "5",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 2,
+					"num-unnum-hop": {
+						"node-id": "11",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 3,
+					"num-unnum-hop": {
+						"node-id": "12",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 4,
+					"num-unnum-hop": {
+						"node-id": "14",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 5,
+					"num-unnum-hop": {
+						"node-id": "15",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 6,
+					"num-unnum-hop": {
+						"node-id": "16",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	},
+	{
+		"request-id": "Demand 13",
+		"source": "1.1",
+		"destination": "16.1",
+		"src-tp-id": "1.1",
+		"dst-tp-id": "16.1",
+		"bidirectional": false,
+		"path-constraints": {
+			"te-bandwidth": {
+				"technology": "flexi-grid",
+				"trx_type": "Voyager",
+				"trx_mode": "",
+				"effective-freq-slot": [
+					{
+						"N": "null",
+						"M": "null"
+					}
+				],
+				"spacing":,
+				"max-nb-of-channel": null,
+				"output-power": null,
+				"path_bandwidth": 
+			}
+		},
+		"explicit-route-objects": {
+			"route-object-include-exclude": [
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 0,
+					"num-unnum-hop": {
+						"node-id": "1",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 1,
+					"num-unnum-hop": {
+						"node-id": "3",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 2,
+					"num-unnum-hop": {
+						"node-id": "5",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 3,
+					"num-unnum-hop": {
+						"node-id": "11",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 4,
+					"num-unnum-hop": {
+						"node-id": "12",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 5,
+					"num-unnum-hop": {
+						"node-id": "14",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 6,
+					"num-unnum-hop": {
+						"node-id": "15",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				},
+				{
+					"explicit-route-usage": "route-include-ero",
+					"index": 7,
+					"num-unnum-hop": {
+						"node-id": "16",
+						"link-tp-id": "link-tp-id is not used",
+						"hop-type": "STRICT"
+					}
+				}
+			]
+		}
+	}
+	],
+	"synchronization": [
+	]
+}

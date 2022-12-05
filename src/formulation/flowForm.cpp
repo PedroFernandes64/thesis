@@ -1087,6 +1087,17 @@ std::vector<Constraint> FlowForm::solveSeparationGnpy(const std::vector<double> 
     return cuts;
 }
 
+
+/** Solves the separation problem for GNMODEL. If the solution is violated, return the constraints that cuts it, otherwise the returned vector is empty. **/
+/*
+std::vector<Constraint> solveSeparationGNModel(const std::vector<double> &solution, const int threadNo){
+	std::vector<Constraint> cuts;
+    std::cout << "sera que chama o filhinho?" << std::endl;
+	return cuts;
+    
+}
+*/
+
 Constraint FlowForm::getPathEliminationConstraint(int d){
     int nbHops = 0;
     Expression exp;
