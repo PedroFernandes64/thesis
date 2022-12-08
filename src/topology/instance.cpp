@@ -278,7 +278,7 @@ void Instance::displayDetailedTopology(){
 void Instance::displaySlices() {
 	std::cout << std::endl << "--- Slice occupation ---" << std::endl;
 	for (int i = 0; i < this->getNbEdges(); i++) {
-		std::cout << "#" << i+1 << ". ";
+		std::cout << "#" << i+1 << ". " << tabEdge[i].getSource()+1 << "-" << tabEdge[i].getTarget()+1 << ". ";
 		tabEdge[i].displaySlices();
 	}
 	std::cout << std::endl;
@@ -305,6 +305,7 @@ void Instance::generateDemandsFromFile(std::string filePath){
 	int numberOfLines = (int)dataList.size();
 	int nbPreviousDemands = tabDemand.size();
 	//skip the first line (headers)
+	std::cout << "-yrdy" << std::endl;
 	for (int i = 1; i < numberOfLines; i++) {
 		int idDemand = std::stoi(dataList[i][0]) - 1 + nbPreviousDemands;
 		int demandSource = std::stoi(dataList[i][1]) - 1;
@@ -654,3 +655,39 @@ Fiber Instance::getPhysicalLinkBetween(int u, int v){
 	Fiber link(-1,-1,-1,-1);
 	return link;
 }
+
+/*PEDRO PEDRO PEDRO*/
+/*
+void Instance::followPaths(){
+	// BUILDING PATH MAP
+	std::vector<std::vector<int> > pathMap;
+	std::vector<int> currentPath;	
+	for (unsigned int i = 0; i < getNbDemands(); i++){
+		int currentVertexId = getDemandFromIndex(i).getSource();
+		int lastVertexId = -1;
+		while (currentVertexId != getDemandFromIndex(i).getTarget()){	
+			for (unsigned int e = 0; e < tabEdge.size(); e++){
+				if((tabEdge[e].getSource() ==  currentVertexId) && (tabEdge[e].getTarget() != lastVertexId)){
+					if(tabEdge[e].getSlice_i(getDemandFromIndex(i).getSliceAllocation()).getAssignment() == getDemandFromIndex(i).getId()){
+						lastVertexId = currentVertexId;
+						currentVertexId = tabEdge[e].getTarget();
+						currentPath.push_back(tabEdge[e].getId());
+						break;
+					}
+				}else{
+				if((tabEdge[e].getTarget() ==  currentVertexId) && (tabEdge[e].getSource() != lastVertexId)){
+					if(tabEdge[e].getSlice_i(getDemandFromIndex(i).getSliceAllocation()).getAssignment() == getDemandFromIndex(i).getId()){
+						lastVertexId = currentVertexId;
+						currentVertexId = tabEdge[e].getSource();
+						currentPath.push_back(tabEdge[e].getId());
+						break;
+					}
+				}
+				}
+			}
+		}
+		pathMap.push_back(currentPath);
+		currentPath.clear();
+	}
+}
+*/

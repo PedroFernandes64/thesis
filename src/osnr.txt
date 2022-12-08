@@ -1,0 +1,1330 @@
+OSNR demand: 1 : 1 to 16
+=====Path=====: 3
+Nodes = 1 9 8 11 12 14 15 16 
+Distance = 919 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 17
+Nodes = 1 9 6 7 8 11 12 14 15 16 
+Distance = 938 | Amplis at vertex = 10 | Amplis at edges = 7
+---OSNR en db = 23.2939 ---
+=====Path=====: 65
+Nodes = 1 3 5 11 12 14 15 16 
+Distance = 961 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+------------------------
+OSNR demand: 2 : 2 to 16
+=====Path=====: 1
+Nodes = 2 5 11 13 17 16 
+Distance = 1058 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 2
+Nodes = 2 5 11 13 15 16 
+Distance = 1036 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 2 5 11 12 14 15 16 
+Distance = 828 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 7
+Nodes = 2 5 10 13 17 16 
+Distance = 1026 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 8
+Nodes = 2 5 10 13 15 16 
+Distance = 1004 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 16
+Nodes = 2 5 9 8 11 12 14 15 16 
+Distance = 948 | Amplis at vertex = 9 | Amplis at edges = 8
+---OSNR en db = 23.2644 ---
+=====Path=====: 22
+Nodes = 2 5 9 6 7 8 11 12 14 15 16 
+Distance = 967 | Amplis at vertex = 11 | Amplis at edges = 7
+---OSNR en db = 23.0567 ---
+=====Path=====: 45
+Nodes = 2 4 10 13 17 16 
+Distance = 1086 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 46
+Nodes = 2 4 10 13 15 16 
+Distance = 1064 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 111
+Nodes = 2 3 5 11 12 14 15 16 
+Distance = 925 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+------------------------
+OSNR demand: 3 : 3 to 16
+=====Path=====: 1
+Nodes = 3 5 11 13 17 16 
+Distance = 1031 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 2
+Nodes = 3 5 11 13 15 16 
+Distance = 1009 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 3 5 11 12 14 15 16 
+Distance = 801 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 7
+Nodes = 3 5 10 13 17 16 
+Distance = 999 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 8
+Nodes = 3 5 10 13 15 16 
+Distance = 977 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 16
+Nodes = 3 5 9 8 11 12 14 15 16 
+Distance = 921 | Amplis at vertex = 9 | Amplis at edges = 8
+---OSNR en db = 23.2644 ---
+=====Path=====: 22
+Nodes = 3 5 9 6 7 8 11 12 14 15 16 
+Distance = 940 | Amplis at vertex = 11 | Amplis at edges = 7
+---OSNR en db = 23.0567 ---
+=====Path=====: 42
+Nodes = 3 2 5 11 12 14 15 16 
+Distance = 952 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+------------------------
+OSNR demand: 4 : 1 to 16
+=====Path=====: 3
+Nodes = 1 9 8 11 12 14 15 16 
+Distance = 919 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 17
+Nodes = 1 9 6 7 8 11 12 14 15 16 
+Distance = 938 | Amplis at vertex = 10 | Amplis at edges = 7
+---OSNR en db = 23.2939 ---
+=====Path=====: 65
+Nodes = 1 3 5 11 12 14 15 16 
+Distance = 961 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+------------------------
+OSNR demand: 5 : 2 to 16
+=====Path=====: 1
+Nodes = 2 5 11 13 17 16 
+Distance = 1058 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 2
+Nodes = 2 5 11 13 15 16 
+Distance = 1036 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 2 5 11 12 14 15 16 
+Distance = 828 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 7
+Nodes = 2 5 10 13 17 16 
+Distance = 1026 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 8
+Nodes = 2 5 10 13 15 16 
+Distance = 1004 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 16
+Nodes = 2 5 9 8 11 12 14 15 16 
+Distance = 948 | Amplis at vertex = 9 | Amplis at edges = 8
+---OSNR en db = 23.2644 ---
+=====Path=====: 22
+Nodes = 2 5 9 6 7 8 11 12 14 15 16 
+Distance = 967 | Amplis at vertex = 11 | Amplis at edges = 7
+---OSNR en db = 23.0567 ---
+=====Path=====: 45
+Nodes = 2 4 10 13 17 16 
+Distance = 1086 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 46
+Nodes = 2 4 10 13 15 16 
+Distance = 1064 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 111
+Nodes = 2 3 5 11 12 14 15 16 
+Distance = 925 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+------------------------
+OSNR demand: 6 : 3 to 16
+=====Path=====: 1
+Nodes = 3 5 11 13 17 16 
+Distance = 1031 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 2
+Nodes = 3 5 11 13 15 16 
+Distance = 1009 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 3 5 11 12 14 15 16 
+Distance = 801 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 7
+Nodes = 3 5 10 13 17 16 
+Distance = 999 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 8
+Nodes = 3 5 10 13 15 16 
+Distance = 977 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 16
+Nodes = 3 5 9 8 11 12 14 15 16 
+Distance = 921 | Amplis at vertex = 9 | Amplis at edges = 8
+---OSNR en db = 23.2644 ---
+=====Path=====: 22
+Nodes = 3 5 9 6 7 8 11 12 14 15 16 
+Distance = 940 | Amplis at vertex = 11 | Amplis at edges = 7
+---OSNR en db = 23.0567 ---
+=====Path=====: 42
+Nodes = 3 2 5 11 12 14 15 16 
+Distance = 952 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+------------------------
+OSNR demand: 7 : 1 to 16
+=====Path=====: 3
+Nodes = 1 9 8 11 12 14 15 16 
+Distance = 919 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 17
+Nodes = 1 9 6 7 8 11 12 14 15 16 
+Distance = 938 | Amplis at vertex = 10 | Amplis at edges = 7
+---OSNR en db = 23.2939 ---
+=====Path=====: 65
+Nodes = 1 3 5 11 12 14 15 16 
+Distance = 961 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+------------------------
+OSNR demand: 8 : 2 to 16
+=====Path=====: 1
+Nodes = 2 5 11 13 17 16 
+Distance = 1058 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 2
+Nodes = 2 5 11 13 15 16 
+Distance = 1036 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 2 5 11 12 14 15 16 
+Distance = 828 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 7
+Nodes = 2 5 10 13 17 16 
+Distance = 1026 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 8
+Nodes = 2 5 10 13 15 16 
+Distance = 1004 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 16
+Nodes = 2 5 9 8 11 12 14 15 16 
+Distance = 948 | Amplis at vertex = 9 | Amplis at edges = 8
+---OSNR en db = 23.2644 ---
+=====Path=====: 22
+Nodes = 2 5 9 6 7 8 11 12 14 15 16 
+Distance = 967 | Amplis at vertex = 11 | Amplis at edges = 7
+---OSNR en db = 23.0567 ---
+=====Path=====: 45
+Nodes = 2 4 10 13 17 16 
+Distance = 1086 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 46
+Nodes = 2 4 10 13 15 16 
+Distance = 1064 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 111
+Nodes = 2 3 5 11 12 14 15 16 
+Distance = 925 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+------------------------
+OSNR demand: 9 : 3 to 16
+=====Path=====: 1
+Nodes = 3 5 11 13 17 16 
+Distance = 1031 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 2
+Nodes = 3 5 11 13 15 16 
+Distance = 1009 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 3 5 11 12 14 15 16 
+Distance = 801 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 7
+Nodes = 3 5 10 13 17 16 
+Distance = 999 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 8
+Nodes = 3 5 10 13 15 16 
+Distance = 977 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 16
+Nodes = 3 5 9 8 11 12 14 15 16 
+Distance = 921 | Amplis at vertex = 9 | Amplis at edges = 8
+---OSNR en db = 23.2644 ---
+=====Path=====: 22
+Nodes = 3 5 9 6 7 8 11 12 14 15 16 
+Distance = 940 | Amplis at vertex = 11 | Amplis at edges = 7
+---OSNR en db = 23.0567 ---
+=====Path=====: 42
+Nodes = 3 2 5 11 12 14 15 16 
+Distance = 952 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+------------------------
+OSNR demand: 10 : 1 to 16
+=====Path=====: 3
+Nodes = 1 9 8 11 12 14 15 16 
+Distance = 919 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 17
+Nodes = 1 9 6 7 8 11 12 14 15 16 
+Distance = 938 | Amplis at vertex = 10 | Amplis at edges = 7
+---OSNR en db = 23.2939 ---
+=====Path=====: 65
+Nodes = 1 3 5 11 12 14 15 16 
+Distance = 961 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+------------------------
+OSNR demand: 11 : 2 to 16
+=====Path=====: 1
+Nodes = 2 5 11 13 17 16 
+Distance = 1058 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 2
+Nodes = 2 5 11 13 15 16 
+Distance = 1036 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 2 5 11 12 14 15 16 
+Distance = 828 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 7
+Nodes = 2 5 10 13 17 16 
+Distance = 1026 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 8
+Nodes = 2 5 10 13 15 16 
+Distance = 1004 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 16
+Nodes = 2 5 9 8 11 12 14 15 16 
+Distance = 948 | Amplis at vertex = 9 | Amplis at edges = 8
+---OSNR en db = 23.2644 ---
+=====Path=====: 22
+Nodes = 2 5 9 6 7 8 11 12 14 15 16 
+Distance = 967 | Amplis at vertex = 11 | Amplis at edges = 7
+---OSNR en db = 23.0567 ---
+=====Path=====: 45
+Nodes = 2 4 10 13 17 16 
+Distance = 1086 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 46
+Nodes = 2 4 10 13 15 16 
+Distance = 1064 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 111
+Nodes = 2 3 5 11 12 14 15 16 
+Distance = 925 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+------------------------
+OSNR demand: 12 : 3 to 16
+=====Path=====: 1
+Nodes = 3 5 11 13 17 16 
+Distance = 1031 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 2
+Nodes = 3 5 11 13 15 16 
+Distance = 1009 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 3 5 11 12 14 15 16 
+Distance = 801 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 7
+Nodes = 3 5 10 13 17 16 
+Distance = 999 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 8
+Nodes = 3 5 10 13 15 16 
+Distance = 977 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 16
+Nodes = 3 5 9 8 11 12 14 15 16 
+Distance = 921 | Amplis at vertex = 9 | Amplis at edges = 8
+---OSNR en db = 23.2644 ---
+=====Path=====: 22
+Nodes = 3 5 9 6 7 8 11 12 14 15 16 
+Distance = 940 | Amplis at vertex = 11 | Amplis at edges = 7
+---OSNR en db = 23.0567 ---
+=====Path=====: 42
+Nodes = 3 2 5 11 12 14 15 16 
+Distance = 952 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+------------------------
+OSNR demand: 13 : 1 to 16
+=====Path=====: 3
+Nodes = 1 9 8 11 12 14 15 16 
+Distance = 919 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 17
+Nodes = 1 9 6 7 8 11 12 14 15 16 
+Distance = 938 | Amplis at vertex = 10 | Amplis at edges = 7
+---OSNR en db = 23.2939 ---
+=====Path=====: 65
+Nodes = 1 3 5 11 12 14 15 16 
+Distance = 961 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+------------------------
+OSNR demand: 14 : 2 to 16
+=====Path=====: 1
+Nodes = 2 5 11 13 17 16 
+Distance = 1058 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 2
+Nodes = 2 5 11 13 15 16 
+Distance = 1036 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 2 5 11 12 14 15 16 
+Distance = 828 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 7
+Nodes = 2 5 10 13 17 16 
+Distance = 1026 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 8
+Nodes = 2 5 10 13 15 16 
+Distance = 1004 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 16
+Nodes = 2 5 9 8 11 12 14 15 16 
+Distance = 948 | Amplis at vertex = 9 | Amplis at edges = 8
+---OSNR en db = 23.2644 ---
+=====Path=====: 22
+Nodes = 2 5 9 6 7 8 11 12 14 15 16 
+Distance = 967 | Amplis at vertex = 11 | Amplis at edges = 7
+---OSNR en db = 23.0567 ---
+=====Path=====: 45
+Nodes = 2 4 10 13 17 16 
+Distance = 1086 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 46
+Nodes = 2 4 10 13 15 16 
+Distance = 1064 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 111
+Nodes = 2 3 5 11 12 14 15 16 
+Distance = 925 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+------------------------
+OSNR demand: 15 : 3 to 16
+=====Path=====: 1
+Nodes = 3 5 11 13 17 16 
+Distance = 1031 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 2
+Nodes = 3 5 11 13 15 16 
+Distance = 1009 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 3 5 11 12 14 15 16 
+Distance = 801 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 7
+Nodes = 3 5 10 13 17 16 
+Distance = 999 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 8
+Nodes = 3 5 10 13 15 16 
+Distance = 977 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 16
+Nodes = 3 5 9 8 11 12 14 15 16 
+Distance = 921 | Amplis at vertex = 9 | Amplis at edges = 8
+---OSNR en db = 23.2644 ---
+=====Path=====: 22
+Nodes = 3 5 9 6 7 8 11 12 14 15 16 
+Distance = 940 | Amplis at vertex = 11 | Amplis at edges = 7
+---OSNR en db = 23.0567 ---
+=====Path=====: 42
+Nodes = 3 2 5 11 12 14 15 16 
+Distance = 952 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+------------------------
+OSNR demand: 16 : 1 to 17
+=====Path=====: 1
+Nodes = 1 9 8 11 13 17 
+Distance = 993 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 1 9 8 11 12 14 15 16 17 
+Distance = 1075 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 15
+Nodes = 1 9 6 7 8 11 13 17 
+Distance = 1012 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+=====Path=====: 63
+Nodes = 1 3 5 11 13 17 
+Distance = 1035 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 69
+Nodes = 1 3 5 10 13 17 
+Distance = 1003 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+------------------------
+OSNR demand: 17 : 2 to 17
+=====Path=====: 1
+Nodes = 2 5 11 13 17 
+Distance = 902 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 3
+Nodes = 2 5 11 12 14 15 16 17 
+Distance = 984 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 7
+Nodes = 2 5 10 13 17 
+Distance = 870 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 14
+Nodes = 2 5 9 8 11 13 17 
+Distance = 1022 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 20
+Nodes = 2 5 9 6 7 8 11 13 17 
+Distance = 1041 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 26
+Nodes = 2 5 4 10 13 17 
+Distance = 1092 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 45
+Nodes = 2 4 10 13 17 
+Distance = 930 | Amplis at vertex = 5 | Amplis at edges = 10
+---OSNR en db = 23.7119 ---
+=====Path=====: 109
+Nodes = 2 3 5 11 13 17 
+Distance = 999 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 111
+Nodes = 2 3 5 11 12 14 15 16 17 
+Distance = 1081 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 115
+Nodes = 2 3 5 10 13 17 
+Distance = 967 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+------------------------
+OSNR demand: 18 : 3 to 17
+=====Path=====: 1
+Nodes = 3 5 11 13 17 
+Distance = 875 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 3
+Nodes = 3 5 11 12 14 15 16 17 
+Distance = 957 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 7
+Nodes = 3 5 10 13 17 
+Distance = 843 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 14
+Nodes = 3 5 9 8 11 13 17 
+Distance = 995 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 20
+Nodes = 3 5 9 6 7 8 11 13 17 
+Distance = 1014 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 26
+Nodes = 3 5 4 10 13 17 
+Distance = 1065 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 40
+Nodes = 3 2 5 11 13 17 
+Distance = 1026 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 42
+Nodes = 3 2 5 11 12 14 15 16 17 
+Distance = 1108 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 46
+Nodes = 3 2 5 10 13 17 
+Distance = 994 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 72
+Nodes = 3 2 4 10 13 17 
+Distance = 1054 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+------------------------
+OSNR demand: 19 : 1 to 17
+=====Path=====: 1
+Nodes = 1 9 8 11 13 17 
+Distance = 993 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 1 9 8 11 12 14 15 16 17 
+Distance = 1075 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 15
+Nodes = 1 9 6 7 8 11 13 17 
+Distance = 1012 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+=====Path=====: 63
+Nodes = 1 3 5 11 13 17 
+Distance = 1035 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 69
+Nodes = 1 3 5 10 13 17 
+Distance = 1003 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+------------------------
+OSNR demand: 20 : 2 to 17
+=====Path=====: 1
+Nodes = 2 5 11 13 17 
+Distance = 902 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 3
+Nodes = 2 5 11 12 14 15 16 17 
+Distance = 984 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 7
+Nodes = 2 5 10 13 17 
+Distance = 870 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 14
+Nodes = 2 5 9 8 11 13 17 
+Distance = 1022 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 20
+Nodes = 2 5 9 6 7 8 11 13 17 
+Distance = 1041 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 26
+Nodes = 2 5 4 10 13 17 
+Distance = 1092 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 45
+Nodes = 2 4 10 13 17 
+Distance = 930 | Amplis at vertex = 5 | Amplis at edges = 10
+---OSNR en db = 23.7119 ---
+=====Path=====: 109
+Nodes = 2 3 5 11 13 17 
+Distance = 999 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 111
+Nodes = 2 3 5 11 12 14 15 16 17 
+Distance = 1081 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 115
+Nodes = 2 3 5 10 13 17 
+Distance = 967 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+------------------------
+OSNR demand: 21 : 3 to 17
+=====Path=====: 1
+Nodes = 3 5 11 13 17 
+Distance = 875 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 3
+Nodes = 3 5 11 12 14 15 16 17 
+Distance = 957 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 7
+Nodes = 3 5 10 13 17 
+Distance = 843 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 14
+Nodes = 3 5 9 8 11 13 17 
+Distance = 995 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 20
+Nodes = 3 5 9 6 7 8 11 13 17 
+Distance = 1014 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 26
+Nodes = 3 5 4 10 13 17 
+Distance = 1065 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 40
+Nodes = 3 2 5 11 13 17 
+Distance = 1026 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 42
+Nodes = 3 2 5 11 12 14 15 16 17 
+Distance = 1108 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 46
+Nodes = 3 2 5 10 13 17 
+Distance = 994 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 72
+Nodes = 3 2 4 10 13 17 
+Distance = 1054 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+------------------------
+OSNR demand: 22 : 1 to 17
+=====Path=====: 1
+Nodes = 1 9 8 11 13 17 
+Distance = 993 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 1 9 8 11 12 14 15 16 17 
+Distance = 1075 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 15
+Nodes = 1 9 6 7 8 11 13 17 
+Distance = 1012 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+=====Path=====: 63
+Nodes = 1 3 5 11 13 17 
+Distance = 1035 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 69
+Nodes = 1 3 5 10 13 17 
+Distance = 1003 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+------------------------
+OSNR demand: 23 : 2 to 17
+=====Path=====: 1
+Nodes = 2 5 11 13 17 
+Distance = 902 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 3
+Nodes = 2 5 11 12 14 15 16 17 
+Distance = 984 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 7
+Nodes = 2 5 10 13 17 
+Distance = 870 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 14
+Nodes = 2 5 9 8 11 13 17 
+Distance = 1022 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 20
+Nodes = 2 5 9 6 7 8 11 13 17 
+Distance = 1041 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 26
+Nodes = 2 5 4 10 13 17 
+Distance = 1092 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 45
+Nodes = 2 4 10 13 17 
+Distance = 930 | Amplis at vertex = 5 | Amplis at edges = 10
+---OSNR en db = 23.7119 ---
+=====Path=====: 109
+Nodes = 2 3 5 11 13 17 
+Distance = 999 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 111
+Nodes = 2 3 5 11 12 14 15 16 17 
+Distance = 1081 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 115
+Nodes = 2 3 5 10 13 17 
+Distance = 967 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+------------------------
+OSNR demand: 24 : 3 to 17
+=====Path=====: 1
+Nodes = 3 5 11 13 17 
+Distance = 875 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 3
+Nodes = 3 5 11 12 14 15 16 17 
+Distance = 957 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 7
+Nodes = 3 5 10 13 17 
+Distance = 843 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 14
+Nodes = 3 5 9 8 11 13 17 
+Distance = 995 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 20
+Nodes = 3 5 9 6 7 8 11 13 17 
+Distance = 1014 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 26
+Nodes = 3 5 4 10 13 17 
+Distance = 1065 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 40
+Nodes = 3 2 5 11 13 17 
+Distance = 1026 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 42
+Nodes = 3 2 5 11 12 14 15 16 17 
+Distance = 1108 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 46
+Nodes = 3 2 5 10 13 17 
+Distance = 994 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 72
+Nodes = 3 2 4 10 13 17 
+Distance = 1054 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+------------------------
+OSNR demand: 25 : 1 to 17
+=====Path=====: 1
+Nodes = 1 9 8 11 13 17 
+Distance = 993 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 1 9 8 11 12 14 15 16 17 
+Distance = 1075 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 15
+Nodes = 1 9 6 7 8 11 13 17 
+Distance = 1012 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+=====Path=====: 63
+Nodes = 1 3 5 11 13 17 
+Distance = 1035 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 69
+Nodes = 1 3 5 10 13 17 
+Distance = 1003 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+------------------------
+OSNR demand: 26 : 2 to 17
+=====Path=====: 1
+Nodes = 2 5 11 13 17 
+Distance = 902 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 3
+Nodes = 2 5 11 12 14 15 16 17 
+Distance = 984 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 7
+Nodes = 2 5 10 13 17 
+Distance = 870 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 14
+Nodes = 2 5 9 8 11 13 17 
+Distance = 1022 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 20
+Nodes = 2 5 9 6 7 8 11 13 17 
+Distance = 1041 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 26
+Nodes = 2 5 4 10 13 17 
+Distance = 1092 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 45
+Nodes = 2 4 10 13 17 
+Distance = 930 | Amplis at vertex = 5 | Amplis at edges = 10
+---OSNR en db = 23.7119 ---
+=====Path=====: 109
+Nodes = 2 3 5 11 13 17 
+Distance = 999 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 111
+Nodes = 2 3 5 11 12 14 15 16 17 
+Distance = 1081 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 115
+Nodes = 2 3 5 10 13 17 
+Distance = 967 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+------------------------
+OSNR demand: 27 : 3 to 17
+=====Path=====: 1
+Nodes = 3 5 11 13 17 
+Distance = 875 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 3
+Nodes = 3 5 11 12 14 15 16 17 
+Distance = 957 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 7
+Nodes = 3 5 10 13 17 
+Distance = 843 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 14
+Nodes = 3 5 9 8 11 13 17 
+Distance = 995 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 20
+Nodes = 3 5 9 6 7 8 11 13 17 
+Distance = 1014 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 26
+Nodes = 3 5 4 10 13 17 
+Distance = 1065 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 40
+Nodes = 3 2 5 11 13 17 
+Distance = 1026 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 42
+Nodes = 3 2 5 11 12 14 15 16 17 
+Distance = 1108 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 46
+Nodes = 3 2 5 10 13 17 
+Distance = 994 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 72
+Nodes = 3 2 4 10 13 17 
+Distance = 1054 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+------------------------
+OSNR demand: 28 : 1 to 17
+=====Path=====: 1
+Nodes = 1 9 8 11 13 17 
+Distance = 993 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 3
+Nodes = 1 9 8 11 12 14 15 16 17 
+Distance = 1075 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 15
+Nodes = 1 9 6 7 8 11 13 17 
+Distance = 1012 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+=====Path=====: 63
+Nodes = 1 3 5 11 13 17 
+Distance = 1035 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 69
+Nodes = 1 3 5 10 13 17 
+Distance = 1003 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+------------------------
+OSNR demand: 29 : 2 to 17
+=====Path=====: 1
+Nodes = 2 5 11 13 17 
+Distance = 902 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 3
+Nodes = 2 5 11 12 14 15 16 17 
+Distance = 984 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 7
+Nodes = 2 5 10 13 17 
+Distance = 870 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 14
+Nodes = 2 5 9 8 11 13 17 
+Distance = 1022 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 20
+Nodes = 2 5 9 6 7 8 11 13 17 
+Distance = 1041 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 26
+Nodes = 2 5 4 10 13 17 
+Distance = 1092 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 45
+Nodes = 2 4 10 13 17 
+Distance = 930 | Amplis at vertex = 5 | Amplis at edges = 10
+---OSNR en db = 23.7119 ---
+=====Path=====: 109
+Nodes = 2 3 5 11 13 17 
+Distance = 999 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 111
+Nodes = 2 3 5 11 12 14 15 16 17 
+Distance = 1081 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 115
+Nodes = 2 3 5 10 13 17 
+Distance = 967 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+------------------------
+OSNR demand: 30 : 3 to 17
+=====Path=====: 1
+Nodes = 3 5 11 13 17 
+Distance = 875 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 3
+Nodes = 3 5 11 12 14 15 16 17 
+Distance = 957 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 7
+Nodes = 3 5 10 13 17 
+Distance = 843 | Amplis at vertex = 5 | Amplis at edges = 9
+---OSNR en db = 24.0241 ---
+=====Path=====: 14
+Nodes = 3 5 9 8 11 13 17 
+Distance = 995 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 20
+Nodes = 3 5 9 6 7 8 11 13 17 
+Distance = 1014 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 26
+Nodes = 3 5 4 10 13 17 
+Distance = 1065 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+=====Path=====: 40
+Nodes = 3 2 5 11 13 17 
+Distance = 1026 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 42
+Nodes = 3 2 5 11 12 14 15 16 17 
+Distance = 1108 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 46
+Nodes = 3 2 5 10 13 17 
+Distance = 994 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 72
+Nodes = 3 2 4 10 13 17 
+Distance = 1054 | Amplis at vertex = 6 | Amplis at edges = 11
+---OSNR en db = 23.1765 ---
+------------------------
+OSNR demand: 31 : 8 to 10
+=====Path=====: 1
+Nodes = 8 11 13 10 
+Distance = 700 | Amplis at vertex = 4 | Amplis at edges = 7
+---OSNR en db = 25.0775 ---
+=====Path=====: 3
+Nodes = 8 11 12 14 15 13 10 
+Distance = 908 | Amplis at vertex = 7 | Amplis at edges = 8
+---OSNR en db = 23.7779 ---
+=====Path=====: 4
+Nodes = 8 11 10 
+Distance = 587 | Amplis at vertex = 3 | Amplis at edges = 6
+---OSNR en db = 25.9367 ---
+=====Path=====: 5
+Nodes = 8 11 5 10 
+Distance = 810 | Amplis at vertex = 4 | Amplis at edges = 9
+---OSNR en db = 24.3226 ---
+=====Path=====: 7
+Nodes = 8 11 5 4 10 
+Distance = 1032 | Amplis at vertex = 5 | Amplis at edges = 11
+---OSNR en db = 23.4205 ---
+=====Path=====: 13
+Nodes = 8 9 5 11 10 
+Distance = 1023 | Amplis at vertex = 5 | Amplis at edges = 11
+---OSNR en db = 23.4205 ---
+=====Path=====: 14
+Nodes = 8 9 5 10 
+Distance = 542 | Amplis at vertex = 4 | Amplis at edges = 6
+---OSNR en db = 25.5103 ---
+=====Path=====: 15
+Nodes = 8 9 5 4 10 
+Distance = 764 | Amplis at vertex = 5 | Amplis at edges = 8
+---OSNR en db = 24.3603 ---
+=====Path=====: 16
+Nodes = 8 9 5 3 2 4 10 
+Distance = 1017 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 17
+Nodes = 8 9 5 2 4 10 
+Distance = 920 | Amplis at vertex = 6 | Amplis at edges = 9
+---OSNR en db = 23.7448 ---
+=====Path=====: 22
+Nodes = 8 9 1 3 5 10 
+Distance = 964 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 40
+Nodes = 8 7 6 9 5 11 10 
+Distance = 1042 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 41
+Nodes = 8 7 6 9 5 10 
+Distance = 561 | Amplis at vertex = 6 | Amplis at edges = 5
+---OSNR en db = 25.1667 ---
+=====Path=====: 42
+Nodes = 8 7 6 9 5 4 10 
+Distance = 783 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 43
+Nodes = 8 7 6 9 5 3 2 4 10 
+Distance = 1036 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 44
+Nodes = 8 7 6 9 5 2 4 10 
+Distance = 939 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 49
+Nodes = 8 7 6 9 1 3 5 10 
+Distance = 983 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+------------------------
+OSNR demand: 32 : 8 to 10
+=====Path=====: 1
+Nodes = 8 11 13 10 
+Distance = 700 | Amplis at vertex = 4 | Amplis at edges = 7
+---OSNR en db = 25.0775 ---
+=====Path=====: 3
+Nodes = 8 11 12 14 15 13 10 
+Distance = 908 | Amplis at vertex = 7 | Amplis at edges = 8
+---OSNR en db = 23.7779 ---
+=====Path=====: 4
+Nodes = 8 11 10 
+Distance = 587 | Amplis at vertex = 3 | Amplis at edges = 6
+---OSNR en db = 25.9367 ---
+=====Path=====: 5
+Nodes = 8 11 5 10 
+Distance = 810 | Amplis at vertex = 4 | Amplis at edges = 9
+---OSNR en db = 24.3226 ---
+=====Path=====: 7
+Nodes = 8 11 5 4 10 
+Distance = 1032 | Amplis at vertex = 5 | Amplis at edges = 11
+---OSNR en db = 23.4205 ---
+=====Path=====: 13
+Nodes = 8 9 5 11 10 
+Distance = 1023 | Amplis at vertex = 5 | Amplis at edges = 11
+---OSNR en db = 23.4205 ---
+=====Path=====: 14
+Nodes = 8 9 5 10 
+Distance = 542 | Amplis at vertex = 4 | Amplis at edges = 6
+---OSNR en db = 25.5103 ---
+=====Path=====: 15
+Nodes = 8 9 5 4 10 
+Distance = 764 | Amplis at vertex = 5 | Amplis at edges = 8
+---OSNR en db = 24.3603 ---
+=====Path=====: 16
+Nodes = 8 9 5 3 2 4 10 
+Distance = 1017 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 17
+Nodes = 8 9 5 2 4 10 
+Distance = 920 | Amplis at vertex = 6 | Amplis at edges = 9
+---OSNR en db = 23.7448 ---
+=====Path=====: 22
+Nodes = 8 9 1 3 5 10 
+Distance = 964 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 40
+Nodes = 8 7 6 9 5 11 10 
+Distance = 1042 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 41
+Nodes = 8 7 6 9 5 10 
+Distance = 561 | Amplis at vertex = 6 | Amplis at edges = 5
+---OSNR en db = 25.1667 ---
+=====Path=====: 42
+Nodes = 8 7 6 9 5 4 10 
+Distance = 783 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 43
+Nodes = 8 7 6 9 5 3 2 4 10 
+Distance = 1036 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 44
+Nodes = 8 7 6 9 5 2 4 10 
+Distance = 939 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 49
+Nodes = 8 7 6 9 1 3 5 10 
+Distance = 983 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+------------------------
+OSNR demand: 33 : 8 to 10
+=====Path=====: 1
+Nodes = 8 11 13 10 
+Distance = 700 | Amplis at vertex = 4 | Amplis at edges = 7
+---OSNR en db = 25.0775 ---
+=====Path=====: 3
+Nodes = 8 11 12 14 15 13 10 
+Distance = 908 | Amplis at vertex = 7 | Amplis at edges = 8
+---OSNR en db = 23.7779 ---
+=====Path=====: 4
+Nodes = 8 11 10 
+Distance = 587 | Amplis at vertex = 3 | Amplis at edges = 6
+---OSNR en db = 25.9367 ---
+=====Path=====: 5
+Nodes = 8 11 5 10 
+Distance = 810 | Amplis at vertex = 4 | Amplis at edges = 9
+---OSNR en db = 24.3226 ---
+=====Path=====: 7
+Nodes = 8 11 5 4 10 
+Distance = 1032 | Amplis at vertex = 5 | Amplis at edges = 11
+---OSNR en db = 23.4205 ---
+=====Path=====: 13
+Nodes = 8 9 5 11 10 
+Distance = 1023 | Amplis at vertex = 5 | Amplis at edges = 11
+---OSNR en db = 23.4205 ---
+=====Path=====: 14
+Nodes = 8 9 5 10 
+Distance = 542 | Amplis at vertex = 4 | Amplis at edges = 6
+---OSNR en db = 25.5103 ---
+=====Path=====: 15
+Nodes = 8 9 5 4 10 
+Distance = 764 | Amplis at vertex = 5 | Amplis at edges = 8
+---OSNR en db = 24.3603 ---
+=====Path=====: 16
+Nodes = 8 9 5 3 2 4 10 
+Distance = 1017 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 17
+Nodes = 8 9 5 2 4 10 
+Distance = 920 | Amplis at vertex = 6 | Amplis at edges = 9
+---OSNR en db = 23.7448 ---
+=====Path=====: 22
+Nodes = 8 9 1 3 5 10 
+Distance = 964 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 40
+Nodes = 8 7 6 9 5 11 10 
+Distance = 1042 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 41
+Nodes = 8 7 6 9 5 10 
+Distance = 561 | Amplis at vertex = 6 | Amplis at edges = 5
+---OSNR en db = 25.1667 ---
+=====Path=====: 42
+Nodes = 8 7 6 9 5 4 10 
+Distance = 783 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 43
+Nodes = 8 7 6 9 5 3 2 4 10 
+Distance = 1036 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 44
+Nodes = 8 7 6 9 5 2 4 10 
+Distance = 939 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 49
+Nodes = 8 7 6 9 1 3 5 10 
+Distance = 983 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+------------------------
+OSNR demand: 34 : 8 to 10
+=====Path=====: 1
+Nodes = 8 11 13 10 
+Distance = 700 | Amplis at vertex = 4 | Amplis at edges = 7
+---OSNR en db = 25.0775 ---
+=====Path=====: 3
+Nodes = 8 11 12 14 15 13 10 
+Distance = 908 | Amplis at vertex = 7 | Amplis at edges = 8
+---OSNR en db = 23.7779 ---
+=====Path=====: 4
+Nodes = 8 11 10 
+Distance = 587 | Amplis at vertex = 3 | Amplis at edges = 6
+---OSNR en db = 25.9367 ---
+=====Path=====: 5
+Nodes = 8 11 5 10 
+Distance = 810 | Amplis at vertex = 4 | Amplis at edges = 9
+---OSNR en db = 24.3226 ---
+=====Path=====: 7
+Nodes = 8 11 5 4 10 
+Distance = 1032 | Amplis at vertex = 5 | Amplis at edges = 11
+---OSNR en db = 23.4205 ---
+=====Path=====: 13
+Nodes = 8 9 5 11 10 
+Distance = 1023 | Amplis at vertex = 5 | Amplis at edges = 11
+---OSNR en db = 23.4205 ---
+=====Path=====: 14
+Nodes = 8 9 5 10 
+Distance = 542 | Amplis at vertex = 4 | Amplis at edges = 6
+---OSNR en db = 25.5103 ---
+=====Path=====: 15
+Nodes = 8 9 5 4 10 
+Distance = 764 | Amplis at vertex = 5 | Amplis at edges = 8
+---OSNR en db = 24.3603 ---
+=====Path=====: 16
+Nodes = 8 9 5 3 2 4 10 
+Distance = 1017 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 17
+Nodes = 8 9 5 2 4 10 
+Distance = 920 | Amplis at vertex = 6 | Amplis at edges = 9
+---OSNR en db = 23.7448 ---
+=====Path=====: 22
+Nodes = 8 9 1 3 5 10 
+Distance = 964 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 40
+Nodes = 8 7 6 9 5 11 10 
+Distance = 1042 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 41
+Nodes = 8 7 6 9 5 10 
+Distance = 561 | Amplis at vertex = 6 | Amplis at edges = 5
+---OSNR en db = 25.1667 ---
+=====Path=====: 42
+Nodes = 8 7 6 9 5 4 10 
+Distance = 783 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 43
+Nodes = 8 7 6 9 5 3 2 4 10 
+Distance = 1036 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 44
+Nodes = 8 7 6 9 5 2 4 10 
+Distance = 939 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 49
+Nodes = 8 7 6 9 1 3 5 10 
+Distance = 983 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+------------------------
+OSNR demand: 35 : 8 to 10
+=====Path=====: 1
+Nodes = 8 11 13 10 
+Distance = 700 | Amplis at vertex = 4 | Amplis at edges = 7
+---OSNR en db = 25.0775 ---
+=====Path=====: 3
+Nodes = 8 11 12 14 15 13 10 
+Distance = 908 | Amplis at vertex = 7 | Amplis at edges = 8
+---OSNR en db = 23.7779 ---
+=====Path=====: 4
+Nodes = 8 11 10 
+Distance = 587 | Amplis at vertex = 3 | Amplis at edges = 6
+---OSNR en db = 25.9367 ---
+=====Path=====: 5
+Nodes = 8 11 5 10 
+Distance = 810 | Amplis at vertex = 4 | Amplis at edges = 9
+---OSNR en db = 24.3226 ---
+=====Path=====: 7
+Nodes = 8 11 5 4 10 
+Distance = 1032 | Amplis at vertex = 5 | Amplis at edges = 11
+---OSNR en db = 23.4205 ---
+=====Path=====: 13
+Nodes = 8 9 5 11 10 
+Distance = 1023 | Amplis at vertex = 5 | Amplis at edges = 11
+---OSNR en db = 23.4205 ---
+=====Path=====: 14
+Nodes = 8 9 5 10 
+Distance = 542 | Amplis at vertex = 4 | Amplis at edges = 6
+---OSNR en db = 25.5103 ---
+=====Path=====: 15
+Nodes = 8 9 5 4 10 
+Distance = 764 | Amplis at vertex = 5 | Amplis at edges = 8
+---OSNR en db = 24.3603 ---
+=====Path=====: 16
+Nodes = 8 9 5 3 2 4 10 
+Distance = 1017 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 17
+Nodes = 8 9 5 2 4 10 
+Distance = 920 | Amplis at vertex = 6 | Amplis at edges = 9
+---OSNR en db = 23.7448 ---
+=====Path=====: 22
+Nodes = 8 9 1 3 5 10 
+Distance = 964 | Amplis at vertex = 6 | Amplis at edges = 10
+---OSNR en db = 23.4514 ---
+=====Path=====: 40
+Nodes = 8 7 6 9 5 11 10 
+Distance = 1042 | Amplis at vertex = 7 | Amplis at edges = 10
+---OSNR en db = 23.2057 ---
+=====Path=====: 41
+Nodes = 8 7 6 9 5 10 
+Distance = 561 | Amplis at vertex = 6 | Amplis at edges = 5
+---OSNR en db = 25.1667 ---
+=====Path=====: 42
+Nodes = 8 7 6 9 5 4 10 
+Distance = 783 | Amplis at vertex = 7 | Amplis at edges = 7
+---OSNR en db = 24.0948 ---
+=====Path=====: 43
+Nodes = 8 7 6 9 5 3 2 4 10 
+Distance = 1036 | Amplis at vertex = 9 | Amplis at edges = 9
+---OSNR en db = 23.0009 ---
+=====Path=====: 44
+Nodes = 8 7 6 9 5 2 4 10 
+Distance = 939 | Amplis at vertex = 8 | Amplis at edges = 8
+---OSNR en db = 23.5136 ---
+=====Path=====: 49
+Nodes = 8 7 6 9 1 3 5 10 
+Distance = 983 | Amplis at vertex = 8 | Amplis at edges = 9
+---OSNR en db = 23.235 ---
+------------------------

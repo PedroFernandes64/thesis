@@ -66,6 +66,7 @@ if __name__ == "__main__":
     osnr = pch/(pase * (l_amp + n_amp) + pnli * pow(l_amp,1+epsilon))
     osnrdb = 10.0 * math.log10(osnr)
     print("OSNR: ", osnrdb)
+    '''
     if osnrlimdb <= osnrdb:
         print("ok, osnr lim", osnrlimdb)
     else:
@@ -116,3 +117,4 @@ if __name__ == "__main__":
     print(tt)
     print(tt*slots)
     print(tt*slots/osnrlim)
+    '''

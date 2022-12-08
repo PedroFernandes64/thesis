@@ -79,7 +79,7 @@ void SolverCplex::solve(){
         
         
             //if(!formulation->getInstance().getInput().isRelaxed()){
-        cplex.use(&myGenericCallback, contextMask);
+        //cplex.use(&myGenericCallback, contextMask);
         //cplex.use(pedroback(cplex.getEnv()));
         //}
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;

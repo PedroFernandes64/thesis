@@ -339,37 +339,45 @@ void RSA::gnModelAllPaths(){
 
 	//OSNR
     double osnrdb;
-    double osnrlimdb = 20.0;
+    double osnrlimdb = 23.0;
     double osnrlim = pow(10,osnrlimdb/10);
     int n_amp;
     int l_amp;
     double osnr;
     
 	std::cout << "Calculating OSNR " << std::endl;
-	for (int i = 0 ; i <toBeRouted.size(); i++){			
-		std::cout << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;		
-        for (int j = 0; j< alldemandsdistances[i].size(); ++j){
-            if(alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()){
-                std::cout << "-Path " << j+1 << std::endl;
-                std::cout << "---Nodes = ";
-                for (int k = 0; k <allpaths[i][j].size(); ++k)
-                    std::cout << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
-                std::cout << std::endl;
+    std::cout << "Writing  OSNR's to file..." << std::endl;
+    std::ofstream fw("osnr.txt", std::ofstream::out);
+    if (fw.is_open()){   
+        for (int i = 0 ; i <toBeRouted.size(); i++){			
+            fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;		
+            for (int j = 0; j< alldemandsdistances[i].size(); ++j){
                 distance = alldemandsdistances[i][j];
-                std::cout << "---Distance = " << distance << std::endl;
                 n_amp =  alldemandsvertexamplis[i][j]; //amplis at vertex
-                std::cout << "---Amplis at vertex = " << n_amp << std::endl;                
                 slots = toBeRouted[i].getLoad();        
                 pch = slots * Bn * gwdm;	
-                l_amp = alldemandslineamplis[i][j]; //amplis inline vertex
-                std::cout << "---Amplis at edges = " << l_amp << std::endl;   			
+                l_amp = alldemandslineamplis[i][j]; //amplis inline vertex 			
                 osnr = pch/(pase * (l_amp + n_amp) + pnli * pow(l_amp,1+epsilon));
                 osnrdb = 10.0 * log10(osnr);
-                std::cout << "---OSNR en db = " << osnrdb << std::endl;
-
+                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) || (osnrdb >= osnrlimdb) ){
+                    fw << "=====Path=====: " << j+1 << std::endl;
+                    fw << "Nodes = ";
+                    for (int k = 0; k <allpaths[i][j].size(); ++k)
+                        fw << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
+                    fw << std::endl;
+                    fw << "Distance = " << distance;
+                    fw << " | Amplis at vertex = " << n_amp;   
+                    fw << " | Amplis at edges = " << l_amp << std::endl;
+                    fw << "---OSNR en db = " << osnrdb << " ---" << std::endl;  
+                }
             }
+            fw << "------------------------" << std::endl;
         }
+        fw.close();
     }
+    else{
+        std::cout << "Problem with opening file";
+    }       
     //GN VERIFIER
     /*
     std::cout << "VERIFICATING GN COMPONENTS" << std::endl;

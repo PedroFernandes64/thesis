@@ -289,7 +289,7 @@ void FlowForm::setConstraints(){
     else{
         this->setLengthConstraints();
     }
-    this->setLengthConstraints();
+    //this->setLengthConstraints();
     //this->setStrongLengthConstraints();
     this->setNonOverlappingConstraints();    
 
@@ -518,7 +518,7 @@ Constraint FlowForm::getOSNRConstraint(const Demand &demand, int d){
     double rhs; double rls;
 
     
-    double osnrlimdb = 10.0; //should get from demand
+    double osnrlimdb = 23.0; //should get from demand
     //passar tudo isso pra dentro do GNModel
     double osnrlim = pow(10,osnrlimdb/10);
     double constant2FromGNModel = 19.72;
@@ -946,7 +946,7 @@ void FlowForm::updatePath(const std::vector<double> &vals){
     
     setVariableValues(vals);
     // Reinitialize OnPath
-    //std::cout << "Enter update." << std::endl;
+    std::cout << "Enter update." << std::endl;
     for(int d = 0; d < getNbDemandsToBeRouted(); d++){
         for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
                 (*vecOnPath[d])[a] = -1;
@@ -980,8 +980,7 @@ void FlowForm::updatePath(const std::vector<double> &vals){
                 if (x[d][arc].getVal() >= 1 - EPS){
                     (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
                     /*PEDRO PEDRO PEDRO*/
-                    //std::cout << "demande " << d << "arc " << arc << "slice " << getArcSlice(a,d) + 1 << "origin " << getNodeLabel((*vecGraph[d]).source(a), d) + 1 << "destiny " <<  getNodeLabel((*vecGraph[d]).target(a), d) + 1 << std::endl;
-                    //std::cout << "il pedro" <<std::endl;
+                    //std::cout << "demande" << d << " arc" << arc << " slice" << getArcSlice(a,d) + 1 << " origin" << getNodeLabel((*vecGraph[d]).source(a), d) + 1 << " destiny" <<  getNodeLabel((*vecGraph[d]).target(a), d) + 1 << std::endl;
                     //std::cout << "EDGE: " << getArcLabel(a, d) << std::endl;
                     /*PEDRO PEDRO PEDRO*/
                     previousArc = a;
@@ -994,7 +993,7 @@ void FlowForm::updatePath(const std::vector<double> &vals){
             currentNode = (*vecGraph[d]).source(previousArc);
         }
     }
-    //std::cout << "Leave update." << std::endl;
+    std::cout << "Leave update." << std::endl;
 }
 
 /* Displays the value of each variable in the obtained solution. */
