@@ -40,7 +40,7 @@ The file onlineParameters contains the parameters needed for the program to run 
 - nbDemandsAtOnce: States how many demands are treated in one optimization step.
 - formulation: Choice of the formulation to be used. 0 for Flow Formulation. 1 for Edge-Node.
 - userCuts: Boolean parameter indicating whether user cuts should be applied.
-- obj: Which objective to be optimized. 1 for minimize last slot used per demand. 1p for minimize last slot used per edge. 2 for minimize number of hops. 2p for minimize used slices. 4 minimize path lenght. 8 minimize last slot used overall.
+- obj: Which objective to be optimized. 1 for minimize last slot used per demand. 1p for minimize last slot used per edge. 2 for minimize number of hops. 2p for minimize used slices. 4 minimize path length. 8 minimize last slot used overall.
 - allowBlocking: Boolean parameter indicating whether the optimization can continue after a demand is blocked.
 - hopPenalty: Demand's reach penalty applied on each hop.
 - partitionPolicy: States whether the spectrum is partitioned. 0 for no partition at all. 1 for pushing bigger demands to the right and smaller to the left.

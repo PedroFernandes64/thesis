@@ -289,7 +289,6 @@ void FlowForm::setConstraints(){
     else{
         this->setLengthConstraints();
     }
-    //this->setLengthConstraints();
     //this->setStrongLengthConstraints();
     this->setNonOverlappingConstraints();    
 
