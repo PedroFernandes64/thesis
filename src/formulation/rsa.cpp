@@ -339,7 +339,7 @@ void RSA::gnModelAllPaths(){
 
 	//OSNR
     double osnrdb;
-    double osnrlimdb = 23.0;
+    double osnrlimdb = 23.5;
     double osnrlim = pow(10,osnrlimdb/10);
     int n_amp;
     int l_amp;

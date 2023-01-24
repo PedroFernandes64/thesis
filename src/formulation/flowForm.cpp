@@ -517,7 +517,7 @@ Constraint FlowForm::getOSNRConstraint(const Demand &demand, int d){
     double rhs; double rls;
 
     
-    double osnrlimdb = 23.0; //should get from demand
+    double osnrlimdb = 23.5; //should get from demand
     //passar tudo isso pra dentro do GNModel
     double osnrlim = pow(10,osnrlimdb/10);
     double constant2FromGNModel = 19.72;

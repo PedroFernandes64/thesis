@@ -2,7 +2,7 @@
 topologyFile=../Parameters/Instances/Pedro/German_D17/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../Parameters/Instances/Pedro/German_D17/Demands2
+demandToBeRoutedFolder=../Parameters/Instances/Pedro/German_D17/Demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -15,8 +15,8 @@ GNModel_activation=1
 ******* Formulation parameters *******
 nbDemandsAtOnce=100
 formulation=0
-userCuts=1
-obj=1p
+userCuts=0
+obj=2
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
