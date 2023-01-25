@@ -350,6 +350,167 @@ void RSA::gnModelAllPaths(){
     }
     else{
         std::cout << "mode 2023" << std::endl;
+        //PASE
+        double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
+        double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
+        double c = 3.0 *pow(10,8);                          //SI meters by second, m 
+        double nu = c/lambd;                                //SI hertz
+        double NF = 5.0;                                    //SI dB
+        double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
+        double alpha = 0.2;                                 //NOT SI dB/kilometer 
+        double a = log(10)*alpha/20 * pow(10,-3);           //SI 1/km
+        double ls ;                                     //NOT SI kilometers
+        double Ls ;                         //SI meters
+        double Gdb ;                            //SI #dB
+        double Glin ;                       //LINEAR
+        double Bn ;                       //SI Hertz                       #Usually gigahertz  (x ghz)
+        double pase ;
+
+        //GNLI
+        double D = 16.5;                                            //#NOT SI ps/(nm km)
+        double SI_D = D * pow (10,-6);                              //#SI s/m^2)
+        double beta2 = abs(SI_D) * pow(lambd,2)/(2*M_PIl*c);      //#SI s^2/m   
+        double n2 = 2.7 * pow (10,-20);                             //#SI m^2/W               #Usually micrometer^2
+        double aeff = 85 * pow (10,-12);                            //#SI m^2                 #Usually micrometer^2
+        double gam = (n2/aeff) * (2*M_PIl/lambd);                 //#SI 1/W m
+        double bwdm = 5000 * pow(10,9);                             //#SI #Hz                 #Usually gigahertz
+        double Psat = 50 * pow(10,-3);                              //#SI #W                  #Usually mW
+        double gwdm = Psat/bwdm;                                    //#SI #W/Hz
+        double leff ;               //#SI #km
+        double leff_a;                               //#SI #km 
+        double gnli ;
+
+        //manage paths
+        std::vector<std::vector<double> > alldemandsdistances;
+        std::vector<std::vector<int> > alldemandsvertexamplis;
+        std::vector<std::vector<double> > alldemandsASEpath;
+        std::vector<std::vector<double> > alldemandsGNLIpath;
+        std::vector<double> thisdemanddistances;
+        std::vector<int> thisdemandvertexamplis;
+        std::vector<double> thisdemandASEpath;
+        std::vector<double> thisdemandGNLIpath;
+        int currentnode;
+        int nextnode;
+        double length;
+        int vertexamplis;
+        int spans;
+        double lspan;
+        double ASEfiber;
+        double ASEpath;
+        double GNLIfiber;
+        double GNLIpath;
+        int fibernumberinpath;
+        for (int i = 0; i <allpaths.size(); ++i){
+            std::cout << "for demand " << i+1 <<std::endl;
+            for (int j = 0; j <allpaths[i].size(); ++j){
+                length = 0;
+                vertexamplis = 0;
+                ASEpath = 0;
+                GNLIpath = 0;
+                std::cout << "path " << j+1 << " : "<< std::endl;
+                fibernumberinpath = 0;
+                for (int k = 0; k <allpaths[i][j].size()-1; ++k){
+                    fibernumberinpath = fibernumberinpath + 1;
+                    currentnode = getCompactNodeLabel(allpaths[i][j][k]);
+                    nextnode = getCompactNodeLabel(allpaths[i][j][k+1]);
+                    length += instance.getPhysicalLinkBetween(currentnode,nextnode).getLength();
+                    vertexamplis++;
+                    //SPANS
+                    std::cout << "-Fiber: " << fibernumberinpath << " length: " << instance.getPhysicalLinkBetween(currentnode,nextnode).getLength() << std::endl;
+                    spans = ceil(instance.getPhysicalLinkBetween(currentnode,nextnode).getLength()/80.0);
+                    lspan = instance.getPhysicalLinkBetween(currentnode,nextnode).getLength()/spans;
+                    std::cout << "Has "  << spans << " spans of " << lspan << std::endl;
+                    //PASE
+                    ls = lspan;                                     //NOT SI kilometers
+                    Ls = ls * pow(10,3);                         //SI meters
+                    Gdb = alpha * ls;                            //SI #dB
+                    Glin = pow(10,Gdb/10);                       //LINEAR
+                    Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
+                    pase = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
+                    std::cout << "Has "  << pase << " PASE for 1 span " << std::endl;
+                    ASEfiber = pase * spans;
+                    std::cout << "Has "  << ASEfiber << " PASE for this fiber " << std::endl;
+                    ASEpath += ASEfiber;
+                    //GNLI
+                    leff = (1.0 - exp(-2.0*a*Ls))/(2.0*a);               //#SI #km
+                    leff_a = 1.0/(2.0 *a);                               //#SI #km 
+                    gnli = (8.0/27.0) * pow(gam,2) * pow(gwdm,3) * pow(leff,2) * (asinh(pow(M_PIl/2,2)*beta2*leff_a*pow(bwdm,2))/(M_PIl*beta2*leff_a));
+                    std::cout << "Has "  << gnli << " GNLI for 1 span " << std::endl;
+                    GNLIfiber  = gnli * spans;
+                    std::cout << "Has "  << GNLIfiber << " GNLI for this fiber " << std::endl;
+                    GNLIpath +=  GNLIfiber;
+                }
+                vertexamplis = vertexamplis +1;
+                thisdemanddistances.push_back(length);
+                thisdemandvertexamplis.push_back(vertexamplis);
+                thisdemandASEpath.push_back(ASEpath);
+                std::cout << "This demand has "  << ASEpath << " PASE path "  << std::endl;
+                thisdemandGNLIpath.push_back(GNLIpath);
+                std::cout << "This demand has "  << GNLIpath << " GNLI path "  << std::endl << std::endl;
+            }
+            alldemandsdistances.push_back(thisdemanddistances);
+            alldemandsvertexamplis.push_back(thisdemandvertexamplis);
+            alldemandsASEpath.push_back(thisdemandASEpath);
+            alldemandsGNLIpath.push_back(thisdemandGNLIpath);
+            thisdemanddistances.clear();
+            thisdemandvertexamplis.clear();
+            thisdemandGNLIpath.clear();
+            thisdemandASEpath.clear();
+        }
+
+        //DEMANDE
+        int slots;
+
+        //PATH
+        double distance;
+        double pch;
+
+        //OSNR
+        double osnrdb;
+        double osnrlimdb = 23.5;
+        double osnrlim = pow(10,osnrlimdb/10);
+        double Realpnli;
+        double Realpase;
+        double osnr;
+        
+        std::cout << "Calculating OSNR " << std::endl;
+        std::cout << "Writing  OSNR's to file..." << std::endl;
+        std::ofstream fw("osnr.txt", std::ofstream::out);
+        if (fw.is_open()){   
+            for (int i = 0 ; i <toBeRouted.size(); i++){			
+                fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;		
+                for (int j = 0; j< alldemandsdistances[i].size(); ++j){
+                    distance = alldemandsdistances[i][j];
+                    Realpnli =  alldemandsGNLIpath[i][j] * Bn; 
+                    fw << "PNLI " << Realpnli << std::endl;
+                    Realpase =  alldemandsASEpath[i][j]; 
+                    fw << "PASE " << Realpase << std::endl;
+                    slots = toBeRouted[i].getLoad();        
+                    pch = slots * Bn * gwdm;			
+                    osnr = pch/(Realpase  + Realpnli);
+                    osnrdb = 10.0 * log10(osnr);
+                    fw << "=====Path=====: " << j+1 << std::endl;
+                    fw << "Nodes = ";
+                    for (int k = 0; k <allpaths[i][j].size(); ++k)
+                        fw << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
+                    fw << std::endl;
+                    fw << "Distance = " << distance;
+                    fw << "---OSNR en db = " << osnrdb << " ---" << std::endl;                     
+                }
+                fw << "------------------------" << std::endl;
+            }
+            fw.close();
+        }
+        else{
+            std::cout << "Problem with opening file";
+        }       
+        //std::cout <<std::endl;
+        /*for (int i = 0; i <alldemandsdistances.size(); ++i){
+            std::cout << "for demand " << i+1 <<std::endl;
+            for (int j = 0; j <alldemandsdistances[i].size(); ++j){
+                std::cout << "distance: " << alldemandsdistances[i][j] << std::endl;
+            }
+        }*/
     }
 }
 
