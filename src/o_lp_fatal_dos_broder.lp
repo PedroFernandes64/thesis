@@ -28112,9 +28112,9 @@ Bounds
  0 <= RgSource_14_3#47 <= 1
  0 <= RgSource_15_3#48 <= 1
  0 <= RgSource_17_3#50 <= 1
- 0 <= RgOSNR_1#864 <= 278.86
- 0 <= RgOSNR_2#865 <= 278.86
- 0 <= RgOSNR_3#866 <= 278.86
+ 0 <= RgOSNR_1#864 <= 356.17
+ 0 <= RgOSNR_2#865 <= 356.17
+ 0 <= RgOSNR_3#866 <= 356.17
  0 <= RgNonOverlap_1_1#867 <= 1
  0 <= RgNonOverlap_1_2#868 <= 1
  0 <= RgNonOverlap_1_3#869 <= 1
