@@ -470,7 +470,9 @@ void RSA::gnModelAllPaths(){
         double osnrlimdb = 23.5;
         double osnrlim = pow(10,osnrlimdb/10);
         double Realpnli;
-        double Realpase;
+        double Realpaselin;
+        double Realpasenod;
+        double pasenodeaux;
         double osnr;
         
         std::cout << "Calculating OSNR " << std::endl;
@@ -482,20 +484,32 @@ void RSA::gnModelAllPaths(){
                 for (int j = 0; j< alldemandsdistances[i].size(); ++j){
                     distance = alldemandsdistances[i][j];
                     Realpnli =  alldemandsGNLIpath[i][j] * Bn; 
-                    fw << "PNLI " << Realpnli << std::endl;
-                    Realpase =  alldemandsASEpath[i][j]; 
-                    fw << "PASE " << Realpase << std::endl;
-                    slots = toBeRouted[i].getLoad();        
-                    pch = slots * Bn * gwdm;			
-                    osnr = pch/(Realpase  + Realpnli);
+                    Realpaselin =  alldemandsASEpath[i][j]; 
+                    Gdb = 20;                            //SI #dB
+                    Glin = pow(10,Gdb/10);                       //LINEAR
+                    //Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
+                    pasenodeaux = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
+                    std::cout << "Has "  << pasenodeaux << " PASE for 1 node " << std::endl;
+                    Realpasenod = alldemandsvertexamplis[i][j]*pasenodeaux;   
+                    std::cout << "Has "  << Realpasenod << " PASE for in total " << std::endl;
+                    slots = toBeRouted[i].getLoad();  
+                    pch = slots * Bn * gwdm;	
+                    std::cout << "Has "  << pch << " pch " << std::endl;		
+                    osnr = pch/(Realpaselin + Realpnli);
+                    std::cout << "Has "  << osnr << " osnr " << std::endl;
                     osnrdb = 10.0 * log10(osnr);
-                    fw << "=====Path=====: " << j+1 << std::endl;
-                    fw << "Nodes = ";
-                    for (int k = 0; k <allpaths[i][j].size(); ++k)
-                        fw << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
-                    fw << std::endl;
-                    fw << "Distance = " << distance;
-                    fw << "---OSNR en db = " << osnrdb << " ---" << std::endl;                     
+                    if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) || (osnrdb >= osnrlimdb) ){
+                        fw << "=====Path=====: " << j+1 << std::endl;
+                        //fw << "PNLI " << Realpnli << std::endl;
+                        //fw << "PASElin " << Realpaselin << std::endl;
+                        //fw << "PASEnode " << Realpasenod << std::endl;
+                        fw << "Nodes = ";
+                        for (int k = 0; k <allpaths[i][j].size(); ++k)
+                            fw << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
+                        fw << std::endl;
+                        fw << "Distance = " << distance;
+                        fw << "---OSNR en db = " << osnrdb << " ---" << std::endl;  
+                    }                   
                 }
                 fw << "------------------------" << std::endl;
             }

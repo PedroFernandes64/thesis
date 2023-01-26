@@ -72,7 +72,7 @@ if __name__ == "__main__":
     else:
         print("not ok, osnr lim", osnrlimdb)
     print(osnr, " = ", pch, "/", "(", pase, "(", l_amp, "+", n_amp, ") + ", pnli, "*", pow(l_amp,1+epsilon))
-    
+    '''
     print("Approximation")
     print("C1 = Pch = ", pch)
     c1 = pch
@@ -80,6 +80,7 @@ if __name__ == "__main__":
     c2 = pase
     print("C3 = Pnli = ", pnli)
     c3 = pnli
+    '''
     print("C4 = Epsilon = ", epsilon)
     c4 = epsilon
     
