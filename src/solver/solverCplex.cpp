@@ -78,13 +78,13 @@ void SolverCplex::solve(){
         CPXLONG contextMask = context(myObjectives[i].getId(), formulation->getInstance().getInput());
         
         
-            //if(!formulation->getInstance().getInput().isRelaxed()){
+        //if(!formulation->getInstance().getInput().isRelaxed()){
         //cplex.use(&myGenericCallback, contextMask);
         //cplex.use(pedroback(cplex.getEnv()));
         //}
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
         cplex.solve();
-        cplex.exportModel("o_lp_fatal_dos_broder.lp");
+        //cplex.exportModel("o_lp_fatal_dos_broder.lp");
         if ((cplex.getStatus() == IloAlgorithm::Optimal) || (cplex.getStatus() == IloAlgorithm::Feasible)){
             IloNum objValue = cplex.getObjValue();
             std::cout << "Objective Function Value: " << objValue << std::endl;

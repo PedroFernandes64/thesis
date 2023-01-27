@@ -373,6 +373,11 @@ public:
     std::vector<std::vector<ListGraph::Node> >  pathsdemand;
     std::vector<std::vector<std::vector<ListGraph::Node> > > allpaths;
     void gnModelAllPaths();
+    double paseLinFiber(double l, int s);
+    double pnliLinFiber(double l, int s);
+    double paseNodePath(int n);
+    double osnrPath(double pl, double pn, double pnli, double s);
+ 
     void printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_index);
 
 	/****************************************************************************************/

@@ -171,10 +171,91 @@ void RSA::printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_
     visited[u] = false;
 }
 
+double RSA::paseLinFiber(double length, int spans){
+    double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
+    double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
+    double c = 3.0 *pow(10,8);                          //SI meters by second, m 
+    double nu = c/lambd;                                //SI hertz
+    double NF = 5.0;                                    //SI dB
+    double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
+    double alpha = 0.2;                                 //NOT SI dB/kilometer 
+    double a = log(10)*alpha/20 * pow(10,-3);           //SI 1/km
+    double ls ;                                         //NOT SI kilometers
+    double Gdb ;                                        //SI #dB
+    double Glin ;                                       //LINEAR
+    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
+    double paseSpan ;
+    double paseFiber;
+    ls = length;                                             //NOT SI kilometers
+    Gdb = alpha * ls;                                   //SI #dB
+    Glin = pow(10,Gdb/10);                              //LINEAR
+    paseSpan = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
+    paseFiber = paseSpan * spans;
+    return paseFiber;
+}
+
+double RSA::pnliLinFiber(double length, int spans){
+    double lambd = 1545.0 * pow(10,-9);                     //SI meters, m                   #Usually nanometer (x nanometer)
+    double D = 16.5;                                            //#NOT SI ps/(nm km)
+    double SI_D = D * pow (10,-6);                              //#SI s/m^2)
+    double c = 3.0 *pow(10,8);                          //SI meters by second, m
+    double beta2 = abs(SI_D) * pow(lambd,2)/(2*M_PIl*c);        //#SI s^2/m   
+    double n2 = 2.7 * pow (10,-20);                             //#SI m^2/W               #Usually micrometer^2
+    double aeff = 85 * pow (10,-12);                            //#SI m^2                 #Usually micrometer^2
+    double gam = (n2/aeff) * (2*M_PIl/lambd);                   //#SI 1/W m
+    double bwdm = 5000 * pow(10,9);                             //#SI #Hz                 #Usually gigahertz
+    double Psat = 50 * pow(10,-3);                              //#SI #W                  #Usually mW
+    double gwdm = Psat/bwdm;
+    double alpha = 0.2;                                     //NOT SI dB/kilometer 
+    double a = log(10)*alpha/20 * pow(10,-3);               //SI 1/km                                    //#SI #W/Hz
+    double leff ;                                           //#SI #km
+    double leff_a;                                          //#SI #km 
+    double Ls = length * pow(10,3);                         //SI meters
+    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
+    double gnliSpan ;
+    double gnliFiber;
+    leff = (1.0 - exp(-2.0*a*Ls))/(2.0*a);                  //#SI #km
+    leff_a = 1.0/(2.0 *a);                                  //#SI #km 
+    gnliSpan = (8.0/27.0) * pow(gam,2) * pow(gwdm,3) * pow(leff,2) * (asinh(pow(M_PIl/2,2)*beta2*leff_a*pow(bwdm,2))/(M_PIl*beta2*leff_a)) * Bn;
+    gnliFiber = gnliSpan * spans;
+    return gnliFiber;
+}
+double RSA::paseNodePath(int nodes){
+    double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
+    double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
+    double c = 3.0 *pow(10,8);                          //SI meters by second, m 
+    double nu = c/lambd;                                //SI hertz
+    double NF = 5.0;                                    //SI dB
+    double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
+    double alpha = 0.2;                                 //NOT SI dB/kilometer 
+    double a = log(10)*alpha/20 * pow(10,-3);           //SI 1/km
+    double Gdb ;                                        //SI #dB
+    double Glin ;                                       //LINEAR
+    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
+    double paseNode ;
+    double paseNodeFiber;
+    Gdb = 20;                                           //SI #dB
+    Glin = pow(10,Gdb/10);                              //LINEAR
+    paseNode = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
+    paseNodeFiber = paseNode * nodes;
+    return paseNodeFiber;
+}
+
+double RSA::osnrPath(double paselin, double pasenode, double pnli, double slots){
+    double Psat = 50 * pow(10,-3);
+    double bwdm = 5000 * pow(10,9); 
+    double gwdm = Psat/bwdm;
+    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
+    double pch;
+    double osnr;
+    double osnrdb;
+    pch = slots * Bn * gwdm;			
+    osnr = pch/(paselin + pasenode + pnli);
+    osnrdb = 10.0 * log10(osnr);
+    return osnrdb;
+}
 
 void RSA::gnModelAllPaths(){
-
-    int legacy_or_2023 = 2;
     
     // ADJACENCY LIST
     std::vector<std::vector<int> > aux(instance.getNbNodes());
@@ -185,6 +266,7 @@ void RSA::gnModelAllPaths(){
         adj_list[compactGraph.id(compactGraph.u(i))].push_back(compactGraph.id(compactGraph.v(i)));
         adj_list[compactGraph.id(compactGraph.v(i))].push_back(compactGraph.id(compactGraph.u(i)));
     }
+
     int origin;
     int destination;
     for (int i = 0; i < toBeRouted.size(); ++i){
@@ -204,328 +286,115 @@ void RSA::gnModelAllPaths(){
         printAllPathsUtil(origin, destination, visited, path, path_index);
         allpaths.push_back(pathsdemand);
         pathsdemand.clear();
+    }
+    //manage paths
+    std::vector<std::vector<double> > alldemandsdistances;
+    std::vector<std::vector<double> > alldemandsPASEnode;
+    std::vector<std::vector<double> > alldemandsPASElin;
+    std::vector<std::vector<double> > alldemandsPNLI;
+    std::vector<double> thisdemanddistances;
+    std::vector<double> thisdemandPASEnode;
+    std::vector<double> thisdemandPASElin;
+    std::vector<double> thisdemandPNLI;
+    int currentnode;
+    int nextnode;
+    double length;
+    int spans;
+    double lspan;
+    int vertexamplis;
+    double ASEfiber;
+    double ASEpath;
+    double PNLIfiber;
+    double PNLIpath;
+    double ASEnodepath;
+    int fibernumberinpath;
+    for (int i = 0; i <allpaths.size(); ++i){
+        std::cout << "for demand " << i+1 <<std::endl;
+        for (int j = 0; j <allpaths[i].size(); ++j){
+            length = 0;
+            vertexamplis = 0;
+            ASEnodepath = 0;
+            ASEpath = 0;
+            PNLIpath = 0;
+            std::cout << "path " << j+1 << " : "<< std::endl;
+            fibernumberinpath = 0;
+            for (int k = 0; k <allpaths[i][j].size()-1; ++k){
+                fibernumberinpath = fibernumberinpath + 1;
+                currentnode = getCompactNodeLabel(allpaths[i][j][k]);
+                nextnode = getCompactNodeLabel(allpaths[i][j][k+1]);
+                length += instance.getPhysicalLinkBetween(currentnode,nextnode).getLength();
+                vertexamplis++;
+                    //SPANS
+                std::cout << "-Fiber: " << fibernumberinpath << " length: " << instance.getPhysicalLinkBetween(currentnode,nextnode).getLength() << std::endl;
+                spans = ceil(instance.getPhysicalLinkBetween(currentnode,nextnode).getLength()/80.0);
+                lspan = instance.getPhysicalLinkBetween(currentnode,nextnode).getLength()/spans;
+                std::cout << "Has "  << spans << " spans of " << lspan << std::endl;
+                //PASE
+                ASEfiber = paseLinFiber(lspan,spans);
+                std::cout << "Has "  << ASEfiber << " PASE for this fiber " << std::endl;
+                ASEpath += ASEfiber;
+                //GNLI
+                PNLIfiber  = pnliLinFiber(lspan,spans);
+                std::cout << "Has "  << PNLIfiber << " GNLI for this fiber " << std::endl;
+                PNLIpath +=  PNLIfiber;
+            }
+            vertexamplis = vertexamplis +1;
+            ASEnodepath = paseNodePath(vertexamplis);
+            thisdemanddistances.push_back(length);
+            thisdemandPASEnode.push_back(ASEnodepath);
+            std::cout << "This demand has "  << ASEnodepath << " PASE node path "  << std::endl;
+            thisdemandPASElin.push_back(ASEpath);
+            std::cout << "This demand has "  << ASEpath << " PASE lin path "  << std::endl;
+            thisdemandPNLI.push_back(PNLIpath);
+            std::cout << "This demand has "  << PNLIpath << " PNLI path "  << std::endl << std::endl;
         }
-    
-    if (legacy_or_2023 == 1) {
-        std::vector<std::vector<double> > alldemandsdistances;
-        std::vector<std::vector<int> > alldemandslineamplis;
-        std::vector<std::vector<int> > alldemandsvertexamplis;
-        std::vector<double> thisdemanddistances;
-        std::vector<int> thisdemandlineamplis;
-        std::vector<int> thisdemandvertexamplis;
-        int currentnode;
-        int nextnode;
-        double length;
-        int lineamplis;
-        int vertexamplis;
-        for (int i = 0; i <allpaths.size(); ++i){
-            //std::cout << "for demand " << i+1 <<std::endl;
-            for (int j = 0; j <allpaths[i].size(); ++j){
-                length = 0;
-                vertexamplis = 0;
-                lineamplis = 0;
-                //std::cout << "path " << j+1 << " : ";
-                for (int k = 0; k <allpaths[i][j].size()-1; ++k){
-                    //std::cout << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " "; 
-                    currentnode = getCompactNodeLabel(allpaths[i][j][k]);
-                    nextnode = getCompactNodeLabel(allpaths[i][j][k+1]);
-                    //std::cout << currentnode << " " << nextnode << " ";
-                    length += instance.getPhysicalLinkBetween(currentnode,nextnode).getLength();
-                    lineamplis += instance.getPhysicalLinkBetween(currentnode,nextnode).getLineAmplifiers();
-                    vertexamplis++;
-                    //AQUI CALCULAR O GNLI E O PASE DE CADA BAGULHO
-                    //std::cout << "LENGTH= " << length << std::endl;
+        alldemandsdistances.push_back(thisdemanddistances);
+        alldemandsPASEnode.push_back(thisdemandPASEnode);
+        alldemandsPASElin.push_back(thisdemandPASElin);
+        alldemandsPNLI.push_back(thisdemandPNLI);
+        thisdemanddistances.clear();
+        thisdemandPASEnode.clear();
+        thisdemandPNLI.clear();
+        thisdemandPASElin.clear();
+    }
 
+    //DEMANDE
+    int slots;
+    //PATH
+    double distance;
+    //OSNR
+    double dbOsnr;
+    double osnrlimdb = 23.5;
+    std::cout << "Calculating OSNR " << std::endl;
+    std::cout << "Writing  OSNR's to file..." << std::endl;
+    std::ofstream fw("osnr.txt", std::ofstream::out);
+    if (fw.is_open()){   
+        for (int i = 0 ; i <toBeRouted.size(); i++){			
+            fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;		
+            for (int j = 0; j< alldemandsdistances[i].size(); ++j){
+                distance = alldemandsdistances[i][j];
+                slots = toBeRouted[i].getLoad();        
+                dbOsnr = osnrPath(alldemandsPASElin[i][j], alldemandsPASEnode[i][j], alldemandsPNLI[i][j], slots);
+                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) || (dbOsnr >= osnrlimdb) ){
+                    fw << "=====Path=====: " << j+1 << std::endl;
+                    fw << "PNLI " << alldemandsPNLI[i][j] << std::endl;
+                    fw << "PASElin " << alldemandsPASElin[i][j] << std::endl;
+                    fw << "PASEnode " << alldemandsPASEnode[i][j] << std::endl;
+                    fw << "Nodes = ";
+                    for (int k = 0; k <allpaths[i][j].size(); ++k)
+                        fw << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
+                    fw << std::endl;
+                    fw << "Distance = " << distance;
+                    fw << "---OSNR en db = " << dbOsnr << " ---" << std::endl;                     
                 }
-                vertexamplis = vertexamplis +1;
-                thisdemanddistances.push_back(length);
-                thisdemandlineamplis.push_back(lineamplis);
-                thisdemandvertexamplis.push_back(vertexamplis);
-                //std::cout << allpaths[i][j][k+1]<<" with total lenght = " << length << std::endl;
             }
-            alldemandsdistances.push_back(thisdemanddistances);
-            alldemandslineamplis.push_back(thisdemandlineamplis);
-            alldemandsvertexamplis.push_back(thisdemandvertexamplis);
-            thisdemanddistances.clear();
-            thisdemandlineamplis.clear();
-            thisdemandvertexamplis.clear();
-
-        }
-        //std::cout <<std::endl;
-        /*for (int i = 0; i <alldemandsdistances.size(); ++i){
-            std::cout << "for demand " << i+1 <<std::endl;
-            for (int j = 0; j <alldemandsdistances[i].size(); ++j){
-                std::cout << "distance: " << alldemandsdistances[i][j] << std::endl;
+            fw << "------------------------" << std::endl;
             }
-        }*/
-        
-        //DEMANDE
-        int origin_demande;
-        int destination_demande;
-        int slots;
-
-        //PATH
-        std::vector<int> edges;
-        double distance;
-
-        //GN MODEL
-        //PASE
-        double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
-        double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
-        double c = 3.0 *pow(10,8);                          //SI meters by second, m 
-        double nu = c/lambd;                                //SI hertz
-        double NF = 5.0;                                    //SI dB
-        double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
-        double alpha = 0.2;                                 //NOT SI dB/kilometer 
-        double a = log(10)*alpha/20 * pow(10,-3);           //SI 1/km
-        double ls = 80;                                     //NOT SI kilometers
-        double Ls = 80 * pow(10,3);                         //SI meters
-        double Gdb = alpha * ls;                            //SI #dB
-        double Glin = pow(10,Gdb/10);                       //LINEAR
-        double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
-        double pase = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
-
-        //GNLI
-        double D = 16.5;                                            //#NOT SI ps/(nm km)
-        double SI_D = D * pow (10,-6);                              //#SI s/m^2)
-        double beta2 = abs(SI_D) * pow(lambd,2)/(2*M_PIl*c);      //#SI s^2/m   
-        double n2 = 2.7 * pow (10,-20);                             //#SI m^2/W               #Usually micrometer^2
-        double aeff = 85 * pow (10,-12);                            //#SI m^2                 #Usually micrometer^2
-        double gam = (n2/aeff) * (2*M_PIl/lambd);                 //#SI 1/W m
-        double bwdm = 5000 * pow(10,9);                             //#SI #Hz                 #Usually gigahertz
-        double Psat = 50 * pow(10,-3);                              //#SI #W                  #Usually mW
-        double gwdm = Psat/bwdm;                                    //#SI #W/Hz
-        double leff = (1.0 - exp(-2.0*a*Ls))/(2.0*a);               //#SI #km
-        double leff_a = 1.0/(2.0 *a);                               //#SI #km 
-        double gnli = (8.0/27.0) * pow(gam,2) * pow(gwdm,3) * pow(leff,2) * (asinh(pow(M_PIl/2,2)*beta2*leff_a*pow(bwdm,2))/(M_PIl*beta2*leff_a));
-
-        //PNLI
-        double pnli = gnli * Bn;
-        double pch;
-
-        //Epsilon
-        double  epsilon = (3.0/10.0) * log(1 + (6.0/Ls) * (leff_a/(asinh((pow(M_PIl,2)/2)*beta2*leff_a*pow(bwdm,2))))); 
-
-        //OSNR
-        double osnrdb;
-        double osnrlimdb = 23.5;
-        double osnrlim = pow(10,osnrlimdb/10);
-        int n_amp;
-        int l_amp;
-        double osnr;
-        
-        std::cout << "Calculating OSNR " << std::endl;
-        std::cout << "Writing  OSNR's to file..." << std::endl;
-        std::ofstream fw("osnr.txt", std::ofstream::out);
-        if (fw.is_open()){   
-            for (int i = 0 ; i <toBeRouted.size(); i++){			
-                fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;		
-                for (int j = 0; j< alldemandsdistances[i].size(); ++j){
-                    distance = alldemandsdistances[i][j];
-                    n_amp =  alldemandsvertexamplis[i][j]; //amplis at vertex
-                    slots = toBeRouted[i].getLoad();        
-                    pch = slots * Bn * gwdm;	
-                    l_amp = alldemandslineamplis[i][j]; //amplis inline vertex 			
-                    osnr = pch/(pase * (l_amp + n_amp) + pnli * pow(l_amp,1+epsilon));
-                    osnrdb = 10.0 * log10(osnr);
-                    if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) || (osnrdb >= osnrlimdb) ){
-                        fw << "=====Path=====: " << j+1 << std::endl;
-                        fw << "Nodes = ";
-                        for (int k = 0; k <allpaths[i][j].size(); ++k)
-                            fw << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
-                        fw << std::endl;
-                        fw << "Distance = " << distance;
-                        fw << " | Amplis at vertex = " << n_amp;   
-                        fw << " | Amplis at edges = " << l_amp << std::endl;
-                        fw << "---OSNR en db = " << osnrdb << " ---" << std::endl;  
-                    }
-                }
-                fw << "------------------------" << std::endl;
-            }
-            fw.close();
-        }
-        else{
-            std::cout << "Problem with opening file";
-        }       
+        fw.close();
     }
     else{
-        std::cout << "mode 2023" << std::endl;
-        //PASE
-        double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
-        double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
-        double c = 3.0 *pow(10,8);                          //SI meters by second, m 
-        double nu = c/lambd;                                //SI hertz
-        double NF = 5.0;                                    //SI dB
-        double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
-        double alpha = 0.2;                                 //NOT SI dB/kilometer 
-        double a = log(10)*alpha/20 * pow(10,-3);           //SI 1/km
-        double ls ;                                     //NOT SI kilometers
-        double Ls ;                         //SI meters
-        double Gdb ;                            //SI #dB
-        double Glin ;                       //LINEAR
-        double Bn ;                       //SI Hertz                       #Usually gigahertz  (x ghz)
-        double pase ;
-
-        //GNLI
-        double D = 16.5;                                            //#NOT SI ps/(nm km)
-        double SI_D = D * pow (10,-6);                              //#SI s/m^2)
-        double beta2 = abs(SI_D) * pow(lambd,2)/(2*M_PIl*c);      //#SI s^2/m   
-        double n2 = 2.7 * pow (10,-20);                             //#SI m^2/W               #Usually micrometer^2
-        double aeff = 85 * pow (10,-12);                            //#SI m^2                 #Usually micrometer^2
-        double gam = (n2/aeff) * (2*M_PIl/lambd);                 //#SI 1/W m
-        double bwdm = 5000 * pow(10,9);                             //#SI #Hz                 #Usually gigahertz
-        double Psat = 50 * pow(10,-3);                              //#SI #W                  #Usually mW
-        double gwdm = Psat/bwdm;                                    //#SI #W/Hz
-        double leff ;               //#SI #km
-        double leff_a;                               //#SI #km 
-        double gnli ;
-
-        //manage paths
-        std::vector<std::vector<double> > alldemandsdistances;
-        std::vector<std::vector<int> > alldemandsvertexamplis;
-        std::vector<std::vector<double> > alldemandsASEpath;
-        std::vector<std::vector<double> > alldemandsGNLIpath;
-        std::vector<double> thisdemanddistances;
-        std::vector<int> thisdemandvertexamplis;
-        std::vector<double> thisdemandASEpath;
-        std::vector<double> thisdemandGNLIpath;
-        int currentnode;
-        int nextnode;
-        double length;
-        int vertexamplis;
-        int spans;
-        double lspan;
-        double ASEfiber;
-        double ASEpath;
-        double GNLIfiber;
-        double GNLIpath;
-        int fibernumberinpath;
-        for (int i = 0; i <allpaths.size(); ++i){
-            std::cout << "for demand " << i+1 <<std::endl;
-            for (int j = 0; j <allpaths[i].size(); ++j){
-                length = 0;
-                vertexamplis = 0;
-                ASEpath = 0;
-                GNLIpath = 0;
-                std::cout << "path " << j+1 << " : "<< std::endl;
-                fibernumberinpath = 0;
-                for (int k = 0; k <allpaths[i][j].size()-1; ++k){
-                    fibernumberinpath = fibernumberinpath + 1;
-                    currentnode = getCompactNodeLabel(allpaths[i][j][k]);
-                    nextnode = getCompactNodeLabel(allpaths[i][j][k+1]);
-                    length += instance.getPhysicalLinkBetween(currentnode,nextnode).getLength();
-                    vertexamplis++;
-                    //SPANS
-                    std::cout << "-Fiber: " << fibernumberinpath << " length: " << instance.getPhysicalLinkBetween(currentnode,nextnode).getLength() << std::endl;
-                    spans = ceil(instance.getPhysicalLinkBetween(currentnode,nextnode).getLength()/80.0);
-                    lspan = instance.getPhysicalLinkBetween(currentnode,nextnode).getLength()/spans;
-                    std::cout << "Has "  << spans << " spans of " << lspan << std::endl;
-                    //PASE
-                    ls = lspan;                                     //NOT SI kilometers
-                    Ls = ls * pow(10,3);                         //SI meters
-                    Gdb = alpha * ls;                            //SI #dB
-                    Glin = pow(10,Gdb/10);                       //LINEAR
-                    Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
-                    pase = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
-                    std::cout << "Has "  << pase << " PASE for 1 span " << std::endl;
-                    ASEfiber = pase * spans;
-                    std::cout << "Has "  << ASEfiber << " PASE for this fiber " << std::endl;
-                    ASEpath += ASEfiber;
-                    //GNLI
-                    leff = (1.0 - exp(-2.0*a*Ls))/(2.0*a);               //#SI #km
-                    leff_a = 1.0/(2.0 *a);                               //#SI #km 
-                    gnli = (8.0/27.0) * pow(gam,2) * pow(gwdm,3) * pow(leff,2) * (asinh(pow(M_PIl/2,2)*beta2*leff_a*pow(bwdm,2))/(M_PIl*beta2*leff_a));
-                    std::cout << "Has "  << gnli << " GNLI for 1 span " << std::endl;
-                    GNLIfiber  = gnli * spans;
-                    std::cout << "Has "  << GNLIfiber << " GNLI for this fiber " << std::endl;
-                    GNLIpath +=  GNLIfiber;
-                }
-                vertexamplis = vertexamplis +1;
-                thisdemanddistances.push_back(length);
-                thisdemandvertexamplis.push_back(vertexamplis);
-                thisdemandASEpath.push_back(ASEpath);
-                std::cout << "This demand has "  << ASEpath << " PASE path "  << std::endl;
-                thisdemandGNLIpath.push_back(GNLIpath);
-                std::cout << "This demand has "  << GNLIpath << " GNLI path "  << std::endl << std::endl;
-            }
-            alldemandsdistances.push_back(thisdemanddistances);
-            alldemandsvertexamplis.push_back(thisdemandvertexamplis);
-            alldemandsASEpath.push_back(thisdemandASEpath);
-            alldemandsGNLIpath.push_back(thisdemandGNLIpath);
-            thisdemanddistances.clear();
-            thisdemandvertexamplis.clear();
-            thisdemandGNLIpath.clear();
-            thisdemandASEpath.clear();
-        }
-
-        //DEMANDE
-        int slots;
-
-        //PATH
-        double distance;
-        double pch;
-
-        //OSNR
-        double osnrdb;
-        double osnrlimdb = 23.5;
-        double osnrlim = pow(10,osnrlimdb/10);
-        double Realpnli;
-        double Realpaselin;
-        double Realpasenod;
-        double pasenodeaux;
-        double osnr;
-        
-        std::cout << "Calculating OSNR " << std::endl;
-        std::cout << "Writing  OSNR's to file..." << std::endl;
-        std::ofstream fw("osnr.txt", std::ofstream::out);
-        if (fw.is_open()){   
-            for (int i = 0 ; i <toBeRouted.size(); i++){			
-                fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;		
-                for (int j = 0; j< alldemandsdistances[i].size(); ++j){
-                    distance = alldemandsdistances[i][j];
-                    Realpnli =  alldemandsGNLIpath[i][j] * Bn; 
-                    Realpaselin =  alldemandsASEpath[i][j]; 
-                    Gdb = 20;                            //SI #dB
-                    Glin = pow(10,Gdb/10);                       //LINEAR
-                    //Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
-                    pasenodeaux = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
-                    std::cout << "Has "  << pasenodeaux << " PASE for 1 node " << std::endl;
-                    Realpasenod = alldemandsvertexamplis[i][j]*pasenodeaux;   
-                    std::cout << "Has "  << Realpasenod << " PASE for in total " << std::endl;
-                    slots = toBeRouted[i].getLoad();  
-                    pch = slots * Bn * gwdm;	
-                    std::cout << "Has "  << pch << " pch " << std::endl;		
-                    osnr = pch/(Realpaselin + Realpnli);
-                    std::cout << "Has "  << osnr << " osnr " << std::endl;
-                    osnrdb = 10.0 * log10(osnr);
-                    if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) || (osnrdb >= osnrlimdb) ){
-                        fw << "=====Path=====: " << j+1 << std::endl;
-                        //fw << "PNLI " << Realpnli << std::endl;
-                        //fw << "PASElin " << Realpaselin << std::endl;
-                        //fw << "PASEnode " << Realpasenod << std::endl;
-                        fw << "Nodes = ";
-                        for (int k = 0; k <allpaths[i][j].size(); ++k)
-                            fw << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
-                        fw << std::endl;
-                        fw << "Distance = " << distance;
-                        fw << "---OSNR en db = " << osnrdb << " ---" << std::endl;  
-                    }                   
-                }
-                fw << "------------------------" << std::endl;
-            }
-            fw.close();
-        }
-        else{
-            std::cout << "Problem with opening file";
-        }       
-        //std::cout <<std::endl;
-        /*for (int i = 0; i <alldemandsdistances.size(); ++i){
-            std::cout << "for demand " << i+1 <<std::endl;
-            for (int j = 0; j <alldemandsdistances[i].size(); ++j){
-                std::cout << "distance: " << alldemandsdistances[i][j] << std::endl;
-            }
-        }*/
-    }
+        std::cout << "Problem with opening file";
+    }       
 }
 
 
