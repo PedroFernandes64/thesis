@@ -84,7 +84,6 @@ int main(int argc, char *argv[]) {
 			SolverFactory factory;
 			AbstractSolver *solver = factory.createSolver(instance);
 			solver->solve();
-			
 			/*PEDRO PEDRO PEDRO*/
 			//solver->outputLogResults(outputCode);
 			/*PEDRO PEDRO PEDRO*/

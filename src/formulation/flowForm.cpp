@@ -3,8 +3,8 @@
 
 /* Constructor. Builds the Online RSA mixed-integer program and solves it using a defined solver (CPLEX or CBC). */
 FlowForm::FlowForm(const Instance &inst) : AbstractFormulation(inst){
-    
     if(inst.getInput().getChosenNodeMethod() == Input::NODE_METHOD_LINEAR_RELAX){
+        
         ClockTime time(ClockTime::getTimeNow());
         ClockTime time2(ClockTime::getTimeNow());
         std::cout << "--- Flow formulation has been chosen. " << displayDimensions() << " ---" << std::endl;
@@ -285,6 +285,7 @@ void FlowForm::setConstraints(){
     this->setTargetConstraints();
     if (this->getInstance().getInput().isGNModelEnabled() == true){
         this->setOSNRConstraints();
+        this->setLengthConstraints();
     }
     else{
         this->setLengthConstraints();

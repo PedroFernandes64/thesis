@@ -24,14 +24,20 @@ private:
 	double cost;					/**< Cost of routing a demand through the fiber. **/
 	std::vector<Slice> spectrum;	/**< Fiber's spectrum. **/
 	int lineAmplifiers;				/**< Number of line amplifiers. **/
+	double pnli;					/**< Pnli contribution of this fiber**/
+	double paseLine;				/**< Pase Line contribution of this fiber**/
 
 public:
 	/****************************************************************************************/
 	/*										Constructor										*/
 	/****************************************************************************************/
 
-	/** Constructor. @param i Id. @param ind Index. @param s Source node's id. @param t Target node's id. @param len Fiber's length n the physical network. @param nb Number of slices its frequency spectrum is divided into. @param c Cost of routing a demand through the fiber. @param la Number of line amplifiers.**/
-	Fiber(int i, int ind, int s, int t, double len = 0.0, int nb = 1, double c = 0.0, int la = 1);
+	/** Constructor. @param i Id. @param ind Index. @param s Source node's id. @param t Target node's id. 
+	 * @param len Fiber's length in the physical network. @param nb Number of slices its frequency spectrum is divided into. 
+	 * @param c Cost of routing a demand through the fiber. @param la Number of line amplifiers. @param pn Pnli of the fiber. 
+	 * @param pa Pase line of the fiber.**/
+
+	Fiber(int i, int ind, int s, int t, double len = 0.0, int nb = 1, double c = 0.0, int la = 1, double pn = 0.0, double pa = 0.0);
 
 	Fiber(const Fiber &);
 
@@ -59,6 +65,12 @@ public:
 
 	/** Returns the cost of routing a demand through the fiber. \note This attribute is not really used for now but may be useful in the future. **/
 	double getCost() const { return cost; }
+
+	/** Returns the Pnli **/
+	double getPnli() const { return pnli; }
+
+	/** Returns the Pase line **/
+	double getPaseLine() const { return paseLine; }
 
 	/** Returns the number of line amplifiers **/
 	int getLineAmplifiers() const { return lineAmplifiers; }
@@ -102,6 +114,12 @@ public:
 	
 	/** Changes the cost of routing a demand through the fiber. @param c New cost. **/
 	void setCost(double c) { this->cost = c; }
+
+	/** Changes the pnli @param pn New number **/
+	void setPnli(int pn) { this->pnli = pn; }
+
+	/** Changes the pase line @param pa New number **/
+	void setPaseLine(int pa) { this->paseLine = pa; }
 
 	/** Changes the number of line amplifiers @param la New number **/
 	void setLineAmplifiers(int la) { this->lineAmplifiers = la; }

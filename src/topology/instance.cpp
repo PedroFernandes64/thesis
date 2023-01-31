@@ -151,13 +151,19 @@ void Instance::readTopology(){
 		double edgeCost = std::stod(dataList[i][5]);
 		// Only read amplis if GNModel activated, if not consider instance length/80
 		int edgeAmplis = 0;
+		double edgePnli = 0.0;
+		double edgePase = 0.0;
 		if (this->input.isGNModelEnabled() == true ){
 			edgeAmplis = std::stoi(dataList[i][6]);
+			edgePnli = std::stod(dataList[i][7]);
+			edgePase = std::stod(dataList[i][8]);
 		}
 		else{
-			edgeAmplis = int(floor(edgeLength/80));
+			edgeAmplis = 1;
+			edgePnli = 0.0;
+			edgePase = 0.0;
 		}
-		Fiber edge(idEdge, edgeIndex, edgeSource, edgeTarget, edgeLength, edgeNbSlices, edgeCost, edgeAmplis);
+		Fiber edge(idEdge, edgeIndex, edgeSource, edgeTarget, edgeLength, edgeNbSlices, edgeCost, edgeAmplis, edgePnli, edgePase);
 		this->tabEdge.push_back(edge);
 		if (edgeSource > maxNode) {
 			maxNode = edgeSource;
@@ -186,7 +192,8 @@ void Instance::readDemands(){
 		int demandTarget = std::stoi(dataList[i][2]) - 1;
 		int demandLoad = std::stoi(dataList[i][3]);
 		double demandMaxLength = std::stod(dataList[i][4]);
-		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength, false);
+		double demandOsnrLimit = std::stod(dataList[i][5]);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoad,demandOsnrLimit, demandMaxLength, false);
 		this->tabDemand.push_back(demand);
 	}
 }
@@ -305,25 +312,25 @@ void Instance::generateDemandsFromFile(std::string filePath){
 	int numberOfLines = (int)dataList.size();
 	int nbPreviousDemands = tabDemand.size();
 	//skip the first line (headers)
-	std::cout << "-yrdy" << std::endl;
 	for (int i = 1; i < numberOfLines; i++) {
 		int idDemand = std::stoi(dataList[i][0]) - 1 + nbPreviousDemands;
 		int demandSource = std::stoi(dataList[i][1]) - 1;
 		int demandTarget = std::stoi(dataList[i][2]) - 1;
 		int demandLoad = std::stoi(dataList[i][3]);
 		double DemandMaxLength = std::stod(dataList[i][4]);
+		double DemandOsnrLimit = std::stod(dataList[i][5]);
 		std::string demandMode = "";
 		std::string demandSpacing = "";
 		std::string demandPathBandwidth = "";
 		if (input.isGNPYEnabled()){
-			demandMode = "mode_" + dataList[i][5];
-			demandSpacing = dataList[i][6];
-			demandPathBandwidth = dataList[i][7];
+			demandMode = "mode_" + dataList[i][6];
+			demandSpacing = dataList[i][7];
+			demandPathBandwidth = dataList[i][8];
 		}
-		Demand demand(idDemand, demandSource, demandTarget, demandLoad, DemandMaxLength, false, -1, 0, 0, demandMode, demandSpacing, demandPathBandwidth);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoad, DemandMaxLength,DemandOsnrLimit, false, -1, 0, 0, demandMode, demandSpacing, demandPathBandwidth);
 		this->tabDemand.push_back(demand);
 	}
-	std::cout << "out" << std::endl;
+	//std::cout << "out" << std::endl;
 }
 
 /* Adds non-routed demands to the pool by generating N random demands. */

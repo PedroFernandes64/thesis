@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../Parameters/Instances/Pedro/German_D17/Link.csv
+topologyFile=../Parameters/Instances/Pedro/mini/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../Parameters/Instances/Pedro/German_D17/Demands
+demandToBeRoutedFolder=../Parameters/Instances/Pedro/mini/2demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 

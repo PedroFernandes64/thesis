@@ -130,6 +130,10 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     //Modulo GN MODEL
     if (this->getInstance().getInput().isGNModelEnabled() == true){
         std::cout << "GN Model pre processing" << std::endl;
+        std::cout << "Computing atributes of the fibers" << std::endl;
+        std::cout << "This should be done before" << std::endl;
+        gnModelData();
+        std::cout << "Computing the OSNR of all paths" << std::endl;
         gnModelAllPaths();
     }
     /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/
@@ -179,19 +183,19 @@ double RSA::paseLinFiber(double length, int spans){
     double NF = 5.0;                                    //SI dB
     double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
     double alpha = 0.2;                                 //NOT SI dB/kilometer 
-    double a = log(10)*alpha/20 * pow(10,-3);           //SI 1/km
+    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
     double ls ;                                         //NOT SI kilometers
     double Gdb ;                                        //SI #dB
     double Glin ;                                       //LINEAR
-    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
-    double paseSpan ;
-    double paseFiber;
+    double paseLinSpan ;
+    double paseLinFiber;
+
     ls = length;                                             //NOT SI kilometers
     Gdb = alpha * ls;                                   //SI #dB
     Glin = pow(10,Gdb/10);                              //LINEAR
-    paseSpan = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
-    paseFiber = paseSpan * spans;
-    return paseFiber;
+    paseLinSpan = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
+    paseLinFiber = paseLinSpan * spans;
+    return paseLinFiber;
 }
 
 double RSA::pnliLinFiber(double length, int spans){
@@ -208,10 +212,10 @@ double RSA::pnliLinFiber(double length, int spans){
     double gwdm = Psat/bwdm;
     double alpha = 0.2;                                     //NOT SI dB/kilometer 
     double a = log(10)*alpha/20 * pow(10,-3);               //SI 1/km                                    //#SI #W/Hz
+    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
+    double Ls = length * pow(10,3);                         //SI meters
     double leff ;                                           //#SI #km
     double leff_a;                                          //#SI #km 
-    double Ls = length * pow(10,3);                         //SI meters
-    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
     double gnliSpan ;
     double gnliFiber;
     leff = (1.0 - exp(-2.0*a*Ls))/(2.0*a);                  //#SI #km
@@ -253,6 +257,19 @@ double RSA::osnrPath(double paselin, double pasenode, double pnli, double slots)
     osnr = pch/(paselin + pasenode + pnli);
     osnrdb = 10.0 * log10(osnr);
     return osnrdb;
+}
+void RSA::gnModelData(){
+    double length;
+    double pnli;
+    double pase;
+    for (int i = 0; i < instance.getTabEdge().size(); ++i){
+        length = instance.getTabEdge()[i].getLength();
+        pnli = 0.0;
+        pase = 0.0; 
+        instance.getTabEdge()[i].setPaseLine(pase);
+        instance.getTabEdge()[i].setPnli(pnli);
+        
+    }
 }
 
 void RSA::gnModelAllPaths(){
@@ -309,14 +326,14 @@ void RSA::gnModelAllPaths(){
     double ASEnodepath;
     int fibernumberinpath;
     for (int i = 0; i <allpaths.size(); ++i){
-        std::cout << "for demand " << i+1 <<std::endl;
+        //std::cout << "for demand " << i+1 <<std::endl;
         for (int j = 0; j <allpaths[i].size(); ++j){
             length = 0;
             vertexamplis = 0;
             ASEnodepath = 0;
             ASEpath = 0;
             PNLIpath = 0;
-            std::cout << "path " << j+1 << " : "<< std::endl;
+            //std::cout << "path " << j+1 << " : "<< std::endl;
             fibernumberinpath = 0;
             for (int k = 0; k <allpaths[i][j].size()-1; ++k){
                 fibernumberinpath = fibernumberinpath + 1;
@@ -325,28 +342,28 @@ void RSA::gnModelAllPaths(){
                 length += instance.getPhysicalLinkBetween(currentnode,nextnode).getLength();
                 vertexamplis++;
                     //SPANS
-                std::cout << "-Fiber: " << fibernumberinpath << " length: " << instance.getPhysicalLinkBetween(currentnode,nextnode).getLength() << std::endl;
+                //std::cout << "-Fiber: " << fibernumberinpath << " length: " << instance.getPhysicalLinkBetween(currentnode,nextnode).getLength() << std::endl;
                 spans = ceil(instance.getPhysicalLinkBetween(currentnode,nextnode).getLength()/80.0);
                 lspan = instance.getPhysicalLinkBetween(currentnode,nextnode).getLength()/spans;
-                std::cout << "Has "  << spans << " spans of " << lspan << std::endl;
+                //std::cout << "Has "  << spans << " spans of " << lspan << std::endl;
                 //PASE
                 ASEfiber = paseLinFiber(lspan,spans);
-                std::cout << "Has "  << ASEfiber << " PASE for this fiber " << std::endl;
+                //std::cout << "Has "  << ASEfiber << " PASE for this fiber " << std::endl;
                 ASEpath += ASEfiber;
                 //GNLI
                 PNLIfiber  = pnliLinFiber(lspan,spans);
-                std::cout << "Has "  << PNLIfiber << " GNLI for this fiber " << std::endl;
+                //std::cout << "Has "  << PNLIfiber << " GNLI for this fiber " << std::endl;
                 PNLIpath +=  PNLIfiber;
             }
             vertexamplis = vertexamplis +1;
             ASEnodepath = paseNodePath(vertexamplis);
             thisdemanddistances.push_back(length);
             thisdemandPASEnode.push_back(ASEnodepath);
-            std::cout << "This demand has "  << ASEnodepath << " PASE node path "  << std::endl;
+            //std::cout << "This demand has "  << ASEnodepath << " PASE node path "  << std::endl;
             thisdemandPASElin.push_back(ASEpath);
-            std::cout << "This demand has "  << ASEpath << " PASE lin path "  << std::endl;
+            //std::cout << "This demand has "  << ASEpath << " PASE lin path "  << std::endl;
             thisdemandPNLI.push_back(PNLIpath);
-            std::cout << "This demand has "  << PNLIpath << " PNLI path "  << std::endl << std::endl;
+            //std::cout << "This demand has "  << PNLIpath << " PNLI path "  << std::endl << std::endl;
         }
         alldemandsdistances.push_back(thisdemanddistances);
         alldemandsPASEnode.push_back(thisdemandPASEnode);

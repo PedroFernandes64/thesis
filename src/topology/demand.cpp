@@ -1,12 +1,13 @@
 #include "demand.h"
 
 /* Constructor. */
-Demand::Demand(int i, int s, int t, int l, double max, bool a, int slice, double pathLen, int hops, std::string m, std::string space, std::string b){
+Demand::Demand(int i, int s, int t, int l, double max, double osL, bool a, int slice, double pathLen, int hops, std::string m, std::string space, std::string b){
 	this->setId(i);
 	this->setSource(s);
 	this->setTarget(t);
 	this->setLoad(l);
 	this->setMaxLength(max);
+	this->setOsnrLimit(osL);
 	this->setRouted(a);
 	this->setSliceAllocation(slice);
 	this->setPathLength(pathLen);
@@ -24,6 +25,7 @@ void Demand::copyDemand(const Demand & demand){
 	this->setTarget(demand.getTarget());
 	this->setLoad(demand.getLoad());
 	this->setMaxLength(demand.getMaxLength());
+	this->setOsnrLimit(demand.getOsnrLimit());
 	this->setRouted(demand.isRouted());
 	this->setSliceAllocation(demand.getSliceAllocation());
 	this->setPathLength(demand.getPathLength());
@@ -43,7 +45,7 @@ void Demand::displayDemand(){
 		r = "NO";
 	}
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
-	std::cout << ". nbSlices: " << this->getLoad() << ", maxLength: " << this->getMaxLength();
+	std::cout << ". nbSlices: " << this->getLoad() << ", maxLength: " << this->getMaxLength()<< ", osnrLimit: " << this->getOsnrLimit();
 	std::cout << ", ROUTED: " << r << std::endl;
 }
 

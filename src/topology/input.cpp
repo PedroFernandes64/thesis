@@ -21,7 +21,7 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
         GNPY_equipmentFile = getParameterValue("GNPY_equipmentFile=");
     }
 
-    std::cout << "Getting GNMODEL_Pedro parameters..." << std::endl;
+    std::cout << "Getting GNMODEL parameters..." << std::endl;
     GNModel_activation = std::stoi(getParameterValue("GNModel_activation="));
 
     std::cout << "Getting formulation parameters..." << std::endl;

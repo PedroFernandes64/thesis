@@ -372,6 +372,7 @@ public:
     std::vector<std::vector<int> > adj_list;
     std::vector<std::vector<ListGraph::Node> >  pathsdemand;
     std::vector<std::vector<std::vector<ListGraph::Node> > > allpaths;
+    void gnModelData();
     void gnModelAllPaths();
     double paseLinFiber(double l, int s);
     double pnliLinFiber(double l, int s);

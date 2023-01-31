@@ -6,7 +6,7 @@
 /****************************************************************************************/
 
 /** Constructor. **/
-Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la) {
+Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la, double pn, double pa) {
 	this->setId(i);
 	this->setIndex(ind);
 	this->setSource(s);
@@ -18,6 +18,8 @@ Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la) {
 	}
 	this->setCost(c);
 	this->setLineAmplifiers(la);
+	this->setPnli(pn);
+	this->setPaseLine(pa);
 }
 
 Fiber::Fiber(const Fiber & f){
@@ -32,6 +34,8 @@ Fiber::Fiber(const Fiber & f){
 	}
 	this->setCost(f.cost);
 	this->setLineAmplifiers(f.lineAmplifiers);
+	this->setPnli(f.pnli);
+	this->setPaseLine(f.paseLine);
 }
 
 /****************************************************************************************/
@@ -58,6 +62,8 @@ void Fiber::copyFiber(Fiber & edge){
 	}	
 	this->setLength(edge.getLength());
 	this->setCost(edge.getCost());
+	this->setPnli(edge.getPnli());
+	this->setPaseLine(edge.getPaseLine());
 	this->setLineAmplifiers(edge.getLineAmplifiers());
 }
 
@@ -112,7 +118,7 @@ int Fiber::getNbUsedSlices() const {
 /* Displays summarized information about the fiber. */
 void Fiber::displayFiber(){
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
-	std::cout << ". nb slices: " << this->getNbSlices() << ", length: " << this->getLength() << ", cost: " << this->getCost() << ", amplis: " << this->getLineAmplifiers() << std::endl;
+	std::cout << ". nb slices: " << this->getNbSlices() << ", length: " << this->getLength() << ", cost: " << this->getCost() << ", amplis: " << this->getLineAmplifiers() << ", pnli: " << this->getPnli() << ", pase: " << this->getPaseLine()<< std::endl;
 }
 
 /* Displays detailed information about state of the fiber. */
