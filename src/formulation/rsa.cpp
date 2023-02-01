@@ -126,21 +126,19 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     }
     auxNbSlicesGlobalLimit = getNbSlicesGlobalLimit();
    
-    /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/
+    //PEDRO PEDRO PEDRO
     //Modulo GN MODEL
     if (this->getInstance().getInput().isGNModelEnabled() == true){
         std::cout << "GN Model pre processing" << std::endl;
-        std::cout << "Computing atributes of the fibers" << std::endl;
-        std::cout << "This should be done before" << std::endl;
-        gnModelData();
+        std::cout << "Computing atributes of the fibers should be done before" << std::endl;
         std::cout << "Computing the OSNR of all paths" << std::endl;
         gnModelAllPaths();
     }
-    /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/
+    //PEDRO PEDRO PEDRO
 }
 
 
-/*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/ /*PEDRO PEDRO PEDRO*/
+//PEDRO PEDRO PEDRO
 void RSA::printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_index)
 {
     // Mark the current node and store it in path[]
@@ -175,76 +173,6 @@ void RSA::printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_
     visited[u] = false;
 }
 
-double RSA::paseLinFiber(double length, int spans){
-    double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
-    double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
-    double c = 3.0 *pow(10,8);                          //SI meters by second, m 
-    double nu = c/lambd;                                //SI hertz
-    double NF = 5.0;                                    //SI dB
-    double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
-    double alpha = 0.2;                                 //NOT SI dB/kilometer 
-    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
-    double ls ;                                         //NOT SI kilometers
-    double Gdb ;                                        //SI #dB
-    double Glin ;                                       //LINEAR
-    double paseLinSpan ;
-    double paseLinFiber;
-
-    ls = length;                                             //NOT SI kilometers
-    Gdb = alpha * ls;                                   //SI #dB
-    Glin = pow(10,Gdb/10);                              //LINEAR
-    paseLinSpan = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
-    paseLinFiber = paseLinSpan * spans;
-    return paseLinFiber;
-}
-
-double RSA::pnliLinFiber(double length, int spans){
-    double lambd = 1545.0 * pow(10,-9);                     //SI meters, m                   #Usually nanometer (x nanometer)
-    double D = 16.5;                                            //#NOT SI ps/(nm km)
-    double SI_D = D * pow (10,-6);                              //#SI s/m^2)
-    double c = 3.0 *pow(10,8);                          //SI meters by second, m
-    double beta2 = abs(SI_D) * pow(lambd,2)/(2*M_PIl*c);        //#SI s^2/m   
-    double n2 = 2.7 * pow (10,-20);                             //#SI m^2/W               #Usually micrometer^2
-    double aeff = 85 * pow (10,-12);                            //#SI m^2                 #Usually micrometer^2
-    double gam = (n2/aeff) * (2*M_PIl/lambd);                   //#SI 1/W m
-    double bwdm = 5000 * pow(10,9);                             //#SI #Hz                 #Usually gigahertz
-    double Psat = 50 * pow(10,-3);                              //#SI #W                  #Usually mW
-    double gwdm = Psat/bwdm;
-    double alpha = 0.2;                                     //NOT SI dB/kilometer 
-    double a = log(10)*alpha/20 * pow(10,-3);               //SI 1/km                                    //#SI #W/Hz
-    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
-    double Ls = length * pow(10,3);                         //SI meters
-    double leff ;                                           //#SI #km
-    double leff_a;                                          //#SI #km 
-    double gnliSpan ;
-    double gnliFiber;
-    leff = (1.0 - exp(-2.0*a*Ls))/(2.0*a);                  //#SI #km
-    leff_a = 1.0/(2.0 *a);                                  //#SI #km 
-    gnliSpan = (8.0/27.0) * pow(gam,2) * pow(gwdm,3) * pow(leff,2) * (asinh(pow(M_PIl/2,2)*beta2*leff_a*pow(bwdm,2))/(M_PIl*beta2*leff_a)) * Bn;
-    gnliFiber = gnliSpan * spans;
-    return gnliFiber;
-}
-double RSA::paseNodePath(int nodes){
-    double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
-    double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
-    double c = 3.0 *pow(10,8);                          //SI meters by second, m 
-    double nu = c/lambd;                                //SI hertz
-    double NF = 5.0;                                    //SI dB
-    double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
-    double alpha = 0.2;                                 //NOT SI dB/kilometer 
-    double a = log(10)*alpha/20 * pow(10,-3);           //SI 1/km
-    double Gdb ;                                        //SI #dB
-    double Glin ;                                       //LINEAR
-    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
-    double paseNode ;
-    double paseNodeFiber;
-    Gdb = 20;                                           //SI #dB
-    Glin = pow(10,Gdb/10);                              //LINEAR
-    paseNode = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
-    paseNodeFiber = paseNode * nodes;
-    return paseNodeFiber;
-}
-
 double RSA::osnrPath(double paselin, double pasenode, double pnli, double slots){
     double Psat = 50 * pow(10,-3);
     double bwdm = 5000 * pow(10,9); 
@@ -258,22 +186,11 @@ double RSA::osnrPath(double paselin, double pasenode, double pnli, double slots)
     osnrdb = 10.0 * log10(osnr);
     return osnrdb;
 }
-void RSA::gnModelData(){
-    double length;
-    double pnli;
-    double pase;
-    for (int i = 0; i < instance.getTabEdge().size(); ++i){
-        length = instance.getTabEdge()[i].getLength();
-        pnli = 0.0;
-        pase = 0.0; 
-        instance.getTabEdge()[i].setPaseLine(pase);
-        instance.getTabEdge()[i].setPnli(pnli);
-        
-    }
-}
 
 void RSA::gnModelAllPaths(){
     
+    //Building a structure with all possible paths for all possible demands
+
     // ADJACENCY LIST
     std::vector<std::vector<int> > aux(instance.getNbNodes());
     adj_list = aux;
@@ -315,55 +232,38 @@ void RSA::gnModelAllPaths(){
     std::vector<double> thisdemandPNLI;
     int currentnode;
     int nextnode;
-    double length;
-    int spans;
-    double lspan;
     int vertexamplis;
-    double ASEfiber;
-    double ASEpath;
-    double PNLIfiber;
-    double PNLIpath;
-    double ASEnodepath;
+    double length;
+    double pnliPath;
+    double paseLinPath;
+    double paseNodepath;
     int fibernumberinpath;
+
     for (int i = 0; i <allpaths.size(); ++i){
-        //std::cout << "for demand " << i+1 <<std::endl;
         for (int j = 0; j <allpaths[i].size(); ++j){
-            length = 0;
             vertexamplis = 0;
-            ASEnodepath = 0;
-            ASEpath = 0;
-            PNLIpath = 0;
-            //std::cout << "path " << j+1 << " : "<< std::endl;
+            pnliPath = 0;
+            paseLinPath = 0;
+            paseNodepath = 0;  
+            length = 0;          
             fibernumberinpath = 0;
             for (int k = 0; k <allpaths[i][j].size()-1; ++k){
                 fibernumberinpath = fibernumberinpath + 1;
                 currentnode = getCompactNodeLabel(allpaths[i][j][k]);
                 nextnode = getCompactNodeLabel(allpaths[i][j][k+1]);
-                length += instance.getPhysicalLinkBetween(currentnode,nextnode).getLength();
                 vertexamplis++;
-                    //SPANS
-                //std::cout << "-Fiber: " << fibernumberinpath << " length: " << instance.getPhysicalLinkBetween(currentnode,nextnode).getLength() << std::endl;
-                spans = ceil(instance.getPhysicalLinkBetween(currentnode,nextnode).getLength()/80.0);
-                lspan = instance.getPhysicalLinkBetween(currentnode,nextnode).getLength()/spans;
-                //std::cout << "Has "  << spans << " spans of " << lspan << std::endl;
+                length += instance.getPhysicalLinkBetween(currentnode,nextnode).getLength();
+                //PNLI
+                pnliPath += instance.getPhysicalLinkBetween(currentnode,nextnode).getPnli();
                 //PASE
-                ASEfiber = paseLinFiber(lspan,spans);
-                //std::cout << "Has "  << ASEfiber << " PASE for this fiber " << std::endl;
-                ASEpath += ASEfiber;
-                //GNLI
-                PNLIfiber  = pnliLinFiber(lspan,spans);
-                //std::cout << "Has "  << PNLIfiber << " GNLI for this fiber " << std::endl;
-                PNLIpath +=  PNLIfiber;
+                paseLinPath += instance.getPhysicalLinkBetween(currentnode,nextnode).getPaseLine();
             }
             vertexamplis = vertexamplis +1;
-            ASEnodepath = paseNodePath(vertexamplis);
+            paseNodepath = vertexamplis * instance.getPaseNode();
             thisdemanddistances.push_back(length);
-            thisdemandPASEnode.push_back(ASEnodepath);
-            //std::cout << "This demand has "  << ASEnodepath << " PASE node path "  << std::endl;
-            thisdemandPASElin.push_back(ASEpath);
-            //std::cout << "This demand has "  << ASEpath << " PASE lin path "  << std::endl;
-            thisdemandPNLI.push_back(PNLIpath);
-            //std::cout << "This demand has "  << PNLIpath << " PNLI path "  << std::endl << std::endl;
+            thisdemandPASEnode.push_back(paseNodepath);
+            thisdemandPASElin.push_back(paseLinPath);
+            thisdemandPNLI.push_back(pnliPath);
         }
         alldemandsdistances.push_back(thisdemanddistances);
         alldemandsPASEnode.push_back(thisdemandPASEnode);
@@ -375,13 +275,14 @@ void RSA::gnModelAllPaths(){
         thisdemandPASElin.clear();
     }
 
+    //Computing OSNR possible paths for all possible demands
     //DEMANDE
     int slots;
     //PATH
     double distance;
     //OSNR
     double dbOsnr;
-    double osnrlimdb = 23.5;
+    double dbOsnrLim = 24.0;
     std::cout << "Calculating OSNR " << std::endl;
     std::cout << "Writing  OSNR's to file..." << std::endl;
     std::ofstream fw("osnr.txt", std::ofstream::out);
@@ -392,7 +293,7 @@ void RSA::gnModelAllPaths(){
                 distance = alldemandsdistances[i][j];
                 slots = toBeRouted[i].getLoad();        
                 dbOsnr = osnrPath(alldemandsPASElin[i][j], alldemandsPASEnode[i][j], alldemandsPNLI[i][j], slots);
-                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) || (dbOsnr >= osnrlimdb) ){
+                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) || (dbOsnr >= dbOsnrLim) ){
                     fw << "=====Path=====: " << j+1 << std::endl;
                     fw << "PNLI " << alldemandsPNLI[i][j] << std::endl;
                     fw << "PASElin " << alldemandsPASElin[i][j] << std::endl;

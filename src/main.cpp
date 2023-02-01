@@ -84,18 +84,8 @@ int main(int argc, char *argv[]) {
 			SolverFactory factory;
 			AbstractSolver *solver = factory.createSolver(instance);
 			solver->solve();
-			/*PEDRO PEDRO PEDRO*/
-			//solver->outputLogResults(outputCode);
-			/*PEDRO PEDRO PEDRO*/
-
 			std::cout << " Time: " << solver->getDurationTime() << std::endl << std::endl;
 			solver->updateRSA(instance);
-			
-			//PEDRO PEDRO PEDRO
-			//std::cout << "GN MODEL ANALYSIS" << std::endl;
-			//instance.followPaths();
-			//Aqui, no objeto instance, posso consultar cada edge da rede, em cada edge da rede posso consultar como esta a ocupação dos slices"
-			//PEDRO PEDRO PEDRO
 
 			/********************************************************************/
 			/* 							Finalization							*/

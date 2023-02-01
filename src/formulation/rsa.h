@@ -368,17 +368,13 @@ public:
     /** Returns the distance of the shortest path from source to target passing through arc a. \note If there exists no st-path, returns +Infinity. @param d The graph index. @param source The source node.  @param a The arc required to be present. @param target The target node.  **/
     double shortestDistance(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
 
+    // PEDRO PEDRO PEDRO
     /** Performs GN Model **/
     std::vector<std::vector<int> > adj_list;
     std::vector<std::vector<ListGraph::Node> >  pathsdemand;
     std::vector<std::vector<std::vector<ListGraph::Node> > > allpaths;
-    void gnModelData();
-    void gnModelAllPaths();
-    double paseLinFiber(double l, int s);
-    double pnliLinFiber(double l, int s);
-    double paseNodePath(int n);
     double osnrPath(double pl, double pn, double pnli, double s);
- 
+    void gnModelAllPaths();
     void printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_index);
 
 	/****************************************************************************************/

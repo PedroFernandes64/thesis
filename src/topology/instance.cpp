@@ -12,6 +12,8 @@ Instance::Instance(const Input &i) : input(i){
 	this->setWasBlocked(false);
 	createInitialMapping();
 	this->setNextDemandToBeRoutedIndex(0);
+	//PEDRO PEDRO PEDRO
+	this->setPaseNode();
 }
 
 /* Copy constructor. */
@@ -24,6 +26,8 @@ Instance::Instance(const Instance &i) : input(i.getInput()){
 	//this->setTabEdge(i.getTabEdge());
 	this->setTabDemand(i.getTabDemand());
 	this->setNextDemandToBeRoutedIndex(i.getNextDemandToBeRoutedIndex());
+	//PEDRO PEDRO PEDRO
+	this->setPaseNode();
 }
 
 /****************************************************************************************/
@@ -149,19 +153,23 @@ void Instance::readTopology(){
 		double edgeLength = std::stod(dataList[i][3]);
 		int edgeNbSlices = std::stoi(dataList[i][4]);
 		double edgeCost = std::stod(dataList[i][5]);
-		// Only read amplis if GNModel activated, if not consider instance length/80
+		// Only read GNData if GNModel activated
 		int edgeAmplis = 0;
 		double edgePnli = 0.0;
 		double edgePase = 0.0;
 		if (this->input.isGNModelEnabled() == true ){
 			edgeAmplis = std::stoi(dataList[i][6]);
-			edgePnli = std::stod(dataList[i][7]);
-			edgePase = std::stod(dataList[i][8]);
+			//CALCULANDO AO INVES DE LER
+			edgePnli = pnliFiber(edgeLength);
+			edgePase = paseLinFiber(edgeLength);
+			//edgePnli = std::stod(dataList[i][7]);
+			//edgePase = std::stod(dataList[i][8]);
 		}
 		else{
-			edgeAmplis = 1;
+			edgeAmplis = 0;
 			edgePnli = 0.0;
 			edgePase = 0.0;
+			this->paseNode = 0.0;
 		}
 		Fiber edge(idEdge, edgeIndex, edgeSource, edgeTarget, edgeLength, edgeNbSlices, edgeCost, edgeAmplis, edgePnli, edgePase);
 		this->tabEdge.push_back(edge);
@@ -664,37 +672,85 @@ Fiber Instance::getPhysicalLinkBetween(int u, int v){
 }
 
 /*PEDRO PEDRO PEDRO*/
-/*
-void Instance::followPaths(){
-	// BUILDING PATH MAP
-	std::vector<std::vector<int> > pathMap;
-	std::vector<int> currentPath;	
-	for (unsigned int i = 0; i < getNbDemands(); i++){
-		int currentVertexId = getDemandFromIndex(i).getSource();
-		int lastVertexId = -1;
-		while (currentVertexId != getDemandFromIndex(i).getTarget()){	
-			for (unsigned int e = 0; e < tabEdge.size(); e++){
-				if((tabEdge[e].getSource() ==  currentVertexId) && (tabEdge[e].getTarget() != lastVertexId)){
-					if(tabEdge[e].getSlice_i(getDemandFromIndex(i).getSliceAllocation()).getAssignment() == getDemandFromIndex(i).getId()){
-						lastVertexId = currentVertexId;
-						currentVertexId = tabEdge[e].getTarget();
-						currentPath.push_back(tabEdge[e].getId());
-						break;
-					}
-				}else{
-				if((tabEdge[e].getTarget() ==  currentVertexId) && (tabEdge[e].getSource() != lastVertexId)){
-					if(tabEdge[e].getSlice_i(getDemandFromIndex(i).getSliceAllocation()).getAssignment() == getDemandFromIndex(i).getId()){
-						lastVertexId = currentVertexId;
-						currentVertexId = tabEdge[e].getSource();
-						currentPath.push_back(tabEdge[e].getId());
-						break;
-					}
-				}
-				}
-			}
-		}
-		pathMap.push_back(currentPath);
-		currentPath.clear();
-	}
+
+void Instance::setPaseNode() { 
+	double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
+    double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
+    double c = 3.0 *pow(10,8);                          //SI meters by second, m 
+    double nu = c/lambd;                                //SI hertz
+    double NF = 5.0;                                    //SI dB
+    double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
+    double alpha = 0.2;                                 //NOT SI dB/kilometer 
+    double a = log(10)*alpha/20 * pow(10,-3);           //SI 1/km
+    double Gdb ;                                        //SI #dB
+    double Glin ;                                       //LINEAR
+    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
+    double paseNod ;
+    Gdb = 20;                                           //SI #dB
+    Glin = pow(10,Gdb/10);                              //LINEAR
+    paseNod = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
+	this->paseNode = paseNod; 
+}	
+double Instance::paseLinFiber(double length){
+    double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
+    double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
+    double c = 3.0 *pow(10,8);                          //SI meters by second, m 
+    double nu = c/lambd;                                //SI hertz
+    double NF = 5.0;                                    //SI dB
+    double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
+    double alpha = 0.2;                                 //NOT SI dB/kilometer 
+    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
+    double ls ;                                         //NOT SI kilometers
+    double Gdb ;                                        //SI #dB
+    double Glin ;                                       //LINEAR
+    double paseLinSpan ;
+    double paseLinFiber;
+    int spans;
+    double lspan;
+
+    spans = ceil(length/80.0);
+    lspan = length/spans;
+
+    ls = lspan;                                             //NOT SI kilometers
+    Gdb = alpha * ls;                                   //SI #dB
+    Glin = pow(10,Gdb/10);                              //LINEAR
+    paseLinSpan = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
+    paseLinFiber = paseLinSpan * spans;
+    return paseLinFiber;
 }
-*/
+double Instance::pnliFiber(double length){
+    double lambd = 1545.0 * pow(10,-9);                     //SI meters, m                   #Usually nanometer (x nanometer)
+    double D = 16.5;                                            //#NOT SI ps/(nm km)
+    double SI_D = D * pow (10,-6);                              //#SI s/m^2)
+    double c = 3.0 *pow(10,8);                          //SI meters by second, m
+    double beta2 = abs(SI_D) * pow(lambd,2)/(2*M_PIl*c);        //#SI s^2/m   
+    double n2 = 2.7 * pow (10,-20);                             //#SI m^2/W               #Usually micrometer^2
+    double aeff = 85 * pow (10,-12);                            //#SI m^2                 #Usually micrometer^2
+    double gam = (n2/aeff) * (2*M_PIl/lambd);                   //#SI 1/W m
+    double bwdm = 5000 * pow(10,9);                             //#SI #Hz                 #Usually gigahertz
+    double Psat = 50 * pow(10,-3);                              //#SI #W                  #Usually mW
+    double gwdm = Psat/bwdm;
+    double alpha = 0.2;                                     //NOT SI dB/kilometer 
+    double a = log(10)*alpha/20 * pow(10,-3);               //SI 1/km                                    //#SI #W/Hz
+    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
+    double Ls;                       //SI meters
+    double leff ;                                           //#SI #km
+    double leff_a;                                          //#SI #km 
+    double gnliSpan ;
+    double gnliFiber;
+    double pnliFiber;
+    int spans;
+    double lspan;
+
+    spans = ceil(length/80.0);
+    lspan = length/spans;
+
+    Ls = lspan * pow(10,3);  
+    leff = (1.0 - exp(-2.0*a*Ls))/(2.0*a);                  //#SI #km
+    leff_a = 1.0/(2.0 *a);                                  //#SI #km 
+    gnliSpan = (8.0/27.0) * pow(gam,2) * pow(gwdm,3) * pow(leff,2) * (asinh(pow(M_PIl/2,2)*beta2*leff_a*pow(bwdm,2))/(M_PIl*beta2*leff_a)) * Bn;
+    gnliFiber = gnliSpan * spans;
+    pnliFiber = gnliFiber;
+
+    return pnliFiber;
+}

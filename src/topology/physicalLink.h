@@ -116,10 +116,10 @@ public:
 	void setCost(double c) { this->cost = c; }
 
 	/** Changes the pnli @param pn New number **/
-	void setPnli(int pn) { this->pnli = pn; }
+	void setPnli(double pn) { this->pnli = pn; }
 
 	/** Changes the pase line @param pa New number **/
-	void setPaseLine(int pa) { this->paseLine = pa; }
+	void setPaseLine(double pa) { this->paseLine = pa; }
 
 	/** Changes the number of line amplifiers @param la New number **/
 	void setLineAmplifiers(int la) { this->lineAmplifiers = la; }

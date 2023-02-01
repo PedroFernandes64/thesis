@@ -41,6 +41,10 @@ private:
 	int nbInitialDemands;				/**< The number of demands routed in the first initial mapping. **/
 	int nextDemandToBeRoutedIndex;		/**< Stores the index of the next demand to be analyzed in tabDemand. **/
 	bool wasBlocked;
+
+	// PEDRO PEDRO PEDRO
+	double paseNode;						/**< Stores the value of the Pase noise of a node amplifier **/
+
 public:
 
 	/****************************************************************************************/
@@ -110,6 +114,10 @@ public:
 	double getMetricValue(Metric m) const;
 
 	int getNumberOfOccupiedSlices() const;
+
+	// PEDRO PEDRO PEDRO
+	/** Returns the value of the Pase noise of a node amplifier **/
+	double getPaseNode() const { return this->paseNode; }
 	
 	/****************************************************************************************/
 	/*										Setters											*/
@@ -199,7 +207,11 @@ public:
 	/** Builds file results.csv containing information about the main obtained results. @param fileName The name of demand file being optimized. **/
 	void outputLogResults(std::string fileName, double time);
 
-	//void followPaths();
+	//PEDRO PEDRO PEDRO
+	void setPaseNode();
+	double paseLinFiber(double l);
+    double pnliFiber(double l);
+    
 	
 	/****************************************************************************************/
 	/*										Display											*/
