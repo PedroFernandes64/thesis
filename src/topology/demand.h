@@ -107,7 +107,7 @@ public:
 	/** Changes the maximum length of the path on which the demand can be routed. @param max New demand's maximum length value.**/
 	void setMaxLength(double max) { this->maxLength = max; }
 
-	/** Changes the OSNR Limit of the path on which demand is routed. @param l The new path length. **/
+	/** Changes the OSNR Limit of the path on which demand is routed. @param osL The new path Osnr Limit. **/
 	void setOsnrLimit(double osL) { this->osnrLimit = osL; }
 
 	/** Changes the status of a demand. @param b If true, demand becomes routed. Otherwise, it becomes non-routed.**/

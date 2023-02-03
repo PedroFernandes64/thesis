@@ -2,7 +2,7 @@
 
 /* Constructor. A graph associated to the initial mapping (instance) is built as well as an extended graph for each demand to be routed. */
 RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), compactEdgeLabel(compactGraph), 
-                                compactEdgeLength(compactGraph), compactEdgeLineAmplifiers(compactGraph), compactNodeId(compactGraph), 
+                                compactEdgeLength(compactGraph), compactEdgeLineAmplifiers(compactGraph), compactEdgePnli(compactGraph), compactEdgePaseLine(compactGraph), compactNodeId(compactGraph), 
                                 compactNodeLabel(compactGraph){
     setStatus(STATUS_UNKNOWN);
     /* Creates compact graph. */
@@ -31,6 +31,8 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
         vecArcSlice.emplace_back( std::make_shared<ArcMap>((*vecGraph[d])) );
         vecArcLength.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
         vecArcLineAmplifiers.emplace_back( std::make_shared<ArcMap>((*vecGraph[d])) );
+        vecArcPnli.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
+        vecArcPaseLine.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
         vecArcLengthWithPenalty.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
         vecNodeId.emplace_back( std::make_shared<NodeMap>((*vecGraph[d])) );
         vecNodeLabel.emplace_back( std::make_shared<NodeMap>((*vecGraph[d])) );
@@ -55,24 +57,18 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
                             onLeftRegion = false;
                         }
                         if ( (onLeftRegion) && (s < instance.getInput().getPartitionSlice()) ){
-                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
-                            //addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
-                            //addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
-                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
+                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnli(), instance.getPhysicalLinkFromIndex(i).getPaseLine());
+                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnli(), instance.getPhysicalLinkFromIndex(i).getPaseLine());
                         }
                         if ( (!onLeftRegion) && (s >= instance.getInput().getPartitionSlice()) ){
-                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
-                            //addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
-                            //addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
-                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
+                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnli(), instance.getPhysicalLinkFromIndex(i).getPaseLine());
+                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnli(), instance.getPhysicalLinkFromIndex(i).getPaseLine());
                         }
                     }
                     else{
                         /* CREATE NODES (u, s) AND (v, s) IF THEY DO NOT ALREADY EXIST AND ADD AN ARC BETWEEN THEM */
-                        addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
-                        //addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
-                        //addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength());
-                        addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers());
+                        addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnli(), instance.getPhysicalLinkFromIndex(i).getPaseLine());
+                        addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnli(), instance.getPhysicalLinkFromIndex(i).getPaseLine());
                     }
                 }
             }
@@ -282,7 +278,6 @@ void RSA::gnModelAllPaths(){
     double distance;
     //OSNR
     double dbOsnr;
-    double dbOsnrLim = 24.0;
     std::cout << "Calculating OSNR " << std::endl;
     std::cout << "Writing  OSNR's to file..." << std::endl;
     std::ofstream fw("osnr.txt", std::ofstream::out);
@@ -293,7 +288,7 @@ void RSA::gnModelAllPaths(){
                 distance = alldemandsdistances[i][j];
                 slots = toBeRouted[i].getLoad();        
                 dbOsnr = osnrPath(alldemandsPASElin[i][j], alldemandsPASEnode[i][j], alldemandsPNLI[i][j], slots);
-                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) || (dbOsnr >= dbOsnrLim) ){
+                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) || (dbOsnr >= toBeRouted[i].getOsnrLimit()) ){
                     fw << "=====Path=====: " << j+1 << std::endl;
                     fw << "PNLI " << alldemandsPNLI[i][j] << std::endl;
                     fw << "PASElin " << alldemandsPASElin[i][j] << std::endl;
@@ -303,7 +298,9 @@ void RSA::gnModelAllPaths(){
                         fw << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
                     fw << std::endl;
                     fw << "Distance = " << distance;
-                    fw << "---OSNR en db = " << dbOsnr << " ---" << std::endl;                     
+                    fw << " Max length = " << toBeRouted[i].getMaxLength() << std::endl;  
+                    fw << "OSNR en db = " << dbOsnr;
+                    fw << " OSNR limit = " << toBeRouted[i].getOsnrLimit() << std::endl;                    
                 }
             }
             fw << "------------------------" << std::endl;
@@ -352,13 +349,15 @@ void RSA::buildCompactGraph(){
             compactEdgeLabel[e] = edge.getIndex();
             compactEdgeLength[e] = edge.getLength();
             compactEdgeLineAmplifiers[e] = edge.getLineAmplifiers();
+            compactEdgePnli[e] = edge.getPnli();
+            compactEdgePaseLine[e] = edge.getPaseLine();
         }
     }
 }
 
 /* Creates an arc -- and its nodes if necessary -- between nodes (source,slice) and (target,slice) on a graph. */
 //void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l){
-void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l, int la){
+void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l, int la, double pn, double pa){
     ListDigraph::Node arcSource = getNode(d, linkSourceLabel, slice);
     ListDigraph::Node arcTarget = getNode(d, linkTargetLabel, slice);
 
@@ -387,6 +386,8 @@ void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel
     setArcSlice(a, d, slice);
     setArcLength(a, d, l);
     setArcLineAmplifiers(a, d, la);
+    setArcPnli(a, d, pn);
+    setArcPaseLine(a, d, pa);
     int hop = instance.getInput().getHopPenalty();
     if (linkSourceLabel == getToBeRouted_k(d).getSource()){
         setArcLengthWithPenalty(a, d, l);
@@ -911,6 +912,8 @@ RSA::~RSA() {
     vecArcSlice.clear();
     vecArcLength.clear();
     vecArcLineAmplifiers.clear();
+    vecArcPnli.clear();
+    vecArcPaseLine.clear();
     vecNodeId.clear();
     vecNodeLabel.clear();
     vecNodeSlice.clear();

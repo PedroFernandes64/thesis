@@ -58,7 +58,7 @@ if __name__ == "__main__":
     l_amp = 0
     n_amp = 0
     osnrdb = 0.0
-    osnrlimdb = 10.0
+    osnrlimdb = 25.0
     slots = int(input("Slots: "))
     n_amp = int(input("Node amplis: "))
     l_amp = int(input("Line amplis: "))
@@ -66,13 +66,19 @@ if __name__ == "__main__":
     osnr = pch/(pase * (l_amp + n_amp) + pnli * pow(l_amp,1+epsilon))
     osnrdb = 10.0 * math.log10(osnr)
     print("OSNR: ", osnrdb)
+
+    print("osnr lim db ", osnrlimdb)
+    osnrlim = pow(10,osnrlimdb/10)
+    print("osnr lim ", osnrlim)
+    print("pch", pch)
+    print("rhs ", pch/osnrlim)
     '''
     if osnrlimdb <= osnrdb:
         print("ok, osnr lim", osnrlimdb)
     else:
         print("not ok, osnr lim", osnrlimdb)
     print(osnr, " = ", pch, "/", "(", pase, "(", l_amp, "+", n_amp, ") + ", pnli, "*", pow(l_amp,1+epsilon))
-    '''
+    
     print("Approximation")
     print("C1 = Pch = ", pch)
     c1 = pch
@@ -80,7 +86,7 @@ if __name__ == "__main__":
     c2 = pase
     print("C3 = Pnli = ", pnli)
     c3 = pnli
-    '''
+    
     print("C4 = Epsilon = ", epsilon)
     c4 = epsilon
     

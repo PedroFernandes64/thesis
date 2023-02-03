@@ -518,9 +518,10 @@ Constraint FlowForm::getOSNRConstraint(const Demand &demand, int d){
     double rhs; double rls;
 
     
-    double osnrlimdb = 23.0; //should get from demand
-    //passar tudo isso pra dentro do GNModel
+    double osnrlimdb = demand.getOsnrLimit();; //should get from demand
+    std::cout << instance.getPaseNode();
     double osnrlim = pow(10,osnrlimdb/10);
+    //passar tudo isso pra dentro do GNModel
     double constant2FromGNModel = 19.72;
     double constant3FromGNModel = 2.12;
     double constantAuxFromGNModel = 12500; //Bn * gwdm *10^8

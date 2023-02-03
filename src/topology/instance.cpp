@@ -201,7 +201,7 @@ void Instance::readDemands(){
 		int demandLoad = std::stoi(dataList[i][3]);
 		double demandMaxLength = std::stod(dataList[i][4]);
 		double demandOsnrLimit = std::stod(dataList[i][5]);
-		Demand demand(idDemand, demandSource, demandTarget, demandLoad,demandOsnrLimit, demandMaxLength, false);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength, demandOsnrLimit, false);
 		this->tabDemand.push_back(demand);
 	}
 }
@@ -476,12 +476,14 @@ void Instance::outputDemands(std::string counter){
 		myfile << "destination" << delimiter;
 		myfile << "slots" << delimiter;
 		myfile << "max_length" << delimiter;
+		myfile << "osnr_limit" << delimiter;
 		myfile << "Routed" << "\n";
 		for (int i = 0; i < getNbDemands(); i++){
 			myfile << std::to_string(getDemandFromIndex(i).getId()+1) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getSource()+1) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getTarget()+1) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getLoad()) << delimiter;
+			myfile << std::to_string(getDemandFromIndex(i).getOsnrLimit()) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getMaxLength()) << delimiter;
 			if (getDemandFromIndex(i).isRouted()){
 				myfile << "1" << "\n";
