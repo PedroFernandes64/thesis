@@ -518,33 +518,42 @@ Constraint FlowForm::getOSNRConstraint(const Demand &demand, int d){
     double rhs; double rls;
 
     
-    double osnrlimdb = demand.getOsnrLimit();; //should get from demand
-    std::cout << instance.getPaseNode();
-    double osnrlim = pow(10,osnrlimdb/10);
-    //passar tudo isso pra dentro do GNModel
-    double constant2FromGNModel = 19.72;
-    double constant3FromGNModel = 2.12;
-    double constantAuxFromGNModel = 12500; //Bn * gwdm *10^8
-    constantAuxFromGNModel = constantAuxFromGNModel * getToBeRouted_k(d).getLoad();
-    constantAuxFromGNModel = constantAuxFromGNModel/osnrlim;
-    constantAuxFromGNModel = round(constantAuxFromGNModel*100)/100;
+    double osnrLimdb = demand.getOsnrLimit();; //should get from demand
+    double osnrLim = pow(10,osnrLimdb/10);
 
-    rhs = constantAuxFromGNModel - constant2FromGNModel ; rls = 0;
+    double slots = demand.getLoad();
+    double pSat = 50 * pow(10,-3);
+    double bwdm = 5000 * pow(10,9); 
+    double gwdm = pSat/bwdm;
+    double Bn = 12.5 * pow(10,9); 
+    double pch = slots * Bn * gwdm;
     
+    double rhsAuxiliar = pch/osnrLim - instance.getPaseNode() ;
+    //std::cout << "--rhs" << pch/osnrLim  << " Pase node" << instance.getPaseNode() << std::endl;
+    
+    rhsAuxiliar = round(rhsAuxiliar * pow(10,8)*100)/100 ;
+    //std::cout << "--rhs arred" << rhsAuxiliar << std::endl;
+    rhs = rhsAuxiliar; rls = 0;
     for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
         //First term
         int arc = getArcIndex(a, d); 
-        double coeff = getArcLineAmplifiers(a, d) * constant2FromGNModel;
+        double coeff = getArcPaseLine(a, d) * pow(10,8);
+        coeff = round(coeff*100)/100;
+        //std::cout  << "-Pase line arredondado" << coeff << " Pase line" << getArcPaseLine(a, d) << std::endl;
         Term term(x[d][arc], coeff);
         exp.addTerm(term);
         //Second term
-        coeff = 1.0 * constant2FromGNModel;
+        coeff = 1.0 * round(instance.getPaseNode() * pow(10,8)*100)/100;
+        //std::cout  << "-Pase node arredondado" << coeff << " Pase node" << instance.getPaseNode() << std::endl;
         Term term2(x[d][arc], coeff);
         exp.addTerm(term2);
         //Third term
-        coeff = getArcLineAmplifiers(a, d) * constant3FromGNModel;
+        coeff = getArcPnli(a, d)* pow(10,8);
+        coeff = round(coeff*100)/100;
+        //std::cout << "-Pnli arredondado" << coeff << " pnli" << getArcPnli(a, d) << std::endl;
         Term term3(x[d][arc], coeff);
         exp.addTerm(term3);
+        //std::cout  << "--" << std::endl;
     }
     std::ostringstream constraintName;
     constraintName << "OSNR_" << demand.getId()+1;

@@ -288,7 +288,7 @@ void RSA::gnModelAllPaths(){
                 distance = alldemandsdistances[i][j];
                 slots = toBeRouted[i].getLoad();        
                 dbOsnr = osnrPath(alldemandsPASElin[i][j], alldemandsPASEnode[i][j], alldemandsPNLI[i][j], slots);
-                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) || (dbOsnr >= toBeRouted[i].getOsnrLimit()) ){
+                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) && (dbOsnr >= toBeRouted[i].getOsnrLimit()) ){
                     fw << "=====Path=====: " << j+1 << std::endl;
                     fw << "PNLI " << alldemandsPNLI[i][j] << std::endl;
                     fw << "PASElin " << alldemandsPASElin[i][j] << std::endl;
