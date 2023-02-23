@@ -200,7 +200,13 @@ void Instance::readDemands(){
 		int demandTarget = std::stoi(dataList[i][2]) - 1;
 		int demandLoad = std::stoi(dataList[i][3]);
 		double demandMaxLength = std::stod(dataList[i][4]);
-		double demandOsnrLimit = std::stod(dataList[i][5]);
+		double demandOsnrLimit;
+		if (this->input.isGNModelEnabled() == true ){
+			demandOsnrLimit = std::stod(dataList[i][5]);
+		}
+		else{
+			demandOsnrLimit = 0.0;
+		}
 		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength, demandOsnrLimit, false);
 		this->tabDemand.push_back(demand);
 	}

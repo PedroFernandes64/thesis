@@ -27,7 +27,7 @@ partitionSlice=15
 ******* Optimization parameters *******
 solver=0 
 method=0 
-preprocessingLevel=0
+preprocessingLevel=1
 linearRelaxation=0
 relaxMethod=0
 
@@ -35,7 +35,7 @@ relaxMethod=0
 outputPath=../Parameters/Instances/Pedro/German_D17/10demands
 outputLevel=0
 nbSlicesInOutputFile=320
-globalTimeLimit=7200 
+globalTimeLimit=7200
 timeLimit=7200
 
 ******* Fields below are reserved for team LIMOS ********
