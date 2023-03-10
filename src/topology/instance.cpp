@@ -159,11 +159,8 @@ void Instance::readTopology(){
 		double edgePase = 0.0;
 		if (this->input.isGNModelEnabled() == true ){
 			edgeAmplis = std::stoi(dataList[i][6]);
-			//CALCULANDO AO INVES DE LER
-			edgePnli = pnliFiber(edgeLength);
-			edgePase = paseLinFiber(edgeLength);
-			//edgePnli = std::stod(dataList[i][7]);
-			//edgePase = std::stod(dataList[i][8]);
+			edgePnli = std::stod(dataList[i][7]);
+			edgePase = std::stod(dataList[i][8]);
 		}
 		else{
 			edgeAmplis = 0;
@@ -201,13 +198,16 @@ void Instance::readDemands(){
 		int demandLoad = std::stoi(dataList[i][3]);
 		double demandMaxLength = std::stod(dataList[i][4]);
 		double demandOsnrLimit;
+		double demandPch;
 		if (this->input.isGNModelEnabled() == true ){
 			demandOsnrLimit = std::stod(dataList[i][5]);
+			demandPch = std::stod(dataList[i][6]);
 		}
 		else{
 			demandOsnrLimit = 0.0;
+			demandPch = 0.0;
 		}
-		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength, demandOsnrLimit, false);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength, demandOsnrLimit, demandPch, false);
 		this->tabDemand.push_back(demand);
 	}
 }
@@ -331,8 +331,17 @@ void Instance::generateDemandsFromFile(std::string filePath){
 		int demandSource = std::stoi(dataList[i][1]) - 1;
 		int demandTarget = std::stoi(dataList[i][2]) - 1;
 		int demandLoad = std::stoi(dataList[i][3]);
-		double DemandMaxLength = std::stod(dataList[i][4]);
-		double DemandOsnrLimit = std::stod(dataList[i][5]);
+		double demandMaxLength = std::stod(dataList[i][4]);
+		double demandOsnrLimit;
+		double demandPch;
+		if (this->input.isGNModelEnabled() == true ){
+			demandOsnrLimit = std::stod(dataList[i][5]);
+			demandPch = std::stod(dataList[i][6]);
+		}
+		else{
+			demandOsnrLimit = 0.0;
+			demandPch = 0.0;
+		}
 		std::string demandMode = "";
 		std::string demandSpacing = "";
 		std::string demandPathBandwidth = "";
@@ -341,12 +350,14 @@ void Instance::generateDemandsFromFile(std::string filePath){
 			demandSpacing = dataList[i][7];
 			demandPathBandwidth = dataList[i][8];
 		}
-		Demand demand(idDemand, demandSource, demandTarget, demandLoad, DemandMaxLength,DemandOsnrLimit, false, -1, 0, 0, demandMode, demandSpacing, demandPathBandwidth);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength,demandOsnrLimit, demandPch, false, -1, 0, 0, demandMode, demandSpacing, demandPathBandwidth);
 		this->tabDemand.push_back(demand);
 	}
 	//std::cout << "out" << std::endl;
 }
 
+
+// UPDATETHISPEDRO
 /* Adds non-routed demands to the pool by generating N random demands. */
 void Instance::generateRandomDemands(const int N){
 	srand (1234567890);
@@ -483,14 +494,16 @@ void Instance::outputDemands(std::string counter){
 		myfile << "slots" << delimiter;
 		myfile << "max_length" << delimiter;
 		myfile << "osnr_limit" << delimiter;
+		myfile << "pch" << delimiter;
 		myfile << "Routed" << "\n";
 		for (int i = 0; i < getNbDemands(); i++){
 			myfile << std::to_string(getDemandFromIndex(i).getId()+1) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getSource()+1) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getTarget()+1) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getLoad()) << delimiter;
-			myfile << std::to_string(getDemandFromIndex(i).getOsnrLimit()) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getMaxLength()) << delimiter;
+			myfile << std::to_string(getDemandFromIndex(i).getOsnrLimit()) << delimiter;
+			myfile << std::to_string(getDemandFromIndex(i).getPch()) << delimiter;
 			if (getDemandFromIndex(i).isRouted()){
 				myfile << "1" << "\n";
 				nbServedSlices += getDemandFromIndex(i).getLoad();
@@ -698,67 +711,4 @@ void Instance::setPaseNode() {
     Glin = pow(10,Gdb/10);                              //LINEAR
     paseNod = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
 	this->paseNode = paseNod; 
-}	
-double Instance::paseLinFiber(double length){
-    double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
-    double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
-    double c = 3.0 *pow(10,8);                          //SI meters by second, m 
-    double nu = c/lambd;                                //SI hertz
-    double NF = 5.0;                                    //SI dB
-    double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
-    double alpha = 0.2;                                 //NOT SI dB/kilometer 
-    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
-    double ls ;                                         //NOT SI kilometers
-    double Gdb ;                                        //SI #dB
-    double Glin ;                                       //LINEAR
-    double paseLinSpan ;
-    double paseLinFiber;
-    int spans;
-    double lspan;
-
-    spans = ceil(length/80.0);
-    lspan = length/spans;
-
-    ls = lspan;                                             //NOT SI kilometers
-    Gdb = alpha * ls;                                   //SI #dB
-    Glin = pow(10,Gdb/10);                              //LINEAR
-    paseLinSpan = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
-    paseLinFiber = paseLinSpan * spans;
-    return paseLinFiber;
-}
-double Instance::pnliFiber(double length){
-    double lambd = 1545.0 * pow(10,-9);                     //SI meters, m                   #Usually nanometer (x nanometer)
-    double D = 16.5;                                            //#NOT SI ps/(nm km)
-    double SI_D = D * pow (10,-6);                              //#SI s/m^2)
-    double c = 3.0 *pow(10,8);                          //SI meters by second, m
-    double beta2 = abs(SI_D) * pow(lambd,2)/(2*M_PIl*c);        //#SI s^2/m   
-    double n2 = 2.7 * pow (10,-20);                             //#SI m^2/W               #Usually micrometer^2
-    double aeff = 85 * pow (10,-12);                            //#SI m^2                 #Usually micrometer^2
-    double gam = (n2/aeff) * (2*M_PIl/lambd);                   //#SI 1/W m
-    double bwdm = 5000 * pow(10,9);                             //#SI #Hz                 #Usually gigahertz
-    double Psat = 50 * pow(10,-3);                              //#SI #W                  #Usually mW
-    double gwdm = Psat/bwdm;
-    double alpha = 0.2;                                     //NOT SI dB/kilometer 
-    double a = log(10)*alpha/20 * pow(10,-3);               //SI 1/km                                    //#SI #W/Hz
-    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
-    double Ls;                       //SI meters
-    double leff ;                                           //#SI #km
-    double leff_a;                                          //#SI #km 
-    double gnliSpan ;
-    double gnliFiber;
-    double pnliFiber;
-    int spans;
-    double lspan;
-
-    spans = ceil(length/80.0);
-    lspan = length/spans;
-
-    Ls = lspan * pow(10,3);  
-    leff = (1.0 - exp(-2.0*a*Ls))/(2.0*a);                  //#SI #km
-    leff_a = 1.0/(2.0 *a);                                  //#SI #km 
-    gnliSpan = (8.0/27.0) * pow(gam,2) * pow(gwdm,3) * pow(leff,2) * (asinh(pow(M_PIl/2,2)*beta2*leff_a*pow(bwdm,2))/(M_PIl*beta2*leff_a)) * Bn;
-    gnliFiber = gnliSpan * spans;
-    pnliFiber = gnliFiber;
-
-    return pnliFiber;
 }

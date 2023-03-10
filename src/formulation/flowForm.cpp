@@ -516,40 +516,33 @@ void FlowForm::setOSNRConstraints(){
 Constraint FlowForm::getOSNRConstraint(const Demand &demand, int d){
     Expression exp;
     double rhs; double rls;
-
     
-    double osnrLimdb = demand.getOsnrLimit();; //should get from demand
+    double osnrLimdb = demand.getOsnrLimit();
     double osnrLim = pow(10,osnrLimdb/10);
+    double pch = demand.getPch();
 
-    double slots = demand.getLoad();
-    double pSat = 50 * pow(10,-3);
-    double bwdm = 5000 * pow(10,9); 
-    double gwdm = pSat/bwdm;
-    double Bn = 12.5 * pow(10,9); 
-    double pch = slots * Bn * gwdm;
+    double roundingFactor = pow(10,8);
     
-    double rhsAuxiliar = pch/osnrLim - instance.getPaseNode() ;
-    //std::cout << "--rhs" << pch/osnrLim  << " Pase node" << instance.getPaseNode() << std::endl;
+    rhs = pch/osnrLim - instance.getPaseNode() ;
     
-    rhsAuxiliar = round(rhsAuxiliar * pow(10,8)*100)/100 ;
-    //std::cout << "--rhs arred" << rhsAuxiliar << std::endl;
-    rhs = rhsAuxiliar; rls = 0;
+    rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
+    rls = 0;
     for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
         //First term
         int arc = getArcIndex(a, d); 
-        double coeff = getArcPaseLine(a, d) * pow(10,8);
-        coeff = round(coeff*100)/100;
+        double coeff = getArcPaseLine(a, d) * roundingFactor;
+        coeff = ceil(coeff*100)/100; //ROUNDING
         //std::cout  << "-Pase line arredondado" << coeff << " Pase line" << getArcPaseLine(a, d) << std::endl;
         Term term(x[d][arc], coeff);
         exp.addTerm(term);
         //Second term
-        coeff = 1.0 * round(instance.getPaseNode() * pow(10,8)*100)/100;
+        coeff = 1.0 * ceil(instance.getPaseNode() * roundingFactor*100)/100; //ROUNDING
         //std::cout  << "-Pase node arredondado" << coeff << " Pase node" << instance.getPaseNode() << std::endl;
         Term term2(x[d][arc], coeff);
         exp.addTerm(term2);
         //Third term
-        coeff = getArcPnli(a, d)* pow(10,8);
-        coeff = round(coeff*100)/100;
+        coeff = getArcPnli(a, d)* roundingFactor;
+        coeff = ceil(coeff*100)/100; //ROUNDING
         //std::cout << "-Pnli arredondado" << coeff << " pnli" << getArcPnli(a, d) << std::endl;
         Term term3(x[d][arc], coeff);
         exp.addTerm(term3);

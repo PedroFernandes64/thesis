@@ -21,6 +21,7 @@ private:
 	int load;			/**< Refers to how many slices the demand requires. **/
 	double maxLength;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
 	double osnrLimit;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
+	double pch;			/**< Refers to the power of the channel of the demand **/
 	bool routed;		/**< True if the demand is already routed. **/
 	int sliceAllocation;/**< The id of the last slice assigned to this demand. @warning Equals -1 if not routed yet. **/
 	double pathLength;	/**< The length of the path on which demand is routed. @warning Equals -1 if not routed yet. **/
@@ -35,10 +36,11 @@ public:
 	/*									Constructors										*/
 	/****************************************************************************************/
 	/** Constructor. @param i Id. @param s Source node id. @param t Target node id. @param l Load. 
-	 * @param maxL Maximum length. @param osL Minimun OSNR. @param route Whether the demand is already routed. @param pos The last slice position assigned to the demand. 
-	 * @param len The length of the path assigned to the demand. @param hop The number of hops in the path assigned to the demand. 
-	 * @param m The GNPY mode @param space The GNPY spacing @param pathBand The GNPY path_bandwidth. **/
-	Demand(int i = -1, int s = -1, int t = -1, int l = 0, double maxL = 0, double osL = 100, bool route=false, int pos=-1, double len = 0, int hop = 0, std::string m="", std::string space="",std::string pathBand="");
+	 * @param maxL Maximum length. @param osL Minimun OSNR. @param p Power of the channel. @param route Whether the demand is already routed. 	
+	 * @param pos The last slice position assigned to the demand. @param len The length of the path assigned to the demand. 
+	 * @param hop The number of hops in the path assigned to the demand. * @param m The GNPY mode @param space The GNPY spacing 
+	 * @param pathBand The GNPY path_bandwidth. **/
+	Demand(int i = -1, int s = -1, int t = -1, int l = 0, double maxL = 0, double osL = 1, double p = 1, bool route=false, int pos=-1, double len = 0, int hop = 0, std::string m="", std::string space="",std::string pathBand="");
 
 	/****************************************************************************************/
 	/*										Getters											*/
@@ -67,8 +69,11 @@ public:
 	/** Returns the maximum length of the path on which the demand can be routed. **/
 	double getMaxLength() const { return maxLength; }
 
-	/** Returns the minimu OSNR of the path on which the demand can be routed. **/
+	/** Returns the minimum OSNR of the path on which the demand can be routed. **/
 	double getOsnrLimit() const { return osnrLimit; }
+
+	/** Returns the power of the channel of the demand **/
+	double getPch() const { return pch; }
 	
 
 	/** Returns true if the demand has already been routed. **/
@@ -109,6 +114,9 @@ public:
 
 	/** Changes the OSNR Limit of the path on which demand is routed. @param osL The new path Osnr Limit. **/
 	void setOsnrLimit(double osL) { this->osnrLimit = osL; }
+
+	/** Changes the power of the channel of the demand **/
+	void setPch(double p) { this->pch = p; }
 
 	/** Changes the status of a demand. @param b If true, demand becomes routed. Otherwise, it becomes non-routed.**/
 	void setRouted(bool b) { this->routed = b; }

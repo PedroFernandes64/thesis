@@ -1,0 +1,4 @@
+index;origin;destination;slots;max_length;osnr_limit;pch
+1;1;17;6;2000;21;0.00075
+2;2;16;6;2000;21;0.00075
+3;1;16;6;2000;21;0.00075

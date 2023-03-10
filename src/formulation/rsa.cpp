@@ -169,15 +169,9 @@ void RSA::printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_
     visited[u] = false;
 }
 
-double RSA::osnrPath(double paselin, double pasenode, double pnli, double slots){
-    double Psat = 50 * pow(10,-3);
-    double bwdm = 5000 * pow(10,9); 
-    double gwdm = Psat/bwdm;
-    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
-    double pch;
+double RSA::osnrPath(double paselin, double pasenode, double pnli, double pch){
     double osnr;
-    double osnrdb;
-    pch = slots * Bn * gwdm;			
+    double osnrdb;		
     osnr = pch/(paselin + pasenode + pnli);
     osnrdb = 10.0 * log10(osnr);
     return osnrdb;
@@ -285,9 +279,8 @@ void RSA::gnModelAllPaths(){
         for (int i = 0 ; i <toBeRouted.size(); i++){			
             fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;		
             for (int j = 0; j< alldemandsdistances[i].size(); ++j){
-                distance = alldemandsdistances[i][j];
-                slots = toBeRouted[i].getLoad();        
-                dbOsnr = osnrPath(alldemandsPASElin[i][j], alldemandsPASEnode[i][j], alldemandsPNLI[i][j], slots);
+                distance = alldemandsdistances[i][j];     
+                dbOsnr = osnrPath(alldemandsPASElin[i][j], alldemandsPASEnode[i][j], alldemandsPNLI[i][j], toBeRouted[i].getPch());
                 if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) && (dbOsnr >= toBeRouted[i].getOsnrLimit()) ){
                     fw << "=====Path=====: " << j+1 << std::endl;
                     fw << "PNLI " << alldemandsPNLI[i][j] << std::endl;

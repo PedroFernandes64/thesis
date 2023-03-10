@@ -128,6 +128,7 @@ protected:
     EdgeMap compactEdgeLineAmplifiers;  /**< EdgeMap storing the edge line amplifiers of the simple graph associated with the initial mapping. **/
     EdgeCost compactEdgePnli;           /**< EdgeMap storing the edge pnli of the simple graph associated with the initial mapping. **/
     EdgeCost compactEdgePaseLine;           /**< EdgeMap storing the edge pase line of the simple graph associated with the initial mapping. **/
+    
     CompactNodeMap compactNodeId;       /**< NodeMap storing the LEMON node ids of the simple graph associated with the initial mapping. **/
     CompactNodeMap compactNodeLabel;    /**< NodeMap storing the node labels of the simple graph associated with the initial mapping. **/
     
@@ -399,11 +400,11 @@ public:
     double shortestDistance(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
 
     // PEDRO PEDRO PEDRO
-    /** Performs GN Model **/
+    /** Performs GN Model over all possibilities of path**/
     std::vector<std::vector<int> > adj_list;
     std::vector<std::vector<ListGraph::Node> >  pathsdemand;
     std::vector<std::vector<std::vector<ListGraph::Node> > > allpaths;
-    double osnrPath(double pl, double pn, double pnli, double s);
+    double osnrPath(double pl, double pn, double pnli, double pc);
     void gnModelAllPaths();
     void printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_index);
 

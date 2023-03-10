@@ -1,0 +1,356 @@
+PARAMETER FILE: ../Parameters/SEA/EdgeNode/Spain/Obj4/15Demands/onlineParameters.txt
+Getting input file paths...
+Getting topology file...
+... /mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/Spain/Link.csv
+WARNING: Field 'initialMappingDemandFile=' is empty.
+WARNING: Field 'initialMappingAssignmentFile=' is empty.
+Getting GNPY parameters...
+Getting formulation parameters...
+Getting optimization parameters...
+Getting execution parameters...
+Getting subgradient parameters...
+Populating online demand files...
+Finish reading input.
+TOPOLOGY FILE: /mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/Spain/Link.csv
+ROUTED DEMANDS FILE: 
+INITIAL ASSIGNMENT FILE: 
+All information from input is consistent.
+> Number of online demand files: 1
+--- READING INSTANCE... --- 
+--- CREATING INITIAL MAPPING... --- 
+Reading /mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/Spain/Link.csv.
+Creating edge #1. 1 -- 3. nb slices: 30, length: 280, cost: 1
+Creating edge #2. 1 -- 5. nb slices: 30, length: 250, cost: 1
+Creating edge #3. 1 -- 2. nb slices: 30, length: 460, cost: 1
+Creating edge #4. 1 -- 4. nb slices: 30, length: 350, cost: 1
+Creating edge #5. 2 -- 3. nb slices: 30, length: 280, cost: 1
+Creating edge #6. 2 -- 5. nb slices: 30, length: 230, cost: 1
+Creating edge #7. 3 -- 4. nb slices: 30, length: 320, cost: 1
+Starting with an empty initial mapping. 
+0 are present in the initial mapping.
+--- READING NEW DEMANDS TO BE ROUTED... --- 
+Reading /mnt/c/FlexOptim/RSA/Parameters/SEA/EdgeNode/Spain/Obj4/15Demands/Demand/Demand.csv ...
+out
+
+--- The Non Routed Demands ---
+#1. 1 -- 2. nbSlices: 6, maxLength: 600, ROUTED: NO
+#2. 1 -- 2. nbSlices: 6, maxLength: 600, ROUTED: NO
+#3. 1 -- 2. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#4. 1 -- 3. nbSlices: 6, maxLength: 600, ROUTED: NO
+#5. 1 -- 3. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#6. 1 -- 4. nbSlices: 6, maxLength: 600, ROUTED: NO
+#7. 1 -- 4. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#8. 1 -- 5. nbSlices: 6, maxLength: 600, ROUTED: NO
+#9. 1 -- 5. nbSlices: 5, maxLength: 1500, ROUTED: NO
+#10. 2 -- 3. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#11. 2 -- 4. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#12. 2 -- 5. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#13. 3 -- 4. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#14. 3 -- 5. nbSlices: 3, maxLength: 3000, ROUTED: NO
+#15. 4 -- 5. nbSlices: 3, maxLength: 3000, ROUTED: NO
+
+15 demands to be routed.
+--- ROUTING DEMANDS --- 
+#1 (1, 2), requiring 6 slices and having Max length 600
+#2 (1, 2), requiring 6 slices and having Max length 600
+#3 (1, 2), requiring 5 slices and having Max length 1500
+#4 (1, 3), requiring 6 slices and having Max length 600
+#5 (1, 3), requiring 5 slices and having Max length 1500
+#6 (1, 4), requiring 6 slices and having Max length 600
+#7 (1, 4), requiring 5 slices and having Max length 1500
+#8 (1, 5), requiring 6 slices and having Max length 600
+#9 (1, 5), requiring 5 slices and having Max length 1500
+#10 (2, 3), requiring 3 slices and having Max length 3000
+#11 (2, 4), requiring 3 slices and having Max length 3000
+#12 (2, 5), requiring 3 slices and having Max length 3000
+#13 (3, 4), requiring 3 slices and having Max length 3000
+#14 (3, 5), requiring 3 slices and having Max length 3000
+#15 (4, 5), requiring 3 slices and having Max length 3000
+--> THE DIFFERENT ROUTING LOADS: 6, 5, 3.
+--- Edge-Node formulation has been chosen. |K| = 15, |S| = 30. ---
+X variables were created.
+Z variables were created.
+T variables were created.
+MaxSlicePerLink variables were created.
+MaxSliceOverall variable was created.
+Origin constraints have been defined...
+Destination constraints have been defined...
+Degree constraints have been defined...
+Transmission reach constraints have been defined...
+Channel selection constraints have been defined...
+Forbidden slots constraints have been defined...
+Edge-slots constraints have been defined...
+Demand-edge-slots constraints have been defined...
+Non-overlapping constraints have been defined...
+Max Used Slice Per Link constraints have been defined...
+Max Used Slice Overall constraints have been defined...
+Objective obj_4 has been defined.
+--- Edge-Node formulation has been defined ---
+--- CPLEX has been initialized ---
+CPLEX parameters have been defined...
+CPLEX variables have been defined...
+CPLEX constraints have been defined...
+CPLEX objective has been defined...
+LP model has been exported.
+Solving...
+Chosen objective: obj_4
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_MIP_Display                             3
+CPXPARAM_TimeLimit                               7200
+Lazy constraint(s) or lazy constraint/branch callback is present.
+    Disabling dual reductions (CPX_PARAM_REDUCE) in presolve.
+    Disabling presolve reductions that prevent crushing forms.
+Tried aggregator 2 times.
+MIP Presolve eliminated 214 rows and 310 columns.
+MIP Presolve modified 397 coefficients.
+Aggregator did 10 substitutions.
+Reduced MIP has 6526 rows, 9976 columns, and 38220 nonzeros.
+Reduced MIP has 3580 binaries, 8 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.03 sec. (32.97 ticks)
+Probing fixed 93 vars, tightened 3091 bounds.
+Probing time = 0.16 sec. (48.61 ticks)
+Cover probing fixed 0 vars, tightened 9 bounds.
+Tried aggregator 2 times.
+MIP Presolve eliminated 97 rows and 187 columns.
+Aggregator did 1 substitutions.
+Reduced MIP has 6428 rows, 9788 columns, and 37571 nonzeros.
+Reduced MIP has 3486 binaries, 8 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.03 sec. (27.83 ticks)
+Probing time = 0.02 sec. (6.22 ticks)
+Clique table members: 26741.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 8 threads.
+Root relaxation solution time = 0.13 sec. (96.90 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0     5580.0000   554                   5580.0000     1462         
+      0     0     5630.0000   554                    Cuts: 29     1614         
+*     0     0      integral     0     5680.0000       Cuts: 8     1628    0.00%
+Found incumbent of value 5680.000000 after 0.86 sec. (476.02 ticks)
+      0     0        cutoff           5680.0000     5680.0000     1628    0.00%
+Elapsed time = 0.86 sec. (476.54 ticks, tree = 0.01 MB, solutions = 1)
+
+Implied bound cuts applied:  1
+Zero-half cuts applied:  3
+Lift and project cuts applied:  2
+Gomory fractional cuts applied:  3
+User cuts applied:  8
+
+Root node processing (before b&c):
+  Real time             =    0.86 sec. (476.87 ticks)
+Parallel b&c, 8 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.86 sec. (476.87 ticks)
+Objective Function Value: 5680
+Optimization done in 0.869695 secs.
+Status: Optimal
+Objective Function Value: 5680
+x(3,4,11) = 1
+x(3,4,13) = 1
+x(2,5,12) = 1
+x(2,5,14) = 1
+x(2,3,10) = 1
+x(2,3,11) = 1
+x(2,3,14) = 1
+x(1,4,6) = 1
+x(1,4,7) = 1
+x(1,4,15) = 1
+x(1,2,1) = 1
+x(1,2,2) = 1
+x(1,2,3) = 1
+x(1,5,8) = 1
+x(1,5,9) = 1
+x(1,5,15) = 1
+x(1,3,4) = 1
+x(1,3,5) = 1
+z(3,10) = 1
+z(3,13) = 1
+z(4,12) = 1
+z(6,2) = 1
+z(6,5) = 1
+z(6,7) = 1
+z(6,8) = 1
+z(9,14) = 1
+z(12,1) = 1
+z(16,6) = 1
+z(19,9) = 1
+z(25,4) = 1
+z(27,3) = 1
+z(30,11) = 1
+z(30,15) = 1
+t(7,1,13) = 1
+t(7,2,13) = 1
+t(7,3,13) = 1
+t(7,28,11) = 1
+t(7,29,11) = 1
+t(7,30,11) = 1
+t(6,2,12) = 1
+t(6,3,12) = 1
+t(6,4,12) = 1
+t(6,7,14) = 1
+t(6,8,14) = 1
+t(6,9,14) = 1
+t(5,1,10) = 1
+t(5,2,10) = 1
+t(5,3,10) = 1
+t(5,7,14) = 1
+t(5,8,14) = 1
+t(5,9,14) = 1
+t(5,28,11) = 1
+t(5,29,11) = 1
+t(5,30,11) = 1
+t(4,2,7) = 1
+t(4,3,7) = 1
+t(4,4,7) = 1
+t(4,5,7) = 1
+t(4,6,7) = 1
+t(4,11,6) = 1
+t(4,12,6) = 1
+t(4,13,6) = 1
+t(4,14,6) = 1
+t(4,15,6) = 1
+t(4,16,6) = 1
+t(4,28,15) = 1
+t(4,29,15) = 1
+t(4,30,15) = 1
+t(3,1,2) = 1
+t(3,2,2) = 1
+t(3,3,2) = 1
+t(3,4,2) = 1
+t(3,5,2) = 1
+t(3,6,2) = 1
+t(3,7,1) = 1
+t(3,8,1) = 1
+t(3,9,1) = 1
+t(3,10,1) = 1
+t(3,11,1) = 1
+t(3,12,1) = 1
+t(3,23,3) = 1
+t(3,24,3) = 1
+t(3,25,3) = 1
+t(3,26,3) = 1
+t(3,27,3) = 1
+t(2,1,8) = 1
+t(2,2,8) = 1
+t(2,3,8) = 1
+t(2,4,8) = 1
+t(2,5,8) = 1
+t(2,6,8) = 1
+t(2,15,9) = 1
+t(2,16,9) = 1
+t(2,17,9) = 1
+t(2,18,9) = 1
+t(2,19,9) = 1
+t(2,28,15) = 1
+t(2,29,15) = 1
+t(2,30,15) = 1
+t(1,2,5) = 1
+t(1,3,5) = 1
+t(1,4,5) = 1
+t(1,5,5) = 1
+t(1,6,5) = 1
+t(1,20,4) = 1
+t(1,21,4) = 1
+t(1,22,4) = 1
+t(1,23,4) = 1
+t(1,24,4) = 1
+t(1,25,4) = 1
+maxSlice(6) = 30
+maxSlice(5) = 30
+maxSlice(4) = 29
+maxSlice(3) = 30
+maxSlice(2) = 26
+maxSlice(1) = 30
+maxSlice(0) = 24
+maxSlice = 30
+Update RSA
+Feasible
+
+--- Slice occupation ---
+#1.  *****             ******     
+#2. ******        *****        ***
+#3. ************          *****   
+#4.  *****    ******           ***
+#5. ***   ***                  ***
+#6.  ***  ***                     
+#7. ***                        ***
+
+For demand 1 : 
+(1--2, 12)
+
+For demand 2 : 
+(1--2, 6)
+
+For demand 3 : 
+(1--2, 27)
+
+For demand 4 : 
+(1--3, 25)
+
+For demand 5 : 
+(1--3, 6)
+
+For demand 6 : 
+(1--4, 16)
+
+For demand 7 : 
+(1--4, 6)
+
+For demand 8 : 
+(1--5, 6)
+
+For demand 9 : 
+(1--5, 19)
+
+For demand 10 : 
+(2--3, 3)
+
+For demand 11 : 
+(2--3, 30)
+(3--4, 30)
+
+For demand 12 : 
+(2--5, 4)
+
+For demand 13 : 
+(3--4, 3)
+
+For demand 14 : 
+(2--5, 9)
+(3--2, 9)
+
+For demand 15 : 
+(4--1, 30)
+(1--5, 30)
+
+Output Demand_1
+Output EdgeSliceHols: Demand_1
+Time taken by iteration is : 1.004190 sec
+Output Demand_FINAL
+Output EdgeSliceHols: Demand_FINAL
+
+--- The Demands ---
+#1. 1 -- 2. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#2. 1 -- 2. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#3. 1 -- 2. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#4. 1 -- 3. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#5. 1 -- 3. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#6. 1 -- 4. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#7. 1 -- 4. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#8. 1 -- 5. nbSlices: 6, maxLength: 600.000000000, ROUTED: YES
+#9. 1 -- 5. nbSlices: 5, maxLength: 1500.000000000, ROUTED: YES
+#10. 2 -- 3. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#11. 2 -- 4. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#12. 2 -- 5. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#13. 3 -- 4. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#14. 3 -- 5. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+#15. 4 -- 5. nbSlices: 3, maxLength: 3000.000000000, ROUTED: YES
+
+Time taken by optimization is : 1.022157300 sec
+Total time taken by program is : 1.030922200 sec

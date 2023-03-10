@@ -208,11 +208,7 @@ public:
 	void outputLogResults(std::string fileName, double time);
 
 	//PEDRO PEDRO PEDRO
-	void setPaseNode();
-	double paseLinFiber(double l);
-    double pnliFiber(double l);
-    
-	
+	void setPaseNode();	
 	/****************************************************************************************/
 	/*										Display											*/
 	/****************************************************************************************/

@@ -1,0 +1,6 @@
+" index	"; origin ; destination; slots ; max_length ; 
+1;1;3;2;4;
+2;1;4;1;4;
+3;2;6;2;4;
+4;2;5;1;4;
+5;4;6;3;4;
