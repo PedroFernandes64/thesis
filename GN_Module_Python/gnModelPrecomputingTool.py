@@ -56,57 +56,54 @@ def computePch(s):
     pchDemand = s * Bn * gwdm
     return pchDemand
 
-def chooseOsnrLimit():
-    return 21
+def processLinks(file):
+    with open(file + '.csv', newline='') as csvfile: 
+        links = csv.reader(csvfile, delimiter=';', quotechar='|')
+        newFile1 = []
+        rowCounter = 0
+        for row in links: 
+            if rowCounter == 0: 
+                row.append('lineAmps')
+                row.append('pnli')
+                row.append('pase')
+                rowCounter = rowCounter + 1
+                newFile1.append(row)
+            else:
+                amps = computeAmps(float(row[3]))
+                pnli = computePnli(float(row[3]))
+                pase = computePase(float(row[3]))
+                row.append(amps)
+                row.append(pnli)
+                row.append(pase)
+                rowCounter = rowCounter + 1
+                newFile1.append(row)
+        
+    with open(file + 'sGN.csv', 'w', newline='') as file:
+        writer = csv.writer(file, delimiter=';')
+        writer.writerows(newFile1)
 
-linkfile = 'Link'
-demandfile = 'demands_1GN'
+def processDemands(file):
+    with open(file + '.csv', newline='') as csvfile: 
+        demands = csv.reader(csvfile, delimiter=';', quotechar='|')
+        newFile2 = []
+        rowCounter = 0
+        for row in demands: 
+            if rowCounter == 0:
+                row.append('pch')
+                rowCounter = rowCounter + 1
+                newFile2.append(row)
+            else:
+                pch = computePch(float(row[3]))
+                row.append(pch)
+                rowCounter = rowCounter + 1
+                newFile2.append(row)
+
+    with open(demandfile + 'GN.csv', 'w', newline='') as file:
+        writer = csv.writer(file,delimiter=';')
+        writer.writerows(newFile2)
 
 
-with open(linkfile + '.csv', newline='') as csvfile: 
-    links = csv.reader(csvfile, delimiter=';', quotechar='|')
-    newFile1 = []
-    rowCounter = 0
-    for row in links: 
-        if rowCounter == 0: 
-            row.append('lineAmps')
-            row.append('pnli')
-            row.append('pase')
-            rowCounter = rowCounter + 1
-            newFile1.append(row)
-        else:
-            amps = computeAmps(float(row[3]))
-            pnli = computePnli(float(row[3]))
-            pase = computePase(float(row[3]))
-            row.append(amps)
-            row.append(pnli)
-            row.append(pase)
-            rowCounter = rowCounter + 1
-            newFile1.append(row)
-    
-with open(linkfile+ 'sGN.csv', 'w', newline='') as file:
-    writer = csv.writer(file, delimiter=';')
-    writer.writerows(newFile1)
-
-
-with open(demandfile + '.csv', newline='') as csvfile: 
-    demands = csv.reader(csvfile, delimiter=';', quotechar='|')
-    newFile2 = []
-    rowCounter = 0
-    for row in demands: 
-        if rowCounter == 0:
-            row.append('osnr_limit')
-            row.append('pch')
-            rowCounter = rowCounter + 1
-            newFile2.append(row)
-        else:
-            osnrLimit = chooseOsnrLimit() 
-            pch = computePch(float(row[3]))
-            row.append(osnrLimit)
-            row.append(pch)
-            rowCounter = rowCounter + 1
-            newFile2.append(row)
-
-with open(demandfile + 'GN.csv', 'w', newline='') as file:
-    writer = csv.writer(file,delimiter=';')
-    writer.writerows(newFile2)
+#linkfile = 'Link'
+demandfile = 'demands'
+#processLinks(linkfile)
+processDemands(demandfile)

@@ -1,0 +1,2265 @@
+OSNR demand: 1 : 8 to 1
+=====Path=====: 48
+PNLI 2.46614e-07
+PASElin 1.50545e-06
+PASEnode 2.51516e-06
+Nodes = 8 11 5 3 1 
+Distance = 838 Max length = 1000
+OSNR en db = 20.6882 OSNR limit = 16
+=====Path=====: 49
+PNLI 2.8823e-07
+PASElin 1.85493e-06
+PASEnode 3.01819e-06
+Nodes = 8 11 5 2 3 1 
+Distance = 989 Max length = 1000
+OSNR en db = 19.8621 OSNR limit = 16
+=====Path=====: 56
+PNLI 1.77468e-07
+PASElin 9.14706e-07
+PASEnode 2.51516e-06
+Nodes = 8 9 5 3 1 
+Distance = 570 Max length = 1000
+OSNR en db = 21.4178 OSNR limit = 16
+=====Path=====: 57
+PNLI 2.19084e-07
+PASElin 1.26418e-06
+PASEnode 3.01819e-06
+Nodes = 8 9 5 2 3 1 
+Distance = 721 Max length = 1000
+OSNR en db = 20.4562 OSNR limit = 16
+=====Path=====: 58
+PNLI 1.19842e-07
+PASElin 8.06569e-07
+PASEnode 1.5091e-06
+Nodes = 8 9 1 
+Distance = 408 Max length = 1000
+OSNR en db = 23.1238 OSNR limit = 16
+=====Path=====: 65
+PNLI 1.8787e-07
+PASElin 9.07595e-07
+PASEnode 3.52123e-06
+Nodes = 8 7 6 9 5 3 1 
+Distance = 589 Max length = 1000
+OSNR en db = 20.3464 OSNR limit = 16
+=====Path=====: 66
+PNLI 2.29486e-07
+PASElin 1.25707e-06
+PASEnode 4.02426e-06
+Nodes = 8 7 6 9 5 2 3 1 
+Distance = 740 Max length = 1000
+OSNR en db = 19.5775 OSNR limit = 16
+=====Path=====: 67
+PNLI 1.30244e-07
+PASElin 7.99458e-07
+PASEnode 2.51516e-06
+Nodes = 8 7 6 9 1 
+Distance = 427 Max length = 1000
+OSNR en db = 21.618 OSNR limit = 16
+------------------------
+OSNR demand: 2 : 13 to 3
+=====Path=====: 49
+PNLI 2.68086e-07
+PASElin 1.66923e-06
+PASEnode 3.52123e-06
+Nodes = 13 15 14 12 11 5 3 
+Distance = 917 Max length = 2000
+OSNR en db = 21.3798 OSNR limit = 21
+=====Path=====: 53
+PNLI 2.90318e-07
+PASElin 1.99613e-06
+PASEnode 2.51516e-06
+Nodes = 13 11 10 5 3 
+Distance = 1014 Max length = 2000
+OSNR en db = 21.9367 OSNR limit = 21
+=====Path=====: 54
+PNLI 3.31933e-07
+PASElin 2.34561e-06
+PASEnode 3.01819e-06
+Nodes = 13 11 10 5 2 3 
+Distance = 1165 Max length = 2000
+OSNR en db = 21.1951 OSNR limit = 21
+=====Path=====: 56
+PNLI 3.53013e-07
+PASElin 2.43985e-06
+PASEnode 3.01819e-06
+Nodes = 13 11 10 4 5 3 
+Distance = 1236 Max length = 2000
+OSNR en db = 21.1081 OSNR limit = 21
+=====Path=====: 60
+PNLI 3.5198e-07
+PASElin 2.38446e-06
+PASEnode 3.01819e-06
+Nodes = 13 11 10 4 2 3 
+Distance = 1225 Max length = 2000
+OSNR en db = 21.1504 OSNR limit = 21
+=====Path=====: 63
+PNLI 2.58269e-07
+PASElin 1.27137e-06
+PASEnode 3.01819e-06
+Nodes = 13 11 8 9 5 3 
+Distance = 829 Max length = 2000
+OSNR en db = 22.1726 OSNR limit = 21
+=====Path=====: 64
+PNLI 2.99885e-07
+PASElin 1.62084e-06
+PASEnode 3.52123e-06
+Nodes = 13 11 8 9 5 2 3 
+Distance = 980 Max length = 2000
+OSNR en db = 21.3931 OSNR limit = 21
+=====Path=====: 65
+PNLI 2.85616e-07
+PASElin 1.95204e-06
+PASEnode 3.01819e-06
+Nodes = 13 11 8 9 1 3 
+Distance = 987 Max length = 2000
+OSNR en db = 21.5442 OSNR limit = 21
+=====Path=====: 68
+PNLI 2.68671e-07
+PASElin 1.26426e-06
+PASEnode 4.02426e-06
+Nodes = 13 11 8 7 6 9 5 3 
+Distance = 848 Max length = 2000
+OSNR en db = 21.3021 OSNR limit = 21
+=====Path=====: 72
+PNLI 3.5239e-07
+PASElin 2.44971e-06
+PASEnode 3.01819e-06
+Nodes = 13 11 5 9 1 3 
+Distance = 1233 Max length = 2000
+OSNR en db = 21.1012 OSNR limit = 21
+=====Path=====: 73
+PNLI 3.72066e-07
+PASElin 2.35645e-06
+PASEnode 3.01819e-06
+Nodes = 13 11 5 4 2 3 
+Distance = 1280 Max length = 2000
+OSNR en db = 21.1564 OSNR limit = 21
+=====Path=====: 74
+PNLI 2.06606e-07
+PASElin 1.29357e-06
+PASEnode 2.01213e-06
+Nodes = 13 11 5 3 
+Distance = 709 Max length = 2000
+OSNR en db = 23.2947 OSNR limit = 21
+=====Path=====: 75
+PNLI 2.48221e-07
+PASElin 1.64305e-06
+PASEnode 2.51516e-06
+Nodes = 13 11 5 2 3 
+Distance = 860 Max length = 2000
+OSNR en db = 22.3097 OSNR limit = 21
+=====Path=====: 86
+PNLI 3.32085e-07
+PASElin 2.24576e-06
+PASEnode 2.51516e-06
+Nodes = 13 10 11 5 3 
+Distance = 1158 Max length = 2000
+OSNR en db = 21.6809 OSNR limit = 21
+=====Path=====: 90
+PNLI 3.49877e-07
+PASElin 2.25873e-06
+PASEnode 3.01819e-06
+Nodes = 13 10 5 9 1 3 
+Distance = 1201 Max length = 2000
+OSNR en db = 21.248 OSNR limit = 21
+=====Path=====: 91
+PNLI 3.69553e-07
+PASElin 2.16546e-06
+PASEnode 3.01819e-06
+Nodes = 13 10 5 4 2 3 
+Distance = 1248 Max length = 2000
+OSNR en db = 21.3052 OSNR limit = 21
+=====Path=====: 92
+PNLI 2.04092e-07
+PASElin 1.10259e-06
+PASEnode 2.01213e-06
+Nodes = 13 10 5 3 
+Distance = 677 Max length = 2000
+OSNR en db = 23.5408 OSNR limit = 21
+=====Path=====: 93
+PNLI 2.45708e-07
+PASElin 1.45207e-06
+PASEnode 2.51516e-06
+Nodes = 13 10 5 2 3 
+Distance = 828 Max length = 2000
+OSNR en db = 22.5048 OSNR limit = 21
+=====Path=====: 97
+PNLI 2.66787e-07
+PASElin 1.54631e-06
+PASEnode 2.51516e-06
+Nodes = 13 10 4 5 3 
+Distance = 899 Max length = 2000
+OSNR en db = 22.3875 OSNR limit = 21
+=====Path=====: 98
+PNLI 3.08403e-07
+PASElin 1.89578e-06
+PASEnode 3.01819e-06
+Nodes = 13 10 4 5 2 3 
+Distance = 1050 Max length = 2000
+OSNR en db = 21.5719 OSNR limit = 21
+=====Path=====: 102
+PNLI 3.09011e-07
+PASElin 1.91183e-06
+PASEnode 3.01819e-06
+Nodes = 13 10 4 2 5 3 
+Distance = 1055 Max length = 2000
+OSNR en db = 21.5581 OSNR limit = 21
+=====Path=====: 103
+PNLI 2.65755e-07
+PASElin 1.49092e-06
+PASEnode 2.51516e-06
+Nodes = 13 10 4 2 3 
+Distance = 888 Max length = 2000
+OSNR en db = 22.4445 OSNR limit = 21
+------------------------
+OSNR demand: 3 : 7 to 14
+=====Path=====: 1
+PNLI 2.94741e-07
+PASElin 1.59114e-06
+PASEnode 4.02426e-06
+Nodes = 7 8 11 13 17 16 15 14 
+Distance = 955 Max length = 2000
+OSNR en db = 21.0346 OSNR limit = 21
+=====Path=====: 2
+PNLI 2.22552e-07
+PASElin 1.33442e-06
+PASEnode 3.01819e-06
+Nodes = 7 8 11 13 15 14 
+Distance = 749 Max length = 2000
+OSNR en db = 22.1465 OSNR limit = 21
+=====Path=====: 3
+PNLI 1.18218e-07
+PASElin 6.03518e-07
+PASEnode 2.51516e-06
+Nodes = 7 8 11 12 14 
+Distance = 381 Max length = 2000
+OSNR en db = 23.6493 OSNR limit = 21
+=====Path=====: 18
+PNLI 2.55463e-07
+PASElin 1.26201e-06
+PASEnode 3.52123e-06
+Nodes = 7 8 9 5 11 12 14 
+Distance = 817 Max length = 2000
+OSNR en db = 21.7274 OSNR limit = 21
+=====Path=====: 106
+PNLI 2.7071e-07
+PASElin 1.42798e-06
+PASEnode 4.02426e-06
+Nodes = 7 6 9 8 11 13 15 14 
+Distance = 874 Max length = 2000
+OSNR en db = 21.1744 OSNR limit = 21
+=====Path=====: 107
+PNLI 1.66375e-07
+PASElin 6.97082e-07
+PASEnode 3.52123e-06
+Nodes = 7 6 9 8 11 12 14 
+Distance = 506 Max length = 2000
+OSNR en db = 22.3312 OSNR limit = 21
+=====Path=====: 120
+PNLI 2.3315e-07
+PASElin 1.19476e-06
+PASEnode 3.52123e-06
+Nodes = 7 6 9 5 11 12 14 
+Distance = 752 Max length = 2000
+OSNR en db = 21.8053 OSNR limit = 21
+------------------------
+OSNR demand: 4 : 1 to 5
+=====Path=====: 17
+PNLI 2.83442e-07
+PASElin 1.71546e-06
+PASEnode 2.51516e-06
+Nodes = 1 9 8 11 5 
+Distance = 954 Max length = 1000
+OSNR en db = 20.444 OSNR limit = 16
+=====Path=====: 34
+PNLI 2.93844e-07
+PASElin 1.70835e-06
+PASEnode 3.52123e-06
+Nodes = 1 9 6 7 8 11 5 
+Distance = 973 Max length = 1000
+OSNR en db = 19.5676 OSNR limit = 16
+=====Path=====: 35
+PNLI 1.43825e-07
+PASElin 9.63894e-07
+PASEnode 1.5091e-06
+Nodes = 1 9 5 
+Distance = 496 Max length = 1000
+OSNR en db = 22.812 OSNR limit = 16
+=====Path=====: 36
+PNLI 8.30142e-08
+PASElin 5.96563e-07
+PASEnode 1.5091e-06
+Nodes = 1 3 5 
+Distance = 292 Max length = 1000
+OSNR en db = 23.5879 OSNR limit = 16
+=====Path=====: 37
+PNLI 1.2463e-07
+PASElin 9.46039e-07
+PASEnode 2.01213e-06
+Nodes = 1 3 2 5 
+Distance = 443 Max length = 1000
+OSNR en db = 22.1002 OSNR limit = 16
+=====Path=====: 51
+PNLI 2.48475e-07
+PASElin 1.65943e-06
+PASEnode 2.51516e-06
+Nodes = 1 3 2 4 5 
+Distance = 863 Max length = 1000
+OSNR en db = 20.5325 OSNR limit = 16
+------------------------
+OSNR demand: 5 : 2 to 6
+=====Path=====: 1
+PNLI 2.56229e-07
+PASElin 1.39734e-06
+PASEnode 3.01819e-06
+Nodes = 2 5 11 8 9 6 
+Distance = 837 Max length = 2000
+OSNR en db = 22.0558 OSNR limit = 21
+=====Path=====: 2
+PNLI 2.36716e-07
+PASElin 1.34454e-06
+PASEnode 3.01819e-06
+Nodes = 2 5 11 8 7 6 
+Distance = 782 Max length = 2000
+OSNR en db = 22.1236 OSNR limit = 21
+=====Path=====: 10
+PNLI 3.20428e-07
+PASElin 2.0471e-06
+PASEnode 3.52123e-06
+Nodes = 2 5 10 11 8 7 6 
+Distance = 1087 Max length = 2000
+OSNR en db = 21.0504 OSNR limit = 21
+=====Path=====: 11
+PNLI 1.6757e-07
+PASElin 7.53796e-07
+PASEnode 3.01819e-06
+Nodes = 2 5 9 8 7 6 
+Distance = 514 Max length = 2000
+OSNR en db = 22.7961 OSNR limit = 21
+=====Path=====: 12
+PNLI 1.16612e-07
+PASElin 6.45772e-07
+PASEnode 2.01213e-06
+Nodes = 2 5 9 6 
+Distance = 379 Max length = 2000
+OSNR en db = 24.3187 OSNR limit = 21
+=====Path=====: 22
+PNLI 2.25014e-07
+PASElin 1.73076e-06
+PASEnode 3.01819e-06
+Nodes = 2 5 3 1 9 6 
+Distance = 801 Max length = 2000
+OSNR en db = 21.7836 OSNR limit = 21
+=====Path=====: 42
+PNLI 3.40475e-07
+PASElin 2.08595e-06
+PASEnode 3.52123e-06
+Nodes = 2 4 10 11 8 7 6 
+Distance = 1147 Max length = 2000
+OSNR en db = 21.0072 OSNR limit = 21
+=====Path=====: 50
+PNLI 2.98769e-07
+PASElin 1.49325e-06
+PASEnode 3.01819e-06
+Nodes = 2 4 10 5 9 6 
+Distance = 967 Max length = 2000
+OSNR en db = 21.929 OSNR limit = 21
+=====Path=====: 54
+PNLI 3.60561e-07
+PASElin 2.05794e-06
+PASEnode 3.52123e-06
+Nodes = 2 4 5 11 8 7 6 
+Distance = 1202 Max length = 2000
+OSNR en db = 21.0129 OSNR limit = 21
+=====Path=====: 63
+PNLI 2.91415e-07
+PASElin 1.46719e-06
+PASEnode 3.52123e-06
+Nodes = 2 4 5 9 8 7 6 
+Distance = 934 Max length = 2000
+OSNR en db = 21.5244 OSNR limit = 21
+=====Path=====: 64
+PNLI 2.40457e-07
+PASElin 1.35917e-06
+PASEnode 2.51516e-06
+Nodes = 2 4 5 9 6 
+Distance = 799 Max length = 2000
+OSNR en db = 22.6071 OSNR limit = 21
+=====Path=====: 67
+PNLI 2.94028e-07
+PASElin 1.38074e-06
+PASEnode 3.52123e-06
+Nodes = 2 3 5 11 8 9 6 
+Distance = 934 Max length = 2000
+OSNR en db = 21.5939 OSNR limit = 21
+=====Path=====: 68
+PNLI 2.74515e-07
+PASElin 1.32794e-06
+PASEnode 3.52123e-06
+Nodes = 2 3 5 11 8 7 6 
+Distance = 879 Max length = 2000
+OSNR en db = 21.6548 OSNR limit = 21
+=====Path=====: 77
+PNLI 2.05369e-07
+PASElin 7.37195e-07
+PASEnode 3.52123e-06
+Nodes = 2 3 5 9 8 7 6 
+Distance = 611 Max length = 2000
+OSNR en db = 22.2536 OSNR limit = 21
+=====Path=====: 78
+PNLI 1.54411e-07
+PASElin 6.29171e-07
+PASEnode 2.51516e-06
+Nodes = 2 3 5 9 6 
+Distance = 476 Max length = 2000
+OSNR en db = 23.5671 OSNR limit = 21
+=====Path=====: 87
+PNLI 2.32716e-07
+PASElin 1.41787e-06
+PASEnode 3.52123e-06
+Nodes = 2 3 1 9 8 7 6 
+Distance = 769 Max length = 2000
+OSNR en db = 21.6142 OSNR limit = 21
+=====Path=====: 88
+PNLI 1.81758e-07
+PASElin 1.30984e-06
+PASEnode 2.51516e-06
+Nodes = 2 3 1 9 6 
+Distance = 634 Max length = 2000
+OSNR en db = 22.7227 OSNR limit = 21
+------------------------
+OSNR demand: 6 : 6 to 17
+=====Path=====: 1
+PNLI 2.30456e-07
+PASElin 1.03394e-06
+PASEnode 3.01819e-06
+Nodes = 6 9 8 11 13 17 
+Distance = 717 Max length = 1000
+OSNR en db = 20.6726 OSNR limit = 16
+=====Path=====: 3
+PNLI 2.50173e-07
+PASElin 1.30707e-06
+PASEnode 4.52729e-06
+Nodes = 6 9 8 11 12 14 15 16 17 
+Distance = 799 Max length = 1000
+OSNR en db = 19.1474 OSNR limit = 16
+=====Path=====: 4
+PNLI 2.91937e-07
+PASElin 1.4096e-06
+PASEnode 4.52729e-06
+Nodes = 6 9 8 11 12 14 15 13 17 
+Distance = 925 Max length = 1000
+OSNR en db = 19.0456 OSNR limit = 16
+=====Path=====: 15
+PNLI 2.97231e-07
+PASElin 1.53162e-06
+PASEnode 3.01819e-06
+Nodes = 6 9 5 11 13 17 
+Distance = 963 Max length = 1000
+OSNR en db = 20.1349 OSNR limit = 16
+=====Path=====: 21
+PNLI 2.94717e-07
+PASElin 1.34064e-06
+PASEnode 3.01819e-06
+Nodes = 6 9 5 10 13 17 
+Distance = 931 Max length = 1000
+OSNR en db = 20.3119 OSNR limit = 16
+=====Path=====: 120
+PNLI 2.10943e-07
+PASElin 9.8115e-07
+PASEnode 3.01819e-06
+Nodes = 6 7 8 11 13 17 
+Distance = 662 Max length = 1000
+OSNR en db = 20.7466 OSNR limit = 16
+=====Path=====: 121
+PNLI 2.92508e-07
+PASElin 1.59077e-06
+PASEnode 4.02426e-06
+Nodes = 6 7 8 11 13 15 16 17 
+Distance = 952 Max length = 1000
+OSNR en db = 19.2756 OSNR limit = 16
+=====Path=====: 122
+PNLI 2.3066e-07
+PASElin 1.25428e-06
+PASEnode 4.52729e-06
+Nodes = 6 7 8 11 12 14 15 16 17 
+Distance = 744 Max length = 1000
+OSNR en db = 19.1993 OSNR limit = 16
+=====Path=====: 123
+PNLI 2.72424e-07
+PASElin 1.35681e-06
+PASEnode 4.52729e-06
+Nodes = 6 7 8 11 12 14 15 13 17 
+Distance = 870 Max length = 1000
+OSNR en db = 19.0963 OSNR limit = 16
+------------------------
+OSNR demand: 7 : 5 to 12
+=====Path=====: 2
+PNLI 2.69249e-07
+PASElin 1.74577e-06
+PASEnode 3.01819e-06
+Nodes = 5 11 13 15 14 12 
+Distance = 931 Max length = 2000
+OSNR en db = 21.7322 OSNR limit = 21
+=====Path=====: 3
+PNLI 1.24387e-07
+PASElin 8.12719e-07
+PASEnode 1.5091e-06
+Nodes = 5 11 12 
+Distance = 431 Max length = 2000
+OSNR en db = 24.8657 OSNR limit = 21
+=====Path=====: 11
+PNLI 2.66736e-07
+PASElin 1.55479e-06
+PASEnode 3.01819e-06
+Nodes = 5 10 13 15 14 12 
+Distance = 899 Max length = 2000
+OSNR en db = 21.9024 OSNR limit = 21
+=====Path=====: 12
+PNLI 2.47639e-07
+PASElin 1.55533e-06
+PASEnode 2.51516e-06
+Nodes = 5 10 13 11 12 
+Distance = 849 Max length = 2000
+OSNR en db = 22.3977 OSNR limit = 21
+=====Path=====: 15
+PNLI 2.08099e-07
+PASElin 1.51528e-06
+PASEnode 2.01213e-06
+Nodes = 5 10 11 12 
+Distance = 736 Max length = 2000
+OSNR en db = 23.0271 OSNR limit = 21
+=====Path=====: 24
+PNLI 1.76051e-07
+PASElin 7.90511e-07
+PASEnode 2.51516e-06
+Nodes = 5 9 8 11 12 
+Distance = 551 Max length = 2000
+OSNR en db = 23.3327 OSNR limit = 21
+=====Path=====: 29
+PNLI 1.86453e-07
+PASElin 7.834e-07
+PASEnode 3.52123e-06
+Nodes = 5 9 6 7 8 11 12 
+Distance = 570 Max length = 2000
+OSNR en db = 22.2271 OSNR limit = 21
+=====Path=====: 39
+PNLI 3.29431e-07
+PASElin 1.99851e-06
+PASEnode 3.52123e-06
+Nodes = 5 4 10 13 15 14 12 
+Distance = 1121 Max length = 2000
+OSNR en db = 21.0797 OSNR limit = 21
+=====Path=====: 40
+PNLI 3.10334e-07
+PASElin 1.99904e-06
+PASEnode 3.01819e-06
+Nodes = 5 4 10 13 11 12 
+Distance = 1071 Max length = 2000
+OSNR en db = 21.4853 OSNR limit = 21
+=====Path=====: 43
+PNLI 2.70795e-07
+PASElin 1.95899e-06
+PASEnode 2.51516e-06
+Nodes = 5 4 10 11 12 
+Distance = 958 Max length = 2000
+OSNR en db = 21.9883 OSNR limit = 21
+=====Path=====: 62
+PNLI 2.84452e-07
+PASElin 1.8755e-06
+PASEnode 3.52123e-06
+Nodes = 5 3 1 9 8 11 12 
+Distance = 973 Max length = 2000
+OSNR en db = 21.2062 OSNR limit = 21
+=====Path=====: 75
+PNLI 3.13018e-07
+PASElin 2.32452e-06
+PASEnode 3.01819e-06
+Nodes = 5 2 4 10 11 12 
+Distance = 1114 Max length = 2000
+OSNR en db = 21.2257 OSNR limit = 21
+------------------------
+OSNR demand: 8 : 13 to 4
+=====Path=====: 35
+PNLI 2.90719e-07
+PASElin 2.05422e-06
+PASEnode 3.52123e-06
+Nodes = 13 15 14 12 11 10 4 
+Distance = 1021 Max length = 2000
+OSNR en db = 21.0671 OSNR limit = 21
+=====Path=====: 58
+PNLI 3.10805e-07
+PASElin 2.02621e-06
+PASEnode 3.52123e-06
+Nodes = 13 15 14 12 11 5 4 
+Distance = 1076 Max length = 2000
+OSNR en db = 21.0729 OSNR limit = 21
+=====Path=====: 62
+PNLI 3.33037e-07
+PASElin 2.3531e-06
+PASEnode 2.51516e-06
+Nodes = 13 11 10 5 4 
+Distance = 1173 Max length = 2000
+OSNR en db = 21.5895 OSNR limit = 21
+=====Path=====: 65
+PNLI 2.29239e-07
+PASElin 1.67856e-06
+PASEnode 2.01213e-06
+Nodes = 13 11 10 4 
+Distance = 813 Max length = 2000
+OSNR en db = 22.8178 OSNR limit = 21
+=====Path=====: 66
+PNLI 3.593e-07
+PASElin 1.76243e-06
+PASEnode 3.52123e-06
+Nodes = 13 11 8 9 5 10 4 
+Distance = 1156 Max length = 2000
+OSNR en db = 21.2355 OSNR limit = 21
+=====Path=====: 67
+PNLI 3.00988e-07
+PASElin 1.62834e-06
+PASEnode 3.01819e-06
+Nodes = 13 11 8 9 5 4 
+Distance = 988 Max length = 2000
+OSNR en db = 21.8067 OSNR limit = 21
+=====Path=====: 69
+PNLI 3.43211e-07
+PASElin 1.99386e-06
+PASEnode 3.52123e-06
+Nodes = 13 11 8 9 5 2 4 
+Distance = 1144 Max length = 2000
+OSNR en db = 21.0729 OSNR limit = 21
+=====Path=====: 77
+PNLI 3.1139e-07
+PASElin 1.62123e-06
+PASEnode 4.02426e-06
+Nodes = 13 11 8 7 6 9 5 4 
+Distance = 1007 Max length = 2000
+OSNR en db = 21.0004 OSNR limit = 21
+=====Path=====: 86
+PNLI 3.07636e-07
+PASElin 1.78463e-06
+PASEnode 2.51516e-06
+Nodes = 13 11 5 10 4 
+Distance = 1036 Max length = 2000
+OSNR en db = 22.116 OSNR limit = 21
+=====Path=====: 88
+PNLI 2.49325e-07
+PASElin 1.65055e-06
+PASEnode 2.01213e-06
+Nodes = 13 11 5 4 
+Distance = 868 Max length = 2000
+OSNR en db = 22.8266 OSNR limit = 21
+=====Path=====: 89
+PNLI 3.29347e-07
+PASElin 1.99947e-06
+PASEnode 3.01819e-06
+Nodes = 13 11 5 3 2 4 
+Distance = 1121 Max length = 2000
+OSNR en db = 21.4695 OSNR limit = 21
+=====Path=====: 90
+PNLI 2.91548e-07
+PASElin 2.01607e-06
+PASEnode 2.51516e-06
+Nodes = 13 11 5 2 4 
+Distance = 1024 Max length = 2000
+OSNR en db = 21.9176 OSNR limit = 21
+=====Path=====: 106
+PNLI 3.74805e-07
+PASElin 2.60273e-06
+PASEnode 2.51516e-06
+Nodes = 13 10 11 5 4 
+Distance = 1317 Max length = 2000
+OSNR en db = 21.3528 OSNR limit = 21
+=====Path=====: 112
+PNLI 2.46811e-07
+PASElin 1.45956e-06
+PASEnode 2.01213e-06
+Nodes = 13 10 5 4 
+Distance = 836 Max length = 2000
+OSNR en db = 23.0469 OSNR limit = 21
+=====Path=====: 113
+PNLI 3.26834e-07
+PASElin 1.80849e-06
+PASEnode 3.01819e-06
+Nodes = 13 10 5 3 2 4 
+Distance = 1089 Max length = 2000
+OSNR en db = 21.6296 OSNR limit = 21
+=====Path=====: 114
+PNLI 2.89035e-07
+PASElin 1.82509e-06
+PASEnode 2.51516e-06
+Nodes = 13 10 5 2 4 
+Distance = 992 Max length = 2000
+OSNR en db = 22.0955 OSNR limit = 21
+=====Path=====: 115
+PNLI 1.43013e-07
+PASElin 7.85019e-07
+PASEnode 1.5091e-06
+Nodes = 13 10 4 
+Distance = 476 Max length = 2000
+OSNR en db = 24.8818 OSNR limit = 21
+------------------------
+OSNR demand: 9 : 9 to 10
+=====Path=====: 1
+PNLI 2.41033e-07
+PASElin 1.32759e-06
+PASEnode 2.51516e-06
+Nodes = 9 8 11 13 10 
+Distance = 795 Max length = 2000
+OSNR en db = 22.64 OSNR limit = 21
+=====Path=====: 4
+PNLI 2.01493e-07
+PASElin 1.28754e-06
+PASEnode 2.01213e-06
+Nodes = 9 8 11 10 
+Distance = 682 Max length = 2000
+OSNR en db = 23.3085 OSNR limit = 21
+=====Path=====: 5
+PNLI 2.7989e-07
+PASElin 1.39361e-06
+PASEnode 2.51516e-06
+Nodes = 9 8 11 5 10 
+Distance = 905 Max length = 2000
+OSNR en db = 22.5299 OSNR limit = 21
+=====Path=====: 6
+PNLI 3.42586e-07
+PASElin 1.83733e-06
+PASEnode 3.01819e-06
+Nodes = 9 8 11 5 4 10 
+Distance = 1127 Max length = 2000
+OSNR en db = 21.5922 OSNR limit = 21
+=====Path=====: 9
+PNLI 2.51434e-07
+PASElin 1.32048e-06
+PASEnode 3.52123e-06
+Nodes = 9 6 7 8 11 13 10 
+Distance = 814 Max length = 2000
+OSNR en db = 21.6808 OSNR limit = 21
+=====Path=====: 12
+PNLI 2.11895e-07
+PASElin 1.28043e-06
+PASEnode 3.01819e-06
+Nodes = 9 6 7 8 11 10 
+Distance = 701 Max length = 2000
+OSNR en db = 22.2083 OSNR limit = 21
+=====Path=====: 13
+PNLI 2.90292e-07
+PASElin 1.3865e-06
+PASEnode 3.52123e-06
+Nodes = 9 6 7 8 11 5 10 
+Distance = 924 Max length = 2000
+OSNR en db = 21.5922 OSNR limit = 21
+=====Path=====: 17
+PNLI 3.07807e-07
+PASElin 1.82527e-06
+PASEnode 2.51516e-06
+Nodes = 9 5 11 13 10 
+Distance = 1041 Max length = 2000
+OSNR en db = 22.0777 OSNR limit = 21
+=====Path=====: 20
+PNLI 2.68267e-07
+PASElin 1.78522e-06
+PASEnode 2.01213e-06
+Nodes = 9 5 11 10 
+Distance = 928 Max length = 2000
+OSNR en db = 22.6594 OSNR limit = 21
+=====Path=====: 21
+PNLI 1.40274e-07
+PASElin 6.42049e-07
+PASEnode 1.5091e-06
+Nodes = 9 5 10 
+Distance = 447 Max length = 2000
+OSNR en db = 25.1496 OSNR limit = 21
+=====Path=====: 22
+PNLI 2.02969e-07
+PASElin 1.08577e-06
+PASEnode 2.01213e-06
+Nodes = 9 5 4 10 
+Distance = 669 Max length = 2000
+OSNR en db = 23.5643 OSNR limit = 21
+=====Path=====: 23
+PNLI 2.82991e-07
+PASElin 1.43469e-06
+PASEnode 3.01819e-06
+Nodes = 9 5 3 2 4 10 
+Distance = 922 Max length = 2000
+OSNR en db = 21.9966 OSNR limit = 21
+=====Path=====: 24
+PNLI 2.45192e-07
+PASElin 1.45129e-06
+PASEnode 2.51516e-06
+Nodes = 9 5 2 4 10 
+Distance = 825 Max length = 2000
+OSNR en db = 22.5061 OSNR limit = 21
+=====Path=====: 29
+PNLI 2.48675e-07
+PASElin 1.72704e-06
+PASEnode 2.51516e-06
+Nodes = 9 1 3 5 10 
+Distance = 869 Max length = 2000
+OSNR en db = 22.2273 OSNR limit = 21
+=====Path=====: 30
+PNLI 3.11371e-07
+PASElin 2.17076e-06
+PASEnode 3.01819e-06
+Nodes = 9 1 3 5 4 10 
+Distance = 1091 Max length = 2000
+OSNR en db = 21.3467 OSNR limit = 21
+=====Path=====: 36
+PNLI 2.90291e-07
+PASElin 2.07651e-06
+PASEnode 3.01819e-06
+Nodes = 9 1 3 2 5 10 
+Distance = 1020 Max length = 2000
+OSNR en db = 21.4388 OSNR limit = 21
+=====Path=====: 38
+PNLI 3.10338e-07
+PASElin 2.11537e-06
+PASEnode 3.01819e-06
+Nodes = 9 1 3 2 4 10 
+Distance = 1080 Max length = 2000
+OSNR en db = 21.3915 OSNR limit = 21
+------------------------
+OSNR demand: 10 : 14 to 2
+=====Path=====: 108
+PNLI 2.88908e-07
+PASElin 1.83891e-06
+PASEnode 3.01819e-06
+Nodes = 14 15 13 10 5 2 
+Distance = 992 Max length = 1000
+OSNR en db = 19.875 OSNR limit = 16
+=====Path=====: 126
+PNLI 2.70799e-07
+PASElin 2.00155e-06
+PASEnode 3.01819e-06
+Nodes = 14 12 11 10 5 2 
+Distance = 961 Max length = 1000
+OSNR en db = 19.7547 OSNR limit = 16
+=====Path=====: 133
+PNLI 2.76549e-07
+PASElin 1.26019e-06
+PASEnode 4.02426e-06
+Nodes = 14 12 11 8 9 5 3 2 
+Distance = 873 Max length = 1000
+OSNR en db = 19.5382 OSNR limit = 16
+=====Path=====: 134
+PNLI 2.3875e-07
+PASElin 1.27679e-06
+PASEnode 3.52123e-06
+Nodes = 14 12 11 8 9 5 2 
+Distance = 776 Max length = 1000
+OSNR en db = 19.9682 OSNR limit = 16
+=====Path=====: 141
+PNLI 2.86951e-07
+PASElin 1.25307e-06
+PASEnode 5.03032e-06
+Nodes = 14 12 11 8 7 6 9 5 3 2 
+Distance = 892 Max length = 1000
+OSNR en db = 18.8138 OSNR limit = 16
+=====Path=====: 142
+PNLI 2.49152e-07
+PASElin 1.26967e-06
+PASEnode 4.52729e-06
+Nodes = 14 12 11 8 7 6 9 5 2 
+Distance = 795 Max length = 1000
+OSNR en db = 19.1749 OSNR limit = 16
+=====Path=====: 150
+PNLI 2.24886e-07
+PASElin 1.28239e-06
+PASEnode 3.01819e-06
+Nodes = 14 12 11 5 3 2 
+Distance = 753 Max length = 1000
+OSNR en db = 20.4331 OSNR limit = 16
+=====Path=====: 151
+PNLI 1.87087e-07
+PASElin 1.29899e-06
+PASEnode 2.51516e-06
+Nodes = 14 12 11 5 2 
+Distance = 656 Max length = 1000
+OSNR en db = 20.9678 OSNR limit = 16
+------------------------
+OSNR demand: 11 : 5 to 17
+=====Path=====: 1
+PNLI 2.23054e-07
+PASElin 1.27104e-06
+PASEnode 2.01213e-06
+Nodes = 5 11 13 17 
+Distance = 743 Max length = 2000
+OSNR en db = 23.3022 OSNR limit = 21
+=====Path=====: 2
+PNLI 3.04619e-07
+PASElin 1.88066e-06
+PASEnode 3.01819e-06
+Nodes = 5 11 13 15 16 17 
+Distance = 1033 Max length = 2000
+OSNR en db = 21.5877 OSNR limit = 21
+=====Path=====: 3
+PNLI 2.42771e-07
+PASElin 1.54417e-06
+PASEnode 3.52123e-06
+Nodes = 5 11 12 14 15 16 17 
+Distance = 825 Max length = 2000
+OSNR en db = 21.5012 OSNR limit = 21
+=====Path=====: 4
+PNLI 2.84535e-07
+PASElin 1.64671e-06
+PASEnode 3.52123e-06
+Nodes = 5 11 12 14 15 13 17 
+Distance = 951 Max length = 2000
+OSNR en db = 21.3847 OSNR limit = 21
+=====Path=====: 5
+PNLI 3.48534e-07
+PASElin 2.22323e-06
+PASEnode 2.51516e-06
+Nodes = 5 11 10 13 17 
+Distance = 1192 Max length = 2000
+OSNR en db = 21.6861 OSNR limit = 21
+=====Path=====: 11
+PNLI 2.20541e-07
+PASElin 1.08006e-06
+PASEnode 2.01213e-06
+Nodes = 5 10 13 17 
+Distance = 711 Max length = 2000
+OSNR en db = 23.5488 OSNR limit = 21
+=====Path=====: 12
+PNLI 3.02106e-07
+PASElin 1.68968e-06
+PASEnode 3.01819e-06
+Nodes = 5 10 13 15 16 17 
+Distance = 1001 Max length = 2000
+OSNR en db = 21.7523 OSNR limit = 21
+=====Path=====: 14
+PNLI 3.06766e-07
+PASElin 1.9736e-06
+PASEnode 2.51516e-06
+Nodes = 5 10 11 13 17 
+Distance = 1048 Max length = 2000
+OSNR en db = 21.9422 OSNR limit = 21
+=====Path=====: 26
+PNLI 2.74718e-07
+PASElin 1.24884e-06
+PASEnode 3.01819e-06
+Nodes = 5 9 8 11 13 17 
+Distance = 863 Max length = 2000
+OSNR en db = 22.1784 OSNR limit = 21
+=====Path=====: 32
+PNLI 2.8512e-07
+PASElin 1.24173e-06
+PASEnode 4.02426e-06
+Nodes = 5 9 6 7 8 11 13 17 
+Distance = 882 Max length = 2000
+OSNR en db = 21.3068 OSNR limit = 21
+=====Path=====: 45
+PNLI 2.83236e-07
+PASElin 1.52378e-06
+PASEnode 2.51516e-06
+Nodes = 5 4 10 13 17 
+Distance = 933 Max length = 2000
+OSNR en db = 22.3936 OSNR limit = 21
+=====Path=====: 48
+PNLI 3.69462e-07
+PASElin 2.41732e-06
+PASEnode 3.01819e-06
+Nodes = 5 4 10 11 13 17 
+Distance = 1270 Max length = 2000
+OSNR en db = 21.1126 OSNR limit = 21
+=====Path=====: 64
+PNLI 3.63259e-07
+PASElin 1.8727e-06
+PASEnode 3.52123e-06
+Nodes = 5 3 2 4 10 13 17 
+Distance = 1186 Max length = 2000
+OSNR en db = 21.1485 OSNR limit = 21
+=====Path=====: 83
+PNLI 3.25459e-07
+PASElin 1.8893e-06
+PASEnode 3.01819e-06
+Nodes = 5 2 4 10 13 17 
+Distance = 1089 Max length = 2000
+OSNR en db = 21.5631 OSNR limit = 21
+------------------------
+OSNR demand: 12 : 4 to 17
+=====Path=====: 1
+PNLI 1.99989e-07
+PASElin 9.64647e-07
+PASEnode 2.01213e-06
+Nodes = 4 10 13 17 
+Distance = 642 Max length = 2000
+OSNR en db = 23.7308 OSNR limit = 21
+=====Path=====: 2
+PNLI 2.81554e-07
+PASElin 1.57427e-06
+PASEnode 3.01819e-06
+Nodes = 4 10 13 15 16 17 
+Distance = 932 Max length = 2000
+OSNR en db = 21.8717 OSNR limit = 21
+=====Path=====: 4
+PNLI 2.86215e-07
+PASElin 1.85819e-06
+PASEnode 2.51516e-06
+Nodes = 4 10 11 13 17 
+Distance = 979 Max length = 2000
+OSNR en db = 22.0672 OSNR limit = 21
+=====Path=====: 8
+PNLI 3.64613e-07
+PASElin 1.96426e-06
+PASEnode 3.01819e-06
+Nodes = 4 10 5 11 13 17 
+Distance = 1202 Max length = 2000
+OSNR en db = 21.4695 OSNR limit = 21
+=====Path=====: 36
+PNLI 3.06301e-07
+PASElin 1.83018e-06
+PASEnode 2.51516e-06
+Nodes = 4 5 11 13 17 
+Distance = 1034 Max length = 2000
+OSNR en db = 22.0746 OSNR limit = 21
+=====Path=====: 42
+PNLI 3.03788e-07
+PASElin 1.63919e-06
+PASEnode 2.51516e-06
+Nodes = 4 5 10 13 17 
+Distance = 1002 Max length = 2000
+OSNR en db = 22.2591 OSNR limit = 21
+=====Path=====: 45
+PNLI 3.90013e-07
+PASElin 2.53273e-06
+PASEnode 3.01819e-06
+Nodes = 4 5 10 11 13 17 
+Distance = 1339 Max length = 2000
+OSNR en db = 21.0121 OSNR limit = 21
+=====Path=====: 49
+PNLI 3.57964e-07
+PASElin 1.80797e-06
+PASEnode 3.52123e-06
+Nodes = 4 5 9 8 11 13 17 
+Distance = 1154 Max length = 2000
+OSNR en db = 21.2017 OSNR limit = 21
+=====Path=====: 85
+PNLI 3.48524e-07
+PASElin 2.1957e-06
+PASEnode 3.01819e-06
+Nodes = 4 2 5 11 13 17 
+Distance = 1190 Max length = 2000
+OSNR en db = 21.298 OSNR limit = 21
+=====Path=====: 91
+PNLI 3.46011e-07
+PASElin 2.00472e-06
+PASEnode 3.01819e-06
+Nodes = 4 2 5 10 13 17 
+Distance = 1158 Max length = 2000
+OSNR en db = 21.4517 OSNR limit = 21
+=====Path=====: 128
+PNLI 3.8381e-07
+PASElin 1.98812e-06
+PASEnode 3.52123e-06
+Nodes = 4 2 3 5 10 13 17 
+Distance = 1255 Max length = 2000
+OSNR en db = 21.0471 OSNR limit = 21
+------------------------
+OSNR demand: 13 : 1 to 8
+=====Path=====: 1
+PNLI 1.19842e-07
+PASElin 8.06569e-07
+PASEnode 1.5091e-06
+Nodes = 1 9 8 
+Distance = 408 Max length = 2000
+OSNR en db = 24.8847 OSNR limit = 21
+=====Path=====: 2
+PNLI 1.30244e-07
+PASElin 7.99458e-07
+PASEnode 2.51516e-06
+Nodes = 1 9 6 7 8 
+Distance = 427 Max length = 2000
+OSNR en db = 23.3789 OSNR limit = 21
+=====Path=====: 3
+PNLI 3.07426e-07
+PASElin 1.87278e-06
+PASEnode 2.51516e-06
+Nodes = 1 9 5 11 8 
+Distance = 1042 Max length = 2000
+OSNR en db = 22.0339 OSNR limit = 21
+=====Path=====: 20
+PNLI 2.46614e-07
+PASElin 1.50545e-06
+PASEnode 2.51516e-06
+Nodes = 1 3 5 11 8 
+Distance = 838 Max length = 2000
+OSNR en db = 22.4492 OSNR limit = 21
+=====Path=====: 24
+PNLI 3.30326e-07
+PASElin 2.20801e-06
+PASEnode 3.01819e-06
+Nodes = 1 3 5 10 11 8 
+Distance = 1143 Max length = 2000
+OSNR en db = 21.3026 OSNR limit = 21
+=====Path=====: 25
+PNLI 1.77468e-07
+PASElin 9.14706e-07
+PASEnode 2.51516e-06
+Nodes = 1 3 5 9 8 
+Distance = 570 Max length = 2000
+OSNR en db = 23.1787 OSNR limit = 21
+=====Path=====: 26
+PNLI 1.8787e-07
+PASElin 9.07595e-07
+PASEnode 3.52123e-06
+Nodes = 1 3 5 9 6 7 8 
+Distance = 589 Max length = 2000
+OSNR en db = 22.1073 OSNR limit = 21
+=====Path=====: 35
+PNLI 2.8823e-07
+PASElin 1.85493e-06
+PASEnode 3.01819e-06
+Nodes = 1 3 2 5 11 8 
+Distance = 989 Max length = 2000
+OSNR en db = 21.623 OSNR limit = 21
+=====Path=====: 40
+PNLI 2.19084e-07
+PASElin 1.26418e-06
+PASEnode 3.01819e-06
+Nodes = 1 3 2 5 9 8 
+Distance = 721 Max length = 2000
+OSNR en db = 22.2171 OSNR limit = 21
+=====Path=====: 41
+PNLI 2.29486e-07
+PASElin 1.25707e-06
+PASEnode 4.02426e-06
+Nodes = 1 3 2 5 9 6 7 8 
+Distance = 740 Max length = 2000
+OSNR en db = 21.3385 OSNR limit = 21
+=====Path=====: 66
+PNLI 3.42929e-07
+PASElin 1.97758e-06
+PASEnode 3.52123e-06
+Nodes = 1 3 2 4 5 9 8 
+Distance = 1141 Max length = 2000
+OSNR en db = 21.0852 OSNR limit = 21
+------------------------
+OSNR demand: 14 : 3 to 15
+=====Path=====: 1
+PNLI 3.40459e-07
+PASElin 1.90637e-06
+PASEnode 3.52123e-06
+Nodes = 3 5 11 13 17 16 15 
+Distance = 1123 Max length = 2000
+OSNR en db = 21.1403 OSNR limit = 21
+=====Path=====: 2
+PNLI 2.6827e-07
+PASElin 1.64965e-06
+PASEnode 2.51516e-06
+Nodes = 3 5 11 13 15 
+Distance = 917 Max length = 2000
+OSNR en db = 22.2836 OSNR limit = 21
+=====Path=====: 3
+PNLI 2.06422e-07
+PASElin 1.31316e-06
+PASEnode 3.01819e-06
+Nodes = 3 5 11 12 14 15 
+Distance = 709 Max length = 2000
+OSNR en db = 22.1822 OSNR limit = 21
+=====Path=====: 6
+PNLI 3.37945e-07
+PASElin 1.71539e-06
+PASEnode 3.52123e-06
+Nodes = 3 5 10 13 17 16 15 
+Distance = 1091 Max length = 2000
+OSNR en db = 21.2885 OSNR limit = 21
+=====Path=====: 7
+PNLI 2.65756e-07
+PASElin 1.45867e-06
+PASEnode 2.51516e-06
+Nodes = 3 5 10 13 15 
+Distance = 885 Max length = 2000
+OSNR en db = 22.4774 OSNR limit = 21
+=====Path=====: 10
+PNLI 3.51981e-07
+PASElin 2.35221e-06
+PASEnode 3.01819e-06
+Nodes = 3 5 10 11 13 15 
+Distance = 1222 Max length = 2000
+OSNR en db = 21.1748 OSNR limit = 21
+=====Path=====: 11
+PNLI 2.90134e-07
+PASElin 2.01571e-06
+PASEnode 3.52123e-06
+Nodes = 3 5 10 11 12 14 15 
+Distance = 1014 Max length = 2000
+OSNR en db = 21.0961 OSNR limit = 21
+=====Path=====: 13
+PNLI 3.19933e-07
+PASElin 1.62744e-06
+PASEnode 3.52123e-06
+Nodes = 3 5 9 8 11 13 15 
+Distance = 1037 Max length = 2000
+OSNR en db = 21.3718 OSNR limit = 21
+=====Path=====: 14
+PNLI 2.58085e-07
+PASElin 1.29095e-06
+PASEnode 4.02426e-06
+Nodes = 3 5 9 8 11 12 14 15 
+Distance = 829 Max length = 2000
+OSNR en db = 21.2895 OSNR limit = 21
+=====Path=====: 23
+PNLI 3.28451e-07
+PASElin 1.90239e-06
+PASEnode 3.01819e-06
+Nodes = 3 5 4 10 13 15 
+Distance = 1107 Max length = 2000
+OSNR en db = 21.5498 OSNR limit = 21
+=====Path=====: 35
+PNLI 3.09885e-07
+PASElin 1.99913e-06
+PASEnode 3.01819e-06
+Nodes = 3 2 5 11 13 15 
+Distance = 1068 Max length = 2000
+OSNR en db = 21.4856 OSNR limit = 21
+=====Path=====: 36
+PNLI 2.48038e-07
+PASElin 1.66263e-06
+PASEnode 3.52123e-06
+Nodes = 3 2 5 11 12 14 15 
+Distance = 860 Max length = 2000
+OSNR en db = 21.4011 OSNR limit = 21
+=====Path=====: 40
+PNLI 3.07372e-07
+PASElin 1.80814e-06
+PASEnode 3.01819e-06
+Nodes = 3 2 5 10 13 15 
+Distance = 1036 Max length = 2000
+OSNR en db = 21.6463 OSNR limit = 21
+=====Path=====: 62
+PNLI 3.27419e-07
+PASElin 1.84699e-06
+PASEnode 3.01819e-06
+Nodes = 3 2 4 10 13 15 
+Distance = 1096 Max length = 2000
+OSNR en db = 21.5968 OSNR limit = 21
+------------------------
+OSNR demand: 15 : 9 to 7
+=====Path=====: 1
+PNLI 5.15928e-08
+PASElin 1.10481e-07
+PASEnode 1.5091e-06
+Nodes = 9 8 7 
+Distance = 137 Max length = 2000
+OSNR en db = 26.5204 OSNR limit = 21
+=====Path=====: 2
+PNLI 2.92798e-08
+PASElin 4.32266e-08
+PASEnode 1.5091e-06
+Nodes = 9 6 7 
+Distance = 72 Max length = 2000
+OSNR en db = 26.7596 OSNR limit = 21
+=====Path=====: 3
+PNLI 2.39177e-07
+PASElin 1.1767e-06
+PASEnode 2.51516e-06
+Nodes = 9 5 11 8 7 
+Distance = 771 Max length = 2000
+OSNR en db = 22.8055 OSNR limit = 21
+=====Path=====: 6
+PNLI 3.62428e-07
+PASElin 1.9193e-06
+PASEnode 3.52123e-06
+Nodes = 9 5 10 13 11 8 7 
+Distance = 1189 Max length = 2000
+OSNR en db = 21.1141 OSNR limit = 21
+=====Path=====: 7
+PNLI 3.22889e-07
+PASElin 1.87925e-06
+PASEnode 3.01819e-06
+Nodes = 9 5 10 11 8 7 
+Distance = 1076 Max length = 2000
+OSNR en db = 21.5736 OSNR limit = 21
+------------------------
+OSNR demand: 16 : 1 to 10
+=====Path=====: 1
+PNLI 3.25639e-07
+PASElin 2.05375e-06
+PASEnode 3.01819e-06
+Nodes = 1 9 8 11 13 10 
+Distance = 1108 Max length = 2000
+OSNR en db = 21.4286 OSNR limit = 21
+=====Path=====: 4
+PNLI 2.86099e-07
+PASElin 2.0137e-06
+PASEnode 2.51516e-06
+Nodes = 1 9 8 11 10 
+Distance = 995 Max length = 2000
+OSNR en db = 21.9247 OSNR limit = 21
+=====Path=====: 5
+PNLI 3.64497e-07
+PASElin 2.11977e-06
+PASEnode 3.01819e-06
+Nodes = 1 9 8 11 5 10 
+Distance = 1218 Max length = 2000
+OSNR en db = 21.345 OSNR limit = 21
+=====Path=====: 12
+PNLI 2.96501e-07
+PASElin 2.00659e-06
+PASEnode 3.52123e-06
+Nodes = 1 9 6 7 8 11 10 
+Distance = 1014 Max length = 2000
+OSNR en db = 21.0982 OSNR limit = 21
+=====Path=====: 20
+PNLI 3.52873e-07
+PASElin 2.51138e-06
+PASEnode 2.51516e-06
+Nodes = 1 9 5 11 10 
+Distance = 1241 Max length = 2000
+OSNR en db = 21.4433 OSNR limit = 21
+=====Path=====: 21
+PNLI 2.2488e-07
+PASElin 1.36821e-06
+PASEnode 2.01213e-06
+Nodes = 1 9 5 10 
+Distance = 760 Max length = 2000
+OSNR en db = 23.1813 OSNR limit = 21
+=====Path=====: 22
+PNLI 2.87575e-07
+PASElin 1.81193e-06
+PASEnode 2.51516e-06
+Nodes = 1 9 5 4 10 
+Distance = 982 Max length = 2000
+OSNR en db = 22.1092 OSNR limit = 21
+=====Path=====: 24
+PNLI 3.29799e-07
+PASElin 2.17745e-06
+PASEnode 3.01819e-06
+Nodes = 1 9 5 2 4 10 
+Distance = 1138 Max length = 2000
+OSNR en db = 21.3269 OSNR limit = 21
+=====Path=====: 25
+PNLI 3.31602e-07
+PASElin 2.1841e-06
+PASEnode 3.01819e-06
+Nodes = 1 3 5 11 13 10 
+Distance = 1150 Max length = 2000
+OSNR en db = 21.3203 OSNR limit = 21
+=====Path=====: 28
+PNLI 2.92062e-07
+PASElin 2.14404e-06
+PASEnode 2.51516e-06
+Nodes = 1 3 5 11 10 
+Distance = 1037 Max length = 2000
+OSNR en db = 21.8034 OSNR limit = 21
+=====Path=====: 29
+PNLI 1.64069e-07
+PASElin 1.00088e-06
+PASEnode 2.01213e-06
+Nodes = 1 3 5 10 
+Distance = 556 Max length = 2000
+OSNR en db = 23.7303 OSNR limit = 21
+=====Path=====: 38
+PNLI 2.26764e-07
+PASElin 1.4446e-06
+PASEnode 2.51516e-06
+Nodes = 1 3 5 4 10 
+Distance = 778 Max length = 2000
+OSNR en db = 22.5321 OSNR limit = 21
+=====Path=====: 39
+PNLI 2.68988e-07
+PASElin 1.81012e-06
+PASEnode 3.01819e-06
+Nodes = 1 3 5 2 4 10 
+Distance = 934 Max length = 2000
+OSNR en db = 21.6772 OSNR limit = 21
+=====Path=====: 43
+PNLI 3.33678e-07
+PASElin 2.49352e-06
+PASEnode 3.01819e-06
+Nodes = 1 3 2 5 11 10 
+Distance = 1188 Max length = 2000
+OSNR en db = 21.0825 OSNR limit = 21
+=====Path=====: 44
+PNLI 2.05685e-07
+PASElin 1.35035e-06
+PASEnode 2.51516e-06
+Nodes = 1 3 2 5 10 
+Distance = 707 Max length = 2000
+OSNR en db = 22.6534 OSNR limit = 21
+=====Path=====: 53
+PNLI 2.6838e-07
+PASElin 1.79407e-06
+PASEnode 3.01819e-06
+Nodes = 1 3 2 5 4 10 
+Distance = 929 Max length = 2000
+OSNR en db = 21.6914 OSNR limit = 21
+=====Path=====: 54
+PNLI 2.25732e-07
+PASElin 1.38921e-06
+PASEnode 2.51516e-06
+Nodes = 1 3 2 4 10 
+Distance = 767 Max length = 2000
+OSNR en db = 22.591 OSNR limit = 21
+=====Path=====: 59
+PNLI 3.2953e-07
+PASElin 2.06375e-06
+PASEnode 3.01819e-06
+Nodes = 1 3 2 4 5 10 
+Distance = 1127 Max length = 2000
+OSNR en db = 21.4175 OSNR limit = 21
+------------------------
+OSNR demand: 17 : 14 to 1
+=====Path=====: 139
+PNLI 2.79329e-07
+PASElin 1.48815e-06
+PASEnode 4.02426e-06
+Nodes = 14 12 11 8 9 5 3 1 
+Distance = 909 Max length = 1000
+OSNR en db = 19.3616 OSNR limit = 16
+=====Path=====: 141
+PNLI 2.21702e-07
+PASElin 1.38002e-06
+PASEnode 3.01819e-06
+Nodes = 14 12 11 8 9 1 
+Distance = 747 Max length = 1000
+OSNR en db = 20.3434 OSNR limit = 16
+=====Path=====: 144
+PNLI 2.89731e-07
+PASElin 1.48104e-06
+PASEnode 5.03032e-06
+Nodes = 14 12 11 8 7 6 9 5 3 1 
+Distance = 928 Max length = 1000
+OSNR en db = 18.6639 OSNR limit = 16
+=====Path=====: 146
+PNLI 2.32104e-07
+PASElin 1.3729e-06
+PASEnode 4.02426e-06
+Nodes = 14 12 11 8 7 6 9 1 
+Distance = 766 Max length = 1000
+OSNR en db = 19.4852 OSNR limit = 16
+=====Path=====: 148
+PNLI 2.88476e-07
+PASElin 1.87769e-06
+PASEnode 3.01819e-06
+Nodes = 14 12 11 5 9 1 
+Distance = 993 Max length = 1000
+OSNR en db = 19.8427 OSNR limit = 16
+=====Path=====: 150
+PNLI 2.27665e-07
+PASElin 1.51036e-06
+PASEnode 3.01819e-06
+Nodes = 14 12 11 5 3 1 
+Distance = 789 Max length = 1000
+OSNR en db = 20.2171 OSNR limit = 16
+=====Path=====: 151
+PNLI 2.69281e-07
+PASElin 1.85984e-06
+PASEnode 3.52123e-06
+Nodes = 14 12 11 5 2 3 1 
+Distance = 940 Max length = 1000
+OSNR en db = 19.469 OSNR limit = 16
+------------------------
+OSNR demand: 18 : 15 to 3
+=====Path=====: 76
+PNLI 2.58085e-07
+PASElin 1.29095e-06
+PASEnode 4.02426e-06
+Nodes = 15 14 12 11 8 9 5 3 
+Distance = 829 Max length = 1000
+OSNR en db = 19.5286 OSNR limit = 16
+=====Path=====: 77
+PNLI 2.99701e-07
+PASElin 1.64043e-06
+PASEnode 4.52729e-06
+Nodes = 15 14 12 11 8 9 5 2 3 
+Distance = 980 Max length = 1000
+OSNR en db = 18.8824 OSNR limit = 16
+=====Path=====: 78
+PNLI 2.85432e-07
+PASElin 1.97162e-06
+PASEnode 4.02426e-06
+Nodes = 15 14 12 11 8 9 1 3 
+Distance = 987 Max length = 1000
+OSNR en db = 19.0092 OSNR limit = 16
+=====Path=====: 81
+PNLI 2.68487e-07
+PASElin 1.28384e-06
+PASEnode 5.03032e-06
+Nodes = 15 14 12 11 8 7 6 9 5 3 
+Distance = 848 Max length = 1000
+OSNR en db = 18.8057 OSNR limit = 16
+=====Path=====: 82
+PNLI 3.10103e-07
+PASElin 1.63332e-06
+PASEnode 5.53336e-06
+Nodes = 15 14 12 11 8 7 6 9 5 2 3 
+Distance = 999 Max length = 1000
+OSNR en db = 18.2526 OSNR limit = 16
+=====Path=====: 87
+PNLI 2.06422e-07
+PASElin 1.31316e-06
+PASEnode 3.01819e-06
+Nodes = 15 14 12 11 5 3 
+Distance = 709 Max length = 1000
+OSNR en db = 20.4213 OSNR limit = 16
+=====Path=====: 88
+PNLI 2.48038e-07
+PASElin 1.66263e-06
+PASEnode 3.52123e-06
+Nodes = 15 14 12 11 5 2 3 
+Distance = 860 Max length = 1000
+OSNR en db = 19.6402 OSNR limit = 16
+=====Path=====: 112
+PNLI 2.6827e-07
+PASElin 1.64965e-06
+PASEnode 2.51516e-06
+Nodes = 15 13 11 5 3 
+Distance = 917 Max length = 1000
+OSNR en db = 20.5226 OSNR limit = 16
+=====Path=====: 130
+PNLI 2.65756e-07
+PASElin 1.45867e-06
+PASEnode 2.51516e-06
+Nodes = 15 13 10 5 3 
+Distance = 885 Max length = 1000
+OSNR en db = 20.7165 OSNR limit = 16
+------------------------
+OSNR demand: 19 : 9 to 3
+=====Path=====: 31
+PNLI 2.39363e-07
+PASElin 1.19146e-06
+PASEnode 2.51516e-06
+Nodes = 9 8 11 5 3 
+Distance = 773 Max length = 1000
+OSNR en db = 21.0281 OSNR limit = 16
+=====Path=====: 32
+PNLI 2.80979e-07
+PASElin 1.54093e-06
+PASEnode 3.01819e-06
+Nodes = 9 8 11 5 2 3 
+Distance = 924 Max length = 1000
+OSNR en db = 20.1412 OSNR limit = 16
+=====Path=====: 63
+PNLI 2.49765e-07
+PASElin 1.18435e-06
+PASEnode 3.52123e-06
+Nodes = 9 6 7 8 11 5 3 
+Distance = 792 Max length = 1000
+OSNR en db = 20.039 OSNR limit = 16
+=====Path=====: 64
+PNLI 2.91381e-07
+PASElin 1.53382e-06
+PASEnode 4.02426e-06
+Nodes = 9 6 7 8 11 5 2 3 
+Distance = 943 Max length = 1000
+OSNR en db = 19.3185 OSNR limit = 16
+=====Path=====: 70
+PNLI 2.65207e-07
+PASElin 1.50276e-06
+PASEnode 2.51516e-06
+Nodes = 9 5 4 2 3 
+Distance = 886 Max length = 1000
+OSNR en db = 20.6721 OSNR limit = 16
+=====Path=====: 71
+PNLI 9.97463e-08
+PASElin 4.39892e-07
+PASEnode 1.5091e-06
+Nodes = 9 5 3 
+Distance = 315 Max length = 1000
+OSNR en db = 23.8748 OSNR limit = 16
+=====Path=====: 72
+PNLI 1.41362e-07
+PASElin 7.89368e-07
+PASEnode 2.01213e-06
+Nodes = 9 5 2 3 
+Distance = 466 Max length = 1000
+OSNR en db = 22.302 OSNR limit = 16
+=====Path=====: 73
+PNLI 1.27093e-07
+PASElin 1.12056e-06
+PASEnode 1.5091e-06
+Nodes = 9 1 3 
+Distance = 473 Max length = 1000
+OSNR en db = 22.5857 OSNR limit = 16
+------------------------
+OSNR demand: 20 : 10 to 5
+=====Path=====: 18
+PNLI 3.10068e-07
+PASElin 1.96319e-06
+PASEnode 3.52123e-06
+Nodes = 10 13 15 14 12 11 5 
+Distance = 1066 Max length = 2000
+OSNR en db = 21.1205 OSNR limit = 21
+=====Path=====: 19
+PNLI 3.00251e-07
+PASElin 1.56532e-06
+PASEnode 3.01819e-06
+Nodes = 10 13 11 8 9 5 
+Distance = 978 Max length = 2000
+OSNR en db = 21.8631 OSNR limit = 21
+=====Path=====: 23
+PNLI 3.10653e-07
+PASElin 1.55821e-06
+PASEnode 4.02426e-06
+Nodes = 10 13 11 8 7 6 9 5 
+Distance = 997 Max length = 2000
+OSNR en db = 21.0472 OSNR limit = 21
+=====Path=====: 27
+PNLI 2.48588e-07
+PASElin 1.58753e-06
+PASEnode 2.01213e-06
+Nodes = 10 13 11 5 
+Distance = 858 Max length = 2000
+OSNR en db = 22.898 OSNR limit = 21
+=====Path=====: 28
+PNLI 2.60712e-07
+PASElin 1.52527e-06
+PASEnode 2.51516e-06
+Nodes = 10 11 8 9 5 
+Distance = 865 Max length = 2000
+OSNR en db = 22.4148 OSNR limit = 21
+=====Path=====: 32
+PNLI 2.71114e-07
+PASElin 1.51816e-06
+PASEnode 3.52123e-06
+Nodes = 10 11 8 7 6 9 5 
+Distance = 884 Max length = 2000
+OSNR en db = 21.4993 OSNR limit = 21
+=====Path=====: 36
+PNLI 2.09048e-07
+PASElin 1.54748e-06
+PASEnode 1.5091e-06
+Nodes = 10 11 5 
+Distance = 745 Max length = 2000
+OSNR en db = 23.6109 OSNR limit = 21
+=====Path=====: 37
+PNLI 8.10548e-08
+PASElin 4.04315e-07
+PASEnode 1.00606e-06
+Nodes = 10 5 
+Distance = 264 Max length = 2000
+OSNR en db = 27.0146 OSNR limit = 21
+=====Path=====: 38
+PNLI 1.4375e-07
+PASElin 8.48034e-07
+PASEnode 1.5091e-06
+Nodes = 10 4 5 
+Distance = 486 Max length = 2000
+OSNR en db = 24.7697 OSNR limit = 21
+=====Path=====: 39
+PNLI 1.85973e-07
+PASElin 1.21356e-06
+PASEnode 2.01213e-06
+Nodes = 10 4 2 5 
+Distance = 642 Max length = 2000
+OSNR en db = 23.421 OSNR limit = 21
+=====Path=====: 40
+PNLI 2.23772e-07
+PASElin 1.19696e-06
+PASEnode 2.51516e-06
+Nodes = 10 4 2 3 5 
+Distance = 739 Max length = 2000
+OSNR en db = 22.8002 OSNR limit = 21
+------------------------
+OSNR demand: 21 : 5 to 6
+=====Path=====: 9
+PNLI 2.13793e-07
+PASElin 1.01214e-06
+PASEnode 2.51516e-06
+Nodes = 5 11 8 9 6 
+Distance = 678 Max length = 1000
+OSNR en db = 21.2597 OSNR limit = 16
+=====Path=====: 10
+PNLI 1.9428e-07
+PASElin 9.59346e-07
+PASEnode 2.51516e-06
+Nodes = 5 11 8 7 6 
+Distance = 623 Max length = 1000
+OSNR en db = 21.3445 OSNR limit = 16
+=====Path=====: 17
+PNLI 2.97505e-07
+PASElin 1.7147e-06
+PASEnode 3.01819e-06
+Nodes = 5 10 11 8 9 6 
+Distance = 983 Max length = 1000
+OSNR en db = 19.9737 OSNR limit = 16
+=====Path=====: 18
+PNLI 2.77992e-07
+PASElin 1.6619e-06
+PASEnode 3.01819e-06
+Nodes = 5 10 11 8 7 6 
+Distance = 928 Max length = 1000
+OSNR en db = 20.0366 OSNR limit = 16
+=====Path=====: 21
+PNLI 1.25134e-07
+PASElin 3.686e-07
+PASEnode 2.51516e-06
+Nodes = 5 9 8 7 6 
+Distance = 355 Max length = 1000
+OSNR en db = 22.2056 OSNR limit = 16
+=====Path=====: 22
+PNLI 7.41764e-08
+PASElin 2.60576e-07
+PASEnode 1.5091e-06
+Nodes = 5 9 6 
+Distance = 220 Max length = 1000
+OSNR en db = 24.3324 OSNR limit = 16
+=====Path=====: 45
+PNLI 2.33536e-07
+PASElin 1.45359e-06
+PASEnode 3.52123e-06
+Nodes = 5 3 1 9 8 7 6 
+Distance = 777 Max length = 1000
+OSNR en db = 19.8227 OSNR limit = 16
+=====Path=====: 46
+PNLI 1.82578e-07
+PASElin 1.34556e-06
+PASEnode 2.51516e-06
+Nodes = 5 3 1 9 6 
+Distance = 642 Max length = 1000
+OSNR en db = 20.9223 OSNR limit = 16
+=====Path=====: 55
+PNLI 2.75151e-07
+PASElin 1.80306e-06
+PASEnode 4.02426e-06
+Nodes = 5 2 3 1 9 8 7 6 
+Distance = 928 Max length = 1000
+OSNR en db = 19.1346 OSNR limit = 16
+=====Path=====: 56
+PNLI 2.24194e-07
+PASElin 1.69504e-06
+PASEnode 3.01819e-06
+Nodes = 5 2 3 1 9 6 
+Distance = 793 Max length = 1000
+OSNR en db = 20.0547 OSNR limit = 16
+------------------------
+OSNR demand: 22 : 4 to 14
+=====Path=====: 1
+PNLI 2.9811e-07
+PASElin 1.59502e-06
+PASEnode 3.52123e-06
+Nodes = 4 10 13 17 16 15 14 
+Distance = 970 Max length = 1000
+OSNR en db = 19.6542 OSNR limit = 16
+=====Path=====: 2
+PNLI 2.25921e-07
+PASElin 1.3383e-06
+PASEnode 2.51516e-06
+Nodes = 4 10 13 15 14 
+Distance = 764 Max length = 1000
+OSNR en db = 20.8838 OSNR limit = 16
+=====Path=====: 3
+PNLI 2.47351e-07
+PASElin 1.54099e-06
+PASEnode 3.01819e-06
+Nodes = 4 10 13 11 12 14 
+Distance = 846 Max length = 1000
+OSNR en db = 20.1714 OSNR limit = 16
+=====Path=====: 6
+PNLI 2.07812e-07
+PASElin 1.50094e-06
+PASEnode 2.51516e-06
+Nodes = 4 10 11 12 14 
+Distance = 733 Max length = 1000
+OSNR en db = 20.7325 OSNR limit = 16
+=====Path=====: 9
+PNLI 2.86209e-07
+PASElin 1.60702e-06
+PASEnode 3.01819e-06
+Nodes = 4 10 5 11 12 14 
+Distance = 956 Max length = 1000
+OSNR en db = 20.0776 OSNR limit = 16
+=====Path=====: 30
+PNLI 2.27898e-07
+PASElin 1.47293e-06
+PASEnode 2.51516e-06
+Nodes = 4 5 11 12 14 
+Distance = 788 Max length = 1000
+OSNR en db = 20.7407 OSNR limit = 16
+=====Path=====: 41
+PNLI 2.79561e-07
+PASElin 1.45072e-06
+PASEnode 3.52123e-06
+Nodes = 4 5 9 8 11 12 14 
+Distance = 908 Max length = 1000
+OSNR en db = 19.7869 OSNR limit = 16
+=====Path=====: 46
+PNLI 2.89963e-07
+PASElin 1.44361e-06
+PASEnode 4.52729e-06
+Nodes = 4 5 9 6 7 8 11 12 14 
+Distance = 927 Max length = 1000
+OSNR en db = 19.0234 OSNR limit = 16
+=====Path=====: 71
+PNLI 2.70121e-07
+PASElin 1.83845e-06
+PASEnode 3.01819e-06
+Nodes = 4 2 5 11 12 14 
+Distance = 944 Max length = 1000
+OSNR en db = 19.8913 OSNR limit = 16
+------------------------
+OSNR demand: 23 : 17 to 10
+=====Path=====: 1
+PNLI 2.84968e-07
+PASElin 1.88246e-06
+PASEnode 4.02426e-06
+Nodes = 17 16 15 14 12 11 13 10 
+Distance = 979 Max length = 1000
+OSNR en db = 19.0716 OSNR limit = 16
+=====Path=====: 2
+PNLI 2.45429e-07
+PASElin 1.84241e-06
+PASEnode 3.52123e-06
+Nodes = 17 16 15 14 12 11 10 
+Distance = 866 Max length = 1000
+OSNR en db = 19.5008 OSNR limit = 16
+=====Path=====: 58
+PNLI 2.21051e-07
+PASElin 1.28536e-06
+PASEnode 2.51516e-06
+Nodes = 17 16 15 13 10 
+Distance = 737 Max length = 1000
+OSNR en db = 20.9457 OSNR limit = 16
+=====Path=====: 59
+PNLI 2.87192e-07
+PASElin 1.94495e-06
+PASEnode 3.52123e-06
+Nodes = 17 13 15 14 12 11 10 
+Distance = 992 Max length = 1000
+OSNR en db = 19.3905 OSNR limit = 16
+=====Path=====: 87
+PNLI 2.25711e-07
+PASElin 1.56929e-06
+PASEnode 2.01213e-06
+Nodes = 17 13 11 10 
+Distance = 784 Max length = 1000
+OSNR en db = 21.1837 OSNR limit = 16
+=====Path=====: 115
+PNLI 1.39486e-07
+PASElin 6.75745e-07
+PASEnode 1.5091e-06
+Nodes = 17 13 10 
+Distance = 447 Max length = 1000
+OSNR en db = 23.3267 OSNR limit = 16
+------------------------
+OSNR demand: 24 : 6 to 1
+=====Path=====: 31
+PNLI 2.96807e-07
+PASElin 1.6087e-06
+PASEnode 3.52123e-06
+Nodes = 6 9 8 11 5 3 1 
+Distance = 970 Max length = 2000
+OSNR en db = 21.4052 OSNR limit = 21
+=====Path=====: 38
+PNLI 3.22651e-07
+PASElin 1.92001e-06
+PASEnode 3.52123e-06
+Nodes = 6 9 5 4 2 3 1 
+Distance = 1083 Max length = 2000
+OSNR en db = 21.1435 OSNR limit = 21
+=====Path=====: 39
+PNLI 1.57191e-07
+PASElin 8.57139e-07
+PASEnode 2.51516e-06
+Nodes = 6 9 5 3 1 
+Distance = 512 Max length = 2000
+OSNR en db = 23.2735 OSNR limit = 21
+=====Path=====: 40
+PNLI 1.98806e-07
+PASElin 1.20661e-06
+PASEnode 3.01819e-06
+Nodes = 6 9 5 2 3 1 
+Distance = 663 Max length = 2000
+OSNR en db = 22.2928 OSNR limit = 21
+=====Path=====: 41
+PNLI 9.95639e-08
+PASElin 7.49002e-07
+PASEnode 1.5091e-06
+Nodes = 6 9 1 
+Distance = 350 Max length = 2000
+OSNR en db = 25.0258 OSNR limit = 21
+=====Path=====: 87
+PNLI 3.38105e-07
+PASElin 1.92324e-06
+PASEnode 3.52123e-06
+Nodes = 6 7 8 11 5 9 1 
+Distance = 1119 Max length = 2000
+OSNR en db = 21.1294 OSNR limit = 21
+=====Path=====: 89
+PNLI 2.77294e-07
+PASElin 1.55591e-06
+PASEnode 3.52123e-06
+Nodes = 6 7 8 11 5 3 1 
+Distance = 915 Max length = 2000
+OSNR en db = 21.4635 OSNR limit = 21
+=====Path=====: 97
+PNLI 2.08148e-07
+PASElin 9.65163e-07
+PASEnode 3.52123e-06
+Nodes = 6 7 8 9 5 3 1 
+Distance = 647 Max length = 2000
+OSNR en db = 22.0347 OSNR limit = 21
+=====Path=====: 98
+PNLI 2.49764e-07
+PASElin 1.31464e-06
+PASEnode 4.02426e-06
+Nodes = 6 7 8 9 5 2 3 1 
+Distance = 798 Max length = 2000
+OSNR en db = 21.2775 OSNR limit = 21
+=====Path=====: 99
+PNLI 1.50522e-07
+PASElin 8.57026e-07
+PASEnode 2.51516e-06
+Nodes = 6 7 8 9 1 
+Distance = 485 Max length = 2000
+OSNR en db = 23.2818 OSNR limit = 21
+------------------------
+OSNR demand: 25 : 3 to 17
+=====Path=====: 1
+PNLI 2.63582e-07
+PASElin 1.4732e-06
+PASEnode 2.51516e-06
+Nodes = 3 5 11 13 17 
+Distance = 875 Max length = 1000
+OSNR en db = 20.7038 OSNR limit = 16
+=====Path=====: 3
+PNLI 2.83299e-07
+PASElin 1.74633e-06
+PASEnode 4.02426e-06
+Nodes = 3 5 11 12 14 15 16 17 
+Distance = 957 Max length = 1000
+OSNR en db = 19.1694 OSNR limit = 16
+=====Path=====: 7
+PNLI 2.61068e-07
+PASElin 1.28222e-06
+PASEnode 2.51516e-06
+Nodes = 3 5 10 13 17 
+Distance = 843 Max length = 1000
+OSNR en db = 20.9061 OSNR limit = 16
+=====Path=====: 14
+PNLI 3.15245e-07
+PASElin 1.45099e-06
+PASEnode 3.52123e-06
+Nodes = 3 5 9 8 11 13 17 
+Distance = 995 Max length = 1000
+OSNR en db = 19.7572 OSNR limit = 16
+=====Path=====: 46
+PNLI 3.02684e-07
+PASElin 1.63169e-06
+PASEnode 3.01819e-06
+Nodes = 3 2 5 10 13 17 
+Distance = 994 Max length = 1000
+OSNR en db = 20.0414 OSNR limit = 16
+------------------------
+OSNR demand: 26 : 12 to 16
+=====Path=====: 1
+PNLI 7.61083e-08
+PASElin 3.72645e-07
+PASEnode 2.01213e-06
+Nodes = 12 14 15 16 
+Distance = 238 Max length = 1000
+OSNR en db = 23.0788 OSNR limit = 16
+=====Path=====: 2
+PNLI 2.02423e-07
+PASElin 1.19279e-06
+PASEnode 3.01819e-06
+Nodes = 12 14 15 13 17 16 
+Distance = 676 Max length = 1000
+OSNR en db = 20.542 OSNR limit = 16
+=====Path=====: 3
+PNLI 1.83326e-07
+PASElin 1.19333e-06
+PASEnode 2.51516e-06
+Nodes = 12 11 13 17 16 
+Distance = 626 Max length = 1000
+OSNR en db = 21.0882 OSNR limit = 16
+=====Path=====: 4
+PNLI 1.8034e-07
+PASElin 1.08533e-06
+PASEnode 2.51516e-06
+Nodes = 12 11 13 15 16 
+Distance = 604 Max length = 1000
+OSNR en db = 21.2138 OSNR limit = 16
+------------------------
+OSNR demand: 27 : 17 to 2
+=====Path=====: 37
+PNLI 2.85207e-07
+PASElin 1.92937e-06
+PASEnode 4.02426e-06
+Nodes = 17 16 15 14 12 11 5 2 
+Distance = 984 Max length = 1000
+OSNR en db = 19.0387 OSNR limit = 16
+=====Path=====: 151
+PNLI 3.03289e-07
+PASElin 1.63964e-06
+PASEnode 3.01819e-06
+Nodes = 17 13 11 5 3 2 
+Distance = 999 Max length = 1000
+OSNR en db = 20.0339 OSNR limit = 16
+=====Path=====: 152
+PNLI 2.6549e-07
+PASElin 1.65624e-06
+PASEnode 2.51516e-06
+Nodes = 17 13 11 5 2 
+Distance = 902 Max length = 1000
+OSNR en db = 20.5189 OSNR limit = 16
+=====Path=====: 173
+PNLI 3.00776e-07
+PASElin 1.44866e-06
+PASEnode 3.01819e-06
+Nodes = 17 13 10 5 3 2 
+Distance = 967 Max length = 1000
+OSNR en db = 20.2067 OSNR limit = 16
+=====Path=====: 174
+PNLI 2.62977e-07
+PASElin 1.46526e-06
+PASEnode 2.51516e-06
+Nodes = 17 13 10 5 2 
+Distance = 870 Max length = 1000
+OSNR en db = 20.7126 OSNR limit = 16
+=====Path=====: 180
+PNLI 2.83024e-07
+PASElin 1.50411e-06
+PASEnode 2.51516e-06
+Nodes = 17 13 10 4 2 
+Distance = 930 Max length = 1000
+OSNR en db = 20.6527 OSNR limit = 16
+------------------------
+OSNR demand: 28 : 11 to 2
+=====Path=====: 2
+PNLI 3.92728e-07
+PASElin 2.46582e-06
+PASEnode 3.01819e-06
+Nodes = 11 13 10 5 4 2 
+Distance = 1349 Max length = 2000
+OSNR en db = 21.0592 OSNR limit = 21
+=====Path=====: 3
+PNLI 3.06682e-07
+PASElin 1.73582e-06
+PASEnode 3.01819e-06
+Nodes = 11 13 10 5 3 2 
+Distance = 1026 Max length = 2000
+OSNR en db = 21.7085 OSNR limit = 21
+=====Path=====: 4
+PNLI 2.68883e-07
+PASElin 1.75242e-06
+PASEnode 2.51516e-06
+Nodes = 11 13 10 5 2 
+Distance = 929 Max length = 2000
+OSNR en db = 22.1834 OSNR limit = 21
+=====Path=====: 7
+PNLI 3.31578e-07
+PASElin 2.19614e-06
+PASEnode 3.01819e-06
+Nodes = 11 13 10 4 5 2 
+Distance = 1151 Max length = 2000
+OSNR en db = 21.3109 OSNR limit = 21
+=====Path=====: 8
+PNLI 2.8893e-07
+PASElin 1.79127e-06
+PASEnode 2.51516e-06
+Nodes = 11 13 10 4 2 
+Distance = 989 Max length = 2000
+OSNR en db = 22.1274 OSNR limit = 21
+=====Path=====: 26
+PNLI 3.53188e-07
+PASElin 2.42577e-06
+PASEnode 2.51516e-06
+Nodes = 11 10 5 4 2 
+Distance = 1236 Max length = 2000
+OSNR en db = 21.5127 OSNR limit = 21
+=====Path=====: 27
+PNLI 2.67142e-07
+PASElin 1.69577e-06
+PASEnode 2.51516e-06
+Nodes = 11 10 5 3 2 
+Distance = 913 Max length = 2000
+OSNR en db = 22.2397 OSNR limit = 21
+=====Path=====: 28
+PNLI 2.29343e-07
+PASElin 1.71237e-06
+PASEnode 2.01213e-06
+Nodes = 11 10 5 2 
+Distance = 816 Max length = 2000
+OSNR en db = 22.7804 OSNR limit = 21
+=====Path=====: 30
+PNLI 3.29838e-07
+PASElin 2.13949e-06
+PASEnode 3.01819e-06
+Nodes = 11 10 4 5 3 2 
+Distance = 1135 Max length = 2000
+OSNR en db = 21.3568 OSNR limit = 21
+=====Path=====: 31
+PNLI 2.92039e-07
+PASElin 2.15609e-06
+PASEnode 2.51516e-06
+Nodes = 11 10 4 5 2 
+Distance = 1038 Max length = 2000
+OSNR en db = 21.7929 OSNR limit = 21
+=====Path=====: 32
+PNLI 2.4939e-07
+PASElin 1.75122e-06
+PASEnode 2.01213e-06
+Nodes = 11 10 4 2 
+Distance = 876 Max length = 2000
+OSNR en db = 22.7162 OSNR limit = 21
+=====Path=====: 33
+PNLI 3.79451e-07
+PASElin 1.83509e-06
+PASEnode 3.52123e-06
+Nodes = 11 8 9 5 10 4 2 
+Distance = 1219 Max length = 2000
+OSNR en db = 21.1647 OSNR limit = 21
+=====Path=====: 34
+PNLI 3.2114e-07
+PASElin 1.701e-06
+PASEnode 3.01819e-06
+Nodes = 11 8 9 5 4 2 
+Distance = 1051 Max length = 2000
+OSNR en db = 21.726 OSNR limit = 21
+=====Path=====: 35
+PNLI 2.35094e-07
+PASElin 9.71008e-07
+PASEnode 3.01819e-06
+Nodes = 11 8 9 5 3 2 
+Distance = 728 Max length = 2000
+OSNR en db = 22.4931 OSNR limit = 21
+=====Path=====: 36
+PNLI 1.97295e-07
+PASElin 9.87609e-07
+PASEnode 2.51516e-06
+Nodes = 11 8 9 5 2 
+Distance = 631 Max length = 2000
+OSNR en db = 23.0685 OSNR limit = 21
+=====Path=====: 39
+PNLI 3.05696e-07
+PASElin 2.0726e-06
+PASEnode 3.52123e-06
+Nodes = 11 8 9 1 3 5 2 
+Distance = 1053 Max length = 2000
+OSNR en db = 21.0424 OSNR limit = 21
+=====Path=====: 40
+PNLI 2.62441e-07
+PASElin 1.65168e-06
+PASEnode 3.01819e-06
+Nodes = 11 8 9 1 3 2 
+Distance = 886 Max length = 2000
+OSNR en db = 21.8201 OSNR limit = 21
+=====Path=====: 43
+PNLI 2.45496e-07
+PASElin 9.63897e-07
+PASEnode 4.02426e-06
+Nodes = 11 8 7 6 9 5 3 2 
+Distance = 747 Max length = 2000
+OSNR en db = 21.5626 OSNR limit = 21
+=====Path=====: 44
+PNLI 2.07697e-07
+PASElin 9.80498e-07
+PASEnode 3.52123e-06
+Nodes = 11 8 7 6 9 5 2 
+Distance = 650 Max length = 2000
+OSNR en db = 22.0209 OSNR limit = 21
+=====Path=====: 48
+PNLI 2.72843e-07
+PASElin 1.64457e-06
+PASEnode 4.02426e-06
+Nodes = 11 8 7 6 9 1 3 2 
+Distance = 905 Max length = 2000
+OSNR en db = 21.0115 OSNR limit = 21
+=====Path=====: 49
+PNLI 3.27788e-07
+PASElin 1.8573e-06
+PASEnode 2.51516e-06
+Nodes = 11 5 10 4 2 
+Distance = 1099 Max length = 2000
+OSNR en db = 22.0294 OSNR limit = 21
+=====Path=====: 50
+PNLI 3.29215e-07
+PASElin 2.14936e-06
+PASEnode 3.01819e-06
+Nodes = 11 5 9 1 3 2 
+Distance = 1132 Max length = 2000
+OSNR en db = 21.3495 OSNR limit = 21
+=====Path=====: 51
+PNLI 2.69476e-07
+PASElin 1.72321e-06
+PASEnode 2.01213e-06
+Nodes = 11 5 4 2 
+Distance = 931 Max length = 2000
+OSNR en db = 22.7248 OSNR limit = 21
+=====Path=====: 52
+PNLI 1.8343e-07
+PASElin 9.93216e-07
+PASEnode 2.01213e-06
+Nodes = 11 5 3 2 
+Distance = 608 Max length = 2000
+OSNR en db = 23.7144 OSNR limit = 21
+=====Path=====: 53
+PNLI 1.45631e-07
+PASElin 1.00982e-06
+PASEnode 1.5091e-06
+Nodes = 11 5 2 
+Distance = 511 Max length = 2000
+OSNR en db = 24.4944 OSNR limit = 21
+------------------------
+OSNR demand: 29 : 11 to 7
+=====Path=====: 67
+PNLI 2.97719e-07
+PASElin 1.67539e-06
+PASEnode 3.01819e-06
+Nodes = 11 10 5 9 8 7 
+Distance = 977 Max length = 1000
+OSNR en db = 20.0076 OSNR limit = 16
+=====Path=====: 68
+PNLI 2.75406e-07
+PASElin 1.60814e-06
+PASEnode 3.01819e-06
+Nodes = 11 10 5 9 6 7 
+Distance = 912 Max length = 1000
+OSNR en db = 20.0862 OSNR limit = 16
+=====Path=====: 89
+PNLI 1.2492e-07
+PASElin 4.07905e-07
+PASEnode 2.51516e-06
+Nodes = 11 8 9 6 7 
+Distance = 361 Max length = 1000
+OSNR en db = 22.1496 OSNR limit = 16
+=====Path=====: 90
+PNLI 7.67622e-08
+PASElin 3.14341e-07
+PASEnode 1.5091e-06
+Nodes = 11 8 7 
+Distance = 236 Max length = 1000
+OSNR en db = 24.2017 OSNR limit = 16
+=====Path=====: 93
+PNLI 2.14007e-07
+PASElin 9.72835e-07
+PASEnode 2.51516e-06
+Nodes = 11 5 9 8 7 
+Distance = 672 Max length = 1000
+OSNR en db = 21.3053 OSNR limit = 16
+=====Path=====: 94
+PNLI 1.91694e-07
+PASElin 9.05581e-07
+PASEnode 2.51516e-06
+Nodes = 11 5 9 6 7 
+Distance = 607 Max length = 1000
+OSNR en db = 21.4117 OSNR limit = 16
+------------------------
+OSNR demand: 30 : 9 to 6
+=====Path=====: 1
+PNLI 6.59151e-08
+PASElin 1.30866e-07
+PASEnode 2.01213e-06
+Nodes = 9 8 7 6 
+Distance = 172 Max length = 1000
+OSNR en db = 23.5479 OSNR limit = 16
+=====Path=====: 2
+PNLI 1.49575e-08
+PASElin 2.28418e-08
+PASEnode 1.00606e-06
+Nodes = 9 6 
+Distance = 37 Max length = 1000
+OSNR en db = 26.8033 OSNR limit = 16
+=====Path=====: 3
+PNLI 2.53499e-07
+PASElin 1.19708e-06
+PASEnode 3.01819e-06
+Nodes = 9 5 11 8 7 6 
+Distance = 806 Max length = 1000
+OSNR en db = 20.4878 OSNR limit = 16
+------------------------
