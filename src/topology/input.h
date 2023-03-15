@@ -56,6 +56,7 @@ public:
 		OBJECTIVE_METRIC_2 = 2,		/**< Minimize the sum of (number of hops in paths) over demands. **/
 		OBJECTIVE_METRIC_2p = 3,	/**< Minimize the sum of occupied slices. **/
 		OBJECTIVE_METRIC_4 = 4,		/**< Minimize the path lengths. **/
+		OBJECTIVE_METRIC_4p = 44,		/**< Minimize the path lengths. **/
 		OBJECTIVE_METRIC_8 = 8		/**< Minimize the max used slice position overall. **/
 	};
 

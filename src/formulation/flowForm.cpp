@@ -259,6 +259,18 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
         }
         break;
         }
+    case Input::OBJECTIVE_METRIC_4p:
+        {
+        for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+            for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+                int arc = getArcIndex(a, d);
+                double coeff = getCoeffObj4p(a, d);
+                Term term(x[d][arc], coeff);
+                obj.addTerm2(term);
+            }
+        }
+        break;
+        }
     case Input::OBJECTIVE_METRIC_8:
         {
         Term term(maxSliceOverall, 1);

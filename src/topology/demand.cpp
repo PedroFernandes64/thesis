@@ -51,8 +51,6 @@ void Demand::displayDemand(){
 	std::cout << ", ROUTED: " << r << std::endl;
 }
 
-
-// UPDATETHISPEDRO
 /* Verifies if the demand has exactly the given informations. */
 void Demand::checkDemand(int i, int s, int t, int l){
 	try {

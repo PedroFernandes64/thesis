@@ -708,6 +708,11 @@ double RSA::getCoeffObj4(const ListDigraph::Arc &a, int d){
     return getArcLength(a, d);
 }
 
+/* Returns the coefficient of an arc according to metric 4p on graph #d. */
+double RSA::getCoeffObj4p(const ListDigraph::Arc &a, int d){
+    return getArcLineAmplifiers(a, d);
+}
+
 /* Returns the coefficient of an arc according to metric 8 on graph #d. */
 double RSA::getCoeffObj8(const ListDigraph::Arc &a, int d){
     double coeff = 0.0;
@@ -761,6 +766,11 @@ double RSA::getCoeff(const ListDigraph::Arc &a, int d){
         case Input::OBJECTIVE_METRIC_4:
         {
             coeff = getCoeffObj4(a, d);
+            break;
+        }
+        case Input::OBJECTIVE_METRIC_4p:
+        {
+            coeff = getCoeffObj4p(a, d);
             break;
         }
         case Input::OBJECTIVE_METRIC_8:

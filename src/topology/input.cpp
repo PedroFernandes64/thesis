@@ -219,6 +219,9 @@ std::string Input::getObjName(ObjectiveMetric obj) const{
     case OBJECTIVE_METRIC_4:
         name = "obj_4";
         break;
+    case OBJECTIVE_METRIC_4p:
+        name = "obj_4p";
+    break;
     case OBJECTIVE_METRIC_8:
         name = "obj_8";
         break;
@@ -255,6 +258,9 @@ std::vector<Input::ObjectiveMetric> Input::to_ObjectiveMetric(std::string data){
         }
         else if (strVec[i] == "4"){
             objVec.push_back(OBJECTIVE_METRIC_4);
+        }
+        else if (strVec[i] == "4p"){
+            objVec.push_back(OBJECTIVE_METRIC_4p);
         }
         else if (strVec[i] == "8"){
             objVec.push_back(OBJECTIVE_METRIC_8);

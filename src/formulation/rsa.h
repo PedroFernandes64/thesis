@@ -252,6 +252,9 @@ public:
     /** Returns the coefficient of an arc according to metric 4 on a graph. @param a The arc. @param d The graph index. \note Min path lengths. **/
     double getCoeffObj4(const ListDigraph::Arc &a, int d);
 
+    /** Returns the coefficient of an arc according to metric 4 on a graph. @param a The arc. @param d The graph index. \note Min path lengths. **/
+    double getCoeffObj4p(const ListDigraph::Arc &a, int d);
+
     /** Returns the coefficient of an arc according to metric 8 on a graph. @param a The arc. @param d The graph index. \note Min max global used slice position. **/
     double getCoeffObj8(const ListDigraph::Arc &a, int d);
 

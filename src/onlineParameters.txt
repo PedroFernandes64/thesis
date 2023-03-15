@@ -2,7 +2,7 @@
 topologyFile=../Parameters/German_D17/LinksGN.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../Parameters/German_D17/combinatory_demands
+demandToBeRoutedFolder=../Parameters/German_D17/3_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -16,7 +16,7 @@ GNModel_activation=1
 nbDemandsAtOnce=1000
 formulation=0
 userCuts=0
-obj=2p
+obj=4p
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
@@ -27,7 +27,7 @@ partitionSlice=15
 ******* Optimization parameters *******
 solver=0 
 method=0 
-preprocessingLevel=0
+preprocessingLevel=2
 linearRelaxation=0
 relaxMethod=0
 

@@ -356,8 +356,6 @@ void Instance::generateDemandsFromFile(std::string filePath){
 	//std::cout << "out" << std::endl;
 }
 
-
-// UPDATETHISPEDRO
 /* Adds non-routed demands to the pool by generating N random demands. */
 void Instance::generateRandomDemands(const int N){
 	srand (1234567890);
@@ -369,8 +367,10 @@ void Instance::generateRandomDemands(const int N){
 			demandTarget = rand() % getNbNodes();
 		} 
 		int demandLoad = 3;
-		double DemandMaxLength = 3000;
-		Demand demand(idDemand, demandSource, demandTarget, demandLoad, DemandMaxLength, false);
+		double demandMaxLength = 3000;
+		double demandOsnrLimit = 13;
+		double demandPch = 0.000375;
+		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength, demandOsnrLimit, demandPch, false);
 		this->tabDemand.push_back(demand);
 	}
 }

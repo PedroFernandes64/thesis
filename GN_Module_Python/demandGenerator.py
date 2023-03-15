@@ -6,9 +6,9 @@ import gnModelPrecomputingTool as preCompute
 def buildTransponderTable():
     #transponder limits
     osnrub = 23
-    osnrlb = 14
+    osnrlb = 0
     maxlengthub = 2000
-    maxlengthlb = 1000
+    maxlengthlb = 0
     with open('transponders.csv', newline='') as csvfile: 
         transponders = csv.reader(csvfile, delimiter=';', quotechar='|')
         transponderTable = []
