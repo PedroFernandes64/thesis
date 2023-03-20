@@ -84,7 +84,7 @@ void SolverCplex::solve(){
         //}
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
         cplex.solve();
-        cplex.exportModel("nom_do_lp.lp");
+        //cplex.exportModel("nom_do_lp.lp");
         if ((cplex.getStatus() == IloAlgorithm::Optimal) || (cplex.getStatus() == IloAlgorithm::Feasible)){
             IloNum objValue = cplex.getObjValue();
             std::cout << "Objective Function Value: " << objValue << std::endl;

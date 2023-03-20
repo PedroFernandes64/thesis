@@ -274,6 +274,7 @@ void RSA::gnModelAllPaths(){
     double dbOsnr;
     std::cout << "Calculating OSNR " << std::endl;
     std::cout << "Writing  OSNR's to file..." << std::endl;
+    /*
     std::ofstream fw("osnr.txt", std::ofstream::out);
     if (fw.is_open()){   
         for (int i = 0 ; i <toBeRouted.size(); i++){			
@@ -302,7 +303,8 @@ void RSA::gnModelAllPaths(){
     }
     else{
         std::cout << "Problem with opening file";
-    }       
+    }
+    */       
 }
 
 
