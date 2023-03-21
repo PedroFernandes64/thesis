@@ -2,7 +2,7 @@
 topologyFile=../Parameters/German_D17/LinksGN.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../Parameters/German_D17/35_demands
+demandToBeRoutedFolder=../Parameters/German_D17/3_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 

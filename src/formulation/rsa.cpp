@@ -282,7 +282,7 @@ void RSA::gnModelAllPaths(){
             for (int j = 0; j< alldemandsdistances[i].size(); ++j){
                 distance = alldemandsdistances[i][j];     
                 dbOsnr = osnrPath(alldemandsPASElin[i][j], alldemandsPASEnode[i][j], alldemandsPNLI[i][j], toBeRouted[i].getPch());
-                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) && (dbOsnr >= toBeRouted[i].getOsnrLimit()) ){
+                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()*1.2) && (dbOsnr >= toBeRouted[i].getOsnrLimit()-1) ){
                     fw << "=====Path=====: " << j+1 << std::endl;
                     fw << "PNLI " << alldemandsPNLI[i][j] << std::endl;
                     fw << "PASElin " << alldemandsPASElin[i][j] << std::endl;
@@ -303,8 +303,8 @@ void RSA::gnModelAllPaths(){
     }
     else{
         std::cout << "Problem with opening file";
-    }
-    */       
+    }*/
+           
 }
 
 
