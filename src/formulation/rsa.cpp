@@ -274,7 +274,7 @@ void RSA::gnModelAllPaths(){
     double dbOsnr;
     std::cout << "Calculating OSNR " << std::endl;
     std::cout << "Writing  OSNR's to file..." << std::endl;
-    /*
+    
     std::ofstream fw("osnr.txt", std::ofstream::out);
     if (fw.is_open()){   
         for (int i = 0 ; i <toBeRouted.size(); i++){			
@@ -282,7 +282,7 @@ void RSA::gnModelAllPaths(){
             for (int j = 0; j< alldemandsdistances[i].size(); ++j){
                 distance = alldemandsdistances[i][j];     
                 dbOsnr = osnrPath(alldemandsPASElin[i][j], alldemandsPASEnode[i][j], alldemandsPNLI[i][j], toBeRouted[i].getPch());
-                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()*1.2) && (dbOsnr >= toBeRouted[i].getOsnrLimit()-1) ){
+                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()*1.1) && (dbOsnr >= toBeRouted[i].getOsnrLimit()-1) ){
                     fw << "=====Path=====: " << j+1 << std::endl;
                     fw << "PNLI " << alldemandsPNLI[i][j] << std::endl;
                     fw << "PASElin " << alldemandsPASElin[i][j] << std::endl;
@@ -303,7 +303,7 @@ void RSA::gnModelAllPaths(){
     }
     else{
         std::cout << "Problem with opening file";
-    }*/
+    }
            
 }
 

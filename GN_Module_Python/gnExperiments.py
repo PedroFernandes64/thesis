@@ -120,7 +120,7 @@ def computeOsnrLegacy(cdata):
     Glin = pow(10,Gdb/10)                       #LINEAR
     Bn = 12.5 * pow(10,9)                       #SI Hertz                       #Usually gigahertz  (x ghz)
     paseLine = 2.0* h * nu * nsp * (Glin-1.0) * Bn
-    Gdb = 20                                    #SI #dB
+    Gdb = 16                                    #SI #dB
     Glin = pow(10,Gdb/10) 
     paseNode = 2.0* h * nu * nsp * (Glin-1.0) * Bn
 
@@ -252,10 +252,9 @@ def experiments(cData,final):
     rowSolution.append(sumLength(cData))
     rowSolution.append(sumLamps(cData))
     rowSolution.append(len(cData)-1+1)
-    rowSolution.append(computeOsnrLegacy(cData))
-    rowSolution.append(computeOsnrLegacy(cData))
-    rowSolution.append(computeOsnrConstraint(cData))
-    rowSolution.append(computeOsnrPoggio(cData))
+    rowSolution.append(math.floor(computeOsnrLegacy(cData)*1000)/1000)
+    rowSolution.append(math.floor(computeOsnrConstraint(cData)*1000)/1000)
+    rowSolution.append(math.floor(computeOsnrPoggio(cData)*1000)/1000)
     final.append(rowSolution)
     return final
 
@@ -282,24 +281,46 @@ data4_a = [159,264,281,166] #2.5.10.13.17
 data4_b = [159,352,225,166] #2.5.11.13.17
 data4_c = [159,352,79,66,80,92,156] #2.5.11.12.14.15.16.17 
 
-data4_a = [159,264,281,166] #2.5.10.13.17
-data4_b = [159,352,225,166] #2.5.11.13.17
-data4_c = [159,352,79,66,80,92,156] #2.5.11.12.14.15.16.17
-
 data5_a = [132,264,281,166] #3.5.10.13.17
 data5_b = [132,352,225,166] #3.5.11.13.17
 data5_c = [132,352,79,66,80,92,156] #3.5.11.12.14.15.16.17
 
-#6 nodes amplis
-data6_a = [160,160,160,160,160] 
-#7 nodes amplis
-data7_a = [160,160,160,160,160,160] 
-#8 nodes amplis
-data8_a = [160,160,160,160,160,160,160]
-#9 nodes amplis
-data8_a = [160,160,160,160,160,160,160,160] 
-#10 nodes amplis
-data8_a = [160,160,160,160,160,160,160,160,160]  
+data10_5 = [240,240,160,160]
+data10_6 = [160,160,160,160,160]
+data10_7 = [160,160,160,160,80,80]
+data10_8 = [160,160,160,80,80,80,80]
+data10_9 = [160,160,80,80,80,80,80,80]
+data10_10 = [160,80,80,80,80,80,80,80,80]
+data10_11 = [80,80,80,80,80,80,80,80,80,80]
+data11_5 = [240,240,240,160]
+data11_6 = [160,160,160,160,240]
+data11_7 = [160,160,160,160,160,80]
+data11_8 = [160,160,160,160,80,80,80]
+data11_9 = [160,160,160,80,80,80,80,80]
+data11_10 = [160,160,80,80,80,80,80,80,80]
+data11_11 = [160,80,80,80,80,80,80,80,80,80]
+data12_5 = [240,240,240,240]
+data12_6 = [240,240,160,160,160]
+data12_7 = [160,160,160,160,160,160]
+data12_8 = [160,160,160,80,80,160,160]
+data12_9 = [160,160,80,80,80,80,160,160]
+data12_10 = [160,80,80,80,80,80,80,160,160]
+data12_11 = [80,80,80,80,80,80,80,80,160,160]
+data13_5 = [240,240,240,320]
+data13_6 = [160,160,240,240,240]
+data13_7 = [160,160,160,240,160,160]
+data13_8 = [160,160,160,80,160,160,160]
+data13_9 = [160,160,80,80,80,160,160,160]
+data13_10 = [160,80,80,80,80,80,160,160,160]
+data13_11 = [80,80,80,80,80,80,80,160,160,160]
+data14_5 = [240,240,320,320]
+data14_6 = [160,240,240,240,240]
+data14_7 = [160,160,160,240,240,160]
+data14_8 = [160,160,160,160,160,160,160]
+data14_9 = [160,160,160,80,80,160,160,160]
+data14_10 = [160,160,80,80,80,80,160,160,160]
+data14_11 = [80,80,80,80,80,80,160,160,160,160]
+ 
 
 
 allData = []
@@ -320,6 +341,43 @@ allData.append(data5_b)
 allData.append(data5_c)
 
 
+allData.append(data10_5)
+allData.append(data10_6 )
+allData.append(data10_7 )
+allData.append(data10_8)
+allData.append(data10_9 )
+allData.append(data10_10)
+allData.append(data10_11 )
+allData.append(data11_5)
+allData.append(data11_6)
+allData.append(data11_7 )
+allData.append(data11_8 )
+allData.append(data11_9)
+allData.append(data11_10 )
+allData.append(data11_11)
+allData.append(data12_5 )
+allData.append(data12_6)
+allData.append(data12_7 )
+allData.append(data12_8 )
+allData.append(data12_9)
+allData.append(data12_10 )
+allData.append(data12_11 )
+allData.append(data13_5 )
+allData.append(data13_6 )
+allData.append(data13_7 )
+allData.append(data13_8 )
+allData.append(data13_9 )
+allData.append(data13_10 )
+allData.append(data13_11 )
+allData.append(data14_5)
+allData.append(data14_6 )
+allData.append(data14_7 )
+allData.append(data14_8 )
+allData.append(data14_9 )
+allData.append(data14_10)
+allData.append(data14_11 )
+
+
 final=[]
 row=[]
 row.append("id")
@@ -333,5 +391,5 @@ final.append(row)
 for instance in allData:
     computedData = compute(instance)
     final = experiments(computedData,final)
-print(final)
+#print(final)
 writefile("results.csv",final)
