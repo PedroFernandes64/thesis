@@ -1,3 +1,4 @@
+
 # Copyright (C) 2006 International Business Machines and others.
 # All Rights Reserved.
 # This file is distributed under the Eclipse Public License.
@@ -19,7 +20,7 @@ SYSTEM = x86-64_linux
 LIBFORMAT = static_pic
 
 # CHANGEME: Cplex paths ok
-CPLEXVERSION = CPLEX_Studio1210
+CPLEXVERSION = CPLEX_Studio2211
 CPLEXDIR = /opt/ibm/ILOG/$(CPLEXVERSION)/cplex
 CPLEXINCDIR = $(CPLEXDIR)/include/
 CPLEXLIBDIR = $(CPLEXDIR)/lib/$(SYSTEM)/$(LIBFORMAT)
@@ -33,13 +34,13 @@ CONCERTLIBDIR = $(CONCERTDIR)/lib/$(SYSTEM)/$(LIBFORMAT)
 CONCERTLIBFLAGS = -L$(CONCERTLIBDIR) -lconcert -lm -lpthread -ldl
 
 # CHANGEME: LEMON paths ok
-LEMONINCDIR = /home/phfernan/ressources_thesis/lemon/include/
-LEMONLIBDIR = /home/phfernan/ressources_thesis/lemon/lib/
+LEMONINCDIR = /usr/local/include
+LEMONLIBDIR = /usr/local/lib
 LEMONINCFLAGS = -I$(LEMONINCDIR)
 LEMONLIBFLAGS = -L$(LEMONLIBDIR) -lemon
 
 # CHANGEME: Boost paths ok
-BOOSTINCDIR = /home/phfernan/ressources_thesis/boost_1_78_0/
+BOOSTINCDIR = /user/include/boost/
 BOOSTINCFLAGS = -I$(BOOSTINCDIR)
 
 # To compile other examples, either changed the following line, or
@@ -75,10 +76,10 @@ SRCDIR = .
 CXX = g++
 
 # C++ Compiler options
-CXXFLAGS = -O3 -pipe -DNDEBUG -Wparentheses -Wreturn-type -Wcast-qual -Wall -Wpointer-arith -Wwrite-strings -Wconversion -Wno-unknown-pragmas -Wno-long-long   -DCBC_BUILD 
+CXXFLAGS = -O3 -pipe -DNDEBUG -Wparentheses -Wreturn-type -Wcast-qual -Wall -Wpointer-arith -Wwrite-strings -Wconversion -Wno-unknown-pragmas -Wno-long-long -DCBC_BUILD 
 
 # C Compiler options
-CFLAGS = -O3 -pipe -DNDEBUG -Wimplicit -Wparentheses -Wsequence-point -Wreturn-type -Wcast-qual -Wall -Wno-unknown-pragmas -Wno-long-long   -DCBC_BUILD
+CFLAGS = -O3 -pipe -DNDEBUG -Wimplicit -Wparentheses -Wsequence-point -Wreturn-type -Wcast-qual -Wall -Wno-unknown-pragmas -Wno-long-long -DCBC_BUILD
 
 # additional C++ Compiler options for linking
 CXXLINKFLAGS =  -Wl,--rpath -Wl,/usr/local/lib
