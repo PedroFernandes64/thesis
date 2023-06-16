@@ -28,7 +28,8 @@ public:
 	enum MIP_Solver {						
 		MIP_SOLVER_CPLEX = 0,  	/**< The MIP is solved using CPLEX. **/
 		MIP_SOLVER_CBC = 1, 	/**< The MIP is solved using CBC. **/
-		MIP_SOLVER_GUROBI = 2  	/**< The MIP is solved using Gurobi. #TODO Implement gurobi.**/
+		MIP_SOLVER_GUROBI = 2,  	/**< The MIP is solved using Gurobi. #TODO Implement gurobi.**/
+		MIP_SOLVER_SCIP = 3		/**< The MIP is solved using SCIP. **/
 	};
 
 
@@ -56,7 +57,7 @@ public:
 		OBJECTIVE_METRIC_2 = 2,		/**< Minimize the sum of (number of hops in paths) over demands. **/
 		OBJECTIVE_METRIC_2p = 3,	/**< Minimize the sum of occupied slices. **/
 		OBJECTIVE_METRIC_4 = 4,		/**< Minimize the path lengths. **/
-		OBJECTIVE_METRIC_4p = 44,		/**< Minimize the path lengths. **/
+		OBJECTIVE_METRIC_4p = 44,	/**< Minimize the amplifiers. **/
 		OBJECTIVE_METRIC_8 = 8		/**< Minimize the max used slice position overall. **/
 	};
 

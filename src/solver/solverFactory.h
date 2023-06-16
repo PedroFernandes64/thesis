@@ -3,6 +3,7 @@
 
 // include all concrete solvers
 #include "solverCplex.h"
+#include "solverSCIP.h"
 
 
 /*********************************************************************************************
@@ -16,7 +17,11 @@ public:
         Input::MIP_Solver chosenSolver = instance.getInput().getChosenMIPSolver();
         switch (chosenSolver){
             case Input::MIP_SOLVER_CPLEX:{
-                return new SolverCplex(instance);	
+                return new SolverCplex(instance);
+                break;
+            }
+            case Input::MIP_SOLVER_SCIP:{
+                return new SolverSCIP(instance);
                 break;
             }
             case Input::MIP_SOLVER_GUROBI:{
@@ -25,7 +30,7 @@ public:
                 break;
             }
             case Input::MIP_SOLVER_CBC:{
-               std::cout << "Not implemented yet. Should create solverCBC." << std::endl;
+                std::cout << "Not implemented yet. Should create solverCBC." << std::endl;
                 exit(0);
                 break;
             }

@@ -1,0 +1,7 @@
+# do not share these files/folders
+
+# ignore all .o files
+*.o
+
+# ignore the .exe file
+exec

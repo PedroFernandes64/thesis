@@ -52,7 +52,7 @@ EXE = $(DRIVER)
 
 # CHANGEME: Here is the name of all object files corresponding to the source
 #           code that you wrote in order to define the problem statement
-OBJS = main.o formulation/edgeNodeForm.o formulation/flowForm.o formulation/formulationComponents.o formulation/rsa.o solver/abstractSolver.o solver/solverCplex.o solver/callbackCplex.o tools/CSVReader.o topology/demand.o topology/input.o topology/instance.o topology/physicalLink.o topology/slice.o
+OBJS = main.o formulation/edgeNodeForm.o formulation/flowForm.o formulation/formulationComponents.o formulation/rsa.o solver/abstractSolver.o solver/solverCplex.o solver/callbackCplex.o tools/CSVReader.o topology/demand.o topology/input.o topology/instance.o topology/physicalLink.o topology/slice.o solver/solverSCIP.o
 
 # extra object files that are required by some examples (we just link them into each one)
 # CHANGEME: Additional libraries
@@ -114,3 +114,20 @@ clean:
 
 .c.obj:
 	$(CC) $(CFLAGS) $(INCL) -c -o $@ `if test -f '$<'; then $(CYGPATH_W) '$<'; else $(CYGPATH_W) '$(SRCDIR)/$<'; fi`
+ 
+# CHANGEME: SCIP paths
+SCIPLIBDIR = /
+SCIPLIBFLAGS = -L$(SCIPLIBDIR) -lscip
+
+# CHANGEME: SCIP include directories
+#SCIPIFLDIR = /home/kafavoreto/Projeto/include
+#SCIPIBIDIR = /home/kafavoreto/Projeto/include/scip
+#SCIPLIBIDIR = /home/kafavoreto/Projeto/include/scip/pub
+#SCIPIINCFLAGS = -I$(SCIPIFLDIR) -I$(SCIPIBIDIR) -I$(SCIPLIBIDIR)
+
+# CHANGEME: Additional libraries
+# e.g., for driver2, put -lOsiCbc here
+ADDLIBS = $(CPLEXLIBFLAGS) $(CONCERTLIBFLAGS) $(SCIPLIBFLAGS) $(LEMONLIBFLAGS)
+
+# CHANGEME: Additional flags for compilation (e.g., include flags)
+ADDINCFLAGS = -std=c++11 -g $(CCOPT) -I$(CPLEXINCDIR) -I$(CONCERTINCDIR) $(SCIPIINCFLAGS) $(LEMONINCFLAGS) $(BOOSTINCFLAGS)

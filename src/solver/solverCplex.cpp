@@ -55,7 +55,7 @@ CPXLONG SolverCplex::context(Input::ObjectiveMetric obj, const Input &i){
     if(i.isUserCutsActivated()){
         contextMask |= IloCplex::Callback::Context::Id::Relaxation;
     }
-    if(i.isGNModelEnabled()){
+        if(i.isGNModelEnabled()){
         contextMask |= IloCplex::Callback::Context::Id::Candidate;
     }
     return contextMask;
@@ -76,8 +76,8 @@ void SolverCplex::solve(){
                                         formulation->getInstance().getInput(),
                                         formulation->getInstance().getInput().isObj8(i));
         CPXLONG contextMask = context(myObjectives[i].getId(), formulation->getInstance().getInput());
-        
-        
+
+
         //if(!formulation->getInstance().getInput().isRelaxed()){
         //cplex.use(&myGenericCallback, contextMask);
         //cplex.use(pedroback(cplex.getEnv()));
@@ -104,11 +104,14 @@ void SolverCplex::solve(){
     }
     IloNum timeFinish = cplex.getCplexTime();
     setDurationTime(timeFinish - timeStart);
-    setUpperBound(cplex.getObjValue());
-    setLowerBound(cplex.getBestObjValue());
-    setMipGap(cplex.getMIPRelativeGap()*100);
+    //std::cout << cplex.getStatus() << std::endl;
+    if ((cplex.getStatus() == IloAlgorithm::Optimal) || (cplex.getStatus() == IloAlgorithm::Feasible)){
+        setUpperBound(cplex.getObjValue());
+        setLowerBound(cplex.getBestObjValue());
+        setMipGap(cplex.getMIPRelativeGap()*100);
+    }
 	setTreeSize(cplex.getNnodes());
-
+    
     setAlgorithm(cplex.getAlgorithm());
     //int root = cplex.getParam(IloCplex::RootAlg);
     //int node = cplex.getParam(IloCplex::NodeAlg);

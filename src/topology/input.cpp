@@ -20,7 +20,7 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
         GNPY_topologyFile = getParameterValue("GNPY_topologyFile=");
         GNPY_equipmentFile = getParameterValue("GNPY_equipmentFile=");
     }
-
+    
     std::cout << "Getting GNMODEL parameters..." << std::endl;
     GNModel_activation = std::stoi(getParameterValue("GNModel_activation="));
 
@@ -221,7 +221,7 @@ std::string Input::getObjName(ObjectiveMetric obj) const{
         break;
     case OBJECTIVE_METRIC_4p:
         name = "obj_4p";
-    break;
+        break;
     case OBJECTIVE_METRIC_8:
         name = "obj_8";
         break;
@@ -259,7 +259,7 @@ std::vector<Input::ObjectiveMetric> Input::to_ObjectiveMetric(std::string data){
         else if (strVec[i] == "4"){
             objVec.push_back(OBJECTIVE_METRIC_4);
         }
-        else if (strVec[i] == "4p"){
+                else if (strVec[i] == "4p"){
             objVec.push_back(OBJECTIVE_METRIC_4p);
         }
         else if (strVec[i] == "8"){
@@ -403,6 +403,11 @@ Input::MIP_Solver Input::to_MIP_Solver(std::string data){
             policy = MIP_SOLVER_GUROBI;
             std::cout << "ERROR: MIP_Solve=2 but Gurobi still needs to be implemented." << std::endl;
             exit(0);
+            return policy;
+            break;
+        }
+        case 3: {
+            policy = MIP_SOLVER_SCIP;
             return policy;
             break;
         }

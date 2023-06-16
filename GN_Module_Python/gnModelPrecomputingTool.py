@@ -1,3 +1,6 @@
+
+#The code here gets a demand or a link file and add the gn columns
+
 import math
 import csv
 
@@ -103,7 +106,7 @@ def processDemands(file):
         writer.writerows(newFile2)
 
 
-#linkfile = 'Link'
+linkfile = 'Link'
 demandfile = 'demands'
-#processLinks(linkfile)
+processLinks(linkfile)
 processDemands(demandfile)

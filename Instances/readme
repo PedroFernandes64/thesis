@@ -1,0 +1,7 @@
+xxxx_y_z standart:
+
+xxxx = instance name
+y = nodes
+z = links
+
+Extra_demands = folders with multiple extra demand sets for some instances

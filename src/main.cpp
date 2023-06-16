@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
 		//instance.generateRandomDemands(1);
 		instance.displayNonRoutedDemands();
 		std::cout << instance.getNbNonRoutedDemands() << " demands to be routed." << std::endl;
-
+		
 		
 		/********************************************************************/
 		/* 							Start optimizing 						*/
@@ -65,9 +65,9 @@ int main(int argc, char *argv[]) {
 		//instance.output(outputCode);
 		bool feasibility = true;
 		bool lastIterationFeas = true;
-		
+
 		while(instance.getNextDemandToBeRoutedIndex() < instance.getNbDemands() && feasibility == true && (instance.getInput().getOptimizationTimeLimit() >= OPTIMIZATION_TIME.getTimeInSecFromStart())){
-			
+				
 			/********************************************************************/
 			/* 							Initialization	 						*/
 			/********************************************************************/
@@ -77,16 +77,17 @@ int main(int argc, char *argv[]) {
 			if ((instance.getInput().getOptimizationTimeLimit() - OPTIMIZATION_TIME.getTimeInSecFromStart()) < instance.getInput().getIterationTimeLimit()){
 				instance.setTimeLimit(std::max(0, instance.getInput().getOptimizationTimeLimit() - (int)OPTIMIZATION_TIME.getTimeInSecFromStart()));
 			}
-			
+
 			/********************************************************************/
 			/* 								Solve	 							*/
 			/********************************************************************/
 			SolverFactory factory;
 			AbstractSolver *solver = factory.createSolver(instance);
 			solver->solve();
+			//solver->outputLogResults(outputCode);
 			std::cout << " Time: " << solver->getDurationTime() << std::endl << std::endl;
 			solver->updateRSA(instance);
-
+			
 			/********************************************************************/
 			/* 							Finalization							*/
 			/********************************************************************/
@@ -105,9 +106,23 @@ int main(int argc, char *argv[]) {
 			std::cout << "GAP: " << solver->getMipGap() << std::endl;
 			std::cout << "Tree size: " << solver->getTreeSize() << std::endl;
 			std::cout << "Time: " << solver->getDurationTime() << std::endl << std::endl;
-			std::cout << "Algo: " << ((SolverCplex*)solver)->getAlgorithm()  << std::endl;
+			/* To be modified in the future. SolverCplex should not be instantiated in main. Scip does not offer a getAlgorithm equivalent.*/
+			//std::cout << "Algo: " << ((SolverCplex*)solver)->getAlgorithm()  << std::endl;
+			
+			//output for massive experiments
+			//removing junk from demand string
+			std::string instanceName = input.getTopologyFile();
+			std::string l = "/Link.csv";
+			std::string i = "Instances/";
+			instanceName.erase(instanceName.find(l),l.length()); //remove l from string
+			instanceName.erase(instanceName.find(i),i.length()); //remove i from string
+			//opening file and writing
+			std::ofstream outfile;
+  			outfile.open("results.csv", std::ios_base::app); // append instead of overwrite
+  			outfile << instanceName + ";" + to_string(instance.getNbDemands()) + ";" + to_string(solver->getUpperBound()) + ";" + to_string(+solver->getLowerBound()) + ";" + to_string(solver->getMipGap()) +";" + to_string(round(solver->getDurationTime()*1000)/1000) +";" + to_string(input.getChosenObj_k(0))+";"+to_string(input.getChosenMIPSolver())+"\n"; 
 		}
 		
+
 		/********************************************************************/
 		/* 								Output	 							*/
 		/********************************************************************/
@@ -119,9 +134,9 @@ int main(int argc, char *argv[]) {
 		instance.displayAllDemands();
 		std::cout << "Time taken by optimization is : ";
 		std::cout << std::fixed  << OPTIMIZATION_TIME.getTimeInSecFromStart() << std::setprecision(9); 
-		std::cout << " sec" << std::endl;
+		std::cout << " sec" << std::endl; 
 	}
-	
+
 	std::cout << "Total time taken by program is : " << std::flush;
 	std::cout << std::fixed  << GLOBAL_TIME.getTimeInSecFromStart() << std::setprecision(9); 
 	std::cout << " sec" << std::endl;
