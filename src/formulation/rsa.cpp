@@ -123,13 +123,16 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     auxNbSlicesGlobalLimit = getNbSlicesGlobalLimit();
    
     //PEDRO PEDRO PEDRO
+    //COMENTADO PARA NAO TENTAR DESENHAR TODOS PATHS SEMPRE
     //Modulo GN MODEL
+    /*
     if (this->getInstance().getInput().isGNModelEnabled() == true){
         std::cout << "GN Model pre processing" << std::endl;
         std::cout << "Computing atributes of the fibers should be done before" << std::endl;
         std::cout << "Computing the OSNR of all paths" << std::endl;
+        
         gnModelAllPaths();
-    }
+    }*/
     //PEDRO PEDRO PEDRO
 }
 
@@ -282,7 +285,7 @@ void RSA::gnModelAllPaths(){
             for (int j = 0; j< alldemandsdistances[i].size(); ++j){
                 distance = alldemandsdistances[i][j];     
                 dbOsnr = osnrPath(alldemandsPASElin[i][j], alldemandsPASEnode[i][j], alldemandsPNLI[i][j], toBeRouted[i].getPch());
-                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()*1.1) && (dbOsnr >= toBeRouted[i].getOsnrLimit()-1) ){
+                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) && (dbOsnr >= toBeRouted[i].getOsnrLimit()-1) ){
                     fw << "=====Path=====: " << j+1 << std::endl;
                     fw << "PNLI " << alldemandsPNLI[i][j] << std::endl;
                     fw << "PASElin " << alldemandsPASElin[i][j] << std::endl;
