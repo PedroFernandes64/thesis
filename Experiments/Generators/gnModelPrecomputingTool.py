@@ -71,7 +71,7 @@ def processLinks(table):
             amps = computeAmps(float(row[3]))
             pnli = computePnli(math.ceil(float(row[3])*1000)/1000)
             #print(computePnli(float(row[3])))
-            pase = computePnli(math.ceil(float(row[3])*1000)/1000)
+            pase = computePase(math.ceil(float(row[3])*1000)/1000)
             #print(pase)
             row.append(amps)
             row.append(pnli)
@@ -85,6 +85,6 @@ def processDemands(table):
             row.append('pch')
             rowCounter = rowCounter + 1
         else:
-            pch = computePnli(math.floor(float(row[3])*1000)/1000)
+            pch = computePch(math.floor(float(row[3])*1000)/1000)
             row.append(pch)
             rowCounter = rowCounter + 1

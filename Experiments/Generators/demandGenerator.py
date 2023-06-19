@@ -1,13 +1,17 @@
 import csv
 import os
+import shutil
 import random
-import gnModelPrecomputingToolV2 as preCompute
+import copy
+import gnModelPrecomputingTool as preCompute
 
 
 def buildNetworkLinkSet():
     NetworkLinkSet = []
+    instanceNames = []
     Networks = [f.name for f in os.scandir("../Inputs/Networks") if f.is_dir()]
     for Network in Networks:
+        instanceNames.append(Network)
         NetworkLinkFile = "../Inputs/Networks/" + Network + '/Link.csv'
         with open(NetworkLinkFile, newline='') as csvfile: 
             rows = csv.reader(csvfile, delimiter=';', quotechar='|')
@@ -20,7 +24,7 @@ def buildNetworkLinkSet():
                     column = column + 1
                 NetworkFileLines.append(NetworkFileLine)
         NetworkLinkSet.append(NetworkFileLines)
-    return NetworkLinkSet
+    return NetworkLinkSet, instanceNames
 
 def buildNetworkNodeSet():
     NetworkNodeSet = []
@@ -193,9 +197,11 @@ def shortestPath(graph, src, dest):
 def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,TransponderTable):
     iteration = 0
     NewNetworksDemandsSets = []
+    #para cada network, fazer o processo
     while iteration < NumberOfNetworks:
         newNetworkDemandTable = []
         rowCounter = 1
+        #para cada demanda da, fazer o processo
         for row in NetworksDemandsSets[iteration]:
             if rowCounter != 1:
                 originDemand = row[1]
@@ -204,6 +210,7 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
                 shortestDistance = shortestPath(NetworkAsGraphs[iteration], originDemand,destinationDemand)
                 feasibleTransponders = []
                 rowCounter2 = 1
+                #para cada transponder da tabela, escolher os feasibles
                 for row2 in TransponderTable:
                     transponder = []
                     if rowCounter2 != 1:
@@ -230,6 +237,7 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
                     rowCounter2 = rowCounter2 + 1
                 #for rowAux in feasibleTransponders:
                 #trying to pick one transponder
+                #para feasible, tentar escolher um
                 lessSlotsId = 0
                 lessSlots = 10
                 rowCounter3 = 1
@@ -243,7 +251,7 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
                             chosenOsnrLim = row3[5]
                     rowCounter3 = rowCounter3 + 1
                 if lessSlotsId != 0:
-                    print("able to use one transponder! id: ", lessSlotsId)
+                    #print("able to use one transponder! id: ", lessSlotsId)
                     newRow = row
                     newRow.pop()
                     newRow.append(chosenSlots)
@@ -251,7 +259,31 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
                     newRow.append(chosenOsnrLim)
                     newNetworkDemandTable.append(newRow)
                 else:
-                    print("mamou palhaço")
+                    #se nao for possivel escolher um, reduzir a demand Gbit/s
+                    transponderChosen = False
+                    while transponderChosen == False:
+                        dataDemand = str(int(dataDemand) - 100)
+                        row[3] = str(int(row[3]) - 100)
+                        secondaryLessSlotsId = 0
+                        secondaryLessSlots = 10
+                        secondaryRowCounter3 = 1
+                        for row4 in feasibleTransponders:
+                            if secondaryRowCounter3 !=1:
+                                if int(row4[1]) >= int(dataDemand) and int(row4[4]) < secondaryLessSlots:
+                                    secondaryLessSlotsId = row4[0]
+                                    secondaryLessSlots = int(row4[4])
+                                    chosenSlots = row4[4]
+                                    chosenMaxReach = row4[7]
+                                    chosenOsnrLim = row4[5]
+                                    transponderChosen = True
+                            secondaryRowCounter3 = secondaryRowCounter3 + 1     
+                    #print("able to use one transponder! id: ", lessSlotsId)
+                    newRow = row
+                    newRow.pop()
+                    newRow.append(chosenSlots)
+                    newRow.append(chosenMaxReach)
+                    newRow.append(chosenOsnrLim)
+                    newNetworkDemandTable.append(newRow)
             else:
                 newRow = row
                 newRow.pop()
@@ -262,23 +294,100 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
             rowCounter = rowCounter + 1
         NewNetworksDemandsSets.append(newNetworkDemandTable)
         iteration = iteration + 1
-
+    #print auxiliar
     counter = 0
+    '''
     for instance in NewNetworksDemandsSets:
-        print(len(NetworkAsGraphs[counter]))
-        print(len(NetworksDemandsSets[counter])-1)
-        print(len(instance)-1)
+        print("nodes = " , len(NetworkAsGraphs[counter]))
+        print("demands = " , len(NetworksDemandsSets[counter])-1)
+        print("demands chosen = " , len(instance)-1)
         for rowzita in instance:
             print(rowzita)
         counter = counter + 1
-    return 'meubau'
+    '''
+    return NewNetworksDemandsSets
 
+def buildNetworkLinkSetWithoutPNLI(NetworksLinksToProcess):
+    NetworksLinksToProcessWithoutPNLI = []
 
-NetworksLinksToProcess = buildNetworkLinkSet()                                              #this produce a table for each link file
+    NetworksLinksToProcessWithoutPNLI=copy.deepcopy(NetworksLinksToProcess)
+    for instance in NetworksLinksToProcessWithoutPNLI:
+        rowCounter = 1
+        for row in instance:
+            if rowCounter !=1 :
+                row[7] = "0"
+            rowCounter = rowCounter +1
+    return NetworksLinksToProcessWithoutPNLI
+
+def writeLinkFile(linkTable,network):
+    filename = "../Outputs/Instances/" + network + "/Link.csv"
+    print(filename)
+    with open(filename, "w") as f:
+        for row in linkTable:
+            line = ""
+            for element in row:
+                line = line + str(element) + ";"
+            line = line[:-1]
+            line = line + "\n"
+            #print(line)
+            f.write(line)
+
+def writeDemandFile(demandTable,network):
+    os.mkdir("../Outputs/Instances/" + network + "/" + str(len(demandTable)-1) + "_demands/")
+    filename = "../Outputs/Instances/" + network + "/" + str(len(demandTable)-1) + "_demands/demands.csv"
+    print(filename)
+    with open(filename, "w") as f:
+        for row in demandTable:
+            line = ""
+            for element in row:
+                line = line + str(element) + ";"
+            line = line[:-1]
+            line = line + "\n"
+            #print(line)
+            f.write(line)
+    
+def writeLinkFileNonPNLI(linkTable,network):
+    filename = "../Outputs/Instances/" + network + "/LinkWithoutPnli.csv"
+    print(filename)
+    with open(filename, "w") as f:
+        for row in linkTable:
+            line = ""
+            for element in row:
+                line = line + str(element) + ";"
+            line = line[:-1]
+            line = line + "\n"
+            #print(line)
+            f.write(line)
+
+NetworksLinksToProcess, instanceNames = buildNetworkLinkSet()                               #this produce a table for each link file
 NetworksNodesToProcess = buildNetworkNodeSet()                                              #this produce a table for each node file
 NumberOfNetworks = len(NetworksLinksToProcess)
-preCompute.processLinks(NetworksLinksToProcess[1])                                          #this add GN model columns in the link table
+for network in NetworksLinksToProcess:
+    preCompute.processLinks(network)                                                        #this add GN model columns in the link table
 NetworkAsGraphs = buildGraphSet(NetworksLinksToProcess,NetworksNodesToProcess)              #this create a graph for each table of links
 NetworksDemandsSets = buildBaseDemandSet(NumberOfNetworks,NetworksNodesToProcess)           #this create a base demand set for each table of nodes
 TransponderTable = buildTransponderTable()
-chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,TransponderTable)
+NewNetworksDemandsSets = chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,TransponderTable)
+for network in NewNetworksDemandsSets:
+    preCompute.processDemands(network)   
+
+#dar a opçao de criar as demandas sem Pnli. Para criar sem GN Model no geral, basta mudar o onlineParameters
+createNonPNLI = True
+if createNonPNLI == True:
+    NetworksLinksToProcessWithoutPNLI = buildNetworkLinkSetWithoutPNLI(NetworksLinksToProcess)
+#write outputs
+netId = 0
+outputFolder = [f.name for f in os.scandir("../Outputs") if f.is_dir()]
+if "Instances" not in outputFolder:
+    os.mkdir("../Outputs/Instances")
+else:
+    shutil.rmtree("../Outputs/Instances")
+    os.mkdir("../Outputs/Instances")
+
+for network in instanceNames:
+    os.mkdir("../Outputs/Instances/" + network)
+    writeLinkFile(NetworksLinksToProcess[netId],network)
+    writeDemandFile(NewNetworksDemandsSets[netId],network)
+    if createNonPNLI == True:
+        writeLinkFileNonPNLI(NetworksLinksToProcessWithoutPNLI[netId],network)
+    netId = netId + 1
