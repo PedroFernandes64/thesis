@@ -98,6 +98,8 @@ with open("../Outputs/jobsHPC.sh", "w") as f:
 
     f.write(stringLine2)
 
+    echoLine = "echo parametersSet${tab1[$SLURM_ARRAY_TASK_ID]}\n"
+    f.write(echoLine)
     lastLine = "./exec parametersSet${tab1[$SLURM_ARRAY_TASK_ID]} >> executionOutputs${tab2[$SLURM_ARRAY_TASK_ID]}.txt" 
     f.write(lastLine)
 
@@ -110,10 +112,18 @@ with open("../Outputs/results.csv", "w") as f:
     line = "Instance;Demands;UB;LB;GAP;Time;OF;Solver;Gn\n"
     f.write(line)
     f.close() 
-
+    
 auxOutputFolder = [f.name for f in os.scandir("../Outputs") if f.is_dir()]
 if "executionOutputs" not in auxOutputFolder:
     os.mkdir("../Outputs/executionOutputs")
+    with open("../Outputs/executionOutputs/about.txt", "w") as f:
+        line = "outputs from hpc"
+        f.write(line)
+        f.close() 
 else:
     shutil.rmtree("../Outputs/executionOutputs")
     os.mkdir("../Outputs/executionOutputs")
+    with open("../Outputs/executionOutputs/about.txt", "w") as f:
+        line = "outputs from hpc"
+        f.write(line)
+        f.close() 

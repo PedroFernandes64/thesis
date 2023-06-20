@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=Instances/European_18_40/Link.csv
+topologyFile=Instances/6nodes9links_6_9/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=Instances/European_18_40/48_demands
+demandToBeRoutedFolder=Instances/6nodes9links_6_9/15_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -16,7 +16,7 @@ GNModel_activation=1
 nbDemandsAtOnce=1000
 formulation=0
 userCuts=0
-obj=4
+obj=2p
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0

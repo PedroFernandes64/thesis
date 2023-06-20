@@ -27,7 +27,7 @@ partitionSlice=15
 ******* Optimization parameters *******
 solver=0
 method=0 
-preprocessingLevel=2
+preprocessingLevel=0
 linearRelaxation=0
 relaxMethod=0
 
@@ -35,8 +35,8 @@ relaxMethod=0
 outputPath=../Parameters/Dump/
 outputLevel=0
 nbSlicesInOutputFile=320
-globalTimeLimit=7200
-timeLimit=7200
+globalTimeLimit=36000
+timeLimit=36000
 
 ******* Fields below are reserved for team LIMOS ********
 lagrangianMultiplier_zero=0 
