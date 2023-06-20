@@ -77,7 +77,7 @@ with open("../Outputs/jobsHPC.sh", "w") as f:
     counter = 1
     for row in jobsRows:
         if counter == 4:
-            line = "#SBATCH --array=0-"+str(len(parameters)-1)+"              # création d'un tableau de 15 jobs indicés de 0 à 14"
+            line = "#SBATCH --array=0-"+str(len(parameters)-1)+"             # création d'un tableau de "+str(len(parameters))+ " jobs indicés de 0 à "+str(len(parameters)-1)
             f.write(str(line)+"\n")
         else:
             line = row[0]
@@ -87,18 +87,18 @@ with open("../Outputs/jobsHPC.sh", "w") as f:
     f.write("\n")
     stringLine1 = "tab1=("
     for parameter in parameters:
-        stringLine1 = stringLine1 + "parametersSet/" + parameter + " "
+        stringLine1 = stringLine1 + "/" + parameter + " "
     stringLine1 = stringLine1 + ")\n"
     f.write(stringLine1)
 
     stringLine2 = "tab2=("
     for parameter in parameters:
-        stringLine2 = stringLine2 + "executionOutputs/" + parameter[:-4] + " "
+        stringLine2 = stringLine2 + "/" + parameter[:-4] + " "
     stringLine2 = stringLine2 + ")\n"
 
     f.write(stringLine2)
 
-    lastLine = "./exe ${tab1[$SLURM_ARRAY_TASK_ID]} >> ${tab2[$SLURM_ARRAY_TASK_ID]}.txt" 
+    lastLine = "./exec parametersSet${tab1[$SLURM_ARRAY_TASK_ID]} >> executionOutputs${tab2[$SLURM_ARRAY_TASK_ID]}.txt" 
     f.write(lastLine)
 
 

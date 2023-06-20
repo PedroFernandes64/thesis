@@ -125,14 +125,14 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     //PEDRO PEDRO PEDRO
     //COMENTADO PARA NAO TENTAR DESENHAR TODOS PATHS SEMPRE
     //Modulo GN MODEL
-    /*
+    
     if (this->getInstance().getInput().isGNModelEnabled() == true){
         std::cout << "GN Model pre processing" << std::endl;
         std::cout << "Computing atributes of the fibers should be done before" << std::endl;
         std::cout << "Computing the OSNR of all paths" << std::endl;
         
         gnModelAllPaths();
-    }*/
+    }
     //PEDRO PEDRO PEDRO
 }
 
@@ -277,15 +277,19 @@ void RSA::gnModelAllPaths(){
     double dbOsnr;
     std::cout << "Calculating OSNR " << std::endl;
     std::cout << "Writing  OSNR's to file..." << std::endl;
-    
-    std::ofstream fw("osnr.txt", std::ofstream::out);
+    std::string outputOSNRName = instance.getInput().getDemandToBeRoutedFolder() + "_d" + std::to_string(instance.getNbDemands()) + "_of" + 
+                std::to_string(instance.getInput().getChosenObj_k(0)) + "_s" + std::to_string(instance.getInput().getChosenMIPSolver()) + "_gn" + 
+                std::to_string(instance.getInput().isGNModelEnabled());
+
+    std::ofstream fw( outputOSNRName+"osnr.txt", std::ofstream::out);
     if (fw.is_open()){   
         for (int i = 0 ; i <toBeRouted.size(); i++){			
             fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;		
             for (int j = 0; j< alldemandsdistances[i].size(); ++j){
                 distance = alldemandsdistances[i][j];     
                 dbOsnr = osnrPath(alldemandsPASElin[i][j], alldemandsPASEnode[i][j], alldemandsPNLI[i][j], toBeRouted[i].getPch());
-                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength()) && (dbOsnr >= toBeRouted[i].getOsnrLimit()-1) ){
+                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength() *1.1 ) && (dbOsnr >= toBeRouted[i].getOsnrLimit()-2) ){
+                //if(alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength() *1.1 ){    
                     fw << "=====Path=====: " << j+1 << std::endl;
                     fw << "PNLI " << alldemandsPNLI[i][j] << std::endl;
                     fw << "PASElin " << alldemandsPASElin[i][j] << std::endl;
