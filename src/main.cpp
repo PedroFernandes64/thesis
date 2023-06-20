@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
 			//removing junk from demand string
 			std::string instanceName = input.getTopologyFile();
 			std::string l = "/Link.csv";
-			std::string i = "../Instances/";
+			std::string i = "Instances/";
 			
 			instanceName.erase(instanceName.find(l),l.length()); //remove l from string
 			instanceName.erase(instanceName.find(i),i.length()); //remove i from string
