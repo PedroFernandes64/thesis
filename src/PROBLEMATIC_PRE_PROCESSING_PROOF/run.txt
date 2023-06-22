@@ -1,0 +1,4 @@
+turn preprocessing on,
+turn lp on
+export output to file
+print erased arcs

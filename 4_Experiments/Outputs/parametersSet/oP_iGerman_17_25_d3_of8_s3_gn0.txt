@@ -1,13 +1,13 @@
 ******* Input File Paths *******
-topologyFile=Nsfnet_14_21/Link.csv
+topologyFile=Instances/German_17_25/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=Nsfnet_14_21/91_demands
+demandToBeRoutedFolder=Instances/German_17_25/3_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
-GNPY_topologyFile=../oopt-gnpy/gnpy/example-data/spain_topo.json 
-GNPY_equipmentFile=../oopt-gnpy/gnpy/example-data/spain_eqpt_config.json 
+GNPY_topologyFile=
+GNPY_equipmentFile=
 
 ******* GNModel parameters *******
 GNModel_activation=0
@@ -25,18 +25,18 @@ partitionSlice=15
 
 
 ******* Optimization parameters *******
-solver=0 
+solver=3
 method=0 
-preprocessingLevel=1
+preprocessingLevel=0
 linearRelaxation=0
 relaxMethod=0
 
 ******* Execution parameters *******
-outputPath=../Parameters/Instances/Pedro/German_D17/10demands
+outputPath=../Parameters/Dump/
 outputLevel=0
 nbSlicesInOutputFile=320
-globalTimeLimit=7200
-timeLimit=7200
+globalTimeLimit=36000
+timeLimit=36000
 
 ******* Fields below are reserved for team LIMOS ********
 lagrangianMultiplier_zero=0 
