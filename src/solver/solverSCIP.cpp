@@ -19,7 +19,7 @@ SolverSCIP::SolverSCIP(const Instance &inst) : AbstractSolver(inst, STATUS_UNKNO
 
     setSCIPParams(inst.getInput());
     implementFormulation();
-    exportFormulation(inst);
+    //exportFormulation(inst);
     count++;
 }
 
@@ -259,8 +259,8 @@ void SolverSCIP::solve(){
     }
     setDurationTime(SCIPgetSolvingTime(_scip));
     if ((SCIPgetStatus(_scip) == SCIP_STATUS_OPTIMAL) || (SCIPgetBestSol(_scip) != NULL)){
-        setUpperBound(SCIPgetPrimalbound(_scip));
-        setLowerBound(SCIPgetDualbound(_scip));
+        setUpperBound(SCIPgetUpperbound(_scip));
+        setLowerBound(SCIPgetLowerbound(_scip));
         setMipGap(SCIPgetGap(_scip));	
     }
     setTreeSize(SCIPgetNNodes(_scip));

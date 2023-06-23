@@ -2,6 +2,7 @@ import csv
 import os
 import shutil
 import random
+import math
 import copy
 import gnModelPrecomputingTool as preCompute
 
@@ -166,12 +167,16 @@ def shortestPath(graph, src, dest):
 
     dist = []	#The output array.  dist[i] will hold the shortest distance from src to i
     sptSet = [] #sptSet[i] will be true if vertex i is included in shortest path tree or shortest distance from src to i is finalized
+    pathNodes = []
+
     srcPos = int(src) - 1
     destPos = int(dest) - 1
     nodeCounter = 0
     while nodeCounter < len(graph):
         dist.append(9999999)
         sptSet.append(False)
+        nodes =[]
+        pathNodes.append(nodes)
         nodeCounter = nodeCounter + 1
     # Distance of source vertex from itself is always 0
     dist[srcPos] = 0
@@ -185,16 +190,69 @@ def shortestPath(graph, src, dest):
         ## Update dist value of the adjacent vertices of the picked vertex.
         v = 0
         while v < len(graph):
-            # Update dist[v] only if is not in sptSet, there is an edge from u to v, and total weight of path from src to  v through u is smaller than current value of dist[v]
+            # Update dist[v] only if is not in sptSet, there is an edge from u to v, and total weight of path from src to  v through u is smaller than current value of dist[v]            
             if (sptSet[v] == False and graph[u][v] > 0 and dist[u] != 999999 and dist[u] + graph[u][v] < dist[v]):
+                if len(pathNodes[v]) > 0:
+                    pathNodes[v].clear()
+
                 dist[v] = dist[u] + graph[u][v]
+                pathNodes[v].append(u)
+                for node in pathNodes[u]:
+                    pathNodes[v].append(node)
             v = v + 1
         nodeCounter1 = nodeCounter1 + 1
         
     chosendistance = dist[destPos]
-    return chosendistance
+    for path in pathNodes:
+        path.reverse()
+    auxCounter = 0
+    while auxCounter < len(pathNodes):
+        pathNodes[auxCounter].append(auxCounter)
+        auxCounter = auxCounter + 1
 
-def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,TransponderTable):
+    return chosendistance, pathNodes[destPos]
+
+def getPaseNode():
+    h = 6.62 * pow(10,-34)
+    lambd = 1545.0 * pow(10,-9)
+    c = 3.0 *pow(10,8)
+    nu = c/lambd
+    NF = 5.0
+    nsp = (1.0/2.0) * pow(10.0,NF/10.0)
+    alpha = 0.2
+    a = math.log(10)*alpha/20 * pow(10,-3)
+    Bn = 12.5 * pow(10,9)
+    Gdb = 20
+    Glin = pow(10,Gdb/10)
+    paseNod = 2.0* h * nu * nsp * (Glin-1.0) * Bn
+    return paseNod
+
+def osnrLhs(links, path):
+    numberOfNodes = len(path)
+    counter = 0
+    lhs = 0 
+    while counter < numberOfNodes - 1:
+        u = path[counter] + 1
+        v = path[counter+1] + 1
+        counter = counter + 1
+        for link in links[1:]:
+            if ((int(link[1]) == u and int(link[2]) == v) or (int(link[1]) == v and int(link[2]) == u)):
+                lhs = lhs + float(link[7]) + float(link[8])
+                break
+    paseNode = getPaseNode()
+    lhs = lhs + (len(path) * paseNode)
+    return lhs
+
+def osnrRhs(slots,osnrLimit):
+    pSat = 50 * pow(10,-3)
+    bwdm = 5000 * pow(10,9)
+    gwdm = pSat/bwdm
+    Bn = 12.5 * pow(10,9)
+    pchDemand = int(slots) * Bn * gwdm
+    rhs = pchDemand/float(osnrLimit)
+    return rhs
+
+def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,TransponderTable, NetworksLinksToProcess):
     iteration = 0
     NewNetworksDemandsSets = []
     #para cada network, fazer o processo
@@ -207,14 +265,16 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
                 originDemand = row[1]
                 destinationDemand = row[2]
                 dataDemand = row[3]
-                shortestDistance = shortestPath(NetworkAsGraphs[iteration], originDemand,destinationDemand)
+                shortestDistance, path = shortestPath(NetworkAsGraphs[iteration], originDemand,destinationDemand)
+                lhs = osnrLhs(NetworksLinksToProcess[iteration],path)
                 feasibleTransponders = []
                 rowCounter2 = 1
                 #para cada transponder da tabela, escolher os feasibles
                 for row2 in TransponderTable:
                     transponder = []
                     if rowCounter2 != 1:
-                        if (int(row2[7]) >= shortestDistance):
+                        rhs = osnrRhs(row2[4],row2[5])             
+                        if (int(row2[7]) >= shortestDistance) and lhs <= rhs:
                             transponder.append(row2[0])
                             transponder.append(row2[1])
                             transponder.append(row2[2])
@@ -239,11 +299,12 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
                 #trying to pick one transponder
                 #para feasible, tentar escolher um
                 lessSlotsId = 0
-                lessSlots = 10
+                lessSlots = 1000
                 rowCounter3 = 1
                 for row3 in feasibleTransponders:
                     if rowCounter3 !=1:
-                        if int(row3[1]) >= int(dataDemand) and int(row3[4]) < lessSlots:
+                        #if int(row3[1]) >= int(dataDemand) and int(row3[1])/int(row3[4]) < lessSlots: #DATA EFFICIENCY VERSION    
+                        if int(row3[1]) >= int(dataDemand) and int(row3[4]) < lessSlots: #DATA SLOTS VERSION
                             lessSlotsId = row3[0]
                             lessSlots = int(row3[4])
                             chosenSlots = row3[4]
@@ -367,7 +428,7 @@ for network in NetworksLinksToProcess:
 NetworkAsGraphs = buildGraphSet(NetworksLinksToProcess,NetworksNodesToProcess)              #this create a graph for each table of links
 NetworksDemandsSets = buildBaseDemandSet(NumberOfNetworks,NetworksNodesToProcess)           #this create a base demand set for each table of nodes
 TransponderTable = buildTransponderTable()
-NewNetworksDemandsSets = chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,TransponderTable)
+NewNetworksDemandsSets = chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,TransponderTable,NetworksLinksToProcess)
 for network in NewNetworksDemandsSets:
     preCompute.processDemands(network)   
 
