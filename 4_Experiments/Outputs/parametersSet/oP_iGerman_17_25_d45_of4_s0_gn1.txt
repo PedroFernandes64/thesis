@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=Instances/6nodes9links_6_9/Link.csv
+topologyFile=Instances/German_17_25/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=Instances/6nodes9links_6_9/15_demands
+demandToBeRoutedFolder=Instances/German_17_25/45_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -10,13 +10,13 @@ GNPY_topologyFile=
 GNPY_equipmentFile=
 
 ******* GNModel parameters *******
-GNModel_activation=0
+GNModel_activation=1
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
 formulation=0
 userCuts=0
-obj=8
+obj=4
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
@@ -25,7 +25,7 @@ partitionSlice=15
 
 
 ******* Optimization parameters *******
-solver=3
+solver=0
 method=0 
 preprocessingLevel=0
 linearRelaxation=0

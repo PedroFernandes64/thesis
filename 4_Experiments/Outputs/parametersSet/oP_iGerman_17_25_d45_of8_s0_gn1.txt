@@ -10,13 +10,13 @@ GNPY_topologyFile=
 GNPY_equipmentFile=
 
 ******* GNModel parameters *******
-GNModel_activation=0
+GNModel_activation=1
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
 formulation=0
 userCuts=0
-obj=2p
+obj=8
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
@@ -25,7 +25,7 @@ partitionSlice=15
 
 
 ******* Optimization parameters *******
-solver=3
+solver=0
 method=0 
 preprocessingLevel=0
 linearRelaxation=0
