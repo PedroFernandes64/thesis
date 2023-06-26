@@ -243,6 +243,15 @@ def osnrLhs(links, path):
     lhs = lhs + (len(path) * paseNode)
     return lhs
 
+
+def osnrPch(slots):
+    pSat = 50 * pow(10,-3)
+    bwdm = 5000 * pow(10,9)
+    gwdm = pSat/bwdm
+    Bn = 12.5 * pow(10,9)
+    pchDemand = int(slots) * Bn * gwdm
+    return pchDemand
+
 def osnrRhs(slots,osnrLimit):
     pSat = 50 * pow(10,-3)
     bwdm = 5000 * pow(10,9)
@@ -266,15 +275,18 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
                 destinationDemand = row[2]
                 dataDemand = row[3]
                 shortestDistance, path = shortestPath(NetworkAsGraphs[iteration], originDemand,destinationDemand)
-                lhs = osnrLhs(NetworksLinksToProcess[iteration],path)
+                osnrdenominator = osnrLhs(NetworksLinksToProcess[iteration],path)
                 feasibleTransponders = []
                 rowCounter2 = 1
                 #para cada transponder da tabela, escolher os feasibles
                 for row2 in TransponderTable:
                     transponder = []
                     if rowCounter2 != 1:
-                        rhs = osnrRhs(row2[4],row2[5])             
-                        if (int(row2[7]) >= shortestDistance) and lhs <= rhs:
+                        #rhs = osnrRhs(row2[4],row2[5])
+                        pch = osnrPch(row2[4])
+                        osnr = pch/osnrdenominator
+                        osnrdb = 10.0 * math.log10(osnr)        
+                        if (int(row2[7]) >= shortestDistance) and float(row2[5]) <= osnrdb:
                             transponder.append(row2[0])
                             transponder.append(row2[1])
                             transponder.append(row2[2])
