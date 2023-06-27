@@ -283,28 +283,91 @@ void RSA::gnModelAllPaths(){
 
     std::ofstream fw( outputOSNRName+"osnr.txt", std::ofstream::out);
     if (fw.is_open()){   
+        std::ofstream outfile;
+        outfile.open("pathData.csv", std::ios_base::app); // append instead of overwrite
+        outfile << "Demand;MIN-ONSR+MAX-LEN;MAX-LEN;MIN-ONSR;TOTAL-PATHS";
         for (int i = 0 ; i <toBeRouted.size(); i++){			
-            fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;		
+            fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;
+            int lessHopsA = 99;
+            int counterA = 0;
+            int lessHopsB = 100;	
+            int counterB = 0;
+            int lessHopsC = 100;	
+            int counterC = 0;
+            int counterD = 0;
             for (int j = 0; j< alldemandsdistances[i].size(); ++j){
+                counterD++;
                 distance = alldemandsdistances[i][j];     
                 dbOsnr = osnrPath(alldemandsPASElin[i][j], alldemandsPASEnode[i][j], alldemandsPNLI[i][j], toBeRouted[i].getPch());
-                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength() *1.1 ) && (dbOsnr >= toBeRouted[i].getOsnrLimit()-2) ){
+                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength() ) && (dbOsnr >= toBeRouted[i].getOsnrLimit()) ){
                 //if(alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength() *1.1 ){    
                     fw << "=====Path=====: " << j+1 << std::endl;
-                    fw << "PNLI " << alldemandsPNLI[i][j] << std::endl;
-                    fw << "PASElin " << alldemandsPASElin[i][j] << std::endl;
-                    fw << "PASEnode " << alldemandsPASEnode[i][j] << std::endl;
-                    fw << "Nodes = ";
+                    fw << "RESPECTS BOTH LIMITS" << std::endl;
+                    fw << "- Hops in total: " << (allpaths[i][j].size()-1) << std::endl;
+                    if ((allpaths[i][j].size()-1) < lessHopsA) {
+                        lessHopsA = (allpaths[i][j].size()-1);
+                    }
+                    //fw << "PNLI " << alldemandsPNLI[i][j] << std::endl;
+                    //fw << "PASElin " << alldemandsPASElin[i][j] << std::endl;
+                    //fw << "PASEnode " << alldemandsPASEnode[i][j] << std::endl;
+                    fw << "- Nodes = ";
                     for (int k = 0; k <allpaths[i][j].size(); ++k)
                         fw << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
                     fw << std::endl;
-                    fw << "Distance = " << distance;
+                    fw << "- Distance = " << distance;
                     fw << " Max length = " << toBeRouted[i].getMaxLength() << std::endl;  
-                    fw << "OSNR en db = " << dbOsnr;
-                    fw << " OSNR limit = " << toBeRouted[i].getOsnrLimit() << std::endl;                    
+                    fw << "- OSNR en db = " << dbOsnr;
+                    fw << " OSNR limit = " << toBeRouted[i].getOsnrLimit() << std::endl;  
+                    counterA++;                  
+                }
+                else{
+                    if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength() ) && (dbOsnr < toBeRouted[i].getOsnrLimit()) ){
+                        fw << "=====Path=====: " << j+1 << std::endl;
+                        fw << "RESPECTS ONLY MAX LENGTH" << std::endl;
+                        fw << "- Hops in total: " << (allpaths[i][j].size()-1) << std::endl;
+                        if ((allpaths[i][j].size()-1) < lessHopsB) {
+                            lessHopsB = (allpaths[i][j].size()-1);
+                        }
+                        fw << "Nodes = ";
+                        for (int k = 0; k <allpaths[i][j].size(); ++k)
+                            fw << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
+                        fw << std::endl;
+                        fw << "Distance = " << distance;
+                        fw << " Max length = " << toBeRouted[i].getMaxLength() << std::endl;  
+                        fw << "OSNR en db = " << dbOsnr;
+                        fw << " OSNR limit = " << toBeRouted[i].getOsnrLimit() << std::endl;  
+                        counterB++;
+                    }
+                    else{
+                        if((alldemandsdistances[i][j] > toBeRouted[i].getMaxLength() ) && (dbOsnr >= toBeRouted[i].getOsnrLimit()) ){
+                            fw << "=====Path=====: " << j+1 << std::endl;
+                            fw << "RESPECTS ONLY OSNR" << std::endl;
+                            fw << "- Hops in total: " << (allpaths[i][j].size()-1) << std::endl;
+                            if ((allpaths[i][j].size()-1) < lessHopsC) {
+                                lessHopsC = (allpaths[i][j].size()-1);
+                            }
+                            fw << "Nodes = ";
+                            for (int k = 0; k <allpaths[i][j].size(); ++k)
+                                fw << getCompactNodeLabel(allpaths[i][j][k]) + 1 << " ";
+                            fw << std::endl;
+                            fw << "Distance = " << distance;
+                            fw << " Max length = " << toBeRouted[i].getMaxLength() << std::endl;  
+                            fw << "OSNR en db = " << dbOsnr;
+                            fw << " OSNR limit = " << toBeRouted[i].getOsnrLimit() << std::endl;  
+                            counterC++;
+                        }
+                    }
+
                 }
             }
-            fw << "------------------------" << std::endl;
+            if (lessHopsA > lessHopsB || lessHopsA > lessHopsC){
+                fw << " CONSTRAINTS FORCED YOU TO ELIMINATE A PATH WITH LESS HOPS = " << std::endl; 
+            }
+            fw << " ||| " << counterA << " PATHS RESPECT OSNR AND MAX LENGHT = " << std::endl;
+            fw << " ||| " << counterB << " PATHS RESPECT ONLY MAX LENGHT = " << std::endl;
+            fw << " ||| " << counterC << " PATHS RESPECT ONLY OSNR = " << std::endl;
+  			outfile << "\n"+std::to_string(i+1) + ";" +  std::to_string(counterA) + ";" + std::to_string(counterB)  + ";" + std::to_string(counterC)+ ";" + std::to_string(counterD);
+            fw << "---------------------------------------------------------" << std::endl;
             }
         fw.close();
     }
