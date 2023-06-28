@@ -11,9 +11,9 @@ for file in files:
     for demandNumber in demandList:
         testSet.append([file,demandNumber.replace("_demands","")])
 
-solverSet= ["0"]
-objSet = ["1","2p","4","8"]
-gnSet=["0","1"]
+solverSet= ["0","3"]
+objSet = ["1", "1p", "2","2p","4","4p","8"]
+gnSet=["0"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()

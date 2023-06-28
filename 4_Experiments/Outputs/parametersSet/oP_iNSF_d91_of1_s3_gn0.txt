@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=
+topologyFile=Instances/NSF/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=
+demandToBeRoutedFolder=Instances/NSF/91_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -16,7 +16,7 @@ GNModel_activation=0
 nbDemandsAtOnce=1000
 formulation=0
 userCuts=0
-obj=
+obj=1
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
@@ -25,7 +25,7 @@ partitionSlice=15
 
 
 ******* Optimization parameters *******
-solver=
+solver=3
 method=0 
 preprocessingLevel=0
 linearRelaxation=0
