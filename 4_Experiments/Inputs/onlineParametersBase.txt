@@ -10,7 +10,7 @@ GNPY_topologyFile=
 GNPY_equipmentFile=
 
 ******* GNModel parameters *******
-GNModel_activation=0
+GNModel_activation=1
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000

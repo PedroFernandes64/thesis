@@ -295,9 +295,24 @@ void FlowForm::setConstraints(){
     this->setSourceConstraints();
     this->setFlowConservationConstraints();
     this->setTargetConstraints();
+    /*
     if (this->getInstance().getInput().isGNModelEnabled() == true){
         this->setOSNRConstraints();
         this->setLengthConstraints();
+    }
+    else{
+        this->setLengthConstraints();
+    }
+    */
+    int osnr = 1;
+    int length = 1;
+    if (this->getInstance().getInput().isGNModelEnabled() == true){
+        if (length == 1) {
+            this->setLengthConstraints();
+        } 
+        if (osnr == 1) {
+            this->setOSNRConstraints();
+        } 
     }
     else{
         this->setLengthConstraints();
