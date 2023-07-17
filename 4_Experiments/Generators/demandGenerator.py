@@ -305,6 +305,7 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
     iteration = 0
     NewNetworksDemandsSets = []
     #para cada network, fazer o processo
+    
     while iteration < NumberOfNetworks:
         newNetworkDemandTable = []
         rowCounter = 1
@@ -408,7 +409,7 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
         NewNetworksDemandsSets.append(newNetworkDemandTable)
         iteration = iteration + 1
     #print auxiliar
-    counter = 0
+    #counter = 0
     '''
     for instance in NewNetworksDemandsSets:
         print("nodes = " , len(NetworkAsGraphs[counter]))
@@ -418,6 +419,7 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
             print(rowzita)
         counter = counter + 1
     '''
+   
     return NewNetworksDemandsSets
 
 def chooseTransponderOSNR(NumberOfNetworks,NetworksDemandsSets,NetworkAsOSNRGraphs,TransponderTable, NetworksLinksToProcess):
@@ -445,7 +447,9 @@ def chooseTransponderOSNR(NumberOfNetworks,NetworksDemandsSets,NetworkAsOSNRGrap
                         #rhs = osnrRhs(row2[4],row2[5])
                         pch = osnrPch(row2[4])
                         osnr = pch/osnrdenominator
-                        osnrdb = 10.0 * math.log10(osnr)        
+                        osnrdb = 10.0 * math.log10(osnr)    
+                        print("shortest osnr",shortestOSNRLength)    
+                        print("osnr db",osnrdb)   
                         if (int(row2[7]) >= shortestOSNRLength) and float(row2[5]) <= osnrdb:
                             transponder.append(row2[0])
                             transponder.append(row2[1])
@@ -467,6 +471,7 @@ def chooseTransponderOSNR(NumberOfNetworks,NetworksDemandsSets,NetworkAsOSNRGrap
                         transponder.append(row2[7])
                         feasibleTransponders.append(transponder) 
                     rowCounter2 = rowCounter2 + 1
+                print(len(transponder))
                 #for rowAux in feasibleTransponders:
                 #trying to pick one transponder
                 #para feasible, tentar escolher um
@@ -501,6 +506,7 @@ def chooseTransponderOSNR(NumberOfNetworks,NetworksDemandsSets,NetworkAsOSNRGrap
                         secondaryLessSlots = 10
                         secondaryRowCounter3 = 1
                         for row4 in feasibleTransponders:
+                            #print(row4)
                             if secondaryRowCounter3 !=1:
                                 if int(row4[1]) >= int(dataDemand) and int(row4[4]) < secondaryLessSlots:
                                     secondaryLessSlotsId = row4[0]
@@ -528,7 +534,7 @@ def chooseTransponderOSNR(NumberOfNetworks,NetworksDemandsSets,NetworkAsOSNRGrap
         NewNetworksDemandsSets.append(newNetworkDemandTable)
         iteration = iteration + 1
     #print auxiliar
-    counter = 0
+    #counter = 0
     '''
     for instance in NewNetworksDemandsSets:
         print("nodes = " , len(NetworkAsGraphs[counter]))
@@ -620,13 +626,14 @@ NetworksDemandsSets = buildBaseDemandSet(NumberOfNetworks,NetworksNodesToProcess
 TransponderTable = buildTransponderTable()
 
 NewNetworksDemandsSets = chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,TransponderTable,NetworksLinksToProcess)
-NewNetworksOSNRDemandsSets = chooseTransponderOSNR(NumberOfNetworks,NetworksDemandsSets,NetworkAsOSNRGraphs,TransponderTable,NetworksLinksToProcess)
+
+#NewNetworksOSNRDemandsSets = chooseTransponderOSNR(NumberOfNetworks,NetworksDemandsSets,NetworkAsOSNRGraphs,TransponderTable,NetworksLinksToProcess)
 
 for network in NewNetworksDemandsSets:
     preCompute.processDemands(network)   
 
-for network in NewNetworksOSNRDemandsSets:
-    preCompute.processDemands(network)  
+#for network in NewNetworksOSNRDemandsSets:
+#    preCompute.processDemands(network)  
 
 #dar a opçao de criar as demandas sem Pnli. Para criar sem GN Model no geral, basta mudar o onlineParameters
 createNonPNLI = True
@@ -645,7 +652,7 @@ for network in instanceNames:
     os.mkdir("../Outputs/Instances/" + network)
     writeLinkFile(NetworksLinksToProcess[netId],network)
     writeDemandFile(NewNetworksDemandsSets[netId],network)
-    writeDemandFile2(NewNetworksOSNRDemandsSets[netId],network)
+    #writeDemandFile2(NewNetworksOSNRDemandsSets[netId],network)
     if createNonPNLI == True:
         writeLinkFileNonPNLI(NetworksLinksToProcessWithoutPNLI[netId],network)
     netId = netId + 1

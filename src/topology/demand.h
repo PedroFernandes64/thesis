@@ -27,6 +27,9 @@ private:
 	double pathLength;	/**< The length of the path on which demand is routed. @warning Equals -1 if not routed yet. **/
 	int nbHops;			/**< The number of hops of the path on which demand is routed. @warning Equals -1 if not routed yet. **/
 	
+	double pchC;			/**< Refers to the power of the channel of the demand **/
+	double pchL;			/**< Refers to the power of the channel of the demand **/
+
 	std::string mode;	/**< The GNPY mode of transmission. **/
 	std::string spacing;/**< The GNPY spacing. **/
 	std::string band;	/**< The GNPY path_bandwidth. **/
@@ -36,11 +39,11 @@ public:
 	/*									Constructors										*/
 	/****************************************************************************************/
 	/** Constructor. @param i Id. @param s Source node id. @param t Target node id. @param l Load. 
-	 * @param maxL Maximum length. @param osL Minimun OSNR. @param p Power of the channel. @param route Whether the demand is already routed. 	
+	 * @param maxL Maximum length. @param osL Minimun OSNR. @param p Power of the channel. @param pc Power of the channel. @param pl Power of the channel. @param route Whether the demand is already routed. 	
 	 * @param pos The last slice position assigned to the demand. @param len The length of the path assigned to the demand. 
 	 * @param hop The number of hops in the path assigned to the demand. * @param m The GNPY mode @param space The GNPY spacing 
 	 * @param pathBand The GNPY path_bandwidth. **/
-	Demand(int i = -1, int s = -1, int t = -1, int l = 0, double maxL = 0, double osL = 1, double p = 1, bool route=false, int pos=-1, double len = 0, int hop = 0, std::string m="", std::string space="",std::string pathBand="");
+	Demand(int i = -1, int s = -1, int t = -1, int l = 0, double maxL = 0, double osL = 1, double p = 1,double pc = 1,double pl = 1, bool route=false, int pos=-1, double len = 0, int hop = 0, std::string m="", std::string space="",std::string pathBand="");
 
 	/****************************************************************************************/
 	/*										Getters											*/
@@ -74,6 +77,10 @@ public:
 
 	/** Returns the power of the channel of the demand **/
 	double getPch() const { return pch; }
+
+	//TESTS C + L
+	double getPchC() const { return pchC; }
+	double getPchL() const { return pchL; }
 	
 
 	/** Returns true if the demand has already been routed. **/
@@ -117,6 +124,9 @@ public:
 
 	/** Changes the power of the channel of the demand **/
 	void setPch(double p) { this->pch = p; }
+
+	void setPchC(double p) { this->pchC = p; }
+	void setPchL(double p) { this->pchL = p; }
 
 	/** Changes the status of a demand. @param b If true, demand becomes routed. Otherwise, it becomes non-routed.**/
 	void setRouted(bool b) { this->routed = b; }

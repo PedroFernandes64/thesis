@@ -44,6 +44,8 @@ private:
 
 	// PEDRO PEDRO PEDRO
 	double paseNode;						/**< Stores the value of the Pase noise of a node amplifier **/
+	double paseNodeC;
+	double paseNodeL;
 
 public:
 
@@ -118,6 +120,8 @@ public:
 	// PEDRO PEDRO PEDRO
 	/** Returns the value of the Pase noise of a node amplifier **/
 	double getPaseNode() const { return this->paseNode; }
+	double getPaseNodeC() const { return this->paseNodeC; }
+	double getPaseNodeL() const { return this->paseNodeL; }
 	
 	/****************************************************************************************/
 	/*										Setters											*/
@@ -209,6 +213,8 @@ public:
 
 	//PEDRO PEDRO PEDRO
 	void setPaseNode();	
+	void setPaseNodeC();	
+	void setPaseNodeL();	
 	/****************************************************************************************/
 	/*										Display											*/
 	/****************************************************************************************/

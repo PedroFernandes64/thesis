@@ -172,10 +172,18 @@ void RSA::printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_
     visited[u] = false;
 }
 
-double RSA::osnrPath(double paselin, double pasenode, double pnli, double pch){
+double RSA::osnrPathC(double paselinc, double pasenodec, double pnlic, double pchc){
     double osnr;
     double osnrdb;		
-    osnr = pch/(paselin + pasenode + pnli);
+    osnr = pchc/(paselinc + pasenodec + pnlic);
+    osnrdb = 10.0 * log10(osnr);
+    return osnrdb;
+}
+
+double RSA::osnrPathL(double paselinl, double pasenodel, double pnlil, double pchl){
+    double osnr;
+    double osnrdb;		
+    osnr = pchl/(paselinl + pasenodel + pnlil);
     osnrdb = 10.0 * log10(osnr);
     return osnrdb;
 }
@@ -216,28 +224,40 @@ void RSA::gnModelAllPaths(){
     }
     //manage paths
     std::vector<std::vector<double> > alldemandsdistances;
-    std::vector<std::vector<double> > alldemandsPASEnode;
-    std::vector<std::vector<double> > alldemandsPASElin;
-    std::vector<std::vector<double> > alldemandsPNLI;
+    std::vector<std::vector<double> > alldemandsPASEnodeC;
+    std::vector<std::vector<double> > alldemandsPASElinC;
+    std::vector<std::vector<double> > alldemandsPNLIC;
+    std::vector<std::vector<double> > alldemandsPASEnodeL;
+    std::vector<std::vector<double> > alldemandsPASElinL;
+    std::vector<std::vector<double> > alldemandsPNLIL;
     std::vector<double> thisdemanddistances;
-    std::vector<double> thisdemandPASEnode;
-    std::vector<double> thisdemandPASElin;
-    std::vector<double> thisdemandPNLI;
+    std::vector<double> thisdemandPASEnodeC;
+    std::vector<double> thisdemandPASElinC;
+    std::vector<double> thisdemandPNLIC;
+    std::vector<double> thisdemandPASEnodeL;
+    std::vector<double> thisdemandPASElinL;
+    std::vector<double> thisdemandPNLIL;
     int currentnode;
     int nextnode;
     int vertexamplis;
     double length;
-    double pnliPath;
-    double paseLinPath;
-    double paseNodepath;
+    double pnliPathC;
+    double paseLinPathC;
+    double paseNodepathC;
+    double pnliPathL;
+    double paseLinPathL;
+    double paseNodepathL;
     int fibernumberinpath;
 
     for (int i = 0; i <allpaths.size(); ++i){
         for (int j = 0; j <allpaths[i].size(); ++j){
             vertexamplis = 0;
-            pnliPath = 0;
-            paseLinPath = 0;
-            paseNodepath = 0;  
+            pnliPathC = 0;
+            paseLinPathC = 0;
+            paseNodepathC = 0;
+            pnliPathL = 0;
+            paseLinPathL = 0;
+            paseNodepathL = 0;    
             length = 0;          
             fibernumberinpath = 0;
             for (int k = 0; k <allpaths[i][j].size()-1; ++k){
@@ -247,25 +267,39 @@ void RSA::gnModelAllPaths(){
                 vertexamplis++;
                 length += instance.getPhysicalLinkBetween(currentnode,nextnode).getLength();
                 //PNLI
-                pnliPath += instance.getPhysicalLinkBetween(currentnode,nextnode).getPnli();
+                pnliPathC += instance.getPhysicalLinkBetween(currentnode,nextnode).getPnliC();
                 //PASE
-                paseLinPath += instance.getPhysicalLinkBetween(currentnode,nextnode).getPaseLine();
+                paseLinPathC += instance.getPhysicalLinkBetween(currentnode,nextnode).getPaseLineC();
+
+                pnliPathL += instance.getPhysicalLinkBetween(currentnode,nextnode).getPnliL();
+                //PASE
+                paseLinPathL += instance.getPhysicalLinkBetween(currentnode,nextnode).getPaseLineL();
             }
             vertexamplis = vertexamplis +1;
-            paseNodepath = vertexamplis * instance.getPaseNode();
+            paseNodepathC = vertexamplis * instance.getPaseNodeC();
+            paseNodepathL = vertexamplis * instance.getPaseNodeL();
             thisdemanddistances.push_back(length);
-            thisdemandPASEnode.push_back(paseNodepath);
-            thisdemandPASElin.push_back(paseLinPath);
-            thisdemandPNLI.push_back(pnliPath);
+            thisdemandPASEnodeC.push_back(paseNodepathC);
+            thisdemandPASElinC.push_back(paseLinPathC);
+            thisdemandPNLIC.push_back(pnliPathC);
+            thisdemandPASEnodeL.push_back(paseNodepathL);
+            thisdemandPASElinL.push_back(paseLinPathL);
+            thisdemandPNLIL.push_back(pnliPathL);
         }
         alldemandsdistances.push_back(thisdemanddistances);
-        alldemandsPASEnode.push_back(thisdemandPASEnode);
-        alldemandsPASElin.push_back(thisdemandPASElin);
-        alldemandsPNLI.push_back(thisdemandPNLI);
+        alldemandsPASEnodeC.push_back(thisdemandPASEnodeC);
+        alldemandsPASElinC.push_back(thisdemandPASElinC);
+        alldemandsPNLIC.push_back(thisdemandPNLIC);
+        alldemandsPASEnodeL.push_back(thisdemandPASEnodeL);
+        alldemandsPASElinL.push_back(thisdemandPASElinL);
+        alldemandsPNLIL.push_back(thisdemandPNLIL);
         thisdemanddistances.clear();
-        thisdemandPASEnode.clear();
-        thisdemandPNLI.clear();
-        thisdemandPASElin.clear();
+        thisdemandPASEnodeC.clear();
+        thisdemandPNLIC.clear();
+        thisdemandPASElinC.clear();
+        thisdemandPASEnodeL.clear();
+        thisdemandPNLIL.clear();
+        thisdemandPASElinL.clear();
     }
 
     //Computing OSNR possible paths for all possible demands
@@ -274,7 +308,8 @@ void RSA::gnModelAllPaths(){
     //PATH
     double distance;
     //OSNR
-    double dbOsnr;
+    double dbOsnrC;
+    double dbOsnrL;
     std::cout << "Calculating OSNR " << std::endl;
     std::cout << "Writing  OSNR's to file..." << std::endl;
     std::string outputOSNRName = instance.getInput().getDemandToBeRoutedFolder() + "_d" + std::to_string(instance.getNbDemands()) + "_of" + 
@@ -298,8 +333,18 @@ void RSA::gnModelAllPaths(){
             for (int j = 0; j< alldemandsdistances[i].size(); ++j){
                 counterD++;
                 distance = alldemandsdistances[i][j];     
-                dbOsnr = osnrPath(alldemandsPASElin[i][j], alldemandsPASEnode[i][j], alldemandsPNLI[i][j], toBeRouted[i].getPch());
-                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength() ) && (dbOsnr >= toBeRouted[i].getOsnrLimit()) ){
+                dbOsnrC = osnrPathC(alldemandsPASElinC[i][j], alldemandsPASEnodeC[i][j], alldemandsPNLIC[i][j], toBeRouted[i].getPchC());
+                dbOsnrL = osnrPathL(alldemandsPASElinL[i][j], alldemandsPASEnodeL[i][j], alldemandsPNLIL[i][j], toBeRouted[i].getPchL());
+                outfile << "osnrC;" << dbOsnrC << ";osnrL;" << dbOsnrL << std::endl; 
+            }
+
+            /*POUR CLAIO
+            for (int j = 0; j< alldemandsdistances[i].size(); ++j){
+                counterD++;
+                distance = alldemandsdistances[i][j];     
+                dbOsnrC = osnrPathC(alldemandsPASElinC[i][j], alldemandsPASEnodeC[i][j], alldemandsPNLIC[i][j], toBeRouted[i].getPchC());
+                dbOsnrC = osnrPathL(alldemandsPASElinL[i][j], alldemandsPASEnodeL[i][j], alldemandsPNLIL[i][j], toBeRouted[i].getPchL());
+                if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength() ) && (dbOsnrC >= toBeRouted[i].getOsnrLimit()) ){
                 //if(alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength() *1.1 ){    
                     fw << "=====Path=====: " << j+1 << std::endl;
                     fw << "RESPECTS BOTH LIMITS" << std::endl;
@@ -316,12 +361,12 @@ void RSA::gnModelAllPaths(){
                     fw << std::endl;
                     fw << "- Distance = " << distance;
                     fw << " Max length = " << toBeRouted[i].getMaxLength() << std::endl;  
-                    fw << "- OSNR en db = " << dbOsnr;
+                    fw << "- OSNR en db = " << dbOsnrC;
                     fw << " OSNR limit = " << toBeRouted[i].getOsnrLimit() << std::endl;  
                     counterA++;                  
                 }
                 else{
-                    if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength() ) && (dbOsnr < toBeRouted[i].getOsnrLimit()) ){
+                    if((alldemandsdistances[i][j] <= toBeRouted[i].getMaxLength() ) && (dbOsnrC < toBeRouted[i].getOsnrLimit()) ){
                         fw << "=====Path=====: " << j+1 << std::endl;
                         fw << "RESPECTS ONLY MAX LENGTH" << std::endl;
                         fw << "- Hops in total: " << (allpaths[i][j].size()-1) << std::endl;
@@ -334,12 +379,12 @@ void RSA::gnModelAllPaths(){
                         fw << std::endl;
                         fw << "Distance = " << distance;
                         fw << " Max length = " << toBeRouted[i].getMaxLength() << std::endl;  
-                        fw << "OSNR en db = " << dbOsnr;
+                        fw << "OSNR en db = " << dbOsnrC;
                         fw << " OSNR limit = " << toBeRouted[i].getOsnrLimit() << std::endl;  
                         counterB++;
                     }
                     else{
-                        if((alldemandsdistances[i][j] > toBeRouted[i].getMaxLength() ) && (dbOsnr >= toBeRouted[i].getOsnrLimit()) ){
+                        if((alldemandsdistances[i][j] > toBeRouted[i].getMaxLength() ) && (dbOsnrC >= toBeRouted[i].getOsnrLimit()) ){
                             fw << "=====Path=====: " << j+1 << std::endl;
                             fw << "RESPECTS ONLY OSNR" << std::endl;
                             fw << "- Hops in total: " << (allpaths[i][j].size()-1) << std::endl;
@@ -352,7 +397,7 @@ void RSA::gnModelAllPaths(){
                             fw << std::endl;
                             fw << "Distance = " << distance;
                             fw << " Max length = " << toBeRouted[i].getMaxLength() << std::endl;  
-                            fw << "OSNR en db = " << dbOsnr;
+                            fw << "OSNR en db = " << dbOsnrC;
                             fw << " OSNR limit = " << toBeRouted[i].getOsnrLimit() << std::endl;  
                             counterC++;
                         }
@@ -360,6 +405,8 @@ void RSA::gnModelAllPaths(){
 
                 }
             }
+            */
+            /*
             if (lessHopsA > lessHopsB || lessHopsA > lessHopsC){
                 fw << " CONSTRAINTS FORCED YOU TO ELIMINATE A PATH WITH LESS HOPS = " << std::endl; 
             }
@@ -368,6 +415,7 @@ void RSA::gnModelAllPaths(){
             fw << " ||| " << counterC << " PATHS RESPECT ONLY OSNR = " << std::endl;
   			outfile << "\n"+std::to_string(i+1) + ";" +  std::to_string(counterA) + ";" + std::to_string(counterB)  + ";" + std::to_string(counterC)+ ";" + std::to_string(counterD);
             fw << "---------------------------------------------------------" << std::endl;
+            */
             }
         fw.close();
     }

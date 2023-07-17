@@ -25,8 +25,11 @@ private:
 	std::vector<Slice> spectrum;	/**< Fiber's spectrum. **/
 	int lineAmplifiers;				/**< Number of line amplifiers. **/
 	double pnli;					/**< Pnli contribution of this fiber**/
+	double pnliC;	
+	double pnliL;	
 	double paseLine;				/**< Pase Line contribution of this fiber**/
-
+	double paseLineC;
+	double paseLineL;
 public:
 	/****************************************************************************************/
 	/*										Constructor										*/
@@ -37,7 +40,7 @@ public:
 	 * @param c Cost of routing a demand through the fiber. @param la Number of line amplifiers. @param pn Pnli of the fiber. 
 	 * @param pa Pase line of the fiber.**/
 
-	Fiber(int i, int ind, int s, int t, double len = 0.0, int nb = 1, double c = 0.0, int la = 1, double pn = 0.0, double pa = 0.0);
+	Fiber(int i, int ind, int s, int t, double len = 0.0, int nb = 1, double c = 0.0, int la = 1, double pn = 0.0, double pnC = 0.0, double pnL = 0.0, double pa = 0.0, double paC = 0.0, double paL = 0.0);
 
 	Fiber(const Fiber &);
 
@@ -68,9 +71,13 @@ public:
 
 	/** Returns the Pnli **/
 	double getPnli() const { return pnli; }
+	double getPnliC() const { return pnliC; }
+	double getPnliL() const { return pnliL; }
 
 	/** Returns the Pase line **/
 	double getPaseLine() const { return paseLine; }
+	double getPaseLineC() const { return paseLineC; }
+	double getPaseLineL() const { return paseLineL; }
 
 	/** Returns the number of line amplifiers **/
 	int getLineAmplifiers() const { return lineAmplifiers; }
@@ -117,9 +124,13 @@ public:
 
 	/** Changes the pnli @param pn New number **/
 	void setPnli(double pn) { this->pnli = pn; }
+	void setPnliC(double pn) { this->pnliC = pn; }
+	void setPnliL(double pn) { this->pnliL = pn; }
 
 	/** Changes the pase line @param pa New number **/
 	void setPaseLine(double pa) { this->paseLine = pa; }
+	void setPaseLineC(double pa) { this->paseLineC = pa; }
+	void setPaseLineL(double pa) { this->paseLineL = pa; }
 
 	/** Changes the number of line amplifiers @param la New number **/
 	void setLineAmplifiers(int la) { this->lineAmplifiers = la; }
