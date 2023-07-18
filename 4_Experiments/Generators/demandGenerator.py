@@ -264,7 +264,7 @@ def osnrLhs(links, path):
         counter = counter + 1
         for link in links[1:]:
             if ((int(link[1]) == u and int(link[2]) == v) or (int(link[1]) == v and int(link[2]) == u)):
-                lhs = lhs + float(link[7]) + float(link[8])
+                lhs = lhs + float(link[7]) + float(link[9])
                 break
     paseNode = getPaseNode()
     lhs = lhs + (len(path) * paseNode)
@@ -326,7 +326,8 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
                         #rhs = osnrRhs(row2[4],row2[5])
                         pch = osnrPch(row2[4])
                         osnr = pch/osnrdenominator
-                        osnrdb = 10.0 * math.log10(osnr)        
+                        osnrdb = 10.0 * math.log10(osnr)       
+                        print(row2[7],"-",row2[5]) 
                         if (int(row2[7]) >= shortestDistance) and float(row2[5]) <= osnrdb:
                             transponder.append(row2[0])
                             transponder.append(row2[1])

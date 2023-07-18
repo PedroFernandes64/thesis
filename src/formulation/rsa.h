@@ -82,6 +82,8 @@ protected:
         \note (*vecArcLineAmplifiers[i])[a] is the arc amplifiers of arc a in the graph associated with the i-th demand to be routed. **/
     std::vector< std::shared_ptr<ArcCost> > vecArcPaseLine;
 
+    std::vector< std::shared_ptr<ArcCost> > vecArcNoise;
+
     /** A list of pointers to the map storing the arc lengths with hop penalties included of the graph associated with each demand to be routed. 
         \note (*vecArcLengthWithPenalty[i])[a] is the length with penalties of arc a in the graph associated with the i-th demand to be routed. **/
     std::vector< std::shared_ptr<ArcCost> > vecArcLengthWithPenalty;
@@ -213,7 +215,8 @@ public:
     double getArcPnli(const ListDigraph::Arc &a, int d) const  {return (*vecArcPnli[d])[a]; }
     /** Returns the pase of an arc in a graph. @param a The arc. @param d The graph index. **/
     double getArcPaseLine(const ListDigraph::Arc &a, int d) const  {return (*vecArcPaseLine[d])[a]; }
-
+    double getArcNoise(const ListDigraph::Arc &a, int d) const  {return (*vecArcNoise[d])[a]; }
+    
     /** Returns the length with hop penalties of an arc in a graph. @param a The arc. @param d The graph index. **/
     double getArcLengthWithPenalties(const ListDigraph::Arc &a, int d) const  {return (*vecArcLengthWithPenalty[d])[a]; }
 
@@ -333,6 +336,7 @@ public:
     void setArcPnli(const ListDigraph::Arc &a, int d, double val) { (*vecArcPnli[d])[a] = val; }
     /** Changes the pase of an arc in a graph. @param a The arc. @param d The graph index. @param val The new pase. **/
     void setArcPaseLine(const ListDigraph::Arc &a, int d, double val) { (*vecArcPaseLine[d])[a] = val; }
+    void setArcNoise(const ListDigraph::Arc &a, int d, double val) { (*vecArcNoise[d])[a] = val; }
 
     /** Changes the length with hop penalty of an arc in a graph. @param a The arc. @param d The graph index. @param val The new length. **/
     void setArcLengthWithPenalty(const ListDigraph::Arc &a, int d, double val) { (*vecArcLengthWithPenalty[d])[a] = val; }
@@ -398,9 +402,11 @@ public:
 
     /** Performs preprocessing based on the arc lengths and returns true if at least one arc is erased. An arc (u,v) can only be part of a solution if the distance from demand source to u, plus the distance from v to demand target plus the arc length is less than or equal to the demand's maximum length. **/
     bool lengthPreprocessing();
+    bool OSNRPreprocessing();
 
     /** Returns the distance of the shortest path from source to target passing through arc a. \note If there exists no st-path, returns +Infinity. @param d The graph index. @param source The source node.  @param a The arc required to be present. @param target The target node.  **/
     double shortestDistance(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
+    double shortestOSNRPartial(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
 
     // PEDRO PEDRO PEDRO
     /** Performs GN Model over all possibilities of path**/
