@@ -415,6 +415,7 @@ public:
     std::vector<std::vector<std::vector<ListGraph::Node> > > allpaths;
     double osnrPathC(double pl, double pn, double pnli, double pc);
     double osnrPathL(double pl, double pn, double pnli, double pc);
+    double osnrPathS(double pl, double pn, double pnli, double pc);
     void gnModelAllPaths();
     void printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_index);
 

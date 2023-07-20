@@ -1,0 +1,302 @@
+PARAMETER FILE: onlineParameters.txt
+Getting input file paths...
+Getting topology file...
+... ../InstancesCLS-brest-juillet/European_18_40/Link.csv
+WARNING: Field 'initialMappingDemandFile=' is empty.
+WARNING: Field 'initialMappingAssignmentFile=' is empty.
+Getting GNPY parameters...
+Getting GNMODEL parameters...
+Getting formulation parameters...
+Getting optimization parameters...
+Getting execution parameters...
+Populating online demand files...
+Finish reading input.
+TOPOLOGY FILE: ../InstancesCLS-brest-juillet/European_18_40/Link.csv
+ROUTED DEMANDS FILE: 
+INITIAL ASSIGNMENT FILE: 
+All information from input is consistent.
+> Number of online demand files: 1
+--- READING INSTANCE... --- 
+--- CREATING INITIAL MAPPING... --- 
+Reading ../InstancesCLS-brest-juillet/European_18_40/Link.csv.
+Creating edge #1. 1 -- 5. nb slices: 80, length: 523, cost: 0, amplis: 7, pnliC: 1.65497e-07, paseC: 1.07449e-06, pnliL: 1.08721e-07, paseL: 1.67906e-06, pnliS: 2.91925e-07, paseS: 2.515e-06
+Creating edge #2. 1 -- 14. nb slices: 80, length: 1282, cost: 0, amplis: 17, pnliC: 4.02762e-07, paseC: 2.69747e-06, pnliL: 2.64463e-07, paseL: 4.22778e-06, pnliS: 7.10444e-07, paseS: 6.33261e-06
+Creating edge #3. 1 -- 15. nb slices: 80, length: 592, cost: 0, amplis: 8, pnliC: 1.88721e-07, paseC: 1.18693e-06, pnliL: 1.2404e-07, paseL: 1.84915e-06, pnliS: 3.3289e-07, paseS: 2.76976e-06
+Creating edge #4. 1 -- 17. nb slices: 80, length: 264, cost: 0, amplis: 4, pnliC: 9.15033e-08, paseC: 4.04315e-07, pnliL: 6.0534e-08, paseL: 6.09083e-07, pnliS: 1.61405e-07, paseS: 9.1232e-07
+Creating edge #5. 1 -- 18. nb slices: 80, length: 257, cost: 0, amplis: 4, pnliC: 9.07329e-08, paseC: 3.71436e-07, pnliL: 6.01238e-08, paseL: 5.5552e-07, pnliS: 1.60046e-07, paseS: 8.32091e-07
+Creating edge #6. 2 -- 4. nb slices: 80, length: 264, cost: 0, amplis: 4, pnliC: 9.15033e-08, paseC: 4.04315e-07, pnliL: 6.0534e-08, paseL: 6.09083e-07, pnliS: 1.61405e-07, paseS: 9.1232e-07
+Creating edge #7. 2 -- 5. nb slices: 80, length: 649, cost: 0, amplis: 9, pnliC: 2.10991e-07, paseC: 1.22025e-06, pnliL: 1.3887e-07, paseL: 1.88589e-06, pnliS: 3.72174e-07, paseS: 2.82479e-06
+Creating edge #8. 2 -- 9. nb slices: 80, length: 187, cost: 0, amplis: 3, pnliC: 6.73642e-08, paseC: 2.53754e-07, pnliL: 4.47245e-08, paseL: 3.76542e-07, pnliS: 1.18826e-07, paseS: 5.64006e-07
+Creating edge #9. 2 -- 10. nb slices: 80, length: 173, cost: 0, amplis: 3, pnliC: 6.54378e-08, paseC: 2.01734e-07, pnliL: 4.36712e-08, paseL: 2.93746e-07, pnliS: 1.15428e-07, paseS: 4.3999e-07
+Creating edge #10. 2 -- 16. nb slices: 80, length: 320, cost: 0, amplis: 4, pnliC: 9.59271e-08, paseC: 7.8881e-07, pnliL: 6.28064e-08, paseL: 1.26089e-06, pnliS: 1.69209e-07, paseS: 1.88864e-06
+Creating edge #11. 3 -- 5. nb slices: 80, length: 356, cost: 0, amplis: 5, pnliC: 1.16841e-07, paseC: 6.49015e-07, pnliL: 7.6956e-08, paseL: 9.99201e-07, pnliS: 2.061e-07, paseS: 1.49666e-06
+Creating edge #12. 3 -- 6. nb slices: 80, length: 520, cost: 0, amplis: 7, pnliC: 1.65278e-07, paseC: 1.05279e-06, pnliL: 1.0861e-07, paseL: 1.64216e-06, pnliS: 2.9154e-07, paseS: 2.45973e-06
+Creating edge #13. 3 -- 11. nb slices: 80, length: 482, cost: 0, amplis: 7, pnliC: 1.62122e-07, paseC: 8.12053e-07, pnliL: 1.06982e-07, paseL: 1.23797e-06, pnliS: 2.85972e-07, paseS: 1.8543e-06
+Creating edge #14. 3 -- 18. nb slices: 80, length: 634, cost: 0, amplis: 8, pnliC: 1.91507e-07, paseC: 1.52268e-06, pnliL: 1.25441e-07, paseL: 2.42611e-06, pnliS: 3.37805e-07, paseS: 3.63397e-06
+Creating edge #15. 4 -- 7. nb slices: 80, length: 778, cost: 0, amplis: 10, pnliC: 2.38502e-07, paseC: 1.77712e-06, pnliL: 1.56362e-07, paseL: 2.81392e-06, pnliS: 4.20701e-07, paseS: 4.21486e-06
+Creating edge #16. 4 -- 9. nb slices: 80, length: 288, cost: 0, amplis: 4, pnliC: 9.37378e-08, paseC: 5.3946e-07, pnliL: 6.17013e-08, paseL: 8.33343e-07, pnliS: 1.65347e-07, paseS: 1.24823e-06
+Creating edge #17. 4 -- 12. nb slices: 80, length: 1452, cost: 0, amplis: 19, pnliC: 4.51456e-07, paseC: 3.16284e-06, pnliL: 2.96237e-07, paseL: 4.97859e-06, pnliS: 7.96337e-07, paseS: 7.45722e-06
+Creating edge #18. 4 -- 13. nb slices: 80, length: 1051, cost: 0, amplis: 14, pnliC: 3.31351e-07, paseC: 2.18579e-06, pnliL: 2.17623e-07, paseL: 3.42085e-06, pnliS: 5.8448e-07, paseS: 5.12395e-06
+Creating edge #19. 4 -- 15. nb slices: 80, length: 790, cost: 0, amplis: 10, pnliC: 2.39236e-07, paseC: 1.88098e-06, pnliL: 1.56728e-07, paseL: 2.99378e-06, pnliS: 4.21995e-07, paseS: 4.48425e-06
+Creating edge #20. 4 -- 16. nb slices: 80, length: 342, cost: 0, amplis: 5, pnliC: 1.15586e-07, paseC: 5.67425e-07, pnliL: 7.6303e-08, paseL: 8.63381e-07, pnliS: 2.03885e-07, paseS: 1.29322e-06
+Creating edge #21. 5 -- 9. nb slices: 80, length: 601, cost: 0, amplis: 8, pnliC: 1.89374e-07, paseC: 1.25221e-06, pnliL: 1.24371e-07, paseL: 1.96021e-06, pnliS: 3.34042e-07, paseS: 2.93611e-06
+Creating edge #22. 5 -- 10. nb slices: 80, length: 574, cost: 0, amplis: 8, pnliC: 1.87312e-07, paseC: 1.0661e-06, pnliL: 1.23318e-07, paseL: 1.64515e-06, pnliS: 3.30405e-07, paseS: 2.4642e-06
+Creating edge #23. 5 -- 18. nb slices: 80, length: 279, cost: 0, amplis: 4, pnliC: 9.29682e-08, paseC: 4.84361e-07, pnliL: 6.13033e-08, paseL: 7.41171e-07, pnliS: 1.63989e-07, paseS: 1.11017e-06
+Creating edge #24. 6 -- 11. nb slices: 80, length: 417, cost: 0, amplis: 6, pnliC: 1.39317e-07, paseC: 7.17876e-07, pnliL: 9.18844e-08, paseL: 1.09734e-06, pnliS: 2.45745e-07, paseS: 1.64367e-06
+Creating edge #25. 7 -- 11. nb slices: 80, length: 1264, cost: 0, amplis: 16, pnliC: 3.82777e-07, paseC: 3.00957e-06, pnliL: 2.50764e-07, paseL: 4.79004e-06, pnliS: 6.75192e-07, paseS: 7.17481e-06
+Creating edge #26. 7 -- 16. nb slices: 80, length: 463, cost: 0, amplis: 6, pnliC: 1.42859e-07, paseC: 1.03475e-06, pnliL: 9.3696e-08, paseL: 1.63399e-06, pnliS: 2.51993e-07, paseS: 2.44749e-06
+Creating edge #27. 8 -- 12. nb slices: 80, length: 1683, cost: 0, amplis: 22, pnliC: 5.22855e-07, paseC: 3.67598e-06, pnliL: 3.43069e-07, paseL: 5.78827e-06, pnliS: 9.22279e-07, paseS: 8.67001e-06
+Creating edge #28. 8 -- 13. nb slices: 80, length: 1188, cost: 0, amplis: 15, pnliC: 3.59031e-07, paseC: 2.84829e-06, pnliL: 2.3518e-07, paseL: 4.53724e-06, pnliS: 6.33306e-07, paseS: 6.79615e-06
+Creating edge #29. 8 -- 14. nb slices: 80, length: 1461, cost: 0, amplis: 19, pnliC: 4.52051e-07, paseC: 3.23472e-06, pnliL: 2.96536e-07, paseL: 5.10207e-06, pnliS: 7.97386e-07, paseS: 7.64217e-06
+Creating edge #30. 8 -- 17. nb slices: 80, length: 527, cost: 0, amplis: 7, pnliC: 1.65781e-07, paseC: 1.10409e-06, pnliL: 1.08865e-07, paseL: 1.72952e-06, pnliS: 2.92427e-07, paseS: 2.59058e-06
+Creating edge #31. 9 -- 10. nb slices: 80, length: 320, cost: 0, amplis: 4, pnliC: 9.59271e-08, paseC: 7.8881e-07, pnliL: 6.28064e-08, paseL: 1.26089e-06, pnliS: 1.69209e-07, paseS: 1.88864e-06
+Creating edge #32. 9 -- 15. nb slices: 80, length: 304, cost: 0, amplis: 4, pnliC: 9.49298e-08, paseC: 6.52684e-07, pnliL: 6.23084e-08, paseL: 1.02553e-06, pnliS: 1.6745e-07, paseS: 1.5361e-06
+Creating edge #33. 10 -- 16. nb slices: 80, length: 357, cost: 0, amplis: 5, pnliC: 1.16925e-07, paseC: 6.55255e-07, pnliL: 7.69993e-08, paseL: 1.00966e-06, pnliS: 2.06248e-07, paseS: 1.51233e-06
+Creating edge #34. 11 -- 16. nb slices: 80, length: 1153, cost: 0, amplis: 15, pnliC: 3.56855e-07, paseC: 2.55033e-06, pnliL: 2.34093e-07, paseL: 4.0221e-06, pnliS: 6.29467e-07, paseS: 6.02454e-06
+Creating edge #35. 12 -- 13. nb slices: 80, length: 502, cost: 0, amplis: 7, pnliC: 1.63877e-07, paseC: 9.3125e-07, pnliL: 1.07893e-07, paseL: 1.43683e-06, pnliS: 2.89068e-07, paseS: 2.15217e-06
+Creating edge #36. 13 -- 15. nb slices: 80, length: 1246, cost: 0, amplis: 16, pnliC: 3.81678e-07, paseC: 2.85352e-06, pnliL: 2.50217e-07, paseL: 4.51975e-06, pnliS: 6.73254e-07, paseS: 6.76995e-06
+Creating edge #37. 14 -- 17. nb slices: 80, length: 1083, cost: 0, amplis: 14, pnliC: 3.33509e-07, paseC: 2.43631e-06, pnliL: 2.1871e-07, paseL: 3.85037e-06, pnliS: 5.88287e-07, paseS: 5.76731e-06
+Creating edge #38. 14 -- 18. nb slices: 80, length: 1535, cost: 0, amplis: 20, pnliC: 4.75653e-07, paseC: 3.38168e-06, pnliL: 3.12047e-07, paseL: 5.33055e-06, pnliS: 8.39019e-07, paseS: 7.98441e-06
+Creating edge #39. 15 -- 17. nb slices: 80, length: 591, cost: 0, amplis: 8, pnliC: 1.88646e-07, paseC: 1.17989e-06, pnliL: 1.24002e-07, paseL: 1.8372e-06, pnliS: 3.32758e-07, paseS: 2.75186e-06
+Creating edge #40. 8 -- 15. nb slices: 80, length: 217, cost: 0, amplis: 3, pnliC: 7.03841e-08, paseC: 4.11089e-07, pnliL: 4.63174e-08, paseL: 6.35935e-07, pnliS: 1.24153e-07, paseS: 9.52541e-07
+Starting with an empty initial mapping. 
+0 are present in the initial mapping.
+--- READING NEW DEMANDS TO BE ROUTED... --- 
+Reading ../InstancesCLS-brest-juillet/European_18_40/153_demands/demands.csv ...
+
+--- The Non Routed Demands ---
+#1. 1 -- 2. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#2. 1 -- 3. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#3. 1 -- 4. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#4. 1 -- 5. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#5. 1 -- 6. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#6. 1 -- 7. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#7. 1 -- 8. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#8. 1 -- 9. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#9. 1 -- 10. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#10. 1 -- 11. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#11. 1 -- 12. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#12. 1 -- 13. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#13. 1 -- 14. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#14. 1 -- 15. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#15. 1 -- 16. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#16. 1 -- 17. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#17. 1 -- 18. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#18. 2 -- 3. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#19. 2 -- 4. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#20. 2 -- 5. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#21. 2 -- 6. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#22. 2 -- 7. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#23. 2 -- 8. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#24. 2 -- 9. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#25. 2 -- 10. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#26. 2 -- 11. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#27. 2 -- 12. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#28. 2 -- 13. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#29. 2 -- 14. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#30. 2 -- 15. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#31. 2 -- 16. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#32. 2 -- 17. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#33. 2 -- 18. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#34. 3 -- 4. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#35. 3 -- 5. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#36. 3 -- 6. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#37. 3 -- 7. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#38. 3 -- 8. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#39. 3 -- 9. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#40. 3 -- 10. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#41. 3 -- 11. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#42. 3 -- 12. nbSlices: 3, maxLength: 5000, osnrLimit: 13, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#43. 3 -- 13. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#44. 3 -- 14. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#45. 3 -- 15. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#46. 3 -- 16. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#47. 3 -- 17. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#48. 3 -- 18. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#49. 4 -- 5. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#50. 4 -- 6. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#51. 4 -- 7. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#52. 4 -- 8. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#53. 4 -- 9. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#54. 4 -- 10. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#55. 4 -- 11. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#56. 4 -- 12. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#57. 4 -- 13. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#58. 4 -- 14. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#59. 4 -- 15. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#60. 4 -- 16. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#61. 4 -- 17. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#62. 4 -- 18. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#63. 5 -- 6. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#64. 5 -- 7. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#65. 5 -- 8. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#66. 5 -- 9. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#67. 5 -- 10. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#68. 5 -- 11. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#69. 5 -- 12. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#70. 5 -- 13. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#71. 5 -- 14. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#72. 5 -- 15. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#73. 5 -- 16. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#74. 5 -- 17. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#75. 5 -- 18. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#76. 6 -- 7. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#77. 6 -- 8. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#78. 6 -- 9. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#79. 6 -- 10. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#80. 6 -- 11. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#81. 6 -- 12. nbSlices: 3, maxLength: 5000, osnrLimit: 13, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#82. 6 -- 13. nbSlices: 3, maxLength: 5000, osnrLimit: 13, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#83. 6 -- 14. nbSlices: 3, maxLength: 5000, osnrLimit: 13, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#84. 6 -- 15. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#85. 6 -- 16. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#86. 6 -- 17. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#87. 6 -- 18. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#88. 7 -- 8. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#89. 7 -- 9. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#90. 7 -- 10. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#91. 7 -- 11. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#92. 7 -- 12. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#93. 7 -- 13. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#94. 7 -- 14. nbSlices: 3, maxLength: 5000, osnrLimit: 13, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#95. 7 -- 15. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#96. 7 -- 16. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#97. 7 -- 17. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#98. 7 -- 18. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#99. 8 -- 9. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#100. 8 -- 10. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#101. 8 -- 11. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#102. 8 -- 12. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#103. 8 -- 13. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#104. 8 -- 14. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#105. 8 -- 15. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#106. 8 -- 16. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#107. 8 -- 17. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#108. 8 -- 18. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#109. 9 -- 10. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#110. 9 -- 11. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#111. 9 -- 12. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#112. 9 -- 13. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#113. 9 -- 14. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#114. 9 -- 15. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#115. 9 -- 16. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#116. 9 -- 17. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#117. 9 -- 18. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#118. 10 -- 11. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#119. 10 -- 12. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#120. 10 -- 13. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#121. 10 -- 14. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#122. 10 -- 15. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#123. 10 -- 16. nbSlices: 3, maxLength: 500, osnrLimit: 22, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#124. 10 -- 17. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#125. 10 -- 18. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#126. 11 -- 12. nbSlices: 3, maxLength: 5000, osnrLimit: 13, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#127. 11 -- 13. nbSlices: 3, maxLength: 5000, osnrLimit: 13, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#128. 11 -- 14. nbSlices: 3, maxLength: 5000, osnrLimit: 13, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#129. 11 -- 15. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#130. 11 -- 16. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#131. 11 -- 17. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#132. 11 -- 18. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#133. 12 -- 13. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#134. 12 -- 14. nbSlices: 3, maxLength: 5000, osnrLimit: 13, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#135. 12 -- 15. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#136. 12 -- 16. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#137. 12 -- 17. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#138. 12 -- 18. nbSlices: 3, maxLength: 5000, osnrLimit: 13, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#139. 13 -- 14. nbSlices: 3, maxLength: 5000, osnrLimit: 13, pchC: 0.000375, pchL: 0.000375, pchS: 0.000375, ROUTED: NO
+#140. 13 -- 15. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#141. 13 -- 16. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#142. 13 -- 17. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#143. 13 -- 18. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#144. 14 -- 15. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#145. 14 -- 16. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#146. 14 -- 17. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#147. 14 -- 18. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#148. 15 -- 16. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#149. 15 -- 17. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#150. 15 -- 18. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+#151. 16 -- 17. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#152. 16 -- 18. nbSlices: 6, maxLength: 2500, osnrLimit: 16, pchC: 0.00075, pchL: 0.00075, pchS: 0.00075, ROUTED: NO
+#153. 17 -- 18. nbSlices: 4, maxLength: 1000, osnrLimit: 16, pchC: 0.0005, pchL: 0.0005, pchS: 0.0005, ROUTED: NO
+
+153 demands to be routed.
+Called Path Existence preprocessing.
+> Number of erased arcs due to Path Existence: 0
+Called OSNR preprocessing.
+> Number of erased arcs due to OSNR in graph: 104003
+Called Length preprocessing.
+> Number of erased arcs due to length in graph: 510309
+Called Path Existence preprocessing.
+> Number of erased arcs due to Path Existence: 0
+Called OSNR preprocessing.
+Called Length preprocessing.
+--- Flow formulation has been chosen. |K| = 153, |S| = 80. ---
+Flow variables have been defined...
+Max slice variables have been defined...
+Max slice overall variable has been defined...
+Source constraints have been defined...
+Flow conservation constraints have been defined...
+Target constraints have been defined...
+Length constraints have been defined...
+OSNR constraints have been defined...
+Non-Overlapping constraints has been defined...
+Max Used Slice Per Link constraints have been defined...
+Max Used Slice Overall constraints have been defined...
+Max Used Slice Overall2 constraints have been defined...
+Max Used Slice Overall3 constraints have been defined...
+Flow Node cuts have been defined...
+Flow Edge cuts have been defined...
+Objective obj_4 has been defined.
+--- Flow formulation has been defined ---
+--- CPLEX has been initialized ---
+CPLEX parameters have been defined...
+CPLEX variables have been defined...
+CPLEX constraints have been defined...
+CPLEX objective has been defined...
+Solving...
+Chosen objective: obj_4
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_MIP_Display                             3
+CPXPARAM_TimeLimit                               7200
+Presolve has eliminated 140269 rows and 22620 columns...
+Presolve has improved bounds 1956 times...
+Tried aggregator 2 times.
+MIP Presolve eliminated 140476 rows and 25346 columns.
+MIP Presolve modified 858978 coefficients.
+Aggregator did 13306 substitutions.
+Reduced MIP has 59353 rows, 194851 columns, and 2024990 nonzeros.
+Reduced MIP has 194851 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 15.72 sec. (17085.88 ticks)
+Probing time = 0.26 sec. (59.76 ticks)
+Tried aggregator 2 times.
+Detecting symmetries...
+MIP Presolve eliminated 35 rows and 75 columns.
+MIP Presolve modified 366 coefficients.
+Aggregator did 1365 substitutions.
+Reduced MIP has 57953 rows, 193411 columns, and 2006550 nonzeros.
+Reduced MIP has 193411 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 4.16 sec. (2541.57 ticks)
+Probing time = 0.32 sec. (61.03 ticks)
+Clique table members: 33775.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 8 threads.
+Root relaxation solution time = 126.36 sec. (34181.67 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       230210.0000        0.0000           100.00%
+Found incumbent of value 230210.000000 after 155.20 sec. (58774.32 ticks)
+      0     0   202285.3333  2044   230210.0000   202285.3333       20   12.13%
+      0     0   202285.3333  2044   230210.0000   Cliques: 53     7411   12.13%
+      0     0   202285.3333  2044   230210.0000      Cuts: 42    16199   12.13%
+      0     0   202285.3333  2044   230210.0000      Cuts: 28    24128   12.13%
+      0     0   202285.3333  2044   230210.0000      Cuts: 41    34520   12.13%
+      0     0   202285.3333  2044   230210.0000      Cuts: 31    43644   12.13%
+Detecting symmetries...
+      0     0   202285.3333  2044   230210.0000   Cliques: 24    51964   12.13%
+      0     0   202285.3333  2044   230210.0000   Cliques: 17    57105   12.13%
+      0     0   202285.3333  2044   230210.0000   Cliques: 16    61694   12.13%
+      0     0   202285.3333  2044   230210.0000    Cliques: 4    64570   12.13%
+      0     0   202285.3333  2044   230210.0000    Cliques: 3    65794   12.13%
