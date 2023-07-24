@@ -704,15 +704,16 @@ void RSA::preprocessing(){
     if (getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_PARTIAL){
         // do partial preprocessing;
         pathExistencePreprocessing();
-        bool keepPreprocessing = OSNRPreprocessing();
-        keepPreprocessing = lengthPreprocessing();
+        bool keepPreprocessing = lengthPreprocessing();
+        keepPreprocessing = OSNRPreprocessing();
+        
 
         if (getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_FULL){
             // do full preprocessing;
             while (keepPreprocessing){
-                pathExistencePreprocessing();
-                keepPreprocessing = OSNRPreprocessing();
+                pathExistencePreprocessing(); 
                 keepPreprocessing = lengthPreprocessing();
+                keepPreprocessing = OSNRPreprocessing();
             }
         }
     }
