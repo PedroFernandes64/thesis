@@ -115,8 +115,8 @@ int main(int argc, char *argv[]) {
 			std::string l = "/Link.csv";
 			std::string i = "Instances/";
 			
-			instanceName.erase(instanceName.find(l),l.length()); //remove l from string
-			instanceName.erase(instanceName.find(i),i.length()); //remove i from string
+			//instanceName.erase(instanceName.find(l),l.length()); //remove l from string
+			//instanceName.erase(instanceName.find(i),i.length()); //remove i from string
 			//opening file and writing
 			std::ofstream outfile;
   			outfile.open("results.csv", std::ios_base::app); // append instead of overwrite

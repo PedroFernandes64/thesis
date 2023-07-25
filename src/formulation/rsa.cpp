@@ -349,75 +349,45 @@ void RSA::gnModelAllPaths(){
                 std::to_string(instance.getInput().getChosenObj_k(0)) + "_s" + std::to_string(instance.getInput().getChosenMIPSolver()) + "_gn" + 
                 std::to_string(instance.getInput().isGNModelEnabled());
 
-    std::ofstream fw( outputOSNRName+"osnr.txt", std::ofstream::out);
-    if (fw.is_open()){  
-        std::ofstream outfile;
-        outfile.open("pathData.csv"); // append instead of overwrite
-        //outfile << "Demand;MIN-ONSR+MAX-LEN;MAX-LEN;MIN-ONSR;TOTAL-PATHS";
-        outfile << "Path;" << "Distance;" << "max_lengthC;" << "osnrC;"<<"osnrC val;"<<"osnrL;"<<"osnrL val;"<<"osnrS;"<<"osnrS val;"<< "max_lengthL;" << "max_lengthS;" << std::endl;
-        
-        for (int i = 0 ; i <toBeRouted.size(); i++){	
-            //outfile << toBeRouted[i].getId()+1 << "- slots: " << toBeRouted[i].getLoad() << "- osnr limitC: " << toBeRouted[i].getOsnrLimit() << "- max length C: " << toBeRouted[i].getMaxLength() << ";-;-;-;-;-;-;-" << std::endl;		
-            //fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;
-            int lessHopsA = 99;
-            int counterA = 0;
-            int lessHopsB = 100;	
-            int counterB = 0;
-            int lessHopsC = 100;	
-            int counterC = 0;
-            int counterD = 0;
-            for (int j = 0; j< alldemandsdistances[i].size(); ++j){
-                counterD++;
-                distance = alldemandsdistances[i][j];     
-                dbOsnrC = osnrPathC(alldemandsPASElinC[i][j], alldemandsPASEnodeC[i][j], alldemandsPNLIC[i][j], toBeRouted[i].getPchC());
-                dbOsnrL = osnrPathL(alldemandsPASElinL[i][j], alldemandsPASEnodeL[i][j], alldemandsPNLIL[i][j], toBeRouted[i].getPchL());
-                dbOsnrS = osnrPathS(alldemandsPASElinS[i][j], alldemandsPASEnodeS[i][j], alldemandsPNLIS[i][j], toBeRouted[i].getPchS());
-                bool a = true;
-                if(a){
-                //if (distance <= toBeRouted[i].getMaxLength() || dbOsnrC >= toBeRouted[i].getOsnrLimit() ||dbOsnrL >= toBeRouted[i].getOsnrLimit() || distance <= toBeRouted[i].getMaxLength()*(16.5/20)||dbOsnrS >= toBeRouted[i].getOsnrLimit() || distance <= toBeRouted[i].getMaxLength()*(12.5/20)){
-                    //std::cout << "OSNRC: " << dbOsnrC <<"OSNRL: " << dbOsnrL <<"OSNRS: " << dbOsnrS  << std::endl;
-                    for (int k = 0; k <allpaths[i][j].size(); ++k)
-                        outfile << getCompactNodeLabel(allpaths[i][j][k]) + 1 << "-";
-                    outfile << ";";
-                    outfile << distance;
-                    outfile << ";";
-                    if (distance <= toBeRouted[i].getMaxLength()){
-                        outfile << "yes;" ;
-                    }else{
-                        outfile << "no;";
-                    }
-                    if (dbOsnrC >= toBeRouted[i].getOsnrLimit()){
-                        outfile << "yes;" << dbOsnrC << ";";
-                    }else{
-                        outfile << "no;" << dbOsnrC << ";";
-                    }
-                    if (dbOsnrL >= toBeRouted[i].getOsnrLimit()){
-                        outfile << "yes;" << dbOsnrL << ";";
-                    }else{
-                        outfile << "no;" << dbOsnrL << ";";
-                    }
-                    if (dbOsnrS >= toBeRouted[i].getOsnrLimit()){
-                        outfile << "yes;" << dbOsnrS << ";";
-                    }else{
-                        outfile << "no;" << dbOsnrS << ";";
-                    }
-                    if (distance <= toBeRouted[i].getMaxLength()*(16.5/20)){
-                        outfile << "yes;";
-                    }else{
-                        outfile << "no;";
-                    }
-                    if (distance <= toBeRouted[i].getMaxLength()*(12.5/20)){
-                        outfile << "yes;";
-                    }else{
-                        outfile << "no;";
-                    }
-                    outfile << std::endl;
+    std::ofstream outfile;
+    std::string i = instance.getInput().getDemandToBeRoutedFolder();
+    i =  i +"/";
+    i = i + "pathData.csv";
+    outfile.open(outputOSNRName); 
+    outfile << "Demand;" <<"Path;" << "Distance;" << "max_lengthC;"<<"max_lengthC val;" << "osnrC;"<<"osnrC val;" << std::endl;
+    
+    for (int i = 0 ; i <toBeRouted.size(); i++){	
+        //fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;
+        for (int j = 0; j< alldemandsdistances[i].size(); ++j){
+            distance = alldemandsdistances[i][j];     
+            dbOsnrC = osnrPathC(alldemandsPASElinC[i][j], alldemandsPASEnodeC[i][j], alldemandsPNLIC[i][j], toBeRouted[i].getPchC());
+            dbOsnrL = osnrPathL(alldemandsPASElinL[i][j], alldemandsPASEnodeL[i][j], alldemandsPNLIL[i][j], toBeRouted[i].getPchL());
+            dbOsnrS = osnrPathS(alldemandsPASElinS[i][j], alldemandsPASEnodeS[i][j], alldemandsPNLIS[i][j], toBeRouted[i].getPchS());
+            bool a = true;
+            if(a){
+                outfile << toBeRouted[i].getId() + 1;
+                outfile << ";";
+                for (int k = 0; k <allpaths[i][j].size(); ++k)
+                    outfile << getCompactNodeLabel(allpaths[i][j][k]) + 1 << "-";
+                outfile << ";";
+                outfile << distance;
+                outfile << ";";
+                outfile << toBeRouted[i].getMaxLength();
+                outfile << ";";
+                if (distance <= toBeRouted[i].getMaxLength()){
+                    outfile << "yes;" ;
+                }else{
+                    outfile << "no;";
                 }
-                
-                 
+                if (dbOsnrC >= toBeRouted[i].getOsnrLimit()){
+                    outfile << "yes;" << dbOsnrC << ";";
+                }else{
+                    outfile << "no;" << dbOsnrC << ";";
+                }
+                outfile << std::endl;
             }
+        }
             
-
             /*POUR CLAIO
             for (int j = 0; j< alldemandsdistances[i].size(); ++j){
                 counterD++;
@@ -496,11 +466,6 @@ void RSA::gnModelAllPaths(){
   			outfile << "\n"+std::to_string(i+1) + ";" +  std::to_string(counterA) + ";" + std::to_string(counterB)  + ";" + std::to_string(counterC)+ ";" + std::to_string(counterD);
             fw << "---------------------------------------------------------" << std::endl;
             */
-            }
-        fw.close();
-    }
-    else{
-        std::cout << "Problem with opening file";
     }
            
 }

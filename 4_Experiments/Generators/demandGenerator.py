@@ -127,7 +127,7 @@ def buildBaseDemandSet(NumberOfNetworks,NetworksNodesToProcess):
             id = 1
             for node1 in meshy:
                 for node2 in meshy:
-                    if (int(node1) < int(node2)): #and ((int(node1)%2 == 0 and int(node2) %2 == 1) or (int(node1)%2 == 1 and int(node2) %2 == 0)):
+                    if (int(node1) < int(node2)):# and ((int(node1)%2 == 0 and int(node2) %2 == 1) or (int(node1)%2 == 1 and int(node2) %2 == 0)):
                         row = []
                         row.append(str(id))
                         id = id + 1
@@ -149,8 +149,8 @@ def buildBaseDemandSet(NumberOfNetworks,NetworksNodesToProcess):
                         row.append("400")
                         demandSet.append(row)
             for node1 in secondary:
-                destinationToSelect = len(core) - 1
-                selectedDestination = random.sample(core,k=destinationToSelect)
+                destinationToSelect = len(core)
+                selectedDestination = random.sample(core,k=destinationToSelect - 1)
                 for node2 in selectedDestination:
                     row = []
                     row.append(str(id))
@@ -159,10 +159,13 @@ def buildBaseDemandSet(NumberOfNetworks,NetworksNodesToProcess):
                         row.append(node1)
                         row.append(node2)
                         row.append("200")
+
                     else:
                         row.append(node2)
                         row.append(node1)
                         row.append("200")
+
+                    demandSet.append(row)
                     demandSet.append(row)
         iteration = iteration + 1
         NetworksDemandsSets.append(demandSet)

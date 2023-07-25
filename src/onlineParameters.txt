@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../InstancesCLS-brest-juillet/European_18_40/Link.csv
+topologyFile=../Results_CLAIO_SI/Instances_length_restricted/German_17_25/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../InstancesCLS-brest-juillet/European_18_40/48_demands
+demandToBeRoutedFolder=../Results_CLAIO_SI/Instances_length_restricted/German_17_25/45_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 

@@ -179,6 +179,10 @@ void Instance::readTopology(){
 			edgePaseL = std::stod(dataList[i][11]);
 			edgePnliS = std::stod(dataList[i][9]);
 			edgePaseS = std::stod(dataList[i][12]);
+			edgePnliL = 0;
+			edgePaseL = 0;
+			edgePnliS = 0;
+			edgePaseS = 0;
 		}
 		else{
 			edgeAmplis = 0;
@@ -232,6 +236,8 @@ void Instance::readDemands(){
 			demandPchC = std::stod(dataList[i][6]);
 			demandPchL = std::stod(dataList[i][7]);
 			demandPchS = std::stod(dataList[i][8]);
+			demandPchL = 0.0;
+			demandPchS = 0.0;
 		}
 		else{
 			demandOsnrLimit = 0.0;
