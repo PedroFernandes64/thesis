@@ -46,6 +46,7 @@ private:
 	double paseNode;						/**< Stores the value of the Pase noise of a node amplifier **/
 	double paseNodeC;
 	double paseNodeL;
+	double paseNodeS;
 
 public:
 
@@ -122,6 +123,7 @@ public:
 	double getPaseNode() const { return this->paseNode; }
 	double getPaseNodeC() const { return this->paseNodeC; }
 	double getPaseNodeL() const { return this->paseNodeL; }
+	double getPaseNodeS() const { return this->paseNodeS; }
 	
 	/****************************************************************************************/
 	/*										Setters											*/
@@ -215,6 +217,7 @@ public:
 	void setPaseNode();	
 	void setPaseNodeC();	
 	void setPaseNodeL();	
+	void setPaseNodeS();	
 	/****************************************************************************************/
 	/*										Display											*/
 	/****************************************************************************************/

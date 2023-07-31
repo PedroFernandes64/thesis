@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../Instances/German_17_25/Link.csv
+topologyFile=../Results_CLAIO_SI/Instances/German_17_25/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../Instances/German_17_25/45_demands
+demandToBeRoutedFolder=../Results_CLAIO_SI/Instances/German_17_25/45_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -16,7 +16,7 @@ GNModel_activation=1
 nbDemandsAtOnce=1000
 formulation=0
 userCuts=0
-obj=4
+obj=2p
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
@@ -45,7 +45,7 @@ nbIterationsWithoutImprovement=15
 maxNbIterations=150 
 
 lagMethod=1 
-lagFormulation=0 
+lagFormulation=0
 heuristic=0 
 
 directionMethod=0 

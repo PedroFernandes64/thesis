@@ -33,6 +33,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
         vecArcLineAmplifiers.emplace_back( std::make_shared<ArcMap>((*vecGraph[d])) );
         vecArcPnli.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
         vecArcPaseLine.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
+        vecArcNoise.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
         vecArcLengthWithPenalty.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
         vecNodeId.emplace_back( std::make_shared<NodeMap>((*vecGraph[d])) );
         vecNodeLabel.emplace_back( std::make_shared<NodeMap>((*vecGraph[d])) );
@@ -127,8 +128,6 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     //Modulo GN MODEL
     
     if (this->getInstance().getInput().isGNModelEnabled() == true){
-        std::cout << "GN Model pre processing" << std::endl;
-        std::cout << "Computing atributes of the fibers should be done before" << std::endl;
         std::cout << "Computing the OSNR of all paths" << std::endl;
         
         gnModelAllPaths();
@@ -187,6 +186,14 @@ double RSA::osnrPathL(double paselinl, double pasenodel, double pnlil, double pc
     osnrdb = 10.0 * log10(osnr);
     return osnrdb;
 }
+double RSA::osnrPathS(double paselins, double pasenodes, double pnlis, double pchs){
+    double osnr;
+    double osnrdb;		
+    osnr = pchs/(paselins + pasenodes + pnlis);
+    osnrdb = 10.0 * log10(osnr);
+    return osnrdb;
+}
+
 
 void RSA::gnModelAllPaths(){
     
@@ -230,6 +237,9 @@ void RSA::gnModelAllPaths(){
     std::vector<std::vector<double> > alldemandsPASEnodeL;
     std::vector<std::vector<double> > alldemandsPASElinL;
     std::vector<std::vector<double> > alldemandsPNLIL;
+    std::vector<std::vector<double> > alldemandsPASEnodeS;
+    std::vector<std::vector<double> > alldemandsPASElinS;
+    std::vector<std::vector<double> > alldemandsPNLIS;
     std::vector<double> thisdemanddistances;
     std::vector<double> thisdemandPASEnodeC;
     std::vector<double> thisdemandPASElinC;
@@ -237,6 +247,9 @@ void RSA::gnModelAllPaths(){
     std::vector<double> thisdemandPASEnodeL;
     std::vector<double> thisdemandPASElinL;
     std::vector<double> thisdemandPNLIL;
+    std::vector<double> thisdemandPASEnodeS;
+    std::vector<double> thisdemandPASElinS;
+    std::vector<double> thisdemandPNLIS;
     int currentnode;
     int nextnode;
     int vertexamplis;
@@ -247,17 +260,23 @@ void RSA::gnModelAllPaths(){
     double pnliPathL;
     double paseLinPathL;
     double paseNodepathL;
+    double pnliPathS;
+    double paseLinPathS;
+    double paseNodepathS;
     int fibernumberinpath;
 
     for (int i = 0; i <allpaths.size(); ++i){
         for (int j = 0; j <allpaths[i].size(); ++j){
             vertexamplis = 0;
-            pnliPathC = 0;
-            paseLinPathC = 0;
-            paseNodepathC = 0;
-            pnliPathL = 0;
-            paseLinPathL = 0;
-            paseNodepathL = 0;    
+            pnliPathC = 0.0;
+            paseLinPathC = 0.0;
+            paseNodepathC = 0.0;
+            pnliPathL = 0.0;
+            paseLinPathL = 0.0;
+            paseNodepathL = 0.0;
+            pnliPathS = 0.0;
+            paseLinPathS = 0.0;
+            paseNodepathS = 0.0;    
             length = 0;          
             fibernumberinpath = 0;
             for (int k = 0; k <allpaths[i][j].size()-1; ++k){
@@ -268,16 +287,20 @@ void RSA::gnModelAllPaths(){
                 length += instance.getPhysicalLinkBetween(currentnode,nextnode).getLength();
                 //PNLI
                 pnliPathC += instance.getPhysicalLinkBetween(currentnode,nextnode).getPnliC();
-                //PASE
                 paseLinPathC += instance.getPhysicalLinkBetween(currentnode,nextnode).getPaseLineC();
 
                 pnliPathL += instance.getPhysicalLinkBetween(currentnode,nextnode).getPnliL();
-                //PASE
                 paseLinPathL += instance.getPhysicalLinkBetween(currentnode,nextnode).getPaseLineL();
+            
+                pnliPathS += instance.getPhysicalLinkBetween(currentnode,nextnode).getPnliS();
+                paseLinPathS += instance.getPhysicalLinkBetween(currentnode,nextnode).getPaseLineS();                   
+
             }
+
             vertexamplis = vertexamplis +1;
             paseNodepathC = vertexamplis * instance.getPaseNodeC();
             paseNodepathL = vertexamplis * instance.getPaseNodeL();
+            paseNodepathS = vertexamplis * instance.getPaseNodeS();
             thisdemanddistances.push_back(length);
             thisdemandPASEnodeC.push_back(paseNodepathC);
             thisdemandPASElinC.push_back(paseLinPathC);
@@ -285,6 +308,9 @@ void RSA::gnModelAllPaths(){
             thisdemandPASEnodeL.push_back(paseNodepathL);
             thisdemandPASElinL.push_back(paseLinPathL);
             thisdemandPNLIL.push_back(pnliPathL);
+            thisdemandPASEnodeS.push_back(paseNodepathS);
+            thisdemandPASElinS.push_back(paseLinPathS);
+            thisdemandPNLIS.push_back(pnliPathS);
         }
         alldemandsdistances.push_back(thisdemanddistances);
         alldemandsPASEnodeC.push_back(thisdemandPASEnodeC);
@@ -293,6 +319,9 @@ void RSA::gnModelAllPaths(){
         alldemandsPASEnodeL.push_back(thisdemandPASEnodeL);
         alldemandsPASElinL.push_back(thisdemandPASElinL);
         alldemandsPNLIL.push_back(thisdemandPNLIL);
+        alldemandsPASEnodeS.push_back(thisdemandPASEnodeS);
+        alldemandsPASElinS.push_back(thisdemandPASElinS);
+        alldemandsPNLIS.push_back(thisdemandPNLIS);
         thisdemanddistances.clear();
         thisdemandPASEnodeC.clear();
         thisdemandPNLIC.clear();
@@ -300,6 +329,9 @@ void RSA::gnModelAllPaths(){
         thisdemandPASEnodeL.clear();
         thisdemandPNLIL.clear();
         thisdemandPASElinL.clear();
+        thisdemandPASEnodeS.clear();
+        thisdemandPNLIS.clear();
+        thisdemandPASElinS.clear();
     }
 
     //Computing OSNR possible paths for all possible demands
@@ -310,34 +342,68 @@ void RSA::gnModelAllPaths(){
     //OSNR
     double dbOsnrC;
     double dbOsnrL;
+    double dbOsnrS;
     std::cout << "Calculating OSNR " << std::endl;
     std::cout << "Writing  OSNR's to file..." << std::endl;
     std::string outputOSNRName = instance.getInput().getDemandToBeRoutedFolder() + "_d" + std::to_string(instance.getNbDemands()) + "_of" + 
                 std::to_string(instance.getInput().getChosenObj_k(0)) + "_s" + std::to_string(instance.getInput().getChosenMIPSolver()) + "_gn" + 
                 std::to_string(instance.getInput().isGNModelEnabled());
 
-    std::ofstream fw( outputOSNRName+"osnr.txt", std::ofstream::out);
-    if (fw.is_open()){   
-        std::ofstream outfile;
-        outfile.open("pathData.csv", std::ios_base::app); // append instead of overwrite
-        outfile << "Demand;MIN-ONSR+MAX-LEN;MAX-LEN;MIN-ONSR;TOTAL-PATHS";
-        for (int i = 0 ; i <toBeRouted.size(); i++){			
-            fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;
-            int lessHopsA = 99;
-            int counterA = 0;
-            int lessHopsB = 100;	
-            int counterB = 0;
-            int lessHopsC = 100;	
-            int counterC = 0;
-            int counterD = 0;
-            for (int j = 0; j< alldemandsdistances[i].size(); ++j){
-                counterD++;
-                distance = alldemandsdistances[i][j];     
-                dbOsnrC = osnrPathC(alldemandsPASElinC[i][j], alldemandsPASEnodeC[i][j], alldemandsPNLIC[i][j], toBeRouted[i].getPchC());
-                dbOsnrL = osnrPathL(alldemandsPASElinL[i][j], alldemandsPASEnodeL[i][j], alldemandsPNLIL[i][j], toBeRouted[i].getPchL());
-                outfile << "osnrC;" << dbOsnrC << ";osnrL;" << dbOsnrL << std::endl; 
+    std::ofstream outfile;
+    std::string i = instance.getInput().getDemandToBeRoutedFolder();
+    i =  i +"/";
+    i = i + "pathData.csv";
+    outfile.open(outputOSNRName); 
+    outfile << "Demand;" <<"Path;" << "Distance;" << "max_lengthC;"<<"max_lengthC val;" << "osnrC;"<<"osnrC val;" << std::endl;
+    int both = 0;
+    int maxlen = 0;
+    int osnrmin = 0;
+    int none = 0;
+    int total = 0;
+    for (int i = 0 ; i <toBeRouted.size(); i++){	
+        //fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;
+        for (int j = 0; j< alldemandsdistances[i].size(); ++j){
+            distance = alldemandsdistances[i][j];     
+            dbOsnrC = osnrPathC(alldemandsPASElinC[i][j], alldemandsPASEnodeC[i][j], alldemandsPNLIC[i][j], toBeRouted[i].getPchC());
+            dbOsnrL = osnrPathL(alldemandsPASElinL[i][j], alldemandsPASEnodeL[i][j], alldemandsPNLIL[i][j], toBeRouted[i].getPchL());
+            dbOsnrS = osnrPathS(alldemandsPASElinS[i][j], alldemandsPASEnodeS[i][j], alldemandsPNLIS[i][j], toBeRouted[i].getPchS());
+            bool a = true;
+            if(a){
+                outfile << toBeRouted[i].getId() + 1;
+                outfile << ";";
+                for (int k = 0; k <allpaths[i][j].size(); ++k)
+                    outfile << getCompactNodeLabel(allpaths[i][j][k]) + 1 << "-";
+                outfile << ";";
+                outfile << distance;
+                outfile << ";";
+                outfile << toBeRouted[i].getMaxLength();
+                outfile << ";";
+                if (distance <= toBeRouted[i].getMaxLength()){
+                    outfile << "yes;" ;
+                }else{
+                    outfile << "no;";
+                }
+                if (dbOsnrC >= toBeRouted[i].getOsnrLimit()){
+                    outfile << "yes;" << dbOsnrC << ";";
+                }else{
+                    outfile << "no;" << dbOsnrC << ";";
+                }
+                if (distance <= toBeRouted[i].getMaxLength() && dbOsnrC >= toBeRouted[i].getOsnrLimit()){
+                    both = both +1;
+                }
+                if (distance <= toBeRouted[i].getMaxLength() && dbOsnrC < toBeRouted[i].getOsnrLimit()){
+                    maxlen = maxlen +1;
+                }
+                if (distance > toBeRouted[i].getMaxLength() && dbOsnrC >= toBeRouted[i].getOsnrLimit()){
+                    osnrmin = osnrmin +1;
+                }
+                if (distance > toBeRouted[i].getMaxLength() && dbOsnrC < toBeRouted[i].getOsnrLimit()){
+                    none = none +1;
+                }
+                total = total + 1;
+                outfile << std::endl;
             }
-
+        }
             /*POUR CLAIO
             for (int j = 0; j< alldemandsdistances[i].size(); ++j){
                 counterD++;
@@ -416,12 +482,9 @@ void RSA::gnModelAllPaths(){
   			outfile << "\n"+std::to_string(i+1) + ";" +  std::to_string(counterA) + ";" + std::to_string(counterB)  + ";" + std::to_string(counterC)+ ";" + std::to_string(counterD);
             fw << "---------------------------------------------------------" << std::endl;
             */
-            }
-        fw.close();
+    
     }
-    else{
-        std::cout << "Problem with opening file";
-    }
+    std::cout << "both: " << both << "maxL: " << maxlen << "minOS: " << osnrmin << "none: " << none << "total: " << total;
            
 }
 
@@ -501,6 +564,7 @@ void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel
     setArcLineAmplifiers(a, d, la);
     setArcPnli(a, d, pn);
     setArcPaseLine(a, d, pa);
+    setArcNoise(a,d,pn+pa);
     int hop = instance.getInput().getHopPenalty();
     if (linkSourceLabel == getToBeRouted_k(d).getSource()){
         setArcLengthWithPenalty(a, d, l);
@@ -624,12 +688,15 @@ void RSA::preprocessing(){
         // do partial preprocessing;
         pathExistencePreprocessing();
         bool keepPreprocessing = lengthPreprocessing();
+        keepPreprocessing = OSNRPreprocessing();
+        
 
         if (getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_FULL){
             // do full preprocessing;
             while (keepPreprocessing){
-                pathExistencePreprocessing();
+                pathExistencePreprocessing(); 
                 keepPreprocessing = lengthPreprocessing();
+                keepPreprocessing = OSNRPreprocessing();
             }
         }
     }
@@ -699,10 +766,10 @@ bool RSA::lengthPreprocessing(){
             ListDigraph::Node source = getNode(d, getToBeRouted_k(d).getSource(), slice);
             ListDigraph::Node target = getNode(d, getToBeRouted_k(d).getTarget(), slice);
             if (source != INVALID && target != INVALID){
-                if (shortestDistance(d, source, a, target) >= getToBeRouted_k(d).getMaxLength() + DBL_EPSILON){
+                if (shortestDistance(d, source, a, target) > getToBeRouted_k(d).getMaxLength()+ DBL_EPSILON){
                     //std::cout << "demand " <<  d << std::endl;
-                    //std::cout << shortestDistance(d, source, a, target) <<std:: endl;
-                    //std::cout << getToBeRouted_k(d).getMaxLength() + DBL_EPSILON <<std:: endl;
+                    //std::cout <<"Shortest distance " << shortestDistance(d, source, a, target) <<std:: endl;
+                    //std::cout <<"max length " << getToBeRouted_k(d).getMaxLength() + DBL_EPSILON <<std:: endl;
                     //displayArc(d, a);
                     //std::cout << "length  " <<   getArcLength(a, d) << " penalties " << getArcLengthWithPenalties(a,d) << std::endl;
                     (*vecGraph[d]).erase(a);
@@ -753,6 +820,88 @@ double RSA::shortestDistance(int d, ListDigraph::Node &s, ListDigraph::Arc &a, L
     }
     //std::cout << distance << " " << std::endl;
     return distance;
+}
+
+/* Performs preprocessing based on the arc partial osnr and returns true if at least one arc is erased. */
+bool RSA::OSNRPreprocessing(){
+    std::cout << "Called OSNR preprocessing."<< std::endl;
+    int totalNb = 0;
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        //displayGraph(d);
+        int nb = 0;
+        int nbElse = 0;
+        ListDigraph::ArcIt previousArc(*vecGraph[d]);
+        ListDigraph::ArcIt a(*vecGraph[d]);
+        ListDigraph::ArcIt currentArc(*vecGraph[d], a);
+        while (a != INVALID){
+            currentArc = a;
+            //displayArc(d, a);
+            ListDigraph::ArcIt nextArc(*vecGraph[d], ++currentArc);
+            //currentArc = a;
+            int slice = getArcSlice(a, d);
+            ListDigraph::Node source = getNode(d, getToBeRouted_k(d).getSource(), slice);
+            ListDigraph::Node target = getNode(d, getToBeRouted_k(d).getTarget(), slice);
+            if (source != INVALID && target != INVALID){
+                double osnrRhs;
+                double osnrLimdb = getToBeRouted_k(d).getOsnrLimit();
+                double osnrLim = pow(10,osnrLimdb/10);
+                double pch = getToBeRouted_k(d).getPch();
+                osnrRhs = pch/osnrLim - instance.getPaseNode() ;
+                if (shortestOSNRPartial(d, source, a, target) > osnrRhs + DBL_EPSILON){
+                    //std::cout << "demand " <<  d << std::endl;
+                    //std::cout <<"lhs " << shortestOSNRPartial(d, source, a, target) <<std:: endl;
+                    //std::cout <<"rhs " << osnrRhs + DBL_EPSILON <<std:: endl;
+                    //displayArc(d, a);
+                    //std::cout << "length  " <<   getArcLength(a, d) << " penalties " << getArcLengthWithPenalties(a,d) << std::endl;
+                    (*vecGraph[d]).erase(a);
+                    nb++;
+                    totalNb++;
+                }
+            }
+            else{
+                (*vecGraph[d]).erase(a);
+                nbElse++;
+                totalNb++;
+            }
+            a = nextArc;
+            //std::cout << "next arc" << std::endl;
+            //displayArc(d, a);
+        }
+        //std::cout << "> Number of erased arcs due to length in graph #" << d << ". If: " << nb << ". Else: " << nbElse << std::endl;
+    }
+    if (totalNb >= 1){
+        std::cout << "> Number of erased arcs due to OSNR in graph: "<< totalNb << std::endl;
+        return true;
+    }
+    return false;
+}
+
+
+/* Returns the partial osnr of the shortest path from source to target passing through arc a. */
+double RSA::shortestOSNRPartial(int d, ListDigraph::Node &s, ListDigraph::Arc &a, ListDigraph::Node &t){
+    double OSNRPartial = 0.0;
+    Dijkstra< ListDigraph, ListDigraph::ArcMap<double> > s_u_path((*vecGraph[d]), (*vecArcNoise[d]));
+
+    s_u_path.run(s,(*vecGraph[d]).source(a));
+    if (s_u_path.reached((*vecGraph[d]).source(a))){
+        OSNRPartial += s_u_path.dist((*vecGraph[d]).source(a));
+    }
+    else{
+        return DBL_MAX;
+    }
+    //std::cout << distance << " " << std::endl;
+    OSNRPartial += getArcNoise(a, d);
+    //std::cout << distance << " " << std::endl;
+    Dijkstra< ListDigraph, ListDigraph::ArcMap<double> > v_t_path((*vecGraph[d]), (*vecArcNoise[d]));
+    v_t_path.run((*vecGraph[d]).target(a), t);
+    if (v_t_path.reached(t)){
+        OSNRPartial += v_t_path.dist(t);
+    }
+    else{
+        return DBL_MAX;
+    }
+    //std::cout << distance << " " << std::endl;
+    return OSNRPartial;
 }
 
 /* Returns the coefficient of an arc according to metric 1 on graph #d. */
@@ -1037,6 +1186,7 @@ RSA::~RSA() {
     vecArcLineAmplifiers.clear();
     vecArcPnli.clear();
     vecArcPaseLine.clear();
+    vecArcNoise.clear();
     vecNodeId.clear();
     vecNodeLabel.clear();
     vecNodeSlice.clear();

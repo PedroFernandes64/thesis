@@ -96,49 +96,6 @@ def harmonic(n):
 		total_sum = total_sum + 1/i
 	return total_sum
 
-def computePnliPoggiolini(l): 
-    lambd = 1545.0 * pow(10,-9)                     #SI meters, m       Usually nanometer (x nanometer)
-    D = 16.5                                        #NOT SI ps/(nm km)
-    SI_D = D * pow (10,-6)                          #SI s/m^2)
-    c = 3.0 *pow(10,8)                              #SI meters by second, m
-    beta2 = abs(SI_D) * pow(lambd,2)/(2*math.pi*c)  #SI s^2/m   
-    n2 = 2.7 * pow (10,-20)                         #SI m^2/W           Usually micrometer^2
-    aeff = 85 * pow (10,-12)                        #SI m^2             Usually micrometer^2
-    gam = (n2/aeff) * (2*math.pi/lambd)             #SI 1/W m
-    bwdm = 5000 * pow(10,9)                         #SI #Hz             Usually gigahertz
-    Psat = 50 * pow(10,-3)                          #SI #W              Usually mW
-    gwdm = Psat/bwdm 
-    alpha = 0.2                                     #NOT SI dB/kilometer 
-    a = math.log(10)*alpha/20 * pow(10,-3)               #SI 1/km            SI W/Hz
-    Bn = 12.5 * pow(10,9)                           #SI Hertz           Usually gigahertz  (x ghz)
-    spans = math.ceil(l/80.0)
-    lspan = l/spans
-    Ls = lspan * pow(10,3)                          #SI meters
-    leff = (1.0 - math.exp(-2.0*a*Ls))/(2.0*a)           #SI #km
-    leff_a = 1.0/(2.0 *a)                           #SI #km 
-    gnliSpanINC = (8.0/27.0) * pow(gam,2) * pow(gwdm,3) * pow(leff,2) * (math.asinh(pow(math.pi/2,2)*beta2*leff_a*pow(bwdm,2))/(math.pi*beta2*leff_a)) * Bn
-    gnliSpanCC = (16.0/27.0) *((pow(gam,2)*pow(leff,2))/(math.pi*beta2*Ls)) * (1.0 - spans + spans*harmonic(spans-1)) * pow(gwdm,3)  * Bn
-    gnliFiber = gnliSpanINC * spans + gnliSpanCC
-    pnliFiber = gnliFiber
-    return pnliFiber
-
-def computeOsnrPoggio(cdata):
-    paseLineTotal = 0
-    PNLITotal = 0
-    rowCounter = 0
-    for row in cdata:
-        if rowCounter >0:
-            paseLineTotal = paseLineTotal+cdata[rowCounter][2]
-            PNLITotal = PNLITotal+cdata[rowCounter][4]
-        rowCounter = rowCounter + 1
-
-    paseNodeTotal = (len(cdata) - 1 + 1) * computePaseNode()
-    pch = computePch()
-    osnr = pch/(paseLineTotal+PNLITotal+paseNodeTotal)
-    osnrdb = 10.0 * math.log10(osnr)
-    return osnrdb
-
-#COMPUTING POGGIOLINI EPSILON#
 def computePnliPoggioliniEpsilon(l): 
     lambd = 1545.0 * pow(10,-9)                     #SI meters, m       Usually nanometer (x nanometer)
     D = 16.5                                        #NOT SI ps/(nm km)
@@ -159,16 +116,22 @@ def computePnliPoggioliniEpsilon(l):
     Ls = lspan * pow(10,3)                          #SI meters
     leff = (1.0 - math.exp(-2.0*a*Ls))/(2.0*a)           #SI #km
     leff_a = 1.0/(2.0 *a)                           #SI #km 
-    gnliSpanINC = (8.0/27.0) * pow(gam,2) * pow(gwdm,3) * pow(leff,2) * (math.asinh(pow(math.pi/2,2)*beta2*leff_a*pow(bwdm,2))/(math.pi*beta2*leff_a)) * Bn
-    gnliSpanCC = (16.0/27.0) *((pow(gam,2)*pow(leff,2))/(math.pi*beta2*Ls)) * (1.0 - spans + spans*harmonic(spans-1)) * pow(gwdm,3)  * Bn
+    gnliSpan = (8.0/27.0) * pow(gam,2) * pow(gwdm,3) * pow(leff,2) * (math.asinh(pow(math.pi/2,2)*beta2*leff_a*pow(bwdm,2))/(math.pi*beta2*leff_a)) * Bn
 
     #Epsilon
+    if spans != 1:
+        epsilon = 0.0
+        epsilon =   math.log(1+((2*leff_a/spans*Ls) * ((1-spans+spans*harmonic(spans-1)) / (math.asinh(pow(math.pi/2,2)*beta2*leff_a*pow(bwdm,2))))))/(math.log(spans))
+    else:
+        epsilon = 0.0
 
-    epsilon = 0.0
-    epsilon = (3.0/10.0) * math.log(1 + (6.0/Ls) * (leff_a/(math.asinh((pow(math.pi,2)/2)*beta2*leff_a*pow(bwdm,2)))))
+    epsilon = epsilon * Bn
 
+    epsilon2 = 0.0
+    epsilon2 = (3.0/10.0) * math.log(1 + (6.0/Ls) * (leff_a/(math.asinh((pow(math.pi,2)/2)*beta2*leff_a*pow(bwdm,2)))))
 
-    gnliFiber = gnliSpanINC * pow(spans,1+epsilon) 
+    print(epsilon, epsilon2)
+    gnliFiber = gnliSpan * pow(spans,1+epsilon) 
     pnliFiber = gnliFiber
     return pnliFiber
 
@@ -179,7 +142,7 @@ def computeOsnrPoggioepsilon(cdata):
     for row in cdata:
         if rowCounter >0:
             paseLineTotal = paseLineTotal+cdata[rowCounter][2]
-            PNLITotal = PNLITotal+cdata[rowCounter][5]
+            PNLITotal = PNLITotal+cdata[rowCounter][4]
         rowCounter = rowCounter + 1
 
     paseNodeTotal = (len(cdata) - 1 + 1) * computePaseNode()
@@ -196,8 +159,7 @@ def compute(data):
     row.append("length")
     row.append("amps")
     row.append("pase")
-    row.append("pnli")
-    row.append("pnlipogio")
+    row.append("pnliconstraint")
     row.append("pnlipogioepsilon")
     solution.append(row)
     a = 0
@@ -212,7 +174,6 @@ def compute(data):
         row.append(computeAmps(int(e)))
         row.append(computePase(int(e)))
         row.append(computePnli(int(e)))
-        row.append(computePnliPoggiolini(int(e)))
         row.append(computePnliPoggioliniEpsilon(int(e)))
         solution.append(row)
     return solution
@@ -243,10 +204,10 @@ def experiments(cData,final):
     rowSolution.append(sumLength(cData))
     rowSolution.append(sumLamps(cData))
     rowSolution.append(len(cData)-1+1)
-    
-    rowSolution.append(math.floor(computeOsnrPoggio(cData)*1000)/1000)
-    rowSolution.append(math.floor(computeOsnrPoggioepsilon(cData)*1000)/1000)
+
     rowSolution.append(math.floor(computeOsnrConstraint(cData)*1000)/1000)
+    rowSolution.append(math.floor(computeOsnrPoggioepsilon(cData)*1000)/1000)
+    rowSolution.append((math.floor(computeOsnrConstraint(cData)*1000)/1000)-(math.floor(computeOsnrPoggioepsilon(cData)*1000)/1000))
     final.append(rowSolution)
     return final
 
@@ -362,9 +323,9 @@ row.append("id")
 row.append("Length")
 row.append("l_amps")
 row.append("n_amps")
-row.append("OSNRPOGGIO")
-row.append("OSNRPOGGIOEPSILON")
 row.append("OSNRCONSTRAINT")
+row.append("OSNRPOGGIO")
+row.append("DELTA")
 final.append(row)
 
 counter = 0

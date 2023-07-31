@@ -1,7 +1,7 @@
 #include "demand.h"
 
 /* Constructor. */
-Demand::Demand(int i, int s, int t, int l, double max, double osL, double p, double pc, double pl, bool a, int slice, double pathLen, int hops, std::string m, std::string space, std::string b){
+Demand::Demand(int i, int s, int t, int l, double max, double osL, double p, double pc, double pl, double ps, bool a, int slice, double pathLen, int hops, std::string m, std::string space, std::string b){
 	this->setId(i);
 	this->setSource(s);
 	this->setTarget(t);
@@ -11,6 +11,7 @@ Demand::Demand(int i, int s, int t, int l, double max, double osL, double p, dou
 	this->setPch(p);
 	this->setPchC(pc);
 	this->setPchL(pl);
+	this->setPchS(ps);
 	this->setRouted(a);
 	this->setSliceAllocation(slice);
 	this->setPathLength(pathLen);
@@ -32,6 +33,7 @@ void Demand::copyDemand(const Demand & demand){
 	this->setPch(demand.getPch());
 	this->setPchC(demand.getPchC());
 	this->setPchL(demand.getPchL());
+	this->setPchS(demand.getPchS());
 	this->setRouted(demand.isRouted());
 	this->setSliceAllocation(demand.getSliceAllocation());
 	this->setPathLength(demand.getPathLength());
@@ -51,7 +53,7 @@ void Demand::displayDemand(){
 		r = "NO";
 	}
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
-	std::cout << ". nbSlices: " << this->getLoad() << ", maxLength: " << this->getMaxLength()<< ", osnrLimit: " << this->getOsnrLimit()<< ", pchC: " << this->getPchC()<< ", pchL: " << this->getPchL();
+	std::cout << ". nbSlices: " << this->getLoad() << ", maxLength: " << this->getMaxLength()<< ", osnrLimit: " << this->getOsnrLimit()<< ", pchC: " << this->getPchC()<< ", pchL: " << this->getPchL()<< ", pchS: " << this->getPchS();
 	std::cout << ", ROUTED: " << r << std::endl;
 }
 

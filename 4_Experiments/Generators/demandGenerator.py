@@ -127,13 +127,13 @@ def buildBaseDemandSet(NumberOfNetworks,NetworksNodesToProcess):
             id = 1
             for node1 in meshy:
                 for node2 in meshy:
-                    if (int(node1) < int(node2)): #and ((int(node1)%2 == 0 and int(node2) %2 == 1) or (int(node1)%2 == 1 and int(node2) %2 == 0)):
+                    if (int(node1) < int(node2)) and ((int(node1)%2 == 0 and int(node2) %2 == 0) or (int(node1)%2 == 1 and int(node2) %2 == 1)):
                         row = []
                         row.append(str(id))
                         id = id + 1
                         row.append(node1)
                         row.append(node2)
-                        row.append("200")
+                        row.append("400")
                         demandSet.append(row)    
         #BEGIN OF CORE CASE
         if (coreFlag == True):
@@ -149,8 +149,8 @@ def buildBaseDemandSet(NumberOfNetworks,NetworksNodesToProcess):
                         row.append("400")
                         demandSet.append(row)
             for node1 in secondary:
-                destinationToSelect = len(core) - 1
-                selectedDestination = random.sample(core,k=destinationToSelect)
+                destinationToSelect = len(core)
+                selectedDestination = random.sample(core,k=destinationToSelect-1)
                 for node2 in selectedDestination:
                     row = []
                     row.append(str(id))
@@ -158,11 +158,13 @@ def buildBaseDemandSet(NumberOfNetworks,NetworksNodesToProcess):
                     if int(node1) < int(node2):
                         row.append(node1)
                         row.append(node2)
-                        row.append("200")
+                        row.append("400")
+
                     else:
                         row.append(node2)
                         row.append(node1)
-                        row.append("200")
+                        row.append("400")
+
                     demandSet.append(row)
         iteration = iteration + 1
         NetworksDemandsSets.append(demandSet)
@@ -264,7 +266,7 @@ def osnrLhs(links, path):
         counter = counter + 1
         for link in links[1:]:
             if ((int(link[1]) == u and int(link[2]) == v) or (int(link[1]) == v and int(link[2]) == u)):
-                lhs = lhs + float(link[7]) + float(link[8])
+                lhs = lhs + float(link[7]) + float(link[10])
                 break
     paseNode = getPaseNode()
     lhs = lhs + (len(path) * paseNode)
@@ -326,7 +328,9 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
                         #rhs = osnrRhs(row2[4],row2[5])
                         pch = osnrPch(row2[4])
                         osnr = pch/osnrdenominator
-                        osnrdb = 10.0 * math.log10(osnr)        
+                        osnrdb = 10.0 * math.log10(osnr)       
+                        #print(row2[7],"-",row2[5]) 
+                        #print(row2)
                         if (int(row2[7]) >= shortestDistance) and float(row2[5]) <= osnrdb:
                             transponder.append(row2[0])
                             transponder.append(row2[1])
@@ -620,7 +624,7 @@ for network in NetworksLinksToProcess:
     preCompute.processLinks(network)                                                        #this add GN model columns in the link table
 
 NetworkAsGraphs = buildGraphSet(NetworksLinksToProcess,NetworksNodesToProcess)              #this create a graph for each table of links
-NetworkAsOSNRGraphs = buildOSNRGraphSet(NetworksLinksToProcess,NetworksNodesToProcess) 
+#NetworkAsOSNRGraphs = buildOSNRGraphSet(NetworksLinksToProcess,NetworksNodesToProcess) 
 
 NetworksDemandsSets = buildBaseDemandSet(NumberOfNetworks,NetworksNodesToProcess)           #this create a base demand set for each table of nodes
 TransponderTable = buildTransponderTable()
@@ -636,9 +640,9 @@ for network in NewNetworksDemandsSets:
 #    preCompute.processDemands(network)  
 
 #dar a opçao de criar as demandas sem Pnli. Para criar sem GN Model no geral, basta mudar o onlineParameters
-createNonPNLI = True
-if createNonPNLI == True:
-    NetworksLinksToProcessWithoutPNLI = buildNetworkLinkSetWithoutPNLI(NetworksLinksToProcess)
+#createNonPNLI = True
+#if createNonPNLI == True:
+#    NetworksLinksToProcessWithoutPNLI = buildNetworkLinkSetWithoutPNLI(NetworksLinksToProcess)
 #write outputs
 netId = 0
 outputFolder = [f.name for f in os.scandir("../Outputs") if f.is_dir()]
@@ -653,6 +657,6 @@ for network in instanceNames:
     writeLinkFile(NetworksLinksToProcess[netId],network)
     writeDemandFile(NewNetworksDemandsSets[netId],network)
     #writeDemandFile2(NewNetworksOSNRDemandsSets[netId],network)
-    if createNonPNLI == True:
-        writeLinkFileNonPNLI(NetworksLinksToProcessWithoutPNLI[netId],network)
+    #if createNonPNLI == True:
+    #    writeLinkFileNonPNLI(NetworksLinksToProcessWithoutPNLI[netId],network)
     netId = netId + 1
