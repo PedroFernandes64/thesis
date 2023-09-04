@@ -13,7 +13,6 @@ Instance::Instance(const Input &i) : input(i){
 	createInitialMapping();
 	this->setNextDemandToBeRoutedIndex(0);
 	//PEDRO PEDRO PEDRO
-	this->setPaseNode();
 	this->setPaseNodeC();
 	this->setPaseNodeL();
 	this->setPaseNodeS();
@@ -30,7 +29,6 @@ Instance::Instance(const Instance &i) : input(i.getInput()){
 	this->setTabDemand(i.getTabDemand());
 	this->setNextDemandToBeRoutedIndex(i.getNextDemandToBeRoutedIndex());
 	//PEDRO PEDRO PEDRO
-	this->setPaseNode();
 	this->setPaseNodeC();
 	this->setPaseNodeL();
 	this->setPaseNodeS();
@@ -161,42 +159,26 @@ void Instance::readTopology(){
 		double edgeCost = std::stod(dataList[i][5]);
 		// Only read GNData if GNModel activated
 		int edgeAmplis = 0;
-		double edgePnli = 0.0;
-		double edgePase = 0.0;
 		double edgePnliC = 0.0;
 		double edgePaseC = 0.0;
 		double edgePnliL = 0.0;
 		double edgePaseL = 0.0;
 		double edgePnliS = 0.0;
 		double edgePaseS = 0.0;
-		if (this->input.isGNModelEnabled() == true ){
+		if (this->input.isOSNREnabled() == true ){
 			edgeAmplis = std::stoi(dataList[i][6]);
-			edgePnli = std::stod(dataList[i][7]);
-			edgePase = std::stod(dataList[i][10]);
 			edgePnliC = std::stod(dataList[i][7]);
-			edgePaseC = std::stod(dataList[i][10]);
-			edgePnliL = std::stod(dataList[i][8]);
-			edgePaseL = std::stod(dataList[i][11]);
-			edgePnliS = std::stod(dataList[i][9]);
-			edgePaseS = std::stod(dataList[i][12]);
-			edgePnliL = 0;
-			edgePaseL = 0;
-			edgePnliS = 0;
-			edgePaseS = 0;
+			edgePaseC = std::stod(dataList[i][8]);
+			if (getInput().getNbBands() == 2){
+				edgePnliL = std::stod(dataList[i][9]);
+				edgePaseL = std::stod(dataList[i][10]);
+			}
+			if (getInput().getNbBands() == 3){
+				edgePnliS = std::stod(dataList[i][11]);
+				edgePaseS = std::stod(dataList[i][12]);
+			}
 		}
-		else{
-			edgeAmplis = 0;
-			edgePnli = 0;
-			edgePase = 0;
-			edgePnliC = 0;
-			edgePaseC = 0;
-			edgePnliL = 0;
-			edgePaseL = 0;
-			edgePnliS = 0;
-			edgePaseS = 0;
-
-		}
-		Fiber edge(idEdge, edgeIndex, edgeSource, edgeTarget, edgeLength, edgeNbSlices, edgeCost, edgeAmplis, edgePnli, edgePnliC, edgePnliL, edgePnliS, edgePase, edgePaseC, edgePaseL, edgePaseS);
+		Fiber edge(idEdge, edgeIndex, edgeSource, edgeTarget, edgeLength, edgeNbSlices, edgeCost, edgeAmplis, edgePnliC, edgePnliL, edgePnliS, edgePaseC, edgePaseL, edgePaseS);
 		this->tabEdge.push_back(edge);
 		if (edgeSource > maxNode) {
 			maxNode = edgeSource;
@@ -225,28 +207,21 @@ void Instance::readDemands(){
 		int demandTarget = std::stoi(dataList[i][2]) - 1;
 		int demandLoad = std::stoi(dataList[i][3]);
 		double demandMaxLength = std::stod(dataList[i][4]);
-		double demandOsnrLimit;
-		double demandPch;
-		double demandPchC;
-		double demandPchL;
-		double demandPchS;
-		if (this->input.isGNModelEnabled() == true ){
+		double demandOsnrLimit = 0.0;
+		double demandPchC = 0.0;
+		double demandPchL = 0.0;
+		double demandPchS = 0.0;
+		if (this->input.isOSNREnabled () == true ){
 			demandOsnrLimit = std::stod(dataList[i][5]);
-			demandPch = std::stod(dataList[i][6]);
 			demandPchC = std::stod(dataList[i][6]);
-			demandPchL = std::stod(dataList[i][7]);
-			demandPchS = std::stod(dataList[i][8]);
-			demandPchL = 0.0;
-			demandPchS = 0.0;
+			if (getInput().getNbBands() == 2){
+				demandPchL = std::stod(dataList[i][7]);
+			}
+			if (getInput().getNbBands() == 3){
+				demandPchS = std::stod(dataList[i][8]);
+			}
 		}
-		else{
-			demandOsnrLimit = 0.0;
-			demandPch = 0.0;
-			demandPchC = 0.0;
-			demandPchL = 0.0;
-			demandPchS = 0.0;
-		}
-		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength, demandOsnrLimit, demandPch, demandPchC, demandPchL, demandPchS, false);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength, demandOsnrLimit, demandPchC, demandPchL, demandPchS, false);
 		this->tabDemand.push_back(demand);
 	}
 }
@@ -372,22 +347,18 @@ void Instance::generateDemandsFromFile(std::string filePath){
 		int demandLoad = std::stoi(dataList[i][3]);
 		double demandMaxLength = std::stod(dataList[i][4]);
 		double demandOsnrLimit;
-		double demandPch;
-		double demandPchC;
-		double demandPchL;
-		double demandPchS;
-		if (this->input.isGNModelEnabled() == true ){
+		double demandPchC = 0.0;
+		double demandPchL = 0.0;
+		double demandPchS = 0.0;
+		if (this->input.isOSNREnabled () == true ){
 			demandOsnrLimit = std::stod(dataList[i][5]);
-			demandPch = std::stod(dataList[i][6]);
 			demandPchC = std::stod(dataList[i][6]);
-			demandPchL = std::stod(dataList[i][7]);
-			demandPchS = std::stod(dataList[i][8]);
-		}
-		else{
-			demandOsnrLimit = 0.0;
-			demandPch = 0.0;
-			demandPchC = 0.0;
-			demandPchS = 0.0;
+			if (getInput().getNbBands() == 2){
+				demandPchL = std::stod(dataList[i][7]);
+			}
+			if (getInput().getNbBands() == 3){
+				demandPchS = std::stod(dataList[i][8]);
+			}
 		}
 		std::string demandMode = "";
 		std::string demandSpacing = "";
@@ -397,7 +368,7 @@ void Instance::generateDemandsFromFile(std::string filePath){
 			demandSpacing = dataList[i][7];
 			demandPathBandwidth = dataList[i][8];
 		}
-		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength,demandOsnrLimit, demandPch, demandPchC, demandPchL, demandPchS, false, -1, 0, 0, demandMode, demandSpacing, demandPathBandwidth);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength,demandOsnrLimit, demandPchC, demandPchL, demandPchS, false, -1, 0, 0, demandMode, demandSpacing, demandPathBandwidth);
 		this->tabDemand.push_back(demand);
 	}
 	//std::cout << "out" << std::endl;
@@ -417,7 +388,7 @@ void Instance::generateRandomDemands(const int N){
 		double demandMaxLength = 3000;
 		double demandOsnrLimit = 13;
 		double demandPch = 0.000375;
-		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength, demandOsnrLimit, demandPch, false);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength, demandOsnrLimit, false);
 		this->tabDemand.push_back(demand);
 	}
 }
@@ -541,7 +512,9 @@ void Instance::outputDemands(std::string counter){
 		myfile << "slots" << delimiter;
 		myfile << "max_length" << delimiter;
 		myfile << "osnr_limit" << delimiter;
-		myfile << "pch" << delimiter;
+		myfile << "pchC" << delimiter;
+		myfile << "pchL" << delimiter;
+		myfile << "pchS" << delimiter;
 		myfile << "Routed" << "\n";
 		for (int i = 0; i < getNbDemands(); i++){
 			myfile << std::to_string(getDemandFromIndex(i).getId()+1) << delimiter;
@@ -550,7 +523,9 @@ void Instance::outputDemands(std::string counter){
 			myfile << std::to_string(getDemandFromIndex(i).getLoad()) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getMaxLength()) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getOsnrLimit()) << delimiter;
-			myfile << std::to_string(getDemandFromIndex(i).getPch()) << delimiter;
+			myfile << std::to_string(getDemandFromIndex(i).getPchC()) << delimiter;
+			myfile << std::to_string(getDemandFromIndex(i).getPchL()) << delimiter;
+			myfile << std::to_string(getDemandFromIndex(i).getPchS()) << delimiter;
 			if (getDemandFromIndex(i).isRouted()){
 				myfile << "1" << "\n";
 				nbServedSlices += getDemandFromIndex(i).getLoad();
@@ -740,26 +715,6 @@ Fiber Instance::getPhysicalLinkBetween(int u, int v){
 }
 
 /*PEDRO PEDRO PEDRO*/
-
-void Instance::setPaseNode() { 
-	double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
-    double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
-    double c = 3.0 *pow(10,8);                          //SI meters by second, m 
-    double nu = c/lambd;                                //SI hertz
-    double NF = 5.0;                                    //SI dB
-    double nsp = (1.0/2.0) * pow(10.0,NF/10.0);        
-    double alpha = 0.2;                                 //NOT SI dB/kilometer 
-    double a = log(10)*alpha/20 * pow(10,-3);           //SI 1/km
-    double Gdb ;                                        //SI #dB
-    double Glin ;                                       //LINEAR
-    double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
-    double paseNod ;
-    Gdb = 20;                                           //SI #dB
-    Glin = pow(10,Gdb/10);                              //LINEAR
-    paseNod = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
-	this->paseNode = paseNod; 
-}
-
 void Instance::setPaseNodeC() { 
 	double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
     double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)

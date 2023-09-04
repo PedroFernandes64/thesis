@@ -22,7 +22,7 @@ void CplexCallback::invoke (const IloCplex::Callback::Context &context){
         if (input.isGNPYEnabled()){
             addGnpyConstraints(context);
         }
-        if (input.isGNModelEnabled()){
+        if (input.isOSNREnabled()){
             addGNModelConstraints(context);
         }
     }

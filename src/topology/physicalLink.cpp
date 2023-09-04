@@ -6,7 +6,7 @@
 /****************************************************************************************/
 
 /** Constructor. **/
-Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la, double pn, double pnC, double pnL,double pnS, double pa, double paC, double paL,  double paS) {
+Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la, double pnC, double pnL,double pnS, double paC, double paL,  double paS) {
 	this->setId(i);
 	this->setIndex(ind);
 	this->setSource(s);
@@ -18,11 +18,9 @@ Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la, d
 	}
 	this->setCost(c);
 	this->setLineAmplifiers(la);
-	this->setPnli(pn);
 	this->setPnliC(pnC);
 	this->setPnliL(pnL);
 	this->setPnliS(pnS);
-	this->setPaseLine(pa);
 	this->setPaseLineC(paC);
 	this->setPaseLineL(paL);
 	this->setPaseLineS(paS);
@@ -40,11 +38,9 @@ Fiber::Fiber(const Fiber & f){
 	}
 	this->setCost(f.cost);
 	this->setLineAmplifiers(f.lineAmplifiers);
-	this->setPnli(f.pnli);
 	this->setPnliC(f.pnliC);
 	this->setPnliL(f.pnliL);
 	this->setPnliS(f.pnliS);
-	this->setPaseLine(f.paseLine);
 	this->setPaseLineC(f.paseLineC);
 	this->setPaseLineL(f.paseLineL);
 	this->setPaseLineS(f.paseLineS);
@@ -74,12 +70,10 @@ void Fiber::copyFiber(Fiber & edge){
 	}	
 	this->setLength(edge.getLength());
 	this->setCost(edge.getCost());
-	this->setPnli(edge.getPnli());
+	
 	this->setPnliC(edge.getPnliC());
 	this->setPnliL(edge.getPnliL());
 	this->setPnliS(edge.getPnliS());
-
-	this->setPaseLine(edge.getPaseLine());
 	this->setPaseLineC(edge.getPaseLineC());
 	this->setPaseLineL(edge.getPaseLineL());
 	this->setPaseLineS(edge.getPaseLineS());

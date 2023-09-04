@@ -77,12 +77,12 @@ protected:
     std::vector< std::shared_ptr<ArcMap> > vecArcLineAmplifiers;
     /** A list of pointers to the map storing the arc pnli of the graph associated with each demand to be routed. 
         \note (*vecArcLineAmplifiers[i])[a] is the arc amplifiers of arc a in the graph associated with the i-th demand to be routed. **/
-    std::vector< std::shared_ptr<ArcCost> > vecArcPnli;
-    /** A list of pointers to the map storing the arc pase line of the graph associated with each demand to be routed. 
-        \note (*vecArcLineAmplifiers[i])[a] is the arc amplifiers of arc a in the graph associated with the i-th demand to be routed. **/
-    std::vector< std::shared_ptr<ArcCost> > vecArcPaseLine;
-
-    std::vector< std::shared_ptr<ArcCost> > vecArcNoise;
+    std::vector< std::shared_ptr<ArcCost> > vecArcPnliC;
+    std::vector< std::shared_ptr<ArcCost> > vecArcPaseLineC;
+    std::vector< std::shared_ptr<ArcCost> > vecArcNoiseC;
+    std::vector< std::shared_ptr<ArcCost> > vecArcPnliL;
+    std::vector< std::shared_ptr<ArcCost> > vecArcPaseLineL;
+    std::vector< std::shared_ptr<ArcCost> > vecArcNoiseL;
 
     /** A list of pointers to the map storing the arc lengths with hop penalties included of the graph associated with each demand to be routed. 
         \note (*vecArcLengthWithPenalty[i])[a] is the length with penalties of arc a in the graph associated with the i-th demand to be routed. **/
@@ -128,8 +128,10 @@ protected:
     EdgeCost compactEdgeLength;         /**< EdgeMap storing the edge lengths of the simple graph associated with the initial mapping. **/
     //PEDRO PEDRO PEDRO
     EdgeMap compactEdgeLineAmplifiers;  /**< EdgeMap storing the edge line amplifiers of the simple graph associated with the initial mapping. **/
-    EdgeCost compactEdgePnli;           /**< EdgeMap storing the edge pnli of the simple graph associated with the initial mapping. **/
-    EdgeCost compactEdgePaseLine;           /**< EdgeMap storing the edge pase line of the simple graph associated with the initial mapping. **/
+    EdgeCost compactEdgePnliC;           /**< EdgeMap storing the edge pnli of the simple graph associated with the initial mapping. **/
+    EdgeCost compactEdgePaseLineC;           /**< EdgeMap storing the edge pase line of the simple graph associated with the initial mapping. **/
+    EdgeCost compactEdgePnliL;           /**< EdgeMap storing the edge pnli of the simple graph associated with the initial mapping. **/
+    EdgeCost compactEdgePaseLineL;           /**< EdgeMap storing the edge pase line of the simple graph associated with the initial mapping. **/
     
     CompactNodeMap compactNodeId;       /**< NodeMap storing the LEMON node ids of the simple graph associated with the initial mapping. **/
     CompactNodeMap compactNodeLabel;    /**< NodeMap storing the node labels of the simple graph associated with the initial mapping. **/
@@ -212,10 +214,12 @@ public:
     /** Returns the line amplifiers of an arc in a graph. @param a The arc. @param d The graph index. **/
     int getArcLineAmplifiers(const ListDigraph::Arc &a, int d) const  {return (*vecArcLineAmplifiers[d])[a]; }
     /** Returns the pnli of an arc in a graph. @param a The arc. @param d The graph index. **/
-    double getArcPnli(const ListDigraph::Arc &a, int d) const  {return (*vecArcPnli[d])[a]; }
-    /** Returns the pase of an arc in a graph. @param a The arc. @param d The graph index. **/
-    double getArcPaseLine(const ListDigraph::Arc &a, int d) const  {return (*vecArcPaseLine[d])[a]; }
-    double getArcNoise(const ListDigraph::Arc &a, int d) const  {return (*vecArcNoise[d])[a]; }
+    double getArcPnliC(const ListDigraph::Arc &a, int d) const  {return (*vecArcPnliC[d])[a]; }
+    double getArcPaseLineC(const ListDigraph::Arc &a, int d) const  {return (*vecArcPaseLineC[d])[a]; }
+    double getArcNoiseC(const ListDigraph::Arc &a, int d) const  {return (*vecArcNoiseC[d])[a]; }
+    double getArcPnliL(const ListDigraph::Arc &a, int d) const  {return (*vecArcPnliL[d])[a]; }
+    double getArcPaseLineL(const ListDigraph::Arc &a, int d) const  {return (*vecArcPaseLineL[d])[a]; }
+    double getArcNoiseL(const ListDigraph::Arc &a, int d) const  {return (*vecArcNoiseL[d])[a]; }
     
     /** Returns the length with hop penalties of an arc in a graph. @param a The arc. @param d The graph index. **/
     double getArcLengthWithPenalties(const ListDigraph::Arc &a, int d) const  {return (*vecArcLengthWithPenalty[d])[a]; }
@@ -282,10 +286,10 @@ public:
     //PEDRO PEDRO PEDRO
     /** Returns the line amplifiers of an edge on the compact graph. @param e The edge. */
     int getCompactLineAmplifiers(const ListGraph::Edge &e) { return compactEdgeLineAmplifiers[e]; }
-    /** Returns the pnli of an edge on the compact graph. @param e The edge. */
-    double getCompactPnli(const ListGraph::Edge &e) { return compactEdgePnli[e]; }
-    /** Returns the pase of an edge on the compact graph. @param e The edge. */
-    double getCompactPaseLine(const ListGraph::Edge &e) { return compactEdgePaseLine[e]; }
+    double getCompactPnliC(const ListGraph::Edge &e) { return compactEdgePnliC[e]; }
+    double getCompactPaseLineC(const ListGraph::Edge &e) { return compactEdgePaseLineC[e]; }
+    double getCompactPnliL(const ListGraph::Edge &e) { return compactEdgePnliL[e]; }
+    double getCompactPaseLineL(const ListGraph::Edge &e) { return compactEdgePaseLineL[e]; }
 
     ListGraph::Node getCompactNodeFromLabel(int label) const;
     
@@ -333,10 +337,12 @@ public:
     /** Changes the line amplifiers of an arc in a graph. @param a The arc. @param d The graph index. @param val The new line amplifiers. **/
     void setArcLineAmplifiers(const ListDigraph::Arc &a, int d, int val) { (*vecArcLineAmplifiers[d])[a] = val; }
     /** Changes the pnli of an arc in a graph. @param a The arc. @param d The graph index. @param val The new pnli. **/
-    void setArcPnli(const ListDigraph::Arc &a, int d, double val) { (*vecArcPnli[d])[a] = val; }
-    /** Changes the pase of an arc in a graph. @param a The arc. @param d The graph index. @param val The new pase. **/
-    void setArcPaseLine(const ListDigraph::Arc &a, int d, double val) { (*vecArcPaseLine[d])[a] = val; }
-    void setArcNoise(const ListDigraph::Arc &a, int d, double val) { (*vecArcNoise[d])[a] = val; }
+    void setArcPnliC(const ListDigraph::Arc &a, int d, double val) { (*vecArcPnliC[d])[a] = val; }
+    void setArcPaseLineC(const ListDigraph::Arc &a, int d, double val) { (*vecArcPaseLineC[d])[a] = val; }
+    void setArcNoiseC(const ListDigraph::Arc &a, int d, double val) { (*vecArcNoiseC[d])[a] = val; }
+    void setArcPnliL(const ListDigraph::Arc &a, int d, double val) { (*vecArcPnliL[d])[a] = val; }
+    void setArcPaseLineL(const ListDigraph::Arc &a, int d, double val) { (*vecArcPaseLineL[d])[a] = val; }
+    void setArcNoiseL(const ListDigraph::Arc &a, int d, double val) { (*vecArcNoiseL[d])[a] = val; }
 
     /** Changes the length with hop penalty of an arc in a graph. @param a The arc. @param d The graph index. @param val The new length. **/
     void setArcLengthWithPenalty(const ListDigraph::Arc &a, int d, double val) { (*vecArcLengthWithPenalty[d])[a] = val; }
@@ -364,10 +370,10 @@ public:
     //PEDRO PEDRO PEDRO
     /** Changes the line amplifiers of an edge on the compact graph. @param e The edge. @param val The new line amplifiers  value. */
     void setCompactLineAmplifiers(const ListGraph::Edge &e, int val) { compactEdgeLineAmplifiers[e] = val; }
-    /** Changes the pnli of an edge on the compact graph. @param e The edge. @param val The new pnli value. */
-    void setCompactPnli(const ListGraph::Edge &e, double val) { compactEdgePnli[e] = val; }
-    /** Changes the pase of an edge on the compact graph. @param e The edge. @param val The new pase value. */
-    void setCompactPaseLine(const ListGraph::Edge &e, double val) { compactEdgePaseLine[e] = val; }
+    void setCompactPnliC(const ListGraph::Edge &e, double val) { compactEdgePnliC[e] = val; }
+    void setCompactPaseLineC(const ListGraph::Edge &e, double val) { compactEdgePaseLineC[e] = val; }
+    void setCompactPnliL(const ListGraph::Edge &e, double val) { compactEdgePnliL[e] = val; }
+    void setCompactPaseLineL(const ListGraph::Edge &e, double val) { compactEdgePaseLineL[e] = val; }
 
 	/****************************************************************************************/
 	/*										Methods											*/
@@ -380,7 +386,7 @@ public:
      * @param d The graph index. @param source The source node's id. @param target The target node's id. 
      * @param linkLabel The arc's label. @param slice The arc's slice position. @param l The arc's length. 
      * @param la The arc's line amplifiers. @param pn The arc's pnli. @param pa The arc's pase line**/
-    void addArcs(int d, int source, int target, int linkLabel, int slice, double l, int la, double pn, double pa);    
+    void addArcs(int d, int source, int target, int linkLabel, int slice, double l, int la, double pnc, double pac, double pnl, double pal);    
     
     /** Updates the mapping stored in the given instance with the results obtained from RSA solution (i.e., vecOnPath). @param i The instance to be updated.*/
     void updateInstance(Instance &i);
@@ -402,11 +408,11 @@ public:
 
     /** Performs preprocessing based on the arc lengths and returns true if at least one arc is erased. An arc (u,v) can only be part of a solution if the distance from demand source to u, plus the distance from v to demand target plus the arc length is less than or equal to the demand's maximum length. **/
     bool lengthPreprocessing();
-    bool OSNRPreprocessing();
+    bool OSNRPreprocessingC();
 
     /** Returns the distance of the shortest path from source to target passing through arc a. \note If there exists no st-path, returns +Infinity. @param d The graph index. @param source The source node.  @param a The arc required to be present. @param target The target node.  **/
     double shortestDistance(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
-    double shortestOSNRPartial(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
+    double shortestOSNRCPartial(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
 
     // PEDRO PEDRO PEDRO
     /** Performs GN Model over all possibilities of path**/

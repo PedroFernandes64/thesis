@@ -309,7 +309,10 @@ void EdgeNodeForm::setConstraints(){
 	setEdgeSlotConstraints();
 	setDemandEdgeSlotConstraints();
     setNonOverlappingConstraints();
-
+    if (getInstance().getInput().isOSNREnabled() == true){
+        //setOSNRConstraints();
+        std::cout << "TODO: create OSNR constraints for EDGE NODE" << std::endl;
+    }
     setMaxUsedSlicePerLinkConstraints();
     setMaxUsedSliceOverallConstraints();
 

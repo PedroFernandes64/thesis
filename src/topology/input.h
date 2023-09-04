@@ -28,7 +28,7 @@ public:
 	enum MIP_Solver {						
 		MIP_SOLVER_CPLEX = 0,  	/**< The MIP is solved using CPLEX. **/
 		MIP_SOLVER_CBC = 1, 	/**< The MIP is solved using CBC. **/
-		MIP_SOLVER_GUROBI = 2,  	/**< The MIP is solved using Gurobi. #TODO Implement gurobi.**/
+		MIP_SOLVER_GUROBI = 2,  /**< The MIP is solved using Gurobi. #TODO Implement gurobi.**/
 		MIP_SOLVER_SCIP = 3		/**< The MIP is solved using SCIP. **/
 	};
 
@@ -121,7 +121,6 @@ private:
 	std::vector<std::string> demandToBeRoutedFile;	/**< A vector storing the paths to the files containing information on the non-routed demands. **/
 	std::string outputPath;							/**< Path to the folder where the output files will be sent by the end of the optimization procedure.**/
 	
-
 	NodeMethod chosenNodeMethod;			/**< Refers to which method is applied for solving each node.**/
 	RootMethod chosenRootMethod;			/**< Refers to which method is applied for solving the root. **/
 	Formulation chosenFormulation;			/**< Refers to the formulation used to solve the problem. **/
@@ -153,7 +152,8 @@ private:
 	int maxNbIterations;				/**< The maximal number of iterations allowed without improving the lower bound in the subgradient method.**/
 
 	/******** INCLUSION FOR GN MODEL *********/
-	bool GNModel_activation;			/**< If GNModel will be used. **/
+	bool osnrActivation;				/**< If OSNR constraints will be used. **/
+	int nbBands;							/**< Number of bands. **/
 
 	/******** INCLUSION FOR LAGRANGIAN *********/
 	bool lagrangianRelaxation;               /**< If this option is active, the lagrangian relaxation is run. **/
@@ -197,7 +197,7 @@ public:
     std::string getDemandToBeRoutedFolder() const { return demandToBeRoutedFolder; }
 
 	/** Returns the number of online demand files to be treated. **/
-	int getNbDemandToBeRoutedFiles(){ return demandToBeRoutedFile.size(); }
+	int getNbDemandToBeRoutedFiles(){ return int(demandToBeRoutedFile.size()); }
 	
 	/** Returns the vector storing the paths to the files containing information on the non-routed demands. **/
     std::vector<std::string> getDemandToBeRoutedFiles() const { return demandToBeRoutedFile; }
@@ -241,8 +241,9 @@ public:
 	/** Returns true if GNPY should be used. **/
     bool isGNPYEnabled() const { return GNPY_activation; }
 
-	/** Returns true if GNModel should be used. **/
-	bool isGNModelEnabled() const { return GNModel_activation; }
+	//PEDRO PEDRO PEDRO
+	bool isOSNREnabled() const { return osnrActivation; }
+	int getNbBands() const { return nbBands; }
 
 	bool isObj8(int i) const;
 

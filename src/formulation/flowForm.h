@@ -97,7 +97,7 @@ public:
     Constraint getLengthConstraint(const Demand &demand, int d);
 
 	/** Returns the OSNR constraint associated with a demand. @param demand The demand. @param d The demand index. **/
-    Constraint getOSNRConstraint(const Demand &demand, int d);
+    Constraint getOSNRCConstraint(const Demand &demand, int d);
 
 	/** Returns the non-overlapping constraint associated with an edge and a slice. @param linkLabel The arc label. @param slice The arc slice. **/
 	Constraint getNonOverlappingConstraint(int linkLabel, int slice);

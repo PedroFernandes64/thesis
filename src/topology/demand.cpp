@@ -1,14 +1,13 @@
 #include "demand.h"
 
 /* Constructor. */
-Demand::Demand(int i, int s, int t, int l, double max, double osL, double p, double pc, double pl, double ps, bool a, int slice, double pathLen, int hops, std::string m, std::string space, std::string b){
+Demand::Demand(int i, int s, int t, int l, double max, double osL, double pc, double pl, double ps, bool a, int slice, double pathLen, int hops, std::string m, std::string space, std::string b){
 	this->setId(i);
 	this->setSource(s);
 	this->setTarget(t);
 	this->setLoad(l);
 	this->setMaxLength(max);
 	this->setOsnrLimit(osL);
-	this->setPch(p);
 	this->setPchC(pc);
 	this->setPchL(pl);
 	this->setPchS(ps);
@@ -30,7 +29,6 @@ void Demand::copyDemand(const Demand & demand){
 	this->setLoad(demand.getLoad());
 	this->setMaxLength(demand.getMaxLength());
 	this->setOsnrLimit(demand.getOsnrLimit());
-	this->setPch(demand.getPch());
 	this->setPchC(demand.getPchC());
 	this->setPchL(demand.getPchL());
 	this->setPchS(demand.getPchS());

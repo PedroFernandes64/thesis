@@ -38,14 +38,14 @@ for experiment in testSet:
 
     for obj in objSet:
         stringObj = "obj=" + obj + "\n"
-        lines[18] = stringObj
+        lines[19] = stringObj
 
         for solver in solverSet:
             stringSolver = "solver=" + solver + "\n"
-            lines[27] = stringSolver
+            lines[28] = stringSolver
 
             for gn in gnSet:
-                stringGN = "GNModel_activation=" + gn + "\n"
+                stringGN = "OSNR_activation=" + gn + "\n"
                 lines[12] = stringGN
 
                 parametersName = "../Outputs/parametersSet/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_s" + solver + "_gn" + gn + ".txt"

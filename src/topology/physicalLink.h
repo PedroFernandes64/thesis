@@ -24,11 +24,11 @@ private:
 	double cost;					/**< Cost of routing a demand through the fiber. **/
 	std::vector<Slice> spectrum;	/**< Fiber's spectrum. **/
 	int lineAmplifiers;				/**< Number of line amplifiers. **/
-	double pnli;					/**< Pnli contribution of this fiber**/
+    //Pnli contribution of this fiber
 	double pnliC;	
 	double pnliL;
 	double pnliS;	
-	double paseLine;				/**< Pase Line contribution of this fiber**/
+	//Pase Line contribution of this fiber
 	double paseLineC;
 	double paseLineL;
 	double paseLineS;
@@ -42,7 +42,7 @@ public:
 	 * @param c Cost of routing a demand through the fiber. @param la Number of line amplifiers. @param pn Pnli of the fiber. 
 	 * @param pa Pase line of the fiber.**/
 
-	Fiber(int i, int ind, int s, int t, double len = 0.0, int nb = 1, double c = 0.0, int la = 1, double pn = 0.0, double pnC = 0.0, double pnL = 0.0, double pnS = 0.0,double pa = 0.0, double paC = 0.0, double paL = 0.0, double paS = 0.0);
+	Fiber(int i, int ind, int s, int t, double len = 0.0, int nb = 1, double c = 0.0, int la = 1, double pnC = 0.0, double pnL = 0.0, double pnS = 0.0, double paC = 0.0, double paL = 0.0, double paS = 0.0);
 
 	Fiber(const Fiber &);
 
@@ -72,13 +72,11 @@ public:
 	double getCost() const { return cost; }
 
 	/** Returns the Pnli **/
-	double getPnli() const { return pnli; }
 	double getPnliC() const { return pnliC; }
 	double getPnliL() const { return pnliL; }
 	double getPnliS() const { return pnliS; }
 
 	/** Returns the Pase line **/
-	double getPaseLine() const { return paseLine; }
 	double getPaseLineC() const { return paseLineC; }
 	double getPaseLineL() const { return paseLineL; }
 	double getPaseLineS() const { return paseLineS; }
@@ -127,13 +125,11 @@ public:
 	void setCost(double c) { this->cost = c; }
 
 	/** Changes the pnli @param pn New number **/
-	void setPnli(double pn) { this->pnli = pn; }
 	void setPnliC(double pn) { this->pnliC = pn; }
 	void setPnliL(double pn) { this->pnliL = pn; }
 	void setPnliS(double pn) { this->pnliS = pn; }
 
 	/** Changes the pase line @param pa New number **/
-	void setPaseLine(double pa) { this->paseLine = pa; }
 	void setPaseLineC(double pa) { this->paseLineC = pa; }
 	void setPaseLineL(double pa) { this->paseLineL = pa; }
 	void setPaseLineS(double pa) { this->paseLineS = pa; }

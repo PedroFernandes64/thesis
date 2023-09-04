@@ -55,7 +55,7 @@ CPXLONG SolverCplex::context(Input::ObjectiveMetric obj, const Input &i){
     if(i.isUserCutsActivated()){
         contextMask |= IloCplex::Callback::Context::Id::Relaxation;
     }
-        if(i.isGNModelEnabled()){
+    if(i.isOSNREnabled()){
         contextMask |= IloCplex::Callback::Context::Id::Candidate;
     }
     return contextMask;

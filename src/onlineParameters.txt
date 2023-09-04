@@ -1,22 +1,23 @@
 ******* Input File Paths *******
-topologyFile=../Results_CLAIO_SI/Instances/German_17_25/Link.csv
+topologyFile=../Tests/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../Results_CLAIO_SI/Instances/German_17_25/45_demands
+demandToBeRoutedFolder=../Tests/150demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
 GNPY_topologyFile=../oopt-gnpy/gnpy/example-data/spain_topo.json 
 GNPY_equipmentFile=../oopt-gnpy/gnpy/example-data/spain_eqpt_config.json 
 
-******* GNModel parameters *******
-GNModel_activation=1
+******* Thesis Pedro parameters *******
+OSNR_activation=0
+Bands=1
 
 ******* Formulation parameters *******
-nbDemandsAtOnce=1000
+nbDemandsAtOnce=1
 formulation=0
 userCuts=0
-obj=2p
+obj=1
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
@@ -27,7 +28,7 @@ partitionSlice=15
 ******* Optimization parameters *******
 solver=0 
 method=0 
-preprocessingLevel=0
+preprocessingLevel=2
 linearRelaxation=0
 relaxMethod=0
 

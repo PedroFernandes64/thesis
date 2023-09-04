@@ -9,8 +9,9 @@ GNPY_activation=0
 GNPY_topologyFile=
 GNPY_equipmentFile=
 
-******* GNModel parameters *******
-GNModel_activation=1
+******* Thesis Pedro parameters *******
+OSNR_activation=
+Bands=1
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000

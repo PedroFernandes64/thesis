@@ -21,7 +21,7 @@ private:
 	int load;			/**< Refers to how many slices the demand requires. **/
 	double maxLength;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
 	double osnrLimit;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
-	double pch;			/**< Refers to the power of the channel of the demand **/
+
 	bool routed;		/**< True if the demand is already routed. **/
 	int sliceAllocation;/**< The id of the last slice assigned to this demand. @warning Equals -1 if not routed yet. **/
 	double pathLength;	/**< The length of the path on which demand is routed. @warning Equals -1 if not routed yet. **/
@@ -44,7 +44,7 @@ public:
 	 * @param pos The last slice position assigned to the demand. @param len The length of the path assigned to the demand. 
 	 * @param hop The number of hops in the path assigned to the demand. * @param m The GNPY mode @param space The GNPY spacing 
 	 * @param pathBand The GNPY path_bandwidth. **/
-	Demand(int i = -1, int s = -1, int t = -1, int l = 0, double maxL = 0, double osL = 1, double p = 1,double pc = 1,double pl = 1,double ps = 1, bool route=false, int pos=-1, double len = 0, int hop = 0, std::string m="", std::string space="",std::string pathBand="");
+	Demand(int i = -1, int s = -1, int t = -1, int l = 0, double maxL = 0, double osL = 1, double pc = 1,double pl = 1,double ps = 1, bool route=false, int pos=-1, double len = 0, int hop = 0, std::string m="", std::string space="",std::string pathBand="");
 
 	/****************************************************************************************/
 	/*										Getters											*/
@@ -77,9 +77,6 @@ public:
 	double getOsnrLimit() const { return osnrLimit; }
 
 	/** Returns the power of the channel of the demand **/
-	double getPch() const { return pch; }
-
-	//TESTS C + L
 	double getPchC() const { return pchC; }
 	double getPchL() const { return pchL; }
 	double getPchS() const { return pchS; }
@@ -124,8 +121,6 @@ public:
 	void setOsnrLimit(double osL) { this->osnrLimit = osL; }
 
 	/** Changes the power of the channel of the demand **/
-	void setPch(double p) { this->pch = p; }
-
 	void setPchC(double p) { this->pchC = p; }
 	void setPchL(double p) { this->pchL = p; }
 	void setPchS(double p) { this->pchS = p; }

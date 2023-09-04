@@ -587,34 +587,6 @@ def writeDemandFile(demandTable,network):
                 line = line + str(element) + ";"
             line = line[:-1]
             line = line + "\n"
-            #print(line)
-            f.write(line)
-
-def writeDemandFile2(demandTable,network):
-    #os.mkdir("../Outputs/Instances/" + network + "/" + str(len(demandTable)-1) + "_demands/")
-    filename = "../Outputs/Instances/" + network + "/" + str(len(demandTable)-1) + "_demands/demands2.csv"
-    print(filename)
-    with open(filename, "w") as f:
-        for row in demandTable:
-            line = ""
-            for element in row:
-                line = line + str(element) + ";"
-            line = line[:-1]
-            line = line + "\n"
-            #print(line)
-            f.write(line)
-    
-def writeLinkFileNonPNLI(linkTable,network):
-    filename = "../Outputs/Instances/" + network + "/LinkWithoutPnli.csv"
-    print(filename)
-    with open(filename, "w") as f:
-        for row in linkTable:
-            line = ""
-            for element in row:
-                line = line + str(element) + ";"
-            line = line[:-1]
-            line = line + "\n"
-            #print(line)
             f.write(line)
 
 NetworksLinksToProcess, instanceNames = buildNetworkLinkSet()                               #this produce a table for each link file
@@ -636,13 +608,6 @@ NewNetworksDemandsSets = chooseTransponder(NumberOfNetworks,NetworksDemandsSets,
 for network in NewNetworksDemandsSets:
     preCompute.processDemands(network)   
 
-#for network in NewNetworksOSNRDemandsSets:
-#    preCompute.processDemands(network)  
-
-#dar a opçao de criar as demandas sem Pnli. Para criar sem GN Model no geral, basta mudar o onlineParameters
-#createNonPNLI = True
-#if createNonPNLI == True:
-#    NetworksLinksToProcessWithoutPNLI = buildNetworkLinkSetWithoutPNLI(NetworksLinksToProcess)
 #write outputs
 netId = 0
 outputFolder = [f.name for f in os.scandir("../Outputs") if f.is_dir()]
@@ -656,7 +621,4 @@ for network in instanceNames:
     os.mkdir("../Outputs/Instances/" + network)
     writeLinkFile(NetworksLinksToProcess[netId],network)
     writeDemandFile(NewNetworksDemandsSets[netId],network)
-    #writeDemandFile2(NewNetworksOSNRDemandsSets[netId],network)
-    #if createNonPNLI == True:
-    #    writeLinkFileNonPNLI(NetworksLinksToProcessWithoutPNLI[netId],network)
     netId = netId + 1

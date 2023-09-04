@@ -295,27 +295,10 @@ void FlowForm::setConstraints(){
     this->setSourceConstraints();
     this->setFlowConservationConstraints();
     this->setTargetConstraints();
-    /*
-    if (this->getInstance().getInput().isGNModelEnabled() == true){
+
+    this->setLengthConstraints();
+    if (this->getInstance().getInput().isOSNREnabled() == true){
         this->setOSNRConstraints();
-        this->setLengthConstraints();
-    }
-    else{
-        this->setLengthConstraints();
-    }
-    */
-    int osnr = 1;
-    int length = 1;
-    if (this->getInstance().getInput().isGNModelEnabled() == true){
-        if (length == 1) {
-            this->setLengthConstraints();
-        } 
-        if (osnr == 1) {
-            this->setOSNRConstraints();
-        } 
-    }
-    else{
-        this->setLengthConstraints();
     }
     //this->setStrongLengthConstraints();
     this->setNonOverlappingConstraints();    
@@ -533,42 +516,52 @@ Constraint FlowForm::getLengthConstraint(const Demand &demand, int d){
 /* Defines OSNR constraints. Demands must be routed within a OSNR limit. */
 void FlowForm::setOSNRConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
-        const Constraint & OSNRConstraint = getOSNRConstraint(getToBeRouted_k(d), d);
-        constraintSet.push_back(OSNRConstraint);
+        const Constraint & OSNRConstraintC = getOSNRCConstraint(getToBeRouted_k(d), d);
+        constraintSet.push_back(OSNRConstraintC);
+        if (getInstance().getInput().getNbBands() == 2) {
+            std::cout << "TODO: no OSNR constraints for band L yet" << std::endl;
+            //const Constraint & OSNRConstraintL = getOSNRLConstraint(getToBeRouted_k(d), d);
+            //constraintSet.push_back(OSNRConstraintL);
+        } 
+        if (getInstance().getInput().getNbBands() == 3) {
+            std::cout << "TODO: no OSNR constraints for band S yet" << std::endl;
+            //const Constraint & OSNRConstraintS = getOSNRSConstraint(getToBeRouted_k(d), d);
+            //constraintSet.push_back(OSNRConstraintS);
+        }  
     }
     std::cout << "OSNR constraints have been defined..." << std::endl;
 }
 
 /* Returns the OSNR constraint associated with a demand. */
-Constraint FlowForm::getOSNRConstraint(const Demand &demand, int d){
+Constraint FlowForm::getOSNRCConstraint(const Demand &demand, int d){
     Expression exp;
     double rhs; double rls;
     
     double osnrLimdb = demand.getOsnrLimit();
     double osnrLim = pow(10,osnrLimdb/10);
-    double pch = demand.getPch();
+    double pch = demand.getPchC();
 
     double roundingFactor = pow(10,8);
     
-    rhs = pch/osnrLim - instance.getPaseNode() ;
+    rhs = pch/osnrLim - instance.getPaseNodeC() ;
     
     rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
     rls = 0;
     for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
         //First term
         int arc = getArcIndex(a, d); 
-        double coeff = getArcPaseLine(a, d) * roundingFactor;
+        double coeff = getArcPaseLineC(a, d) * roundingFactor;
         coeff = ceil(coeff*100)/100; //ROUNDING
         //std::cout  << "-Pase line arredondado" << coeff << " Pase line" << getArcPaseLine(a, d) << std::endl;
         Term term(x[d][arc], coeff);
         exp.addTerm(term);
         //Second term
-        coeff = 1.0 * ceil(instance.getPaseNode() * roundingFactor*100)/100; //ROUNDING
+        coeff = 1.0 * ceil(instance.getPaseNodeC() * roundingFactor*100)/100; //ROUNDING
         //std::cout  << "-Pase node arredondado" << coeff << " Pase node" << instance.getPaseNode() << std::endl;
         Term term2(x[d][arc], coeff);
         exp.addTerm(term2);
         //Third term
-        coeff = getArcPnli(a, d)* roundingFactor;
+        coeff = getArcPnliC(a, d)* roundingFactor;
         coeff = ceil(coeff*100)/100; //ROUNDING
         //std::cout << "-Pnli arredondado" << coeff << " pnli" << getArcPnli(a, d) << std::endl;
         Term term3(x[d][arc], coeff);
