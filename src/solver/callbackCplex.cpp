@@ -61,7 +61,7 @@ void CplexCallback::addGNModelConstraints(const IloCplex::Callback::Context &con
         
         int const threadNo = context.getIntInfo(IloCplex::Callback::Context::Info::ThreadId);
         //std::vector<Constraint> constraint = formulation->solveSeparationGnpy(getIntegerSolution(context), threadNo);
-        std::vector<Constraint> constraint = formulation->solveSeparationGNModel(getIntegerSolution(context), threadNo);
+        //std::vector<Constraint> constraint = formulation->solveSeparationGNModel(getIntegerSolution(context), threadNo);
         /*
         if (!constraint.empty()){
             std::cout << "A lazy constraint was found:";
