@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../Tests/Link.csv
+topologyFile=../test_orange/Nsfnet_14_21/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../Tests/150demands
+demandToBeRoutedFolder=../test_orange/Nsfnet_14_21/91_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -10,11 +10,11 @@ GNPY_topologyFile=../oopt-gnpy/gnpy/example-data/spain_topo.json
 GNPY_equipmentFile=../oopt-gnpy/gnpy/example-data/spain_eqpt_config.json 
 
 ******* Thesis Pedro parameters *******
-OSNR_activation=0
+OSNR_activation=1
 Bands=1
 
 ******* Formulation parameters *******
-nbDemandsAtOnce=1
+nbDemandsAtOnce=1000
 formulation=0
 userCuts=0
 obj=1
@@ -28,7 +28,7 @@ partitionSlice=15
 ******* Optimization parameters *******
 solver=0 
 method=0 
-preprocessingLevel=2
+preprocessingLevel=0
 linearRelaxation=0
 relaxMethod=0
 
