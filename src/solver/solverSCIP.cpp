@@ -1,4 +1,6 @@
 #include "solverSCIP.h"
+#include "objscip/objscip.h"
+#include "eventhdlrNonOverlapping.h"
 
 int SolverSCIP::count = 0;
 
@@ -14,13 +16,23 @@ SolverSCIP::SolverSCIP(const Instance &inst) : AbstractSolver(inst, STATUS_UNKNO
     // Deactivation of the standard output
     SCIPmessagehdlrSetQuiet(SCIPgetMessagehdlr(_scip), TRUE);
 
+    // Output level definition
+    SCIPsetIntParam(_scip, "display/verblevel", 3);
+
     // Creation of an empty problem
     SCIPcreateProb(_scip, "RSA", NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
     setSCIPParams(inst.getInput());
     implementFormulation();
     //exportFormulation(inst);
+
+    //SCIPincludeObjEventhdlr(_scip, new EventhdlrNonOverlapping(_scip, formulation, this), TRUE);
+
     count++;
+}
+
+std::vector<SCIP_VAR *> SolverSCIP::getVars(){
+    return this->_vars;
 }
 
 AbstractSolver::Status SolverSCIP::getStatus(){
@@ -60,6 +72,17 @@ std::vector<double> SolverSCIP::getSolution(){
         solution[i] = SCIPgetSolVal(_scip, sol, _vars[i]);
     }
     return solution;
+}
+
+std::vector<double> SolverSCIP::getIntermediateSolution(){
+    std::vector<double> intermSolution;
+    intermSolution.resize(_vars.size());
+    SCIP_SOL * sol;
+    SCIPcreateCurrentSol(_scip, &sol, NULL);
+    for (unsigned int i = 0; i < intermSolution.size(); i++){
+        intermSolution[i] = SCIPgetSolVal(_scip, sol, _vars[i]);
+    }
+    return intermSolution;
 }
 
 /** Displays the value of each variable in the obtained solution. **/
@@ -259,13 +282,18 @@ void SolverSCIP::solve(){
     }
     setDurationTime(SCIPgetSolvingTime(_scip));
     if ((SCIPgetStatus(_scip) == SCIP_STATUS_OPTIMAL) || (SCIPgetBestSol(_scip) != NULL)){
-        setUpperBound(SCIPgetUpperbound(_scip));
-        setLowerBound(SCIPgetLowerbound(_scip));
+        setUpperBound(SCIPgetPrimalbound(_scip));
+        setLowerBound(SCIPgetDualbound(_scip));
         setMipGap(SCIPgetGap(_scip));	
     }
     setTreeSize(SCIPgetNNodes(_scip));
 
     std::cout << "Optimization done in " << SCIPgetSolvingTime(_scip) << " secs." << std::endl;
+}
+
+double SolverSCIP::getObjValue(){
+    SCIP_SOL * sol = SCIPgetBestSol(_scip);
+    return SCIPgetSolOrigObj(_scip, sol);
 }
 
 void SolverSCIP::exportFormulation(const Instance &instance){

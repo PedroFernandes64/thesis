@@ -4,7 +4,7 @@
 /* Constructor. Builds the Online RSA mixed-integer program and solves it using a defined solver (CPLEX or CBC). */
 FlowForm::FlowForm(const Instance &inst) : AbstractFormulation(inst){
     if(inst.getInput().getChosenNodeMethod() == Input::NODE_METHOD_LINEAR_RELAX){
-        
+
         ClockTime time(ClockTime::getTimeNow());
         ClockTime time2(ClockTime::getTimeNow());
         std::cout << "--- Flow formulation has been chosen. " << displayDimensions() << " ---" << std::endl;
@@ -94,8 +94,8 @@ void FlowForm::setMaxUsedSlicePerEdgeVariables(){
 void FlowForm::setMaxUsedSliceOverallVariable(){
     std::string varName = "maxSliceOverall";
     int lowerBound = std::max(0,instance.getMaxUsedSlicePosition());
-    //int upperBound = getNbSlicesGlobalLimit();
-    int upperBound = auxNbSlicesGlobalLimit-1;
+    int upperBound = getNbSlicesGlobalLimit();
+    //int upperBound = auxNbSlicesGlobalLimit-1;
     int varId = getNbVar();
     maxSliceOverall = Variable(varId, lowerBound, upperBound, Variable::TYPE_REAL, 0, varName);
     incNbVar();
@@ -259,7 +259,7 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
         }
         break;
         }
-    case Input::OBJECTIVE_METRIC_4p:
+            case Input::OBJECTIVE_METRIC_4p:
         {
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
             for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
@@ -295,19 +295,18 @@ void FlowForm::setConstraints(){
     this->setSourceConstraints();
     this->setFlowConservationConstraints();
     this->setTargetConstraints();
-
-    this->setLengthConstraints();
+    
+    //this->setLengthConstraints();
     if (this->getInstance().getInput().isOSNREnabled() == true){
         this->setOSNRConstraints();
     }
-    //this->setStrongLengthConstraints();
+    this->setStrongLengthConstraints();
     this->setNonOverlappingConstraints();    
 
     this->setMaxUsedSlicePerLinkConstraints();    
     this->setMaxUsedSliceOverallConstraints();    
     this->setMaxUsedSliceOverallConstraints2();    
-    this->setMaxUsedSliceOverallConstraints3();   
-
+    //this->setMaxUsedSliceOverallConstraints3();   
 } 
 
 /* Defines Source constraints. At most one arc leaves each node and exactly one arc leaves the source. */
@@ -362,7 +361,6 @@ Constraint FlowForm::getSourceConstraint_d_n(const Demand & demand, int d, int n
 void FlowForm::setFlowConservationConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
         for (ListDigraph::NodeIt v(*vecGraph[d]); v != INVALID; ++v){
-            //std::cout << "neymar peladao" << std::flush << std::endl;
             int label = getNodeLabel(v, d);
             if( (label != getToBeRouted_k(d).getSource()) && (label != getToBeRouted_k(d).getTarget()) ){
                 const Constraint & flow = getFlowConservationConstraint_i_d(v, getToBeRouted_k(d), d);
@@ -647,7 +645,7 @@ Constraint FlowForm::getMaxUsedSlicePerLinkConstraints(int linkIndex, int d){
     int linkLabel = instance.getPhysicalLinkFromIndex(linkIndex).getId();
     for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[d]),linkLabel); a != INVALID; ++a){ 
         int index = getArcIndex(a, d);
-        int slice = getArcSlice(a, d);
+        int slice = getArcSlice(a, d)+1;
         Term term(x[d][index], slice);
         exp.addTerm(term);
     }
@@ -682,7 +680,7 @@ Constraint FlowForm::getMaxUsedSlicePerLinkConstraints2(int linkIndex, int s){
         for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[d]),linkLabel); a != INVALID; ++a){ 
             if ((getArcSlice(a, d) >= s) && (getArcSlice(a, d) <= s + demandLoad - 1)){
                 int index = getArcIndex(a, d);
-                int slice = getArcSlice(a, d);
+                int slice = getArcSlice(a, d)+1;
                 Term term(x[d][index], slice);
                 exp.addTerm(term);
             }
@@ -716,12 +714,14 @@ Constraint FlowForm::getMaxUsedSliceOverallConstraints(int d){
         if (getToBeRouted_k(d).getSource() == getNodeLabel((*vecGraph[d]).source(a), d)){
             if(nodeMethod != Input::NODE_METHOD_LINEAR_RELAX){
                 int index = getArcIndex(a, d);
-                int slice = getArcSlice(a, d);
+                int slice = getArcSlice(a, d)+1;
+                //int slice = getArcSlice(a, d);
                 Term term(x[d][index], -slice);
                 exp.addTerm(term);
             }else{
                 int index = getArcIndex(a, d);
-                int slice = getArcSlice(a, d);
+                int slice = getArcSlice(a, d)+1;
+                //int slice = getArcSlice(a, d);
                 Term term(x[d][index], slice);
                 exp.addTerm(term);
             }
@@ -766,7 +766,8 @@ Constraint FlowForm::getMaxUsedSliceOverallConstraints2(int linkLabel, int s){
         for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[d]),linkLabel); a != INVALID; ++a){ 
             if ((getArcSlice(a, d) >= s) && (getArcSlice(a, d) <= s + demandLoad - 1)){
                 int index = getArcIndex(a, d);
-                int slice = getArcSlice(a, d);
+                int slice = getArcSlice(a, d)+1;
+                //int slice = getArcSlice(a, d);
                 Term term(x[d][index], slice);
                 exp.addTerm(term);
             }
@@ -811,7 +812,7 @@ Constraint FlowForm::getMaxUsedSliceOverallConstraints3(int nodeLabel, int s){
             for (ListDigraph::OutArcIt a(*vecGraph[d], v); a != INVALID; ++a){
                 if ( (getArcSlice(a, d) >= s) && (getArcSlice(a, d) <= s + demandLoad - 1) ){
                     int index = getArcIndex(a, d);
-                    int slice = getArcSlice(a, d);
+                    int slice = getArcSlice(a, d)+1;
                     Term term(x[d][index], slice);
                     exp.addTerm(term);
                 }
@@ -843,7 +844,7 @@ Constraint FlowForm::getMaxUsedSliceOverallConstraints4(int nodeLabel){
     exp.addTerm(Term(maxSliceOverall, -1));
     
     std::ostringstream constraintName;
-    constraintName << "MaxUsedSliceOverall3_" << nodeLabel+1;
+    constraintName << "MaxUsedSliceOverall4_" << nodeLabel+1;
     Constraint constraint(exp.getTrivialLb(), exp, rhs, constraintName.str());
     return constraint;
 }
@@ -1002,10 +1003,6 @@ void FlowForm::updatePath(const std::vector<double> &vals){
                 int arc = getArcIndex(a, d);
                 if (x[d][arc].getVal() >= 1 - EPS){
                     (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
-                    /*PEDRO PEDRO PEDRO*/
-                    //std::cout << "demande" << d << " arc" << arc << " slice" << getArcSlice(a,d) + 1 << " origin" << getNodeLabel((*vecGraph[d]).source(a), d) + 1 << " destiny" <<  getNodeLabel((*vecGraph[d]).target(a), d) + 1 << std::endl;
-                    //std::cout << "EDGE: " << getArcLabel(a, d) << std::endl;
-                    /*PEDRO PEDRO PEDRO*/
                     previousArc = a;
                 }
             }
@@ -1108,17 +1105,28 @@ std::vector<Constraint> FlowForm::solveSeparationGnpy(const std::vector<double> 
     
     return cuts;
 }
-
-
-/** Solves the separation problem for GNMODEL. If the solution is violated, return the constraints that cuts it, otherwise the returned vector is empty. **/
 /*
-std::vector<Constraint> solveSeparationGNModel(const std::vector<double> &solution, const int threadNo){
-	std::vector<Constraint> cuts;
-    std::cout << "sera que chama o filhinho?" << std::endl;
-	return cuts;
-    
-}
-*/
+Constraint FlowForm::getastraint(int d){
+    int nbHops = 0;
+    Expression exp;
+    for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+        int arc = getArcIndex(a, d);
+        if (x[d][arc].getVal() >= 1 - EPS){
+            int label = getArcLabel(a, d);
+            nbHops++;
+            for (ListDigraph::ArcIt it(*vecGraph[d]); it != INVALID; ++it){
+                if (getArcLabel(it, d) == label){
+                    int arcIndex = getArcIndex(it, d);
+                    exp.addTerm(Term(x[d][arcIndex], 1));
+                }
+            }
+        }
+    }
+    int rhs = nbHops-1;
+    std::ostringstream constraintName;
+    constraintName << "PathElimination(" << std::to_string(getToBeRouted_k(d).getId()+1) << ")";
+    return Constraint(0, exp, rhs, constraintName.str());
+}*/
 
 Constraint FlowForm::getPathEliminationConstraint(int d){
     int nbHops = 0;
@@ -1218,9 +1226,7 @@ void FlowForm::writePathRequest(std::ofstream &serviceFile, int d){
 
 void FlowForm::setLagConstraints(){
     this->setSourceConstraints();
-    std::cout << "bau aca" << std::endl;
     this->setFlowConservationConstraints();
-    std::cout << "bau aca" << std::endl;
     this->setTargetConstraints();
     this->setLengthConstraints();
     this->setNonOverlappingConstraints();    

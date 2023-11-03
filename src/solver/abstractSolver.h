@@ -68,6 +68,7 @@ public:
 	double getLowerBound() const { return lowerBound; }
 	int getTreeSize() const { return treeSize; }
 	double getRootValue() const { return rootValue; }
+	virtual double getObjValue() = 0;
 
 	double getTotalChargeTime() const { return totalChargeTime;}
 	double getVarChargeTime() const { return varChargeTime;}

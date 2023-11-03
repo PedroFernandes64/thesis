@@ -98,14 +98,6 @@ public:
 		return cuts;
     }
 
-	/** Solves the separation problem for GNMODEL. If the solution is violated, return the constraints that cuts it, otherwise the returned vector is empty. **/
-    
-	virtual std::vector<Constraint> solveSeparationNonOverlaping(const std::vector<double> &solution, const int threadNo){ 
-		std::cout << "WARNING: Unimplemented Non Overlaping separation problem!" << std::endl;Expression exp;
-		std::vector<Constraint> cuts;
-		return cuts;
-    }
-
 	/****************************************************************************************/
 	/*									Objective Functions									*/
 	/****************************************************************************************/
@@ -129,7 +121,6 @@ public:
 
 	/** Recovers the obtained MIP solution and builds a path for each demand on its associated graph from RSA. **/
     virtual void updatePath(const std::vector<double> &vals) = 0;
-	
 	
 	/****************************************************************************************/
 	/*									Variable Fixing										*/

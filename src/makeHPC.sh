@@ -1,2 +1,3 @@
-make -f makefileHPC
-cp exec ../4_Experiments/Outputs
+make clean
+make -f makefilePedroHPC
+cp exec ../Experiments/Outputs

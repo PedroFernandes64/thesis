@@ -141,6 +141,7 @@ public:
 
 	/** Returns the Overall Max Used Slice Position constraints associated with a link and a demand. @param linkIndex The link's index. **/
 	Constraint getMaxUsedSliceOverallConstraints3(int linkIndex, int s);
+	
 	/** Returns the Overall Max Used Slice Position constraints associated with a link and a demand. @param linkIndex The link's index. **/
 	Constraint getMaxUsedSliceOverallConstraints4(int linkIndex);
 
@@ -153,8 +154,6 @@ public:
 
 	std::vector<Constraint> solveSeparationGnpy(const std::vector<double> &value, const int threadNo);
 
-	//std::vector<Constraint> solveSeparationGNModel(const std::vector<double> &value, const int threadNo);
-
 	/** Defines the pool of cuts. **/
     void setCutPool() override;
 	
@@ -166,8 +165,6 @@ public:
 
 	/** Defines the flow cuts for edges. **/
 	void setFlowEdgeCuts();
-
-
 	/****************************************************************************************/
 	/*									Objective Functions									*/
 	/****************************************************************************************/
@@ -190,7 +187,7 @@ public:
 
 	/** Returns a vector of node id's corresponding to the sequence of nodes that the d-th demand passes through. **/
 	std::vector<int> getPathNodeSequence(int d);
-
+	
 	/****************************************************************************************/
 	/*									Variable Fixing										*/
 	/****************************************************************************************/

@@ -20,7 +20,7 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
         GNPY_topologyFile = getParameterValue("GNPY_topologyFile=");
         GNPY_equipmentFile = getParameterValue("GNPY_equipmentFile=");
     }
-    
+
     std::cout << "Getting GNMODEL parameters..." << std::endl;
     osnrActivation = std::stoi(getParameterValue("OSNR_activation="));
 
@@ -54,16 +54,14 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
     timeLimit = to_timeLimit(getParameterValue("timeLimit="));
     globalTimeLimit = to_timeLimit(getParameterValue("globalTimeLimit="));
     
-    /*
+/*
     std::cout << "Getting subgradient parameters..." << std::endl;
     lagrangianMultiplier_zero = std::stod(getParameterValue("lagrangianMultiplier_zero="));
     lagrangianLambda_zero = std::stod(getParameterValue("lagrangianLambda_zero="));
     nbIterationsWithoutImprovement = std::stoi(getParameterValue("nbIterationsWithoutImprovement="));
     maxNbIterations = std::stoi(getParameterValue("maxNbIterations="));
-    */
-
-    /******** INCLUSION FOR LAGRANGIAN *********/
-    /*
+/*
+    /******** INCLUSION FOR LAGRANGIAN *********
     lagrangianRelaxation = std::stoi(getParameterValue("lagrangianRelaxation="));
     lagChosenFormulation = to_LagFormulation(getParameterValue("lagFormulation="));
     chosenHeuristic = to_Heuristic(getParameterValue("heuristic="));
@@ -74,9 +72,8 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
     alternativeStop = std::stoi(getParameterValue("alternativeStop="));
     warmstart = std::stoi(getParameterValue("warmstart="));
     lagOutputPath = getParameterValue("lagOutputPath=");
-    */
 
-    /********************************************/
+    ********************************************/
 
     std::cout << "Populating online demand files..." << std::endl;
     populateOnlineDemandFiles();
@@ -259,7 +256,7 @@ std::vector<Input::ObjectiveMetric> Input::to_ObjectiveMetric(std::string data){
         else if (strVec[i] == "4"){
             objVec.push_back(OBJECTIVE_METRIC_4);
         }
-                else if (strVec[i] == "4p"){
+        else if (strVec[i] == "4p"){
             objVec.push_back(OBJECTIVE_METRIC_4p);
         }
         else if (strVec[i] == "8"){
@@ -368,6 +365,14 @@ Input::Formulation Input::to_Formulation(std::string data){
         }
         else if (policyId == 1){
             policy = FORMULATION_EDGE_NODE;
+            return policy;
+        }
+        else if (policyId == 2){
+            policy = FORMULATION_T_FLOW;
+            return policy;
+        }
+        else if (policyId == 3){
+            policy = FORMULATION_DRAOV;
             return policy;
         }
         else{

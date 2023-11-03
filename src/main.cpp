@@ -14,9 +14,7 @@ ILOSTLBEGIN
 using namespace lemon;
 
 int main(int argc, char *argv[]) {
-
 	ClockTime GLOBAL_TIME(ClockTime::getTimeNow());
-
 	/********************************************************************/
 	/* 						Get Parameter file 							*/
 	/********************************************************************/
@@ -65,7 +63,6 @@ int main(int argc, char *argv[]) {
 		//instance.output(outputCode);
 		bool feasibility = true;
 		bool lastIterationFeas = true;
-
 		while(instance.getNextDemandToBeRoutedIndex() < instance.getNbDemands() && feasibility == true && (instance.getInput().getOptimizationTimeLimit() >= OPTIMIZATION_TIME.getTimeInSecFromStart())){
 				
 			/********************************************************************/
@@ -112,15 +109,19 @@ int main(int argc, char *argv[]) {
 			//output for massive experiments
 			//removing junk from demand string
 			std::string instanceName = input.getTopologyFile();
-			std::string l = "/Link.csv";
-			std::string i = "Instances/";
-			
-			//instanceName.erase(instanceName.find(l),l.length()); //remove l from string
-			//instanceName.erase(instanceName.find(i),i.length()); //remove i from string
+			std::string l = "_demandsLinks/Link.csv";
+			std::string l2 = "/Links";
+			std::string i = "../Instances/";
+			instanceName.erase(instanceName.find(l),l.length()); //remove l from string
+			instanceName.erase(instanceName.find(l2),l2.length()); //remove l from string
+			instanceName.erase(instanceName.find(i),i.length()); //remove i from string
 			//opening file and writing
 			std::ofstream outfile;
   			outfile.open("results.csv", std::ios_base::app); // append instead of overwrite
-  			outfile << instanceName + ";" + to_string(instance.getNbDemands()) + ";" + to_string(solver->getUpperBound()) + ";" + to_string(+solver->getLowerBound()) + ";" + to_string(solver->getMipGap()) +";" + to_string(round(solver->getDurationTime()*1000)/1000) +";" + to_string(input.getChosenObj_k(0))+";"+to_string(input.getChosenMIPSolver())+";"+to_string(input.isOSNREnabled())+"\n"; 
+  			outfile << instanceName + ";" + to_string(instance.getNbDemands()) + ";" + to_string(solver->getUpperBound()) + 
+			";" + to_string(+solver->getLowerBound()) + ";" + to_string(solver->getMipGap()) +";" + 
+			to_string(round(solver->getDurationTime()*1000)/1000) +";" + to_string(input.getChosenObj_k(0))+";"+
+			to_string(input.getChosenMIPSolver())+";"+to_string(input.getChosenFormulation())+"\n"; 
 		}
 		
 

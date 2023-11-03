@@ -4,6 +4,9 @@
 // include all concrete formulations
 #include "flowForm.h"
 #include "edgeNodeForm.h"
+#include "tFlowForm.h"
+#include "drForm.h"
+
 
 /*********************************************************************************************
 * This class implements a factory for Formulations. It provides a concrete formulation.
@@ -27,6 +30,14 @@ public:
             }
             case Input::FORMULATION_EDGE_NODE:{
                 return new EdgeNodeForm(instance);
+                break;
+            }
+            case Input::FORMULATION_T_FLOW:{
+                return new TFlowForm(instance);
+                break;
+            }
+            case Input::FORMULATION_DRAOV:{
+                return new DrFormulation(instance);
                 break;
             }
             default:{

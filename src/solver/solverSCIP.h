@@ -37,6 +37,12 @@ public:
 
 	std::vector<double> getSolution() override; 
 
+    std::vector<double> getIntermediateSolution(); 
+
+    double getObjValue();
+
+    std::vector<SCIP_VAR *> getVars();
+
     /****************************************************************************************/
 	/*										Setters											*/
 	/****************************************************************************************/
@@ -58,7 +64,7 @@ public:
 	/****************************************************************************************/
 
     /** Recovers the obtained MIP solution and builds a path for each demand on its associated graph from RSA. **/
-    //void updatePath(); //?
+    //void updatePath();
 
 	void implementFormulation() override;
 

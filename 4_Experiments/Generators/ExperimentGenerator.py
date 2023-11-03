@@ -11,8 +11,9 @@ for file in files:
     for demandNumber in demandList:
         testSet.append([file,demandNumber.replace("_demands","")])
 
-solverSet= ["0"]
-objSet = ["1","2p","4","8"]
+solverSet = ["0"]
+formulationSet = ["0","2"]
+objSet = ["1", "1p", "2", "2p","4","8"]
 gnSet=["1"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
@@ -31,8 +32,8 @@ counter = 1
 for experiment in testSet:
     instanceName =experiment[0]
     demandsNumber = experiment[1]
-    stringLinks = "topologyFile=Instances/" + instanceName + "/Link.csv" "\n" 
-    stringDemands = "demandToBeRoutedFolder=Instances/" + instanceName + "/" + demandsNumber + "_demands\n"
+    stringLinks = "topologyFile=Instances/" + instanceName + "/Links/" + demandsNumber + "_demandsLinks" + "/Link.csv" "\n" 
+    stringDemands = "demandToBeRoutedFolder=Instances/" + instanceName + "/Demands/" + demandsNumber + "_demands/\n"
     lines[1] = stringLinks
     lines[4] = stringDemands
 
@@ -40,20 +41,24 @@ for experiment in testSet:
         stringObj = "obj=" + obj + "\n"
         lines[19] = stringObj
 
-        for solver in solverSet:
-            stringSolver = "solver=" + solver + "\n"
-            lines[28] = stringSolver
+        for form in formulationSet:
+            stringForm = "formulation=" + form + "\n"
+            lines[17] = stringForm
 
-            for gn in gnSet:
-                stringGN = "OSNR_activation=" + gn + "\n"
-                lines[12] = stringGN
+            for solver in solverSet:
+                stringSolver = "solver=" + solver + "\n"
+                lines[28] = stringSolver
 
-                parametersName = "../Outputs/parametersSet/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_s" + solver + "_gn" + gn + ".txt"
-                with open(parametersName, "w") as f:
-                    for line in lines:
-                        f.write(line)
-                    f.close() 
-                counter = counter + 1
+                for gn in gnSet:
+                    stringGN = "OSNR_activation=" + gn + "\n"
+                    lines[12] = stringGN
+
+                    parametersName = "../Outputs/parametersSet/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_s" + solver + "_gn" + gn + ".txt"
+                    with open(parametersName, "w") as f:
+                        for line in lines:
+                            f.write(line)
+                        f.close() 
+                    counter = counter + 1
 
 
 
@@ -87,29 +92,18 @@ with open("../Outputs/jobsHPC.sh", "w") as f:
     f.write("\n")
     stringLine1 = "tab1=("
     for parameter in parameters:
-        stringLine1 = stringLine1 + "/" + parameter + " "
+        stringLine1 = stringLine1 + "/" + parameter[:-4] + " "
     stringLine1 = stringLine1 + ")\n"
     f.write(stringLine1)
-
-    stringLine2 = "tab2=("
-    for parameter in parameters:
-        stringLine2 = stringLine2 + "/" + parameter[:-4] + " "
-    stringLine2 = stringLine2 + ")\n"
-
-    f.write(stringLine2)
-
     echoLine = "echo parametersSet${tab1[$SLURM_ARRAY_TASK_ID]}\n"
     f.write(echoLine)
-    lastLine = "./exec parametersSet${tab1[$SLURM_ARRAY_TASK_ID]} >> executionOutputs${tab2[$SLURM_ARRAY_TASK_ID]}.txt" 
+    lastLine = "./exec parametersSet${tab1[$SLURM_ARRAY_TASK_ID]}.txt >> executionOutputs${tab1[$SLURM_ARRAY_TASK_ID]}.txt" 
     f.write(lastLine)
-
-
-
 
     f.close() 
 
 with open("../Outputs/results.csv", "w") as f:
-    line = "Instance;Demands;UB;LB;GAP;Time;OF;Solver;Gn\n"
+    line = "Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Solver;Gn\n"
     f.write(line)
     f.close() 
     

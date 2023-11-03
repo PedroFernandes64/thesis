@@ -39,6 +39,9 @@ public:
 	std::vector<double> getSolution() override;
 
 	IloCplex::Algorithm getAlgorithm() const {return algo;}
+
+	double getObjValue();
+	
 	/****************************************************************************************/
 	/*										Setters											*/
 	/****************************************************************************************/

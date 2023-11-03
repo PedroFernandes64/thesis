@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../test_orange/Nsfnet_14_21/Link.csv
+topologyFile=../test_orange/European_18_40/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../test_orange/Nsfnet_14_21/91_demands
+demandToBeRoutedFolder=../test_orange/European_18_40/34_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -15,9 +15,9 @@ Bands=1
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
-formulation=0
+formulation=2
 userCuts=0
-obj=1
+obj=4
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
@@ -26,17 +26,17 @@ partitionSlice=15
 
 
 ******* Optimization parameters *******
-solver=0 
+solver=0
 method=0 
-preprocessingLevel=0
+preprocessingLevel=2
 linearRelaxation=0
-relaxMethod=0
+relaxMethod=0 
 
 ******* Execution parameters *******
-outputPath=../Parameters/Instances/Pedro/German_D17/10demands
+outputPath=../Instances/Dump/
 outputLevel=0
 nbSlicesInOutputFile=320
-globalTimeLimit=7200
+globalTimeLimit=7200 
 timeLimit=7200
 
 ******* Fields below are reserved for team LIMOS ********
@@ -46,7 +46,7 @@ nbIterationsWithoutImprovement=15
 maxNbIterations=150 
 
 lagMethod=1 
-lagFormulation=0
+lagFormulation=0 
 heuristic=0 
 
 directionMethod=0 

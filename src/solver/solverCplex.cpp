@@ -1,14 +1,6 @@
 #include "solverCplex.h"
 
 
-/*
-ILOMIPINFOCALLBACK0(pedroback){
-    if (hasIncumbent() == IloTrue){
-        std::cout << "que pasa?" << std::endl;
-    }
-}*/
-
-
 int SolverCplex::count = 0;
 
 /****************************************************************************************/
@@ -55,9 +47,6 @@ CPXLONG SolverCplex::context(Input::ObjectiveMetric obj, const Input &i){
     if(i.isUserCutsActivated()){
         contextMask |= IloCplex::Callback::Context::Id::Relaxation;
     }
-    if(i.isOSNREnabled()){
-        contextMask |= IloCplex::Callback::Context::Id::Candidate;
-    }
     return contextMask;
 }
 
@@ -77,14 +66,13 @@ void SolverCplex::solve(){
                                         formulation->getInstance().getInput().isObj8(i));
         CPXLONG contextMask = context(myObjectives[i].getId(), formulation->getInstance().getInput());
 
-
-        //if(!formulation->getInstance().getInput().isRelaxed()){
-        //cplex.use(&myGenericCallback, contextMask);
-        //cplex.use(pedroback(cplex.getEnv()));
-        //}
+        if(!formulation->getInstance().getInput().isRelaxed()){
+            cplex.use(&myGenericCallback, contextMask);
+        }
+        //cplex.exportModel("nom_do_lp.lp");
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
         cplex.solve();
-        //cplex.exportModel("nom_do_lp.lp");
+        
         if ((cplex.getStatus() == IloAlgorithm::Optimal) || (cplex.getStatus() == IloAlgorithm::Feasible)){
             IloNum objValue = cplex.getObjValue();
             std::cout << "Objective Function Value: " << objValue << std::endl;
@@ -111,7 +99,6 @@ void SolverCplex::solve(){
         setMipGap(cplex.getMIPRelativeGap()*100);
     }
 	setTreeSize(cplex.getNnodes());
-    
     setAlgorithm(cplex.getAlgorithm());
     //int root = cplex.getParam(IloCplex::RootAlg);
     //int node = cplex.getParam(IloCplex::NodeAlg);
@@ -125,6 +112,10 @@ void SolverCplex::solve(){
     else{
         std::cout << "Could not find a feasible solution..." << std::endl;
     }
+}
+
+double SolverCplex::getObjValue(){
+    return cplex.getObjValue();
 }
 
 
@@ -369,4 +360,3 @@ SolverCplex::~SolverCplex(){
     model.end();
     env.end();
 }
-

@@ -21,7 +21,9 @@ public:
 	/** Enumerates the possible MIP formulations for modelling the RSA problem.**/
 	enum Formulation {
 		FORMULATION_FLOW = 0,  		/**< The RSA problem is solved using the Flow based formulation. **/
-		FORMULATION_EDGE_NODE = 1 	/**< The RSA problem is solved using the Edge-Node formulation. **/
+		FORMULATION_EDGE_NODE = 1,	/**< The RSA problem is solved using the Edge-Node formulation. **/
+		FORMULATION_T_FLOW = 2,		/**< The RSA problem is solved using the T-Flow formulation. **/
+		FORMULATION_DRAOV = 3 		/**< The RSA problem is solved using the DR-AOV formulation. **/
 	};
 
 	/** Enumerates the possible solvers to be used for solving the RSA formulation.**/
@@ -119,8 +121,8 @@ private:
 	std::string initialMappingAssignmentFile;		/**< Path to the file containing information on the assignment of demands (i.e., on which edge/slice each demand is routed).**/
 	std::string demandToBeRoutedFolder;				/**< Path to the folder containing the files on the non-routed demands. **/
 	std::vector<std::string> demandToBeRoutedFile;	/**< A vector storing the paths to the files containing information on the non-routed demands. **/
-	std::string outputPath;							/**< Path to the folder where the output files will be sent by the end of the optimization procedure.**/
-	
+	std::string outputPath;							/**< Path to the folder where the output files will be sent by the end of the optimization procedure.**/	
+
 	NodeMethod chosenNodeMethod;			/**< Refers to which method is applied for solving each node.**/
 	RootMethod chosenRootMethod;			/**< Refers to which method is applied for solving the root. **/
 	Formulation chosenFormulation;			/**< Refers to the formulation used to solve the problem. **/
@@ -240,7 +242,7 @@ public:
 
 	/** Returns true if GNPY should be used. **/
     bool isGNPYEnabled() const { return GNPY_activation; }
-
+	
 	//PEDRO PEDRO PEDRO
 	bool isOSNREnabled() const { return osnrActivation; }
 	int getNbBands() const { return nbBands; }

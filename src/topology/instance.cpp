@@ -346,7 +346,7 @@ void Instance::generateDemandsFromFile(std::string filePath){
 		int demandTarget = std::stoi(dataList[i][2]) - 1;
 		int demandLoad = std::stoi(dataList[i][3]);
 		double demandMaxLength = std::stod(dataList[i][4]);
-		double demandOsnrLimit;
+		double demandOsnrLimit=0.0;
 		double demandPchC = 0.0;
 		double demandPchL = 0.0;
 		double demandPchS = 0.0;

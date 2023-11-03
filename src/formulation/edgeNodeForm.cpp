@@ -77,13 +77,15 @@ void EdgeNodeForm::setVariables(){
     t.resize(nbEdges);
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
+        int uId = getCompactNodeLabel(compactGraph.u(e)) + 1;
+        int vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
         t[edge].resize(getNbSlicesLimitFromEdge(edge));
         for (int s = 0; s < getNbSlicesLimitFromEdge(edge); s++){
             t[edge][s].resize(getNbDemandsToBeRouted());  
             for (int k = 0; k < getNbDemandsToBeRouted(); k++){
                 std::ostringstream varName;
                 varName << "t";
-                varName << "(" + std::to_string(edge+1) + "," + std::to_string(s+1) + "," ;
+                varName << "(" + std::to_string(uId) + "," + std::to_string(vId) + ","+ std::to_string(s+1) + "," ;
                 varName <<  std::to_string(getToBeRouted_k(k).getId() + 1) + ")";
                 int upperBound = 1;
                 if (instance.getPhysicalLinkFromIndex(edge).getSlice_i(s).isUsed()){
@@ -309,10 +311,7 @@ void EdgeNodeForm::setConstraints(){
 	setEdgeSlotConstraints();
 	setDemandEdgeSlotConstraints();
     setNonOverlappingConstraints();
-    if (getInstance().getInput().isOSNREnabled() == true){
-        //setOSNRConstraints();
-        std::cout << "TODO: create OSNR constraints for EDGE NODE" << std::endl;
-    }
+
     setMaxUsedSlicePerLinkConstraints();
     setMaxUsedSliceOverallConstraints();
 
@@ -654,7 +653,7 @@ void EdgeNodeForm::updatePath(const std::vector<double> &vals){
     for(int d = 0; d < getNbDemandsToBeRouted(); d++){
         for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
             int edge = getArcLabel(a, d);
-            int slice = getArcSlice(a, d);
+            int slice = getArcSlice(a, d); 
             if ((x[edge][d].getVal() >= 0.9) && (z[slice][d].getVal() >= 0.9)){
                 (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
             }

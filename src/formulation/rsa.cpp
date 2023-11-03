@@ -125,19 +125,15 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
         auxNbSlicesLimitFromEdge[i] = getNbSlicesLimitFromEdge(i);
     }
     auxNbSlicesGlobalLimit = getNbSlicesGlobalLimit();
-   
+
     //PEDRO PEDRO PEDRO
-    //COMENTADO PARA NAO TENTAR DESENHAR TODOS PATHS SEMPRE
-    //Modulo GN MODEL
-    
+    //Modulo GN MODEL ALL PATHS
     if (this->getInstance().getInput().isOSNREnabled() == true){
         std::cout << "Computing the OSNR of all paths" << std::endl;
         gnModelAllPaths();
     }
     //PEDRO PEDRO PEDRO
 }
-
-
 //PEDRO PEDRO PEDRO
 void RSA::printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_index)
 {
@@ -411,7 +407,6 @@ void RSA::gnModelAllPaths(){
            
 }
 
-
 /** Returns the total number of loads to be routed. **/
 int RSA::getTotalLoadsToBeRouted() const{ 
     int total = 0;
@@ -618,8 +613,6 @@ void RSA::preprocessing(){
         bool keepPreprocessing = lengthPreprocessing();
         if (getInstance().getInput().isOSNREnabled() == true)
             keepPreprocessing = OSNRPreprocessingC();
-        
-
         if (getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_FULL){
             // do full preprocessing;
             while (keepPreprocessing){
@@ -692,7 +685,6 @@ bool RSA::lengthPreprocessing(){
         ListDigraph::ArcIt currentArc(*vecGraph[d], a);
         while (a != INVALID){
             currentArc = a;
-            //displayArc(d, a);
             ListDigraph::ArcIt nextArc(*vecGraph[d], ++currentArc);
             //currentArc = a;
             int slice = getArcSlice(a, d);
@@ -700,11 +692,6 @@ bool RSA::lengthPreprocessing(){
             ListDigraph::Node target = getNode(d, getToBeRouted_k(d).getTarget(), slice);
             if (source != INVALID && target != INVALID){
                 if (shortestDistance(d, source, a, target) > getToBeRouted_k(d).getMaxLength()+ DBL_EPSILON){
-                    //std::cout << "demand " <<  d << std::endl;
-                    //std::cout <<"Shortest distance " << shortestDistance(d, source, a, target) <<std:: endl;
-                    //std::cout <<"max length " << getToBeRouted_k(d).getMaxLength() + DBL_EPSILON <<std:: endl;
-                    //displayArc(d, a);
-                    //std::cout << "length  " <<   getArcLength(a, d) << " penalties " << getArcLengthWithPenalties(a,d) << std::endl;
                     (*vecGraph[d]).erase(a);
                     nb++;
                     totalNb++;
@@ -716,8 +703,6 @@ bool RSA::lengthPreprocessing(){
                 totalNb++;
             }
             a = nextArc;
-            //std::cout << "next arc" << std::endl;
-            //displayArc(d, a);
         }
         //std::cout << "> Number of erased arcs due to length in graph #" << d << ". If: " << nb << ". Else: " << nbElse << std::endl;
     }
@@ -740,9 +725,7 @@ double RSA::shortestDistance(int d, ListDigraph::Node &s, ListDigraph::Arc &a, L
     else{
         return DBL_MAX;
     }
-    //std::cout << distance << " " << std::endl;
     distance += getArcLengthWithPenalties(a, d);
-    //std::cout << distance << " " << std::endl;
     Dijkstra< ListDigraph, ListDigraph::ArcMap<double> > v_t_path((*vecGraph[d]), (*vecArcLengthWithPenalty[d]));
     v_t_path.run((*vecGraph[d]).target(a), t);
     if (v_t_path.reached(t)){
@@ -751,10 +734,8 @@ double RSA::shortestDistance(int d, ListDigraph::Node &s, ListDigraph::Arc &a, L
     else{
         return DBL_MAX;
     }
-    //std::cout << distance << " " << std::endl;
     return distance;
 }
-
 /* Performs preprocessing based on the arc partial osnr and returns true if at least one arc is erased. */
 bool RSA::OSNRPreprocessingC(){
     std::cout << "Called OSNR preprocessing."<< std::endl;

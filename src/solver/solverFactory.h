@@ -5,7 +5,6 @@
 #include "solverCplex.h"
 #include "solverSCIP.h"
 
-
 /*********************************************************************************************
 * This class implements a factory for Formulations. It provides a concrete formulation.
 *********************************************************************************************/
