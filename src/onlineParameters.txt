@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../3_Thesis_Instances/realistic_Demands/German_17_25/Link.csv
+topologyFile=../4_Experiments/Outputs/Instances/German_17_25/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../3_Thesis_Instances/realistic_Demands/German_17_25/45_demands
+demandToBeRoutedFolder=../4_Experiments/Outputs/Instances/German_17_25/45_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 

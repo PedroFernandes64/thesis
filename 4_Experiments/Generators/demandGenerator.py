@@ -6,14 +6,15 @@ import math
 import copy
 import gnModelPrecomputingTool as preCompute
 
+#USE THIS FILE IN BASE INSTANCES ONLY WITH LINKS AND NODE TYPES IF YOU WANT TO GENERATE DEMAND SETS AND COMPUTE OPTICAL PHYSICS VALUES
 
 def buildNetworkLinkSet():
     NetworkLinkSet = []
     instanceNames = []
-    Networks = [f.name for f in os.scandir("../Inputs/Networks") if f.is_dir()]
+    Networks = [f.name for f in os.scandir("../Inputs/NetworksToGenerate") if f.is_dir()]
     for Network in Networks:
         instanceNames.append(Network)
-        NetworkLinkFile = "../Inputs/Networks/" + Network + '/Link.csv'
+        NetworkLinkFile = "../Inputs/NetworksToGenerate/" + Network + '/Link.csv'
         with open(NetworkLinkFile, newline='') as csvfile: 
             rows = csv.reader(csvfile, delimiter=';', quotechar='|')
             NetworkFileLines = []
@@ -29,9 +30,9 @@ def buildNetworkLinkSet():
 
 def buildNetworkNodeSet():
     NetworkNodeSet = []
-    Networks = [f.name for f in os.scandir("../Inputs/Networks") if f.is_dir()]
+    Networks = [f.name for f in os.scandir("../Inputs/NetworksToGenerate") if f.is_dir()]
     for Network in Networks:
-        NetworkLinkFile = "../Inputs/Networks/" + Network + '/Node.csv'
+        NetworkLinkFile = "../Inputs/NetworksToGenerate/" + Network + '/Node.csv'
         with open(NetworkLinkFile, newline='') as csvfile: 
             rows = csv.reader(csvfile, delimiter=';', quotechar='|')
             NetworkFileLines = []
@@ -414,16 +415,6 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
         iteration = iteration + 1
     #print auxiliar
     #counter = 0
-    '''
-    for instance in NewNetworksDemandsSets:
-        print("nodes = " , len(NetworkAsGraphs[counter]))
-        print("demands = " , len(NetworksDemandsSets[counter])-1)
-        print("demands chosen = " , len(instance)-1)
-        for rowzita in instance:
-            print(rowzita)
-        counter = counter + 1
-    '''
-   
     return NewNetworksDemandsSets
 
 def chooseTransponderOSNR(NumberOfNetworks,NetworksDemandsSets,NetworkAsOSNRGraphs,TransponderTable, NetworksLinksToProcess):
@@ -539,15 +530,7 @@ def chooseTransponderOSNR(NumberOfNetworks,NetworksDemandsSets,NetworkAsOSNRGrap
         iteration = iteration + 1
     #print auxiliar
     #counter = 0
-    '''
-    for instance in NewNetworksDemandsSets:
-        print("nodes = " , len(NetworkAsGraphs[counter]))
-        print("demands = " , len(NetworksDemandsSets[counter])-1)
-        print("demands chosen = " , len(instance)-1)
-        for rowzita in instance:
-            print(rowzita)
-        counter = counter + 1
-    '''
+
     return NewNetworksDemandsSets
 
 
@@ -564,6 +547,7 @@ def buildNetworkLinkSetWithoutPNLI(NetworksLinksToProcess):
     return NetworksLinksToProcessWithoutPNLI
 
 def writeLinkFile(linkTable,network):
+    #####
     filename = "../Outputs/Instances/" + network + "/Link.csv"
     print(filename)
     with open(filename, "w") as f:
@@ -577,8 +561,8 @@ def writeLinkFile(linkTable,network):
             f.write(line)
 
 def writeDemandFile(demandTable,network):
-    os.mkdir("../Outputs/Instances/" + network + "/" + str(len(demandTable)-1) + "_demands/")
-    filename = "../Outputs/Instances/" + network + "/" + str(len(demandTable)-1) + "_demands/demands.csv"
+    os.mkdir("../Outputs/Instances/" + network + "/Demands/" + str(len(demandTable)-1) + "_demands/")
+    filename = "../Outputs/Instances/" + network + "/Demands/"+ str(len(demandTable)-1) + "_demands/demands_1.csv"
     print(filename)
     with open(filename, "w") as f:
         for row in demandTable:
