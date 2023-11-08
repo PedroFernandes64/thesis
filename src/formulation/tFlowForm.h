@@ -74,6 +74,8 @@ public:
 	
 	void setNonOverlappingConstraintsPair();
 
+	void setPreprocessingConstraints();
+
 	Constraint getSourceConstraint_k(int k);
 
 	Constraint getSourceConstraint_k2(int k);
@@ -103,6 +105,7 @@ public:
 	//Constraint getNonOverlappingConstraint_2(int a, int b);
 
 	Constraint getNonOverlappingConstraintPair(int a, int b, int arc, int s);
+	Constraint getPreprocessingConstraint(int k);
 	
 
 	/****************************************************************************************/

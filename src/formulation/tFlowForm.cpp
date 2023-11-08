@@ -384,6 +384,8 @@ void TFlowForm::setConstraints(){
     setMaxUsedSliceOverallConstraints();
     setSliceConstraint();
     setNonOverlappingConstraintsPair();
+
+    setPreprocessingConstraints();
     //setNonOverlappingConstraints();
 }
 
@@ -1000,6 +1002,36 @@ Constraint TFlowForm::getNonOverlappingConstraintPair(int a, int b, int arc, int
     return constraint;
 }
 
+void TFlowForm::setPreprocessingConstraints(){
+    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+        const Constraint & preprocessingConstraint = getPreprocessingConstraint(k);
+        constraintSet.push_back(preprocessingConstraint);
+    }
+    std::cout << "Preprocessing constraints have been defined..." << std::endl;
+}
+
+Constraint TFlowForm::getPreprocessingConstraint(int k){
+    Expression exp;
+    double upperBound = 0;
+    int lowerBound = 0;
+    int nbEdges = countEdges(compactGraph);
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        double coeff = 1;
+        if (preProcessingTFlow[k][edge] == 1){
+            Term term(x[edge][k], coeff);
+            exp.addTerm(term);
+        }
+        if (preProcessingTFlow[k][edge + nbEdges] == 1){
+            Term term2(x[edge + nbEdges][k], coeff);
+            exp.addTerm(term2);
+        }
+    }
+    std::ostringstream constraintName;
+    constraintName << "Prepro_" << getToBeRouted_k(k).getId()+1;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
 
 /****************************************************************************************/
 /*						                Methods                 						*/

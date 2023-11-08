@@ -132,6 +132,8 @@ protected:
     EdgeCost compactEdgePaseLineC;           /**< EdgeMap storing the edge pase line of the simple graph associated with the initial mapping. **/
     EdgeCost compactEdgePnliL;           /**< EdgeMap storing the edge pnli of the simple graph associated with the initial mapping. **/
     EdgeCost compactEdgePaseLineL;           /**< EdgeMap storing the edge pase line of the simple graph associated with the initial mapping. **/
+
+    std::vector<std::vector<int> > preProcessingTFlow;
     
     CompactNodeMap compactNodeId;       /**< NodeMap storing the LEMON node ids of the simple graph associated with the initial mapping. **/
     CompactNodeMap compactNodeLabel;    /**< NodeMap storing the node labels of the simple graph associated with the initial mapping. **/

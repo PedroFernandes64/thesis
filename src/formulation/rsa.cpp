@@ -128,10 +128,12 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
 
     //PEDRO PEDRO PEDRO
     //Modulo GN MODEL ALL PATHS
+    /*
     if (this->getInstance().getInput().isOSNREnabled() == true){
         std::cout << "Computing the OSNR of all paths" << std::endl;
         gnModelAllPaths();
     }
+    */
     //PEDRO PEDRO PEDRO
 }
 //PEDRO PEDRO PEDRO
@@ -610,6 +612,17 @@ void RSA::preprocessing(){
     if (getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_PARTIAL){
         // do partial preprocessing;
         pathExistencePreprocessing();
+        
+        //Tflow test
+        preProcessingTFlow.resize(getNbDemandsToBeRouted());
+        for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+            preProcessingTFlow[d].resize(2*countEdges(compactGraph));
+            for (int i=0; i<2*countEdges(compactGraph);i++){
+                preProcessingTFlow[d][i] = 0;
+            }
+        }
+        //Tflow test
+
         bool keepPreprocessing = lengthPreprocessing();
         if (getInstance().getInput().isOSNREnabled() == true)
             keepPreprocessing = OSNRPreprocessingC();
@@ -675,8 +688,12 @@ void RSA::pathExistencePreprocessing(){
 /* Performs preprocessing based on the arc lengths and returns true if at least one arc is erased. */
 bool RSA::lengthPreprocessing(){
     std::cout << "Called Length preprocessing."<< std::endl;
+    //Tflow test
+    int nbEdges = countEdges(compactGraph);
+    int totalNbTflow = 0;
+    //Tflow test
     int totalNb = 0;
-    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){       
         //displayGraph(d);
         int nb = 0;
         int nbElse = 0;
@@ -692,6 +709,25 @@ bool RSA::lengthPreprocessing(){
             ListDigraph::Node target = getNode(d, getToBeRouted_k(d).getTarget(), slice);
             if (source != INVALID && target != INVALID){
                 if (shortestDistance(d, source, a, target) > getToBeRouted_k(d).getMaxLength()+ DBL_EPSILON){
+                    //Tflow test
+                    int arcTflowId = getArcLabel(a,d);
+                    int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
+                    int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
+                    if (u < v){
+                        if (preProcessingTFlow[d][arcTflowId]==0){
+                            preProcessingTFlow[d][arcTflowId]++;
+                            totalNbTflow++;
+                        }
+                        
+                    }
+                    else{
+                        if (preProcessingTFlow[d][arcTflowId+nbEdges]==0){
+                            preProcessingTFlow[d][arcTflowId+nbEdges]++;
+                            totalNbTflow++;
+                        }
+                    }
+                    //Tflow test
+                    //displayArc(d, a);
                     (*vecGraph[d]).erase(a);
                     nb++;
                     totalNb++;
@@ -706,8 +742,17 @@ bool RSA::lengthPreprocessing(){
         }
         //std::cout << "> Number of erased arcs due to length in graph #" << d << ". If: " << nb << ". Else: " << nbElse << std::endl;
     }
+    
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        for (int i=0; i<2*nbEdges;i++){
+            std::cout << preProcessingTFlow[d][i] << " ";
+        }
+        std::cout << std::endl;
+    }
+    
     if (totalNb >= 1){
         std::cout << "> Number of erased arcs due to length in graph: "<< totalNb << std::endl;
+        std::cout << "> Number of erased arcs in tflowh: "<< totalNbTflow << std::endl;
         return true;
     }
     return false;
@@ -739,6 +784,12 @@ double RSA::shortestDistance(int d, ListDigraph::Node &s, ListDigraph::Arc &a, L
 /* Performs preprocessing based on the arc partial osnr and returns true if at least one arc is erased. */
 bool RSA::OSNRPreprocessingC(){
     std::cout << "Called OSNR preprocessing."<< std::endl;
+
+    //Tflow test
+    int nbEdges = countEdges(compactGraph);
+    int totalNbTflow = 0;
+    //Tflow test
+
     int totalNb = 0;
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         //displayGraph(d);
@@ -767,6 +818,25 @@ bool RSA::OSNRPreprocessingC(){
                     //std::cout <<"rhs " << osnrRhs + DBL_EPSILON <<std:: endl;
                     //displayArc(d, a);
                     //std::cout << "length  " <<   getArcLength(a, d) << " penalties " << getArcLengthWithPenalties(a,d) << std::endl;
+
+                    //Tflow test
+                    int arcTflowId = getArcLabel(a,d);
+                    int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
+                    int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
+                    if (u < v){
+                        if (preProcessingTFlow[d][arcTflowId]==0){
+                            preProcessingTFlow[d][arcTflowId]++;
+                            totalNbTflow++;
+                        }
+                        
+                    }
+                    else{
+                        if (preProcessingTFlow[d][arcTflowId+nbEdges]==0){
+                            preProcessingTFlow[d][arcTflowId+nbEdges]++;
+                            totalNbTflow++;
+                        }
+                    }
+                    //Tflow test
                     (*vecGraph[d]).erase(a);
                     nb++;
                     totalNb++;
@@ -783,12 +853,22 @@ bool RSA::OSNRPreprocessingC(){
         }
         //std::cout << "> Number of erased arcs due to length in graph #" << d << ". If: " << nb << ". Else: " << nbElse << std::endl;
     }
+        
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        for (int i=0; i<2*nbEdges;i++){
+            std::cout << preProcessingTFlow[d][i] << " ";
+        }
+        std::cout << std::endl;
+    }
+    
     if (totalNb >= 1){
         std::cout << "> Number of erased arcs due to OSNR in graph: "<< totalNb << std::endl;
+        std::cout << "> Number of erased arcs in tflowh: "<< totalNbTflow << std::endl;
         return true;
     }
     return false;
 }
+
 
 
 /* Returns the partial osnr of the shortest path from source to target passing through arc a. */
