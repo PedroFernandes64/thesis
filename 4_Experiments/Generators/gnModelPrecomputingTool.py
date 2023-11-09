@@ -15,8 +15,8 @@ def computePnliCBand(l):
     c = 3.0 * pow(10,8)                              #SI meters by second, m
     beta2C = abs(SI_DC) * pow(lambdC,2)/(2*math.pi*c)  #SI s^2/m   
     n2 = 2.7 * pow (10,-20)                         #SI m^2/W           Usually micrometer^2
-    #aeffC = 80 * pow (10,-12)                        #SI m^2             Usually micrometer^2
-    aeffC = 85 * pow (10,-12)                        #SI m^2             Usually micrometer^2
+    aeffC = 80 * pow (10,-12)                        #SI m^2             Usually micrometer^2
+    #aeffC = 85 * pow (10,-12)                        #SI m^2             Usually micrometer^2
     gamC = (n2/aeffC) * (2*math.pi/lambdC)             #SI 1/W m
     bwdmC = 5000 * pow(10,9)                         #SI #Hz             Usually gigahertz
     PsatC = 50 * pow(10,-3)                          #SI #W              Usually mW

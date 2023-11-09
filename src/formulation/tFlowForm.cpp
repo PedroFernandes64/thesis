@@ -384,8 +384,9 @@ void TFlowForm::setConstraints(){
     setMaxUsedSliceOverallConstraints();
     setSliceConstraint();
     setNonOverlappingConstraintsPair();
-
-    setPreprocessingConstraints();
+    if (this->getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_PARTIAL){
+        setPreprocessingConstraints();
+    }
     //setNonOverlappingConstraints();
 }
 

@@ -11,10 +11,10 @@ import gnModelPrecomputingTool as preCompute
 def buildNetworkLinkSet():
     NetworkLinkSet = []
     instanceNames = []
-    Networks = [f.name for f in os.scandir("../Inputs/NetworksToGenerate") if f.is_dir()]
+    Networks = [f.name for f in os.scandir("../Inputs/1_NetworksToGenerateDemands") if f.is_dir()]
     for Network in Networks:
         instanceNames.append(Network)
-        NetworkLinkFile = "../Inputs/NetworksToGenerate/" + Network + '/Link.csv'
+        NetworkLinkFile = "../Inputs/1_NetworksToGenerateDemands/" + Network + '/Link.csv'
         with open(NetworkLinkFile, newline='') as csvfile: 
             rows = csv.reader(csvfile, delimiter=';', quotechar='|')
             NetworkFileLines = []
@@ -30,9 +30,9 @@ def buildNetworkLinkSet():
 
 def buildNetworkNodeSet():
     NetworkNodeSet = []
-    Networks = [f.name for f in os.scandir("../Inputs/NetworksToGenerate") if f.is_dir()]
+    Networks = [f.name for f in os.scandir("../Inputs/1_NetworksToGenerateDemands") if f.is_dir()]
     for Network in Networks:
-        NetworkLinkFile = "../Inputs/NetworksToGenerate/" + Network + '/Node.csv'
+        NetworkLinkFile = "../Inputs/1_NetworksToGenerateDemands/" + Network + '/Node.csv'
         with open(NetworkLinkFile, newline='') as csvfile: 
             rows = csv.reader(csvfile, delimiter=';', quotechar='|')
             NetworkFileLines = []
@@ -128,7 +128,7 @@ def buildBaseDemandSet(NumberOfNetworks,NetworksNodesToProcess):
             id = 1
             for node1 in meshy:
                 for node2 in meshy:
-                    if (int(node1) < int(node2)) and ((int(node1)%2 == 0 and int(node2) %2 == 0) or (int(node1)%2 == 1 and int(node2) %2 == 1)):
+                    if (int(node1) < int(node2)) :#and ((int(node1)%2 == 0 and int(node2) %2 == 0) or (int(node1)%2 == 1 and int(node2) %2 == 1))
                         row = []
                         row.append(str(id))
                         id = id + 1
@@ -304,12 +304,13 @@ def osnrRhs(slots,osnrLimit):
     rhs = pchDemand/float(osnrLimit)
     return rhs
 
-def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,TransponderTable, NetworksLinksToProcess):
+def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,TransponderTable, NetworksLinksToProcess, InstanceNames):
     iteration = 0
     NewNetworksDemandsSets = []
     #para cada network, fazer o processo
     
     while iteration < NumberOfNetworks:
+        print("Processing: ", InstanceNames[iteration])
         newNetworkDemandTable = []
         rowCounter = 1
         #para cada demanda da, fazer o processo
@@ -332,6 +333,8 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
                         osnrdb = 10.0 * math.log10(osnr)       
                         #print(row2[7],"-",row2[5]) 
                         #print(row2)
+                        #print("shortest d = ", shortestDistance)
+                        #print("osnrdb = ", osnrdb)
                         if (int(row2[7]) >= shortestDistance) and float(row2[5]) <= osnrdb:
                             transponder.append(row2[0])
                             transponder.append(row2[1])
@@ -359,50 +362,54 @@ def chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,Trans
                 lessSlotsId = 0
                 lessSlots = 1000
                 rowCounter3 = 1
-                for row3 in feasibleTransponders:
-                    if rowCounter3 !=1:
-                        #if int(row3[1]) >= int(dataDemand) and int(row3[1])/int(row3[4]) < lessSlots: #DATA EFFICIENCY VERSION    
-                        if int(row3[1]) >= int(dataDemand) and int(row3[4]) < lessSlots: #DATA SLOTS VERSION
-                            lessSlotsId = row3[0]
-                            lessSlots = int(row3[4])
-                            chosenSlots = row3[4]
-                            chosenMaxReach = row3[7]
-                            chosenOsnrLim = row3[5]
-                    rowCounter3 = rowCounter3 + 1
-                if lessSlotsId != 0:
-                    #print("able to use one transponder! id: ", lessSlotsId)
-                    newRow = row
-                    newRow.pop()
-                    newRow.append(chosenSlots)
-                    newRow.append(chosenMaxReach)
-                    newRow.append(chosenOsnrLim)
-                    newNetworkDemandTable.append(newRow)
+                noTransponder = False
+                if len(feasibleTransponders)>1:
+                    for row3 in feasibleTransponders:
+                        if rowCounter3 !=1:
+                            #if int(row3[1]) >= int(dataDemand) and int(row3[1])/int(row3[4]) < lessSlots: #DATA EFFICIENCY VERSION    
+                            if int(row3[1]) >= int(dataDemand) and int(row3[4]) < lessSlots: #DATA SLOTS VERSION
+                                lessSlotsId = row3[0]
+                                lessSlots = int(row3[4])
+                                chosenSlots = row3[4]
+                                chosenMaxReach = row3[7]
+                                chosenOsnrLim = row3[5]
+                        rowCounter3 = rowCounter3 + 1
+                    if lessSlotsId != 0:
+                        #print("able to use one transponder! id: ", lessSlotsId)
+                        newRow = row
+                        newRow.pop()
+                        newRow.append(chosenSlots)
+                        newRow.append(chosenMaxReach)
+                        newRow.append(chosenOsnrLim)
+                        newNetworkDemandTable.append(newRow)
+                    else:
+                        #se nao for possivel escolher um, reduzir a demand Gbit/s
+                        transponderChosen = False
+                        while transponderChosen == False:
+                            dataDemand = str(int(dataDemand) - 100)
+                            row[3] = str(int(row[3]) - 100)
+                            secondaryLessSlotsId = 0
+                            secondaryLessSlots = 10
+                            secondaryRowCounter3 = 1
+                            for row4 in feasibleTransponders:
+                                if secondaryRowCounter3 !=1:
+                                    if int(row4[1]) >= int(dataDemand) and int(row4[4]) < secondaryLessSlots:
+                                        secondaryLessSlotsId = row4[0]
+                                        secondaryLessSlots = int(row4[4])
+                                        chosenSlots = row4[4]
+                                        chosenMaxReach = row4[7]
+                                        chosenOsnrLim = row4[5]
+                                        transponderChosen = True
+                                secondaryRowCounter3 = secondaryRowCounter3 + 1     
+                        #print("able to use one transponder! id: ", lessSlotsId)
+                        newRow = row
+                        newRow.pop()
+                        newRow.append(chosenSlots)
+                        newRow.append(chosenMaxReach)
+                        newRow.append(chosenOsnrLim)
+                        newNetworkDemandTable.append(newRow)
                 else:
-                    #se nao for possivel escolher um, reduzir a demand Gbit/s
-                    transponderChosen = False
-                    while transponderChosen == False:
-                        dataDemand = str(int(dataDemand) - 100)
-                        row[3] = str(int(row[3]) - 100)
-                        secondaryLessSlotsId = 0
-                        secondaryLessSlots = 10
-                        secondaryRowCounter3 = 1
-                        for row4 in feasibleTransponders:
-                            if secondaryRowCounter3 !=1:
-                                if int(row4[1]) >= int(dataDemand) and int(row4[4]) < secondaryLessSlots:
-                                    secondaryLessSlotsId = row4[0]
-                                    secondaryLessSlots = int(row4[4])
-                                    chosenSlots = row4[4]
-                                    chosenMaxReach = row4[7]
-                                    chosenOsnrLim = row4[5]
-                                    transponderChosen = True
-                            secondaryRowCounter3 = secondaryRowCounter3 + 1     
-                    #print("able to use one transponder! id: ", lessSlotsId)
-                    newRow = row
-                    newRow.pop()
-                    newRow.append(chosenSlots)
-                    newRow.append(chosenMaxReach)
-                    newRow.append(chosenOsnrLim)
-                    newNetworkDemandTable.append(newRow)
+                    print("Demand " + row[0] + " from " +  row[1], "to",  row[2] + " has no feasible transponders")
             else:
                 newRow = row
                 newRow.pop()
@@ -533,22 +540,11 @@ def chooseTransponderOSNR(NumberOfNetworks,NetworksDemandsSets,NetworkAsOSNRGrap
 
     return NewNetworksDemandsSets
 
-
-def buildNetworkLinkSetWithoutPNLI(NetworksLinksToProcess):
-    NetworksLinksToProcessWithoutPNLI = []
-
-    NetworksLinksToProcessWithoutPNLI=copy.deepcopy(NetworksLinksToProcess)
-    for instance in NetworksLinksToProcessWithoutPNLI:
-        rowCounter = 1
-        for row in instance:
-            if rowCounter !=1 :
-                row[7] = "0"
-            rowCounter = rowCounter +1
-    return NetworksLinksToProcessWithoutPNLI
-
-def writeLinkFile(linkTable,network):
+def writeLinkFile(linkTable,network, number):
     #####
-    filename = "../Outputs/Instances/" + network + "/Link.csv"
+    os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + network + "/Links/")
+    os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + network + "/Links/" + number + "_demandsLinks/")
+    filename = "../Inputs/2_NetworksAfterDemandsGenerated/" + network + "/Links/" + number + "_demandsLinks/Link.csv"
     print(filename)
     with open(filename, "w") as f:
         for row in linkTable:
@@ -561,8 +557,9 @@ def writeLinkFile(linkTable,network):
             f.write(line)
 
 def writeDemandFile(demandTable,network):
-    os.mkdir("../Outputs/Instances/" + network + "/Demands/" + str(len(demandTable)-1) + "_demands/")
-    filename = "../Outputs/Instances/" + network + "/Demands/"+ str(len(demandTable)-1) + "_demands/demands_1.csv"
+    os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + network + "/Demands/")
+    os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + network + "/Demands/" + str(len(demandTable)-1) + "_demands/")
+    filename = "../Inputs/2_NetworksAfterDemandsGenerated/" + network + "/Demands/"+ str(len(demandTable)-1) + "_demands/demands_1.csv"
     print(filename)
     with open(filename, "w") as f:
         for row in demandTable:
@@ -584,8 +581,7 @@ NetworkAsGraphs = buildGraphSet(NetworksLinksToProcess,NetworksNodesToProcess)  
 
 NetworksDemandsSets = buildBaseDemandSet(NumberOfNetworks,NetworksNodesToProcess)           #this create a base demand set for each table of nodes
 TransponderTable = buildTransponderTable()
-
-NewNetworksDemandsSets = chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,TransponderTable,NetworksLinksToProcess)
+NewNetworksDemandsSets = chooseTransponder(NumberOfNetworks,NetworksDemandsSets,NetworkAsGraphs,TransponderTable,NetworksLinksToProcess,instanceNames)
 
 #NewNetworksOSNRDemandsSets = chooseTransponderOSNR(NumberOfNetworks,NetworksDemandsSets,NetworkAsOSNRGraphs,TransponderTable,NetworksLinksToProcess)
 
@@ -594,15 +590,16 @@ for network in NewNetworksDemandsSets:
 
 #write outputs
 netId = 0
-outputFolder = [f.name for f in os.scandir("../Outputs") if f.is_dir()]
-if "Instances" not in outputFolder:
-    os.mkdir("../Outputs/Instances")
-else:
-    shutil.rmtree("../Outputs/Instances")
-    os.mkdir("../Outputs/Instances")
+outputFolder = [f.name for f in os.scandir("../Inputs/2_NetworksAfterDemandsGenerated") if f.is_dir()]
 
 for network in instanceNames:
-    os.mkdir("../Outputs/Instances/" + network)
-    writeLinkFile(NetworksLinksToProcess[netId],network)
+    if network not in outputFolder:
+        os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + network)
+    else:
+        shutil.rmtree("../Inputs/2_NetworksAfterDemandsGenerated/" + network)
+        os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + network)
+    
+    number = str(len(NewNetworksDemandsSets[netId])-1)
+    writeLinkFile(NetworksLinksToProcess[netId],network, number)
     writeDemandFile(NewNetworksDemandsSets[netId],network)
     netId = netId + 1

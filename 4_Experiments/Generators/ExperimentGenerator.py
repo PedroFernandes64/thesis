@@ -59,7 +59,7 @@ for experiment in testSet:
                             f.write(line)
                         f.close() 
                     counter = counter + 1
-
+print("Parameter Set created")
 
 
 parameters = os.listdir("../Outputs/parametersSet")
@@ -70,6 +70,7 @@ with open("../Outputs/script.sh", "w") as f:
         line = stringLine + " " + "parametersSet/" + parameter + " >> " + "executionOutputs/" + parameter[:-4] + "\n"
         f.write(line)
     f.close() 
+print("Script created")
 
 jobsRows = []
 with open("../Inputs/jobsBase.sh", newline='') as jobsFile: 
@@ -101,12 +102,12 @@ with open("../Outputs/jobsHPC.sh", "w") as f:
     f.write(lastLine)
 
     f.close() 
-
+print("Jobs script created")
 with open("../Outputs/results.csv", "w") as f:
     line = "Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Solver;Gn\n"
     f.write(line)
     f.close() 
-    
+print("Result table created")   
 auxOutputFolder = [f.name for f in os.scandir("../Outputs") if f.is_dir()]
 if "executionOutputs" not in auxOutputFolder:
     os.mkdir("../Outputs/executionOutputs")
@@ -121,3 +122,4 @@ else:
         line = "outputs from hpc"
         f.write(line)
         f.close() 
+print("Execution output folder created")   
