@@ -111,10 +111,14 @@ int main(int argc, char *argv[]) {
 			std::string instanceName = input.getTopologyFile();
 			std::string l = "_demandsLinks/Link.csv";
 			std::string l2 = "/Links";
-			std::string i = "../Instances/";
+			std::string i = "Instances/";
+			//std::cout << instanceName <<std::flush;
 			instanceName.erase(instanceName.find(l),l.length()); //remove l from string
+			//std::cout << instanceName <<std::flush;
 			instanceName.erase(instanceName.find(l2),l2.length()); //remove l from string
+			//std::cout << instanceName <<std::flush;
 			instanceName.erase(instanceName.find(i),i.length()); //remove i from string
+			//std::cout << instanceName <<std::flush;
 			//opening file and writing
 			std::ofstream outfile;
   			outfile.open("results.csv", std::ios_base::app); // append instead of overwrite

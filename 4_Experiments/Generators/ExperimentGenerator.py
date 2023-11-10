@@ -6,14 +6,14 @@ testSet = []
 
 files = [f.name for f in os.scandir("../Outputs/Instances") if f.is_dir()]
 for file in files:
-    demandList = [f.name for f in os.scandir("../Outputs/Instances/" + file) if f.is_dir()]
+    demandList = [f.name for f in os.scandir("../Outputs/Instances/" + file +"/Demands") if f.is_dir()]
     test =[]
     for demandNumber in demandList:
         testSet.append([file,demandNumber.replace("_demands","")])
 
 solverSet = ["0"]
 formulationSet = ["0","2"]
-objSet = ["1", "1p", "2", "2p","4","8"]
+objSet = ["1p","2p","4","8"]
 gnSet=["1"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
@@ -30,6 +30,7 @@ else:
 
 counter = 1
 for experiment in testSet:
+    print(experiment)
     instanceName =experiment[0]
     demandsNumber = experiment[1]
     stringLinks = "topologyFile=Instances/" + instanceName + "/Links/" + demandsNumber + "_demandsLinks" + "/Link.csv" "\n" 
