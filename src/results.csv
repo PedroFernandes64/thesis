@@ -1,2 +1,13 @@
 ../4_Experiments/Outputs/6nodes9links_6_9/15;15;9000.000000;9000.000000;0.000000;2.984000;4;0;2
 ../4_Experiments/Outputs/6nodes9links_6_9/15;15;9000.000000;9000.000000;0.000000;3.720000;4;0;2
+../3_Thesis_2_realistic_Generated_USABLE/European_18_40/48;48;636.000000;636.000000;0.000000;5.947000;3;0;0
+../3_Thesis_2_realistic_Generated_USABLE/German_17_26/45;45;-1.000000;-1.000000;-1.000000;6.475000;3;0;0
+../3_Thesis_2_realistic_Generated_USABLE/German_17_26/45;45;678.000000;678.000000;0.000000;14.353000;3;0;0
+../3_Thesis_2_realistic_Generated_USABLE/German_17_26/45;45;678.000000;678.000000;0.000000;14.240000;3;0;0
+../3_Thesis_4_flex-optim_Updated_USABLE/10nodes_22links_10_22/20;20;79.000000;79.000000;0.000000;1.053000;3;0;2
+../3_Thesis_4_flex-optim_Updated_USABLE/10nodes_22links_10_22/20;20;2456.000000;2456.000000;0.000000;1.164000;4;0;2
+../3_Thesis_4_flex-optim_Updated_USABLE/10nodes_22links_10_22/20;20;2456.000000;2456.000000;0.000000;0.233000;4;0;0
+../3_Thesis_4_flex-optim_Updated_USABLE/10nodes_22links_10_22/20;20;2456.000000;2456.000000;0.000000;2.371000;4;0;1
+../3_Thesis_4_flex-optim_Updated_USABLE/10nodes_22links_10_22/20;20;79.000000;79.000000;0.000000;39.434000;11;0;2
+../3_Thesis_4_flex-optim_Updated_USABLE/10nodes_22links_10_22/20;20;79.000000;79.000000;0.000000;21.932000;11;0;2
+../3_Thesis_4_flex-optim_Updated_USABLE/10nodes_22links_10_22/20;20;79.000000;79.000000;0.000000;1.795000;11;0;0

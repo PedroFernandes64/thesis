@@ -1081,7 +1081,7 @@ std::vector<Variable> TFlowForm::objective8_fixing(const double upperBound){
 }
 
 std::vector<Constraint> TFlowForm::solveSeparationProblemFract(const std::vector<double> &solution){
-    //std::cout << "Solving separation problem fractional..." << std::endl;
+    std::cout << "Solving separation problem fractional..." << std::endl;
     setVariableValues(solution);
     std::vector<Constraint> cuts;
     int nbEdges = countEdges(compactGraph);

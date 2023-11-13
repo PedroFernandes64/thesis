@@ -11,7 +11,8 @@ void CplexCallback::invoke (const IloCplex::Callback::Context &context){
         if (isObj8()){
             //fixVariables(context);
         }
-        if ( input.isUserCutsActivated() && input.getChosenFormulation() != Input::FORMULATION_T_FLOW ){
+        //if ( input.isUserCutsActivated() && input.getChosenFormulation() != Input::FORMULATION_T_FLOW ){
+        if ( input.isUserCutsActivated() ){
             addUserCuts(context);
         }
     }

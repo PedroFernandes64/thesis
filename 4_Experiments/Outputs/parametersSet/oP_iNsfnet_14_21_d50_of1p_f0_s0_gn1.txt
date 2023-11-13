@@ -16,7 +16,7 @@ Bands=1
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
 formulation=0
-userCuts=0
+userCuts=1
 obj=1p
 allowBlocking=0
 hopPenalty=0
@@ -36,8 +36,8 @@ relaxMethod=0
 outputPath=../Parameters/Dump/
 outputLevel=0
 nbSlicesInOutputFile=320
-globalTimeLimit=7200
-timeLimit=7200
+globalTimeLimit=600
+timeLimit=600
 
 ******* Fields below are reserved for team LIMOS ********
 lagrangianMultiplier_zero=0 
