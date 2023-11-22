@@ -60,7 +60,8 @@ public:
 		OBJECTIVE_METRIC_2p = 3,	/**< Minimize the sum of occupied slices. **/
 		OBJECTIVE_METRIC_4 = 4,		/**< Minimize the path lengths. **/
 		OBJECTIVE_METRIC_4p = 44,	/**< Minimize the amplifiers. **/
-		OBJECTIVE_METRIC_8 = 8		/**< Minimize the max used slice position overall. **/
+		OBJECTIVE_METRIC_8 = 8,		/**< Minimize the max used slice position overall. **/
+		OBJECTIVE_METRIC_10 = 10 	/**< Minimize the sum of differences between the OSNR of a path ant the OSNR limit **/
 	};
 
 	/** Enumerates the possible output policies to be used. **/

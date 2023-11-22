@@ -122,10 +122,10 @@ int main(int argc, char *argv[]) {
 			//opening file and writing
 			std::ofstream outfile;
   			outfile.open("results.csv", std::ios_base::app); // append instead of overwrite
-  			outfile << instanceName + ";" + to_string(instance.getNbDemands()) + ";" + to_string(solver->getUpperBound()) + 
+  			outfile << "\n" + instanceName + ";" + to_string(instance.getNbDemands()) + ";" + to_string(solver->getUpperBound()) + 
 			";" + to_string(+solver->getLowerBound()) + ";" + to_string(solver->getMipGap()) +";" + 
 			to_string(round(solver->getDurationTime()*1000)/1000) +";" + to_string(input.getChosenObj_k(0))+";"+
-			to_string(input.getChosenMIPSolver())+";"+to_string(input.getChosenFormulation())+"\n"; 
+			to_string(input.getChosenMIPSolver())+";"+to_string(input.getChosenFormulation()); 
 		}
 		
 

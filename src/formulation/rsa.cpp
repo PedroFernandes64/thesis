@@ -486,7 +486,8 @@ void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel
     setArcLineAmplifiers(a, d, la);
     setArcPnliC(a, d, pnc);
     setArcPaseLineC(a, d, pac);
-    setArcNoiseC(a,d,pnc+pac);
+    //std::cout << "a: " << pnc+pac << "b: " <<  pnc+pac+instance.getPaseNodeC() <<std::endl;
+    setArcNoiseC(a,d,pnc+pac+instance.getPaseNodeC());
     setArcPnliL(a, d, pnl);
     setArcPaseLineL(a, d, pal);
     setArcNoiseL(a,d,pnl+pal);
@@ -742,17 +743,17 @@ bool RSA::lengthPreprocessing(){
         }
         //std::cout << "> Number of erased arcs due to length in graph #" << d << ". If: " << nb << ". Else: " << nbElse << std::endl;
     }
-    
+    /*
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         for (int i=0; i<2*nbEdges;i++){
             std::cout << preProcessingTFlow[d][i] << " ";
         }
         std::cout << std::endl;
     }
-    
+    */
     if (totalNb >= 1){
         std::cout << "> Number of erased arcs due to length in graph: "<< totalNb << std::endl;
-        std::cout << "> Number of erased arcs in tflowh: "<< totalNbTflow << std::endl;
+        std::cout << "> Number of erased arcs in tflow: "<< totalNbTflow << std::endl;
         return true;
     }
     return false;
@@ -812,9 +813,10 @@ bool RSA::OSNRPreprocessingC(){
                 double osnrLim = pow(10,osnrLimdb/10);
                 double pch = getToBeRouted_k(d).getPchC();
                 osnrRhs = pch/osnrLim - instance.getPaseNodeC() ;
+                //std::cout << "rhs: " << osnrRhs << " lhs:" << shortestOSNRCPartial(d, source, a, target) <<std::endl;
                 if (shortestOSNRCPartial(d, source, a, target) > osnrRhs + DBL_EPSILON){
                     //std::cout << "demand " <<  d << std::endl;
-                    //std::cout <<"lhs " << shortestOSNRPartial(d, source, a, target) <<std:: endl;
+                    //std::cout <<"lhs " << shortestOSNRCPartial(d, source, a, target) <<std::endl;
                     //std::cout <<"rhs " << osnrRhs + DBL_EPSILON <<std:: endl;
                     //displayArc(d, a);
                     //std::cout << "length  " <<   getArcLength(a, d) << " penalties " << getArcLengthWithPenalties(a,d) << std::endl;
@@ -853,17 +855,17 @@ bool RSA::OSNRPreprocessingC(){
         }
         //std::cout << "> Number of erased arcs due to length in graph #" << d << ". If: " << nb << ". Else: " << nbElse << std::endl;
     }
-        
+    /*    
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         for (int i=0; i<2*nbEdges;i++){
             std::cout << preProcessingTFlow[d][i] << " ";
         }
         std::cout << std::endl;
-    }
+    }*/
     
     if (totalNb >= 1){
         std::cout << "> Number of erased arcs due to OSNR in graph: "<< totalNb << std::endl;
-        std::cout << "> Number of erased arcs in tflowh: "<< totalNbTflow << std::endl;
+        std::cout << "> Number of erased arcs in tflow: "<< totalNbTflow << std::endl;
         return true;
     }
     return false;
@@ -894,7 +896,6 @@ double RSA::shortestOSNRCPartial(int d, ListDigraph::Node &s, ListDigraph::Arc &
     else{
         return DBL_MAX;
     }
-    //std::cout << distance << " " << std::endl;
     return OSNRPartial;
 }
 
@@ -997,6 +998,16 @@ double RSA::getCoeffObj8(const ListDigraph::Arc &a, int d){
     return coeff;
 }
 
+/* Returns the coefficient of an arc according to metric 4p on graph #d. */
+double RSA::getCoeffObj10(const ListDigraph::Arc &a, int d){
+    double pnli = ceil(getArcPnliC(a,d)* pow(10,8)*100)/100; //ROUNDING
+    double paseLine = ceil(getArcPaseLineC(a,d)* pow(10,8)*100)/100; //ROUNDING
+    double paseNode = ceil(instance.getPaseNodeC() * pow(10,8)*100)/100; //ROUNDING
+    
+    return -(pnli+paseLine+paseNode);
+}
+
+
 /* Returns the coefficient of an arc (according to the chosen metric) on graph #d. */
 double RSA::getCoeff(const ListDigraph::Arc &a, int d){
     double coeff = 0.0;
@@ -1041,6 +1052,11 @@ double RSA::getCoeff(const ListDigraph::Arc &a, int d){
             coeff = getCoeffObj8(a, d);
             break;
         }
+        case Input::OBJECTIVE_METRIC_10:
+        {
+            coeff = getCoeffObj10(a, d);
+            break;
+        }
         default:
         {
             std::cerr << "Objective metric out of range.\n";
@@ -1051,7 +1067,6 @@ double RSA::getCoeff(const ListDigraph::Arc &a, int d){
     
     return coeff;
 }
-
 
 ListGraph::Node RSA::getCompactNodeFromLabel(int label) const {
     for (ListGraph::NodeIt v(compactGraph); v != INVALID; ++v){
@@ -1122,6 +1137,39 @@ void RSA::displayPaths(){
         std::cout << std::endl;
     }
 }
+
+/* Displays the paths found for each of the new routed demands. */
+void RSA::displayOSNR(){
+    if(this->getInstance().getInput().isOSNREnabled() == true){
+        double osnrSurplus = 0.0;
+        std::cout << "Displaying OSNR " << std::endl;
+        for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+            double osnrDenominator = 0.0;
+            double osnrNumerator = 0.0;
+            double osnr = 0.0;
+            double osnrDb = 0.0;
+            for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+                if ((*vecOnPath[d])[a] != -1){
+                    double pnli = ceil(getArcPnliC(a,d)* pow(10,8)*100)/100; //ROUNDING
+                    double paseLine = ceil(getArcPaseLineC(a,d)* pow(10,8)*100)/100; //ROUNDING
+                    double paseNode = ceil(instance.getPaseNodeC() * pow(10,8)*100)/100; //ROUNDING
+                    osnrDenominator += pnli + paseLine + paseNode;
+                }
+            }
+            osnrDenominator += ceil(instance.getPaseNodeC()* pow(10,8)*100)/100;
+            osnrNumerator += ceil(getToBeRouted_k(d).getPchC()* pow(10,8)*100)/100;
+            osnr = osnrNumerator/osnrDenominator;
+            osnrDb = 10*log10(osnr);
+            if (osnrDb<getToBeRouted_k(d).getOsnrLimit()){
+                std::cout << "ERROR: OSNR below limit" << std::endl;
+            }
+            std::cout << "For demand " << getToBeRouted_k(d).getId() + 1 << " : " << osnrDb << " x " << getToBeRouted_k(d).getOsnrLimit() << " limit" << std::endl;
+            osnrSurplus += osnrDb - getToBeRouted_k(d).getOsnrLimit();
+        }
+        std::cout << "Extra OSNR in routing: " << osnrSurplus << std::endl;
+    }
+}
+
 
 /* Displays an arc from the graph #d. */
 void RSA::displayArc(int d, const ListDigraph::Arc &a){

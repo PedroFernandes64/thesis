@@ -353,11 +353,39 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             }
             break;
         }
+        case Input::OBJECTIVE_METRIC_4p:{
+            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                int edge = getCompactEdgeLabel(e);
+                for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+                    Term term(x[edge][k], getCompactLineAmplifiers(e));
+                    Term term2(x[edge + nbEdges][k], getCompactLineAmplifiers(e));
+                    obj.addTerm(term);
+                    obj.addTerm(term2);
+                }
+            }
+            break;
+        }
         case Input::OBJECTIVE_METRIC_8:{
             Term term(maxSliceOverall, 1);
             obj.addTerm(term);
             break;
         }
+        case Input::OBJECTIVE_METRIC_10:{
+            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                int edge = getCompactEdgeLabel(e);
+                for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+                    double pnli = ceil(getCompactPnliC(e)* pow(10,8)*100)/100; //ROUNDING
+                    double paseLine = ceil(getCompactPaseLineC(e)* pow(10,8)*100)/100; //ROUNDING
+                    double paseNode = ceil(instance.getPaseNodeC() * pow(10,8)*100)/100; //ROUNDING
+                    Term term(x[edge][k], -(pnli + paseLine + paseNode));
+                    Term term2(x[edge + nbEdges][k], -(pnli + paseLine + paseNode));
+                    obj.addTerm(term);
+                    obj.addTerm(term2);
+                }
+            }
+            break;
+        }
+
         default:{
             std::cout << "ERROR: Objective '" << chosenObjective << "' is not known." << std::endl;
             exit(0);
@@ -652,7 +680,7 @@ Constraint TFlowForm::getOSNRCConstraint(const Demand &demand, int k){
         int edge = getCompactEdgeLabel(e);
 
         //First term
-        double coeff = getCompactPaseLineC(e);
+        double coeff = getCompactPaseLineC(e)* roundingFactor;;
         coeff = ceil(coeff*100)/100; //ROUNDING
         Term term(x[edge][k], coeff);
         Term term2(x[edge + nbEdges][k], coeff);
@@ -1056,13 +1084,24 @@ void TFlowForm::updatePath(const std::vector<double> &vals){
             int slice = getArcSlice(a, d);
             //std::cout << std::endl << edge << std::endl << slice << std::endl;
             //std::cout << std::endl << x[edge][d].getVal() << std::endl << y[slice][d].getVal() << std::endl;
-            if ((x[edge][d].getVal() >= 1 - EPS || x[edge + nbEdges][d].getVal() >= 1 - EPS) && (y[slice][d].getVal() >= 1 - EPS)){
-
-                //std::cout << std::endl << "---------------------" << std::endl << "PASSEI AQUI" << std::endl << "---------------------" << std::endl;
-                (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
-            }
-            else{
-                (*vecOnPath[d])[a] = -1;
+            int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
+            int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
+            if (u < v){
+                if ((x[edge][d].getVal() >= 1 - EPS ) && (y[slice][d].getVal() >= 1 - EPS)){
+                    //std::cout << std::endl << "---------------------" << std::endl << "PASSEI AQUI" << std::endl << "---------------------" << std::endl;
+                    (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
+                }
+                else{
+                    (*vecOnPath[d])[a] = -1;
+                }
+            }else{
+                if ((x[edge + nbEdges][d].getVal() >= 1 - EPS) && (y[slice][d].getVal() >= 1 - EPS)){
+                    //std::cout << std::endl << "---------------------" << std::endl << "PASSEI AQUI" << std::endl << "---------------------" << std::endl;
+                    (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
+                }
+                else{
+                    (*vecOnPath[d])[a] = -1;
+                }
             }
         }
     }

@@ -105,7 +105,7 @@ with open("../Outputs/jobsHPC.sh", "w") as f:
     f.close() 
 print("Jobs script created")
 with open("../Outputs/results.csv", "w") as f:
-    line = "Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Solver;Gn\n"
+    line = "Instance;Demands;UB;LB;GAP;Time;OF;;Solver;Formulation;Gn\n"
     f.write(line)
     f.close() 
 print("Result table created")   

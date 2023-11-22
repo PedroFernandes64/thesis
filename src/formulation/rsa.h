@@ -261,11 +261,14 @@ public:
     /** Returns the coefficient of an arc according to metric 4 on a graph. @param a The arc. @param d The graph index. \note Min path lengths. **/
     double getCoeffObj4(const ListDigraph::Arc &a, int d);
 
-    /** Returns the coefficient of an arc according to metric 4 on a graph. @param a The arc. @param d The graph index. \note Min path lengths. **/
+    /** Returns the coefficient of an arc according to metric 4p on a graph. @param a The arc. @param d The graph index. \note Min path lengths. **/
     double getCoeffObj4p(const ListDigraph::Arc &a, int d);
 
     /** Returns the coefficient of an arc according to metric 8 on a graph. @param a The arc. @param d The graph index. \note Min max global used slice position. **/
     double getCoeffObj8(const ListDigraph::Arc &a, int d);
+
+    /** Returns the coefficient of an arc according to metric 10 on a graph. @param a The arc. @param d The graph index. \note Min path lengths. **/
+    double getCoeffObj10(const ListDigraph::Arc &a, int d);
 
 	/** Returns the algorithm status. **/
     Status getStatus() const { return currentStatus; }
@@ -341,6 +344,7 @@ public:
     /** Changes the pnli of an arc in a graph. @param a The arc. @param d The graph index. @param val The new pnli. **/
     void setArcPnliC(const ListDigraph::Arc &a, int d, double val) { (*vecArcPnliC[d])[a] = val; }
     void setArcPaseLineC(const ListDigraph::Arc &a, int d, double val) { (*vecArcPaseLineC[d])[a] = val; }
+    // Add arc noise considering one node amplifier!
     void setArcNoiseC(const ListDigraph::Arc &a, int d, double val) { (*vecArcNoiseC[d])[a] = val; }
     void setArcPnliL(const ListDigraph::Arc &a, int d, double val) { (*vecArcPnliL[d])[a] = val; }
     void setArcPaseLineL(const ListDigraph::Arc &a, int d, double val) { (*vecArcPaseLineL[d])[a] = val; }
@@ -439,6 +443,8 @@ public:
 
     /** Displays the paths found for each of the new routed demands. **/
     void displayPaths();
+    /** Display OSNR corrected if Obj 10 chosen **/
+    void displayOSNR();
 
     /** Displays an arc from a graph. @param d The graph index. @param a The arc to be displayed. **/
     void displayArc(int d, const ListDigraph::Arc &a);

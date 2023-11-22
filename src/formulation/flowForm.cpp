@@ -259,7 +259,7 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
         }
         break;
         }
-            case Input::OBJECTIVE_METRIC_4p:
+    case Input::OBJECTIVE_METRIC_4p:
         {
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
             for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
@@ -275,6 +275,19 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
         {
         Term term(maxSliceOverall, 1);
         obj.addTerm2(term);
+        break;
+        }
+
+    case Input::OBJECTIVE_METRIC_10:
+        {
+        for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+            for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+                int arc = getArcIndex(a, d);
+                double coeff = getCoeffObj10(a, d);
+                Term term(x[d][arc], coeff);
+                obj.addTerm2(term);
+            }
+        }
         break;
         }
     default:
@@ -542,8 +555,9 @@ Constraint FlowForm::getOSNRCConstraint(const Demand &demand, int d){
     double roundingFactor = pow(10,8);
     
     rhs = pch/osnrLim - instance.getPaseNodeC() ;
-    
+    //std::cout << rhs << std::endl;
     rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
+    //std::cout << rhs << std::endl;
     rls = 0;
     for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
         //First term
