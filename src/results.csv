@@ -63,3 +63,6 @@ Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Solver;Gn
 ../3_Thesis_4_flex-optim_Updated_USABLE/10nodes_22links_10_22/20;20;-1992.770000;-1992.770000;0.000000;0.265000;10;0;0
 ../3_Thesis_4_flex-optim_Updated_USABLE/10nodes_22links_10_22/20;20;-1992.770000;-1992.770000;0.000000;0.349000;10;0;2
 ../3_Thesis_4_flex-optim_Updated_USABLE/10nodes_22links_10_22/20;20;-1992.770000;-1992.770000;0.000000;0.313000;10;0;0
+../3_Thesis_2_realistic_Generated_USABLE/European_18_40/48;48;55430.000000;55430.000000;0.000000;3.605000;4;0;0
+../3_Thesis_2_realistic_Generated_USABLE/6nodes9links_6_9/15;15;-4336.290000;-4336.290000;0.000000;26.509000;10;0;0
+../3_Thesis_2_realistic_Generated_USABLE/6nodes9links_6_9/15;15;9000.000000;9000.000000;0.000000;0.282000;4;0;0
