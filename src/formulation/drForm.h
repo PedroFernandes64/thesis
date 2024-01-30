@@ -71,6 +71,9 @@ class DrFormulation : public AbstractFormulation{
 	/** Defines Length constraints. Demands must be routed within a length limit. **/
 	void setLengthConstraints();
 
+	/** Defines OSNR constraints. Demands must be routed within a OSNR limit. **/
+	void setOsnrConstraints();
+
 	/*obliges the allocation to respect the volume of slots required in each request*/
 	void setSlotsVolumeConstraints();
 	void setSlotsVolumeConstraints2();
@@ -90,6 +93,9 @@ class DrFormulation : public AbstractFormulation{
 
 	/** Returns the transmission reach constraint associated with a demand. @param d The demand index. **/
 	Constraint getLengthConstraint(int d);
+
+	/** Returns the OSNR constraint associated with a demand. @param d The demand index. **/
+	Constraint getOsnrConstraint(int d);
 
 	Constraint getSlotsVolumeConstraints(int d);
 	Constraint getSlotsVolumeConstraints2(int d);

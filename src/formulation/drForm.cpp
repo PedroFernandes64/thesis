@@ -360,18 +360,22 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
 /****************************************************************************************/
  void DrFormulation::setConstraints(){
 	
-	this->setLengthConstraints(); //somatório yde*le<=Ld
-	this-> setSlotsVolumeConstraints();
-    this-> setSlotsVolumeConstraints2();
+
+	this->setSlotsVolumeConstraints();
+    this->setSlotsVolumeConstraints2();
     this->setDegreeConstraints();
-	this-> setOriginConstraints();
-    this-> setTargetConstraints();
+	this->setOriginConstraints();
+    this->setTargetConstraints();
     this->setFluxConstraints();
-	this-> setNonOverlappingConstraints();
-    this-> setNonOverlappingConstraints2();
+	this->setNonOverlappingConstraints();
+    this->setNonOverlappingConstraints2();
     this->setDestinationConstraints();
-    this-> setMaxUsedSlicePerLinkConstraints();
-    this-> setMaxUsedSliceOverallConstraints();
+    this->setMaxUsedSlicePerLinkConstraints();
+    this->setMaxUsedSliceOverallConstraints();
+    this->setLengthConstraints();
+    if (this->getInstance().getInput().isOSNREnabled() == true){
+        this->setOsnrConstraints();
+    }
      
 }
 
@@ -382,6 +386,15 @@ void DrFormulation::setLengthConstraints(){
     }
     std::cout << "Length constraints have been defined..." << std::endl;
 }
+
+void DrFormulation::setOsnrConstraints(){
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
+        const Constraint & osnrConstraint = getOsnrConstraint(d);
+        constraintSet.push_back(osnrConstraint);
+    }
+    std::cout << "OSNR constraints have been defined..." << std::endl;
+}
+
 
 Constraint DrFormulation::getLengthConstraint(int d){
     Expression exp;
@@ -400,6 +413,57 @@ Constraint DrFormulation::getLengthConstraint(int d){
     std::ostringstream constraintName;
     constraintName << "TrasmissionReach(" << getToBeRouted_k(d).getId()+1 << ")"; 
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+Constraint DrFormulation::getOsnrConstraint(int d){
+    Expression exp;
+    double rhs; double lhs;
+
+    double osnrLimdb = getToBeRouted_k(d).getOsnrLimit();
+    double osnrLim = pow(10,osnrLimdb/10);
+    double pch = getToBeRouted_k(d).getPchC();
+
+    double roundingFactor = pow(10,8);
+    
+    rhs = pch/osnrLim - instance.getPaseNodeC() ;
+    
+    rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
+    lhs = 0;
+
+    int nbEdges = countEdges(compactGraph);
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        
+                //First term
+        double coeff = getCompactPaseLineC(e)* roundingFactor;;
+        coeff = ceil(coeff*100)/100; //ROUNDING
+        Term term(y[edge][d], coeff);
+        Term term2(y[edge + nbEdges][d], coeff);
+        exp.addTerm(term);
+        exp.addTerm(term2);
+
+        //Second term
+        coeff = 1.0 * ceil(instance.getPaseNodeC() * roundingFactor*100)/100; //ROUNDING
+        Term term3(y[edge][d], coeff);
+        Term term4(y[edge + nbEdges][d], coeff);
+        exp.addTerm(term3);
+        exp.addTerm(term4);
+
+        //Third term
+        coeff = getCompactPnliC(e)* roundingFactor;
+        coeff = ceil(coeff*100)/100; //ROUNDING
+        Term term5(y[edge][d], coeff);
+        Term term6(y[edge + nbEdges][d], coeff);
+        exp.addTerm(term5);
+        exp.addTerm(term6);
+
+
+    } 
+    
+    std::ostringstream constraintName;
+    constraintName << "OSNR(" << getToBeRouted_k(d).getId()+1 << ")"; 
+    Constraint constraint(lhs, exp, rhs, constraintName.str());
     return constraint;
 }
 
