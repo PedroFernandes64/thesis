@@ -411,7 +411,8 @@ void TFlowForm::setConstraints(){
     setMaxUsedSlicePerLinkConstraints();
     setMaxUsedSliceOverallConstraints();
     setSliceConstraint();
-    setNonOverlappingConstraintsPair();
+    //setNonOverlappingConstraintsPair();
+    setNonOverlappingConstraintsMinChannel();
     if (this->getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_PARTIAL){
         setPreprocessingConstraints();
     }
@@ -662,7 +663,7 @@ void TFlowForm::setOSNRConstraints(){
 /* Returns the OSNR constraint associated with a demand. */
 Constraint TFlowForm::getOSNRCConstraint(const Demand &demand, int k){
     Expression exp;
-    double rhs; double rls;
+    double rhs; double lhs;
     
     double osnrLimdb = demand.getOsnrLimit();
     double osnrLim = pow(10,osnrLimdb/10);
@@ -673,7 +674,7 @@ Constraint TFlowForm::getOSNRCConstraint(const Demand &demand, int k){
     rhs = pch/osnrLim - instance.getPaseNodeC() ;
     
     rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
-    rls = 0;
+    lhs = 0;
 
     int nbEdges = countEdges(compactGraph);
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
@@ -704,7 +705,7 @@ Constraint TFlowForm::getOSNRCConstraint(const Demand &demand, int k){
     }
     std::ostringstream constraintName;
     constraintName << "OSNR_" << demand.getId()+1;
-    Constraint constraint(rls, exp, rhs, constraintName.str());
+    Constraint constraint(lhs, exp, rhs, constraintName.str());
     //std::cout << "For demand " << d<< std::endl;
     //constraint.display();
     return constraint;
@@ -978,6 +979,7 @@ void TFlowForm::setNonOverlappingConstraints(){
 */
 
 void TFlowForm::setNonOverlappingConstraintsPair(){
+    int counter = 0;
     for (int a = 0; a < getNbDemandsToBeRouted(); a++){
         for (int b = 0; b < getNbDemandsToBeRouted(); b++){
             if(a < b){
@@ -986,12 +988,44 @@ void TFlowForm::setNonOverlappingConstraintsPair(){
                     for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
                         const Constraint & nonOverlappingPair = getNonOverlappingConstraintPair(a, b, edge, s);
                         constraintSet.push_back(nonOverlappingPair);
+                        counter = counter + 1;
+                    }
+                }
+            }
+        }
+    }
+    std::cout << "Non-overlapping constraints pair have been defined..." << std::endl;
+    std::cout << "Constraints = " << counter << std::endl;
+}
+
+void TFlowForm::setNonOverlappingConstraintsMinChannel(){
+    int counter = 0;
+    for (int a = 0; a < getNbDemandsToBeRouted(); a++){
+        for (int b = 0; b < getNbDemandsToBeRouted(); b++){
+            if(a < b){
+                for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                    int edge = getCompactEdgeLabel(e);
+                    int minWk = 0;
+                    if (getToBeRouted_k(a).getLoad() <= getToBeRouted_k(b).getLoad()){
+                        minWk = getToBeRouted_k(a).getLoad();
+                    }else{
+                        minWk = getToBeRouted_k(b).getLoad();
+                    }
+                    //std::cout << "Demand: " << a << "Load: " << getToBeRouted_k(a).getLoad() << "Demand: " << a << "Load: " << getToBeRouted_k(a).getLoad();
+                    //std::cout << "Min w_k: " << minWk;
+                    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+                        if ((s+1)%minWk == 0){
+                            const Constraint & nonOverlappingPair = getNonOverlappingConstraintPair(a, b, edge, s);
+                            constraintSet.push_back(nonOverlappingPair);
+                            counter = counter + 1;
+                        }
                     }
                 }
             }
         }
     }
     std::cout << "Non-overlapping constraints have been defined..." << std::endl;
+    std::cout << "Constraints = " << counter << std::endl;
 }
 
 Constraint TFlowForm::getNonOverlappingConstraintPair(int a, int b, int arc, int s){

@@ -591,15 +591,18 @@ Constraint FlowForm::getOSNRCConstraint(const Demand &demand, int d){
 
 /* Defines the second set of Improved Non-Overlapping constraints. */
 void FlowForm::setNonOverlappingConstraints(){
+    int counter = 0;
     for (int i = 0; i < instance.getNbEdges(); i++){
         //int sliceLimit = getNbSlicesLimitFromEdge(i);
         int sliceLimit = auxNbSlicesLimitFromEdge[i];
         for (int s = 0; s < sliceLimit; s++){
             const Constraint & nonOverlap = getNonOverlappingConstraint(instance.getPhysicalLinkFromIndex(i).getId(), s);
             constraintSet.push_back(nonOverlap);
+            counter = counter + 1;
         }
     }
     std::cout << "Non-Overlapping constraints has been defined..." << std::endl;
+    std::cout << "Constraints = " << counter << std::endl;
 }
 
 /* Returns the non-overlapping constraint associated with an edge and a slice */

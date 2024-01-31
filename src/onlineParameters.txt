@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../3_Thesis_Instances/4_flex-optim_Updated_USABLE/6nodes9links_6_9/Links/30_demandsLinks/Link.csv
+topologyFile=../3_Thesis_Instances/4_flex-optim_Updated_USABLE/Nsfnet_14_21/Links/91_demandsLinks/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../3_Thesis_Instances/4_flex-optim_Updated_USABLE/6nodes9links_6_9/Demands/30_demands
+demandToBeRoutedFolder=../3_Thesis_Instances/4_flex-optim_Updated_USABLE/Nsfnet_14_21/Demands/91_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -15,7 +15,7 @@ Bands=1
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
-formulation=3
+formulation=0
 userCuts=0
 obj=4
 allowBlocking=0

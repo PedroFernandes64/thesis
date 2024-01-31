@@ -73,6 +73,7 @@ public:
 	//void setNonOverlappingConstraints();
 	
 	void setNonOverlappingConstraintsPair();
+	void setNonOverlappingConstraintsMinChannel();
 
 	void setPreprocessingConstraints();
 
@@ -105,6 +106,7 @@ public:
 	//Constraint getNonOverlappingConstraint_2(int a, int b);
 
 	Constraint getNonOverlappingConstraintPair(int a, int b, int arc, int s);
+	
 	Constraint getPreprocessingConstraint(int k);
 	
 

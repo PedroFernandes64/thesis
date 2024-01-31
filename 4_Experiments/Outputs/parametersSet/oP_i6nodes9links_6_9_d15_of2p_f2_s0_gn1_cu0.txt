@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=
+topologyFile=Instances/6nodes9links_6_9/Links/15_demandsLinks/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=
+demandToBeRoutedFolder=Instances/6nodes9links_6_9/Demands/15_demands/
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -10,14 +10,14 @@ GNPY_topologyFile=
 GNPY_equipmentFile=
 
 ******* Thesis Pedro parameters *******
-OSNR_activation=
+OSNR_activation=1
 Bands=1
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
-formulation=0
-userCuts=
-obj=
+formulation=2
+userCuts=0
+obj=2p
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
@@ -26,7 +26,7 @@ partitionSlice=15
 
 
 ******* Optimization parameters *******
-solver=
+solver=0
 method=0 
 preprocessingLevel=2
 linearRelaxation=0

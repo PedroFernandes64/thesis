@@ -12,9 +12,10 @@ for file in files:
         testSet.append([file,demandNumber.replace("_demands","")])
 
 solverSet = ["0"]
-formulationSet = ["0","2"]
-objSet = ["1p","2p","4","8"]
+formulationSet = ["2"]
+objSet = ["2p","4"]
 gnSet=["1"]
+cutSet=["0","1"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()
@@ -54,12 +55,16 @@ for experiment in testSet:
                     stringGN = "OSNR_activation=" + gn + "\n"
                     lines[12] = stringGN
 
-                    parametersName = "../Outputs/parametersSet/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_s" + solver + "_gn" + gn + ".txt"
-                    with open(parametersName, "w") as f:
-                        for line in lines:
-                            f.write(line)
-                        f.close() 
-                    counter = counter + 1
+                    for cut in cutSet:
+                        stringCut = "userCuts=" + cut  + "\n"
+                        lines[18] = stringCut
+
+                        parametersName = "../Outputs/parametersSet/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_s" + solver + "_gn" + gn + "_cu" + cut + ".txt"
+                        with open(parametersName, "w") as f:
+                            for line in lines:
+                                f.write(line)
+                            f.close() 
+                        counter = counter + 1
 print("Parameter Set created")
 
 
@@ -68,7 +73,7 @@ parameters = os.listdir("../Outputs/parametersSet")
 with open("../Outputs/script.sh", "w") as f:
     stringLine = "./exec"
     for parameter in parameters:
-        line = stringLine + " " + "parametersSet/" + parameter + " >> " + "executionOutputs/" + parameter[:-4] + "\n"
+        line = stringLine + " " + "parametersSet/" + parameter + " >> " + "executionOutputs/" + parameter + "\n"
         f.write(line)
     f.close() 
 print("Script created")

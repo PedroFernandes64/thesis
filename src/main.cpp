@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
   			outfile << "\n" + instanceName + ";" + to_string(instance.getNbDemands()) + ";" + to_string(solver->getUpperBound()) + 
 			";" + to_string(+solver->getLowerBound()) + ";" + to_string(solver->getMipGap()) +";" + 
 			to_string(round(solver->getDurationTime()*1000)/1000) +";" + to_string(input.getChosenObj_k(0))+";"+
-			to_string(input.getChosenMIPSolver())+";"+to_string(input.getChosenFormulation()); 
+			to_string(input.getChosenMIPSolver())+";"+to_string(input.getChosenFormulation())+";"+to_string(input.isUserCutsActivated()); 
 		}
 		
 
