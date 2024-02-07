@@ -78,3 +78,9 @@ Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Solver;Gn
 ../3_Thesis_4_flex-optim_Updated_USABLE/Nsfnet_14_21/91;91;210200.000000;210200.000000;0.000000;10.521000;4;0;0
 ../3_Thesis_4_flex-optim_Updated_USABLE/Nsfnet_14_21/91;91;211400.000000;211400.000000;0.000000;97.165000;4;0;0
 ../3_Thesis_4_flex-optim_Updated_USABLE/Nsfnet_14_21/91;91;211400.000000;211400.000000;0.000000;100.518000;4;0;0;0
+../4_Experiments/Outputs/6nodes9links_6_9/15;15;18.000000;18.000000;0.000000;0.267000;8;0;0;0
+../4_Experiments/Outputs/6nodes9links_6_9/15;15;18.000000;18.000000;0.000000;0.263000;8;0;0;0
+../4_Experiments/Outputs/NSF_9_13/50;50;61.000000;61.000000;0.000000;97.888000;8;0;0;0
+../4_Experiments/Outputs/NSF_9_13/50;50;61.000000;61.000000;0.000000;95.035000;8;0;0;0
+../4_Experiments/Outputs/6nodes9links_6_9/15;15;18.000000;18.000000;0.000000;0.166000;8;0;2;0
+../4_Experiments/Outputs/6nodes9links_6_9/15;15;18.000000;18.000000;0.000000;0.548000;8;0;2;0

@@ -4,7 +4,7 @@ import shutil
 import random
 import math
 import copy
-import gnModelPrecomputingTool as preCompute
+import gn as preCompute
 
 #USE THIS FILE IN BASE INSTANCES ONLY WITH LINKS AND NODE TYPES IF YOU WANT TO GENERATE DEMAND SETS AND COMPUTE OPTICAL PHYSICS VALUES
 
