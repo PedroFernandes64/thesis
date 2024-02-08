@@ -20,6 +20,7 @@ class DrFormulation : public AbstractFormulation{
 		VarArray rm; //  right-most slot occupe par la demand. 
 		VarArray maxSlicePerLink;	// The array of variables used in the MIP for verifying the max used slice position for each link in the topology network. maxSlicePerLink[i]=p if p is the max used slice position from the link with id i. *
 	 	Variable maxSliceOverall;	// The max used slice position throughout all the network. *
+		VarArray routedCBand;	    	/**< routedCBand[k]=1 if k is routed in C band. **/
 
 	public:
 	/**************************************************************************************
@@ -31,7 +32,7 @@ class DrFormulation : public AbstractFormulation{
 	/**************************************************************************************
 										Variables										
 	**************************************************************************************/
-    // REIMPLEMENTAR NO FINAL
+
 	/* Puts all variables into a single array of variables and returns it. 
 	@note The position of a variable in the array is given by its id. */
     VarArray getVariables() override;
@@ -43,11 +44,26 @@ class DrFormulation : public AbstractFormulation{
 	/* Defines the decision variables need in the MIP formulation. */
     void setVariables()override;
 
+	/** Defines the flow variables. **/
+	void setRoutingVariables();
+
+	/** Defines the channel variables. **/
+	void setDemandDemandVariables();
+
 	/** Defines the max used slice per edge variables. **/
-	void setMaxUsedSliceOverallVariable();
+	void setLeftVariables();
 
 	/** Defines the max used slice overall variable. **/
-	void setMaxUsedSlicePerEdgeVariable();
+	void setRightVariables();
+
+	/** Defines the max used slice per edge variables. **/
+	void setMaxUsedSliceOverallVariable(); //TODO
+
+	/** Defines the max used slice overall variable. **/
+	void setMaxUsedSlicePerEdgeVariable(); //TODO
+
+	/** Defines the C band routing variable. **/
+	void setCBandRoutingVariable();
 
 	/** Changes the variable values. @param value The vector of values. **/
     void setVariableValues(const std::vector<double> &value)override;
@@ -63,10 +79,9 @@ class DrFormulation : public AbstractFormulation{
 	void setFlowConstraints();	
 	void setDegreeConstraints();
 	void setOriginConstraints();
-	void setOriginConstraints2();
 	
 	/** Defines Target constraints. Exactly one arc enters the demand's target. **/
-    void setDestinationConstraints(); // n sei se usarei esse 
+    void setDestinationConstraints();
 	
 	/** Defines Length constraints. Demands must be routed within a length limit. **/
 	void setLengthConstraints();
@@ -84,10 +99,13 @@ class DrFormulation : public AbstractFormulation{
 
 	void setFluxConstraints();
 	void setTargetConstraints();
+
+	void setCBandRoutingConstraints();
+	void setPreprocessingConstraints();
+
 	
 /** Returns the flow conservation constraint associated with a demand and a node. @param v The node. @param demand The demand. @param d The demand index. **/
 	Constraint getDegreeConstraint_k(int k, const ListGraph::Node &v);
-	Constraint getFlowConstraints(int d, const ListGraph::Node &v);
 	Constraint getOriginConstraint_k(int k,const ListGraph::Node &v);
 	Constraint getDestinationConstraint_k(int d);
 
@@ -100,28 +118,28 @@ class DrFormulation : public AbstractFormulation{
 	Constraint getSlotsVolumeConstraints(int d);
 	Constraint getSlotsVolumeConstraints2(int d);
 
-	//Constraint getOriginConstraint(int d);
-	Constraint getFluxConstraint_k(int d,const ListGraph::Node &v);
+	Constraint getFlowConstraint_k(int d,const ListGraph::Node &v);
 	Constraint getTargetConstraint_k(int d, const ListGraph::Node &v);
 	
-	// Constraint getNonOverlappingContraints(int k);
 	Constraint getNonOverlappingConstraints(int e,int d, int d2);
 	Constraint getNonOverlappingConstraints2(int d, int d2);
-
-	//Constraint getNonOverlappingConstraint();
 
 	void setMaxUsedSlicePerLinkConstraints();
 	void setMaxUsedSliceOverallConstraints();
 	Constraint getMaxUsedSlicePerLinkConstraints(int k, int e);
 	Constraint getMaxUsedSliceOverallConstraints(int d);
 	
+	Constraint getPreprocessingConstraint(int k);
 
+	Constraint getCBandRoutingConstraint(int k);
+
+	Constraint getCBandRoutingConstraint2(int k, int e);
 	
 	/****************************************************************************************/
 	/*									Objective Functions									*/
 	/****************************************************************************************/
 	/** Defines the objective function. @param chosenObjective The chosen objective metrics. **/
-    void setObjectives()override;
+    void setObjectives() override;
     /* Returns the objective function expression for the given metric. @param chosenObjective The objective metric identifier. */
     Expression getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjective);
 ;
@@ -129,6 +147,10 @@ class DrFormulation : public AbstractFormulation{
 	/*										Methods											*/
 	/****************************************************************************************/
 	void updatePath(const std::vector<double> &vals)override;
+
+	std::vector<Constraint> solveSeparationProblemFract(const std::vector<double> &solution) override;
+
+    std::vector<Constraint> solveSeparationProblemInt(const std::vector<double> &solution, const int threadNo) override; 
 
    /****************************************************************************************/
 	/*									Variable Fixing										*/

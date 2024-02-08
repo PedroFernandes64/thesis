@@ -11,7 +11,6 @@ void CplexCallback::invoke (const IloCplex::Callback::Context &context){
         if (isObj8()){
             //fixVariables(context);
         }
-        //if ( input.isUserCutsActivated() && input.getChosenFormulation() != Input::FORMULATION_T_FLOW ){
         if ( input.isUserCutsActivated() ){
             addUserCuts(context);
         }
@@ -20,6 +19,9 @@ void CplexCallback::invoke (const IloCplex::Callback::Context &context){
         if (input.getChosenFormulation() == Input::FORMULATION_EDGE_NODE){
             addLazyConstraints(context);
         }
+        //if ((input.getChosenFormulation() == Input::FORMULATION_T_FLOW) && ((input.getNonOverTFlow() == 1) || input.getNonOverTFlow() == 2)){
+        //    addLazyConstraints(context);
+        //}
         if (input.isGNPYEnabled()){
             addGnpyConstraints(context);
         }

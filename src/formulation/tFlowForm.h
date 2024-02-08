@@ -20,6 +20,8 @@ private:
 	VarMatrix z; 					/**< Non overlapping variables. z[a][b] = 1 if demand a is allocated to a slot that has a smaller position than demand b's allocated slot. **/
     VarArray maxSlicePerLink;	    /**< The array of variables used in the MIP for verifying the max used slice position for each link in the topology network. maxSlicePerLink[i]=p if p is the max used slice position from the link with id i. **/
 	Variable maxSliceOverall;		/**< The max used slice position throughout all the network. **/
+	VarArray routedCBand;	    	/**< routedCBand[k]=1 if k is routed in C band. **/
+	
 
 public:
 	/****************************************************************************************/
@@ -27,21 +29,40 @@ public:
 	/****************************************************************************************/
 	/** Constructor. Builds the Formulation.  @param instance The instance to be solved. **/
     TFlowForm(const Instance &instance);
-	void printVariables();
+	
 
 	/****************************************************************************************/
 	/*										Variables										*/
 	/****************************************************************************************/
+
+	void printVariables();
+
 	/** Puts all variables into a single array of variables and returns it. @note The position of a variable in the array is given by its id. **/
-	VarArray getVariables() override; //OK
+	VarArray getVariables() override; 
+
+	Variable getMaxSliceOverall() const {return maxSliceOverall;} 	
 
     /** Defines the decision variables need in the MIP formulation. **/
-    void setVariables() override; //OK
+    void setVariables() override; 
+
+	/** Defines the flow variables. **/
+	void setFlowVariables();
+
+	/** Defines the channel variables. **/
+	void setChannelVariables();
+
+	/** Defines the max used slice per edge variables. **/
+	void setMaxUsedSlicePerEdgeVariables();
+
+	/** Defines the max used slice overall variable. **/
+	void setMaxUsedSliceOverallVariable();
+
+	/** Defines the C band routing variable. **/
+	void setCBandRoutingVariable();
 
     /** Changes the variable values. @param value The vector of values. **/
-	void setVariableValues(const std::vector<double> &value) override; //OK
+	void setVariableValues(const std::vector<double> &value) override; 
 
-	Variable getMaxSliceOverall() const {return maxSliceOverall;} //OK
 	
 	/****************************************************************************************/
 	/*										Constraints										*/
@@ -69,11 +90,12 @@ public:
 	void setMaxUsedSliceOverallConstraints();
 
 	void setSliceConstraint();
-
-	//void setNonOverlappingConstraints();
 	
 	void setNonOverlappingConstraintsPair();
+
 	void setNonOverlappingConstraintsMinChannel();
+
+	void setCBandRoutingConstraints();
 
 	void setPreprocessingConstraints();
 
@@ -101,13 +123,13 @@ public:
 
 	Constraint getSliceConstraint(int k);
 
-	//Constraint getNonOverlappingConstraint(int a, int b, int arc);
-
-	//Constraint getNonOverlappingConstraint_2(int a, int b);
-
 	Constraint getNonOverlappingConstraintPair(int a, int b, int arc, int s);
 	
 	Constraint getPreprocessingConstraint(int k);
+
+	Constraint getCBandRoutingConstraint(int k);
+
+	Constraint getCBandRoutingConstraint2(int k, int e);
 	
 
 	/****************************************************************************************/
@@ -115,10 +137,10 @@ public:
 	/****************************************************************************************/
 
     /** Defines the objective function. @param chosenObjective The chosen objective metrics. **/
-    void setObjectives() override; //OK
+    void setObjectives() override; 
 
 	/** Returns the objective function expression for the given metric. @param chosenObjective The objective metric identifier. **/
-    Expression getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjective); //OK
+    Expression getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjective); 
 	
 
 	/****************************************************************************************/
@@ -130,7 +152,7 @@ public:
 
 	std::vector<Constraint> solveSeparationProblemFract(const std::vector<double> &solution) override; 
 
-    //std::vector<Constraint> solveSeparationProblemInt(const std::vector<double> &solution, const int threadNo) override; 
+    std::vector<Constraint> solveSeparationProblemInt(const std::vector<double> &solution, const int threadNo) override; 
 
 
 	/****************************************************************************************/

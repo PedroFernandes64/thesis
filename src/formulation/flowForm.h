@@ -18,6 +18,7 @@ private:
     VarMatrix x;				    /**< The matrix of assignement variables used in the MIP. x[d][a]=1 if the d-th demand is routed through the arc from index a. **/
     VarArray maxSlicePerLink;	    /**< The array of variables used in the MIP for verifying the max used slice position for each link in the topology network. maxSlicePerLink[i]=p if p is the max used slice position from the link with id i. **/
 	Variable maxSliceOverall;		/**< The max used slice position throughout all the network. **/
+	VarArray routedCBand;	    	/**< routedCBand[k]=1 if k is routed in C band. **/
 
 public:
 	/****************************************************************************************/
@@ -50,6 +51,9 @@ public:
 
 	/** Defines the max used slice overall variable. **/
 	void setMaxUsedSliceOverallVariable();
+
+	/** Defines the C band routing variable. **/
+	void setCBandRoutingVariable();
 
 	/** Changes the variable values. @param value The vector of values. **/
 	void setVariableValues(const std::vector<double> &value) override;
@@ -101,7 +105,12 @@ public:
 
 	/** Returns the non-overlapping constraint associated with an edge and a slice. @param linkLabel The arc label. @param slice The arc slice. **/
 	Constraint getNonOverlappingConstraint(int linkLabel, int slice);
-	
+
+	void setCBandRoutingConstraints();	
+
+	Constraint getCBandRoutingConstraint(int k);
+
+	Constraint getCBandRoutingConstraint2(int k, int e);
 
 	//---------------------------------- New constraints ---------------------------------- //
 
@@ -123,7 +132,6 @@ public:
 	void setMaxUsedSliceOverallConstraints3();
 	/** Defines the Overall Max Used Slice Position constraints. The max used slice position overall must be greater than every other slice position used in the network. **/
 	void setMaxUsedSliceOverallConstraints4();
-
 
 	/** Returns the strong max reach constraint associated with a demand and a slice. @param demand The demand. @param d The demand index. @param s The slice index.**/
 	Constraint getStrongLengthConstraint(const Demand &demand, int d, int s);

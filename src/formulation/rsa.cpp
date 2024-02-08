@@ -615,11 +615,11 @@ void RSA::preprocessing(){
         pathExistencePreprocessing();
         
         //Tflow test
-        preProcessingTFlow.resize(getNbDemandsToBeRouted());
+        preProcessingErasedArcs.resize(getNbDemandsToBeRouted());
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
-            preProcessingTFlow[d].resize(2*countEdges(compactGraph));
+            preProcessingErasedArcs[d].resize(2*countEdges(compactGraph));
             for (int i=0; i<2*countEdges(compactGraph);i++){
-                preProcessingTFlow[d][i] = 0;
+                preProcessingErasedArcs[d][i] = 0;
             }
         }
         //Tflow test
@@ -715,15 +715,15 @@ bool RSA::lengthPreprocessing(){
                     int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
                     int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
                     if (u < v){
-                        if (preProcessingTFlow[d][arcTflowId]==0){
-                            preProcessingTFlow[d][arcTflowId]++;
+                        if (preProcessingErasedArcs[d][arcTflowId]==0){
+                            preProcessingErasedArcs[d][arcTflowId]++;
                             totalNbTflow++;
                         }
                         
                     }
                     else{
-                        if (preProcessingTFlow[d][arcTflowId+nbEdges]==0){
-                            preProcessingTFlow[d][arcTflowId+nbEdges]++;
+                        if (preProcessingErasedArcs[d][arcTflowId+nbEdges]==0){
+                            preProcessingErasedArcs[d][arcTflowId+nbEdges]++;
                             totalNbTflow++;
                         }
                     }
@@ -746,7 +746,7 @@ bool RSA::lengthPreprocessing(){
     /*
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         for (int i=0; i<2*nbEdges;i++){
-            std::cout << preProcessingTFlow[d][i] << " ";
+            std::cout << preProcessingErasedArcs[d][i] << " ";
         }
         std::cout << std::endl;
     }
@@ -826,15 +826,15 @@ bool RSA::OSNRPreprocessingC(){
                     int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
                     int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
                     if (u < v){
-                        if (preProcessingTFlow[d][arcTflowId]==0){
-                            preProcessingTFlow[d][arcTflowId]++;
+                        if (preProcessingErasedArcs[d][arcTflowId]==0){
+                            preProcessingErasedArcs[d][arcTflowId]++;
                             totalNbTflow++;
                         }
                         
                     }
                     else{
-                        if (preProcessingTFlow[d][arcTflowId+nbEdges]==0){
-                            preProcessingTFlow[d][arcTflowId+nbEdges]++;
+                        if (preProcessingErasedArcs[d][arcTflowId+nbEdges]==0){
+                            preProcessingErasedArcs[d][arcTflowId+nbEdges]++;
                             totalNbTflow++;
                         }
                     }
@@ -858,7 +858,7 @@ bool RSA::OSNRPreprocessingC(){
     /*    
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         for (int i=0; i<2*nbEdges;i++){
-            std::cout << preProcessingTFlow[d][i] << " ";
+            std::cout << preProcessingErasedArcs[d][i] << " ";
         }
         std::cout << std::endl;
     }*/
@@ -1139,32 +1139,34 @@ void RSA::displayPaths(){
 }
 
 /* Displays the paths found for each of the new routed demands. */
-void RSA::displayOSNR(){
+void RSA::displayOSNR(Instance &i){
     if(this->getInstance().getInput().isOSNREnabled() == true){
         double osnrSurplus = 0.0;
         std::cout << "Displaying OSNR " << std::endl;
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
-            double osnrDenominator = 0.0;
-            double osnrNumerator = 0.0;
-            double osnr = 0.0;
-            double osnrDb = 0.0;
-            for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
-                if ((*vecOnPath[d])[a] != -1){
-                    double pnli = ceil(getArcPnliC(a,d)* pow(10,8)*100)/100; //ROUNDING
-                    double paseLine = ceil(getArcPaseLineC(a,d)* pow(10,8)*100)/100; //ROUNDING
-                    double paseNode = ceil(instance.getPaseNodeC() * pow(10,8)*100)/100; //ROUNDING
-                    osnrDenominator += pnli + paseLine + paseNode;
+            if(i.getTabDemand()[d].isRouted()){
+                double osnrDenominator = 0.0;
+                double osnrNumerator = 0.0;
+                double osnr = 0.0;
+                double osnrDb = 0.0;
+                for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+                    if ((*vecOnPath[d])[a] != -1){
+                        double pnli = ceil(getArcPnliC(a,d)* pow(10,8)*100)/100; //ROUNDING
+                        double paseLine = ceil(getArcPaseLineC(a,d)* pow(10,8)*100)/100; //ROUNDING
+                        double paseNode = ceil(instance.getPaseNodeC() * pow(10,8)*100)/100; //ROUNDING
+                        osnrDenominator += pnli + paseLine + paseNode;
+                    }
                 }
+                osnrDenominator += ceil(instance.getPaseNodeC()* pow(10,8)*100)/100;
+                osnrNumerator += ceil(getToBeRouted_k(d).getPchC()* pow(10,8)*100)/100;
+                osnr = osnrNumerator/osnrDenominator;
+                osnrDb = 10*log10(osnr);
+                if (osnrDb<getToBeRouted_k(d).getOsnrLimit()){
+                    std::cout << "ERROR: OSNR below limit" << std::endl;
+                }
+                std::cout << "For demand " << getToBeRouted_k(d).getId() + 1 << " : " << osnrDb << " x " << getToBeRouted_k(d).getOsnrLimit() << " limit" << std::endl;
+                osnrSurplus += osnrDb - getToBeRouted_k(d).getOsnrLimit();
             }
-            osnrDenominator += ceil(instance.getPaseNodeC()* pow(10,8)*100)/100;
-            osnrNumerator += ceil(getToBeRouted_k(d).getPchC()* pow(10,8)*100)/100;
-            osnr = osnrNumerator/osnrDenominator;
-            osnrDb = 10*log10(osnr);
-            if (osnrDb<getToBeRouted_k(d).getOsnrLimit()){
-                std::cout << "ERROR: OSNR below limit" << std::endl;
-            }
-            std::cout << "For demand " << getToBeRouted_k(d).getId() + 1 << " : " << osnrDb << " x " << getToBeRouted_k(d).getOsnrLimit() << " limit" << std::endl;
-            osnrSurplus += osnrDb - getToBeRouted_k(d).getOsnrLimit();
         }
         std::cout << "Extra OSNR in routing: " << osnrSurplus << std::endl;
     }

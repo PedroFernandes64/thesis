@@ -133,7 +133,7 @@ protected:
     EdgeCost compactEdgePnliL;           /**< EdgeMap storing the edge pnli of the simple graph associated with the initial mapping. **/
     EdgeCost compactEdgePaseLineL;           /**< EdgeMap storing the edge pase line of the simple graph associated with the initial mapping. **/
 
-    std::vector<std::vector<int> > preProcessingTFlow;
+    std::vector<std::vector<int> > preProcessingErasedArcs;
     
     CompactNodeMap compactNodeId;       /**< NodeMap storing the LEMON node ids of the simple graph associated with the initial mapping. **/
     CompactNodeMap compactNodeLabel;    /**< NodeMap storing the node labels of the simple graph associated with the initial mapping. **/
@@ -444,7 +444,7 @@ public:
     /** Displays the paths found for each of the new routed demands. **/
     void displayPaths();
     /** Display OSNR corrected if Obj 10 chosen **/
-    void displayOSNR();
+    void displayOSNR(Instance &i);
 
     /** Displays an arc from a graph. @param d The graph index. @param a The arc to be displayed. **/
     void displayArc(int d, const ListDigraph::Arc &a);

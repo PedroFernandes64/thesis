@@ -69,7 +69,7 @@ void SolverCplex::solve(){
         if(!formulation->getInstance().getInput().isRelaxed()){
             cplex.use(&myGenericCallback, contextMask);
         }
-        //cplex.exportModel("nom_do_lp.lp");
+        cplex.exportModel("nom_do_lp.lp");
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
         cplex.solve();
         
