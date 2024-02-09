@@ -1177,8 +1177,8 @@ void TFlowForm::setNonOverlappingConstraintsSpectrumPosition(){
 
 Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition1(int a, int b, int edge){
     Expression exp;
-    int lowerBound = -INFINITY;
-    int upperBound = 0;
+    int lowerBound = -2*(getNbSlicesGlobalLimit());
+    int upperBound = getToBeRouted_k(a).getLoad();
     int nbEdges = countEdges(compactGraph);
 
     Term term1(x[edge][a], getToBeRouted_k(a).getLoad());
@@ -1199,8 +1199,6 @@ Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition1(int a, int b,
         Term term(y[s][b], s+1);
         exp.addTerm(term);
     }
-    Term term6(1, -getToBeRouted_k(a).getLoad());
-    exp.addTerm(term6);
     
     std::ostringstream constraintName;
     constraintName << "NonOverlapping_1" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << edge;
@@ -1210,15 +1208,15 @@ Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition1(int a, int b,
 
 Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition2(int a, int b, int edge){
     Expression exp;
-    int lowerBound = -INFINITY;
-    int upperBound = 0;
+    int lowerBound = -2*(getNbSlicesGlobalLimit());
+    int upperBound = getToBeRouted_k(b).getLoad()+getNbSlicesGlobalLimit();
     int nbEdges = countEdges(compactGraph);
 
     Term term1(x[edge][a], getToBeRouted_k(b).getLoad());
     Term term2(x[edge][b], getToBeRouted_k(b).getLoad());
     Term term3(x[edge + nbEdges][a], getToBeRouted_k(b).getLoad());
     Term term4(x[edge + nbEdges][b], getToBeRouted_k(b).getLoad());
-    Term term5(z[a][b], -(getNbSlicesGlobalLimit()));
+    Term term5(z[a][b], getNbSlicesGlobalLimit());
     exp.addTerm(term1);
     exp.addTerm(term2);
     exp.addTerm(term3);
@@ -1231,12 +1229,7 @@ Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition2(int a, int b,
     for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
         Term term(y[s][b], -(s+1));
         exp.addTerm(term);
-    }
-    Term term6(1, -getToBeRouted_k(b).getLoad());
-    exp.addTerm(term6);
-    Term term7(1, -(getNbSlicesGlobalLimit()));
-    exp.addTerm(term6);
-    
+    }    
     std::ostringstream constraintName;
     constraintName << "NonOverlapping_2" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << edge;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
