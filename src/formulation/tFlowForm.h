@@ -18,9 +18,10 @@ private:
     VarMatrix x;				    /**< Routing variables. x[a][k] = 1 if if demand k is routed through arc a. **/
     VarMatrix y;                    /**< Spectrum assignment variables. y[s][k] = 1 if slot s is the last slot allocated for demand k. **/
 	VarMatrix z; 					/**< Non overlapping variables. z[a][b] = 1 if demand a is allocated to a slot that has a smaller position than demand b's allocated slot. **/
-    VarArray maxSlicePerLink;	    /**< The array of variables used in the MIP for verifying the max used slice position for each link in the topology network. maxSlicePerLink[i]=p if p is the max used slice position from the link with id i. **/
+	VarArray maxSlicePerLink;	    /**< The array of variables used in the MIP for verifying the max used slice position for each link in the topology network. maxSlicePerLink[i]=p if p is the max used slice position from the link with id i. **/
 	Variable maxSliceOverall;		/**< The max used slice position throughout all the network. **/
 	VarArray routedCBand;	    	/**< routedCBand[k]=1 if k is routed in C band. **/
+	int NonOverlappingType;
 	
 
 public:
@@ -50,6 +51,9 @@ public:
 
 	/** Defines the channel variables. **/
 	void setChannelVariables();
+
+	/** Defines the auxiliary non overlapping variables. **/
+	void setAuxiliaryVariables();
 
 	/** Defines the max used slice per edge variables. **/
 	void setMaxUsedSlicePerEdgeVariables();
@@ -94,6 +98,8 @@ public:
 	void setNonOverlappingConstraintsPair();
 
 	void setNonOverlappingConstraintsMinChannel();
+	void setNonOverlappingConstraintsSharedLink();
+	void setNonOverlappingConstraintsSpectrumPosition();
 
 	void setCBandRoutingConstraints();
 
@@ -124,6 +130,11 @@ public:
 	Constraint getSliceConstraint(int k);
 
 	Constraint getNonOverlappingConstraintPair(int a, int b, int arc, int s);
+
+	Constraint getNonOverlappingConstraintSharedLink1(int a, int b, int s);
+	Constraint getNonOverlappingConstraintSharedLink2(int a, int b, int e);
+	Constraint getNonOverlappingConstraintSpectrumPosition1(int a, int b, int e);
+	Constraint getNonOverlappingConstraintSpectrumPosition2(int a, int b, int e);
 	
 	Constraint getPreprocessingConstraint(int k);
 
@@ -153,6 +164,8 @@ public:
 	std::vector<Constraint> solveSeparationProblemFract(const std::vector<double> &solution) override; 
 
     std::vector<Constraint> solveSeparationProblemInt(const std::vector<double> &solution, const int threadNo) override; 
+
+	void setNonOverlappingType();
 
 
 	/****************************************************************************************/

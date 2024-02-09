@@ -684,6 +684,10 @@ Constraint DrFormulation::getOriginConstraint_k(int k,const ListGraph::Node &v){
             
         }
     }
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_10p){
+        upperBound = 0;
+    }
     std::ostringstream constraintName;
     constraintName << "Origin Demand" << getToBeRouted_k(k).getId()+1 << "_Node_" << getCompactNodeLabel(v)+1 ;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
@@ -766,6 +770,10 @@ Constraint DrFormulation::getTargetConstraint_k(int d, const ListGraph::Node &v)
             Term term2(y[edge + nbEdges][d], -1);
             exp.addTerm(term2);
         }
+    }
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_10p){
+        lowerBound = 0;
     }
     //std::cout << exp.to_string() << std::endl; 
     std::ostringstream constraintName;
@@ -1087,7 +1095,7 @@ void DrFormulation::updatePath(const std::vector<double> &vals){
         
         }
     }
-
+    /*
     for(int d = 0; d < getNbDemandsToBeRouted(); d++){
         for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
             int edge = getArcLabel(a, d);
@@ -1109,6 +1117,69 @@ void DrFormulation::updatePath(const std::vector<double> &vals){
                     (*vecOnPath[d])[a] = -1;
                 }
             }
+        }
+    }*/
+    // Fill the mapping with the corresponding demands id.
+    for(int d = 0; d < getNbDemandsToBeRouted(); d++){
+        int origin = getToBeRouted_k(d).getSource();
+        int destination = getToBeRouted_k(d).getTarget();
+        ListDigraph::Node SOURCE = INVALID;
+        ListDigraph::Node TARGET = INVALID;
+        for (ListDigraph::NodeIt v(*vecGraph[d]); v != INVALID; ++v){
+            if (getNodeLabel(v, d) == origin){
+                SOURCE = v;
+            }
+            if (getNodeLabel(v, d) == destination){
+                TARGET = v;
+            }
+        }
+        if (TARGET == INVALID || SOURCE == INVALID){
+            std::cout << "ERROR: Could not find source or target from demand." << std::endl;
+            exit(0);
+        }
+        
+        //std::cout << "Search the path from origin to destination." << std::endl;
+        ListDigraph::Node currentNode = TARGET;
+        while (currentNode != SOURCE){
+            ListDigraph::Arc previousArc = INVALID;
+            bool leftTarget = false;
+            for (ListDigraph::InArcIt a(*vecGraph[d], currentNode); a != INVALID; ++a){
+                int edge = getArcLabel(a, d);
+                int slice = getArcSlice(a, d);
+                int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
+                int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
+                if (u < v){
+                    if ((y[edge][d].getVal() >= 1 - EPS ) && (rm[d].getVal()+EPS >= slice)&& (rm[d].getVal()+EPS <= slice+1)){
+                        (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
+                        previousArc = a;
+                        leftTarget = true;
+                    }
+                    else{
+                        (*vecOnPath[d])[a] = -1;
+                    }
+                }else{
+                    if ((y[edge + nbEdges][d].getVal() >= 1 - EPS) && (rm[d].getVal()+EPS >= slice)&& (rm[d].getVal()+EPS <= slice+1)){
+                        (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
+                        previousArc = a;
+                        leftTarget = true;
+                    }
+                    else{
+                        (*vecOnPath[d])[a] = -1;
+                    }
+                }
+            }
+            if (leftTarget == true){
+                if (previousArc == INVALID){
+                    std::cout << "ERROR: Could not find path continuity.." << std::endl;
+                    exit(0);
+                }
+            }else{
+                if (leftTarget == false){
+                    std::cout << "ATTENTION: non routed demand: "<< getToBeRouted_k(d).getId()+1 << std::endl;
+                    break;
+                }
+            }
+            currentNode = (*vecGraph[d]).source(previousArc);
         }
     }
     //std::cout << "Leave update." << std::endl;

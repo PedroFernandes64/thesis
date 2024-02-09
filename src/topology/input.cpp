@@ -23,6 +23,8 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
 
     std::cout << "Getting GNMODEL parameters..." << std::endl;
     osnrActivation = std::stoi(getParameterValue("OSNR_activation="));
+    nbBands = 1;
+    nonOverlappingTypeTFlow = 0;
 
     std::cout << "Getting formulation parameters..." << std::endl;
 

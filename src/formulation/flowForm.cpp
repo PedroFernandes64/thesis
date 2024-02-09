@@ -410,6 +410,10 @@ Constraint FlowForm::getSourceConstraint_d_n(const Demand & demand, int d, int n
     if (nodeLabel == demand.getTarget()){
         upperBound = 0;
     }
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_10p){
+        lowerBound = 0;
+    }
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }
@@ -463,6 +467,7 @@ void FlowForm::setTargetConstraints(){
 Constraint FlowForm::getTargetConstraint_d(const Demand & demand, int d){
     Expression exp;
     int rhs = 1;
+    int lhs = 1;
 
     for(IterableIntMap< ListDigraph, ListDigraph::Node >::ItemIt v((*mapItNodeLabel[d]),demand.getTarget()); v != INVALID; ++v){ 
         for (ListDigraph::InArcIt a((*vecGraph[d]), v); a != INVALID; ++a){
@@ -471,9 +476,13 @@ Constraint FlowForm::getTargetConstraint_d(const Demand & demand, int d){
             exp.addTerm(term);
         }
     }
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_10p){
+        lhs = 0;
+    }
     std::ostringstream constraintName;
     constraintName << "Target_" << demand.getId()+1 ;
-    Constraint constraint(rhs, exp, rhs, constraintName.str());
+    Constraint constraint(lhs, exp, rhs, constraintName.str());
     return constraint;
 }
 
@@ -1113,16 +1122,25 @@ void FlowForm::updatePath(const std::vector<double> &vals){
         ListDigraph::Node currentNode = TARGET;
         while (currentNode != SOURCE){
             ListDigraph::Arc previousArc = INVALID;
+            bool leftTarget = false;
             for (ListDigraph::InArcIt a(*vecGraph[d], currentNode); a != INVALID; ++a){
                 int arc = getArcIndex(a, d);
                 if (x[d][arc].getVal() >= 1 - EPS){
                     (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
                     previousArc = a;
+                    leftTarget = true;
                 }
             }
-            if (previousArc == INVALID){
-                std::cout << "ERROR: Could not find path continuity.." << std::endl;
-                exit(0);
+            if (leftTarget == true){
+                if (previousArc == INVALID){
+                    std::cout << "ERROR: Could not find path continuity.." << std::endl;
+                    exit(0);
+                }
+            }else{
+                if (leftTarget == false){
+                    std::cout << "ATTENTION: non routed demand: "<< getToBeRouted_k(d).getId()+1 << std::endl;
+                    break;
+                }
             }
             currentNode = (*vecGraph[d]).source(previousArc);
         }

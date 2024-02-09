@@ -6,6 +6,8 @@
 
 /* Constructor. Builds the Online RSA mixed-integer program and solves it using a defined solver (CPLEX or SCIP). */
 TFlowForm::TFlowForm(const Instance &instance) : AbstractFormulation(instance){
+    //Seting type of non overlapping constraints and variables
+    this->setNonOverlappingType();
     ClockTime time(ClockTime::getTimeNow());
     ClockTime time2(ClockTime::getTimeNow());
     std::cout << "--- T-Flow formulation has been chosen. " << displayDimensions() << " ---" << std::endl;
@@ -36,6 +38,11 @@ void TFlowForm::printVariables(){
 void TFlowForm::setVariables(){
     this->setFlowVariables();
     this->setChannelVariables();
+    NonOverlappingType = 4; //DEF
+    if((NonOverlappingType == 3) ||(NonOverlappingType == 4) ){
+        this->setAuxiliaryVariables();
+    }
+
     this->setMaxUsedSlicePerEdgeVariables();
     this->setMaxUsedSliceOverallVariable();
     this->setCBandRoutingVariable();
@@ -115,31 +122,29 @@ void TFlowForm::setChannelVariables(){
     }
 }
 
-    /*
+void TFlowForm::setAuxiliaryVariables(){    
     // Variables z[a][b]
     z.resize(getNbDemandsToBeRouted());
     for (int a = 0; a < getNbDemandsToBeRouted(); a++){
         z[a].resize(getNbDemandsToBeRouted());
-        for (int b = 0; b < getNbDemandsToBeRouted(); b++){
-            if(a != b){
-                std::ostringstream varName;
-                varName << "z";
-                varName << "(" + std::to_string(getToBeRouted_k(a).getId() + 1) + "," ;
-                varName <<  std::to_string(getToBeRouted_k(b).getId() + 1) + ")";
-                int upperBound = 1;
-                int varId = getNbVar();
-                if(instance.getInput().isRelaxed()){
-                    z[a][b] = Variable(varId, 0, upperBound, Variable::TYPE_REAL, 0, varName.str());
-                }
-                else{
-                    z[a][b] = Variable(varId, 0, upperBound, Variable::TYPE_BOOLEAN, 0, varName.str());
-                }
-                
-                incNbVar();
+        for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
+            std::ostringstream varName;
+            varName << "z";
+            varName << "(" + std::to_string(getToBeRouted_k(a).getId() + 1) + "," ;
+            varName <<  std::to_string(getToBeRouted_k(b).getId() + 1) + ")";
+            int upperBound = 1;
+            int varId = getNbVar();
+            if(instance.getInput().isRelaxed()){
+                z[a][b] = Variable(varId, 0, upperBound, Variable::TYPE_REAL, 0, varName.str());
             }
+            else{
+                z[a][b] = Variable(varId, 0, upperBound, Variable::TYPE_BOOLEAN, 0, varName.str());
+            }
+            
+            incNbVar();
         }
     }
-    */
+}
 
 void TFlowForm::setMaxUsedSlicePerEdgeVariables(){
     // Max slice variables
@@ -193,7 +198,6 @@ void TFlowForm::setCBandRoutingVariable(){
         }   
             incNbVar();
     }
-    std::cout << "C Band routing variables have been defined..." << std::endl; 
 }
 
 VarArray TFlowForm::getVariables(){
@@ -221,17 +225,17 @@ VarArray TFlowForm::getVariables(){
             vec[pos] = y[s][k];
         }
     }
-    /*
-    // Variables z[a][b]
-    for (int a = 0; a < getNbDemandsToBeRouted(); a++){
-        for (int b = 0; b < getNbDemandsToBeRouted(); b++){
-            if(a != b){
+            // Variables z[a][b]
+    if((NonOverlappingType == 3) ||(NonOverlappingType == 4) ){
+        for (int a = 0; a < getNbDemandsToBeRouted(); a++){
+            for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
                 int pos = z[a][b].getId();
                 vec[pos] = z[a][b];
             }
         }
     }
-    */
+    
+        
     // Max slice variables
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
@@ -276,17 +280,16 @@ void TFlowForm::setVariableValues(const std::vector<double> &vals){
             y[s][k].setVal(newValue);
         }
     }
-    /*
     // Variables z[a][b]
-    for (int a = 0; a < getNbDemandsToBeRouted(); a++){
-        for (int b = 0; b < getNbDemandsToBeRouted(); b++){
-            if(a != b){
+    if((NonOverlappingType == 3) ||(NonOverlappingType == 4) ){
+        for (int a = 0; a < getNbDemandsToBeRouted(); a++){
+            for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
                 int pos = z[a][b].getId();
                 double newValue = vals[pos];
                 z[a][b].setVal(newValue);
             }
         }
-    }*/
+    }
     // Max slice variables
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
@@ -457,20 +460,21 @@ void TFlowForm::setConstraints(){
     setMaxUsedSlicePerLinkConstraints();
     setMaxUsedSliceOverallConstraints();
     setSliceConstraint();
-    /*
-    if (this->getInstance().getInput().getNonOverTFlow() == 0){
-        std::cout << "Non-overlapping constraints pair have been defined..." << std::endl;
+
+    NonOverlappingType = 4; //DEF
+    if (NonOverlappingType == 0){
+        std::cout << "No non-overlapping constraints have been defined..." << std::endl;
     }else{
-        if (this->getInstance().getInput().getNonOverTFlow() == 1){
+        if (NonOverlappingType == 1){
             setNonOverlappingConstraintsPair();
         }else{
-            if(this->getInstance().getInput().getNonOverTFlow() == 2){
+            if(NonOverlappingType == 2){
                 setNonOverlappingConstraintsMinChannel();
             }else{
-                if(this->getInstance().getInput().getNonOverTFlow() == 3){
+                if(NonOverlappingType == 3){
                     setNonOverlappingConstraintsSharedLink();
                 }else{
-                    if(this->getInstance().getInput().getNonOverTFlow() == 4){
+                    if(NonOverlappingType == 4){
                         setNonOverlappingConstraintsSpectrumPosition();
                     }
                     else{
@@ -480,8 +484,8 @@ void TFlowForm::setConstraints(){
             }
         }
     }
-    */
-    setNonOverlappingConstraintsPair();
+    
+    //setNonOverlappingConstraintsPair();
 
     setCBandRoutingConstraints();
 
@@ -999,78 +1003,6 @@ void TFlowForm::setSliceConstraint(){
     }
     std::cout << "Slice constraints have been defined..." << std::endl;
 }
-/*
-Constraint TFlowForm::getNonOverlappingConstraint(int a, int b, int arc){
-    Expression exp;
-    int lowerBound = -1;
-    int upperBound = INFTY;
-    int nbEdges = countEdges(compactGraph);
-    Term term(z[a][b], 1);
-    Term term2(z[b][a], 1);
-    Term term3(x[arc][a], -1);
-    Term term4(x[arc][b], -1);
-    Term term5(x[arc + nbEdges][a], -1);
-    Term term6(x[arc + nbEdges][b], -1);
-    exp.addTerm(term);
-    exp.addTerm(term2);
-    exp.addTerm(term3);
-    exp.addTerm(term4);
-    exp.addTerm(term5);
-    exp.addTerm(term6);
-    
-    std::ostringstream constraintName;
-    constraintName << "NonOverlapping_" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << arc;
-    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
-    return constraint;
-}
-
-Constraint TFlowForm::getNonOverlappingConstraint_2(int a, int b){
-    Expression exp;
-    int lowerBound = -INFTY;
-    int upperBound = getNbSlicesGlobalLimit() - getToBeRouted_k(b).getLoad();
-    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
-        Term term(y[s][a], s+1);
-        Term term2(y[s][b], -(s+1));
-        exp.addTerm(term);
-        exp.addTerm(term2);
-    }
-    Term term3(getToBeRouted_k(b).getLoad(), 1);
-    Term term4(getNbSlicesGlobalLimit(), -1);
-    Term term5(z[a][b], getNbSlicesGlobalLimit());
-    //exp.addTerm(term3);
-    //exp.addTerm(term4);
-    exp.addTerm(term5);
-
-    std::ostringstream constraintName;
-    constraintName << "NonOverlapping2_" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1;
-    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
-    return constraint;
-}
-
-void TFlowForm::setNonOverlappingConstraints(){
-    for (int a = 0; a < getNbDemandsToBeRouted(); a++){
-        for (int b = 0; b < getNbDemandsToBeRouted(); b++){
-            if(a > b){
-                for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-                    int edge = getCompactEdgeLabel(e);
-                    const Constraint & nonOverlapping = getNonOverlappingConstraint(a, b, edge);
-                    constraintSet.push_back(nonOverlapping);
-                }
-            }
-        }
-    }
-    
-    for (int a = 0; a < getNbDemandsToBeRouted(); a++){
-        for (int b = 0; b < getNbDemandsToBeRouted(); b++){
-            if(a != b){
-            const Constraint & nonOverlapping2 = getNonOverlappingConstraint_2(a, b);
-            constraintSet.push_back(nonOverlapping2);
-            }
-        }
-    }
-    std::cout << "Non-overlapping constraints have been defined..." << std::endl;
-}
-*/
 
 void TFlowForm::setNonOverlappingConstraintsPair(){
     int counter = 0;
@@ -1153,6 +1085,160 @@ Constraint TFlowForm::getNonOverlappingConstraintPair(int a, int b, int arc, int
     
     std::ostringstream constraintName;
     constraintName << "NonOverlapping_" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << arc;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+void TFlowForm::setNonOverlappingConstraintsSharedLink(){
+    for (int a = 0; a < getNbDemandsToBeRouted(); a++){
+        for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
+            for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+                const Constraint & nonOverlappingSharedLinkConstraint = getNonOverlappingConstraintSharedLink1(a,b, s);
+                constraintSet.push_back(nonOverlappingSharedLinkConstraint);
+            }
+            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                int edge = getCompactEdgeLabel(e);
+                const Constraint & nonOverlappingSharedLinkConstraint2 = getNonOverlappingConstraintSharedLink2(a,b,edge);
+                constraintSet.push_back(nonOverlappingSharedLinkConstraint2);
+            }
+        }
+    }
+    std::cout << "Non Overlapping Shared Link constraints have been defined..." << std::endl;
+}
+
+Constraint TFlowForm::getNonOverlappingConstraintSharedLink1(int a, int b, int s){
+    Expression exp;
+    int lowerBound = 0;
+    int upperBound = 2;
+
+    int sliceLimit = getNbSlicesGlobalLimit();
+    int sWk_1 = s + getToBeRouted_k(a).getLoad()-1;
+    if (sWk_1 >= sliceLimit){
+        sWk_1 = sliceLimit-1;
+    }
+    for (int sa = s; sa <= sWk_1; sa++){
+        Term term(y[sa][a], 1);
+        exp.addTerm(term);
+    }
+    sWk_1 = s + getToBeRouted_k(b).getLoad()-1;
+    if (sWk_1 >= sliceLimit){
+        sWk_1 = sliceLimit-1;
+    }
+    for (int sa = s; sa <= sWk_1; sa++){
+        Term term(y[sa][b], 1);
+        exp.addTerm(term);
+    }
+    Term term3(z[a][b], 1);
+    exp.addTerm(term3);
+    std::ostringstream constraintName;
+    constraintName << "NonOverlapping1_" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+
+Constraint TFlowForm::getNonOverlappingConstraintSharedLink2(int a, int b, int edge){
+    Expression exp;
+    int lowerBound = -1;
+    int upperBound = 1;
+    int nbEdges = countEdges(compactGraph);
+
+    Term term1(x[edge][a], 1);
+    Term term2(x[edge][b], 1);
+    Term term3(x[edge + nbEdges][a], 1);
+    Term term4(x[edge + nbEdges][b], 1);
+    Term term5(z[a][b], -1);
+    exp.addTerm(term1);
+    exp.addTerm(term2);
+    exp.addTerm(term3);
+    exp.addTerm(term4);
+    exp.addTerm(term5);
+    
+    std::ostringstream constraintName;
+    constraintName << "NonOverlapping_2" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << edge;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+void TFlowForm::setNonOverlappingConstraintsSpectrumPosition(){
+    for (int a = 0; a < getNbDemandsToBeRouted(); a++){
+        for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
+            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                int edge = getCompactEdgeLabel(e);
+                const Constraint & nonOverlappingSpectrumPositionConstraint1 = getNonOverlappingConstraintSpectrumPosition1(a,b,edge);
+                constraintSet.push_back(nonOverlappingSpectrumPositionConstraint1);
+                const Constraint & nonOverlappingSpectrumPositionConstraint2 = getNonOverlappingConstraintSpectrumPosition2(a,b,edge);
+                constraintSet.push_back(nonOverlappingSpectrumPositionConstraint2);
+            }
+        }
+    }
+    std::cout << "Non Overlapping Spectrum Position constraints have been defined..." << std::endl;
+}
+
+Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition1(int a, int b, int edge){
+    Expression exp;
+    int lowerBound = -INFINITY;
+    int upperBound = 0;
+    int nbEdges = countEdges(compactGraph);
+
+    Term term1(x[edge][a], getToBeRouted_k(a).getLoad());
+    Term term2(x[edge][b], getToBeRouted_k(a).getLoad());
+    Term term3(x[edge + nbEdges][a], getToBeRouted_k(a).getLoad());
+    Term term4(x[edge + nbEdges][b], getToBeRouted_k(a).getLoad());
+    Term term5(z[a][b], -(getNbSlicesGlobalLimit()));
+    exp.addTerm(term1);
+    exp.addTerm(term2);
+    exp.addTerm(term3);
+    exp.addTerm(term4);
+    exp.addTerm(term5);
+    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+        Term term(y[s][a], -(s+1));
+        exp.addTerm(term);
+    }
+    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+        Term term(y[s][b], s+1);
+        exp.addTerm(term);
+    }
+    Term term6(1, -getToBeRouted_k(a).getLoad());
+    exp.addTerm(term6);
+    
+    std::ostringstream constraintName;
+    constraintName << "NonOverlapping_1" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << edge;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition2(int a, int b, int edge){
+    Expression exp;
+    int lowerBound = -INFINITY;
+    int upperBound = 0;
+    int nbEdges = countEdges(compactGraph);
+
+    Term term1(x[edge][a], getToBeRouted_k(b).getLoad());
+    Term term2(x[edge][b], getToBeRouted_k(b).getLoad());
+    Term term3(x[edge + nbEdges][a], getToBeRouted_k(b).getLoad());
+    Term term4(x[edge + nbEdges][b], getToBeRouted_k(b).getLoad());
+    Term term5(z[a][b], -(getNbSlicesGlobalLimit()));
+    exp.addTerm(term1);
+    exp.addTerm(term2);
+    exp.addTerm(term3);
+    exp.addTerm(term4);
+    exp.addTerm(term5);
+    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+        Term term(y[s][a], s+1);
+        exp.addTerm(term);
+    }
+    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+        Term term(y[s][b], -(s+1));
+        exp.addTerm(term);
+    }
+    Term term6(1, -getToBeRouted_k(b).getLoad());
+    exp.addTerm(term6);
+    Term term7(1, -(getNbSlicesGlobalLimit()));
+    exp.addTerm(term6);
+    
+    std::ostringstream constraintName;
+    constraintName << "NonOverlapping_2" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << edge;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }
@@ -1241,6 +1327,32 @@ Constraint TFlowForm::getPreprocessingConstraint(int k){
 /*						                Methods                 						*/
 /****************************************************************************************/
 
+void TFlowForm::setNonOverlappingType(){
+    if (this->getInstance().getInput().getNonOverTFlow() == 0){
+        NonOverlappingType == 0;
+    }else{
+        if (this->getInstance().getInput().getNonOverTFlow() == 1){
+            this->NonOverlappingType == 1;
+        }else{
+            if(this->getInstance().getInput().getNonOverTFlow() == 2){
+                this->NonOverlappingType == 2;
+            }else{
+                if(this->getInstance().getInput().getNonOverTFlow() == 3){
+                    this->NonOverlappingType == 3;
+                }else{
+                    if(this->getInstance().getInput().getNonOverTFlow() == 4){
+                        this->NonOverlappingType == 4;
+                    }
+                    else{
+                        std::cout << "WARNING: No Non-overlapping policy chosen." << std::endl;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 /* Recovers the obtained MIP solution and builds a path for each demand on its associated graph from RSA. */
 void TFlowForm::updatePath(const std::vector<double> &vals){
     setVariableValues(vals);
@@ -1252,29 +1364,70 @@ void TFlowForm::updatePath(const std::vector<double> &vals){
             (*vecOnPath[d])[a] = -1;
         }
     }
+    // Fill the mapping with the corresponding demands id.
     for(int d = 0; d < getNbDemandsToBeRouted(); d++){
-        for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
-            int edge = getArcLabel(a, d);
-            int slice = getArcSlice(a, d);
-            int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
-            int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
-            if (u < v){
-                if ((x[edge][d].getVal() >= 1 - EPS ) && (y[slice][d].getVal() >= 1 - EPS)){
-                    (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
-                }
-                else{
-                    (*vecOnPath[d])[a] = -1;
-                }
-            }else{
-                if ((x[edge + nbEdges][d].getVal() >= 1 - EPS) && (y[slice][d].getVal() >= 1 - EPS)){
-                    (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
-                }
-                else{
-                    (*vecOnPath[d])[a] = -1;
-                }
+        int origin = getToBeRouted_k(d).getSource();
+        int destination = getToBeRouted_k(d).getTarget();
+        ListDigraph::Node SOURCE = INVALID;
+        ListDigraph::Node TARGET = INVALID;
+        for (ListDigraph::NodeIt v(*vecGraph[d]); v != INVALID; ++v){
+            if (getNodeLabel(v, d) == origin){
+                SOURCE = v;
+            }
+            if (getNodeLabel(v, d) == destination){
+                TARGET = v;
             }
         }
+        if (TARGET == INVALID || SOURCE == INVALID){
+            std::cout << "ERROR: Could not find source or target from demand." << std::endl;
+            exit(0);
+        }
+        
+        //std::cout << "Search the path from origin to destination." << std::endl;
+        ListDigraph::Node currentNode = TARGET;
+        while (currentNode != SOURCE){
+            ListDigraph::Arc previousArc = INVALID;
+            bool leftTarget = false;
+            for (ListDigraph::InArcIt a(*vecGraph[d], currentNode); a != INVALID; ++a){
+                int edge = getArcLabel(a, d);
+                int slice = getArcSlice(a, d);
+                int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
+                int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
+                if (u < v){
+                    if ((x[edge][d].getVal() >= 1 - EPS ) && (y[slice][d].getVal() >= 1 - EPS)){
+                        (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
+                        previousArc = a;
+                        leftTarget = true;
+                    }
+                    else{
+                        (*vecOnPath[d])[a] = -1;
+                    }
+                }else{
+                    if ((x[edge + nbEdges][d].getVal() >= 1 - EPS) && (y[slice][d].getVal() >= 1 - EPS)){
+                        (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
+                        previousArc = a;
+                        leftTarget = true;
+                    }
+                    else{
+                        (*vecOnPath[d])[a] = -1;
+                    }
+                }
+            }
+            if (leftTarget == true){
+                if (previousArc == INVALID){
+                    std::cout << "ERROR: Could not find path continuity.." << std::endl;
+                    exit(0);
+                }
+            }else{
+                if (leftTarget == false){
+                    std::cout << "ATTENTION: non routed demand: "<< getToBeRouted_k(d).getId()+1 << std::endl;
+                    break;
+                }
+            }
+            currentNode = (*vecGraph[d]).source(previousArc);
+        }
     }
+
     //std::cout << "Leave update." << std::endl;
 }
 
@@ -1381,6 +1534,14 @@ void TFlowForm::displayVariableValues(){
         }
         std::cout << std::endl;
     }
+    if((NonOverlappingType == 3) ||(NonOverlappingType == 4) ){
+        for (int a = 0; a < getNbDemandsToBeRouted(); a++){
+            for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
+            std::cout << z[a][b].getName() << " = " << z[a][b].getVal() << "   ";
+        }
+        std::cout << std::endl;
+        }
+    }
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
         std::cout << maxSlicePerLink[edge].getName() << " = " << maxSlicePerLink[edge].getVal() << "   ";
@@ -1407,6 +1568,8 @@ std::string TFlowForm::displayDimensions(){
 TFlowForm::~TFlowForm(){
     x.clear();
     y.clear();
-    //z.clear();
+    if((NonOverlappingType == 3) ||(NonOverlappingType == 4) ){
+        z.clear();
+    }
     maxSlicePerLink.clear();
 }

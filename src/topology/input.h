@@ -158,6 +158,7 @@ private:
 	/******** INCLUSION FOR GN MODEL *********/
 	bool osnrActivation;				/**< If OSNR constraints will be used. **/
 	int nbBands;							/**< Number of bands. **/
+	int nonOverlappingTypeTFlow;
 
 	/******** INCLUSION FOR LAGRANGIAN *********/
 	bool lagrangianRelaxation;               /**< If this option is active, the lagrangian relaxation is run. **/
@@ -248,6 +249,7 @@ public:
 	//PEDRO PEDRO PEDRO
 	bool isOSNREnabled() const { return osnrActivation; }
 	int getNbBands() const { return nbBands; }
+	int getNonOverTFlow() const { return nonOverlappingTypeTFlow; }
 
 	bool isObj8(int i) const;
 
