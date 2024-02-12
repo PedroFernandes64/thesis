@@ -1,1 +1,1 @@
-Instance;Demands;UB;LB;GAP;Time;OF;;Solver;Formulation;Gn
+Instance;Demands;UB;LB;GAP;Time;OF;Formulation;MaxReach;OSNR;Cuts;Tflow

@@ -21,10 +21,11 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
         GNPY_equipmentFile = getParameterValue("GNPY_equipmentFile=");
     }
 
-    std::cout << "Getting GNMODEL parameters..." << std::endl;
+    std::cout << "Getting Thesis Pedro parameters..." << std::endl;
+    maxReachActivation = std::stoi(getParameterValue("MaxReach_activation="));
     osnrActivation = std::stoi(getParameterValue("OSNR_activation="));
-    nbBands = 1;
-    nonOverlappingTypeTFlow = 0;
+    nbBands = std::stoi(getParameterValue("Bands="));
+    nonOverlappingTypeTFlow = std::stoi(getParameterValue("TFlow_Policy="));
 
     std::cout << "Getting formulation parameters..." << std::endl;
 
@@ -98,7 +99,10 @@ Input::Input(const Input &i) : PARAMETER_FILE(i.getParameterFile()){
         GNPY_topologyFile = i.getGNPYTopologyFile();
         GNPY_equipmentFile = i.getGNPYEquipmentFile();
     }
+    maxReachActivation = i.isMaxReachEnabled();
     osnrActivation = i.isOSNREnabled();
+    nbBands = i.getNbBands();
+    nonOverlappingTypeTFlow = i.getNonOverTFlow();
     nbDemandsAtOnce = i.getNbDemandsAtOnce();
     chosenObj = i.getChosenObj();
     allowBlocking = i.isBlockingAllowed();

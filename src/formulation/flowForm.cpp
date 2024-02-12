@@ -348,11 +348,11 @@ void FlowForm::setConstraints(){
     this->setSourceConstraints();
     this->setFlowConservationConstraints();
     this->setTargetConstraints();
-    this->setLengthConstraints();
-
-    //if (this->getInstance().getInput().isMaxReachEnabled() == true){
-    //    this->setLengthConstraints();
-    //}
+    
+    //this->setLengthConstraints();
+    if (this->getInstance().getInput().isMaxReachEnabled() == true){
+        this->setLengthConstraints();
+    }
     if (this->getInstance().getInput().isOSNREnabled() == true){
         this->setOSNRConstraints();
     }
@@ -1186,7 +1186,7 @@ std::vector<Constraint> FlowForm::solveSeparationProblemFract(const std::vector<
     for (unsigned int i = 0; i < cutPool.size(); ++i) {
         double lhs = cutPool[i].getExpression().getExpressionValue();
         if ((lhs < cutPool[i].getLb() - 0.0001) || (lhs >  cutPool[i].getUb() + 0.0001 )) {
-            std::cout << "Adding: " << cutPool[i].getName() << " [lhs = " << lhs << "]" << std::endl;
+            //std::cout << "Adding: " << cutPool[i].getName() << " [lhs = " << lhs << "]" << std::endl;
             cuts.push_back(cutPool[i]);
          }
     }

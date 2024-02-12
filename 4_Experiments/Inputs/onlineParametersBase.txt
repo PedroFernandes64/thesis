@@ -10,8 +10,11 @@ GNPY_topologyFile=
 GNPY_equipmentFile=
 
 ******* Thesis Pedro parameters *******
+MaxReach_activation=
 OSNR_activation=
-Bands=1
+Bands=0
+TFlow_Policy=
+
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
@@ -36,8 +39,8 @@ relaxMethod=0
 outputPath=../Parameters/Dump/
 outputLevel=0
 nbSlicesInOutputFile=320
-globalTimeLimit=1800
-timeLimit=1800
+globalTimeLimit=43200
+timeLimit=43200
 
 ******* Fields below are reserved for team LIMOS ********
 lagrangianMultiplier_zero=0 

@@ -12,11 +12,21 @@ for file in files:
         testSet.append([file,demandNumber.replace("_demands","")])
 
 solverSet = ["0"]
-formulationSet = ["2"]
-objSet = ["2p","4"]
-gnSet=["1"]
+formulationSet = ["0","2","3"]
+objSet = ["2","2p","4","8","10","1010"]
+maxReachSet=["0","1"]
+osnrSet=["0","1"]
 cutSet=["0","1"]
-
+TFlowSet=["0","1","2","3","4"]
+'''
+solverSet = ["0"]
+formulationSet = ["0","2"]
+objSet = ["4"]
+maxReachSet=["1"]
+osnrSet=["1"]
+cutSet=["0"]
+TFlowSet=["0","1","2","3","4"]
+'''
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()
     f.close() 
@@ -41,30 +51,48 @@ for experiment in testSet:
 
     for obj in objSet:
         stringObj = "obj=" + obj + "\n"
-        lines[19] = stringObj
+        lines[22] = stringObj
 
         for form in formulationSet:
             stringForm = "formulation=" + form + "\n"
-            lines[17] = stringForm
+            lines[20] = stringForm
 
             for solver in solverSet:
                 stringSolver = "solver=" + solver + "\n"
-                lines[28] = stringSolver
+                lines[31] = stringSolver
 
-                for gn in gnSet:
-                    stringGN = "OSNR_activation=" + gn + "\n"
-                    lines[12] = stringGN
+                for reach in maxReachSet:
+                    stringReach = "MaxReach_activation=" + reach + "\n"
+                    lines[12] = stringReach
 
-                    for cut in cutSet:
-                        stringCut = "userCuts=" + cut  + "\n"
-                        lines[18] = stringCut
+                    for osnr in osnrSet:
+                        stringGN = "OSNR_activation=" + osnr + "\n"
+                        lines[13] = stringGN
 
-                        parametersName = "../Outputs/parametersSet/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_s" + solver + "_gn" + gn + "_cu" + cut + ".txt"
-                        with open(parametersName, "w") as f:
-                            for line in lines:
-                                f.write(line)
-                            f.close() 
-                        counter = counter + 1
+                        for cut in cutSet:
+                            stringCut = "userCuts=" + cut  + "\n"
+                            lines[21] = stringCut
+
+                            if form == '2':
+                                for tflow in TFlowSet:
+                                    stringTflow = "TFlow_Policy=" + tflow  + "\n"
+                                    lines[15] = stringTflow
+                                    parametersName = "../Outputs/parametersSet/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + "_tf" + tflow+ ".txt"
+                                    with open(parametersName, "w") as f:
+                                        for line in lines:
+                                            f.write(line)
+                                        f.close() 
+                                    counter = counter + 1
+                            else:
+                                stringTflow = "TFlow_Policy=0" + "\n"
+                                lines[15] = stringTflow
+                                parametersName = "../Outputs/parametersSet/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + ".txt"
+                                with open(parametersName, "w") as f:
+                                    for line in lines:
+                                        f.write(line)
+                                    f.close() 
+                                counter = counter + 1
+
 print("Parameter Set created")
 
 
@@ -110,7 +138,7 @@ with open("../Outputs/jobsHPC.sh", "w") as f:
     f.close() 
 print("Jobs script created")
 with open("../Outputs/results.csv", "w") as f:
-    line = "Instance;Demands;UB;LB;GAP;Time;OF;;Solver;Formulation;Gn\n"
+    line = "Instance;Demands;UB;LB;GAP;Time;OF;Formulation;MaxReach;OSNR;Cuts;Tflow\n"
     f.write(line)
     f.close() 
 print("Result table created")   

@@ -106,7 +106,7 @@ int main(int argc, char *argv[]) {
 			/* To be modified in the future. SolverCplex should not be instantiated in main. Scip does not offer a getAlgorithm equivalent.*/
 			//std::cout << "Algo: " << ((SolverCplex*)solver)->getAlgorithm()  << std::endl;
 			
-			/*
+			
 			//output for massive experiments
 			//removing junk from demand string
 			std::string instanceName = input.getTopologyFile();
@@ -125,9 +125,10 @@ int main(int argc, char *argv[]) {
   			outfile.open("results.csv", std::ios_base::app); // append instead of overwrite
   			outfile << "\n" + instanceName + ";" + to_string(instance.getNbDemands()) + ";" + to_string(solver->getUpperBound()) + 
 			";" + to_string(+solver->getLowerBound()) + ";" + to_string(solver->getMipGap()) +";" + 
-			to_string(round(solver->getDurationTime()*1000)/1000) +";" + to_string(input.getChosenObj_k(0))+";"+
-			to_string(input.getChosenMIPSolver())+";"+to_string(input.getChosenFormulation())+";"+to_string(input.isUserCutsActivated()); 
-			*/
+			to_string(round(solver->getDurationTime()*1000)/1000) +";" + to_string(input.getChosenObj_k(0))+";"+to_string(input.getChosenFormulation())+
+			";"+to_string(input.isMaxReachEnabled())+";"+to_string(input.isOSNREnabled())+";"+to_string(input.isUserCutsActivated())+";"+
+			to_string(input.getNonOverTFlow()); 
+			
 		}
 		
 

@@ -155,8 +155,10 @@ private:
 	int nbIterationsWithoutImprovement;	/**< The maximal number of iterations allowed in the subgradient method.**/
 	int maxNbIterations;				/**< The maximal number of iterations allowed without improving the lower bound in the subgradient method.**/
 
-	/******** INCLUSION FOR GN MODEL *********/
-	bool osnrActivation;				/**< If OSNR constraints will be used. **/
+	/******** INCLUSION FOR THESIS PEDRO *********/
+
+	bool maxReachActivation;				/**< If Max Reach constraints will be used. **/
+	bool osnrActivation;					/**< If OSNR constraints will be used. **/
 	int nbBands;							/**< Number of bands. **/
 	int nonOverlappingTypeTFlow;
 
@@ -247,6 +249,7 @@ public:
     bool isGNPYEnabled() const { return GNPY_activation; }
 	
 	//PEDRO PEDRO PEDRO
+	bool isMaxReachEnabled() const { return maxReachActivation; }
 	bool isOSNREnabled() const { return osnrActivation; }
 	int getNbBands() const { return nbBands; }
 	int getNonOverTFlow() const { return nonOverlappingTypeTFlow; }

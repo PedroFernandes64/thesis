@@ -69,7 +69,7 @@ void SolverCplex::solve(){
         if(!formulation->getInstance().getInput().isRelaxed()){
             cplex.use(&myGenericCallback, contextMask);
         }
-        cplex.exportModel("nom_do_lp.lp");
+        //cplex.exportModel("nom_do_lp.lp");
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
         cplex.solve();
         
@@ -183,7 +183,7 @@ void SolverCplex::exportFormulation(const Instance &instance){
 void SolverCplex::setCplexParams(const Input &input){
     cplex.setParam(IloCplex::Param::MIP::Display, 3);
     cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
-    //cplex.setParam(IloCplex::Param::Threads, 1);
+    cplex.setParam(IloCplex::Param::Threads, 4);
 
     if(formulation->getInstance().getInput().isRelaxed()){
         Input::RootMethod rootMethod = formulation->getInstance().getInput().getChosenRootMethod();

@@ -38,7 +38,6 @@ void TFlowForm::printVariables(){
 void TFlowForm::setVariables(){
     this->setFlowVariables();
     this->setChannelVariables();
-    NonOverlappingType = 4; //DEF
     if((NonOverlappingType == 3) ||(NonOverlappingType == 4) ){
         this->setAuxiliaryVariables();
     }
@@ -449,11 +448,11 @@ void TFlowForm::setConstraints(){
     setTargetConstraints();
     setDegreeConstraints();
     setFlowConservationConstraints();
-    setLengthConstraints();
+    //setLengthConstraints();
 
-    //if (this->getInstance().getInput().isMaxReachEnabled() == true){
-    //    this->setLengthConstraints();
-    //}
+    if (this->getInstance().getInput().isMaxReachEnabled() == true){
+        this->setLengthConstraints();
+    }
     if (this->getInstance().getInput().isOSNREnabled() == true){
         this->setOSNRConstraints();
     }
@@ -461,7 +460,7 @@ void TFlowForm::setConstraints(){
     setMaxUsedSliceOverallConstraints();
     setSliceConstraint();
 
-    NonOverlappingType = 4; //DEF
+
     if (NonOverlappingType == 0){
         std::cout << "No non-overlapping constraints have been defined..." << std::endl;
     }else{
@@ -1090,20 +1089,24 @@ Constraint TFlowForm::getNonOverlappingConstraintPair(int a, int b, int arc, int
 }
 
 void TFlowForm::setNonOverlappingConstraintsSharedLink(){
+    int counter = 0;
     for (int a = 0; a < getNbDemandsToBeRouted(); a++){
         for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
             for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
                 const Constraint & nonOverlappingSharedLinkConstraint = getNonOverlappingConstraintSharedLink1(a,b, s);
                 constraintSet.push_back(nonOverlappingSharedLinkConstraint);
+                counter = counter + 1;
             }
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 const Constraint & nonOverlappingSharedLinkConstraint2 = getNonOverlappingConstraintSharedLink2(a,b,edge);
                 constraintSet.push_back(nonOverlappingSharedLinkConstraint2);
+                counter = counter + 1;
             }
         }
     }
     std::cout << "Non Overlapping Shared Link constraints have been defined..." << std::endl;
+    std::cout << "Constraints = " << counter << std::endl;
 }
 
 Constraint TFlowForm::getNonOverlappingConstraintSharedLink1(int a, int b, int s){
@@ -1161,18 +1164,22 @@ Constraint TFlowForm::getNonOverlappingConstraintSharedLink2(int a, int b, int e
 }
 
 void TFlowForm::setNonOverlappingConstraintsSpectrumPosition(){
+    int counter = 0;
     for (int a = 0; a < getNbDemandsToBeRouted(); a++){
         for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 const Constraint & nonOverlappingSpectrumPositionConstraint1 = getNonOverlappingConstraintSpectrumPosition1(a,b,edge);
                 constraintSet.push_back(nonOverlappingSpectrumPositionConstraint1);
+                counter = counter + 1;
                 const Constraint & nonOverlappingSpectrumPositionConstraint2 = getNonOverlappingConstraintSpectrumPosition2(a,b,edge);
                 constraintSet.push_back(nonOverlappingSpectrumPositionConstraint2);
+                counter = counter + 1;
             }
         }
     }
     std::cout << "Non Overlapping Spectrum Position constraints have been defined..." << std::endl;
+        std::cout << "Constraints = " << counter << std::endl;
 }
 
 Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition1(int a, int b, int edge){
@@ -1322,19 +1329,19 @@ Constraint TFlowForm::getPreprocessingConstraint(int k){
 
 void TFlowForm::setNonOverlappingType(){
     if (this->getInstance().getInput().getNonOverTFlow() == 0){
-        NonOverlappingType == 0;
+        NonOverlappingType = 0;
     }else{
         if (this->getInstance().getInput().getNonOverTFlow() == 1){
-            this->NonOverlappingType == 1;
+            this->NonOverlappingType = 1;
         }else{
             if(this->getInstance().getInput().getNonOverTFlow() == 2){
-                this->NonOverlappingType == 2;
+                this->NonOverlappingType = 2;
             }else{
                 if(this->getInstance().getInput().getNonOverTFlow() == 3){
-                    this->NonOverlappingType == 3;
+                    this->NonOverlappingType = 3;
                 }else{
                     if(this->getInstance().getInput().getNonOverTFlow() == 4){
-                        this->NonOverlappingType == 4;
+                        this->NonOverlappingType = 4;
                     }
                     else{
                         std::cout << "WARNING: No Non-overlapping policy chosen." << std::endl;
@@ -1436,7 +1443,7 @@ std::vector<Variable> TFlowForm::objective8_fixing(const double upperBound){
 }
 
 std::vector<Constraint> TFlowForm::solveSeparationProblemFract(const std::vector<double> &solution){
-    std::cout << "Solving separation problem fractional..." << std::endl;
+    //std::cout << "Solving separation problem fractional..." << std::endl;
     setVariableValues(solution);
     std::vector<Constraint> cuts;
     int nbEdges = countEdges(compactGraph);
@@ -1464,7 +1471,7 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemFract(const std::vector
             }
             if(nbElementsC > 1){
                 cuts.push_back(Constraint(0, expr, nbElementsC + 1, "name_to_do"));
-                std::cout << "Adding user cut: " << expr.to_string() << " <= "  << nbElementsC + 1<< std::endl;
+                //std::cout << "Adding user cut: " << expr.to_string() << " <= "  << nbElementsC + 1<< std::endl;
             }
         }
     }
@@ -1501,7 +1508,7 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemInt(const std::vector<d
             }
             if(nbElementsC > 1){
                 cuts.push_back(Constraint(0, expr, nbElementsC + 1, "name_to_do"));
-                std::cout << "Adding lazy constraint: " << expr.to_string() << " <= "  << nbElementsC + 1<< std::endl;
+                //std::cout << "Adding lazy constraint: " << expr.to_string() << " <= "  << nbElementsC + 1<< std::endl;
             }
         }
     }

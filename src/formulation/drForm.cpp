@@ -462,9 +462,9 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
     this->setMaxUsedSliceOverallConstraints();
     this->setLengthConstraints();
 
-    //if (this->getInstance().getInput().isMaxReachEnabled() == true){
-    //    this->setLengthConstraints();
-    //}
+    if (this->getInstance().getInput().isMaxReachEnabled() == true){
+        this->setLengthConstraints();
+    }
     if (this->getInstance().getInput().isOSNREnabled() == true){
         this->setOsnrConstraints();
     }
@@ -527,7 +527,7 @@ Constraint DrFormulation::getOsnrConstraint(int d){ //TODO
     
     rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
     lhs = 0;
-    std::cout << "rhs: "<< rhs <<std::endl;
+
     int nbEdges = countEdges(compactGraph);
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
