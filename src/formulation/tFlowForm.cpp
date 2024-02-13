@@ -1509,6 +1509,7 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemInt(const std::vector<d
             if(nbElementsC > 1){
                 cuts.push_back(Constraint(0, expr, nbElementsC + 1, "name_to_do"));
                 //std::cout << "Adding lazy constraint: " << expr.to_string() << " <= "  << nbElementsC + 1<< std::endl;
+                break;
             }
         }
     }

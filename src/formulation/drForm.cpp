@@ -80,7 +80,7 @@ void DrFormulation::setLeftVariables() {
     lm.resize(getNbDemandsToBeRouted());
         for(int d=0;d <getNbDemandsToBeRouted(); d++){
             int upperBound = getNbSlicesGlobalLimit();
-            int lowerBound = 0;
+            int lowerBound = 1;
             int varId = getNbVar();
             std::string varName = "lm ("+ std::to_string(getToBeRouted_k(d).getId() + 1) + ")";
            
@@ -101,7 +101,7 @@ void DrFormulation::setRightVariables() {
     rm.resize(getNbDemandsToBeRouted());
         for(int d=0;d <getNbDemandsToBeRouted(); d++){
             int upperBound = getNbSlicesGlobalLimit();
-            int lowerBound = 0;
+            int lowerBound = 1;
             int varId = getNbVar();
             std::string varName = "rm ("+ std::to_string(getToBeRouted_k(d).getId() + 1) + ")";
             
@@ -1095,30 +1095,6 @@ void DrFormulation::updatePath(const std::vector<double> &vals){
         
         }
     }
-    /*
-    for(int d = 0; d < getNbDemandsToBeRouted(); d++){
-        for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
-            int edge = getArcLabel(a, d);
-            int slice = getArcSlice(a, d);
-            int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
-            int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
-            if (u < v){
-                if ((y[edge][d].getVal() >= 1 - EPS ) && (rm[d].getVal()+EPS >= slice)&& (rm[d].getVal()+EPS <= slice+1)){
-                    (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
-                }
-                else{
-                    (*vecOnPath[d])[a] = -1;
-                }
-            }else{
-                if ((y[edge + nbEdges][d].getVal() >= 1 - EPS) && (rm[d].getVal()+EPS >= slice)&& (rm[d].getVal()+EPS <= slice+1)){
-                    (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
-                }
-                else{
-                    (*vecOnPath[d])[a] = -1;
-                }
-            }
-        }
-    }*/
     // Fill the mapping with the corresponding demands id.
     for(int d = 0; d < getNbDemandsToBeRouted(); d++){
         int origin = getToBeRouted_k(d).getSource();
@@ -1145,7 +1121,7 @@ void DrFormulation::updatePath(const std::vector<double> &vals){
             bool leftTarget = false;
             for (ListDigraph::InArcIt a(*vecGraph[d], currentNode); a != INVALID; ++a){
                 int edge = getArcLabel(a, d);
-                int slice = getArcSlice(a, d);
+                int slice = getArcSlice(a, d)+1;
                 int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
                 int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
                 if (u < v){

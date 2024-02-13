@@ -41,6 +41,10 @@ CPXLONG SolverCplex::context(Input::ObjectiveMetric obj, const Input &i){
         contextMask |= IloCplex::Callback::Context::Id::Candidate;
         contextMask |= IloCplex::Callback::Context::Id::Relaxation;
     }
+    if((i.getChosenFormulation() == Input::FORMULATION_T_FLOW) && ((i.getNonOverTFlow() == 0) || i.getNonOverTFlow() == 2)){
+        contextMask |= IloCplex::Callback::Context::Id::Candidate;
+        contextMask |= IloCplex::Callback::Context::Id::Relaxation;
+    }
     if(i.isGNPYEnabled()){
         contextMask |= IloCplex::Callback::Context::Id::Candidate;
     }
