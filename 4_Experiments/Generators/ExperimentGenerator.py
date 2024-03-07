@@ -163,8 +163,6 @@ for batch in batchsList:
 print("Jobs script created")
 print (batchsList)
 with open("../Outputs/script.sh", "w") as f:
-    f.write("sh ../src/makeHPC.sh\n")
-    f.write("echo compiled\n")
     for batch in batchsList:
         stringLine = "sbatch " + "jobs" + batch + ".sh\n"
         f.write(stringLine)

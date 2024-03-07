@@ -1,5 +1,3 @@
-sh ../src/makeHPC.sh
-echo compiled
 sbatch jobsbatch_5.sh
 sbatch jobsbatch_2.sh
 sbatch jobsbatch_3.sh
