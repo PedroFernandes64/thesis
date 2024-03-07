@@ -38,8 +38,12 @@ else:
     shutil.rmtree("../Outputs/parametersSet")
     os.mkdir("../Outputs/parametersSet")
 
+auxParameterFolder = [f.name for f in os.scandir("../Outputs/parametersSet/") if f.is_dir()]
 
-counter = 1
+
+batchs = 0
+counter = 0
+
 for experiment in testSet:
     print(experiment)
     instanceName =experiment[0]
@@ -73,75 +77,106 @@ for experiment in testSet:
                             stringCut = "userCuts=" + cut  + "\n"
                             lines[21] = stringCut
 
-                            if form == '2':
-                                for tflow in TFlowSet:
-                                    stringTflow = "TFlow_Policy=" + tflow  + "\n"
-                                    lines[15] = stringTflow
-                                    parametersName = "../Outputs/parametersSet/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + "_tf" + tflow+ ".txt"
-                                    with open(parametersName, "w") as f:
-                                        for line in lines:
-                                            f.write(line)
-                                        f.close() 
-                                    counter = counter + 1
-                            else:
-                                stringTflow = "TFlow_Policy=0" + "\n"
+                        #verifying if tflow
+                        if form == '2':
+                            for tflow in TFlowSet:
+                                stringTflow = "TFlow_Policy=" + tflow  + "\n"
                                 lines[15] = stringTflow
-                                parametersName = "../Outputs/parametersSet/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + ".txt"
-                                with open(parametersName, "w") as f:
-                                    for line in lines:
-                                        f.write(line)
-                                    f.close() 
-                                counter = counter + 1
+
+                            #FOLDER MANAGEMENT
+                            if (counter % 400 == 0) or (counter == 0):
+                                batchs = batchs + 1
+                                currentBatch = "batch_" + str(batchs)
+                                currentBatchFolder = "../Outputs/parametersSet/" + currentBatch
+                                if currentBatch not in auxParameterFolder:
+                                        os.mkdir(currentBatchFolder)
+                                else:
+                                    shutil.rmtree(currentBatchFolder)
+                                    os.mkdir(currentBatchFolder)
+                                print("Batch folder created")
+
+                            parametersName = currentBatchFolder + "/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + "_tf" + tflow+ ".txt"
+                            with open(parametersName, "w") as f:
+                                for line in lines:
+                                    f.write(line)
+                                f.close() 
+                            counter = counter + 1
+                        else:
+                            stringTflow = "TFlow_Policy=0" + "\n"
+                            lines[15] = stringTflow
+
+                            #FOLDER MANAGEMENT
+                            if (counter % 400 == 0) or (counter == 0):
+                                batchs = batchs + 1
+                                currentBatch = "batch_" + str(batchs)
+                                currentBatchFolder = "../Outputs/parametersSet/" + currentBatch
+                                if currentBatch not in auxParameterFolder:
+                                        os.mkdir(currentBatchFolder)
+                                else:
+                                    shutil.rmtree(currentBatchFolder)
+                                    os.mkdir(currentBatchFolder)
+                                print("Batch folder created")
+
+                            parametersName = currentBatchFolder + "/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + ".txt"
+                            with open(parametersName, "w") as f:
+                                for line in lines:
+                                    f.write(line)
+                                f.close() 
+                            counter = counter + 1
 
 print("Parameter Set created")
+print(counter)
 
+batchsList = os.listdir("../Outputs/parametersSet")
 
-parameters = os.listdir("../Outputs/parametersSet")
+for batch in batchsList:
+    parameters = os.listdir("../Outputs/parametersSet/"+batch)
+    jobsRows = []
+    with open("../Inputs/jobsBase.sh", newline='') as jobsFile: 
+        aux = csv.reader(jobsFile, delimiter=';', quotechar='|')
+        for row in aux:
+            jobsRows.append(row)
+        f.close() 
+    jobsName = "../Outputs/jobs" + batch + ".sh"
+    with open(jobsName, "w") as f:
+        counter = 1
+        for row in jobsRows:
+            if counter == 4:
+                line = "#SBATCH --array=0-"+str(len(parameters)-1)+"             # création d'un tableau de "+str(len(parameters))+ " jobs indicés de 0 à "+str(len(parameters)-1)
+                f.write(str(line)+"\n")
+            else:
+                line = row[0]
+                f.write(str(line)+"\n")
+            counter = counter + 1
 
-with open("../Outputs/script.sh", "w") as f:
-    stringLine = "./exec"
-    for parameter in parameters:
-        line = stringLine + " " + "parametersSet/" + parameter + " >> " + "executionOutputs/" + parameter + "\n"
-        f.write(line)
-    f.close() 
-print("Script created")
-
-jobsRows = []
-with open("../Inputs/jobsBase.sh", newline='') as jobsFile: 
-    aux = csv.reader(jobsFile, delimiter=';', quotechar='|')
-    for row in aux:
-        jobsRows.append(row)
-    f.close() 
-
-with open("../Outputs/jobsHPC.sh", "w") as f:
-    counter = 1
-    for row in jobsRows:
-        if counter == 4:
-            line = "#SBATCH --array=0-"+str(len(parameters)-1)+"             # création d'un tableau de "+str(len(parameters))+ " jobs indicés de 0 à "+str(len(parameters)-1)
-            f.write(str(line)+"\n")
-        else:
-            line = row[0]
-            f.write(str(line)+"\n")
-        counter = counter + 1
-
-    f.write("\n")
-    stringLine1 = "tab1=("
-    for parameter in parameters:
-        stringLine1 = stringLine1 + "/" + parameter[:-4] + " "
-    stringLine1 = stringLine1 + ")\n"
-    f.write(stringLine1)
-    echoLine = "echo parametersSet${tab1[$SLURM_ARRAY_TASK_ID]}\n"
-    f.write(echoLine)
-    lastLine = "./exec parametersSet${tab1[$SLURM_ARRAY_TASK_ID]}.txt >> executionOutputs${tab1[$SLURM_ARRAY_TASK_ID]}.txt" 
-    f.write(lastLine)
-
-    f.close() 
+        f.write("\n")
+        stringLine1 = "tab1=("
+        for parameter in parameters:
+            stringLine1 = stringLine1 + "/" + parameter[:-4] + " "
+        stringLine1 = stringLine1 + ")\n"
+        f.write(stringLine1)
+        echoLine = "echo parametersSet/" + batch + "/${tab1[$SLURM_ARRAY_TASK_ID]}\n"
+        f.write(echoLine)
+        lastLine = "./exec parametersSet/" + batch + "/${tab1[$SLURM_ARRAY_TASK_ID]}.txt >> executionOutputs${tab1[$SLURM_ARRAY_TASK_ID]}.txt" 
+        f.write(lastLine)
+        f.close() 
 print("Jobs script created")
+print (batchsList)
+with open("../Outputs/script.sh", "w") as f:
+    f.write("sh ../src/makeHPC.sh\n")
+    f.write("echo compiled\n")
+    for batch in batchsList:
+        stringLine = "sbatch " + "jobs" + batch + ".sh\n"
+        f.write(stringLine)
+f.close() 
+print("Experiments script created")
+
 with open("../Outputs/results.csv", "w") as f:
     line = "Instance;Demands;UB;LB;GAP;Time;OF;Formulation;MaxReach;OSNR;Cuts;Tflow\n"
     f.write(line)
     f.close() 
 print("Result table created")   
+
 auxOutputFolder = [f.name for f in os.scandir("../Outputs") if f.is_dir()]
 if "executionOutputs" not in auxOutputFolder:
     os.mkdir("../Outputs/executionOutputs")
