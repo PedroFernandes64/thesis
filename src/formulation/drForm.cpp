@@ -469,7 +469,7 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
         this->setOsnrConstraints();
     }
     this->setCBandRoutingConstraints();
-
+    nbConstraint = constraintSet.size();
     if (this->getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_PARTIAL){
         this->setPreprocessingConstraints();
     }

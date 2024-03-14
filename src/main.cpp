@@ -122,12 +122,30 @@ int main(int argc, char *argv[]) {
 			//std::cout << instanceName <<std::flush;
 			//opening file and writing
 			std::ofstream outfile;
+			std::string nbDemands = to_string(instance.getNbDemands());
+			std::string ub = to_string(solver->getUpperBound());
+			std::string lb = to_string(solver->getLowerBound());
+			std::string gap = to_string(solver->getMipGap());
+			std::string time = to_string(round(solver->getDurationTime()*1000)/1000);
+			std::string obj = to_string(input.getChosenObj_k(0));
+			std::string formulation = to_string(input.getChosenFormulation());
+			if (input.getChosenFormulation() == 2){
+				formulation = formulation + to_string(input.getNonOverTFlow());
+			}
+			std::string maxReach = to_string(input.isMaxReachEnabled());
+			std::string minOsnr = to_string(input.isOSNREnabled());
+			std::string cuts = to_string(input.isUserCutsActivated());
+			std::string variables = to_string(solver->getNbVariable());
+			std::string	constraints = to_string(solver->getNbConstraint());
+			std::string possiblePaths =  to_string(solver->getPossiblePaths());
+			std::string feasiblePaths =to_string(solver->getFeasiblePaths());
+			std::string onlyOsnrFeasiblePaths =to_string(solver->getOsnrFeasiblePaths());
+			std::string onlyReachFeasiblePaths = to_string(solver->getReachFeasiblePaths());
+			std::string infeasiblePaths = to_string(solver->getInfeasiblePaths());
+
   			outfile.open("results.csv", std::ios_base::app); // append instead of overwrite
-  			outfile << "\n" + instanceName + ";" + to_string(instance.getNbDemands()) + ";" + to_string(solver->getUpperBound()) + 
-			";" + to_string(+solver->getLowerBound()) + ";" + to_string(solver->getMipGap()) +";" + 
-			to_string(round(solver->getDurationTime()*1000)/1000) +";" + to_string(input.getChosenObj_k(0))+";"+to_string(input.getChosenFormulation())+
-			";"+to_string(input.isMaxReachEnabled())+";"+to_string(input.isOSNREnabled())+";"+to_string(input.isUserCutsActivated())+";"+
-			to_string(input.getNonOverTFlow()); 
+  			outfile << "\n" + instanceName + ";" + nbDemands + ";" + ub + ";" + lb + ";" + gap +";" + 
+			time +";" + obj +";"+ formulation+ ";"+maxReach+";"+minOsnr+";"+cuts+";"+variables+";"+constraints+";"+possiblePaths+";"+feasiblePaths+";"+infeasiblePaths+";"+onlyOsnrFeasiblePaths+";"+onlyReachFeasiblePaths; 
 			
 		}
 		

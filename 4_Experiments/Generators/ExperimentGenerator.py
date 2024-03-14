@@ -18,15 +18,7 @@ maxReachSet=["0","1"]
 osnrSet=["0","1"]
 cutSet=["0","1"]
 TFlowSet=["0","1","2","3","4"]
-'''
-solverSet = ["0"]
-formulationSet = ["0","2"]
-objSet = ["4"]
-maxReachSet=["1"]
-osnrSet=["1"]
-cutSet=["0"]
-TFlowSet=["0","1","2","3","4"]
-'''
+
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()
     f.close() 
@@ -77,55 +69,55 @@ for experiment in testSet:
                             stringCut = "userCuts=" + cut  + "\n"
                             lines[21] = stringCut
 
-                        #verifying if tflow
-                        if form == '2':
-                            for tflow in TFlowSet:
-                                stringTflow = "TFlow_Policy=" + tflow  + "\n"
+                            #verifying if tflow
+                            if form == '2':
+                                for tflow in TFlowSet:
+                                    stringTflow = "TFlow_Policy=" + tflow  + "\n"
+                                    lines[15] = stringTflow
+
+                                    #FOLDER MANAGEMENT
+                                    if (counter % 400 == 0) or (counter == 0):
+                                        batchs = batchs + 1
+                                        currentBatch = "batch_" + str(batchs)
+                                        currentBatchFolder = "../Outputs/parametersSet/" + currentBatch
+                                        if currentBatch not in auxParameterFolder:
+                                                os.mkdir(currentBatchFolder)
+                                        else:
+                                            shutil.rmtree(currentBatchFolder)
+                                            os.mkdir(currentBatchFolder)
+                                        print("Batch folder created")
+
+                                    parametersName = currentBatchFolder + "/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + "_tf" + tflow+ ".txt"
+                                    with open(parametersName, "w") as f:
+                                        for line in lines:
+                                            f.write(line)
+                                        f.close() 
+                                    counter = counter + 1
+                            else:
+                                stringTflow = "TFlow_Policy=0" + "\n"
                                 lines[15] = stringTflow
 
-                            #FOLDER MANAGEMENT
-                            if (counter % 400 == 0) or (counter == 0):
-                                batchs = batchs + 1
-                                currentBatch = "batch_" + str(batchs)
-                                currentBatchFolder = "../Outputs/parametersSet/" + currentBatch
-                                if currentBatch not in auxParameterFolder:
+                                #FOLDER MANAGEMENT
+                                if (counter % 400 == 0) or (counter == 0):
+                                    batchs = batchs + 1
+                                    currentBatch = "batch_" + str(batchs)
+                                    currentBatchFolder = "../Outputs/parametersSet/" + currentBatch
+                                    if currentBatch not in auxParameterFolder:
+                                            os.mkdir(currentBatchFolder)
+                                    else:
+                                        shutil.rmtree(currentBatchFolder)
                                         os.mkdir(currentBatchFolder)
-                                else:
-                                    shutil.rmtree(currentBatchFolder)
-                                    os.mkdir(currentBatchFolder)
-                                print("Batch folder created")
+                                    print("Batch folder created")
 
-                            parametersName = currentBatchFolder + "/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + "_tf" + tflow+ ".txt"
-                            with open(parametersName, "w") as f:
-                                for line in lines:
-                                    f.write(line)
-                                f.close() 
-                            counter = counter + 1
-                        else:
-                            stringTflow = "TFlow_Policy=0" + "\n"
-                            lines[15] = stringTflow
-
-                            #FOLDER MANAGEMENT
-                            if (counter % 400 == 0) or (counter == 0):
-                                batchs = batchs + 1
-                                currentBatch = "batch_" + str(batchs)
-                                currentBatchFolder = "../Outputs/parametersSet/" + currentBatch
-                                if currentBatch not in auxParameterFolder:
-                                        os.mkdir(currentBatchFolder)
-                                else:
-                                    shutil.rmtree(currentBatchFolder)
-                                    os.mkdir(currentBatchFolder)
-                                print("Batch folder created")
-
-                            parametersName = currentBatchFolder + "/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + ".txt"
-                            with open(parametersName, "w") as f:
-                                for line in lines:
-                                    f.write(line)
-                                f.close() 
-                            counter = counter + 1
+                                parametersName = currentBatchFolder + "/oP" + "_i" + instanceName + "_d" + demandsNumber + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + ".txt"
+                                with open(parametersName, "w") as f:
+                                    for line in lines:
+                                        f.write(line)
+                                    f.close() 
+                                counter = counter + 1
 
 print("Parameter Set created")
-print(counter)
+print(str(counter) + " Experiments")
 
 batchsList = os.listdir("../Outputs/parametersSet")
 
@@ -161,7 +153,7 @@ for batch in batchsList:
         f.write(lastLine)
         f.close() 
 print("Jobs script created")
-print (batchsList)
+
 with open("../Outputs/script.sh", "w") as f:
     for batch in batchsList:
         stringLine = "sbatch " + "jobs" + batch + ".sh\n"
@@ -170,7 +162,7 @@ f.close()
 print("Experiments script created")
 
 with open("../Outputs/results.csv", "w") as f:
-    line = "Instance;Demands;UB;LB;GAP;Time;OF;Formulation;MaxReach;OSNR;Cuts;Tflow\n"
+    line = "Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Reach;OSNR;Cuts;Variables;Constraints;Paths;Feasible;Infeasible;OnlyOsnr;OnlyReach"
     f.write(line)
     f.close() 
 print("Result table created")   

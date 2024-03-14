@@ -81,6 +81,14 @@ public:
 	double getCutImpleTime() { return cutImpleTime;}
 	double getObjImpleTime() { return objImpleTime;}
 
+	int getNbVariable(){ return formulation->getNbVar(); }
+    int getNbConstraint(){ return formulation->getNbConstraint(); }
+	int getPossiblePaths(){ return formulation->getPossiblePaths(); }
+    int getFeasiblePaths(){ return formulation->getFeasiblePaths(); }
+    int getOsnrFeasiblePaths(){ return formulation->getOsnrFeasiblePaths(); }
+    int getReachFeasiblePaths(){ return formulation->getReachFeasiblePaths(); }
+    int getInfeasiblePaths(){ return formulation->getInfeasiblePaths(); }
+
 	/****************************************************************************************/
 	/*											Setters										*/
 	/****************************************************************************************/

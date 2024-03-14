@@ -50,6 +50,11 @@ protected:
 
     double RSAGraphConstructionTime;
     double PreprocessingTime;
+    int possiblePaths;
+    int feasiblePaths;
+    int onlyOsnrFeasiblePaths;
+    int onlyReachFeasiblePaths;
+    int infeasiblePaths;
 
     /** A list of pointers to the extended graph associated with each demand to be routed. 
         \note (*vecGraph[i]) is the graph associated with the i-th demand to be routed. **/
@@ -295,6 +300,12 @@ public:
     double getCompactPaseLineC(const ListGraph::Edge &e) { return compactEdgePaseLineC[e]; }
     double getCompactPnliL(const ListGraph::Edge &e) { return compactEdgePnliL[e]; }
     double getCompactPaseLineL(const ListGraph::Edge &e) { return compactEdgePaseLineL[e]; }
+    int getPossiblePaths(){ return possiblePaths; }
+    int getFeasiblePaths(){ return feasiblePaths; }
+    int getOsnrFeasiblePaths(){ return onlyOsnrFeasiblePaths; }
+    int getReachFeasiblePaths(){ return onlyReachFeasiblePaths; }
+    int getInfeasiblePaths(){ return infeasiblePaths; }
+
 
     ListGraph::Node getCompactNodeFromLabel(int label) const;
     
@@ -428,7 +439,7 @@ public:
     double osnrPathC(double pl, double pn, double pnli, double pc);
     double osnrPathL(double pl, double pn, double pnli, double pc);
     double osnrPathS(double pl, double pn, double pnli, double pc);
-    void gnModelAllPaths();
+    void AllPaths();
     void printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_index);
 
 	/****************************************************************************************/

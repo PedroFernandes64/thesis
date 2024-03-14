@@ -127,13 +127,18 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     auxNbSlicesGlobalLimit = getNbSlicesGlobalLimit();
 
     //PEDRO PEDRO PEDRO
-    //Modulo GN MODEL ALL PATHS
-    /*
+    //ALL PATHS MODULE
+    possiblePaths = 0;
+    feasiblePaths = 0;
+    onlyOsnrFeasiblePaths = 0;
+    onlyReachFeasiblePaths = 0;
+    infeasiblePaths = 0;
+    //if (this->getInstance().getInput().allPathsDataEnabled() == true){
     if (this->getInstance().getInput().isOSNREnabled() == true){
-        std::cout << "Computing the OSNR of all paths" << std::endl;
-        gnModelAllPaths();
+        std::cout << "Computing statistics of all paths" << std::endl;
+        AllPaths();
     }
-    */
+    
     //PEDRO PEDRO PEDRO
 }
 //PEDRO PEDRO PEDRO
@@ -195,7 +200,7 @@ double RSA::osnrPathS(double paselins, double pasenodes, double pnlis, double pc
 }
 
 
-void RSA::gnModelAllPaths(){
+void RSA::AllPaths(){
     
     //Building a structure with all possible paths for all possible demands
 
@@ -343,6 +348,7 @@ void RSA::gnModelAllPaths(){
     double dbOsnrC;
     double dbOsnrL;
     double dbOsnrS;
+    /*
     std::cout << "Calculating OSNR " << std::endl;
     std::cout << "Writing  OSNR's to file..." << std::endl;
     std::string outputOSNRName = instance.getInput().getDemandToBeRoutedFolder() + "_d" + std::to_string(instance.getNbDemands()) + "_of" + 
@@ -355,57 +361,59 @@ void RSA::gnModelAllPaths(){
     i = i + "pathData.csv";
     outfile.open(outputOSNRName); 
     outfile << "Demand;" <<"Path;" << "Distance;" << "max_lengthC;"<<"max_lengthC val;" << "osnrC;"<<"osnrC val;" << std::endl;
+    */
     int both = 0;
     int maxlen = 0;
     int osnrmin = 0;
     int none = 0;
     int total = 0;
     for (int i = 0 ; i <toBeRouted.size(); i++){	
-        //fw << "OSNR demand: "  << i+1 << " : " << toBeRouted[i].getSource()+1 << " to " << toBeRouted[i].getTarget()+1 << std::endl;
         for (int j = 0; j< alldemandsdistances[i].size(); ++j){
             distance = alldemandsdistances[i][j];     
             dbOsnrC = osnrPathC(alldemandsPASElinC[i][j], alldemandsPASEnodeC[i][j], alldemandsPNLIC[i][j], toBeRouted[i].getPchC());
             dbOsnrL = osnrPathL(alldemandsPASElinL[i][j], alldemandsPASEnodeL[i][j], alldemandsPNLIL[i][j], toBeRouted[i].getPchL());
             dbOsnrS = osnrPathS(alldemandsPASElinS[i][j], alldemandsPASEnodeS[i][j], alldemandsPNLIS[i][j], toBeRouted[i].getPchS());
-            bool a = true;
-            if(a){
-                outfile << toBeRouted[i].getId() + 1;
-                outfile << ";";
-                for (int k = 0; k <allpaths[i][j].size(); ++k)
-                    outfile << getCompactNodeLabel(allpaths[i][j][k]) + 1 << "-";
-                outfile << ";";
-                outfile << distance;
-                outfile << ";";
-                outfile << toBeRouted[i].getMaxLength();
-                outfile << ";";
-                if (distance <= toBeRouted[i].getMaxLength()){
-                    outfile << "yes;" ;
-                }else{
-                    outfile << "no;";
-                }
-                if (dbOsnrC >= toBeRouted[i].getOsnrLimit()){
-                    outfile << "yes;" << dbOsnrC << ";";
-                }else{
-                    outfile << "no;" << dbOsnrC << ";";
-                }
-                if (distance <= toBeRouted[i].getMaxLength() && dbOsnrC >= toBeRouted[i].getOsnrLimit()){
-                    both = both +1;
-                }
-                if (distance <= toBeRouted[i].getMaxLength() && dbOsnrC < toBeRouted[i].getOsnrLimit()){
-                    maxlen = maxlen +1;
-                }
-                if (distance > toBeRouted[i].getMaxLength() && dbOsnrC >= toBeRouted[i].getOsnrLimit()){
-                    osnrmin = osnrmin +1;
-                }
-                if (distance > toBeRouted[i].getMaxLength() && dbOsnrC < toBeRouted[i].getOsnrLimit()){
-                    none = none +1;
-                }
-                total = total + 1;
-                outfile << std::endl;
+            /*
+            outfile << toBeRouted[i].getId() + 1;
+            outfile << ";";
+            for (int k = 0; k <allpaths[i][j].size(); ++k)
+                outfile << getCompactNodeLabel(allpaths[i][j][k]) + 1 << "-";
+            outfile << ";";
+            outfile << distance;
+            outfile << ";";
+            outfile << toBeRouted[i].getMaxLength();
+            outfile << ";";
+            if (distance <= toBeRouted[i].getMaxLength()){
+                outfile << "yes;" ;
+            }else{
+                outfile << "no;";
             }
+            if (dbOsnrC >= toBeRouted[i].getOsnrLimit()){
+                outfile << "yes;" << dbOsnrC << ";";
+            }else{
+                outfile << "no;" << dbOsnrC << ";";
+            }
+            */
+            if (distance <= toBeRouted[i].getMaxLength() && dbOsnrC >= toBeRouted[i].getOsnrLimit()){
+                both = both +1;
+            }
+            if (distance <= toBeRouted[i].getMaxLength() && dbOsnrC < toBeRouted[i].getOsnrLimit()){
+                maxlen = maxlen +1;
+            }
+            if (distance > toBeRouted[i].getMaxLength() && dbOsnrC >= toBeRouted[i].getOsnrLimit()){
+                osnrmin = osnrmin +1;
+            }
+            if (distance > toBeRouted[i].getMaxLength() && dbOsnrC < toBeRouted[i].getOsnrLimit()){
+                none = none +1;
+            }
+            total = total + 1;
         }
     }
-    std::cout << "both: " << both << "maxL: " << maxlen << "minOS: " << osnrmin << "none: " << none << "total: " << total;
+    possiblePaths = total;
+    feasiblePaths = both;
+    onlyOsnrFeasiblePaths = osnrmin;
+    onlyReachFeasiblePaths = maxlen;
+    infeasiblePaths = none + osnrmin + maxlen;
            
 }
 

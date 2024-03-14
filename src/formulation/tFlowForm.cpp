@@ -487,7 +487,7 @@ void TFlowForm::setConstraints(){
     //setNonOverlappingConstraintsPair();
 
     setCBandRoutingConstraints();
-
+    nbConstraint = constraintSet.size();
     if (this->getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_PARTIAL){
         setPreprocessingConstraints();
     }

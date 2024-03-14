@@ -76,7 +76,7 @@ void SolverCplex::solve(){
         //cplex.exportModel("nom_do_lp.lp");
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
         cplex.solve();
-        
+     
         if ((cplex.getStatus() == IloAlgorithm::Optimal) || (cplex.getStatus() == IloAlgorithm::Feasible)){
             IloNum objValue = cplex.getObjValue();
             std::cout << "Objective Function Value: " << objValue << std::endl;
@@ -94,6 +94,7 @@ void SolverCplex::solve(){
             i = myObjectives.size()+1;
         }
     }
+    
     IloNum timeFinish = cplex.getCplexTime();
     setDurationTime(timeFinish - timeStart);
     //std::cout << cplex.getStatus() << std::endl;
@@ -187,7 +188,7 @@ void SolverCplex::exportFormulation(const Instance &instance){
 void SolverCplex::setCplexParams(const Input &input){
     cplex.setParam(IloCplex::Param::MIP::Display, 3);
     cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
-    cplex.setParam(IloCplex::Param::Threads, 4);
+    cplex.setParam(IloCplex::Param::Threads, 2);
 
     if(formulation->getInstance().getInput().isRelaxed()){
         Input::RootMethod rootMethod = formulation->getInstance().getInput().getChosenRootMethod();

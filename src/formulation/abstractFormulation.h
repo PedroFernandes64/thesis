@@ -16,6 +16,7 @@ class AbstractFormulation : public RSA{
 
 protected:
     int nbVar;                                      /**< The total number of variables. **/
+	int nbConstraint;                               /**< The total number of constraints. **/
     
     std::vector<Constraint> constraintSet;			/**< The set of constraints. **/
     std::vector<Constraint> cutPool;				/**< The set of cuts. **/
@@ -33,7 +34,7 @@ public:
 	/*										Constructors									*/
 	/****************************************************************************************/
 	/** Constructor. Builds the Formulation.  @param instance The instance to be solved. **/
-    AbstractFormulation(const Instance &instance): RSA(instance), nbVar(0){}
+    AbstractFormulation(const Instance &instance): RSA(instance), nbVar(0), nbConstraint(0){}
 
 	double getTotalImpleTime() {return totalImpleTime;}
 	double getVarImpleTime(){ return varImpleTime;}
@@ -47,8 +48,14 @@ public:
 	/** Returns the total number of variables. **/
     int getNbVar() const { return nbVar; }
 
+	/** Returns the total number of constraints. **/
+    int getNbConstraint() const { return nbConstraint; }
+
 	/** Increments the total number of variables. **/
     void incNbVar() { nbVar++; }
+
+	/** Increments the total number of constraints. **/
+    void incNbConstraint() { nbConstraint++; }
 
 
 	/** Puts all variables into a single array of variables and returns it. @note The position of a variable in the array is given by its id. **/

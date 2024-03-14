@@ -364,6 +364,7 @@ void FlowForm::setConstraints(){
     this->setMaxUsedSliceOverallConstraints2();    
     //this->setMaxUsedSliceOverallConstraints3();   
     this->setCBandRoutingConstraints();
+    nbConstraint = constraintSet.size();
 } 
 
 /* Defines Source constraints. At most one arc leaves each node and exactly one arc leaves the source. */
