@@ -814,9 +814,13 @@ def writeInstanceFiles(instance,adress):
 
 def writeLinkFile(linkTable,topology,nbDemands,adress):
     outputFolder = [f.name for f in os.scandir(adress+ "/Links") if f.is_dir()]
-    folderTocreate = adress + "/Links/"+ str(nbDemands) + "_demandsLinks"
-    if folderTocreate in outputFolder:
-        folderTocreate = folderTocreate + "-b"
+    folderTocreate = adress + "/Links/"
+    print(outputFolder)
+    print(str(nbDemands) + "_demandsLinks")
+    candidateName = str(nbDemands) + "_demandsLinks"
+    while candidateName not in outputFolder:
+        candidateName = candidateName + "-b"
+    folderTocreate + candidateName
     os.mkdir(folderTocreate)
     filename = folderTocreate + "/Link.csv"
     print(filename)
