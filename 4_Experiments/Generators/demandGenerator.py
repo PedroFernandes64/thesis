@@ -3,7 +3,6 @@ import os
 import shutil
 import random
 import math
-import copy
 import gnModelPrecomputingTool as preCompute
 
 
@@ -37,7 +36,8 @@ class Instance:
         self.slotStrategy = "none"
         self.transponderStrategy = "none"
         self.demandStrategy = "none"
-        self.id = 0
+        self.id = id
+
 
 def CustomClassVerifier(NetworksLinksToProcess):
     for item in NetworksLinksToProcess:
@@ -47,13 +47,17 @@ def CustomClassVerifier(NetworksLinksToProcess):
 
 def DemandVerifier(demandList):
     for item in demandList:
-        print(item.topology)
-        print(item.transponderStrategy)
-        print(item.demandStrategy)
-        for row in item.rows:
-            print(row)
+        print(item.topology + " "+ item.transponderStrategy +" "+item.demandStrategy)
+        #for row in item.rows:
+        #    print(row)
 
-
+def InstanceVerifier(instanceList):
+    for item in instanceList:
+        print(item.topology + " "+ item.transponderStrategy +" "+item.demandStrategy+" "+item.slotStrategy)
+        #for row in item.links:
+            #print(row)
+        #for row2 in item.demands:
+            #print(row2)
 
 def buildNetworkLinkSet():
     NetworkLinkSet = []
@@ -176,8 +180,8 @@ def buildTransponderTable():
 
 # LEVEL 1 CHOICE - DEMANDS PAIR
 #THIS STRATEGY CREATES ALL PAIRS OF ORIGIN AND DESTINATION AND BUILDS THE INITIAL SET
-def buildBaseDemandSet(NetworksNodesToProcess):
-    NetworksDemandsSets = []
+def buildBaseDemandSet(NetworksDemandsSets,NetworksNodesToProcess):
+    print("Building all pairs demand set")
     for network in NetworksNodesToProcess:
         demands = Demands(network.topology)
         demandSet =[]
@@ -206,7 +210,7 @@ def buildBaseDemandSet(NetworksNodesToProcess):
     return NetworksDemandsSets
 
 #THIS STRATEGY CREATES CORE SETS OF ORIGIN AND DESTINATION AND ADD TO THE INITIAL SET
-def addCoreToDemandSet(NetworksNodesToProcess,NetworksDemandsSets):
+def addCoreToDemandSet(NetworksDemandsSets,NetworksNodesToProcess):
     caseCounter = 0
     print("Looking for core nodes at input")
     for network in NetworksNodesToProcess:
@@ -260,20 +264,152 @@ def addCoreToDemandSet(NetworksNodesToProcess,NetworksDemandsSets):
         print(str(caseCounter)+" demand sets with network core generated")
     return NetworksDemandsSets
 
-#THIS STRATEGY CREATES 75% RANGE SETS OF ORIGIN AND DESTINATION AND ADD To THE INITIAL SET
-#def add75sampleToDemandSet(NetworksNodesToProcess,NetworksDemandsSets):
+#THIS STRATEGY CREATES RANDOM 75% RANGE SETS OF ORIGIN AND DESTINATION AND ADD TO THE INITIAL SET
+def add75sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess):
+    print("Building 75% pairs demand set")
+    for network in NetworksNodesToProcess:
+        demands = Demands(network.topology)
+        demandSet =[]
+        row0 = ["index" , "origin" , "destination"]
+        demandSet.append(row0)
+        meshy = []
+        rowCounter = 1
+        for row in network.rows:
+            if rowCounter != 1:
+                meshy.append(row[0])
+            rowCounter = rowCounter + 1
 
-#THIS STRATEGY CREATES 50% RANGE SETS OF ORIGIN AND DESTINATION AND ADD To THE INITIAL SET
-#def add50sampleToDemandSet(NetworksNodesToProcess,NetworksDemandsSets):
+        id = 1
+        nbNodes = len(meshy)
+        ratio = math.ceil(3.0*float(nbNodes)/4.0)
+        for node1 in meshy:
+            sample = []
+            for element in meshy:
+                if element != node1:
+                    sample.append(element) 
+            sample = random.sample(meshy,k=ratio)
+            for node2 in sample:
+                row = []
+                row.append(str(id))
+                id = id + 1
+                row.append(node1)
+                row.append(node2)
+                demandSet.append(row)    
+        demands.rows = demandSet
+        demands.demandStrategy = "75percent"
+        NetworksDemandsSets.append(demands)
+    return NetworksDemandsSets
 
-#THIS STRATEGY CREATES 25% RANGE SETS OF ORIGIN AND DESTINATION AND ADD To THE INITIAL SET
-#def add25sampleToDemandSet(NetworksNodesToProcess,NetworksDemandsSets):
-    
+#THIS STRATEGY CREATES RANDOM 50% RANGE SETS OF ORIGIN AND DESTINATION AND ADD TO THE INITIAL SET
+def add50sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess):
+    print("Building 50% pairs demand set")
+    for network in NetworksNodesToProcess:
+        demands = Demands(network.topology)
+        demandSet =[]
+        row0 = ["index" , "origin" , "destination"]
+        demandSet.append(row0)
+        meshy = []
+        rowCounter = 1
+        for row in network.rows:
+            if rowCounter != 1:
+                meshy.append(row[0])
+            rowCounter = rowCounter + 1
+
+        id = 1
+        nbNodes = len(meshy)
+        ratio = math.ceil(float(nbNodes)/2.0)
+        for node1 in meshy:
+            sample = []
+            for element in meshy:
+                if element != node1:
+                    sample.append(element) 
+            sample = random.sample(meshy,k=ratio)
+            for node2 in sample:
+                row = []
+                row.append(str(id))
+                id = id + 1
+                row.append(node1)
+                row.append(node2)
+                demandSet.append(row)    
+        demands.rows = demandSet
+        demands.demandStrategy = "50percent"
+        NetworksDemandsSets.append(demands)
+    return NetworksDemandsSets
+
+#THIS STRATEGY CREATES RANDOM 25% RANGE SETS OF ORIGIN AND DESTINATION AND ADD TO THE INITIAL SET
+def add25sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess):
+    print("Building 25% pairs demand set")
+    for network in NetworksNodesToProcess:
+        demands = Demands(network.topology)
+        demandSet =[]
+        row0 = ["index" , "origin" , "destination"]
+        demandSet.append(row0)
+        meshy = []
+        rowCounter = 1
+        for row in network.rows:
+            if rowCounter != 1:
+                meshy.append(row[0])
+            rowCounter = rowCounter + 1
+
+        id = 1
+        nbNodes = len(meshy)
+        ratio = math.ceil(float(nbNodes)/4.0)
+        for node1 in meshy:
+            sample = []
+            for element in meshy:
+                if element != node1:
+                    sample.append(element) 
+            sample = random.sample(meshy,k=ratio)
+            for node2 in sample:
+                row = []
+                row.append(str(id))
+                id = id + 1
+                row.append(node1)
+                row.append(node2)
+                demandSet.append(row)     
+        demands.rows = demandSet
+        demands.demandStrategy = "25percent"
+        NetworksDemandsSets.append(demands)
+    return NetworksDemandsSets    
+
+#THIS STRATEGY CREATES N RANDOM APIR OF ORIGIN AND DESTINATION AND ADD TO THE INITIAL SET
+def addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,n):
+    print("Building random demand set")
+    for network in NetworksNodesToProcess:
+        demands = Demands(network.topology)
+        demandSet =[]
+        row0 = ["index" , "origin" , "destination"]
+        demandSet.append(row0)
+        meshy = []
+        rowCounter = 1
+        for row in network.rows:
+            if rowCounter != 1:
+                meshy.append(row[0])
+            rowCounter = rowCounter + 1
+
+        id = 1
+        counter = 0
+        while counter < n:
+            d1 = random.sample(meshy,k=1)
+            d2 = random.sample(meshy,k=1)
+            if d1[0] != d2[0]:
+                row = []
+                row.append(str(id))
+                id = id + 1
+                row.append(d1[0])
+                row.append(d2[0])
+                demandSet.append(row)
+                counter = counter + 1    
+        demands.rows = demandSet
+        demands.demandStrategy = "fullRandomPair"+str(n)
+        NetworksDemandsSets.append(demands)
+    return NetworksDemandsSets
+
 # LEVEL 2 CHOICE - TRANSPONDER
 #THIS STRATEGY SELECTS THE TRANSPONDER WITH LARGER DATA/SLOT RATIO
 def chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders,NetworksDemandsSets,NetworkAsLengthGraphs,NetworkAsOSNRGraphs,TransponderTable,NetworksLinksToProcess):
+    print("Choosing most efficient transponders")
     for network in NetworksDemandsSets:
-        print("Processing: " + network.topology + " with " + str(len(network.rows)-1) + " demands")
         demands = Demands(network.topology)
         newNetworkDemandTable = []
         rowCounter = 1
@@ -360,8 +496,8 @@ def chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders,NetworksD
     return NetworksDemandsSetsWithTransponders
 #THIS STRATEGY SELECTS THE TRANSPONDER WITH SMALL DATA CHARGE (200 OR LESS)
 def addLowDataTransponder(NetworksDemandsSetsWithTransponders,NetworksDemandsSets,NetworkAsLengthGraphs,NetworkAsOSNRGraphs,TransponderTable,NetworksLinksToProcess):
+    print("Choosing low data transponders")
     for network in NetworksDemandsSets:
-        print("Processing: " + network.topology + " with " + str(len(network.rows)-1) + " demands")
         demands = Demands(network.topology)
         newNetworkDemandTable = []
         rowCounter = 1
@@ -447,8 +583,8 @@ def addLowDataTransponder(NetworksDemandsSetsWithTransponders,NetworksDemandsSet
     return NetworksDemandsSetsWithTransponders
 #THIS STRATEGY SELECTS A RANDOM TRANSPONDER
 def addRandomTransponder(NetworksDemandsSetsWithTransponders,NetworksDemandsSets,NetworkAsLengthGraphs,NetworkAsOSNRGraphs,TransponderTable,NetworksLinksToProcess):
+    print("Choosing random transponders")
     for network in NetworksDemandsSets:
-            print("Processing: " + network.topology + " with " + str(len(network.rows)-1) + " demands")
             demands = Demands(network.topology)
             newNetworkDemandTable = []
             rowCounter = 1
@@ -613,10 +749,39 @@ def osnrPch(slots):
 
 
 # LEVEL 3 CHOICE - LINK CAPACITY
-#def buildInstanceSet():
+def buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,linkPolicies):
+    instanceSet = []
+    instanceCounter = 0
+    for demandSet in NetworksDemandsSetsWithTransponders:
+        nbDemands = len(demandSet.rows)-1
+        for linkSet in NetworksLinksToProcess:
+            if linkSet.topology == demandSet.topology:
+                for policy in linkPolicies:
+                    adaptedLinks = []
+                    rowCounter = 1
+                    for row in linkSet.rows:
+                        elementCounter = 0
+                        newRow = []
+                        for element in row:
+                            elementCounter = elementCounter + 1
+                            if (elementCounter == 5) and (rowCounter!=1):
+                                newCap = linkCapacityAdaptator(nbDemands,policy)
+                                newRow.append(newCap)
+                            else:
+                                newRow.append(element)
+                        rowCounter = rowCounter + 1
+                        adaptedLinks.append(newRow)
+                    instanceCounter = instanceCounter + 1
+                    instance = Instance(demandSet.topology,adaptedLinks,demandSet.rows,instanceCounter)
+                    instance.slotStrategy = str(policy) +"x"
+                    instance.transponderStrategy = demandSet.transponderStrategy
+                    instance.demandStrategy = demandSet.demandStrategy
+    
+                    instanceSet.append(instance)
+    return instanceSet
 
-def linkCapacityAdaptator(nbDemands):
-    newCap = nbDemands * 2
+def linkCapacityAdaptator(nbDemands,policy):
+    newCap = nbDemands * policy
     if newCap > 320:
         newCap = 320
     return newCap
@@ -642,29 +807,32 @@ def osnrRhs(slots,osnrLimit):
     rhs = pchDemand/float(osnrLimit)
     return rhs
 '''
+def writeInstanceFiles(instance,adress):
+    nbDemands = len(instance.demands)-1
+    writeLinkFile(instance.links,instance.topology,nbDemands,adress)
+    #writeDemandFile(instance.demands,instance.topology,adress)
 
-def writeLinkFile(linkTable,topology,newCap):
-    os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + topology + "/Links/" + str(nbDemands) + "_demandsLinks/")
-    filename = "../Inputs/2_NetworksAfterDemandsGenerated/" + topology + "/Links/" + str(nbDemands) + "_demandsLinks/Link.csv"
+def writeLinkFile(linkTable,topology,nbDemands,adress):
+    outputFolder = [f.name for f in os.scandir(adress+ "/Links") if f.is_dir()]
+    folderTocreate = adress + "/Links/"+ str(nbDemands) + "_demandsLinks"
+    if folderTocreate in outputFolder:
+        folderTocreate = folderTocreate + "-b"
+    os.mkdir(folderTocreate)
+    filename = folderTocreate + "/Link.csv"
     print(filename)
     with open(filename, "w") as f:
         rowCounter = 1
         for row in linkTable:
             line = ""
-            elementCounter = 0
             for element in row:
-                elementCounter = elementCounter + 1
-                if (elementCounter == 5) and (rowCounter!=1):
-                    line = line + str(newCap) + ";"
-                else:
-                    line = line + str(element) + ";"
+                line = line + str(element) + ";"
             line = line[:-1]
             line = line + "\n"
             #print(line)
             f.write(line)
             rowCounter = rowCounter + 1
 
-def writeDemandFile(demandTable,network):
+def writeDemandFile(demandTable,network,adress):
     os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + network + "/Demands/" + str(len(demandTable)-1) + "_demands/")
     filename = "../Inputs/2_NetworksAfterDemandsGenerated/" + network + "/Demands/"+ str(len(demandTable)-1) + "_demands/demands_1.csv"
     print(filename)
@@ -711,49 +879,91 @@ for topology in topologyList:
 
 
 #====== LEVEL ONE CHOICES - DO FOR EACH NODE SET
-NetworksDemandsSets = buildBaseDemandSet(NetworksNodesToProcess)           #this create a base demand set for each table of nodes
+NetworksDemandsSets = []
+demandStragegylist = []
+buildBaseDemandSet(NetworksDemandsSets,NetworksNodesToProcess)           #this create a base demand set for each table of nodes
+demandStragegylist.append("allPair")
+#CustomClassVerifier(NetworksDemandsSets)
+'''
+addCoreToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
+demandStragegylist.append("coreSet")
 #CustomClassVerifier(NetworksDemandsSets)
 
-addCoreToDemandSet(NetworksNodesToProcess,NetworksDemandsSets)
+add75sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
+demandStragegylist.append("75percent")
 #CustomClassVerifier(NetworksDemandsSets)
 
+add50sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
+demandStragegylist.append("50percent")
+#CustomClassVerifier(NetworksDemandsSets)
+
+add25sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
+demandStragegylist.append("25percent")
+#CustomClassVerifier(NetworksDemandsSets)
+
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,30)
+demandStragegylist.append("fullRandomPair30")
+#CustomClassVerifier(NetworksDemandsSets)
+
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,50)
+demandStragegylist.append("fullRandomPair50")
+#CustomClassVerifier(NetworksDemandsSets)
+'''
 #====== LEVEL TWO CHOICES - DO FOR EACH DEMAND SET
 NetworksDemandsSetsWithTransponders = []
-print("Choosing most efficient transponders")
+transponderStragegylist = []
+
 chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsLengthGraphs,NetworkAsOSNRGraphs,TransponderTable,NetworksLinksToProcess)
+transponderStragegylist.append("efficient")
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
-print("Choosing random transponders")
-#addRandomTransponder(NetworksDemandsSetsWithTransponders,NetworksDemandsSets,NetworkAsLengthGraphs,NetworkAsOSNRGraphs,TransponderTable,NetworksLinksToProcess)
+
+addRandomTransponder(NetworksDemandsSetsWithTransponders,NetworksDemandsSets,NetworkAsLengthGraphs,NetworkAsOSNRGraphs,TransponderTable,NetworksLinksToProcess)
+transponderStragegylist.append("random")
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
-print("Choosing low data transponders")
-#addLowDataTransponder(NetworksDemandsSetsWithTransponders,NetworksDemandsSets,NetworkAsLengthGraphs,NetworkAsOSNRGraphs,TransponderTable,NetworksLinksToProcess)
-DemandVerifier(NetworksDemandsSetsWithTransponders)
+
+addLowDataTransponder(NetworksDemandsSetsWithTransponders,NetworksDemandsSets,NetworkAsLengthGraphs,NetworkAsOSNRGraphs,TransponderTable,NetworksLinksToProcess)
+transponderStragegylist.append("lowData")
+#DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 
 for network in NetworksDemandsSetsWithTransponders:
     preCompute.processDemands(network.rows)   
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
+
 #====== LEVEL THREE CHOICES - DO FOR EACH DEMAND SET WITH TRANSPONDER
-#instanceSet = buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess)
-
+linkPolicies = [1,2,3]
+instanceSet = buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,linkPolicies)
+#InstanceVerifier(instanceSet)
+print(str(len(instanceSet)) + " demand sets")
 #write outputs
-outputFolder = [f.name for f in os.scandir("../Inputs/2_NetworksAfterDemandsGenerated") if f.is_dir()]
-
-for topology in topologyList:
-    if topology not in outputFolder:
-        os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + topology)
-        os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + topology + "/Demands/")
-        os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + topology + "/Links/")
+outputFolder1 = [f.name for f in os.scandir("../Inputs/2_NetworksAfterDemandsGenerated") if f.is_dir()]
+for linkStrategy in linkPolicies:
+    address1 = "../Inputs/2_NetworksAfterDemandsGenerated/" + str(linkStrategy)+"x"
+    if str(linkStrategy)+"x" not in outputFolder1:
+        os.mkdir(address1)
     else:
-        shutil.rmtree("../Inputs/2_NetworksAfterDemandsGenerated/" + topology)
-        os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + topology)
-        os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + topology + "/Demands/")
-        os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + topology + "/Links/")
-    for demandSet in NetworksDemandsSetsWithTransponders:
-        nbDemands = len(demandSet.rows)-1
-        if demandSet.topology == topology:
-            writeDemandFile(demandSet.rows,topology)
-            for linkSet in NetworksLinksToProcess:
-                if linkSet.topology == demandSet.topology:
-                    newCap = linkCapacityAdaptator(nbDemands)
-                    writeLinkFile(linkSet.rows,topology,newCap)
+        shutil.rmtree(address1)
+        os.mkdir(address1)
+    outputFolder2 = [f.name for f in os.scandir(address1) if f.is_dir()]    
+    for transponderStrategy in transponderStragegylist:
+        address2 = address1 + "/"+str(transponderStrategy)
+        if transponderStrategy not in outputFolder2:
+            os.mkdir(address2)
+        else:
+            shutil.rmtree(address2)
+            os.mkdir(address2)
+        outputFolder3 = [f.name for f in os.scandir(address2) if f.is_dir()] 
+        for topology in topologyList:
+            adress3 = address2 +"/" + topology 
+            if topology not in outputFolder3:
+                os.mkdir(adress3)
+                os.mkdir(adress3+ "/Demands")
+                os.mkdir(adress3 + "/Links")
+            else:
+                shutil.rmtree(adress3)
+                os.mkdir(adress3)
+                os.mkdir(adress3 + "/Demands")
+                os.mkdir(adress3 + "/Links")
+
+            for instance in instanceSet:
+                writeInstanceFiles(instance,adress3)
