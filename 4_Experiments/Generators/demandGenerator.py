@@ -815,12 +815,13 @@ def writeInstanceFiles(instance,adress):
 def writeLinkFile(linkTable,topology,nbDemands,adress):
     outputFolder = [f.name for f in os.scandir(adress+ "/Links") if f.is_dir()]
     folderTocreate = adress + "/Links/"
-    print(outputFolder)
-    print(str(nbDemands) + "_demandsLinks")
+
     candidateName = str(nbDemands) + "_demandsLinks"
-    while candidateName not in outputFolder:
+
+    while candidateName in outputFolder:
         candidateName = candidateName + "-b"
-    folderTocreate + candidateName
+
+    folderTocreate = folderTocreate + candidateName
     os.mkdir(folderTocreate)
     filename = folderTocreate + "/Link.csv"
     print(filename)
@@ -888,7 +889,8 @@ demandStragegylist = []
 buildBaseDemandSet(NetworksDemandsSets,NetworksNodesToProcess)           #this create a base demand set for each table of nodes
 demandStragegylist.append("allPair")
 #CustomClassVerifier(NetworksDemandsSets)
-'''
+
+
 addCoreToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
 demandStragegylist.append("coreSet")
 #CustomClassVerifier(NetworksDemandsSets)
@@ -912,7 +914,7 @@ demandStragegylist.append("fullRandomPair30")
 addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,50)
 demandStragegylist.append("fullRandomPair50")
 #CustomClassVerifier(NetworksDemandsSets)
-'''
+
 #====== LEVEL TWO CHOICES - DO FOR EACH DEMAND SET
 NetworksDemandsSetsWithTransponders = []
 transponderStragegylist = []
@@ -938,9 +940,10 @@ for network in NetworksDemandsSetsWithTransponders:
 linkPolicies = [1,2,3]
 instanceSet = buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,linkPolicies)
 #InstanceVerifier(instanceSet)
-print(str(len(instanceSet)) + " demand sets")
+print(str(len(instanceSet)) + " instances sets")
 #write outputs
 outputFolder1 = [f.name for f in os.scandir("../Inputs/2_NetworksAfterDemandsGenerated") if f.is_dir()]
+counter = 0
 for linkStrategy in linkPolicies:
     address1 = "../Inputs/2_NetworksAfterDemandsGenerated/" + str(linkStrategy)+"x"
     if str(linkStrategy)+"x" not in outputFolder1:
@@ -968,6 +971,9 @@ for linkStrategy in linkPolicies:
                 os.mkdir(adress3)
                 os.mkdir(adress3 + "/Demands")
                 os.mkdir(adress3 + "/Links")
-
+            
             for instance in instanceSet:
-                writeInstanceFiles(instance,adress3)
+                if instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
+                    counter = counter + 1
+                    writeInstanceFiles(instance,adress3)
+print(str(counter) + " instances created")
