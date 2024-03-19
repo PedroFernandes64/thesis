@@ -781,7 +781,7 @@ def buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,
     return instanceSet
 
 def linkCapacityAdaptator(nbDemands,policy):
-    newCap = nbDemands * policy
+    newCap = round(nbDemands * policy)
     if newCap > 320:
         newCap = 320
     return newCap
@@ -915,8 +915,8 @@ add50sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
 demandStragegylist.append("50percent")
 #CustomClassVerifier(NetworksDemandsSets)
 
-add25sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
-demandStragegylist.append("25percent")
+#add25sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
+#demandStragegylist.append("25percent")
 #CustomClassVerifier(NetworksDemandsSets)
 
 addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,30)
@@ -985,7 +985,7 @@ for linkStrategy in linkPolicies:
                 os.mkdir(adress3 + "/Links")
             
             for instance in instanceSet:
-                if len(instance.demands) <=91 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
+                if len(instance.demands) >30 and len(instance.demands) <=81 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
                     counter = counter + 1
                     writeInstanceFiles(instance,adress3)
 print(str(counter) + " instances created")

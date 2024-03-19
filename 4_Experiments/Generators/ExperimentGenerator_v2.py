@@ -41,7 +41,7 @@ formulationSet = ["0","2","3"]
 objSet = ["2p","8","1010"]
 maxReachSet=["0","1"]
 osnrSet=["0","1"]
-cutSet=["0","1"]
+cutSet=["1"]
 TFlowSet=["0","1","3"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
@@ -56,7 +56,6 @@ else:
     os.mkdir("../Outputs/parametersSet")
 
 auxParameterFolder = [f.name for f in os.scandir("../Outputs/parametersSet/") if f.is_dir()]
-
 
 batchs = 0
 counter = 0
@@ -152,6 +151,11 @@ print("Parameter Set created")
 print(str(counter) + " Experiments")
 
 batchsList = os.listdir("../Outputs/parametersSet")
+toClean = os.listdir("../Outputs")
+for element in toClean:
+    if element[0] == "j":
+        os.remove("../Outputs/"+element)
+
 
 for batch in batchsList:
     parameters = os.listdir("../Outputs/parametersSet/"+batch)

@@ -1,0 +1,14 @@
+sbatch jobsbatch_5.sh
+sbatch jobsbatch_7.sh
+sbatch jobsbatch_9.sh
+sbatch jobsbatch_14.sh
+sbatch jobsbatch_2.sh
+sbatch jobsbatch_3.sh
+sbatch jobsbatch_1.sh
+sbatch jobsbatch_4.sh
+sbatch jobsbatch_12.sh
+sbatch jobsbatch_8.sh
+sbatch jobsbatch_11.sh
+sbatch jobsbatch_6.sh
+sbatch jobsbatch_13.sh
+sbatch jobsbatch_10.sh

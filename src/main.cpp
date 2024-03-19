@@ -111,10 +111,10 @@ int main(int argc, char *argv[]) {
 			//removing junk from demand string
 			
 			std::string instanceName = input.getTopologyFile();
-			std::cout << instanceName << std::endl;
+			
 			size_t pos = instanceName.find("Instances"); //find location of word
     		instanceName.erase(0,pos); //delete everything prior to location found
-			std::cout << instanceName << std::endl;
+
 			std::string l = "_demands/Link.csv";
 			std::string l2 = "/Links";
 			std::string i = "Instances/";
@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
 			instanceName.erase(instanceName.find(l2),l2.length()); //remove l from string
 			instanceName.erase(instanceName.find(i),i.length()); //remove i from string
 
-			std::cout << instanceName << std::endl;
+
 			//opening file and writing
 			int a = instanceName.size();
 			// loop to traverse in the string
@@ -134,7 +134,7 @@ int main(int argc, char *argv[]) {
 					instanceName[i] = c;
 				}
 			}
-			std::cout << instanceName << std::endl;
+
 			std::ofstream outfile;
 			//std::string nbDemands = to_string(instance.getNbDemands());
 			std::string ub = to_string(solver->getUpperBound());
@@ -160,7 +160,6 @@ int main(int argc, char *argv[]) {
   			outfile.open("results.csv", std::ios_base::app); // append instead of overwrite
   			outfile << "\n" + instanceName + ";" + ub + ";" + lb + ";" + gap +";" + 
 			time +";" + obj +";"+ formulation+ ";"+maxReach+";"+minOsnr+";"+cuts+";"+variables+";"+constraints+";"+possiblePaths+";"+feasiblePaths+";"+infeasiblePaths+";"+onlyOsnrFeasiblePaths+";"+onlyReachFeasiblePaths; 
-			
 		}
 		
 
