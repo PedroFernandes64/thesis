@@ -48,8 +48,8 @@ def CustomClassVerifier(NetworksLinksToProcess):
 def DemandVerifier(demandList):
     for item in demandList:
         print(item.topology + " "+ item.transponderStrategy +" "+item.demandStrategy)
-        #for row in item.rows:
-        #    print(row)
+        for row in item.rows:
+            print(row)
 
 def InstanceVerifier(instanceList):
     for item in instanceList:
@@ -374,7 +374,7 @@ def add25sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess):
 
 #THIS STRATEGY CREATES N RANDOM APIR OF ORIGIN AND DESTINATION AND ADD TO THE INITIAL SET
 def addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,n):
-    print("Building random demand set")
+    print("Building random demand set with " + str(n) + " demands")
     for network in NetworksNodesToProcess:
         demands = Demands(network.topology)
         demandSet =[]
@@ -474,8 +474,8 @@ def chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders,NetworksD
                                 chosenMaxReach = row3[7]
                                 chosenOsnrLim = row3[5]
                         rowCounter3 = rowCounter3 + 1
-
-                    newRow = row
+                    
+                    newRow = row.copy()
                     newRow.append(chosenSlots)
                     newRow.append(chosenMaxReach)
                     newRow.append(chosenOsnrLim)
@@ -483,7 +483,7 @@ def chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders,NetworksD
                 else:
                     print("Demand " + row[0] + " from " +  row[1], "to",  row[2] + " has no feasible transponders")
             else:
-                newRow = row
+                newRow = row.copy()
                 newRow.append("slots")
                 newRow.append("max_length")
                 newRow.append("osnr_limit")
@@ -562,7 +562,7 @@ def addLowDataTransponder(NetworksDemandsSetsWithTransponders,NetworksDemandsSet
                                 chosenOsnrLim = row3[5]
                         rowCounter3 = rowCounter3 + 1
 
-                    newRow = row
+                    newRow = row.copy()
                     newRow.append(chosenSlots)
                     newRow.append(chosenMaxReach)
                     newRow.append(chosenOsnrLim)
@@ -570,7 +570,7 @@ def addLowDataTransponder(NetworksDemandsSetsWithTransponders,NetworksDemandsSet
                 else:
                     print("Demand " + row[0] + " from " +  row[1], "to",  row[2] + " has no feasible transponders")
             else:
-                newRow = row
+                newRow = row.copy()
                 newRow.append("slots")
                 newRow.append("max_length")
                 newRow.append("osnr_limit")
@@ -643,7 +643,7 @@ def addRandomTransponder(NetworksDemandsSetsWithTransponders,NetworksDemandsSets
                         chosenSlots = row3[4]
                         chosenMaxReach = row3[7]
                         chosenOsnrLim = row3[5]
-                        newRow = row
+                        newRow = row.copy()
                         newRow.append(chosenSlots)
                         newRow.append(chosenMaxReach)
                         newRow.append(chosenOsnrLim)
@@ -651,7 +651,7 @@ def addRandomTransponder(NetworksDemandsSetsWithTransponders,NetworksDemandsSets
                     else:
                         print("Demand " + row[0] + " from " +  row[1], "to",  row[2] + " has no feasible transponders")
                 else:
-                    newRow = row
+                    newRow = row.copy()
                     newRow.append("slots")
                     newRow.append("max_length")
                     newRow.append("osnr_limit")
@@ -810,13 +810,13 @@ def osnrRhs(slots,osnrLimit):
 def writeInstanceFiles(instance,adress):
     nbDemands = len(instance.demands)-1
     writeLinkFile(instance.links,instance.topology,nbDemands,adress)
-    #writeDemandFile(instance.demands,instance.topology,adress)
+    writeDemandFile(instance.demands,instance.topology,nbDemands,adress)
 
 def writeLinkFile(linkTable,topology,nbDemands,adress):
     outputFolder = [f.name for f in os.scandir(adress+ "/Links") if f.is_dir()]
     folderTocreate = adress + "/Links/"
 
-    candidateName = str(nbDemands) + "_demandsLinks"
+    candidateName = str(nbDemands) + "_demands"
 
     while candidateName in outputFolder:
         candidateName = candidateName + "-b"
@@ -837,18 +837,30 @@ def writeLinkFile(linkTable,topology,nbDemands,adress):
             f.write(line)
             rowCounter = rowCounter + 1
 
-def writeDemandFile(demandTable,network,adress):
-    os.mkdir("../Inputs/2_NetworksAfterDemandsGenerated/" + network + "/Demands/" + str(len(demandTable)-1) + "_demands/")
-    filename = "../Inputs/2_NetworksAfterDemandsGenerated/" + network + "/Demands/"+ str(len(demandTable)-1) + "_demands/demands_1.csv"
+def writeDemandFile(demandTable,topology,nbDemands,adress):
+    outputFolder = [f.name for f in os.scandir(adress+ "/Demands") if f.is_dir()]
+    folderTocreate = adress + "/Demands/"
+
+    candidateName = str(nbDemands) + "_demands"
+
+    while candidateName in outputFolder:
+        candidateName = candidateName + "-b"
+
+    folderTocreate = folderTocreate + candidateName
+    os.mkdir(folderTocreate)
+    filename = folderTocreate + "/demands_1.csv"
     print(filename)
     with open(filename, "w") as f:
+        rowCounter = 1
         for row in demandTable:
             line = ""
             for element in row:
                 line = line + str(element) + ";"
             line = line[:-1]
             line = line + "\n"
+            #print(line)
             f.write(line)
+            rowCounter = rowCounter + 1
 
 
 NetworksLinksToProcess, topologyList = buildNetworkLinkSet()                               #this produce a table for each link file
@@ -937,7 +949,7 @@ for network in NetworksDemandsSetsWithTransponders:
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 #====== LEVEL THREE CHOICES - DO FOR EACH DEMAND SET WITH TRANSPONDER
-linkPolicies = [1,2,3]
+linkPolicies = [1,2]
 instanceSet = buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,linkPolicies)
 #InstanceVerifier(instanceSet)
 print(str(len(instanceSet)) + " instances sets")
@@ -973,7 +985,7 @@ for linkStrategy in linkPolicies:
                 os.mkdir(adress3 + "/Links")
             
             for instance in instanceSet:
-                if instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
+                if len(instance.demands) <=91 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
                     counter = counter + 1
                     writeInstanceFiles(instance,adress3)
 print(str(counter) + " instances created")
