@@ -17,9 +17,9 @@ TFlow_Policy=3
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
-formulation=2
-userCuts=1
-obj=2p
+formulation=0
+userCuts=0
+obj=8
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
@@ -38,8 +38,8 @@ relaxMethod=0
 outputPath=../Instances/Dump/
 outputLevel=0
 nbSlicesInOutputFile=320
-globalTimeLimit=7200 
-timeLimit=7200
+globalTimeLimit=50400 
+timeLimit=50400
 
 ******* Fields below are reserved for team LIMOS ********
 lagrangianMultiplier_zero=0 

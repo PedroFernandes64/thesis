@@ -746,7 +746,7 @@ void TFlowForm::setOSNRConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
         const Constraint & OSNRConstraintC = getOSNRCConstraint(getToBeRouted_k(d), d);
         constraintSet.push_back(OSNRConstraintC);
-        if (getInstance().getInput().getNbBands() == 2) {
+        if (getInstance().getInput().getNbBands() >= 2) {
             std::cout << "TODO: no OSNR constraints for band L yet" << std::endl;
             //const Constraint & OSNRConstraintL = getOSNRLConstraint(getToBeRouted_k(d), d);
             //constraintSet.push_back(OSNRConstraintL);

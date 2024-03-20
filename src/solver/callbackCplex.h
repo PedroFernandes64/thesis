@@ -24,6 +24,9 @@ public:
     void addLazyConstraints(const IloCplex::Callback::Context &context) const;
     void addGnpyConstraints(const IloCplex::Callback::Context &context) const;
 	void fixVariables(const IloCplex::Callback::Context &context);
+
+	//PEDRO PEDRO
+	void getBound(const IloCplex::Callback::Context &context) const;
     
 	void setUpperBound(double ub){ upperBound = ub; }
 	double getUpperBound() const{ return upperBound; }

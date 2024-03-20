@@ -169,7 +169,7 @@ void Instance::readTopology(){
 			edgeAmplis = std::stoi(dataList[i][6]);
 			edgePnliC = std::stod(dataList[i][7]);
 			edgePaseC = std::stod(dataList[i][8]);
-			if (getInput().getNbBands() == 2){
+			if (getInput().getNbBands() >= 2){
 				edgePnliL = std::stod(dataList[i][9]);
 				edgePaseL = std::stod(dataList[i][10]);
 			}
@@ -214,7 +214,7 @@ void Instance::readDemands(){
 		if (this->input.isOSNREnabled () == true ){
 			demandOsnrLimit = std::stod(dataList[i][5]);
 			demandPchC = std::stod(dataList[i][6]);
-			if (getInput().getNbBands() == 2){
+			if (getInput().getNbBands() >= 2){
 				demandPchL = std::stod(dataList[i][7]);
 			}
 			if (getInput().getNbBands() == 3){
@@ -353,7 +353,7 @@ void Instance::generateDemandsFromFile(std::string filePath){
 		if (this->input.isOSNREnabled () == true ){
 			demandOsnrLimit = std::stod(dataList[i][5]);
 			demandPchC = std::stod(dataList[i][6]);
-			if (getInput().getNbBands() == 2){
+			if (getInput().getNbBands() >= 2){
 				demandPchL = std::stod(dataList[i][7]);
 			}
 			if (getInput().getNbBands() == 3){

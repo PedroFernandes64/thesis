@@ -14,6 +14,7 @@ void CplexCallback::invoke (const IloCplex::Callback::Context &context){
         if ( input.isUserCutsActivated() ){
             addUserCuts(context);
         }
+        //getBound(context);
     }
     if ( context.inCandidate()){
         if (input.getChosenFormulation() == Input::FORMULATION_EDGE_NODE){
@@ -79,7 +80,6 @@ void CplexCallback::addLazyConstraints(const IloCplex::Callback::Context &contex
         throw IloCplex::Exception(-1, "Unbounded solution");
     }
     try {
-        
         int const threadNo = context.getIntInfo(IloCplex::Callback::Context::Info::ThreadId);
         std::vector<Constraint> constraint = formulation->solveSeparationProblemInt(getIntegerSolution(context), threadNo);
         if (!constraint.empty()){
@@ -158,6 +158,21 @@ IloExpr CplexCallback::to_IloExpr(const IloCplex::Callback::Context &context, co
     }
     return exp;
 }
+
+//PEDRO PEDRO
+void CplexCallback::getBound(const IloCplex::Callback::Context &context) const{
+    
+    //std::cout << "Callback user cuts..." << std::endl;
+    try {
+        std::cout << "LB " << context.getRelaxationObjective();
+        std::cout << " x UB " << context.getIncumbentObjective();
+        std::cout << std::endl;
+         }
+    catch (...) {
+        throw;
+    }
+}
+
 
 // Destructor
 CplexCallback::~CplexCallback(){}

@@ -1,5 +1,12 @@
 #include "solverCplex.h"
 
+ILOMIPINFOCALLBACK3(infocallback, std::ofstream&, file, IloCplex, cplex, IloNum, timeBegin){
+    if(hasIncumbent() == IloTrue){
+        double elapsedTime = (cplex.getCplexTime() - timeBegin);
+        file << getIncumbentObjValue() << ";" << getBestObjValue() << ";" << elapsedTime <<std::endl;
+    }
+}
+
 
 int SolverCplex::count = 0;
 
@@ -51,11 +58,15 @@ CPXLONG SolverCplex::context(Input::ObjectiveMetric obj, const Input &i){
     if(i.isUserCutsActivated()){
         contextMask |= IloCplex::Callback::Context::Id::Relaxation;
     }
+    bool report = true;
+    /*
+    if(report){
+        contextMask |= IloCplex::Callback::Context::Id::Candidate;
+    }*/
     return contextMask;
 }
-
-void SolverCplex::solve(){
-
+ 
+void SolverCplex::solve(){    
     IloNum timeStart = cplex.getCplexTime();
     std::cout << "Solving..." << std::endl;
     std::vector<ObjectiveFunction> myObjectives = formulation->getObjectiveSet();
@@ -74,9 +85,13 @@ void SolverCplex::solve(){
             cplex.use(&myGenericCallback, contextMask);
         }
         //cplex.exportModel("nom_do_lp.lp");
+        std::ofstream outfile;
+        outfile.open("test.csv"); 
+        cplex.use(infocallback(cplex.getEnv(),outfile,cplex,timeStart));
+        
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
         cplex.solve();
-     
+        outfile.close();
         if ((cplex.getStatus() == IloAlgorithm::Optimal) || (cplex.getStatus() == IloAlgorithm::Feasible)){
             IloNum objValue = cplex.getObjValue();
             std::cout << "Objective Function Value: " << objValue << std::endl;
