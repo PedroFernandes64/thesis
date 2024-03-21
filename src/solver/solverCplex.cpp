@@ -1,10 +1,10 @@
 #include "solverCplex.h"
 
 ILOMIPINFOCALLBACK3(infocallback, std::ofstream&, file, IloCplex, cplex, IloNum, timeBegin){
-    if(hasIncumbent() == IloTrue){
-        double elapsedTime = (cplex.getCplexTime() - timeBegin);
-        file << getIncumbentObjValue() << ";" << getBestObjValue() << ";" << elapsedTime <<std::endl;
-    }
+    //if(hasIncumbent() == IloTrue){
+    double elapsedTime = (cplex.getCplexTime() - timeBegin);
+    file << getIncumbentObjValue() << ";" << getBestObjValue() << ";" << getNnodes() << ";" << getNremainingNodes() << ";" << elapsedTime <<std::endl;
+    //}
 }
 
 
@@ -86,7 +86,8 @@ void SolverCplex::solve(){
         }
         //cplex.exportModel("nom_do_lp.lp");
         std::ofstream outfile;
-        outfile.open("test.csv"); 
+        outfile.open("test.csv");
+        outfile << "UB;LB;nodes;remainingNodes;time"<<std::endl; 
         cplex.use(infocallback(cplex.getEnv(),outfile,cplex,timeStart));
         
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
@@ -120,6 +121,8 @@ void SolverCplex::solve(){
     }
 	setTreeSize(cplex.getNnodes());
     setAlgorithm(cplex.getAlgorithm());
+    std::cout << "User cuts "<< getCplex().getNcuts(IloCplex::CutUser)<< std::endl;
+    std::cout << "Total cuts "<< getNbCutsFromCplex()<< std::endl;
     //int root = cplex.getParam(IloCplex::RootAlg);
     //int node = cplex.getParam(IloCplex::NodeAlg);
     
@@ -330,8 +333,11 @@ void SolverCplex::setVariables(const std::vector<Variable> &myVars){
             exit(0);
             break;
         }
+
+        //std::cout << "Created variable: " << var[pos] << std::endl;
         model.add(var[pos]);
-        // std::cout << "Created variable: " << var[d][arc].getName() << std::endl;
+        //getCplex().setPriority(var[pos],myVars[i].getPriority());
+
     }
     std::cout << "CPLEX variables have been defined..." << std::endl;
 }

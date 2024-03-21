@@ -28,10 +28,11 @@ private:
     Type type;      	/** The variable type. **/
 	double value;		/** The variable value. **/
     std::string name;	/** The variable name. **/
+	int priority;		/** The variable priority during branching. **/
 
 public:
     /** Constructor. @param lowerBound The variable lower bound. @param upperBound The variable upper bound. @param varType The variable type. @param val The variable value. @param varName The variable name. **/
-    Variable(int identifier=-1, double lowerBound=0, double upperBound=1, Type varType=TYPE_BOOLEAN, double val=0, std::string varName="");
+    Variable(int identifier=-1, double lowerBound=0, double upperBound=1, Type varType=TYPE_BOOLEAN, double val=0, std::string varName="",int prio =0);
 
 	/** Copy constructor */
 	Variable(const Variable&);
@@ -59,6 +60,9 @@ public:
 	/** Returns the variable's value. **/
     double getVal() const { return value; }
 
+	/** Returns the variable's priority. **/
+    double getPriority() const { return priority; }
+
 	/****************************************************************************************/
 	/*										Setters											*/
 	/****************************************************************************************/
@@ -76,6 +80,9 @@ public:
 
 	/** Changes the variable's value. @param val The new value. **/
     void setVal(double val) { this->value = val; }
+
+	/** Changes the variable's priority. @param prio The new value. **/
+    void setPriority(double prio) { this->priority = prio; }
 };
 
 

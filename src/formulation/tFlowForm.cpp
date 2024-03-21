@@ -134,10 +134,10 @@ void TFlowForm::setAuxiliaryVariables(){
             int upperBound = 1;
             int varId = getNbVar();
             if(instance.getInput().isRelaxed()){
-                z[a][b] = Variable(varId, 0, upperBound, Variable::TYPE_REAL, 0, varName.str());
+                z[a][b] = Variable(varId, 0, upperBound, Variable::TYPE_REAL, 0, varName.str(),1);
             }
             else{
-                z[a][b] = Variable(varId, 0, upperBound, Variable::TYPE_BOOLEAN, 0, varName.str());
+                z[a][b] = Variable(varId, 0, upperBound, Variable::TYPE_BOOLEAN, 0, varName.str(),1);
             }
             
             incNbVar();
