@@ -38,11 +38,11 @@ TFlowSet=["0","1","2","3","4"]
 '''
 solverSet = ["0"]
 formulationSet = ["0","2","3"]
-objSet = ["2p","8","1010"]
+objSet = ["2","2p","8","1010"]
 maxReachSet=["0","1"]
 osnrSet=["0","1"]
-cutSet=["1"]
-TFlowSet=["0","1","3"]
+cutSet=["0"]
+TFlowSet=["0","1","3","4"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()

@@ -85,14 +85,13 @@ void SolverCplex::solve(){
             cplex.use(&myGenericCallback, contextMask);
         }
         //cplex.exportModel("nom_do_lp.lp");
-        std::ofstream outfile;
-        outfile.open("test.csv");
-        outfile << "UB;LB;nodes;remainingNodes;time"<<std::endl; 
-        cplex.use(infocallback(cplex.getEnv(),outfile,cplex,timeStart));
-        
+        //std::ofstream outfile;
+        //outfile.open("test.csv");
+        //outfile << "UB;LB;nodes;remainingNodes;time"<<std::endl; 
+        //cplex.use(infocallback(cplex.getEnv(),outfile,cplex,timeStart));
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
         cplex.solve();
-        outfile.close();
+        //outfile.close();
         if ((cplex.getStatus() == IloAlgorithm::Optimal) || (cplex.getStatus() == IloAlgorithm::Feasible)){
             IloNum objValue = cplex.getObjValue();
             std::cout << "Objective Function Value: " << objValue << std::endl;
@@ -205,6 +204,7 @@ void SolverCplex::exportFormulation(const Instance &instance){
 
 void SolverCplex::setCplexParams(const Input &input){
     cplex.setParam(IloCplex::Param::MIP::Display, 3);
+    cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 8192);
     cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
     cplex.setParam(IloCplex::Param::Threads, 2);
 

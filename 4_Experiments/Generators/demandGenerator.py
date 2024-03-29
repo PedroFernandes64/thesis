@@ -902,7 +902,6 @@ buildBaseDemandSet(NetworksDemandsSets,NetworksNodesToProcess)           #this c
 demandStragegylist.append("allPair")
 #CustomClassVerifier(NetworksDemandsSets)
 
-
 addCoreToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
 demandStragegylist.append("coreSet")
 #CustomClassVerifier(NetworksDemandsSets)
@@ -915,8 +914,8 @@ add50sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
 demandStragegylist.append("50percent")
 #CustomClassVerifier(NetworksDemandsSets)
 
-#add25sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
-#demandStragegylist.append("25percent")
+add25sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
+demandStragegylist.append("25percent")
 #CustomClassVerifier(NetworksDemandsSets)
 
 addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,30)

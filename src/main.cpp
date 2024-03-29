@@ -75,6 +75,32 @@ int main(int argc, char *argv[]) {
 				instance.setTimeLimit(std::max(0, instance.getInput().getOptimizationTimeLimit() - (int)OPTIMIZATION_TIME.getTimeInSecFromStart()));
 			}
 
+			//AUXILIAR OUTPUT FILE
+			std::ofstream outfile;
+			outfile.open("results.csv", std::ios_base::app); // append instead of overwrite
+			//output for massive experiments
+			//removing junk from demand string
+			std::string instanceName = input.getTopologyFile();
+			size_t pos = instanceName.find("Instances"); //find location of word
+    		instanceName.erase(0,pos); //delete everything prior to location found
+			std::string l = "_demands/Link.csv";
+			std::string l2 = "/Links";
+			std::string i = "Instances/";
+
+			instanceName.erase(instanceName.find(l),l.length()); //remove l from string
+			instanceName.erase(instanceName.find(l2),l2.length()); //remove l from string
+			instanceName.erase(instanceName.find(i),i.length()); //remove i from string			
+			int a = instanceName.size();
+			// loop to traverse in the string
+			char b = '/';
+			char c = ';';
+			for (int i = 0; i < a; i++) {
+				if(instanceName[i] == b){
+					instanceName[i] = c;
+				}
+			}
+			//opening file and writing
+  			outfile << "\n" + instanceName + ";" << std::flush;
 			/********************************************************************/
 			/* 								Solve	 							*/
 			/********************************************************************/
@@ -106,37 +132,6 @@ int main(int argc, char *argv[]) {
 			/* To be modified in the future. SolverCplex should not be instantiated in main. Scip does not offer a getAlgorithm equivalent.*/
 			//std::cout << "Algo: " << ((SolverCplex*)solver)->getAlgorithm()  << std::endl;
 			
-			
-			//output for massive experiments
-			//removing junk from demand string
-			
-			std::string instanceName = input.getTopologyFile();
-			
-			size_t pos = instanceName.find("Instances"); //find location of word
-    		instanceName.erase(0,pos); //delete everything prior to location found
-
-			std::string l = "_demands/Link.csv";
-			std::string l2 = "/Links";
-			std::string i = "Instances/";
-
-			instanceName.erase(instanceName.find(l),l.length()); //remove l from string
-			instanceName.erase(instanceName.find(l2),l2.length()); //remove l from string
-			instanceName.erase(instanceName.find(i),i.length()); //remove i from string
-
-
-			//opening file and writing
-			int a = instanceName.size();
-			// loop to traverse in the string
-			char b = '/';
-			char c = ';';
-			for (int i = 0; i < a; i++) {
-				if(instanceName[i] == b){
-					instanceName[i] = c;
-				}
-			}
-
-			std::ofstream outfile;
-			//std::string nbDemands = to_string(instance.getNbDemands());
 			std::string ub = to_string(solver->getUpperBound());
 			std::string lb = to_string(solver->getLowerBound());
 			std::string gap = to_string(solver->getMipGap());
@@ -157,9 +152,9 @@ int main(int argc, char *argv[]) {
 			std::string onlyReachFeasiblePaths = to_string(solver->getReachFeasiblePaths());
 			std::string infeasiblePaths = to_string(solver->getInfeasiblePaths());
 
-  			outfile.open("results.csv", std::ios_base::app); // append instead of overwrite
-  			outfile << "\n" + instanceName + ";" + ub + ";" + lb + ";" + gap +";" + 
-			time +";" + obj +";"+ formulation+ ";"+maxReach+";"+minOsnr+";"+cuts+";"+variables+";"+constraints+";"+possiblePaths+";"+feasiblePaths+";"+infeasiblePaths+";"+onlyOsnrFeasiblePaths+";"+onlyReachFeasiblePaths; 
+  			outfile << ub + ";" + lb + ";" + gap +";" + time +";" + obj +";"+ formulation+ ";"+maxReach+";"+
+				minOsnr+";"+cuts+";"+variables+";"+constraints+";"+possiblePaths+";"+feasiblePaths+";"+infeasiblePaths+";"+
+				onlyOsnrFeasiblePaths+";"+onlyReachFeasiblePaths; 
 		}
 		
 
