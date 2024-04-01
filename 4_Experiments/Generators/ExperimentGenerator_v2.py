@@ -39,8 +39,8 @@ TFlowSet=["0","1","2","3","4"]
 solverSet = ["0"]
 formulationSet = ["0","2","3"]
 objSet = ["2","2p","8","1010"]
-maxReachSet=["0","1"]
-osnrSet=["0","1"]
+maxReachSet=["1"]
+osnrSet=["1"]
 cutSet=["0"]
 TFlowSet=["0","1","3","4"]
 
@@ -60,50 +60,79 @@ auxParameterFolder = [f.name for f in os.scandir("../Outputs/parametersSet/") if
 batchs = 0
 counter = 0
 print(len(testSet))
-for experiment in testSet:
-    topology = experiment.topology
-    linkStrategy = experiment.linkStrategy
-    transponderStrategy = experiment.transponderStrategy
-    demandCode = experiment.demandCode
-    
-    auxLinkStrategy = "_L" + linkStrategy
-    auxTransponderStrategy = "_T" + transponderStrategy[:3]
 
-    stringLinks = "topologyFile=Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Links/" + demandCode + "/Link.csv" "\n" 
-    stringDemands = "demandToBeRoutedFolder=Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Demands/" + demandCode + "\n"
-    demandCode = demandCode.replace("_demands","")
+with open("../Outputs/experimentList.csv", "w") as list:
+    line = "LinkS;TranspS;Instance;Demands;OF;Formulation;Reach;OSNR;Cuts"
+    list.write(line)
+    print("Test list table created")   
+    for experiment in testSet:
+        topology = experiment.topology
+        linkStrategy = experiment.linkStrategy
+        transponderStrategy = experiment.transponderStrategy
+        demandCode = experiment.demandCode
+        
+        auxLinkStrategy = "_L" + linkStrategy
+        auxTransponderStrategy = "_T" + transponderStrategy[:3]
 
-    lines[1] = stringLinks
-    lines[4] = stringDemands
+        stringLinks = "topologyFile=Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Links/" + demandCode + "/Link.csv" "\n" 
+        stringDemands = "demandToBeRoutedFolder=Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Demands/" + demandCode + "\n"
+        demandCode = demandCode.replace("_demands","")
 
-    for obj in objSet:
-        stringObj = "obj=" + obj + "\n"
-        lines[22] = stringObj
+        lines[1] = stringLinks
+        lines[4] = stringDemands
 
-        for form in formulationSet:
-            stringForm = "formulation=" + form + "\n"
-            lines[20] = stringForm
+        for obj in objSet:
+            stringObj = "obj=" + obj + "\n"
+            lines[22] = stringObj
 
-            for solver in solverSet:
-                stringSolver = "solver=" + solver + "\n"
-                lines[31] = stringSolver
+            for form in formulationSet:
+                stringForm = "formulation=" + form + "\n"
+                lines[20] = stringForm
 
-                for reach in maxReachSet:
-                    stringReach = "MaxReach_activation=" + reach + "\n"
-                    lines[12] = stringReach
+                for solver in solverSet:
+                    stringSolver = "solver=" + solver + "\n"
+                    lines[31] = stringSolver
 
-                    for osnr in osnrSet:
-                        stringGN = "OSNR_activation=" + osnr + "\n"
-                        lines[13] = stringGN
+                    for reach in maxReachSet:
+                        stringReach = "MaxReach_activation=" + reach + "\n"
+                        lines[12] = stringReach
 
-                        for cut in cutSet:
-                            stringCut = "userCuts=" + cut  + "\n"
-                            lines[21] = stringCut
+                        for osnr in osnrSet:
+                            stringGN = "OSNR_activation=" + osnr + "\n"
+                            lines[13] = stringGN
 
-                            #verifying if tflow
-                            if form == '2':
-                                for tflow in TFlowSet:
-                                    stringTflow = "TFlow_Policy=" + tflow  + "\n"
+                            for cut in cutSet:
+                                stringCut = "userCuts=" + cut  + "\n"
+                                lines[21] = stringCut
+
+                                #verifying if tflow
+                                if form == '2':
+                                    for tflow in TFlowSet:
+                                        stringTflow = "TFlow_Policy=" + tflow  + "\n"
+                                        lines[15] = stringTflow
+
+                                        #FOLDER MANAGEMENT
+                                        if (counter % 300 == 0) or (counter == 0):
+                                            batchs = batchs + 1
+                                            currentBatch = "batch_" + str(batchs)
+                                            currentBatchFolder = "../Outputs/parametersSet/" + currentBatch
+                                            if currentBatch not in auxParameterFolder:
+                                                    os.mkdir(currentBatchFolder)
+                                            else:
+                                                shutil.rmtree(currentBatchFolder)
+                                                os.mkdir(currentBatchFolder)
+                                            print("Batch folder created")
+
+                                        parametersName = currentBatchFolder + "/oP"+auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + "_tf" + tflow+ ".txt"
+                                        listLine = "\n" + linkStrategy+";"+ transponderStrategy+";"+topology + ";" + demandCode + ";" + obj + ";" + form + tflow +";" + reach + ";" + osnr + ";" + cut
+                                        list.write(listLine)
+                                        with open(parametersName, "w") as f:
+                                            for line in lines:
+                                                f.write(line)
+                                            f.close() 
+                                        counter = counter + 1
+                                else:
+                                    stringTflow = "TFlow_Policy=0" + "\n"
                                     lines[15] = stringTflow
 
                                     #FOLDER MANAGEMENT
@@ -118,34 +147,15 @@ for experiment in testSet:
                                             os.mkdir(currentBatchFolder)
                                         print("Batch folder created")
 
-                                    parametersName = currentBatchFolder + "/oP"+auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + "_tf" + tflow+ ".txt"
+                                    parametersName = currentBatchFolder + "/oP" +auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + ".txt"
+                                    listLine = "\n" + linkStrategy+";"+ transponderStrategy+";"+topology + ";" + demandCode + ";" + obj + ";" + form +";" + reach + ";" + osnr + ";" + cut
+                                    list.write(listLine)
                                     with open(parametersName, "w") as f:
                                         for line in lines:
                                             f.write(line)
                                         f.close() 
                                     counter = counter + 1
-                            else:
-                                stringTflow = "TFlow_Policy=0" + "\n"
-                                lines[15] = stringTflow
-
-                                #FOLDER MANAGEMENT
-                                if (counter % 300 == 0) or (counter == 0):
-                                    batchs = batchs + 1
-                                    currentBatch = "batch_" + str(batchs)
-                                    currentBatchFolder = "../Outputs/parametersSet/" + currentBatch
-                                    if currentBatch not in auxParameterFolder:
-                                            os.mkdir(currentBatchFolder)
-                                    else:
-                                        shutil.rmtree(currentBatchFolder)
-                                        os.mkdir(currentBatchFolder)
-                                    print("Batch folder created")
-
-                                parametersName = currentBatchFolder + "/oP" +auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_cu" + cut + ".txt"
-                                with open(parametersName, "w") as f:
-                                    for line in lines:
-                                        f.write(line)
-                                    f.close() 
-                                counter = counter + 1
+list.close() 
 
 print("Parameter Set created")
 print(str(counter) + " Experiments")
@@ -194,6 +204,8 @@ with open("../Outputs/script.sh", "w") as f:
     for batch in batchsList:
         stringLine = "sbatch " + "jobs" + batch + ".sh\n"
         f.write(stringLine)
+        stringLine2 = "echo " + "jobs" + batch + ".sh "+ ">> okBatchs.txt\n"
+        f.write(stringLine2)
 f.close() 
 print("Experiments script created")
 

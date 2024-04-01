@@ -1,70 +1,36 @@
-sbatch jobsbatch_58.sh
-sbatch jobsbatch_25.sh
 sbatch jobsbatch_5.sh
-sbatch jobsbatch_42.sh
-sbatch jobsbatch_37.sh
-sbatch jobsbatch_31.sh
-sbatch jobsbatch_53.sh
-sbatch jobsbatch_33.sh
-sbatch jobsbatch_45.sh
-sbatch jobsbatch_23.sh
-sbatch jobsbatch_56.sh
-sbatch jobsbatch_44.sh
-sbatch jobsbatch_70.sh
+echo jobsbatch_5.sh >> okBatchs.txt
 sbatch jobsbatch_7.sh
-sbatch jobsbatch_22.sh
-sbatch jobsbatch_19.sh
+echo jobsbatch_7.sh >> okBatchs.txt
 sbatch jobsbatch_9.sh
-sbatch jobsbatch_43.sh
-sbatch jobsbatch_51.sh
-sbatch jobsbatch_61.sh
-sbatch jobsbatch_39.sh
+echo jobsbatch_9.sh >> okBatchs.txt
 sbatch jobsbatch_18.sh
-sbatch jobsbatch_59.sh
-sbatch jobsbatch_60.sh
+echo jobsbatch_18.sh >> okBatchs.txt
 sbatch jobsbatch_14.sh
-sbatch jobsbatch_36.sh
-sbatch jobsbatch_30.sh
+echo jobsbatch_14.sh >> okBatchs.txt
 sbatch jobsbatch_2.sh
-sbatch jobsbatch_57.sh
-sbatch jobsbatch_41.sh
-sbatch jobsbatch_66.sh
-sbatch jobsbatch_20.sh
-sbatch jobsbatch_46.sh
-sbatch jobsbatch_48.sh
+echo jobsbatch_2.sh >> okBatchs.txt
 sbatch jobsbatch_3.sh
+echo jobsbatch_3.sh >> okBatchs.txt
 sbatch jobsbatch_1.sh
-sbatch jobsbatch_68.sh
-sbatch jobsbatch_24.sh
+echo jobsbatch_1.sh >> okBatchs.txt
 sbatch jobsbatch_16.sh
-sbatch jobsbatch_29.sh
+echo jobsbatch_16.sh >> okBatchs.txt
 sbatch jobsbatch_4.sh
-sbatch jobsbatch_49.sh
+echo jobsbatch_4.sh >> okBatchs.txt
 sbatch jobsbatch_12.sh
-sbatch jobsbatch_67.sh
-sbatch jobsbatch_28.sh
+echo jobsbatch_12.sh >> okBatchs.txt
 sbatch jobsbatch_8.sh
-sbatch jobsbatch_38.sh
+echo jobsbatch_8.sh >> okBatchs.txt
 sbatch jobsbatch_15.sh
-sbatch jobsbatch_35.sh
-sbatch jobsbatch_47.sh
+echo jobsbatch_15.sh >> okBatchs.txt
 sbatch jobsbatch_11.sh
-sbatch jobsbatch_32.sh
-sbatch jobsbatch_52.sh
-sbatch jobsbatch_62.sh
-sbatch jobsbatch_63.sh
-sbatch jobsbatch_69.sh
+echo jobsbatch_11.sh >> okBatchs.txt
 sbatch jobsbatch_6.sh
-sbatch jobsbatch_65.sh
-sbatch jobsbatch_54.sh
-sbatch jobsbatch_26.sh
-sbatch jobsbatch_40.sh
-sbatch jobsbatch_50.sh
-sbatch jobsbatch_34.sh
-sbatch jobsbatch_55.sh
+echo jobsbatch_6.sh >> okBatchs.txt
 sbatch jobsbatch_13.sh
-sbatch jobsbatch_64.sh
+echo jobsbatch_13.sh >> okBatchs.txt
 sbatch jobsbatch_10.sh
-sbatch jobsbatch_27.sh
-sbatch jobsbatch_21.sh
+echo jobsbatch_10.sh >> okBatchs.txt
 sbatch jobsbatch_17.sh
+echo jobsbatch_17.sh >> okBatchs.txt
