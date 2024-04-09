@@ -728,8 +728,8 @@ void Instance::setPaseNodeC() {
     double Glin ;                                       //LINEAR
     double Bn = 12.5 * pow(10,9);                       //SI Hertz                       #Usually gigahertz  (x ghz)
     double paseNod ;
-    Gdb = 20;                                           //SI #dB
-    Glin = pow(10,Gdb/10);                              //LINEAR
+    Gdb = 20.0;                                           //SI #dB
+    Glin = pow(10.0,Gdb/10.0);                              //LINEAR
     paseNod = 2.0* h * nu * nsp * (Glin-1.0) * Bn;
 	this->paseNodeC = paseNod; 
 }

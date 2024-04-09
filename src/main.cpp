@@ -167,13 +167,17 @@ int main(int argc, char *argv[]) {
 			//output for massive experiments
 			//removing junk from demand string
 			std::string instanceName = input.getTopologyFile();
+
+			//size_t pos = instanceName.find("../4_Experiments/Outputs/Instances"); //find location of word
 			size_t pos = instanceName.find("Instances"); //find location of word
     		instanceName.erase(0,pos); //delete everything prior to location found
-			std::string l = "_demands/Link.csv";
+			std::string l = "_demands";
+			std::string l3 = "/Link.csv";
 			std::string l2 = "/Links";
 			std::string i = "Instances/";
 
 			instanceName.erase(instanceName.find(l),l.length()); //remove l from string
+			instanceName.erase(instanceName.find(l3),l3.length()); //remove l from string
 			instanceName.erase(instanceName.find(l2),l2.length()); //remove l from string
 			instanceName.erase(instanceName.find(i),i.length()); //remove i from string			
 			int a = instanceName.size();

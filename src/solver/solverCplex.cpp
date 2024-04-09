@@ -102,11 +102,16 @@ void SolverCplex::solve(){
                 model.add(constraint);
                 objectiveExpression.end();
             }
-        }
-        else{
-            // Stop optimizing.
-            std::cout << "Could not find a feasible solution..." << std::endl;
-            i = myObjectives.size()+1;
+        }else{
+            if(cplex.getStatus() == IloAlgorithm::Infeasible){
+                std::cout << "Solver proved infeasibility solution..." << std::endl;
+            }else{
+                // CPLEX STATUS UNKNOWN
+                // Stop optimizing.
+                std::cout << "Could not find a feasible solution..." << std::endl;
+                std::cout << cplex.getStatus() << std::endl;
+                i = myObjectives.size()+1;
+            }
         }
     }
     
@@ -117,6 +122,18 @@ void SolverCplex::solve(){
         setUpperBound(cplex.getObjValue());
         setLowerBound(cplex.getBestObjValue());
         setMipGap(cplex.getMIPRelativeGap()*100);
+    }else{
+        if (cplex.getStatus() == IloAlgorithm::Infeasible){
+            setUpperBound(0);
+            setLowerBound(0);
+            setMipGap(0);    
+        }else{
+            // CPLEX STATUS UNKNOWN
+            // No feasible solution found but infeasibility not proven, recover relaxation value
+            setUpperBound(-1);
+            setLowerBound(cplex.getBestObjValue());
+            setMipGap(0);
+        }
     }
 	setTreeSize(cplex.getNnodes());
     setAlgorithm(cplex.getAlgorithm());
@@ -130,9 +147,12 @@ void SolverCplex::solve(){
         std::cout << "Status: " << cplex.getStatus() << std::endl;
         std::cout << "Objective Function Value: " << cplex.getObjValue() << std::endl;
         displaySolution();
-    }
-    else{
-        std::cout << "Could not find a feasible solution..." << std::endl;
+    }else{
+        if (cplex.getStatus() == IloAlgorithm::Infeasible){
+            std::cout << "Infeasible problem..." << std::endl;
+        }else{
+            std::cout << "Could not find a feasible solution..." << std::endl;
+        }
     }
 }
 
@@ -204,9 +224,9 @@ void SolverCplex::exportFormulation(const Instance &instance){
 
 void SolverCplex::setCplexParams(const Input &input){
     cplex.setParam(IloCplex::Param::MIP::Display, 3);
-    cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 8192);
+    cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 16384);
     cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
-    cplex.setParam(IloCplex::Param::Threads, 2);
+    cplex.setParam(IloCplex::Param::Threads, 4);
 
     if(formulation->getInstance().getInput().isRelaxed()){
         Input::RootMethod rootMethod = formulation->getInstance().getInput().getChosenRootMethod();

@@ -287,7 +287,7 @@ def add75sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess):
             for element in meshy:
                 if element != node1:
                     sample.append(element) 
-            sample = random.sample(meshy,k=ratio)
+            sample = random.sample(sample,k=ratio)
             for node2 in sample:
                 row = []
                 row.append(str(id))
@@ -323,7 +323,7 @@ def add50sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess):
             for element in meshy:
                 if element != node1:
                     sample.append(element) 
-            sample = random.sample(meshy,k=ratio)
+            sample = random.sample(sample,k=ratio)
             for node2 in sample:
                 row = []
                 row.append(str(id))
@@ -359,7 +359,7 @@ def add25sampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess):
             for element in meshy:
                 if element != node1:
                     sample.append(element) 
-            sample = random.sample(meshy,k=ratio)
+            sample = random.sample(sample,k=ratio)
             for node2 in sample:
                 row = []
                 row.append(str(id))
@@ -436,9 +436,10 @@ def chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders,NetworksD
                     if rowCounter2 != 1:
                         pch = osnrPch(row2[4])
                         osnr = pch/noise
-                        osnrdb = 10.0 * math.log10(osnr)
-                        #print(str(osnrdb) +" x "+ row2[5])      #check if transponder is feasbile  
+                        osnrdb = 10.0 * math.log10(osnr) 
                         if (int(row2[7]) >= shortestDistance) and float(row2[5]) <= osnrdb:
+                            #print(str(osnrdb) +" x "+ row2[5])      #check if transponder is feasbile
+                            #print(str(shortestDistance) +" x "+ row2[7])      #check if transponder is feasbile  
                             transponder.append(row2[0])
                             transponder.append(row2[1])
                             transponder.append(row2[2])
@@ -984,7 +985,7 @@ for linkStrategy in linkPolicies:
                 os.mkdir(adress3 + "/Links")
             
             for instance in instanceSet:
-                if len(instance.demands) >30 and len(instance.demands) <=81 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
+                if len(instance.demands) >29 and len(instance.demands) <85 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
                     counter = counter + 1
                     writeInstanceFiles(instance,adress3)
 print(str(counter) + " instances created")
