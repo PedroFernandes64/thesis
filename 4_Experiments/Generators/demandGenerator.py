@@ -926,6 +926,8 @@ demandStragegylist.append("fullRandomPair30")
 addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,50)
 demandStragegylist.append("fullRandomPair50")
 #CustomClassVerifier(NetworksDemandsSets)
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,500)
+demandStragegylist.append("fullRandomPair500")
 
 #====== LEVEL TWO CHOICES - DO FOR EACH DEMAND SET
 NetworksDemandsSetsWithTransponders = []
@@ -985,7 +987,7 @@ for linkStrategy in linkPolicies:
                 os.mkdir(adress3 + "/Links")
             
             for instance in instanceSet:
-                if len(instance.demands) >29 and len(instance.demands) <85 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
+                if len(instance.demands) >1 and len(instance.demands) <1000 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
                     counter = counter + 1
                     writeInstanceFiles(instance,adress3)
 print(str(counter) + " instances created")

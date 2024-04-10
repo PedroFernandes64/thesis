@@ -90,7 +90,19 @@ void SolverCplex::solve(){
         //outfile << "UB;LB;nodes;remainingNodes;time"<<std::endl; 
         //cplex.use(infocallback(cplex.getEnv(),outfile,cplex,timeStart));
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
-        cplex.solve();
+        std::ofstream fout("mylog.log");
+        cplex.setOut(fout);
+        cplex.setWarning(fout);
+        cplex.setError(fout);
+        try {
+            cplex.solve();
+        }
+        catch(IloException& ex) {
+            std::cerr << "Error: " << ex << std::endl;
+        }
+        catch(...) {
+            std::cerr << "Error: que pasa wey" << std::endl;
+        }
         //outfile.close();
         if ((cplex.getStatus() == IloAlgorithm::Optimal) || (cplex.getStatus() == IloAlgorithm::Feasible)){
             IloNum objValue = cplex.getObjValue();
@@ -263,7 +275,15 @@ void SolverCplex::implementFormulation(){
     //std::cout << "Time: " << time.getTimeInSecFromStart() << std::endl;
     varChargeTime =  time.getTimeInSecFromStart();
     time.setStart(ClockTime::getTimeNow());
-    setConstraints(formulation->getConstraints());
+    try {
+        setConstraints(formulation->getConstraints());
+        }
+    catch(IloException& ex) {
+        std::cerr << "Error: " << ex << std::endl;
+    }
+    catch(...) {
+        std::cerr << "Error: que pasa wey" << std::endl;
+    }
     //std::cout << "Time: " << time.getTimeInSecFromStart() << std::endl;
     constChargeTime = time.getTimeInSecFromStart();
     time.setStart(ClockTime::getTimeNow());
