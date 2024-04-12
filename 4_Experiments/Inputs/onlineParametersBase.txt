@@ -39,8 +39,8 @@ relaxMethod=0
 outputPath=../Parameters/Dump/
 outputLevel=0
 nbSlicesInOutputFile=320
-globalTimeLimit=7200
-timeLimit=7200
+globalTimeLimit=345600
+timeLimit=345600
 
 ******* Fields below are reserved for team LIMOS ********
 lagrangianMultiplier_zero=0 

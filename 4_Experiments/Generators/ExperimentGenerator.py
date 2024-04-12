@@ -12,12 +12,12 @@ for file in files:
         testSet.append([file,demandNumber.replace("_demands","")])
 
 solverSet = ["0"]
-formulationSet = ["0","2","3"]
-objSet = ["2","2p","4","8","10","1010"]
-maxReachSet=["0","1"]
-osnrSet=["0","1"]
-cutSet=["0","1"]
-TFlowSet=["0","1","2","3","4"]
+formulationSet = ["0","2"]
+objSet = ["2","2p","8","1010"]
+maxReachSet=["1"]
+osnrSet=["1"]
+cutSet=["0"]
+TFlowSet=["3"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()

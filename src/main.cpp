@@ -74,42 +74,6 @@ int main(int argc, char *argv[]) {
 			if ((instance.getInput().getOptimizationTimeLimit() - OPTIMIZATION_TIME.getTimeInSecFromStart()) < instance.getInput().getIterationTimeLimit()){
 				instance.setTimeLimit(std::max(0, instance.getInput().getOptimizationTimeLimit() - (int)OPTIMIZATION_TIME.getTimeInSecFromStart()));
 			}
-			/*
-			//AUXILIAR OUTPUT FILE
-			std::string obj2 = to_string(input.getChosenObj_k(0));
-			std::string formulation2 = to_string(input.getChosenFormulation());
-			if (input.getChosenFormulation() == 2){
-				formulation2 = formulation2 + to_string(input.getNonOverTFlow());
-			}
-			std::string maxReach2 = to_string(input.isMaxReachEnabled());
-			std::string minOsnr2 = to_string(input.isOSNREnabled());
-			std::string cuts2 = to_string(input.isUserCutsActivated());			
-			std::ofstream outfile2;
-			outfile2.open("started.csv", std::ios_base::app); // append instead of overwrite
-			//output for massive experiments
-			//removing junk from demand string
-			std::string instanceName2 = input.getTopologyFile();
-			size_t pos2 = instanceName2.find("Instances"); //find location of word
-    		instanceName2.erase(0,pos2); //delete everything prior to location found
-			std::string l3 = "_demands/Link.csv";
-			std::string l22 = "/Links";
-			std::string i2 = "Instances/";
-			instanceName2.erase(instanceName2.find(l3),l3.length()); //remove l from string
-			instanceName2.erase(instanceName2.find(l22),l22.length()); //remove l from string
-			instanceName2.erase(instanceName2.find(i2),i2.length()); //remove i from string			
-			int a2 = instanceName2.size();
-			// loop to traverse in the string
-			char b2 = '/';
-			char c2 = ';';
-			for (int i = 0; i < a2; i++) {
-				if(instanceName2[i] == b2){
-					instanceName2[i] = c2;
-				}
-			}
-			//opening file and writing
-  			outfile2 << "\n" + instanceName2 + ";" + obj2 +";"+ formulation2+ ";"+maxReach2+";"+
-				minOsnr2+";"+cuts2<<std::flush; 
-			*/
 			/********************************************************************/
 			/* 								Solve	 							*/
 			/********************************************************************/

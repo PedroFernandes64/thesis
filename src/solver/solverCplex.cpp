@@ -90,10 +90,10 @@ void SolverCplex::solve(){
         //outfile << "UB;LB;nodes;remainingNodes;time"<<std::endl; 
         //cplex.use(infocallback(cplex.getEnv(),outfile,cplex,timeStart));
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
-        std::ofstream fout("mylog.log");
-        cplex.setOut(fout);
-        cplex.setWarning(fout);
-        cplex.setError(fout);
+        //std::ofstream fout("mylog.log");
+        //cplex.setOut(fout);
+        //cplex.setWarning(fout);
+        //cplex.setError(fout);
         try {
             cplex.solve();
         }
@@ -235,8 +235,8 @@ void SolverCplex::exportFormulation(const Instance &instance){
 }
 
 void SolverCplex::setCplexParams(const Input &input){
-    cplex.setParam(IloCplex::Param::MIP::Display, 3);
-    cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 16384);
+    cplex.setParam(IloCplex::Param::MIP::Display, 4);
+    cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 57344);
     cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
     cplex.setParam(IloCplex::Param::Threads, 4);
 
