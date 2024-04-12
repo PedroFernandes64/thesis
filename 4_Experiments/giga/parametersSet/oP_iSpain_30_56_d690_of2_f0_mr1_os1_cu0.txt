@@ -1,5 +1,5 @@
 ******* Input File Paths *******
-topologyFile=Instances/Spain_30_56/Links/690_demandsLinks/Link.csv
+topologyFile=Instances/Spain_30_56/Links/690_demands/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
 demandToBeRoutedFolder=Instances/Spain_30_56/Demands/690_demands/

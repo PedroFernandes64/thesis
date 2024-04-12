@@ -40,7 +40,7 @@ for experiment in testSet:
     print(experiment)
     instanceName =experiment[0]
     demandsNumber = experiment[1]
-    stringLinks = "topologyFile=Instances/" + instanceName + "/Links/" + demandsNumber + "_demandsLinks" + "/Link.csv" "\n" 
+    stringLinks = "topologyFile=Instances/" + instanceName + "/Links/" + demandsNumber + "_demands" + "/Link.csv" "\n" 
     stringDemands = "demandToBeRoutedFolder=Instances/" + instanceName + "/Demands/" + demandsNumber + "_demands/\n"
     lines[1] = stringLinks
     lines[4] = stringDemands
