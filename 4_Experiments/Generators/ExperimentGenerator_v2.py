@@ -27,14 +27,14 @@ for linkStrategy in linkStrategies:
                 testSet.append(test)
 
 #testUnitVerifier(testSet)
-'''
+
 solverSet = ["0"]
 formulationSet = ["0","2","3"]
-objSet = ["2","2p","4","8","10","1010"]
-maxReachSet=["0","1"]
-osnrSet=["0","1"]
-cutSet=["0","1"]
-TFlowSet=["0","1","2","3","4"]
+objSet = ["1p","4","10"]
+maxReachSet=["1"]
+osnrSet=["1"]
+cutSet=["0"]
+TFlowSet=["3"]
 '''
 solverSet = ["0"]
 formulationSet = ["0","2","3"]
@@ -43,7 +43,7 @@ maxReachSet=["1"]
 osnrSet=["1"]
 cutSet=["0"]
 TFlowSet=["0","1","3","4"]
-
+'''
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()
     f.close() 
