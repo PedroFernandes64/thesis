@@ -29,10 +29,10 @@ for linkStrategy in linkStrategies:
 #testUnitVerifier(testSet)
 
 solverSet = ["0"]
-formulationSet = ["0"]
-objSet = ["2","2p","4","8","10"]
-maxReachSet=["0","1"]
-osnrSet=["0","1"]
+formulationSet = ["0","2","3"]
+objSet = ["1p","4","10"]
+maxReachSet=["1"]
+osnrSet=["1"]
 cutSet=["0"]
 TFlowSet=["3"]
 '''
@@ -166,7 +166,6 @@ for element in toClean:
     if element[0] == "j":
         os.remove("../Outputs/"+element)
 
-
 for batch in batchsList:
     parameters = os.listdir("../Outputs/parametersSet/"+batch)
     jobsRows = []
@@ -183,8 +182,12 @@ for batch in batchsList:
                 line = "#SBATCH --array=0-"+str(len(parameters)-1)+"             # création d'un tableau de "+str(len(parameters))+ " jobs indicés de 0 à "+str(len(parameters)-1)
                 f.write(str(line)+"\n")
             else:
-                line = row[0]
-                f.write(str(line)+"\n")
+                if counter == 9:
+                    line = "#SBATCH --output="+batch+"_%a      # modifie le nom du fichier de sortie par défaut"
+                    f.write(str(line)+"\n")
+                else:
+                    line = row[0]
+                    f.write(str(line)+"\n")
             counter = counter + 1
 
         f.write("\n")
