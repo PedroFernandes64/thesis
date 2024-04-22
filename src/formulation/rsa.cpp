@@ -136,7 +136,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     //if (this->getInstance().getInput().allPathsDataEnabled() == true){
     if (this->getInstance().getInput().isOSNREnabled() == true){
         std::cout << "Computing statistics of all paths" << std::endl;
-        //AllPaths();
+        AllPaths();
     }
     
     //PEDRO PEDRO PEDRO
