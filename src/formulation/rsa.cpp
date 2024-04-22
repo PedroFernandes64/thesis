@@ -1012,7 +1012,7 @@ double RSA::getCoeffObj10(const ListDigraph::Arc &a, int d){
     double paseLine = ceil(getArcPaseLineC(a,d)* pow(10,8)*100)/100; //ROUNDING
     double paseNode = ceil(instance.getPaseNodeC() * pow(10,8)*100)/100; //ROUNDING
     
-    return -(pnli+paseLine+paseNode);
+    return -((pnli+paseLine+paseNode)/getToBeRouted_k(d).getLoad());
 }
 
 

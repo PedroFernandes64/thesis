@@ -30,7 +30,7 @@ for linkStrategy in linkStrategies:
 
 solverSet = ["0"]
 formulationSet = ["0","2","3"]
-objSet = ["1p","4","10"]
+objSet = ["10"]
 maxReachSet=["1"]
 osnrSet=["1"]
 cutSet=["0"]

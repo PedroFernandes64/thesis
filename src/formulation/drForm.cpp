@@ -416,8 +416,8 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
                     double pnli = ceil(getCompactPnliC(e)* pow(10,8)*100)/100; //ROUNDING
                     double paseLine = ceil(getCompactPaseLineC(e)* pow(10,8)*100)/100; //ROUNDING
                     double paseNode = ceil(instance.getPaseNodeC() * pow(10,8)*100)/100; //ROUNDING
-                    Term term(y[edge][k], -(pnli + paseLine + paseNode));
-                    Term term2(y[edge + nbEdges][k], -(pnli + paseLine + paseNode));
+                    Term term(y[edge][k], -((pnli + paseLine + paseNode)/getToBeRouted_k(k).getLoad()));
+                    Term term2(y[edge + nbEdges][k], -((pnli + paseLine + paseNode)/getToBeRouted_k(k).getLoad()));
                     obj.addTerm(term);
                     obj.addTerm(term2);
                 }
