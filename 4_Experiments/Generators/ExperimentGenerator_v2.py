@@ -29,10 +29,10 @@ for linkStrategy in linkStrategies:
 #testUnitVerifier(testSet)
 
 solverSet = ["0"]
-formulationSet = ["0","2","3"]
-objSet = ["10"]
-maxReachSet=["1"]
-osnrSet=["1"]
+formulationSet = ["0"]
+objSet = ["2","2p","4","8","10"]
+maxReachSet=["0","1"]
+osnrSet=["0","1"]
 cutSet=["0"]
 TFlowSet=["3"]
 '''
