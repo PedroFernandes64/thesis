@@ -1517,7 +1517,7 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemFract(const std::vector
                     edgeId[e] = edgeCounter;
                     edgeLabel[e] = z[i][j].getId();
                     edgeWeight[e] = z[i][j].getVal();
-                    std::cout << "adding edge " << i + 1 << " " << j +1 << " com peso " << z[i][j].getVal() <<std::endl;
+                    //std::cout << "adding edge " << i + 1 << " " << j +1 << " com peso " << z[i][j].getVal() <<std::endl;
                 }
             }
         }
@@ -1602,7 +1602,8 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemFract(const std::vector
                                         }
                                     }
                                 }
-                                std::cout << "Clique "<< a << " " << b <<" " << c <<std::endl;
+                                //std::cout << "Clique "<< a << " " << b <<" " << c <<std::endl;
+                                Expression expr;
                                 int sliceLimit = getNbSlicesGlobalLimit();
                                 for (int s = 0; s < sliceLimit; s++){
                                     int sWk_1 = s + getToBeRouted_k(a).getLoad()-1;
@@ -1617,18 +1618,33 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemFract(const std::vector
                                     if (sWk_3 >= sliceLimit){
                                         sWk_3 = sliceLimit-1;
                                     }
+                                    double c_sum = 0.0;
                                     for (int sa = s; sa <= sWk_1; sa++){
-                                            std::cout<<"c("<<a<<"'"<<sa<<") + ";
+                                        //std::cout<<"c("<<a<<"'"<<sa<<") + ";
+                                        c_sum = c_sum + y[sa][a].getVal();
+                                        expr.addTerm(Term(y[sa][a], 1));
                                     }
                                     for (int sa = s; sa <= sWk_2; sa++){
-                                            std::cout<<"c("<<b<<"'"<<sa<<") + ";
+                                        //std::cout<<"c("<<b<<"'"<<sa<<") + ";
+                                        c_sum = c_sum + y[sa][b].getVal();
+                                        expr.addTerm(Term(y[sa][b], 1));
                                     }
                                     for (int sa = s; sa <= sWk_3; sa++){
-                                            std::cout<<"c("<<c<<"'"<<sa<<") + ";
+                                        //std::cout<<"c("<<c<<"'"<<sa<<") + ";
+                                        c_sum = c_sum + y[sa][c].getVal();
+                                        expr.addTerm(Term(y[sa][c], 1));
                                     }
                                     double k_sum = z[a][b].getVal() + z[a][c].getVal() + z[b][c].getVal();
+                                    expr.addTerm(Term(z[a][b], 1));
+                                    expr.addTerm(Term(z[a][c], 1));
+                                    expr.addTerm(Term(z[b][c], 1));
                                     //std::cout<<"k"<<a<<","<<b<<" + "<<"k"<<a<<","<<c<<" + "<<"k"<<b<<","<<b<<std::endl;
-                                    std::cout<<k_sum<<std::endl;
+                                    //std::cout<<k_sum << " + " << c_sum<<std::endl;
+                                    double sum = k_sum + c_sum;
+                                    if(sum>4){
+                                        cuts.push_back(Constraint(0, expr, 4, "name_to_do"));
+                                        //std::cout << "Adding user cut: " << expr.to_string() << " <= 4" << std::endl;
+                                    }
                                 }
 
                             }
