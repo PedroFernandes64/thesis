@@ -245,7 +245,7 @@ Expression EdgeNodeForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenO
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_1p:{
+        case Input::OBJECTIVE_METRIC_SLUS:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 Term term(maxSlicePerLink[edge], 1);
@@ -253,7 +253,7 @@ Expression EdgeNodeForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenO
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_2:{
+        case Input::OBJECTIVE_METRIC_SULD:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -263,7 +263,7 @@ Expression EdgeNodeForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenO
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_2p:{
+        case Input::OBJECTIVE_METRIC_TUS:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -273,7 +273,7 @@ Expression EdgeNodeForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenO
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_4:{
+        case Input::OBJECTIVE_METRIC_TRL:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -283,7 +283,7 @@ Expression EdgeNodeForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenO
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_8:{
+        case Input::OBJECTIVE_METRIC_NLUS:{
             Term term(maxSliceOverall, 1);
             obj.addTerm(term);
             break;

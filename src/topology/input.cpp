@@ -210,29 +210,29 @@ std::string Input::getObjName(ObjectiveMetric obj) const{
     case OBJECTIVE_METRIC_1:
         name = "obj_1";
         break;
-    case OBJECTIVE_METRIC_1p:
-        name = "obj_1p";
+    case OBJECTIVE_METRIC_SLUS:
+        name = "obj_slus";
         break;
-    case OBJECTIVE_METRIC_2:
-        name = "obj_2";
+    case OBJECTIVE_METRIC_SULD:
+        name = "obj_suld";
         break;
-    case OBJECTIVE_METRIC_2p:
-        name = "obj_2p";
+    case OBJECTIVE_METRIC_TUS:
+        name = "obj_tus";
         break;
-    case OBJECTIVE_METRIC_4:
-        name = "obj_4";
+    case OBJECTIVE_METRIC_TRL:
+        name = "obj_trl";
         break;
-    case OBJECTIVE_METRIC_4p:
-        name = "obj_4p";
+    case OBJECTIVE_METRIC_TUA:
+        name = "obj_tua";
         break;
-    case OBJECTIVE_METRIC_8:
-        name = "obj_8";
+    case OBJECTIVE_METRIC_NLUS:
+        name = "obj_nlus";
         break;
-    case OBJECTIVE_METRIC_10:
-        name = "obj_10";
+    case OBJECTIVE_METRIC_TOS:
+        name = "obj_tos";
         break;
-    case OBJECTIVE_METRIC_10p:
-        name = "obj_10p";
+    case OBJECTIVE_METRIC_ADS:
+        name = "obj_ads";
         break;
     default:
         std::cout << "ERROR: Unknown objective." << std::endl;
@@ -256,29 +256,29 @@ std::vector<Input::ObjectiveMetric> Input::to_ObjectiveMetric(std::string data){
         else if (strVec[i] == "1"){
             objVec.push_back(OBJECTIVE_METRIC_1);
         }
-        else if (strVec[i] == "1p"){
-            objVec.push_back(OBJECTIVE_METRIC_1p);
+        else if (strVec[i] == "SLUS"){
+            objVec.push_back(OBJECTIVE_METRIC_SLUS);
         }
-        else if (strVec[i] == "2"){
-            objVec.push_back(OBJECTIVE_METRIC_2);
+        else if (strVec[i] == "SULD"){
+            objVec.push_back(OBJECTIVE_METRIC_SULD);
         }
-        else if (strVec[i] == "2p"){
-            objVec.push_back(OBJECTIVE_METRIC_2p);
+        else if (strVec[i] == "TUS"){
+            objVec.push_back(OBJECTIVE_METRIC_TUS);
         }
-        else if (strVec[i] == "4"){
-            objVec.push_back(OBJECTIVE_METRIC_4);
+        else if (strVec[i] == "TRL"){
+            objVec.push_back(OBJECTIVE_METRIC_TRL);
         }
-        else if (strVec[i] == "4p"){
-            objVec.push_back(OBJECTIVE_METRIC_4p);
+        else if (strVec[i] == "TUA"){
+            objVec.push_back(OBJECTIVE_METRIC_TUA);
         }
-        else if (strVec[i] == "8"){
-            objVec.push_back(OBJECTIVE_METRIC_8);
+        else if (strVec[i] == "NLUS"){
+            objVec.push_back(OBJECTIVE_METRIC_NLUS);
         }
-        else if (strVec[i] == "10"){
-            objVec.push_back(OBJECTIVE_METRIC_10);
+        else if (strVec[i] == "TOS"){
+            objVec.push_back(OBJECTIVE_METRIC_TOS);
         }
-        else if (strVec[i] == "1010"){
-            objVec.push_back(OBJECTIVE_METRIC_10p);
+        else if (strVec[i] == "ADS"){
+            objVec.push_back(OBJECTIVE_METRIC_ADS);
         }
         else{
             std::cout << "ERROR: Invalid objective metric." << std::endl;
@@ -602,8 +602,8 @@ void Input::checkConsistency(){
         std::cout << "ERROR: Subgradient methods are implemented to solve only one objective function each time." << std::endl;
         exit(0);
     }
-    if((getChosenNodeMethod() != NODE_METHOD_LINEAR_RELAX) && (chosenObj[0]==OBJECTIVE_METRIC_1p)){
-        std::cout << "ERROR: Subgradient methods are not defined for objective 1p." << std::endl;
+    if((getChosenNodeMethod() != NODE_METHOD_LINEAR_RELAX) && (chosenObj[0]==OBJECTIVE_METRIC_SLUS)){
+        std::cout << "ERROR: Subgradient methods are not defined for objective SLUS." << std::endl;
         exit(0);
     }
     std::cout << "All information from input is consistent." << std::endl;
@@ -625,7 +625,7 @@ void Input::displayMainParameters(){
 }
 
 bool Input::isObj8(int i) const{ 
-    if (getChosenObj_k(i) == OBJECTIVE_METRIC_8){
+    if (getChosenObj_k(i) == OBJECTIVE_METRIC_NLUS){
         return true;
     }
     return false;

@@ -55,14 +55,14 @@ public:
 	enum ObjectiveMetric {
 		OBJECTIVE_METRIC_0 = 0,		/**< Minimize nothing, just search for a feasible solution. **/
 		OBJECTIVE_METRIC_1 = 1,		/**< Minimize the sum of (max used slice positions) over demands. **/
-		OBJECTIVE_METRIC_1p = 11,	/**< Minimize the sum of (max used slice positions) over edges. **/
-		OBJECTIVE_METRIC_2 = 2,		/**< Minimize the sum of (number of hops in paths) over demands. **/
-		OBJECTIVE_METRIC_2p = 3,	/**< Minimize the sum of occupied slices. **/
-		OBJECTIVE_METRIC_4 = 4,		/**< Minimize the path lengths. **/
-		OBJECTIVE_METRIC_4p = 44,	/**< Minimize the amplifiers. **/
-		OBJECTIVE_METRIC_8 = 8,		/**< Minimize the max used slice position overall. **/
-		OBJECTIVE_METRIC_10 = 10, 	/**< Minimize the sum of differences between the OSNR of a path ant the OSNR limit **/
-		OBJECTIVE_METRIC_10p = 1010 	/**< Minimize the weighted sum of rejected demands **/
+		OBJECTIVE_METRIC_SLUS = 11,	/**< Minimize the sum of (max used slice positions) over edges. **/
+		OBJECTIVE_METRIC_SULD = 2,		/**< Minimize the sum of (number of hops in paths) over demands. **/
+		OBJECTIVE_METRIC_TUS = 3,	/**< Minimize the sum of occupied slices. **/
+		OBJECTIVE_METRIC_TRL = 4,		/**< Minimize the path lengths. **/
+		OBJECTIVE_METRIC_TUA = 44,	/**< Minimize the amplifiers. **/
+		OBJECTIVE_METRIC_NLUS = 8,		/**< Minimize the max used slice position overall. **/
+		OBJECTIVE_METRIC_TOS = 10, 	/**< Minimize the sum of differences between the OSNR of a path ant the OSNR limit **/
+		OBJECTIVE_METRIC_ADS = 1010 	/**< Minimize the weighted sum of rejected demands **/
 	};
 
 	/** Enumerates the possible output policies to be used. **/

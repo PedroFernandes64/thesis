@@ -344,7 +344,7 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_1p:{
+        case Input::OBJECTIVE_METRIC_SLUS:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 Term term(maxSlicePerLink[edge], 1);
@@ -352,7 +352,7 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_2:{
+        case Input::OBJECTIVE_METRIC_SULD:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -364,7 +364,7 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_2p:{
+        case Input::OBJECTIVE_METRIC_TUS:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -376,7 +376,7 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_4:{
+        case Input::OBJECTIVE_METRIC_TRL:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -388,7 +388,7 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_4p:{
+        case Input::OBJECTIVE_METRIC_TUA:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -400,13 +400,13 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_8:{
+        case Input::OBJECTIVE_METRIC_NLUS:{
             Term term(maxSliceOverall, 1);
             obj.addTerm(term);
             break;
         }
 
-        case Input::OBJECTIVE_METRIC_10:{
+        case Input::OBJECTIVE_METRIC_TOS:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -422,7 +422,7 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             break;
         }
 
-        case Input::OBJECTIVE_METRIC_10p:{
+        case Input::OBJECTIVE_METRIC_ADS:{
             for (int k = 0; k < getNbDemandsToBeRouted(); k++){                
                 Term term(routedCBand[k], -getToBeRouted_k(k).getLoad());
                 obj.addTerm(term);
@@ -501,7 +501,7 @@ Constraint TFlowForm::getSourceConstraint_k(int k){
     Expression exp;
     int lowerBound = 1;
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_10p){
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_ADS){
         lowerBound = 0;
     }
     upperBound = 1;
@@ -551,7 +551,7 @@ Constraint TFlowForm::getSourceConstraint_k2(int k){
     }
     
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_10p){
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_ADS){
         for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
             Term term(y[s][k], -1);
             exp.addTerm(term);
@@ -662,7 +662,7 @@ Constraint TFlowForm::getTargetConstraint_k2(int k){
     Expression exp;
     int lowerBound = 1;
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_10p){
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_ADS){
         lowerBound = 0;
     }
     int upperBound = 1;
@@ -1483,174 +1483,208 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemFract(const std::vector
     //std::cout << "Solving separation problem fractional..." << std::endl;
     setVariableValues(solution);
     std::vector<Constraint> cuts;
-    ListGraph intersectionGraph;
-    CompactNodeMap nodeId(intersectionGraph);  
-    CompactNodeMap nodeLabel(intersectionGraph);
-    EdgeMap edgeId(intersectionGraph);
-    EdgeMap edgeLabel(intersectionGraph);
-    EdgeCost edgeWeight(intersectionGraph);
-    int edgeCounter = 0;
+    if(NonOverlappingType == 3){
+        ListGraph intersectionGraph;
+        CompactNodeMap nodeId(intersectionGraph);  
+        CompactNodeMap nodeLabel(intersectionGraph);
+        EdgeMap edgeId(intersectionGraph);
+        EdgeMap edgeLabel(intersectionGraph);
+        EdgeCost edgeWeight(intersectionGraph);
+        int edgeCounter = 0;
 
-    for (int i = 0; i < getNbDemandsToBeRouted(); i++){
-        ListGraph::Node n = intersectionGraph.addNode();
-        nodeLabel[n] = i;
-        nodeId[n] = intersectionGraph.id(n);
-    }
-    for (int i = 0; i < getNbDemandsToBeRouted(); i++){
-        for (int j = i + 1; j < getNbDemandsToBeRouted(); j++){
-            if(z[i][j].getVal() >= EPS){
-                int sourceLabel = i;
-                int targetLabel = j;
-                ListGraph::Node sourceNode = INVALID;
-                ListGraph::Node targetNode = INVALID;
-                for (ListGraph::NodeIt v(intersectionGraph); v != INVALID; ++v){
-                    if(nodeLabel[v] == sourceLabel){
-                        sourceNode = v;
+        for (int i = 0; i < getNbDemandsToBeRouted(); i++){
+            ListGraph::Node n = intersectionGraph.addNode();
+            nodeLabel[n] = i;
+            nodeId[n] = intersectionGraph.id(n);
+        }
+        for (int i = 0; i < getNbDemandsToBeRouted(); i++){
+            for (int j = i + 1; j < getNbDemandsToBeRouted(); j++){
+                if(z[i][j].getVal() >= EPS){
+                    int sourceLabel = i;
+                    int targetLabel = j;
+                    ListGraph::Node sourceNode = INVALID;
+                    ListGraph::Node targetNode = INVALID;
+                    for (ListGraph::NodeIt v(intersectionGraph); v != INVALID; ++v){
+                        if(nodeLabel[v] == sourceLabel){
+                            sourceNode = v;
+                        }
+                        if(nodeLabel[v] == targetLabel){
+                            targetNode = v;
+                        }
                     }
-                    if(nodeLabel[v] == targetLabel){
-                        targetNode = v;
+                    if (targetNode != INVALID && sourceNode != INVALID){
+                        edgeCounter = edgeCounter + 1;
+                        ListGraph::Edge e = intersectionGraph.addEdge(sourceNode, targetNode);
+                        edgeId[e] = edgeCounter;
+                        edgeLabel[e] = z[i][j].getId();
+                        edgeWeight[e] = z[i][j].getVal();
+                        //std::cout << "adding edge " << i + 1 << " " << j +1 << " com peso " << z[i][j].getVal() <<std::endl;
                     }
-                }
-                if (targetNode != INVALID && sourceNode != INVALID){
-                    edgeCounter = edgeCounter + 1;
-                    ListGraph::Edge e = intersectionGraph.addEdge(sourceNode, targetNode);
-                    edgeId[e] = edgeCounter;
-                    edgeLabel[e] = z[i][j].getId();
-                    edgeWeight[e] = z[i][j].getVal();
-                    //std::cout << "adding edge " << i + 1 << " " << j +1 << " com peso " << z[i][j].getVal() <<std::endl;
                 }
             }
         }
-    }
-    std::cout <<edgeCounter<<std::endl;
-    for (ListGraph::EdgeIt e(intersectionGraph); e != INVALID; ++e){ 
-        //std::cout << "avaliando edge " << nodeId[intersectionGraph.u(e)] << " " << nodeId[intersectionGraph.v(e)] <<std::endl;
-        int u = nodeId[intersectionGraph.u(e)];
-        int v = nodeId[intersectionGraph.v(e)];
-        for (ListGraph::EdgeIt e2(intersectionGraph); e2 != INVALID; ++e2){ 
-            //std::cout << "verificando intersecçao com edge " << nodeId[intersectionGraph.u(e2)] << " " << nodeId[intersectionGraph.v(e2)] <<std::endl;
-            if(e!=e2){
-                int u2 = nodeId[intersectionGraph.u(e2)];
-                int v2 = nodeId[intersectionGraph.v(e2)];
-                if((u==u2) ||(u==v2) ||(v==u2) ||(v==v2)){
-                    int missing1;
-                    int missing2;
-                    int common;
-                    if(u==u2){
-                        missing1 = v;
-                        missing2 = v2;
-                        common = u;
-                    }else{                    
-                        if(u==v2){
+        std::cout <<edgeCounter<<std::endl;
+        for (ListGraph::EdgeIt e(intersectionGraph); e != INVALID; ++e){ 
+            //std::cout << "avaliando edge " << nodeId[intersectionGraph.u(e)] << " " << nodeId[intersectionGraph.v(e)] <<std::endl;
+            int u = nodeId[intersectionGraph.u(e)];
+            int v = nodeId[intersectionGraph.v(e)];
+            for (ListGraph::EdgeIt e2(intersectionGraph); e2 != INVALID; ++e2){ 
+                //std::cout << "verificando intersecçao com edge " << nodeId[intersectionGraph.u(e2)] << " " << nodeId[intersectionGraph.v(e2)] <<std::endl;
+                if(e!=e2){
+                    int u2 = nodeId[intersectionGraph.u(e2)];
+                    int v2 = nodeId[intersectionGraph.v(e2)];
+                    if((u==u2) ||(u==v2) ||(v==u2) ||(v==v2)){
+                        int missing1;
+                        int missing2;
+                        int common;
+                        if(u==u2){
                             missing1 = v;
-                            missing2 = u2;
+                            missing2 = v2;
                             common = u;
-                        }else{
-                            if(v==u2){
-                                missing1 = u;
-                                missing2 = v2;
-                                common = v;
-                            }else{
-                                missing1 = u;
+                        }else{                    
+                            if(u==v2){
+                                missing1 = v;
                                 missing2 = u2;
-                                common = v;
+                                common = u;
+                            }else{
+                                if(v==u2){
+                                    missing1 = u;
+                                    missing2 = v2;
+                                    common = v;
+                                }else{
+                                    missing1 = u;
+                                    missing2 = u2;
+                                    common = v;
+                                }
                             }
                         }
-                    }
-                    //std::cout << "intersection!! " <<std::endl;
-                    for (ListGraph::EdgeIt e3(intersectionGraph); e3 != INVALID; ++e3){ 
-                        //std::cout << "verificando intersecçao com edge " << nodeId[intersectionGraph.u(e3)] << " " << nodeId[intersectionGraph.v(e3)] <<std::endl;
-                        if((e!=e2) && (e!=e3) && (e2!=e3)){
-                            int u3 = nodeId[intersectionGraph.u(e3)];
-                            int v3 = nodeId[intersectionGraph.v(e3)];
-                            if(((missing1==u3) && (missing2==v3)) ||((missing1==v3) && (missing2==u3))){
-                                int a;
-                                int b;
-                                int c;
-                                if((missing1<missing2)&&(missing1<common)&&(missing2<common)){
-                                    a =missing1;
-                                    b =missing2;
-                                    c =common;
-                                }else{
-                                    if((missing1<missing2)&&(missing1<common)&&(common<missing2)){
+                        //std::cout << "intersection!! " <<std::endl;
+                        for (ListGraph::EdgeIt e3(intersectionGraph); e3 != INVALID; ++e3){ 
+                            //std::cout << "verificando intersecçao com edge " << nodeId[intersectionGraph.u(e3)] << " " << nodeId[intersectionGraph.v(e3)] <<std::endl;
+                            if((e!=e2) && (e!=e3) && (e2!=e3)){
+                                int u3 = nodeId[intersectionGraph.u(e3)];
+                                int v3 = nodeId[intersectionGraph.v(e3)];
+                                if(((missing1==u3) && (missing2==v3)) ||((missing1==v3) && (missing2==u3))){
+                                    int a;
+                                    int b;
+                                    int c;
+                                    if((missing1<missing2)&&(missing1<common)&&(missing2<common)){
                                         a =missing1;
-                                        b =common;
-                                        c =missing2;
+                                        b =missing2;
+                                        c =common;
                                     }else{
-                                        if((missing2<missing1)&&(missing2<common)&&(missing1<common)){
-                                            a =missing2;
-                                            b =missing1;
-                                            c =common;
+                                        if((missing1<missing2)&&(missing1<common)&&(common<missing2)){
+                                            a =missing1;
+                                            b =common;
+                                            c =missing2;
                                         }else{
-                                            if((missing2<missing1)&&(missing2<common)&&(common<missing1)){
+                                            if((missing2<missing1)&&(missing2<common)&&(missing1<common)){
                                                 a =missing2;
-                                                b =common;
-                                                c =missing1;
+                                                b =missing1;
+                                                c =common;
                                             }else{
-                                                if((common<missing1)&&(common<missing2)&&(missing1<missing2)){
-                                                    a =common;
-                                                    b =missing1;
-                                                    c =missing2;
+                                                if((missing2<missing1)&&(missing2<common)&&(common<missing1)){
+                                                    a =missing2;
+                                                    b =common;
+                                                    c =missing1;
                                                 }else{
-                                                    if((common<missing1)&&(common<missing2)&&(missing2<missing1)){
+                                                    if((common<missing1)&&(common<missing2)&&(missing1<missing2)){
                                                         a =common;
-                                                        b =missing2;
-                                                        c =missing1;
+                                                        b =missing1;
+                                                        c =missing2;
+                                                    }else{
+                                                        if((common<missing1)&&(common<missing2)&&(missing2<missing1)){
+                                                            a =common;
+                                                            b =missing2;
+                                                            c =missing1;
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
-                                }
-                                //std::cout << "Clique "<< a << " " << b <<" " << c <<std::endl;
-                                Expression expr;
-                                int sliceLimit = getNbSlicesGlobalLimit();
-                                for (int s = 0; s < sliceLimit; s++){
-                                    int sWk_1 = s + getToBeRouted_k(a).getLoad()-1;
-                                    if (sWk_1 >= sliceLimit){
-                                        sWk_1 = sliceLimit-1;
+                                    //std::cout << "Clique "<< a << " " << b <<" " << c <<std::endl;
+                                    Expression expr;
+                                    int sliceLimit = getNbSlicesGlobalLimit();
+                                    for (int s = 0; s < sliceLimit; s++){
+                                        int sWk_1 = s + getToBeRouted_k(a).getLoad()-1;
+                                        if (sWk_1 >= sliceLimit){
+                                            sWk_1 = sliceLimit-1;
+                                        }
+                                        int sWk_2 = s + getToBeRouted_k(b).getLoad()-1;
+                                        if (sWk_2 >= sliceLimit){
+                                            sWk_2 = sliceLimit-1;
+                                        }
+                                        int sWk_3 = s + getToBeRouted_k(c).getLoad()-1;
+                                        if (sWk_3 >= sliceLimit){
+                                            sWk_3 = sliceLimit-1;
+                                        }
+                                        double c_sum = 0.0;
+                                        for (int sa = s; sa <= sWk_1; sa++){
+                                            //std::cout<<"c("<<a<<"'"<<sa<<") + ";
+                                            c_sum = c_sum + y[sa][a].getVal();
+                                            expr.addTerm(Term(y[sa][a], 1));
+                                        }
+                                        for (int sa = s; sa <= sWk_2; sa++){
+                                            //std::cout<<"c("<<b<<"'"<<sa<<") + ";
+                                            c_sum = c_sum + y[sa][b].getVal();
+                                            expr.addTerm(Term(y[sa][b], 1));
+                                        }
+                                        for (int sa = s; sa <= sWk_3; sa++){
+                                            //std::cout<<"c("<<c<<"'"<<sa<<") + ";
+                                            c_sum = c_sum + y[sa][c].getVal();
+                                            expr.addTerm(Term(y[sa][c], 1));
+                                        }
+                                        double k_sum = z[a][b].getVal() + z[a][c].getVal() + z[b][c].getVal();
+                                        expr.addTerm(Term(z[a][b], 1));
+                                        expr.addTerm(Term(z[a][c], 1));
+                                        expr.addTerm(Term(z[b][c], 1));
+                                        //std::cout<<"k"<<a<<","<<b<<" + "<<"k"<<a<<","<<c<<" + "<<"k"<<b<<","<<b<<std::endl;
+                                        //std::cout<<k_sum << " + " << c_sum<<std::endl;
+                                        double sum = k_sum + c_sum;
+                                        if(sum>4){
+                                            cuts.push_back(Constraint(0, expr, 4, "cut_tflow3"));
+                                            std::cout << "cut a " << std::endl;
+                                            //std::cout << "Adding user cut: " << expr.to_string() << " <= 4" << std::endl;
+                                        }
                                     }
-                                    int sWk_2 = s + getToBeRouted_k(b).getLoad()-1;
-                                    if (sWk_2 >= sliceLimit){
-                                        sWk_2 = sliceLimit-1;
-                                    }
-                                    int sWk_3 = s + getToBeRouted_k(c).getLoad()-1;
-                                    if (sWk_3 >= sliceLimit){
-                                        sWk_3 = sliceLimit-1;
-                                    }
-                                    double c_sum = 0.0;
-                                    for (int sa = s; sa <= sWk_1; sa++){
-                                        //std::cout<<"c("<<a<<"'"<<sa<<") + ";
-                                        c_sum = c_sum + y[sa][a].getVal();
-                                        expr.addTerm(Term(y[sa][a], 1));
-                                    }
-                                    for (int sa = s; sa <= sWk_2; sa++){
-                                        //std::cout<<"c("<<b<<"'"<<sa<<") + ";
-                                        c_sum = c_sum + y[sa][b].getVal();
-                                        expr.addTerm(Term(y[sa][b], 1));
-                                    }
-                                    for (int sa = s; sa <= sWk_3; sa++){
-                                        //std::cout<<"c("<<c<<"'"<<sa<<") + ";
-                                        c_sum = c_sum + y[sa][c].getVal();
-                                        expr.addTerm(Term(y[sa][c], 1));
-                                    }
-                                    double k_sum = z[a][b].getVal() + z[a][c].getVal() + z[b][c].getVal();
-                                    expr.addTerm(Term(z[a][b], 1));
-                                    expr.addTerm(Term(z[a][c], 1));
-                                    expr.addTerm(Term(z[b][c], 1));
-                                    //std::cout<<"k"<<a<<","<<b<<" + "<<"k"<<a<<","<<c<<" + "<<"k"<<b<<","<<b<<std::endl;
-                                    //std::cout<<k_sum << " + " << c_sum<<std::endl;
-                                    double sum = k_sum + c_sum;
-                                    if(sum>4){
-                                        cuts.push_back(Constraint(0, expr, 4, "name_to_do"));
-                                        //std::cout << "Adding user cut: " << expr.to_string() << " <= 4" << std::endl;
-                                    }
-                                }
 
+                                }
                             }
                         }
                     }
                 }
+            }
+        }
+    }
+    //std::cout << "Solving separation problem fractional..." << std::endl;
+    int nbEdges = countEdges(compactGraph);
+    int sliceLimit = getNbSlicesGlobalLimit();
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        for (int s = 0; s < sliceLimit; s++){
+            Expression expr;
+            int nbElementsC = 0;
+            for (int k = 0; k < getNbDemandsToBeRouted(); ++k){
+                int sWk_1 = s + getToBeRouted_k(k).getLoad()-1;
+                if (sWk_1 >= sliceLimit){
+                    sWk_1 = sliceLimit-1;
+                }
+                if (x[edge][k].getVal() >= 1 - EPS || x[edge + nbEdges][k].getVal() >= 1 - EPS){
+                    for (int sa = s; sa <= sWk_1; sa++){
+                        if (y[sa][k].getVal() >= 1 - EPS){
+                            expr.addTerm(Term(x[edge][k], 1));
+                            expr.addTerm(Term(x[edge+nbEdges][k], 1));
+                            expr.addTerm(Term(y[sa][k], 1));
+                            nbElementsC = nbElementsC + 1;
+                        }
+                    }
+                }
+            }
+            if(nbElementsC > 1){
+                cuts.push_back(Constraint(0, expr, nbElementsC + 1, "cut_tflow"));
+                std::cout << "cut b " << std::endl;
+                //std::cout << "Adding user cut: " << expr.to_string() << " <= "  << nbElementsC + 1<< std::endl;
             }
         }
     }

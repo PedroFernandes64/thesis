@@ -41,7 +41,7 @@ std::vector<double> SolverCplex::getSolution(){
 CPXLONG SolverCplex::context(Input::ObjectiveMetric obj, const Input &i){ 
     CPXLONG contextMask = 0;
 
-    if (obj == Input::OBJECTIVE_METRIC_8){
+    if (obj == Input::OBJECTIVE_METRIC_NLUS){
         contextMask |= IloCplex::Callback::Context::Id::Relaxation;
     }
     if(i.getChosenFormulation() == Input::FORMULATION_EDGE_NODE){

@@ -346,7 +346,7 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
             }
         break;
         }
-        case Input::OBJECTIVE_METRIC_1p:{
+        case Input::OBJECTIVE_METRIC_SLUS:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 Term term(maxSlicePerLink[edge], 1);
@@ -355,7 +355,7 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_2:{
+        case Input::OBJECTIVE_METRIC_SULD:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -367,7 +367,7 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_2p:{
+        case Input::OBJECTIVE_METRIC_TUS:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int d = 0; d < getNbDemandsToBeRouted(); d++){
@@ -379,7 +379,7 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_4:{
+        case Input::OBJECTIVE_METRIC_TRL:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int d = 0; d < getNbDemandsToBeRouted(); d++){
@@ -391,7 +391,7 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_4p:{
+        case Input::OBJECTIVE_METRIC_TUA:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -403,13 +403,13 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_8:{
+        case Input::OBJECTIVE_METRIC_NLUS:{
             Term term(maxSliceOverall, 1);
             obj.addTerm(term);
             break;
         }
 
-        case Input::OBJECTIVE_METRIC_10:{
+        case Input::OBJECTIVE_METRIC_TOS:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -425,7 +425,7 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
             break;
         }
 
-        case Input::OBJECTIVE_METRIC_10p:{
+        case Input::OBJECTIVE_METRIC_ADS:{
             for (int k = 0; k < getNbDemandsToBeRouted(); k++){                
                 Term term(routedCBand[k], -getToBeRouted_k(k).getLoad());
                 obj.addTerm(term);
@@ -685,7 +685,7 @@ Constraint DrFormulation::getOriginConstraint_k(int k,const ListGraph::Node &v){
         }
     }
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_10p){
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_ADS){
         upperBound = 0;
     }
     std::ostringstream constraintName;
@@ -772,7 +772,7 @@ Constraint DrFormulation::getTargetConstraint_k(int d, const ListGraph::Node &v)
         }
     }
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_10p){
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_ADS){
         lowerBound = 0;
     }
     //std::cout << exp.to_string() << std::endl; 

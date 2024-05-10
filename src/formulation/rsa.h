@@ -255,25 +255,25 @@ public:
     double getCoeffObj1(const ListDigraph::Arc &a, int d);
 
     /** Returns the coefficient of an arc according to metric 1p on a graph. @param a The arc. @param d The graph index. \note Min sum(max used slice positions) over edges. **/
-    double getCoeffObj1p(const ListDigraph::Arc &a, int d);
+    double getCoeffObjSLUS(const ListDigraph::Arc &a, int d);
 
     /** Returns the coefficient of an arc according to metric 2 on a graph. @param a The arc. @param d The graph index. \note Min number of hops (number of edges in path). **/
-    double getCoeffObj2(const ListDigraph::Arc &a, int d);
+    double getCoeffObjSULD(const ListDigraph::Arc &a, int d);
 
     /** Returns the coefficient of an arc according to metric 2p on a graph. @param a The arc. @param d The graph index. \note Min number of hops (number of edges in path). **/
-    double getCoeffObj2p(const ListDigraph::Arc &a, int d);
+    double getCoeffObjTUS(const ListDigraph::Arc &a, int d);
 
     /** Returns the coefficient of an arc according to metric 4 on a graph. @param a The arc. @param d The graph index. \note Min path lengths. **/
-    double getCoeffObj4(const ListDigraph::Arc &a, int d);
+    double getCoeffObjTRL(const ListDigraph::Arc &a, int d);
 
     /** Returns the coefficient of an arc according to metric 4p on a graph. @param a The arc. @param d The graph index. \note Min path lengths. **/
-    double getCoeffObj4p(const ListDigraph::Arc &a, int d);
+    double getCoeffObjTUA(const ListDigraph::Arc &a, int d);
 
     /** Returns the coefficient of an arc according to metric 8 on a graph. @param a The arc. @param d The graph index. \note Min max global used slice position. **/
-    double getCoeffObj8(const ListDigraph::Arc &a, int d);
+    double getCoeffObjNLUS(const ListDigraph::Arc &a, int d);
 
     /** Returns the coefficient of an arc according to metric 10 on a graph. @param a The arc. @param d The graph index. \note Min path lengths. **/
-    double getCoeffObj10(const ListDigraph::Arc &a, int d);
+    double getCoeffObjTOS(const ListDigraph::Arc &a, int d);
 
 	/** Returns the algorithm status. **/
     Status getStatus() const { return currentStatus; }

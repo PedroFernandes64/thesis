@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../4_Experiments/Outputs/Instances/1x/efficient/European_18_40/Links/50_demands/Link.csv
+topologyFile=../4_Experiments/giga/Instances/European_18_40/Links/48_demands/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../4_Experiments/Outputs/Instances/1x/efficient/European_18_40/Demands/50_demands
+demandToBeRoutedFolder=../4_Experiments/giga/Instances/European_18_40/Demands/48_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -13,13 +13,13 @@ GNPY_equipmentFile=../oopt-gnpy/gnpy/example-data/spain_eqpt_config.json
 MaxReach_activation=1
 OSNR_activation=1
 Bands=1
-TFlow_Policy=3
+TFlow_Policy=4
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
-formulation=0
-userCuts=0
-obj=2p
+formulation=2
+userCuts=1
+obj=TUS
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0

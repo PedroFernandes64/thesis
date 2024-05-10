@@ -949,7 +949,7 @@ double RSA::getCoeffObj1(const ListDigraph::Arc &a, int d){
 }
 
 /* Returns the coefficient of an arc according to metric 1p on graph #d. */
-double RSA::getCoeffObj1p(const ListDigraph::Arc &a, int d){
+double RSA::getCoeffObjSLUS(const ListDigraph::Arc &a, int d){
     double coeff = 0.0;
     int arcLabel = getArcLabel(a, d);
     int arcSlice = getArcSlice(a, d);
@@ -964,29 +964,29 @@ double RSA::getCoeffObj1p(const ListDigraph::Arc &a, int d){
 }
 
 /* Returns the coefficient of an arc according to metric 2 on graph #d. */
-double RSA::getCoeffObj2(const ListDigraph::Arc &a, int d){
+double RSA::getCoeffObjSULD(const ListDigraph::Arc &a, int d){
     double coeff = 1.0;
     return coeff;
 }
 
 /* Returns the coefficient of an arc according to metric 2p on graph #d. */
-double RSA::getCoeffObj2p(const ListDigraph::Arc &a, int d){
+double RSA::getCoeffObjTUS(const ListDigraph::Arc &a, int d){
     double coeff = getToBeRouted_k(d).getLoad();
     return coeff;
 }
 
 /* Returns the coefficient of an arc according to metric 4 on graph #d. */
-double RSA::getCoeffObj4(const ListDigraph::Arc &a, int d){
+double RSA::getCoeffObjTRL(const ListDigraph::Arc &a, int d){
     return getArcLength(a, d);
 }
 
 /* Returns the coefficient of an arc according to metric 4p on graph #d. */
-double RSA::getCoeffObj4p(const ListDigraph::Arc &a, int d){
+double RSA::getCoeffObjTUA(const ListDigraph::Arc &a, int d){
     return getArcLineAmplifiers(a, d);
 }
 
 /* Returns the coefficient of an arc according to metric 8 on graph #d. */
-double RSA::getCoeffObj8(const ListDigraph::Arc &a, int d){
+double RSA::getCoeffObjNLUS(const ListDigraph::Arc &a, int d){
     double coeff = 0.0;
     int maxSliceUsed = instance.getMaxUsedSlicePosition();
     int arcSlice = getArcSlice(a, d);
@@ -1007,7 +1007,7 @@ double RSA::getCoeffObj8(const ListDigraph::Arc &a, int d){
 }
 
 /* Returns the coefficient of an arc according to metric 4p on graph #d. */
-double RSA::getCoeffObj10(const ListDigraph::Arc &a, int d){
+double RSA::getCoeffObjTOS(const ListDigraph::Arc &a, int d){
     double pnli = ceil(getArcPnliC(a,d)* pow(10,8)*100)/100; //ROUNDING
     double paseLine = ceil(getArcPaseLineC(a,d)* pow(10,8)*100)/100; //ROUNDING
     double paseNode = ceil(instance.getPaseNodeC() * pow(10,8)*100)/100; //ROUNDING
@@ -1030,39 +1030,39 @@ double RSA::getCoeff(const ListDigraph::Arc &a, int d){
             coeff = getCoeffObj1(a, d);
             break;
         }
-        case Input::OBJECTIVE_METRIC_1p:
+        case Input::OBJECTIVE_METRIC_SLUS:
         {
-            coeff = getCoeffObj1p(a, d);
+            coeff = getCoeffObjSLUS(a, d);
             break;
         }
-        case Input::OBJECTIVE_METRIC_2:
+        case Input::OBJECTIVE_METRIC_SULD:
         {
-            coeff = getCoeffObj2(a, d);
+            coeff = getCoeffObjSULD(a, d);
             break;
         }
-        case Input::OBJECTIVE_METRIC_2p:
+        case Input::OBJECTIVE_METRIC_TUS:
         {
-            coeff = getCoeffObj2p(a, d);
+            coeff = getCoeffObjTUS(a, d);
             break;
         }
-        case Input::OBJECTIVE_METRIC_4:
+        case Input::OBJECTIVE_METRIC_TRL:
         {
-            coeff = getCoeffObj4(a, d);
+            coeff = getCoeffObjTRL(a, d);
             break;
         }
-        case Input::OBJECTIVE_METRIC_4p:
+        case Input::OBJECTIVE_METRIC_TUA:
         {
-            coeff = getCoeffObj4p(a, d);
+            coeff = getCoeffObjTUA(a, d);
             break;
         }
-        case Input::OBJECTIVE_METRIC_8:
+        case Input::OBJECTIVE_METRIC_NLUS:
         {
-            coeff = getCoeffObj8(a, d);
+            coeff = getCoeffObjNLUS(a, d);
             break;
         }
-        case Input::OBJECTIVE_METRIC_10:
+        case Input::OBJECTIVE_METRIC_TOS:
         {
-            coeff = getCoeffObj10(a, d);
+            coeff = getCoeffObjTOS(a, d);
             break;
         }
         default:

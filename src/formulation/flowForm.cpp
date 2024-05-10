@@ -247,7 +247,7 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
         }
         break;
         }
-    case Input::OBJECTIVE_METRIC_1p:
+    case Input::OBJECTIVE_METRIC_SLUS:
         {
         for (int i = 0; i < instance.getNbEdges(); i++){
             Term term(maxSlicePerLink[i], 1);
@@ -255,74 +255,74 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
         }
         break;
         }
-    case Input::OBJECTIVE_METRIC_2:
+    case Input::OBJECTIVE_METRIC_SULD:
         {
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
             for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
                 int arc = getArcIndex(a, d);
-                double coeff = getCoeffObj2(a, d);
+                double coeff = getCoeffObjSULD(a, d);
                 Term term(x[d][arc], coeff);
                 obj.addTerm2(term);
             }
         }
         break;
         }
-    case Input::OBJECTIVE_METRIC_2p:
+    case Input::OBJECTIVE_METRIC_TUS:
         {
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
             for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
                 int arc = getArcIndex(a, d);
-                double coeff = getCoeffObj2p(a, d);
+                double coeff = getCoeffObjTUS(a, d);
                 Term term(x[d][arc], coeff);
                 obj.addTerm2(term);
             }
         }
         break;
         }
-    case Input::OBJECTIVE_METRIC_4:
+    case Input::OBJECTIVE_METRIC_TRL:
         {
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
             for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
                 int arc = getArcIndex(a, d);
-                double coeff = getCoeffObj4(a, d);
+                double coeff = getCoeffObjTRL(a, d);
                 Term term(x[d][arc], coeff);
                 obj.addTerm2(term);
             }
         }
         break;
         }
-    case Input::OBJECTIVE_METRIC_4p:
+    case Input::OBJECTIVE_METRIC_TUA:
         {
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
             for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
                 int arc = getArcIndex(a, d);
-                double coeff = getCoeffObj4p(a, d);
+                double coeff = getCoeffObjTUA(a, d);
                 Term term(x[d][arc], coeff);
                 obj.addTerm2(term);
             }
         }
         break;
         }
-    case Input::OBJECTIVE_METRIC_8:
+    case Input::OBJECTIVE_METRIC_NLUS:
         {
         Term term(maxSliceOverall, 1);
         obj.addTerm2(term);
         break;
         }
 
-    case Input::OBJECTIVE_METRIC_10:
+    case Input::OBJECTIVE_METRIC_TOS:
         {
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
             for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
                 int arc = getArcIndex(a, d);
-                double coeff = getCoeffObj10(a, d);
+                double coeff = getCoeffObjTOS(a, d);
                 Term term(x[d][arc], coeff);
                 obj.addTerm2(term);
             }
         }
         break;
         }
-    case Input::OBJECTIVE_METRIC_10p:
+    case Input::OBJECTIVE_METRIC_ADS:
         {
         for (int k = 0; k < getNbDemandsToBeRouted(); k++){                
             Term term(routedCBand[k], -getToBeRouted_k(k).getLoad());
@@ -412,7 +412,7 @@ Constraint FlowForm::getSourceConstraint_d_n(const Demand & demand, int d, int n
         upperBound = 0;
     }
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_10p){
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_ADS){
         lowerBound = 0;
     }
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
@@ -478,7 +478,7 @@ Constraint FlowForm::getTargetConstraint_d(const Demand & demand, int d){
         }
     }
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_10p){
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_ADS){
         lhs = 0;
     }
     std::ostringstream constraintName;
