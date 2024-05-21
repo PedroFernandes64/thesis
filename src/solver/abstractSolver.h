@@ -84,10 +84,14 @@ public:
 	int getNbVariable(){ return formulation->getNbVar(); }
     int getNbConstraint(){ return formulation->getNbConstraint(); }
 	int getPossiblePaths(){ return formulation->getPossiblePaths(); }
-    int getFeasiblePaths(){ return formulation->getFeasiblePaths(); }
-    int getOsnrFeasiblePaths(){ return formulation->getOsnrFeasiblePaths(); }
-    int getReachFeasiblePaths(){ return formulation->getReachFeasiblePaths(); }
-    int getInfeasiblePaths(){ return formulation->getInfeasiblePaths(); }
+    int getFeasiblePathsC(){ return formulation->getFeasiblePathsC(); }
+    int getOsnrFeasiblePathsC(){ return formulation->getOsnrFeasiblePathsC(); }
+    int getReachFeasiblePathsC(){ return formulation->getReachFeasiblePathsC(); }
+    int getInfeasiblePathsC(){ return formulation->getInfeasiblePathsC(); }
+	int getFeasiblePathsL(){ return formulation->getFeasiblePathsL(); }
+    int getOsnrFeasiblePathsL(){ return formulation->getOsnrFeasiblePathsL(); }
+    int getReachFeasiblePathsL(){ return formulation->getReachFeasiblePathsL(); }
+    int getInfeasiblePathsL(){ return formulation->getInfeasiblePathsL(); }
 
 	/****************************************************************************************/
 	/*											Setters										*/

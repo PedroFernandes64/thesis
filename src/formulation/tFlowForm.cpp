@@ -7,7 +7,11 @@
 /* Constructor. Builds the Online RSA mixed-integer program and solves it using a defined solver (CPLEX or SCIP). */
 TFlowForm::TFlowForm(const Instance &instance) : AbstractFormulation(instance){
     //Seting type of non overlapping constraints and variables
-    this->setNonOverlappingType();
+    this->setNonOverlappingType();   
+    slicesC = instance.getTabEdge()[0].getNbSlicesC();
+    slicesL = instance.getTabEdge()[0].getNbSlicesL();
+    slicesTotal = slicesC + slicesL;
+
     ClockTime time(ClockTime::getTimeNow());
     ClockTime time2(ClockTime::getTimeNow());
     std::cout << "--- T-Flow formulation has been chosen. " << displayDimensions() << " ---" << std::endl;
@@ -41,10 +45,21 @@ void TFlowForm::setVariables(){
     if((NonOverlappingType == 3) ||(NonOverlappingType == 4) ){
         this->setAuxiliaryVariables();
     }
-
-    this->setMaxUsedSlicePerEdgeVariables();
-    this->setMaxUsedSliceOverallVariable();
-    this->setCBandRoutingVariable();
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
+        this->setMaxUsedSlicePerEdgeVariables();
+    }
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+        this->setMaxUsedSliceOverallVariable();
+    }
+    //if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_ADS){
+    //    this->setAcceptedDemandVariable();
+    //}
+    if(nbBands>1){                              // IF OF
+        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
+            this->setMultibandVariables();
+        }
+    }
     std::cout << "T-Flow variables have been defined..." << std::endl; 
 }
 
@@ -98,9 +113,8 @@ void TFlowForm::setFlowVariables(){
 
 void TFlowForm::setChannelVariables(){
     // Variables y[s][d]
-    int sliceLimit = getNbSlicesGlobalLimit();
-    y.resize(sliceLimit);
-    for (int s = 0; s < sliceLimit; s++){
+    y.resize(slicesTotal);
+    for (int s = 0; s < slicesTotal; s++){
         y[s].resize(getNbDemandsToBeRouted());  
         for (int k = 0; k < getNbDemandsToBeRouted(); k++){
             std::ostringstream varName;
@@ -153,7 +167,7 @@ void TFlowForm::setMaxUsedSlicePerEdgeVariables(){
         int edge = getCompactEdgeLabel(e);
         std::string varName = "maxSlice(" + std::to_string(edge) + ")";
         int lowerBound = std::max(0,instance.getPhysicalLinkFromIndex(edge).getMaxUsedSlicePosition());
-        int upperBound = getNbSlicesGlobalLimit();
+        int upperBound = slicesTotal;
         int varId = getNbVar();
         if (instance.getInput().isRelaxed()){
             maxSlicePerLink[edge] = Variable(varId, lowerBound, upperBound, Variable::TYPE_REAL, 0, varName);
@@ -169,7 +183,7 @@ void TFlowForm::setMaxUsedSliceOverallVariable(){
     // Max slice overall
     std::string varName = "maxSliceOverall";
     int lowerBound = std::max(0,instance.getMaxUsedSlicePosition());
-    int upperBound = getNbSlicesGlobalLimit();
+    int upperBound = slicesTotal;
     int varId = getNbVar();
     if (instance.getInput().isRelaxed()){
         maxSliceOverall = Variable(varId, lowerBound, upperBound, Variable::TYPE_REAL, 0, varName);
@@ -180,22 +194,41 @@ void TFlowForm::setMaxUsedSliceOverallVariable(){
     incNbVar();
 }
 
-void TFlowForm::setCBandRoutingVariable(){
+void TFlowForm::setMultibandVariables(){
     // C Band routing variables
-    routedCBand.resize(getNbDemandsToBeRouted());
-    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        std::ostringstream varName;
-        varName << "C";
-        varName << "(" +  std::to_string(getToBeRouted_k(k).getId() + 1) + ")";
+    int nbEdges = countEdges(compactGraph);
+    l.resize(nbEdges);
+    l2.resize(nbEdges);
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        std::string varName = "l(" + std::to_string(edge+1) + ")";
+        int lowerBound = 0;
         int upperBound = 1;
         int varId = getNbVar();
-        if(instance.getInput().isRelaxed()){
-            routedCBand[k] = Variable(varId, 0, upperBound, Variable::TYPE_REAL, 0, varName.str());
+        if (instance.getInput().isRelaxed()){
+            l[edge] = Variable(varId, lowerBound, upperBound, Variable::TYPE_REAL, 0, varName);
         }
         else{
-            routedCBand[k] = Variable(varId, 0, upperBound, Variable::TYPE_BOOLEAN, 0, varName.str());
-        }   
+            l[edge] = Variable(varId, lowerBound, upperBound, Variable::TYPE_INTEGER, 0, varName);
+        }
+        incNbVar();
+        l2[edge].resize(getNbDemandsToBeRouted()); 
+        for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+            std::ostringstream varName;
+            varName << "l2";
+            varName << "(" +  std::to_string(getToBeRouted_k(k).getId() + 1) + "," ;
+            varName <<  std::to_string(edge+1) + ")";
+            int upperBound = 1;
+            int varId = getNbVar();
+            if(instance.getInput().isRelaxed()){
+                l2[edge][k] = Variable(varId, 0, upperBound, Variable::TYPE_REAL, 0, varName.str());
+            }
+            else{
+                l2[edge][k] = Variable(varId, 0, upperBound, Variable::TYPE_BOOLEAN, 0, varName.str());
+            }
             incNbVar();
+        }
+
     }
 }
 
@@ -217,8 +250,7 @@ VarArray TFlowForm::getVariables(){
     }
     
     // Variables y[s][d]
-    int sliceLimit = getNbSlicesGlobalLimit();
-    for (int s = 0; s < sliceLimit; s++){
+    for (int s = 0; s < slicesTotal; s++){
         for (int k = 0; k < getNbDemandsToBeRouted(); k++){
             int pos = y[s][k].getId();
             vec[pos] = y[s][k];
@@ -234,24 +266,41 @@ VarArray TFlowForm::getVariables(){
         }
     }
     
-        
-    // Max slice variables
-    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-        int edge = getCompactEdgeLabel(e);
-        int pos = maxSlicePerLink[edge].getId();
-        vec[pos] = maxSlicePerLink[edge];
-    }  
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){    
+        // Max slice variables
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            int pos = maxSlicePerLink[edge].getId();
+            vec[pos] = maxSlicePerLink[edge];
+        }  
+    }
 
-    // Max slice overall
-    int pos = maxSliceOverall.getId();
-    vec[pos] = maxSliceOverall;
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+        // Max slice overall
+        int pos = maxSliceOverall.getId();
+        vec[pos] = maxSliceOverall;
+    }
 
-    // C Band routing variables
-    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        int pos = routedCBand[k].getId();
-        vec[pos] = routedCBand[k];
-    }  
-
+    if(nbBands>1){
+        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
+        // multiband variables
+            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                int edge = getCompactEdgeLabel(e);
+                int pos = l[edge].getId();
+                vec[pos] = l[edge];
+            }  
+            
+            // multiband variables
+            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){ 
+                int edge = getCompactEdgeLabel(e);
+                for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+                    int pos = l2[edge][k].getId();
+                    vec[pos] = l2[edge][k];
+                }
+            }
+        }
+    }
     return vec;
 }
 
@@ -271,7 +320,7 @@ void TFlowForm::setVariableValues(const std::vector<double> &vals){
         }
     }
     // Variables y[s][d]
-    int sliceLimit = getNbSlicesGlobalLimit();
+    int sliceLimit = slicesTotal;
     for (int s = 0; s < sliceLimit; s++){
         for (int k = 0; k < getNbDemandsToBeRouted(); k++){
             int pos = y[s][k].getId();
@@ -289,24 +338,44 @@ void TFlowForm::setVariableValues(const std::vector<double> &vals){
             }
         }
     }
-    // Max slice variables
-    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-        int edge = getCompactEdgeLabel(e);
-        int pos = maxSlicePerLink[edge].getId();
-        double newValue = vals[pos];
-        maxSlicePerLink[edge].setVal(newValue);
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){  
+        // Max slice variables
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            int pos = maxSlicePerLink[edge].getId();
+            double newValue = vals[pos];
+            maxSlicePerLink[edge].setVal(newValue);
+        }
     }
     // Max slice overall
-    int pos = maxSliceOverall.getId();
-    double newValue = vals[pos];
-    maxSliceOverall.setVal(newValue);
-
-    // C Band routing variables
-    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        int pos = routedCBand[k].getId();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+        int pos = maxSliceOverall.getId();
         double newValue = vals[pos];
-        routedCBand[k].setVal(newValue);
-    }    
+        maxSliceOverall.setVal(newValue);
+    }
+
+    if(nbBands>1){
+        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
+    // multiband variables
+            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                int edge = getCompactEdgeLabel(e);
+                int pos = l[edge].getId();
+                double newValue = vals[pos];
+                l[edge].setVal(newValue);
+            }  
+
+            // multiband variables
+            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){ 
+                int edge = getCompactEdgeLabel(e);
+                for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+                    int pos = l2[edge][k].getId();
+                    double newValue = vals[pos];
+                    l2[edge][k].setVal(newValue);
+                }
+            }
+        }
+    }
 }
 
 /****************************************************************************************/
@@ -336,7 +405,7 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             break;
         }
         case Input::OBJECTIVE_METRIC_1:{
-            for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+            for (int s = 0; s < slicesTotal; s++){
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
                     Term term(y[s][k], s+1);
                     obj.addTerm(term);
@@ -368,10 +437,16 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-                    Term term(x[edge][k], getToBeRouted_k(k).getLoad());
-                    Term term2(x[edge + nbEdges][k], getToBeRouted_k(k).getLoad());
+                    Term term(x[edge][k], getToBeRouted_k(k).getLoadC());
+                    Term term2(x[edge + nbEdges][k], getToBeRouted_k(k).getLoadC());
                     obj.addTerm(term);
                     obj.addTerm(term2);
+                    if(nbBands>1){
+                        for (int s = slicesC; s < slicesC + slicesL; s++){
+                            Term term3(y[s][k], (getToBeRouted_k(k).getLoadL() - getToBeRouted_k(k).getLoadC()));
+                            obj.addTerm(term3);
+                        }
+                    }
                 }
             }
             break;
@@ -405,7 +480,7 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             obj.addTerm(term);
             break;
         }
-
+        //TODO
         case Input::OBJECTIVE_METRIC_TOS:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
@@ -413,8 +488,8 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
                     double pnli = ceil(getCompactPnliC(e)* pow(10,8)*100)/100; //ROUNDING
                     double paseLine = ceil(getCompactPaseLineC(e)* pow(10,8)*100)/100; //ROUNDING
                     double paseNode = ceil(instance.getPaseNodeC() * pow(10,8)*100)/100; //ROUNDING
-                    Term term(x[edge][k], -((pnli + paseLine + paseNode)/getToBeRouted_k(k).getLoad()));
-                    Term term2(x[edge + nbEdges][k], -((pnli + paseLine + paseNode)/getToBeRouted_k(k).getLoad()));
+                    Term term(x[edge][k], -((pnli + paseLine + paseNode)/getToBeRouted_k(k).getLoadC()));
+                    Term term2(x[edge + nbEdges][k], -((pnli + paseLine + paseNode)/getToBeRouted_k(k).getLoadC()));
                     obj.addTerm(term);
                     obj.addTerm(term2);
                 }
@@ -423,9 +498,36 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
         }
 
         case Input::OBJECTIVE_METRIC_ADS:{
-            for (int k = 0; k < getNbDemandsToBeRouted(); k++){                
-                Term term(routedCBand[k], -getToBeRouted_k(k).getLoad());
+            for (int k = 0; k < getNbDemandsToBeRouted(); k++){    
+                for (int s = 0; s < slicesC; s++){            
+                    Term term(y[s][k], -getToBeRouted_k(k).getLoadC());
+                    obj.addTerm(term);
+                }
+                if(nbBands>1){
+                    for (int s = slicesC; s < slicesC + slicesL; s++){
+                        Term term2(y[s][k], -getToBeRouted_k(k).getLoadL());
+                        obj.addTerm(term2);
+                    }
+                }
+            }
+            break;
+        }
+
+        case Input::OBJECTIVE_METRIC_LLB:{
+            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                int edge = getCompactEdgeLabel(e);   
+                Term term(l[edge], 1);
                 obj.addTerm(term);
+            }
+            break;
+        }
+
+        case Input::OBJECTIVE_METRIC_DCB:{
+            for (int k = 0; k < getNbDemandsToBeRouted(); k++){    
+                for (int s = 0; s < slicesC; s++){            
+                    Term term(y[s][k], -1);
+                    obj.addTerm(term);
+                }
             }
             break;
         }
@@ -434,7 +536,7 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             std::cout << "ERROR: Objective '" << chosenObjective << "' is not known." << std::endl;
             exit(0);
             break;
-        }
+        }    
     }
     return obj;
 }
@@ -448,7 +550,7 @@ void TFlowForm::setConstraints(){
     setTargetConstraints();
     setDegreeConstraints();
     setFlowConservationConstraints();
-    //setLengthConstraints();
+    setSliceConstraint();
 
     if (this->getInstance().getInput().isMaxReachEnabled() == true){
         this->setLengthConstraints();
@@ -456,11 +558,15 @@ void TFlowForm::setConstraints(){
     if (this->getInstance().getInput().isOSNREnabled() == true){
         this->setOSNRConstraints();
     }
-    setMaxUsedSlicePerLinkConstraints();
-    setMaxUsedSliceOverallConstraints();
-    setSliceConstraint();
 
-
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
+        this->setMaxUsedSlicePerLinkConstraints();
+    }
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+        this->setMaxUsedSliceOverallConstraints();
+    }
+    
     if (NonOverlappingType == 0){
         std::cout << "No non-overlapping constraints have been defined..." << std::endl;
     }else{
@@ -483,10 +589,14 @@ void TFlowForm::setConstraints(){
             }
         }
     }
-    
-    //setNonOverlappingConstraintsPair();
 
-    setCBandRoutingConstraints();
+    if(nbBands>1){                              // IF OF
+        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
+            this->setMultibandConstraints();
+        }
+    }
+
+    
     nbConstraint = constraintSet.size();
     if (this->getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_PARTIAL){
         setPreprocessingConstraints();
@@ -506,7 +616,7 @@ Constraint TFlowForm::getSourceConstraint_k(int k){
     }
     upperBound = 1;
 
-    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+    for (int s = 0; s < slicesTotal; s++){
         Term term(y[s][k], 1);
         exp.addTerm(term);
     }
@@ -552,7 +662,7 @@ Constraint TFlowForm::getSourceConstraint_k2(int k){
     
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
     if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_ADS){
-        for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+        for (int s = 0; s < slicesTotal; s++){
             Term term(y[s][k], -1);
             exp.addTerm(term);
         }
@@ -607,9 +717,9 @@ Constraint TFlowForm::getSourceConstraint_k3(int k){
 /* Defines Source constraints. For each demand, exactly one arc leaves the source, no arc enters the source and exactly one slot is assigned (as the last slot). */
 void TFlowForm::setSourceConstraints(){
     for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        const Constraint & originConstraint = getSourceConstraint_k(k);
-        const Constraint & originConstraint2 = getSourceConstraint_k2(k);
-        const Constraint & originConstraint3 = getSourceConstraint_k3(k);
+        const Constraint & originConstraint = getSourceConstraint_k(k); //ONE SLOT MUST BE CHOSEN IF MAX ACCEPT ONE CAN BE CHOSEN
+        const Constraint & originConstraint2 = getSourceConstraint_k2(k); //ONE ARC MUST LEAVE THE ORIGIN IF MAX ACCEPT ONE CAN
+        const Constraint & originConstraint3 = getSourceConstraint_k3(k); //NO ARC MUST ENTER THE ORIGIN
         constraintSet.push_back(originConstraint);
         constraintSet.push_back(originConstraint2);
         constraintSet.push_back(originConstraint3);
@@ -695,6 +805,14 @@ Constraint TFlowForm::getTargetConstraint_k2(int k){
         }
     }
 
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_ADS){
+        for (int s = 0; s < slicesTotal; s++){
+            Term term(y[s][k], -1);
+            exp.addTerm(term);
+        }
+        lowerBound = 0;
+    }
+
     std::ostringstream constraintName;
     constraintName << "Target2_" << getToBeRouted_k(k).getId()+1 ;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
@@ -704,8 +822,8 @@ Constraint TFlowForm::getTargetConstraint_k2(int k){
 /* Defines Target constraints. Exactly one arc enters the target and no arc leaves the target. */
 void TFlowForm::setTargetConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
-        const Constraint & targetConstraint = getTargetConstraint_k(d);
-        const Constraint & targetConstraint2 = getTargetConstraint_k2(d);
+        const Constraint & targetConstraint = getTargetConstraint_k(d); //NO ARC MUST LEAVE THE DESTINATION
+        const Constraint & targetConstraint2 = getTargetConstraint_k2(d); //ONE ARC MUST ENTER THE DESTINATION IF Max accept may ENTER
         constraintSet.push_back(targetConstraint);
         constraintSet.push_back(targetConstraint2);
     }
@@ -713,9 +831,9 @@ void TFlowForm::setTargetConstraints(){
 }
 
 /* Returns the Length constraint associated with a demand. */
-Constraint TFlowForm::getLengthConstraint_k(int k){
+Constraint TFlowForm::getLengthCConstraint_k(int k){
     Expression exp;
-    double upperBound = getToBeRouted_k(k).getMaxLength();
+    double upperBound = getToBeRouted_k(k).getMaxLengthC();
     int lowerBound = 0;
     int nbEdges = countEdges(compactGraph);
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
@@ -726,6 +844,13 @@ Constraint TFlowForm::getLengthConstraint_k(int k){
         exp.addTerm(term);
         exp.addTerm(term2);
     }
+    if(nbBands>1){
+        double coeff = getToBeRouted_k(k).getMaxLengthL()   - getToBeRouted_k(k).getMaxLengthC();
+        for (int s = slicesC; s < slicesC+slicesL; s++){
+            Term term(y[s][k], coeff);
+            exp.addTerm(term);
+        }
+    }
     std::ostringstream constraintName;
     constraintName << "Length_" << getToBeRouted_k(k).getId()+1;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
@@ -735,8 +860,8 @@ Constraint TFlowForm::getLengthConstraint_k(int k){
 /* Defines Length constraints. Demands must be routed within a length limit. */
 void TFlowForm::setLengthConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
-        const Constraint & lengthConstraint = getLengthConstraint_k(d);
-        constraintSet.push_back(lengthConstraint);
+        const Constraint & lengthCConstraint = getLengthCConstraint_k(d);
+        constraintSet.push_back(lengthCConstraint);
     }
     std::cout << "Length constraints have been defined..." << std::endl;
 }
@@ -747,15 +872,9 @@ void TFlowForm::setOSNRConstraints(){
         const Constraint & OSNRConstraintC = getOSNRCConstraint(getToBeRouted_k(d), d);
         constraintSet.push_back(OSNRConstraintC);
         if (getInstance().getInput().getNbBands() >= 2) {
-            std::cout << "TODO: no OSNR constraints for band L yet" << std::endl;
-            //const Constraint & OSNRConstraintL = getOSNRLConstraint(getToBeRouted_k(d), d);
-            //constraintSet.push_back(OSNRConstraintL);
+            const Constraint & OSNRConstraintL = getOSNRLConstraint(getToBeRouted_k(d), d);
+            constraintSet.push_back(OSNRConstraintL);
         } 
-        if (getInstance().getInput().getNbBands() == 3) {
-            std::cout << "TODO: no OSNR constraints for band S yet" << std::endl;
-            //const Constraint & OSNRConstraintS = getOSNRSConstraint(getToBeRouted_k(d), d);
-            //constraintSet.push_back(OSNRConstraintS);
-        }  
     }
     std::cout << "OSNR constraints have been defined..." << std::endl;
 }
@@ -765,7 +884,7 @@ Constraint TFlowForm::getOSNRCConstraint(const Demand &demand, int k){
     Expression exp;
     double rhs; double lhs;
     
-    double osnrLimdb = demand.getOsnrLimit();
+    double osnrLimdb = demand.getOsnrLimitC();
     double osnrLim = pow(10,osnrLimdb/10);
     double pch = demand.getPchC();
 
@@ -781,7 +900,7 @@ Constraint TFlowForm::getOSNRCConstraint(const Demand &demand, int k){
         int edge = getCompactEdgeLabel(e);
 
         //First term
-        double coeff = getCompactPaseLineC(e)* roundingFactor;;
+        double coeff = getCompactPaseLineC(e)* roundingFactor;
         coeff = ceil(coeff*100)/100; //ROUNDING
         Term term(x[edge][k], coeff);
         Term term2(x[edge + nbEdges][k], coeff);
@@ -803,6 +922,81 @@ Constraint TFlowForm::getOSNRCConstraint(const Demand &demand, int k){
         exp.addTerm(term5);
         exp.addTerm(term6);
     }
+    if(nbBands>1){
+        double coeff2 = 0.0;
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            coeff2 = coeff2 + ceil(getCompactPaseLineC(e)*roundingFactor*100)/100 + ceil(getCompactPnliC(e)*roundingFactor*100)/100 + ceil(instance.getPaseNodeC() * roundingFactor*100)/100;
+            //std::cout <<coeff2<< std::endl;
+        }
+        for (int s = slicesC; s < slicesC+slicesL; s++){
+            Term term(y[s][k], -coeff2);
+            exp.addTerm(term);
+        }
+        lhs = -coeff2;
+    }
+    std::ostringstream constraintName;
+    constraintName << "OSNR_" << demand.getId()+1;
+    Constraint constraint(lhs, exp, rhs, constraintName.str());
+    //std::cout << "For demand " << demand << std::endl;
+    //constraint.display();
+    return constraint;
+}
+/* Returns the OSNR constraint associated with a demand. */
+Constraint TFlowForm::getOSNRLConstraint(const Demand &demand, int k){
+    Expression exp;
+    double rhs; double lhs;
+    
+    double osnrLimdb = demand.getOsnrLimitL();
+    double osnrLim = pow(10,osnrLimdb/10);
+    double pch = demand.getPchL();
+
+    double roundingFactor = pow(10,8);
+    
+    rhs = pch/osnrLim - instance.getPaseNodeL() ;
+    
+    rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
+    lhs = 0;
+
+    int nbEdges = countEdges(compactGraph);
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+
+        //First term
+        double coeff = getCompactPaseLineL(e)* roundingFactor;
+        coeff = ceil(coeff*100)/100; //ROUNDING
+        Term term(x[edge][k], coeff);
+        Term term2(x[edge + nbEdges][k], coeff);
+        exp.addTerm(term);
+        exp.addTerm(term2);
+
+        //Second term
+        coeff = 1.0 * ceil(instance.getPaseNodeL() * roundingFactor*100)/100; //ROUNDING
+        Term term3(x[edge][k], coeff);
+        Term term4(x[edge + nbEdges][k], coeff);
+        exp.addTerm(term3);
+        exp.addTerm(term4);
+
+        //Third term
+        coeff = getCompactPnliL(e)* roundingFactor;
+        coeff = ceil(coeff*100)/100; //ROUNDING
+        Term term5(x[edge][k], coeff);
+        Term term6(x[edge + nbEdges][k], coeff);
+        exp.addTerm(term5);
+        exp.addTerm(term6);
+    }
+    if(nbBands>1){
+        double coeff2 = 0.0;
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            coeff2 = coeff2 + ceil(getCompactPaseLineL(e)*roundingFactor*100)/100 + ceil(getCompactPnliL(e)*roundingFactor*100)/100 + ceil(instance.getPaseNodeL() * roundingFactor*100)/100;
+        }
+        for (int s = 0; s < slicesC; s++){
+            Term term(y[s][k], -coeff2);
+            exp.addTerm(term);
+        }
+        lhs = -coeff2;
+    }
     std::ostringstream constraintName;
     constraintName << "OSNR_" << demand.getId()+1;
     Constraint constraint(lhs, exp, rhs, constraintName.str());
@@ -810,7 +1004,6 @@ Constraint TFlowForm::getOSNRCConstraint(const Demand &demand, int k){
     //constraint.display();
     return constraint;
 }
-
 
 /* Returns the degree constraint associated with a demand k and a node v. */
 Constraint TFlowForm::getDegreeConstraint_k(int k, const ListGraph::Node &v){
@@ -926,13 +1119,13 @@ void TFlowForm::setFlowConservationConstraints(){
 Constraint TFlowForm::getMaxUsedSlicePerLinkConstraints(int k, int e){
     Expression exp;
     int nbEdges = countEdges(compactGraph);
-    int lowerBound = -getNbSlicesGlobalLimit();
-    int upperBound = getNbSlicesGlobalLimit();
-    Term term1(x[e][k], getNbSlicesGlobalLimit());
+    int lowerBound = -slicesTotal;
+    int upperBound = slicesTotal;
+    Term term1(x[e][k], slicesTotal);
     exp.addTerm(term1);
-    Term term2(x[e + nbEdges][k], getNbSlicesGlobalLimit());
+    Term term2(x[e + nbEdges][k], slicesTotal);
     exp.addTerm(term2);
-    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+    for (int s = 0; s < slicesTotal; s++){
         Term term(y[s][k], s+1);
         exp.addTerm(term);
     }
@@ -959,9 +1152,9 @@ void TFlowForm::setMaxUsedSlicePerLinkConstraints(){
 
 Constraint TFlowForm::getMaxUsedSliceOverallConstraints(int k){
     Expression exp;
-    int lowerBound = -getNbSlicesGlobalLimit();
+    int lowerBound = -slicesTotal;
     int upperBound = 0;
-    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+    for (int s = 0; s < slicesTotal; s++){
         Term term(y[s][k], s+1);
         exp.addTerm(term);
     }
@@ -985,9 +1178,15 @@ void TFlowForm::setMaxUsedSliceOverallConstraints(){
 Constraint TFlowForm::getSliceConstraint(int k){
     Expression exp;
     int rhs = 0;
-    for (int s = 0; s < getToBeRouted_k(k).getLoad() - 1; s++){
+    for (int s = 0; s < getToBeRouted_k(k).getLoadC() - 1; s++){
         Term term(y[s][k], 1);
         exp.addTerm(term);
+    }
+    if(nbBands>1){
+        for (int s = slicesC; s < slicesC + getToBeRouted_k(k).getLoadL() - 1; s++){
+            Term term(y[s][k], 1);
+            exp.addTerm(term);
+        }
     }
     std::ostringstream constraintName;
     constraintName << "Slice_" << getToBeRouted_k(k).getId()+1;
@@ -1004,13 +1203,14 @@ void TFlowForm::setSliceConstraint(){
 }
 
 void TFlowForm::setNonOverlappingConstraintsPair(){
+    /*
     int counter = 0;
     for (int a = 0; a < getNbDemandsToBeRouted(); a++){
         for (int b = 0; b < getNbDemandsToBeRouted(); b++){
             if(a < b){
                 for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                     int edge = getCompactEdgeLabel(e);
-                    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+                    for (int s = 0; s < slicesBand*bands; s++){
                         const Constraint & nonOverlappingPair = getNonOverlappingConstraintPair(a, b, edge, s);
                         constraintSet.push_back(nonOverlappingPair);
                         counter = counter + 1;
@@ -1021,9 +1221,11 @@ void TFlowForm::setNonOverlappingConstraintsPair(){
     }
     std::cout << "Non-overlapping constraints pair have been defined..." << std::endl;
     std::cout << "Constraints = " << counter << std::endl;
+    */
 }
 
 void TFlowForm::setNonOverlappingConstraintsMinChannel(){
+    /*
     int counter = 0;
     for (int a = 0; a < getNbDemandsToBeRouted(); a++){
         for (int b = 0; b < getNbDemandsToBeRouted(); b++){
@@ -1049,9 +1251,11 @@ void TFlowForm::setNonOverlappingConstraintsMinChannel(){
     }
     std::cout << "Non-overlapping constraints have been defined..." << std::endl;
     std::cout << "Constraints = " << counter << std::endl;
+    */
 }
 
 Constraint TFlowForm::getNonOverlappingConstraintPair(int a, int b, int arc, int s){
+    /*
     int sliceLimit = getNbSlicesGlobalLimit();
     Expression exp;
     int lowerBound = 0;
@@ -1086,13 +1290,14 @@ Constraint TFlowForm::getNonOverlappingConstraintPair(int a, int b, int arc, int
     constraintName << "NonOverlapping_" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << arc;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
+    */
 }
 
 void TFlowForm::setNonOverlappingConstraintsSharedLink(){
     int counter = 0;
     for (int a = 0; a < getNbDemandsToBeRouted(); a++){
         for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
-            for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+            for (int s = 0; s < slicesTotal; s++){
                 const Constraint & nonOverlappingSharedLinkConstraint = getNonOverlappingConstraintSharedLink1(a,b, s);
                 constraintSet.push_back(nonOverlappingSharedLinkConstraint);
                 counter = counter + 1;
@@ -1114,8 +1319,17 @@ Constraint TFlowForm::getNonOverlappingConstraintSharedLink1(int a, int b, int s
     int lowerBound = 0;
     int upperBound = 2;
 
-    int sliceLimit = getNbSlicesGlobalLimit();
-    int sWk_1 = s + getToBeRouted_k(a).getLoad()-1;
+    int sliceLimit;
+    int sWk_1 = s + getToBeRouted_k(a).getLoadC()-1;;
+    int sWk_2 = s + getToBeRouted_k(b).getLoadC()-1;;
+
+    if(s>=slicesC){
+        sliceLimit = slicesC+slicesL;
+        sWk_1 = s + getToBeRouted_k(a).getLoadL()-1;
+        sWk_2 = s + getToBeRouted_k(b).getLoadL()-1;
+    }else{
+        sliceLimit = slicesC;
+    }
     if (sWk_1 >= sliceLimit){
         sWk_1 = sliceLimit-1;
     }
@@ -1123,11 +1337,11 @@ Constraint TFlowForm::getNonOverlappingConstraintSharedLink1(int a, int b, int s
         Term term(y[sa][a], 1);
         exp.addTerm(term);
     }
-    sWk_1 = s + getToBeRouted_k(b).getLoad()-1;
-    if (sWk_1 >= sliceLimit){
-        sWk_1 = sliceLimit-1;
+
+    if (sWk_2 >= sliceLimit){
+        sWk_2 = sliceLimit-1;
     }
-    for (int sa = s; sa <= sWk_1; sa++){
+    for (int sa = s; sa <= sWk_2; sa++){
         Term term(y[sa][b], 1);
         exp.addTerm(term);
     }
@@ -1183,6 +1397,7 @@ void TFlowForm::setNonOverlappingConstraintsSpectrumPosition(){
 }
 
 Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition1(int a, int b, int edge){
+    /*
     Expression exp;
     int lowerBound = -2*(getNbSlicesGlobalLimit());
     int upperBound = getToBeRouted_k(a).getLoad();
@@ -1211,9 +1426,11 @@ Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition1(int a, int b,
     constraintName << "NonOverlapping_1" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << edge;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
+    */
 }
 
 Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition2(int a, int b, int edge){
+    /*
     Expression exp;
     int lowerBound = -2*(getNbSlicesGlobalLimit());
     int upperBound = getToBeRouted_k(b).getLoad()+getNbSlicesGlobalLimit();
@@ -1241,62 +1458,146 @@ Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition2(int a, int b,
     constraintName << "NonOverlapping_2" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << edge;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
+    */
 }
 
-void TFlowForm::setCBandRoutingConstraints(){
-    for (int k = 0; k < getNbDemandsToBeRouted(); k++){  
-        const Constraint & CBandRoutingConstraint = getCBandRoutingConstraint(k);
-        constraintSet.push_back(CBandRoutingConstraint);
-        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-            int edge = getCompactEdgeLabel(e);
-            const Constraint & CBandRoutingConstraint2 = getCBandRoutingConstraint2(k,edge);
-            constraintSet.push_back(CBandRoutingConstraint2);
+
+void TFlowForm::setMultibandConstraints(){
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        //const Constraint & multibandConstraint5 = getMultibandConstraint5(edge);
+        //constraintSet.push_back(multibandConstraint5);
+        for (int k = 0; k < getNbDemandsToBeRouted(); k++){  
+            const Constraint & multibandConstraint = getMultibandConstraint(k, edge);
+            constraintSet.push_back(multibandConstraint);
+            /*
+            const Constraint & multibandConstraint2 = getMultibandConstraint2(k, edge);
+            constraintSet.push_back(multibandConstraint2);
+            const Constraint & multibandConstraint3 = getMultibandConstraint3(k, edge);
+            constraintSet.push_back(multibandConstraint3);
+            
+            const Constraint & multibandConstraint4 = getMultibandConstraint4(k, edge);
+            constraintSet.push_back(multibandConstraint4);
+            
+            */
+
         }
     }
-    std::cout << "C Band routing constraints have been defined..." << std::endl;
+    std::cout << "Multiband constraints have been defined..." << std::endl;
 }
 
 // if the demand is routed, it must be in C band (monoband case)
-Constraint TFlowForm::getCBandRoutingConstraint(int k){
+Constraint TFlowForm::getMultibandConstraint(int k, int e){
     Expression exp;
-    int upperBound = 0;
-    int lowerBound = 0;
-    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+    int upperBound = 1;
+    int lowerBound = -1;
+    //int lowerBound = 0;
+    int nbEdges = countEdges(compactGraph);
+    for (int s = slicesC; s < slicesC+slicesL; s++){
         Term term(y[s][k], 1);
         exp.addTerm(term);
     }
-    Term term2(routedCBand[k], -1);
+    Term term2(x[e][k], 1);
+    Term term3(x[e + nbEdges][k], 1);
+    Term term4(l[e], -1);
+    //Term term4(l2[e][k], -1);
     exp.addTerm(term2);
+    exp.addTerm(term3);
+    exp.addTerm(term4);
 
     std::ostringstream constraintName;
-    constraintName << "CBandRouting1_" << getToBeRouted_k(k).getId()+1 ;
+    constraintName << "Multiband1_" << getToBeRouted_k(k).getId()+1 << e ;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }
 
-Constraint TFlowForm::getCBandRoutingConstraint2(int k, int e){
+Constraint TFlowForm::getMultibandConstraint2(int k, int e){
+    Expression exp;
+    int upperBound = 0;
+    int lowerBound = -1;
+    Term term1(l2[e][k], 1);
+    Term term2(l[e], -1);
+    exp.addTerm(term1);
+    exp.addTerm(term2);
+
+    std::ostringstream constraintName;
+    constraintName << "Multiband2_" << getToBeRouted_k(k).getId()+1 << e ;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+Constraint TFlowForm::getMultibandConstraint3(int k, int e){
+    Expression exp;
+    int upperBound = 0;
+    int lowerBound = -1;
+
+    Term term1(l2[e][k], 1);
+    exp.addTerm(term1);
+
+    for (int s = slicesC; s < slicesC+slicesL; s++){
+        Term term(y[s][k], -1);
+        exp.addTerm(term);
+    }
+    
+    std::ostringstream constraintName;
+    constraintName << "Multiband3_" << getToBeRouted_k(k).getId()+1 << e ;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+Constraint TFlowForm::getMultibandConstraint4(int k, int e){
     Expression exp;
     int upperBound = 0;
     int lowerBound = -1;
     int nbEdges = countEdges(compactGraph);
-    Term term1(x[e][k], 1);
+
+    Term term1(l2[e][k], 1);
     exp.addTerm(term1);
-    Term term2(x[e + nbEdges][k], 1);
+
+    Term term2(x[e][k], -1);
+    Term term3(x[e + nbEdges][k], -1);
     exp.addTerm(term2);
-    Term term3(routedCBand[k], -1);
     exp.addTerm(term3);
+    
     std::ostringstream constraintName;
-    constraintName << "CBandRouting2_" << getToBeRouted_k(k).getId()+1 ;
+    constraintName << "Multiband4_" << getToBeRouted_k(k).getId()+1 << e ;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }
 
+Constraint TFlowForm::getMultibandConstraint5(int e){
+    Expression exp;
+    int upperBound = 0;
+    int lowerBound = 0;
+    int nbEdges = countEdges(compactGraph);
+
+    Term term1(l[e], 1);
+    exp.addTerm(term1);
+    for (int k = 0; k < getNbDemandsToBeRouted(); k++){  
+        Term term2(l2[e][k], -1);
+        exp.addTerm(term2);
+    }
+    
+    std::ostringstream constraintName;
+    constraintName << "Multiband4_" << e ;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
 
 void TFlowForm::setPreprocessingConstraints(){
     for (int k = 0; k < getNbDemandsToBeRouted(); k++){
         const Constraint & preprocessingConstraint = getPreprocessingConstraint(k);
         constraintSet.push_back(preprocessingConstraint);
     }
+    /*
+    Expression exp;
+    Term term(y[14][1], 1);
+    Term term2(y[14][0], 1);
+    exp.addTerm(term);
+    exp.addTerm(term2);
+    Constraint preprocessingConstraint2(0.0,exp,0.0,"abba");
+    constraintSet.push_back(preprocessingConstraint2);
+    */
     std::cout << "Preprocessing constraints have been defined..." << std::endl;
 }
 
@@ -1435,7 +1736,7 @@ std::vector<Variable> TFlowForm::objective8_fixing(const double upperBound){
     std::vector<Variable> vars;
     int initialSlice = std::ceil(upperBound+0.5);
     for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        for (int s = initialSlice; s < getNbSlicesGlobalLimit(); s++){
+        for (int s = initialSlice; s < slicesTotal; s++){
             vars.push_back(y[s][k]);
         }
     }
@@ -1605,17 +1906,28 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemFract(const std::vector
                                     }
                                     //std::cout << "Clique "<< a << " " << b <<" " << c <<std::endl;
                                     Expression expr;
-                                    int sliceLimit = getNbSlicesGlobalLimit();
-                                    for (int s = 0; s < sliceLimit; s++){
-                                        int sWk_1 = s + getToBeRouted_k(a).getLoad()-1;
+                                    for (int s = 0; s < slicesTotal; s++){
+                                        int sliceLimit;
+                                        int sWk_1 = s + getToBeRouted_k(a).getLoadC()-1;
+                                        int sWk_2 = s + getToBeRouted_k(b).getLoadC()-1;
+                                        int sWk_3 = s + getToBeRouted_k(c).getLoadC()-1;
+                                        if(s>=slicesC){
+                                            sliceLimit = slicesC+slicesL;
+                                            sWk_1 = s + getToBeRouted_k(a).getLoadL()-1;
+                                            sWk_2 = s + getToBeRouted_k(b).getLoadL()-1;
+                                            sWk_3 = s + getToBeRouted_k(c).getLoadL()-1;
+                                        }else{
+                                            sliceLimit = slicesC;
+                                        }
+
                                         if (sWk_1 >= sliceLimit){
                                             sWk_1 = sliceLimit-1;
                                         }
-                                        int sWk_2 = s + getToBeRouted_k(b).getLoad()-1;
+
                                         if (sWk_2 >= sliceLimit){
                                             sWk_2 = sliceLimit-1;
                                         }
-                                        int sWk_3 = s + getToBeRouted_k(c).getLoad()-1;
+
                                         if (sWk_3 >= sliceLimit){
                                             sWk_3 = sliceLimit-1;
                                         }
@@ -1644,7 +1956,7 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemFract(const std::vector
                                         double sum = k_sum + c_sum;
                                         if(sum>4){
                                             cuts.push_back(Constraint(0, expr, 4, "cut_tflow3"));
-                                            std::cout << "cut a " << std::endl;
+                                            //std::cout << "cut a " << std::endl;
                                             //std::cout << "Adding user cut: " << expr.to_string() << " <= 4" << std::endl;
                                         }
                                     }
@@ -1659,14 +1971,21 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemFract(const std::vector
     }
     //std::cout << "Solving separation problem fractional..." << std::endl;
     int nbEdges = countEdges(compactGraph);
-    int sliceLimit = getNbSlicesGlobalLimit();
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
-        for (int s = 0; s < sliceLimit; s++){
+        for (int s = 0; s < slicesTotal; s++){
             Expression expr;
             int nbElementsC = 0;
             for (int k = 0; k < getNbDemandsToBeRouted(); ++k){
-                int sWk_1 = s + getToBeRouted_k(k).getLoad()-1;
+                int sliceLimit;
+                int sWk_1 = s + getToBeRouted_k(k).getLoadC()-1;
+                if(s>=slicesC){
+                    sliceLimit = slicesC+slicesL;
+                    sWk_1 = s + getToBeRouted_k(k).getLoadL()-1;
+
+                }else{
+                    sliceLimit = slicesC;
+                }
                 if (sWk_1 >= sliceLimit){
                     sWk_1 = sliceLimit-1;
                 }
@@ -1693,14 +2012,20 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemFract(const std::vector
 
 
 std::vector<Constraint> TFlowForm::solveSeparationProblemInt(const std::vector<double> &solution, const int threadNo){
+    /*
     //std::cout << "Solving separation problem integer..." << std::endl; 
     setVariableValues(solution);
     std::vector<Constraint> cuts;
     int nbEdges = countEdges(compactGraph);
-    int sliceLimit = getNbSlicesGlobalLimit();
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
-        for (int s = 0; s < sliceLimit; s++){
+        for (int s = 0; s < slicesBand*bands; s++){
+            int sliceLimit;
+            if(s>=slicesBand){
+                sliceLimit = slicesBand*bands;
+            }else{
+                sliceLimit = slicesBand;
+            }
             Expression expr;
             int nbElementsC = 0;
             for (int k = 0; k < getNbDemandsToBeRouted(); ++k){
@@ -1727,6 +2052,7 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemInt(const std::vector<d
         }
     }
     return cuts;
+    */
 }
 
 /****************************************************************************************/
@@ -1743,7 +2069,7 @@ void TFlowForm::displayVariableValues(){
         std::cout << std::endl;
     }
     for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
+        for (int s = 0; s < slicesTotal; s++){
             std::cout << y[s][k].getName() << " = " << y[s][k].getVal() << "   ";
         }
         std::cout << std::endl;
@@ -1756,22 +2082,36 @@ void TFlowForm::displayVariableValues(){
         std::cout << std::endl;
         }
     }
-    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-        int edge = getCompactEdgeLabel(e);
-        std::cout << maxSlicePerLink[edge].getName() << " = " << maxSlicePerLink[edge].getVal() << "   ";
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            std::cout << maxSlicePerLink[edge].getName() << " = " << maxSlicePerLink[edge].getVal() << "   ";
+        }
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
-    std::cout << maxSliceOverall.getName() << " = " << maxSliceOverall.getVal() << std::endl;
-    std::cout << std::endl;
-    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        std::cout << routedCBand[k].getName() << " = " << routedCBand[k].getVal() << "   ";
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+        std::cout << maxSliceOverall.getName() << " = " << maxSliceOverall.getVal() << std::endl;
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
-
+    if(nbBands>1){                              // IF OF
+        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
+            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                int edge = getCompactEdgeLabel(e);
+                std::cout << l[edge].getName() << " = " << l[edge].getVal() << "   ";
+                std::cout << std::endl;
+                for (int k = 0; k < getNbDemandsToBeRouted(); k++){  
+                    std::cout << l2[edge][k].getName() << " = " << l2[edge][k].getVal() << "   ";
+                }
+                std::cout << std::endl;
+            }
+        }
+    }
+    std::cout <<  std::endl;
 }
 
 std::string TFlowForm::displayDimensions(){
-    return "|K| = " + std::to_string(getNbDemandsToBeRouted()) + ", |S| = " + std::to_string(getNbSlicesGlobalLimit()) + ".";
+    return "|K| = " + std::to_string(getNbDemandsToBeRouted()) + ", |S| = " + std::to_string(slicesTotal) + ".";
 }
 
 /****************************************************************************************/

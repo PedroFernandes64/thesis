@@ -84,7 +84,7 @@ void SolverCplex::solve(){
         if(!formulation->getInstance().getInput().isRelaxed()){
             cplex.use(&myGenericCallback, contextMask);
         }
-        //cplex.exportModel("nom_do_lp.lp");
+        cplex.exportModel("nom_do_lp.lp");
         //std::ofstream outfile;
         //outfile.open("test.csv");
         //outfile << "UB;LB;nodes;remainingNodes;time"<<std::endl; 

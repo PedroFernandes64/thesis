@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../Instances/European_18_40/Links/20_demands/Link.csv
+topologyFile=../Instances/minila1/Links/2_demands/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../Instances/European_18_40/Demands/20_demands
+demandToBeRoutedFolder=../Instances/minila1/Demands/2_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -19,7 +19,7 @@ TFlow_Policy=3
 nbDemandsAtOnce=1000
 formulation=2
 userCuts=0
-obj=LLB
+obj=NLUS
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0

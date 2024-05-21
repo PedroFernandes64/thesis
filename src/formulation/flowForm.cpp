@@ -325,7 +325,7 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
     case Input::OBJECTIVE_METRIC_ADS:
         {
         for (int k = 0; k < getNbDemandsToBeRouted(); k++){                
-            Term term(routedCBand[k], -getToBeRouted_k(k).getLoad());
+            Term term(routedCBand[k], -getToBeRouted_k(k).getLoadC());
             obj.addTerm(term);
         }
         break;
@@ -521,7 +521,7 @@ Constraint FlowForm::getStrongLengthConstraint(const Demand &demand, int d, int 
             for (ListDigraph::OutArcIt a((*vecGraph[d]), v); a != INVALID; ++a){
                 if (getArcSlice(a, d) == s){
                     int arc = getArcIndex(a, d); 
-                    Term term(x[d][arc], -demand.getMaxLength());
+                    Term term(x[d][arc], -demand.getMaxLengthC());
                     exp.addTerm(term);
                 }
             }
@@ -550,9 +550,9 @@ Constraint FlowForm::getLengthConstraint(const Demand &demand, int d){
     Input::NodeMethod nodeMethod = instance.getInput().getChosenNodeMethod();
     double rhs; double rls;
     if(nodeMethod != Input::NODE_METHOD_LINEAR_RELAX){
-        rls = -demand.getMaxLength(); rhs = 0;
+        rls = -demand.getMaxLengthC(); rhs = 0;
     }else{
-        rhs = demand.getMaxLength(); rls = 0;
+        rhs = demand.getMaxLengthC(); rls = 0;
     }
     int source = demand.getSource();
     int hop = instance.getInput().getHopPenalty();
@@ -602,7 +602,7 @@ Constraint FlowForm::getOSNRCConstraint(const Demand &demand, int d){
     Expression exp;
     double rhs; double rls;
     
-    double osnrLimdb = demand.getOsnrLimit();
+    double osnrLimdb = demand.getOsnrLimitC();
     double osnrLim = pow(10,osnrLimdb/10);
     double pch = demand.getPchC();
 
@@ -673,7 +673,7 @@ Constraint FlowForm::getNonOverlappingConstraint(int linkLabel, int slice){
     }
 
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
-        int demandLoad = getToBeRouted_k(d).getLoad();
+        int demandLoad = getToBeRouted_k(d).getLoadC();
         for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[d]),linkLabel); a != INVALID; ++a){      
             if((getArcSlice(a, d) >= slice)  && (getArcSlice(a, d) <= slice + demandLoad - 1)){    
                 if(nodeMethod != Input::NODE_METHOD_LINEAR_RELAX){
@@ -747,7 +747,7 @@ Constraint FlowForm::getMaxUsedSlicePerLinkConstraints2(int linkIndex, int s){
     int rhs = 0;
     int linkLabel = instance.getPhysicalLinkFromIndex(linkIndex).getId();
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
-        int demandLoad = getToBeRouted_k(d).getLoad();
+        int demandLoad = getToBeRouted_k(d).getLoadC();
         for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[d]),linkLabel); a != INVALID; ++a){ 
             if ((getArcSlice(a, d) >= s) && (getArcSlice(a, d) <= s + demandLoad - 1)){
                 int index = getArcIndex(a, d);
@@ -833,7 +833,7 @@ Constraint FlowForm::getMaxUsedSliceOverallConstraints2(int linkLabel, int s){
     Expression exp;
     int rhs = 0;
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
-        int demandLoad = getToBeRouted_k(d).getLoad();
+        int demandLoad = getToBeRouted_k(d).getLoadC();
         for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[d]),linkLabel); a != INVALID; ++a){ 
             if ((getArcSlice(a, d) >= s) && (getArcSlice(a, d) <= s + demandLoad - 1)){
                 int index = getArcIndex(a, d);
@@ -878,7 +878,7 @@ Constraint FlowForm::getMaxUsedSliceOverallConstraints3(int nodeLabel, int s){
     }
 
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
-        int demandLoad = getToBeRouted_k(d).getLoad();
+        int demandLoad = getToBeRouted_k(d).getLoadC();
         for(IterableIntMap< ListDigraph, ListDigraph::Node >::ItemIt v((*mapItNodeLabel[d]),nodeLabel); v != INVALID; ++v){ 
             for (ListDigraph::OutArcIt a(*vecGraph[d], v); a != INVALID; ++a){
                 if ( (getArcSlice(a, d) >= s) && (getArcSlice(a, d) <= s + demandLoad - 1) ){
@@ -1003,7 +1003,7 @@ Constraint FlowForm::getCutSetFlowConstraint(const std::vector<int> &cutSet, int
     int rhs = (cutCardinality - 1)/2;
     
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
-        int demandLoad = getToBeRouted_k(d).getLoad();
+        int demandLoad = getToBeRouted_k(d).getLoadC();
         int demandSource = getToBeRouted_k(d).getSource();
         int demandTarget = getToBeRouted_k(d).getTarget();
         if (std::find(cutSet.begin(), cutSet.end(), demandSource) == cutSet.end()) {

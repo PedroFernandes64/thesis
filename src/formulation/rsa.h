@@ -47,14 +47,19 @@ protected:
 
     std::vector<Demand> toBeRouted;     /**< The list of demands to be routed in the next optimization. **/
     std::vector<int> loadsToBeRouted;   /**< The set of different loads present in the set of demands to be routed. **/
+    int nbBands;
 
     double RSAGraphConstructionTime;
     double PreprocessingTime;
     int possiblePaths;
-    int feasiblePaths;
-    int onlyOsnrFeasiblePaths;
-    int onlyReachFeasiblePaths;
-    int infeasiblePaths;
+    int feasiblePathsC;
+    int onlyOsnrFeasiblePathsC;
+    int onlyReachFeasiblePathsC;
+    int infeasiblePathsC;
+    int feasiblePathsL;
+    int onlyOsnrFeasiblePathsL;
+    int onlyReachFeasiblePathsL;
+    int infeasiblePathsL;
 
     /** A list of pointers to the extended graph associated with each demand to be routed. 
         \note (*vecGraph[i]) is the graph associated with the i-th demand to be routed. **/
@@ -168,6 +173,7 @@ public:
 
     double getRSAGraphConstructionTime() const { return RSAGraphConstructionTime;}
     double getPreprocessingTime() const { return PreprocessingTime; }
+    int getNbBands() const { return nbBands; }
     
     /** Returns the input instance. **/
     Instance getInstance() const{ return instance; }
@@ -301,10 +307,14 @@ public:
     double getCompactPnliL(const ListGraph::Edge &e) { return compactEdgePnliL[e]; }
     double getCompactPaseLineL(const ListGraph::Edge &e) { return compactEdgePaseLineL[e]; }
     int getPossiblePaths(){ return possiblePaths; }
-    int getFeasiblePaths(){ return feasiblePaths; }
-    int getOsnrFeasiblePaths(){ return onlyOsnrFeasiblePaths; }
-    int getReachFeasiblePaths(){ return onlyReachFeasiblePaths; }
-    int getInfeasiblePaths(){ return infeasiblePaths; }
+    int getFeasiblePathsC(){ return feasiblePathsC; }
+    int getOsnrFeasiblePathsC(){ return onlyOsnrFeasiblePathsC; }
+    int getReachFeasiblePathsC(){ return onlyReachFeasiblePathsC; }
+    int getInfeasiblePathsC(){ return infeasiblePathsC; }
+    int getFeasiblePathsL(){ return feasiblePathsL; }
+    int getOsnrFeasiblePathsL(){ return onlyOsnrFeasiblePathsL; }
+    int getReachFeasiblePathsL(){ return onlyReachFeasiblePathsL; }
+    int getInfeasiblePathsL(){ return infeasiblePathsL; }
 
 
     ListGraph::Node getCompactNodeFromLabel(int label) const;
@@ -318,7 +328,8 @@ public:
 	/****************************************************************************************/
 	/*										Setters											*/
 	/****************************************************************************************/
-
+    
+    void setNbBands(int nb)  { nbBands=nb; }
     void setRSAGraphConstructionTime(double val) { RSAGraphConstructionTime=val;}
     void setPreprocessingTime(double val) { PreprocessingTime=val; }
 
@@ -440,7 +451,7 @@ public:
     double osnrPathL(double pl, double pn, double pnli, double pc);
     double osnrPathS(double pl, double pn, double pnli, double pc);
     void AllPaths();
-    void printAllPathsUtil(int u, int d, bool visited[], int path[], int& path_index);
+    void AllPathsUtil(int u, int d, bool visited[], int path[], int& path_index);
 
 	/****************************************************************************************/
 	/*										Display											*/

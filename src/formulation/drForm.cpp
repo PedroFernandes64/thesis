@@ -371,9 +371,9 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int d = 0; d < getNbDemandsToBeRouted(); d++){
-                    Term term(y[edge][d], getToBeRouted_k(d).getLoad());
+                    Term term(y[edge][d], getToBeRouted_k(d).getLoadC());
                     obj.addTerm(term);
-                     Term term2(y[edge + nbEdges][d], getToBeRouted_k(d).getLoad());
+                     Term term2(y[edge + nbEdges][d], getToBeRouted_k(d).getLoadC());
                     obj.addTerm(term2);
                 }
             }
@@ -416,8 +416,8 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
                     double pnli = ceil(getCompactPnliC(e)* pow(10,8)*100)/100; //ROUNDING
                     double paseLine = ceil(getCompactPaseLineC(e)* pow(10,8)*100)/100; //ROUNDING
                     double paseNode = ceil(instance.getPaseNodeC() * pow(10,8)*100)/100; //ROUNDING
-                    Term term(y[edge][k], -((pnli + paseLine + paseNode)/getToBeRouted_k(k).getLoad()));
-                    Term term2(y[edge + nbEdges][k], -((pnli + paseLine + paseNode)/getToBeRouted_k(k).getLoad()));
+                    Term term(y[edge][k], -((pnli + paseLine + paseNode)/getToBeRouted_k(k).getLoadC()));
+                    Term term2(y[edge + nbEdges][k], -((pnli + paseLine + paseNode)/getToBeRouted_k(k).getLoadC()));
                     obj.addTerm(term);
                     obj.addTerm(term2);
                 }
@@ -427,7 +427,7 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
 
         case Input::OBJECTIVE_METRIC_ADS:{
             for (int k = 0; k < getNbDemandsToBeRouted(); k++){                
-                Term term(routedCBand[k], -getToBeRouted_k(k).getLoad());
+                Term term(routedCBand[k], -getToBeRouted_k(k).getLoadC());
                 obj.addTerm(term);
             }
             break;
@@ -495,7 +495,7 @@ void DrFormulation::setOsnrConstraints(){
 
 Constraint DrFormulation::getLengthConstraint(int d){
     Expression exp;
-    double upperBound = getToBeRouted_k(d).getMaxLength();
+    double upperBound = getToBeRouted_k(d).getMaxLengthC();
     int lowerBound = 0;
     int nbEdges = countEdges(compactGraph);
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
@@ -517,7 +517,7 @@ Constraint DrFormulation::getOsnrConstraint(int d){ //TODO
     Expression exp;
     double rhs; double lhs;
 
-    double osnrLimdb = getToBeRouted_k(d).getOsnrLimit();
+    double osnrLimdb = getToBeRouted_k(d).getOsnrLimitC();
     double osnrLim = pow(10,osnrLimdb/10);
     double pch = getToBeRouted_k(d).getPchC();
 
@@ -572,8 +572,8 @@ void DrFormulation::setSlotsVolumeConstraints(){
 }
 Constraint DrFormulation::getSlotsVolumeConstraints(int d){
     Expression exp;
-    int upperBound = getToBeRouted_k(d).getLoad() -1;
-    int lowerBound = getToBeRouted_k(d).getLoad() -1;
+    int upperBound = getToBeRouted_k(d).getLoadC() -1;
+    int lowerBound = getToBeRouted_k(d).getLoadC() -1;
     Term term_rm( rm[d] , 1);
     exp.addTerm(term_rm);
     Term term_lm(lm[d], -1);

@@ -135,6 +135,7 @@ void Instance::createInitialMapping(){
 		std::cout << "Starting with an empty initial mapping. " << std::endl;
 	}
 	setNbInitialDemands(getNbRoutedDemands());
+	std::cout << "Number of bands : " << input.getNbBands() << std::endl;
 }
 
 /* Reads the topology information from file. */
@@ -155,8 +156,16 @@ void Instance::readTopology(){
 		int edgeSource = std::stoi(dataList[i][1]) - 1;
 		int edgeTarget = std::stoi(dataList[i][2]) - 1;
 		double edgeLength = std::stod(dataList[i][3]);
-		int edgeNbSlices = std::stoi(dataList[i][4]);
-		double edgeCost = std::stod(dataList[i][5]);
+		int edgeNbSlicesC = std::stoi(dataList[i][4]);
+		int edgeNbSlicesL = 0;
+		int installedBands = 1;
+		int availableBands = 1;
+		if (getInput().getNbBands() == 2){
+			edgeNbSlicesL = std::stoi(dataList[i][5]);
+			availableBands = 2;
+		}
+		int edgeNbSlices = edgeNbSlicesC+edgeNbSlicesL;
+		double edgeCost = 1.0;
 		// Only read GNData if GNModel activated
 		int edgeAmplis = 0;
 		double edgePnliC = 0.0;
@@ -178,7 +187,7 @@ void Instance::readTopology(){
 				edgePaseS = std::stod(dataList[i][12]);
 			}
 		}
-		Fiber edge(idEdge, edgeIndex, edgeSource, edgeTarget, edgeLength, edgeNbSlices, edgeCost, edgeAmplis, edgePnliC, edgePnliL, edgePnliS, edgePaseC, edgePaseL, edgePaseS);
+		Fiber edge(idEdge, edgeIndex, edgeSource, edgeTarget, edgeLength, edgeNbSlices, edgeCost, edgeAmplis, edgePnliC, edgePnliL, edgePnliS, edgePaseC, edgePaseL, edgePaseS,edgeNbSlicesC,edgeNbSlicesL,availableBands,installedBands);
 		this->tabEdge.push_back(edge);
 		if (edgeSource > maxNode) {
 			maxNode = edgeSource;
@@ -205,23 +214,31 @@ void Instance::readDemands(){
 		int idDemand = std::stoi(dataList[i][0]) - 1;
 		int demandSource = std::stoi(dataList[i][1]) - 1;
 		int demandTarget = std::stoi(dataList[i][2]) - 1;
-		int demandLoad = std::stoi(dataList[i][3]);
-		double demandMaxLength = std::stod(dataList[i][4]);
-		double demandOsnrLimit = 0.0;
+		int demandLoadC = std::stoi(dataList[i][3]);
+		double demandMaxLengthC = std::stod(dataList[i][4]); // dataList[i][5])
+		double demandOsnrLimitC=0.0;
+		int demandLoadL = 0.0;
+		double demandMaxLengthL = 0.0;
+		double demandOsnrLimitL=0.0;
 		double demandPchC = 0.0;
 		double demandPchL = 0.0;
 		double demandPchS = 0.0;
 		if (this->input.isOSNREnabled () == true ){
-			demandOsnrLimit = std::stod(dataList[i][5]);
-			demandPchC = std::stod(dataList[i][6]);
+			demandOsnrLimitC = std::stod(dataList[i][5]); 		// dataList[i][7])
+			demandPchC = std::stod(dataList[i][6]);				// dataList[i][9])
 			if (getInput().getNbBands() >= 2){
-				demandPchL = std::stod(dataList[i][7]);
+				demandOsnrLimitL = std::stod(dataList[i][5]); 	// dataList[i][8])
+				demandPchL = std::stod(dataList[i][7]); 		// dataList[i][10])
 			}
 			if (getInput().getNbBands() == 3){
-				demandPchS = std::stod(dataList[i][8]);
+				demandPchS = std::stod(dataList[i][8]);			// dataList[i][11])
 			}
 		}
-		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength, demandOsnrLimit, demandPchC, demandPchL, demandPchS, false);
+		if (getInput().getNbBands() == 2){
+			demandLoadL = std::stoi(dataList[i][3]); // dataList[i][4])
+			demandMaxLengthL = std::stod(dataList[i][4]); // dataList[i][6])
+		}
+		Demand demand(idDemand, demandSource, demandTarget, demandLoadC, demandLoadL, demandMaxLengthC, demandMaxLengthL, demandOsnrLimitC,demandOsnrLimitL, demandPchC, demandPchL, demandPchS, false);
 		this->tabDemand.push_back(demand);
 	}
 }
@@ -344,21 +361,29 @@ void Instance::generateDemandsFromFile(std::string filePath){
 		int idDemand = std::stoi(dataList[i][0]) - 1 + nbPreviousDemands;
 		int demandSource = std::stoi(dataList[i][1]) - 1;
 		int demandTarget = std::stoi(dataList[i][2]) - 1;
-		int demandLoad = std::stoi(dataList[i][3]);
-		double demandMaxLength = std::stod(dataList[i][4]);
-		double demandOsnrLimit=0.0;
+		int demandLoadC = std::stoi(dataList[i][3]);
+		double demandMaxLengthC = std::stod(dataList[i][4]); // dataList[i][5])
+		double demandOsnrLimitC=0.0;
+		int demandLoadL = 0.0;
+		double demandMaxLengthL = 0.0;
+		double demandOsnrLimitL=0.0;
 		double demandPchC = 0.0;
 		double demandPchL = 0.0;
 		double demandPchS = 0.0;
 		if (this->input.isOSNREnabled () == true ){
-			demandOsnrLimit = std::stod(dataList[i][5]);
-			demandPchC = std::stod(dataList[i][6]);
+			demandOsnrLimitC = std::stod(dataList[i][5]); 		// dataList[i][7])
+			demandPchC = std::stod(dataList[i][6]);				// dataList[i][9])
 			if (getInput().getNbBands() >= 2){
-				demandPchL = std::stod(dataList[i][7]);
+				demandOsnrLimitL = std::stod(dataList[i][5]); 	// dataList[i][8])
+				demandPchL = std::stod(dataList[i][7]); 		// dataList[i][10])
 			}
 			if (getInput().getNbBands() == 3){
-				demandPchS = std::stod(dataList[i][8]);
+				demandPchS = std::stod(dataList[i][8]);			// dataList[i][11])
 			}
+		}
+		if (getInput().getNbBands() == 2){
+			demandLoadL = std::stoi(dataList[i][3]); // dataList[i][4])
+			demandMaxLengthL = std::stod(dataList[i][4]); // dataList[i][6])
 		}
 		std::string demandMode = "";
 		std::string demandSpacing = "";
@@ -368,7 +393,7 @@ void Instance::generateDemandsFromFile(std::string filePath){
 			demandSpacing = dataList[i][7];
 			demandPathBandwidth = dataList[i][8];
 		}
-		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength,demandOsnrLimit, demandPchC, demandPchL, demandPchS, false, -1, 0, 0, demandMode, demandSpacing, demandPathBandwidth);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoadC, demandLoadL, demandMaxLengthC, demandMaxLengthL, demandOsnrLimitC,demandOsnrLimitL, demandPchC, demandPchL, demandPchS, false, -1, 0, 0, demandMode, demandSpacing, demandPathBandwidth);
 		this->tabDemand.push_back(demand);
 	}
 	//std::cout << "out" << std::endl;
@@ -396,7 +421,13 @@ void Instance::generateRandomDemands(const int N){
 /* Verifies if there is enough place for a given demand to be routed through link i on last slice position s. */
 bool Instance::hasEnoughSpace(const int i, const int s, const Demand &demand){
 	// std::cout << "Calling hasEnoughSpace..." << std::endl;
-	const int LOAD = demand.getLoad();
+	int LOAD;
+	if (s >= getPhysicalLinkFromIndex(i).getNbSlicesC() ){
+		LOAD = demand.getLoadL();
+	}
+	else{
+		LOAD = demand.getLoadC();
+	}
 	int firstPosition = s - LOAD + 1;
 	if (firstPosition < 0){
 		return false;
@@ -520,19 +551,19 @@ void Instance::outputDemands(std::string counter){
 			myfile << std::to_string(getDemandFromIndex(i).getId()+1) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getSource()+1) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getTarget()+1) << delimiter;
-			myfile << std::to_string(getDemandFromIndex(i).getLoad()) << delimiter;
-			myfile << std::to_string(getDemandFromIndex(i).getMaxLength()) << delimiter;
-			myfile << std::to_string(getDemandFromIndex(i).getOsnrLimit()) << delimiter;
+			myfile << std::to_string(getDemandFromIndex(i).getLoadC()) << delimiter;
+			myfile << std::to_string(getDemandFromIndex(i).getMaxLengthC()) << delimiter;
+			myfile << std::to_string(getDemandFromIndex(i).getOsnrLimitC()) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getPchC()) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getPchL()) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getPchS()) << delimiter;
 			if (getDemandFromIndex(i).isRouted()){
 				myfile << "1" << "\n";
-				nbServedSlices += getDemandFromIndex(i).getLoad();
+				nbServedSlices += getDemandFromIndex(i).getLoadC();
 			}
 			else{
 				myfile << "0" << "\n";
-				nbBlockedSlices += getDemandFromIndex(i).getLoad();
+				nbBlockedSlices += getDemandFromIndex(i).getLoadC();
 			}
 		}
 

@@ -267,7 +267,7 @@ Expression EdgeNodeForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenO
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-                    Term term(x[edge][k], getToBeRouted_k(k).getLoad());
+                    Term term(x[edge][k], getToBeRouted_k(k).getLoadC());
                     obj.addTerm(term);
                 }
             }
@@ -419,7 +419,7 @@ void EdgeNodeForm::setTransmissionReachConstraints(){
 /* Returns the Transmission-Reach constraint associated with a demand. */
 Constraint EdgeNodeForm::getTransmissionReachConstraint_k(int k){
     Expression exp;
-    double upperBound = getToBeRouted_k(k).getMaxLength();
+    double upperBound = getToBeRouted_k(k).getMaxLengthC();
     int lowerBound = 0;
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
@@ -447,7 +447,7 @@ Constraint EdgeNodeForm::getChannelSelectionConstraint_k(int k){
     Expression exp;
     int upperBound = 1;
     int lowerBound = 1;
-    int load_k = getToBeRouted_k(k).getLoad();
+    int load_k = getToBeRouted_k(k).getLoadC();
     for (int s = load_k-1; s < getNbSlicesGlobalLimit(); s++){
         Term term(z[s][k], 1);
         exp.addTerm(term);
@@ -472,7 +472,7 @@ Constraint EdgeNodeForm::getForbiddenSlotConstraint_k(int k){
     Expression exp;
     int upperBound = 0;
     int lowerBound = 0;
-    int load_k = getToBeRouted_k(k).getLoad();
+    int load_k = getToBeRouted_k(k).getLoadC();
     for (int s = 0; s < std::min(load_k-1, getNbSlicesGlobalLimit()); s++){
         Term term(z[s][k], 1);
         exp.addTerm(term);
@@ -500,7 +500,7 @@ Constraint EdgeNodeForm::getEdgeSlotConstraint_k_e(int k, int e){
     Expression exp;
     int upperBound = 0;
     int lowerBound = 0;
-    int load_k = getToBeRouted_k(k).getLoad();
+    int load_k = getToBeRouted_k(k).getLoadC();
     for (int s = 0; s < getNbSlicesLimitFromEdge(e); s++){
         Term term(t[e][s][k], 1);
         exp.addTerm(term);
@@ -535,7 +535,7 @@ Constraint EdgeNodeForm::getDemandEdgeSlotConstraint_k_e_s(int k, int e, int s){
     std::ostringstream constraintName;
     constraintName << "DemandEdgeSlot(" << getToBeRouted_k(k).getId()+1 << "," << e+1 << "," << s+1 << ")";
     int upperBound = 1;
-    int load_k = getToBeRouted_k(k).getLoad();
+    int load_k = getToBeRouted_k(k).getLoadC();
     int maxS = std::min(s + load_k - 1, getNbSlicesLimitFromEdge(e)-1);
     
     Term termX(x[e][k], 1);

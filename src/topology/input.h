@@ -62,7 +62,9 @@ public:
 		OBJECTIVE_METRIC_TUA = 44,	/**< Minimize the amplifiers. **/
 		OBJECTIVE_METRIC_NLUS = 8,		/**< Minimize the max used slice position overall. **/
 		OBJECTIVE_METRIC_TOS = 10, 	/**< Minimize the sum of differences between the OSNR of a path ant the OSNR limit **/
-		OBJECTIVE_METRIC_ADS = 1010 	/**< Minimize the weighted sum of rejected demands **/
+		OBJECTIVE_METRIC_ADS = 1010, 	/**< Minimize the weighted sum of rejected demands **/
+		OBJECTIVE_METRIC_LLB = 20, 	/**< Minimize the number of links with installed L band **/
+		OBJECTIVE_METRIC_DCB = 2020 	/**< naximize the number of demands in the c band **/
 	};
 
 	/** Enumerates the possible output policies to be used. **/

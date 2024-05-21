@@ -18,9 +18,12 @@ private:
 	int id;				/**< The demand's id. **/
 	int source;			/**< The demand's source node id. **/
 	int target;			/**< The demand's target node id. **/
-	int load;			/**< Refers to how many slices the demand requires. **/
-	double maxLength;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
-	double osnrLimit;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
+	int loadC;			/**< Refers to how many slices the demand requires. **/
+	int loadL;			/**< Refers to how many slices the demand requires. **/
+	double maxLengthC;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
+	double osnrLimitC;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
+	double maxLengthL;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
+	double osnrLimitL;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
 
 	bool routed;		/**< True if the demand is already routed. **/
 	int sliceAllocation;/**< The id of the last slice assigned to this demand. @warning Equals -1 if not routed yet. **/
@@ -44,7 +47,7 @@ public:
 	 * @param pos The last slice position assigned to the demand. @param len The length of the path assigned to the demand. 
 	 * @param hop The number of hops in the path assigned to the demand. * @param m The GNPY mode @param space The GNPY spacing 
 	 * @param pathBand The GNPY path_bandwidth. **/
-	Demand(int i = -1, int s = -1, int t = -1, int l = 0, double maxL = 0, double osL = 1, double pc = 1,double pl = 1,double ps = 1, bool route=false, int pos=-1, double len = 0, int hop = 0, std::string m="", std::string space="",std::string pathBand="");
+	Demand(int i = -1, int s = -1, int t = -1, int lC = 0, int lL = 0, double maxC = 0, double maxL = 0, double osC = 1, double osL = 0, double pc = 0,double pl = 0, double ps = 1, bool route=false, int pos=-1, double len = 0, int hop = 0, std::string m="", std::string space="",std::string pathBand="");
 
 	/****************************************************************************************/
 	/*										Getters											*/
@@ -59,7 +62,10 @@ public:
 	int getTarget() const { return target; }
 	
 	/** Returns the number of slices requested by the demand. **/
-	int getLoad() const { return load; }
+	int getLoadC() const { return loadC; }
+
+	/** Returns the number of slices requested by the demand. **/
+	int getLoadL() const { return loadL; }
 	
 	/** Returns the id of the last slice assigned to the demand. **/
 	int getSliceAllocation() const { return sliceAllocation; }
@@ -71,10 +77,15 @@ public:
 	int getNbHops() const { return nbHops; }
 	
 	/** Returns the maximum length of the path on which the demand can be routed. **/
-	double getMaxLength() const { return maxLength; }
+	double getMaxLengthC() const { return maxLengthC; }
+
+	/** Returns the maximum length of the path on which the demand can be routed. **/
+	double getMaxLengthL() const { return maxLengthL; }
 
 	/** Returns the minimum OSNR of the path on which the demand can be routed. **/
-	double getOsnrLimit() const { return osnrLimit; }
+	double getOsnrLimitC() const { return osnrLimitC; }
+	/** Returns the minimum OSNR of the path on which the demand can be routed. **/
+	double getOsnrLimitL() const { return osnrLimitL; }
 
 	/** Returns the power of the channel of the demand **/
 	double getPchC() const { return pchC; }
@@ -109,16 +120,25 @@ public:
 	void setTarget(int t) { this->target = t; }
 	
 	/** Changes the number of slices requested by the demand. @param l New load value.**/
-	void setLoad(int l) { this->load = l; }
+	void setLoadC(int l) { this->loadC = l; }
+
+	/** Changes the number of slices requested by the demand. @param l New load value.**/
+	void setLoadL(int l) { this->loadL = l; }
 
 	/** Changes the id of the last slice assigned to the demand. @param i The new last slice position.**/
 	void setSliceAllocation(int i) { this->sliceAllocation = i; }
 	
 	/** Changes the maximum length of the path on which the demand can be routed. @param max New demand's maximum length value.**/
-	void setMaxLength(double max) { this->maxLength = max; }
+	void setMaxLengthC(double max) { this->maxLengthC = max; }
+
+	/** Changes the maximum length of the path on which the demand can be routed. @param max New demand's maximum length value.**/
+	void setMaxLengthL(double max) { this->maxLengthL = max; }
 
 	/** Changes the OSNR Limit of the path on which demand is routed. @param osL The new path Osnr Limit. **/
-	void setOsnrLimit(double osL) { this->osnrLimit = osL; }
+	void setOsnrLimitC(double os) { this->osnrLimitC = os; }
+
+		/** Changes the OSNR Limit of the path on which demand is routed. @param osL The new path Osnr Limit. **/
+	void setOsnrLimitL(double os) { this->osnrLimitL = os; }
 
 	/** Changes the power of the channel of the demand **/
 	void setPchC(double p) { this->pchC = p; }

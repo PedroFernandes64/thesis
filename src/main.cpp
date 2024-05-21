@@ -120,10 +120,14 @@ int main(int argc, char *argv[]) {
 			std::string variables = to_string(solver->getNbVariable());
 			std::string	constraints = to_string(solver->getNbConstraint());
 			std::string possiblePaths =  to_string(solver->getPossiblePaths());
-			std::string feasiblePaths =to_string(solver->getFeasiblePaths());
-			std::string onlyOsnrFeasiblePaths =to_string(solver->getOsnrFeasiblePaths());
-			std::string onlyReachFeasiblePaths = to_string(solver->getReachFeasiblePaths());
-			std::string infeasiblePaths = to_string(solver->getInfeasiblePaths());
+			std::string feasiblePathsC =to_string(solver->getFeasiblePathsC());
+			std::string onlyOsnrFeasiblePathsC =to_string(solver->getOsnrFeasiblePathsC());
+			std::string onlyReachFeasiblePathsC = to_string(solver->getReachFeasiblePathsC());
+			std::string infeasiblePathsC = to_string(solver->getInfeasiblePathsC());
+			std::string feasiblePathsL =to_string(solver->getFeasiblePathsL());
+			std::string onlyOsnrFeasiblePathsL =to_string(solver->getOsnrFeasiblePathsL());
+			std::string onlyReachFeasiblePathsL = to_string(solver->getReachFeasiblePathsL());
+			std::string infeasiblePathsL = to_string(solver->getInfeasiblePathsL());
 
 			//AUXILIAR OUTPUT FILE
 			std::ofstream outfile;
@@ -155,8 +159,9 @@ int main(int argc, char *argv[]) {
 			}
 			//opening file and writing
   			outfile << "\n" + instanceName + ";" << ub + ";" + lb + ";" + gap +";" + time +";" + obj +";"+ formulation+ ";"+maxReach+";"+
-				minOsnr+";"+cuts+";"+variables+";"+constraints+";"+possiblePaths+";"+feasiblePaths+";"+infeasiblePaths+";"+
-				onlyOsnrFeasiblePaths+";"+onlyReachFeasiblePaths; 
+				minOsnr+";"+cuts+";"+variables+";"+constraints+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"+
+				onlyOsnrFeasiblePathsC+";"+onlyReachFeasiblePathsC+";"+feasiblePathsL+";"+infeasiblePathsL+";"+
+				onlyOsnrFeasiblePathsL+";"+onlyReachFeasiblePathsL; 
 		}
 		
 

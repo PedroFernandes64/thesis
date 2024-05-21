@@ -1,13 +1,16 @@
 #include "demand.h"
 
 /* Constructor. */
-Demand::Demand(int i, int s, int t, int l, double max, double osL, double pc, double pl, double ps, bool a, int slice, double pathLen, int hops, std::string m, std::string space, std::string b){
+Demand::Demand(int i, int s, int t, int lC, int lL, double maxC, double maxL, double osC, double osL, double pc, double pl, double ps, bool a, int slice, double pathLen, int hops, std::string m, std::string space, std::string b){
 	this->setId(i);
 	this->setSource(s);
 	this->setTarget(t);
-	this->setLoad(l);
-	this->setMaxLength(max);
-	this->setOsnrLimit(osL);
+	this->setLoadC(lC);
+	this->setMaxLengthC(maxC);
+	this->setOsnrLimitC(osC);
+	this->setLoadL(lL);
+	this->setMaxLengthL(maxL);
+	this->setOsnrLimitL(osL);
 	this->setPchC(pc);
 	this->setPchL(pl);
 	this->setPchS(ps);
@@ -26,9 +29,12 @@ void Demand::copyDemand(const Demand & demand){
 	this->setId(demand.getId());
 	this->setSource(demand.getSource());
 	this->setTarget(demand.getTarget());
-	this->setLoad(demand.getLoad());
-	this->setMaxLength(demand.getMaxLength());
-	this->setOsnrLimit(demand.getOsnrLimit());
+	this->setLoadC(demand.getLoadC());
+	this->setMaxLengthC(demand.getMaxLengthC());
+	this->setOsnrLimitC(demand.getOsnrLimitC());
+	this->setLoadL(demand.getLoadL());
+	this->setMaxLengthL(demand.getMaxLengthL());
+	this->setOsnrLimitL(demand.getOsnrLimitL());
 	this->setPchC(demand.getPchC());
 	this->setPchL(demand.getPchL());
 	this->setPchS(demand.getPchS());
@@ -51,14 +57,15 @@ void Demand::displayDemand(){
 		r = "NO";
 	}
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
-	std::cout << ". nbSlices: " << this->getLoad() << ", maxLength: " << this->getMaxLength()<< ", osnrLimit: " << this->getOsnrLimit()<< ", pchC: " << this->getPchC()<< ", pchL: " << this->getPchL()<< ", pchS: " << this->getPchS();
+	std::cout << ". nbSlices C: " << this->getLoadC() << ", maxLength C: " << this->getMaxLengthC()<< ", osnrLimit C: " << this->getOsnrLimitC()<< ", pchC: " << this->getPchC();
+	std::cout << ". nbSlices L: " << this->getLoadL() << ", maxLength L: " << this->getMaxLengthL()<< ", osnrLimit L: " << this->getOsnrLimitL()<< ", pchL: " << this->getPchL();
 	std::cout << ", ROUTED: " << r << std::endl;
 }
 
 /* Verifies if the demand has exactly the given informations. */
 void Demand::checkDemand(int i, int s, int t, int l){
 	try {
-		if (this->getId() != i || this->getSource() != s || this->getTarget() != t || this->getLoad() != l) {
+		if (this->getId() != i || this->getSource() != s || this->getTarget() != t || this->getLoadC() != l) {
 			throw "Demands do not match. Verify files Demand.csv and Demand_edges_slices.csv\n";
 		}
 	}
@@ -71,6 +78,6 @@ void Demand::checkDemand(int i, int s, int t, int l){
 std::string Demand::getString() const{
 	std::string str = "(" + std::to_string(this->getSource() + 1) + ",";
 	str += std::to_string(this->getTarget() + 1) + ",";
-	str += std::to_string(this->getLoad()) + ")";
+	str += std::to_string(this->getLoadC()) + ")";
 	return str;
 }

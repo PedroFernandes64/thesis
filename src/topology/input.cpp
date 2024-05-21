@@ -234,6 +234,12 @@ std::string Input::getObjName(ObjectiveMetric obj) const{
     case OBJECTIVE_METRIC_ADS:
         name = "obj_ads";
         break;
+    case OBJECTIVE_METRIC_LLB:
+        name = "obj_llb";
+        break;
+    case OBJECTIVE_METRIC_DCB:
+        name = "obj_dcb";
+        break;
     default:
         std::cout << "ERROR: Unknown objective." << std::endl;
         exit(0);
@@ -279,6 +285,12 @@ std::vector<Input::ObjectiveMetric> Input::to_ObjectiveMetric(std::string data){
         }
         else if (strVec[i] == "ADS"){
             objVec.push_back(OBJECTIVE_METRIC_ADS);
+        }
+        else if (strVec[i] == "LLB"){
+            objVec.push_back(OBJECTIVE_METRIC_LLB);
+        }
+        else if (strVec[i] == "DCB"){
+            objVec.push_back(OBJECTIVE_METRIC_DCB);
         }
         else{
             std::cout << "ERROR: Invalid objective metric." << std::endl;

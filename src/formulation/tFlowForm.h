@@ -20,7 +20,14 @@ private:
 	VarMatrix z; 					/**< Non overlapping variables. z[a][b] = 1 if demand a is allocated to a slot that has a smaller position than demand b's allocated slot. **/
 	VarArray maxSlicePerLink;	    /**< The array of variables used in the MIP for verifying the max used slice position for each link in the topology network. maxSlicePerLink[i]=p if p is the max used slice position from the link with id i. **/
 	Variable maxSliceOverall;		/**< The max used slice position throughout all the network. **/
-	VarArray routedCBand;	    	/**< routedCBand[k]=1 if k is routed in C band. **/
+	//VarArray acceptedDemand;	    /**< acceptedDemand[k]=1 if k is routed band. **/
+	VarArray l;	    				
+	VarMatrix l2;	    			
+	
+	int slicesC;
+	int slicesL;
+	int slicesTotal;
+
 	int NonOverlappingType;
 	
 
@@ -60,9 +67,12 @@ public:
 
 	/** Defines the max used slice overall variable. **/
 	void setMaxUsedSliceOverallVariable();
-
+	
 	/** Defines the C band routing variable. **/
-	void setCBandRoutingVariable();
+	//void setAcceptedDemandVariable();
+
+	/** Defines the multiband variables. **/
+	void setMultibandVariables();
 
     /** Changes the variable values. @param value The vector of values. **/
 	void setVariableValues(const std::vector<double> &value) override; 
@@ -101,7 +111,7 @@ public:
 	void setNonOverlappingConstraintsSharedLink();
 	void setNonOverlappingConstraintsSpectrumPosition();
 
-	void setCBandRoutingConstraints();
+	void setMultibandConstraints();
 
 	void setPreprocessingConstraints();
 
@@ -115,9 +125,10 @@ public:
 
 	Constraint getTargetConstraint_k2(int k);
 
-	Constraint getLengthConstraint_k(int k);
+	Constraint getLengthCConstraint_k(int k);
 
     Constraint getOSNRCConstraint(const Demand &demand, int d);
+	Constraint getOSNRLConstraint(const Demand &demand, int d);
 
 	Constraint getDegreeConstraint_k(int k, const ListGraph::Node &v);
 
@@ -138,9 +149,11 @@ public:
 	
 	Constraint getPreprocessingConstraint(int k);
 
-	Constraint getCBandRoutingConstraint(int k);
-
-	Constraint getCBandRoutingConstraint2(int k, int e);
+	Constraint getMultibandConstraint(int k, int e);
+	Constraint getMultibandConstraint2(int k, int e);
+	Constraint getMultibandConstraint3(int k, int e);
+	Constraint getMultibandConstraint4(int k, int e);
+	Constraint getMultibandConstraint5(int e);
 	
 
 	/****************************************************************************************/

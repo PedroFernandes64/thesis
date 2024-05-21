@@ -6,7 +6,7 @@
 /****************************************************************************************/
 
 /** Constructor. **/
-Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la, double pnC, double pnL,double pnS, double paC, double paL,  double paS) {
+Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la, double pnC, double pnL,double pnS, double paC, double paL,  double paS, int sc, int sb, int ab, int ib) {
 	this->setId(i);
 	this->setIndex(ind);
 	this->setSource(s);
@@ -18,6 +18,10 @@ Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la, d
 	}
 	this->setCost(c);
 	this->setLineAmplifiers(la);
+	this->setNbSlicesC(sc); 
+	this->setNbSlicesL(sb); 
+	this->setAvailableBands(ab); 
+	this->setInstalledBands(ib); 
 	this->setPnliC(pnC);
 	this->setPnliL(pnL);
 	this->setPnliS(pnS);
@@ -38,6 +42,10 @@ Fiber::Fiber(const Fiber & f){
 	}
 	this->setCost(f.cost);
 	this->setLineAmplifiers(f.lineAmplifiers);
+	this->setNbSlicesC(f.nbSlicesCBand); 
+	this->setNbSlicesL(f.nbSlicesLBand); 
+	this->setAvailableBands(f.availableBands); 
+	this->setInstalledBands(f.installedBands); 
 	this->setPnliC(f.pnliC);
 	this->setPnliL(f.pnliL);
 	this->setPnliS(f.pnliS);
@@ -70,15 +78,17 @@ void Fiber::copyFiber(Fiber & edge){
 	}	
 	this->setLength(edge.getLength());
 	this->setCost(edge.getCost());
-	
+	this->setLineAmplifiers(edge.getLineAmplifiers());
+	this->setNbSlicesC(edge.getNbSlicesC()); 
+	this->setNbSlicesL(edge.getNbSlicesL()); 
+	this->setAvailableBands(edge.getAvailableBands()); 
+	this->setInstalledBands(edge.getInstalledBands()); 
 	this->setPnliC(edge.getPnliC());
 	this->setPnliL(edge.getPnliL());
 	this->setPnliS(edge.getPnliS());
 	this->setPaseLineC(edge.getPaseLineC());
 	this->setPaseLineL(edge.getPaseLineL());
 	this->setPaseLineS(edge.getPaseLineS());
-
-	this->setLineAmplifiers(edge.getLineAmplifiers());
 }
 
 /* Verifies if the fiber is routing a demand. */
@@ -93,11 +103,20 @@ bool Fiber::contains(const Demand &d) const{
 
 /* Assigns a demand to a given position in the spectrum. */
 void Fiber::assignSlices(const Demand &d, int p){
-	int demandLoad = d.getLoad();
+	int demandLoad;
+	if (p>=getNbSlicesC()){
+		installedBands = 2;
+		demandLoad = d.getLoadL();
+	}else{
+		demandLoad = d.getLoadC();
+	}
 	// assign demand d to this edge from position p - demandLoad + 1 to position p
 	int first = p - demandLoad + 1;
 	for (int i = first; i <= p; i++) {
 		this->spectrum[i].setAssignment(d.getId());
+	}
+	if (p>=getNbSlicesC()){
+		installedBands = 2;
 	}
 }
 
@@ -132,7 +151,7 @@ int Fiber::getNbUsedSlices() const {
 /* Displays summarized information about the fiber. */
 void Fiber::displayFiber(){
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
-	std::cout << ". nb slices: " << this->getNbSlices() << ", length: " << this->getLength() << ", cost: " << this->getCost() << ", amplis: " << this->getLineAmplifiers() << ", pnliC: " << this->getPnliC() << ", paseC: " << this->getPaseLineC() << ", pnliL: " << this->getPnliL() << ", paseL: " << this->getPaseLineL()<<", pnliS: " << this->getPnliS()<< ", paseS: " << this->getPaseLineS() <<std::endl;
+	std::cout << ". nb slices in C band: " << this->getNbSlicesC()<< ", nb slices in L band: " << this->getNbSlicesL()  << ", length: " << this->getLength() << ", cost: " << this->getCost() << ", amplis: " << this->getLineAmplifiers() << ", pnliC: " << this->getPnliC() << ", paseC: " << this->getPaseLineC() << ", pnliL: " << this->getPnliL() << ", paseL: " << this->getPaseLineL()<<", pnliS: " << this->getPnliS()<< ", paseS: " << this->getPaseLineS() <<std::endl;
 }
 
 /* Displays detailed information about state of the fiber. */
@@ -152,12 +171,23 @@ void Fiber::displayDetailedFiber(){
 
 /* Displays summarized information about slice occupation. */
 void Fiber::displaySlices(){
-	for (int i = 0; i < this->getNbSlices(); i++){
+	for (int i = 0; i < this->getNbSlicesC(); i++){
 		if (this->spectrum[i].isUsed()) {
 			std::cout << "*";
 		}
 		else {
 			std::cout << "-";
+		}
+	}
+	if(availableBands>1){
+		std::cout << "||";
+		for (int i = this->getNbSlicesC(); i < this->getNbSlicesC() + this->getNbSlicesL(); i++){
+			if (this->spectrum[i].isUsed()) {
+				std::cout << "*";
+			}
+			else {
+				std::cout << "-";
+			}
 		}
 	}
 	std::cout << std::endl;

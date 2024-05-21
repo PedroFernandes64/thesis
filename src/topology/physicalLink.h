@@ -23,6 +23,10 @@ private:
 	double length;					/**< Length of the fiber in the physical network. **/
 	double cost;					/**< Cost of routing a demand through the fiber. **/
 	std::vector<Slice> spectrum;	/**< Fiber's spectrum. **/
+	int availableBands;
+	int installedBands;
+	int nbSlicesCBand;
+	int nbSlicesLBand;
 	int lineAmplifiers;				/**< Number of line amplifiers. **/
     //Pnli contribution of this fiber
 	double pnliC;	
@@ -42,7 +46,7 @@ public:
 	 * @param c Cost of routing a demand through the fiber. @param la Number of line amplifiers. @param pn Pnli of the fiber. 
 	 * @param pa Pase line of the fiber.**/
 
-	Fiber(int i, int ind, int s, int t, double len = 0.0, int nb = 1, double c = 0.0, int la = 1, double pnC = 0.0, double pnL = 0.0, double pnS = 0.0, double paC = 0.0, double paL = 0.0, double paS = 0.0);
+	Fiber(int i, int ind, int s, int t, double len = 0.0, int nb = 1, double c = 1.0, int la = 1, double pnC = 0.0, double pnL = 0.0, double pnS = 0.0, double paC = 0.0, double paL = 0.0, double paS = 0.0, int sc=0, int sb=0, int ab = 1, int ib = 1);
 
 	Fiber(const Fiber &);
 
@@ -70,6 +74,12 @@ public:
 
 	/** Returns the cost of routing a demand through the fiber. \note This attribute is not really used for now but may be useful in the future. **/
 	double getCost() const { return cost; }
+
+	int getNbSlicesC() const { return nbSlicesCBand; }
+	int getNbSlicesL() const { return nbSlicesLBand; }
+	int getAvailableBands() const { return availableBands; }
+	int getInstalledBands() const { return installedBands; }
+
 
 	/** Returns the Pnli **/
 	double getPnliC() const { return pnliC; }
@@ -123,6 +133,11 @@ public:
 	
 	/** Changes the cost of routing a demand through the fiber. @param c New cost. **/
 	void setCost(double c) { this->cost = c; }
+
+	void setNbSlicesC(int s)  { this->nbSlicesCBand = s; }
+	void setNbSlicesL(int s)  { this->nbSlicesLBand = s; }
+	void setAvailableBands(int b)  { this->availableBands = b; }
+	void setInstalledBands(int b)  { this->installedBands = b; }
 
 	/** Changes the pnli @param pn New number **/
 	void setPnliC(double pn) { this->pnliC = pn; }
