@@ -143,7 +143,7 @@ protected:
     EdgeCost compactEdgePnliL;           /**< EdgeMap storing the edge pnli of the simple graph associated with the initial mapping. **/
     EdgeCost compactEdgePaseLineL;           /**< EdgeMap storing the edge pase line of the simple graph associated with the initial mapping. **/
 
-    std::vector<std::vector<int> > preProcessingErasedArcs;
+    std::vector<std::vector<std::vector<int> > > preProcessingErasedArcs;
     
     CompactNodeMap compactNodeId;       /**< NodeMap storing the LEMON node ids of the simple graph associated with the initial mapping. **/
     CompactNodeMap compactNodeLabel;    /**< NodeMap storing the node labels of the simple graph associated with the initial mapping. **/
@@ -440,7 +440,8 @@ public:
 
     /** Returns the distance of the shortest path from source to target passing through arc a. \note If there exists no st-path, returns +Infinity. @param d The graph index. @param source The source node.  @param a The arc required to be present. @param target The target node.  **/
     double shortestDistance(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
-    double shortestOSNRCPartial(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
+    double shortestOSNRPartial(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
+
 
     // PEDRO PEDRO PEDRO
     /** Performs GN Model over all possibilities of path**/
@@ -467,6 +468,8 @@ public:
     void displayPaths();
     /** Display OSNR corrected if Obj 10 chosen **/
     void displayOSNR(Instance &i);
+
+    void displayOFData(Instance &i);
 
     /** Displays an arc from a graph. @param d The graph index. @param a The arc to be displayed. **/
     void displayArc(int d, const ListDigraph::Arc &a);

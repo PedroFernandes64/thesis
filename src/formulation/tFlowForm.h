@@ -20,7 +20,6 @@ private:
 	VarMatrix z; 					/**< Non overlapping variables. z[a][b] = 1 if demand a is allocated to a slot that has a smaller position than demand b's allocated slot. **/
 	VarArray maxSlicePerLink;	    /**< The array of variables used in the MIP for verifying the max used slice position for each link in the topology network. maxSlicePerLink[i]=p if p is the max used slice position from the link with id i. **/
 	Variable maxSliceOverall;		/**< The max used slice position throughout all the network. **/
-	//VarArray acceptedDemand;	    /**< acceptedDemand[k]=1 if k is routed band. **/
 	VarArray l;	    				
 	VarMatrix l2;	    			
 	
@@ -148,6 +147,9 @@ public:
 	Constraint getNonOverlappingConstraintSpectrumPosition2(int a, int b, int e);
 	
 	Constraint getPreprocessingConstraint(int k);
+	Constraint getPreprocessingConstraintMultiBi(int k);
+	Constraint getPreprocessingConstraintMultiC(int k, int e);
+	Constraint getPreprocessingConstraintMultiL(int k, int e);
 
 	Constraint getMultibandConstraint(int k, int e);
 	Constraint getMultibandConstraint2(int k, int e);

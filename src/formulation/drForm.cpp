@@ -977,7 +977,7 @@ void DrFormulation::setPreprocessingConstraints(){
 }
 
 Constraint DrFormulation::getPreprocessingConstraint(int k){
-    Expression exp;
+    /*Expression exp;
     double upperBound = 0;
     int lowerBound = 0;
     int nbEdges = countEdges(compactGraph);
@@ -997,6 +997,7 @@ Constraint DrFormulation::getPreprocessingConstraint(int k){
     constraintName << "Prepro_" << getToBeRouted_k(k).getId()+1;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
+    */
 }
 
 

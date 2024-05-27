@@ -19,7 +19,7 @@ NFL = 5.5                                       #SI dB
 DL = 20.0                                       #NOT SI ps/(nm km)
 pSatL = 65 * pow(10,-3)
 
-#CONSTANTS L BAND
+#CONSTANTS S BAND
 lambdS = 1490.0 * pow(10,-9)                    #SI meters, m             Usually nanometer (x nanometer)
 aeffS = 75 * pow (10,-12)                       #SI m^2             Usually micrometer^2
 bwdmS = 6500 * pow(10,9)                        #SI #Hz             Usually gigahertz

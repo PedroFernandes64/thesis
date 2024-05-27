@@ -1585,19 +1585,29 @@ Constraint TFlowForm::getMultibandConstraint5(int e){
 }
 
 void TFlowForm::setPreprocessingConstraints(){
-    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        const Constraint & preprocessingConstraint = getPreprocessingConstraint(k);
-        constraintSet.push_back(preprocessingConstraint);
+    if(nbBands==1){    
+        for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+            const Constraint & preprocessingConstraint = getPreprocessingConstraint(k);
+            constraintSet.push_back(preprocessingConstraint);
+        }
+    }else{
+        for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+            const Constraint & preprocessingConstraint = getPreprocessingConstraintMultiBi(k);
+            constraintSet.push_back(preprocessingConstraint);
+            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                int edge = getCompactEdgeLabel(e);
+                int nbEdges = countEdges(compactGraph);  
+                if (((preProcessingErasedArcs[k][edge][0] == 1) && (preProcessingErasedArcs[k][edge][1] == 0)) || ((preProcessingErasedArcs[k][edge + nbEdges][0] == 1) && (preProcessingErasedArcs[k][edge + nbEdges][1] == 0))){
+                    const Constraint & preprocessingConstraint2 = getPreprocessingConstraintMultiC(k,edge);
+                    constraintSet.push_back(preprocessingConstraint2);
+                }
+                if (((preProcessingErasedArcs[k][edge][0] == 0) && (preProcessingErasedArcs[k][edge][1] == 1)) || ((preProcessingErasedArcs[k][edge + nbEdges][0] == 0) && (preProcessingErasedArcs[k][edge + nbEdges][1] == 1))){
+                    const Constraint & preprocessingConstraint3 = getPreprocessingConstraintMultiL(k,edge);
+                    constraintSet.push_back(preprocessingConstraint3);
+                }
+            }
+        }
     }
-    /*
-    Expression exp;
-    Term term(y[14][1], 1);
-    Term term2(y[14][0], 1);
-    exp.addTerm(term);
-    exp.addTerm(term2);
-    Constraint preprocessingConstraint2(0.0,exp,0.0,"abba");
-    constraintSet.push_back(preprocessingConstraint2);
-    */
     std::cout << "Preprocessing constraints have been defined..." << std::endl;
 }
 
@@ -1606,20 +1616,96 @@ Constraint TFlowForm::getPreprocessingConstraint(int k){
     double upperBound = 0;
     int lowerBound = 0;
     int nbEdges = countEdges(compactGraph);
+    if(nbBands==1){     
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            double coeff = 1;
+            if (preProcessingErasedArcs[k][edge][0] == 1){
+                Term term(x[edge][k], coeff);
+                exp.addTerm(term);
+            }
+            if (preProcessingErasedArcs[k][edge + nbEdges][0] == 1){
+                Term term2(x[edge + nbEdges][k], coeff);
+                exp.addTerm(term2);
+            }
+        }
+    }
+    std::ostringstream constraintName;
+    constraintName << "Prepro_" << getToBeRouted_k(k).getId()+1;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+Constraint TFlowForm::getPreprocessingConstraintMultiBi(int k){
+    Expression exp;
+    double upperBound = 0;
+    int lowerBound = 0;
+    int nbEdges = countEdges(compactGraph);  
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
         double coeff = 1;
-        if (preProcessingErasedArcs[k][edge] == 1){
+        if ((preProcessingErasedArcs[k][edge][0] == 1) && (preProcessingErasedArcs[k][edge][1] == 1)){
             Term term(x[edge][k], coeff);
             exp.addTerm(term);
         }
-        if (preProcessingErasedArcs[k][edge + nbEdges] == 1){
+        if ((preProcessingErasedArcs[k][edge + nbEdges][0] == 1) && (preProcessingErasedArcs[k][edge + nbEdges][1] == 1)){
             Term term2(x[edge + nbEdges][k], coeff);
             exp.addTerm(term2);
         }
     }
     std::ostringstream constraintName;
     constraintName << "Prepro_" << getToBeRouted_k(k).getId()+1;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+Constraint TFlowForm::getPreprocessingConstraintMultiC(int k, int e){
+    Expression exp;
+    double upperBound = 1;
+    int lowerBound = -1;
+    int nbEdges = countEdges(compactGraph);
+    double coeff = 1;
+    if ((preProcessingErasedArcs[k][e][0] == 1) && (preProcessingErasedArcs[k][e][1] == 0)){
+        Term term(x[e][k], coeff);
+        exp.addTerm(term);
+    }
+    if ((preProcessingErasedArcs[k][e + nbEdges][0] == 1) && (preProcessingErasedArcs[k][e + nbEdges][1] == 0)){
+        Term term2(x[e + nbEdges][k], coeff);
+        exp.addTerm(term2);
+    }
+
+    for (int s = 0; s < slicesC; s++){
+        Term term(y[s][k], -1);
+        exp.addTerm(term);
+    }
+    std::ostringstream constraintName;
+    constraintName << "PreproC_" << getToBeRouted_k(k).getId()+1;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+Constraint TFlowForm::getPreprocessingConstraintMultiL(int k, int e){
+    Expression exp;
+    double upperBound = 1;
+    int lowerBound = -1;
+    int nbEdges = countEdges(compactGraph);  
+
+    double coeff = 1;
+    if ((preProcessingErasedArcs[k][e][0] == 0) && (preProcessingErasedArcs[k][e][1] == 1)){
+        Term term(x[e][k], coeff);
+        exp.addTerm(term);
+    }
+    if ((preProcessingErasedArcs[k][e + nbEdges][0] == 0) && (preProcessingErasedArcs[k][e + nbEdges][1] == 1)){
+        Term term2(x[e + nbEdges][k], coeff);
+        exp.addTerm(term2);
+    }
+
+    for (int s = slicesC; s < slicesC + slicesL; s++){
+        Term term(y[s][k], -1);
+        exp.addTerm(term);
+    }
+    std::ostringstream constraintName;
+    constraintName << "PreproL_" << getToBeRouted_k(k).getId()+1;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }

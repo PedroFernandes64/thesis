@@ -363,7 +363,7 @@ void RSA::AllPaths(){
     double dbOsnrL;
     double dbOsnrS;
     std::ofstream outfile;
-    bool printAllpaths = true;
+    bool printAllpaths = false;
     if(printAllpaths){
         std::cout << "Writing  OSNR's to file..." << std::endl;
         std::string outputOSNRName = "pathData.csv";
@@ -663,7 +663,9 @@ void RSA::preprocessing(){
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
             preProcessingErasedArcs[d].resize(2*countEdges(compactGraph));
             for (int i=0; i<2*countEdges(compactGraph);i++){
-                preProcessingErasedArcs[d][i] = 0;
+                preProcessingErasedArcs[d][i].resize(2);
+                preProcessingErasedArcs[d][i][0] = 0;
+                preProcessingErasedArcs[d][i][1] = 0;
             }
         }
         //Tflow test
@@ -692,6 +694,11 @@ void RSA::preprocessing(){
 
     //for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         //std::cout << "> Number of arcs in graph #" << d << " before preprocessing: " << nbArcsOld[d] << ". After: " << countArcs((*vecGraph[d])) << std::endl;
+    //}
+    //for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+    //    for (int i=0; i<2*countEdges(compactGraph);i++){
+    //        std::cout << d+1 <<  ";"<< i <<  ";" <<  preProcessingErasedArcs[d][i][0] << ";" << preProcessingErasedArcs[d][i][1]<< std::endl;
+    //    }
     //}
 }
 
@@ -764,17 +771,38 @@ bool RSA::lengthPreprocessing(){
                     int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
                     int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
                     if (u < v){
-                        if (preProcessingErasedArcs[d][arcTflowId]==0){
-                            preProcessingErasedArcs[d][arcTflowId]++;
-                            totalNbTflow++;
+                        if (slice >= limitCband){
+                            if (preProcessingErasedArcs[d][arcTflowId][1]==0){
+                                preProcessingErasedArcs[d][arcTflowId][1]++;
+                                totalNbTflow++;
+                                //std::cout << "Erasing (" << u << "," << v << ") in L band for demand: " << d << std::endl;
+                                //std::cout << d+1 <<  ";"<< arcTflowId <<  ";2" << std::endl;
+                            }
+                        }else{
+                            if (preProcessingErasedArcs[d][arcTflowId][0]==0){
+                                preProcessingErasedArcs[d][arcTflowId][0]++;
+                                totalNbTflow++;
+                                //std::cout << d+1 <<  ";"<< arcTflowId <<  ";1" << std::endl;
+                                //std::cout << "Erasing (" << u << "," << v << ") in C band for demand: " << d << std::endl;
+                            }
                         }
-                        
                     }
                     else{
-                        if (preProcessingErasedArcs[d][arcTflowId+nbEdges]==0){
-                            preProcessingErasedArcs[d][arcTflowId+nbEdges]++;
-                            totalNbTflow++;
-                        }
+                        if (slice >= limitCband){
+                            if (preProcessingErasedArcs[d][arcTflowId+nbEdges][1]==0){
+                                preProcessingErasedArcs[d][arcTflowId+nbEdges][1]++;
+                                totalNbTflow++;
+                                //std::cout << "Erasing (" << u << "," << v << ") in L band for demand: " << d << std::endl;
+                                //std::cout << d+1 <<  ";"<< arcTflowId+nbEdges <<  ";2" << std::endl;
+                            }
+                        }else{
+                            if (preProcessingErasedArcs[d][arcTflowId+nbEdges][0]==0){
+                                preProcessingErasedArcs[d][arcTflowId+nbEdges][0]++;
+                                totalNbTflow++;
+                                //std::cout << "Erasing (" << u << "," << v << ") in C band for demand: " << d << std::endl;
+                                //std::cout << d+1 <<  ";"<< arcTflowId+nbEdges <<  ";1" << std::endl;
+                            }
+                        }                        
                     }
                     //Tflow test
                     //displayArc(d, a);
@@ -834,7 +862,6 @@ double RSA::shortestDistance(int d, ListDigraph::Node &s, ListDigraph::Arc &a, L
 /* Performs preprocessing based on the arc partial osnr and returns true if at least one arc is erased. */
 bool RSA::OSNRPreprocessingC(){
     std::cout << "Called OSNR preprocessing."<< std::endl;
-
     //Tflow test
     int nbEdges = countEdges(compactGraph);
     int totalNbTflow = 0;
@@ -854,11 +881,14 @@ bool RSA::OSNRPreprocessingC(){
             ListDigraph::ArcIt nextArc(*vecGraph[d], ++currentArc);
             //currentArc = a;
             int slice = getArcSlice(a, d);
+            ListDigraph::Node source = getNode(d, getToBeRouted_k(d).getSource(), slice);
+            ListDigraph::Node target = getNode(d, getToBeRouted_k(d).getTarget(), slice);
             int limitCband = instance.getPhysicalLinkFromIndex(getArcLabel(a, d)).getNbSlicesC();
             double osnrRhs;
             double osnrLimdb = getToBeRouted_k(d).getOsnrLimitC();
             double pch = getToBeRouted_k(d).getPchC();
             double lastAmpNoise = instance.getPaseNodeC();
+            double shortestOSNR = shortestOSNRPartial(d, source, a, target);
             if (slice >= limitCband){
                 osnrLimdb = getToBeRouted_k(d).getOsnrLimitL();
                 pch = getToBeRouted_k(d).getPchL();
@@ -866,11 +896,9 @@ bool RSA::OSNRPreprocessingC(){
             }
             double osnrLim = pow(10,osnrLimdb/10);
             osnrRhs = pch/osnrLim - lastAmpNoise;
-            ListDigraph::Node source = getNode(d, getToBeRouted_k(d).getSource(), slice);
-            ListDigraph::Node target = getNode(d, getToBeRouted_k(d).getTarget(), slice);
             if (source != INVALID && target != INVALID){
                 //std::cout << "rhs: " << osnrRhs << " lhs:" << shortestOSNRCPartial(d, source, a, target) <<std::endl;
-                if (shortestOSNRCPartial(d, source, a, target) > osnrRhs + DBL_EPSILON){
+                if (shortestOSNR > osnrRhs + DBL_EPSILON){
                     //std::cout << "demand " <<  d << std::endl;
                     //std::cout <<"lhs " << shortestOSNRCPartial(d, source, a, target) <<std::endl;
                     //std::cout <<"rhs " << osnrRhs + DBL_EPSILON <<std:: endl;
@@ -881,17 +909,38 @@ bool RSA::OSNRPreprocessingC(){
                     int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
                     int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
                     if (u < v){
-                        if (preProcessingErasedArcs[d][arcTflowId]==0){
-                            preProcessingErasedArcs[d][arcTflowId]++;
-                            totalNbTflow++;
+                        if (slice >= limitCband){
+                            if (preProcessingErasedArcs[d][arcTflowId][1]==0){
+                                preProcessingErasedArcs[d][arcTflowId][1]++;
+                                totalNbTflow++;
+                                //std::cout << "Erasing (" << u << "," << v << ") in L band for demand: " << d << std::endl;
+                                //std::cout << d+1 <<  ";"<< arcTflowId <<  ";2" << std::endl;
+                            }
+                        }else{
+                            if (preProcessingErasedArcs[d][arcTflowId][0]==0){
+                                preProcessingErasedArcs[d][arcTflowId][0]++;
+                                totalNbTflow++;
+                                //std::cout << "Erasing (" << u << "," << v << ") in C band for demand: " << d << std::endl;
+                                //std::cout << d+1 <<  ";"<< arcTflowId <<  ";1" << std::endl;
+                            }
                         }
-                        
                     }
                     else{
-                        if (preProcessingErasedArcs[d][arcTflowId+nbEdges]==0){
-                            preProcessingErasedArcs[d][arcTflowId+nbEdges]++;
-                            totalNbTflow++;
-                        }
+                        if (slice >= limitCband){
+                            if (preProcessingErasedArcs[d][arcTflowId+nbEdges][1]==0){
+                                preProcessingErasedArcs[d][arcTflowId+nbEdges][1]++;
+                                totalNbTflow++;
+                                //std::cout << "Erasing (" << u << "," << v << ") in L band for demand: " << d << std::endl;
+                                //std::cout << d+1 <<  ";"<< arcTflowId+nbEdges <<  ";2" << std::endl;
+                            }
+                        }else{
+                            if (preProcessingErasedArcs[d][arcTflowId+nbEdges][0]==0){
+                                preProcessingErasedArcs[d][arcTflowId+nbEdges][0]++;
+                                totalNbTflow++;
+                                //std::cout << "Erasing (" << u << "," << v << ") in C band for demand: " << d << std::endl;
+                                //std::cout << d+1 <<  ";"<< arcTflowId+nbEdges <<  ";1" << std::endl;
+                            }
+                        }                
                     }
                     //Tflow test
                     (*vecGraph[d]).erase(a);
@@ -917,19 +966,20 @@ bool RSA::OSNRPreprocessingC(){
         }
         std::cout << std::endl;
     }*/
-    
+     
     if (totalNb >= 1){
         std::cout << "> Number of erased arcs due to OSNR in graph: "<< totalNb << std::endl;
         std::cout << "> Number of erased arcs in tflow: "<< totalNbTflow << std::endl;
         return true;
     }
     return false;
+    
 }
 
 
 
-/* Returns the partial osnr of the shortest path from source to target passing through arc a. */
-double RSA::shortestOSNRCPartial(int d, ListDigraph::Node &s, ListDigraph::Arc &a, ListDigraph::Node &t){
+/* Returns the partial osnr of the shortest path from source to target passing through arc a in the C band. */
+double RSA::shortestOSNRPartial(int d, ListDigraph::Node &s, ListDigraph::Arc &a, ListDigraph::Node &t){
     double OSNRPartial = 0.0;
 
     int limitCband = instance.getPhysicalLinkFromIndex(getArcLabel(a, d)).getNbSlicesC();
@@ -1280,6 +1330,65 @@ void RSA::displayOSNR(Instance &i){
         }
         std::cout << "Extra OSNR in routing: " << osnrSurplus << std::endl;
     }
+}
+
+/* Displays the paths found for each of the new routed demands. */
+void RSA::displayOFData(Instance &i){
+    std::cout << "Displaying data for multiple metrics " << std::endl;
+    int OBJECTIVE_METRIC_SLUS = 0;	/**< Minimize the sum of (max used slice positions) over edges. **/                     //OK
+    int OBJECTIVE_METRIC_SULD = 0;		/**< Minimize the sum of (number of hops in paths) over demands. **/                //OK
+    int OBJECTIVE_METRIC_TUS = 0;	/**< Minimize the sum of occupied slices. **/                                           //OK
+    int OBJECTIVE_METRIC_TRL = 0;		/**< Minimize the path lengths. **/                                                 //OK
+    int OBJECTIVE_METRIC_TUA = 0;	/**< Minimize the amplifiers. **/                                                       //OK 
+    int OBJECTIVE_METRIC_NLUS = 0;		/**< Minimize the max used slice position overall. **/
+    double OBJECTIVE_METRIC_TOS = 0.0; 	/**< Minimize the sum of differences between the OSNR of a path ant the OSNR limit **/
+    int OBJECTIVE_METRIC_ADS = 0; 	/**< Minimize the weighted sum of rejected demands **/                                  //OK
+    int OBJECTIVE_METRIC_LLB = 0; 	/**< Minimize the number of links with installed L band **/                             //OK
+    int OBJECTIVE_METRIC_DCB = 0; 	/**< Maximize the number of demands in the c band **/                                   //OK
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        if(i.getTabDemand()[d].isRouted()){
+            OBJECTIVE_METRIC_ADS = OBJECTIVE_METRIC_ADS +1;
+            bool bandComputed = false;
+            for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+                if ((*vecOnPath[d])[a] != -1){
+                    OBJECTIVE_METRIC_SULD = OBJECTIVE_METRIC_SULD +1;
+                    OBJECTIVE_METRIC_TRL = OBJECTIVE_METRIC_TRL + getArcLength(a,d);
+                    OBJECTIVE_METRIC_TUA = OBJECTIVE_METRIC_TUA + getArcLineAmplifiers(a,d);
+                    int slice = getArcSlice(a, d);
+                    int limitCband = instance.getPhysicalLinkFromIndex(getArcLabel(a, d)).getNbSlicesC();
+                    if (slice < limitCband){
+                        OBJECTIVE_METRIC_TUS = OBJECTIVE_METRIC_TUS + getToBeRouted_k(d).getLoadC();
+                        if (bandComputed == false){
+                            OBJECTIVE_METRIC_DCB = OBJECTIVE_METRIC_DCB + 1;
+                            bandComputed = true;
+                        }
+                    }else{
+                        OBJECTIVE_METRIC_TUS = OBJECTIVE_METRIC_TUS + getToBeRouted_k(d).getLoadL();                   
+                    }
+                }
+            }
+        }
+    }
+    for (int e = 0; e < i.getNbEdges(); e++){
+        
+        if(i.getPhysicalLinkFromIndex(e).getInstalledBands() == 2){
+            OBJECTIVE_METRIC_LLB = OBJECTIVE_METRIC_LLB +1;
+        }
+        if(i.getPhysicalLinkFromIndex(e).getMaxUsedSlicePosition()+1 > OBJECTIVE_METRIC_NLUS){
+            OBJECTIVE_METRIC_NLUS = i.getPhysicalLinkFromIndex(e).getMaxUsedSlicePosition()+1;
+        }
+        OBJECTIVE_METRIC_SLUS = OBJECTIVE_METRIC_SLUS+i.getPhysicalLinkFromIndex(e).getMaxUsedSlicePosition()+1;
+    }
+    std::cout << "Accepted demand set: " << OBJECTIVE_METRIC_ADS  << std::endl;
+    std::cout << "Demands in C band: " << OBJECTIVE_METRIC_DCB  << std::endl;
+    std::cout << "Links with L band: " << OBJECTIVE_METRIC_LLB  << std::endl;  
+    std::cout << "Network last used slot: " << OBJECTIVE_METRIC_NLUS  << std::endl;
+    std::cout << "Sum of last used slots: " << OBJECTIVE_METRIC_SLUS << std::endl;
+    std::cout << "Sum of used links by demands: " << OBJECTIVE_METRIC_SULD << std::endl;
+    std::cout << "Total route length: " << OBJECTIVE_METRIC_TRL << std::endl;
+    std::cout << "Total used slots: " << OBJECTIVE_METRIC_TUS << std::endl;
+    std::cout << "Total used amplifiers: " << OBJECTIVE_METRIC_TUA << std::endl;
+
 }
 
 

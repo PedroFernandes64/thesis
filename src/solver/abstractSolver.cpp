@@ -27,7 +27,7 @@ void AbstractSolver::updateRSA(Instance &instance){
         formulation->displayPaths();
         //Display OSNR corrected if Obj 10 chosen
         formulation->displayOSNR(instance);
-
+        formulation->displayOFData(instance);
     }
     else{
         std::cout << "Decrease the number of demands to be treated." << std::endl;
