@@ -1,2 +1,1 @@
 LinkS;TranspS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Reach;OSNR;Cuts;Variables;Constraints;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;
-European_18_40;20;488.000000;488.000000;0.000000;1.339000;44;23;1;1;0;4035;36030;829926;197;829729;10501;202;124;829802;2393;275
