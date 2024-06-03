@@ -12,7 +12,7 @@ GNPY_equipmentFile=
 ******* Thesis Pedro parameters *******
 MaxReach_activation=
 OSNR_activation=
-Bands=0
+Bands=2
 TFlow_Policy=
 
 

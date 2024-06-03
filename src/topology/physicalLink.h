@@ -28,6 +28,15 @@ private:
 	int nbSlicesCBand;
 	int nbSlicesLBand;
 	int lineAmplifiers;				/**< Number of line amplifiers. **/
+
+	//Noise contribution of this fiber
+	double noiseC;	
+	double noiseL;	
+	double noiseS;	
+	double dispersionC;
+	double dispersionL;
+	double dispersionS;	
+
     //Pnli contribution of this fiber
 	double pnliC;	
 	double pnliL;
@@ -36,6 +45,7 @@ private:
 	double paseLineC;
 	double paseLineL;
 	double paseLineS;
+	
 public:
 	/****************************************************************************************/
 	/*										Constructor										*/
@@ -46,7 +56,7 @@ public:
 	 * @param c Cost of routing a demand through the fiber. @param la Number of line amplifiers. @param pn Pnli of the fiber. 
 	 * @param pa Pase line of the fiber.**/
 
-	Fiber(int i, int ind, int s, int t, double len = 0.0, int nb = 1, double c = 1.0, int la = 1, double pnC = 0.0, double pnL = 0.0, double pnS = 0.0, double paC = 0.0, double paL = 0.0, double paS = 0.0, int sc=0, int sb=0, int ab = 1, int ib = 1);
+	Fiber(int i, int ind, int s, int t, double len = 0.0, int nb = 1, double c = 1.0, int la = 1, double nC = 0.0, double nL = 0.0, double nS = 0.0, double dC = 0.0, double dL = 0.0, double dS = 0.0, int sC=0, int sL=0, int ab = 1, int ib = 1);
 
 	Fiber(const Fiber &);
 
@@ -79,6 +89,14 @@ public:
 	int getNbSlicesL() const { return nbSlicesLBand; }
 	int getAvailableBands() const { return availableBands; }
 	int getInstalledBands() const { return installedBands; }
+
+
+	double getNoiseC() const { return noiseC; }
+	double getNoiseL() const { return noiseL; }
+	double getNoiseS() const { return noiseS; }
+	double getDispersionC() const { return dispersionC; }
+	double getDispersionL() const { return dispersionL; }
+	double getDispersionS() const { return dispersionS; }
 
 
 	/** Returns the Pnli **/
@@ -138,6 +156,14 @@ public:
 	void setNbSlicesL(int s)  { this->nbSlicesLBand = s; }
 	void setAvailableBands(int b)  { this->availableBands = b; }
 	void setInstalledBands(int b)  { this->installedBands = b; }
+	
+	void setNoiseC(double n) { this->noiseC = n; }
+	void setNoiseL(double n) { this->noiseL= n; }
+	void setNoiseS(double n) { this->noiseS = n; }
+
+	void setDispersionC(double n) { this->dispersionC = n; }
+	void setDispersionL(double n) { this->dispersionL= n; }
+	void setDispersionS(double n) { this->dispersionS = n; }
 
 	/** Changes the pnli @param pn New number **/
 	void setPnliC(double pn) { this->pnliC = pn; }

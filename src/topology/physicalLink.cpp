@@ -6,7 +6,7 @@
 /****************************************************************************************/
 
 /** Constructor. **/
-Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la, double pnC, double pnL,double pnS, double paC, double paL,  double paS, int sc, int sb, int ab, int ib) {
+Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la, double nC, double nL,double nS, double dC, double dL,  double dS, int sC, int sL, int ab, int ib) {
 	this->setId(i);
 	this->setIndex(ind);
 	this->setSource(s);
@@ -18,16 +18,16 @@ Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la, d
 	}
 	this->setCost(c);
 	this->setLineAmplifiers(la);
-	this->setNbSlicesC(sc); 
-	this->setNbSlicesL(sb); 
+	this->setNbSlicesC(sC); 
+	this->setNbSlicesL(sL); 
 	this->setAvailableBands(ab); 
 	this->setInstalledBands(ib); 
-	this->setPnliC(pnC);
-	this->setPnliL(pnL);
-	this->setPnliS(pnS);
-	this->setPaseLineC(paC);
-	this->setPaseLineL(paL);
-	this->setPaseLineS(paS);
+	this->setNoiseC(nC);
+	this->setNoiseL(nL);
+	this->setNoiseS(nS);
+	this->setDispersionC(dC);
+	this->setDispersionL(dL);
+	this->setDispersionS(dS);
 }
 
 Fiber::Fiber(const Fiber & f){
@@ -46,12 +46,12 @@ Fiber::Fiber(const Fiber & f){
 	this->setNbSlicesL(f.nbSlicesLBand); 
 	this->setAvailableBands(f.availableBands); 
 	this->setInstalledBands(f.installedBands); 
-	this->setPnliC(f.pnliC);
-	this->setPnliL(f.pnliL);
-	this->setPnliS(f.pnliS);
-	this->setPaseLineC(f.paseLineC);
-	this->setPaseLineL(f.paseLineL);
-	this->setPaseLineS(f.paseLineS);
+	this->setNoiseC(f.noiseC);
+	this->setNoiseL(f.noiseL);
+	this->setNoiseS(f.noiseS);
+	this->setDispersionC(f.dispersionC);
+	this->setDispersionL(f.dispersionL);
+	this->setDispersionS(f.dispersionS);
 }
 
 /****************************************************************************************/
@@ -82,13 +82,14 @@ void Fiber::copyFiber(Fiber & edge){
 	this->setNbSlicesC(edge.getNbSlicesC()); 
 	this->setNbSlicesL(edge.getNbSlicesL()); 
 	this->setAvailableBands(edge.getAvailableBands()); 
-	this->setInstalledBands(edge.getInstalledBands()); 
-	this->setPnliC(edge.getPnliC());
-	this->setPnliL(edge.getPnliL());
-	this->setPnliS(edge.getPnliS());
-	this->setPaseLineC(edge.getPaseLineC());
-	this->setPaseLineL(edge.getPaseLineL());
-	this->setPaseLineS(edge.getPaseLineS());
+	this->setInstalledBands(edge.getInstalledBands());
+	this->setNoiseC(edge.getNoiseC());
+	this->setNoiseL(edge.getNoiseL());
+	this->setNoiseS(edge.getNoiseS());
+	this->setDispersionC(edge.getDispersionC());
+	this->setDispersionL(edge.getDispersionL());
+	this->setDispersionS(edge.getDispersionS());
+
 }
 
 /* Verifies if the fiber is routing a demand. */
@@ -151,7 +152,7 @@ int Fiber::getNbUsedSlices() const {
 /* Displays summarized information about the fiber. */
 void Fiber::displayFiber(){
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
-	std::cout << ". nb slices in C band: " << this->getNbSlicesC()<< ", nb slices in L band: " << this->getNbSlicesL()  << ", length: " << this->getLength() << ", cost: " << this->getCost() << ", amplis: " << this->getLineAmplifiers() << ", pnliC: " << this->getPnliC() << ", paseC: " << this->getPaseLineC() << ", pnliL: " << this->getPnliL() << ", paseL: " << this->getPaseLineL()<<", pnliS: " << this->getPnliS()<< ", paseS: " << this->getPaseLineS() <<std::endl;
+	std::cout << ". nb slices in C band: " << this->getNbSlicesC()<< ", nb slices in L band: " << this->getNbSlicesL()  << ", length: " << this->getLength() << ", amplis: " << this->getLineAmplifiers() << ", noiseC: " << this->getNoiseC() << ", noiseL: " << this->getNoiseL()<<std::endl;
 }
 
 /* Displays detailed information about state of the fiber. */

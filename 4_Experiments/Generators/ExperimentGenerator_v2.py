@@ -29,8 +29,8 @@ for linkStrategy in linkStrategies:
 #testUnitVerifier(testSet)
 
 solverSet = ["0"]
-formulationSet = ["0","2"]
-objSet = ["2p","8","1010"]
+formulationSet = ["2"]
+objSet = ["ADS","LLB","DCB","TUS"]
 maxReachSet=["1"]
 osnrSet=["1"]
 cutSet=["0"]

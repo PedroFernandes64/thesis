@@ -6,10 +6,10 @@ Demand::Demand(int i, int s, int t, int lC, int lL, double maxC, double maxL, do
 	this->setSource(s);
 	this->setTarget(t);
 	this->setLoadC(lC);
-	this->setMaxLengthC(maxC);
+	this->setmaxCDC(maxC);
 	this->setOsnrLimitC(osC);
 	this->setLoadL(lL);
-	this->setMaxLengthL(maxL);
+	this->setmaxCDL(maxL);
 	this->setOsnrLimitL(osL);
 	this->setPchC(pc);
 	this->setPchL(pl);
@@ -30,10 +30,10 @@ void Demand::copyDemand(const Demand & demand){
 	this->setSource(demand.getSource());
 	this->setTarget(demand.getTarget());
 	this->setLoadC(demand.getLoadC());
-	this->setMaxLengthC(demand.getMaxLengthC());
+	this->setmaxCDC(demand.getmaxCDC());
 	this->setOsnrLimitC(demand.getOsnrLimitC());
 	this->setLoadL(demand.getLoadL());
-	this->setMaxLengthL(demand.getMaxLengthL());
+	this->setmaxCDL(demand.getmaxCDL());
 	this->setOsnrLimitL(demand.getOsnrLimitL());
 	this->setPchC(demand.getPchC());
 	this->setPchL(demand.getPchL());
@@ -57,8 +57,8 @@ void Demand::displayDemand(){
 		r = "NO";
 	}
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
-	std::cout << ". nbSlices C: " << this->getLoadC() << ", maxLength C: " << this->getMaxLengthC()<< ", osnrLimit C: " << this->getOsnrLimitC()<< ", pchC: " << this->getPchC();
-	std::cout << ". nbSlices L: " << this->getLoadL() << ", maxLength L: " << this->getMaxLengthL()<< ", osnrLimit L: " << this->getOsnrLimitL()<< ", pchL: " << this->getPchL();
+	std::cout << ". nbSlices C: " << this->getLoadC() << ", maxCD C: " << this->getmaxCDC()<< ", osnrLimit C: " << this->getOsnrLimitC()<< ", pchC: " << this->getPchC();
+	std::cout << ". nbSlices L: " << this->getLoadL() << ", maxCD L: " << this->getmaxCDL()<< ", osnrLimit L: " << this->getOsnrLimitL()<< ", pchL: " << this->getPchL();
 	std::cout << ", ROUTED: " << r << std::endl;
 }
 

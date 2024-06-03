@@ -165,29 +165,28 @@ void Instance::readTopology(){
 			availableBands = 2;
 		}
 		int edgeNbSlices = edgeNbSlicesC+edgeNbSlicesL;
-		double edgeCost = 1.0;
 		// Only read GNData if GNModel activated
 		int edgeAmplis = 0;
-		double edgePnliC = 0.0;
-		double edgePaseC = 0.0;
-		double edgePnliL = 0.0;
-		double edgePaseL = 0.0;
-		double edgePnliS = 0.0;
-		double edgePaseS = 0.0;
+		double edgeNoiseC = 0.0;
+		double edgeDispersionC = 0.0;
+		double edgeNoiseL = 0.0;
+		double edgeDispersionL = 0.0;
+		double edgeNoiseS = 0.0;
+		double edgeDispersionS = 0.0;
 		if (this->input.isOSNREnabled() == true ){
 			edgeAmplis = std::stoi(dataList[i][6]);
-			edgePnliC = std::stod(dataList[i][7]);
-			edgePaseC = std::stod(dataList[i][8]);
+			edgeNoiseC = std::stod(dataList[i][7]);
+			edgeDispersionC = std::stod(dataList[i][10]);
 			if (getInput().getNbBands() >= 2){
-				edgePnliL = std::stod(dataList[i][9]);
-				edgePaseL = std::stod(dataList[i][10]);
+				edgeNoiseL = std::stod(dataList[i][8]);
+				edgeDispersionL = std::stod(dataList[i][11]);
 			}
 			if (getInput().getNbBands() == 3){
-				edgePnliS = std::stod(dataList[i][11]);
-				edgePaseS = std::stod(dataList[i][12]);
+				edgeNoiseS = std::stod(dataList[i][9]);
+				edgeDispersionS = std::stod(dataList[i][12]);
 			}
 		}
-		Fiber edge(idEdge, edgeIndex, edgeSource, edgeTarget, edgeLength, edgeNbSlices, edgeCost, edgeAmplis, edgePnliC, edgePnliL, edgePnliS, edgePaseC, edgePaseL, edgePaseS,edgeNbSlicesC,edgeNbSlicesL,availableBands,installedBands);
+		Fiber edge(idEdge, edgeIndex, edgeSource, edgeTarget, edgeLength, edgeNbSlices, 0, edgeAmplis, edgeNoiseC, edgeNoiseL, edgeNoiseS, edgeDispersionC, edgeDispersionL, edgeDispersionS,edgeNbSlicesC,edgeNbSlicesL,availableBands,installedBands);
 		this->tabEdge.push_back(edge);
 		if (edgeSource > maxNode) {
 			maxNode = edgeSource;
@@ -215,30 +214,30 @@ void Instance::readDemands(){
 		int demandSource = std::stoi(dataList[i][1]) - 1;
 		int demandTarget = std::stoi(dataList[i][2]) - 1;
 		int demandLoadC = std::stoi(dataList[i][3]);
-		double demandMaxLengthC = std::stod(dataList[i][4]); // dataList[i][5])
+		double demandMaxCDC = std::stod(dataList[i][4]); // dataList[i][5])
 		double demandOsnrLimitC=0.0;
 		int demandLoadL = 0.0;
-		double demandMaxLengthL = 0.0;
+		double demandMaxCDL = 0.0;
 		double demandOsnrLimitL=0.0;
 		double demandPchC = 0.0;
 		double demandPchL = 0.0;
 		double demandPchS = 0.0;
 		if (this->input.isOSNREnabled () == true ){
-			demandOsnrLimitC = std::stod(dataList[i][5]); 		// dataList[i][7])
-			demandPchC = std::stod(dataList[i][6]);				// dataList[i][9])
+			demandOsnrLimitC = std::stod(dataList[i][5]); 		
+			demandPchC = std::stod(dataList[i][10]);			
 			if (getInput().getNbBands() >= 2){
-				demandOsnrLimitL = std::stod(dataList[i][5]); 	// dataList[i][8])
-				demandPchL = std::stod(dataList[i][7]); 		// dataList[i][10])
+				demandOsnrLimitL = std::stod(dataList[i][8]); 	
+				demandPchL = std::stod(dataList[i][11]); 	
 			}
 			if (getInput().getNbBands() == 3){
-				demandPchS = std::stod(dataList[i][8]);			// dataList[i][11])
+				demandPchS = std::stod(dataList[i][12]);
 			}
 		}
 		if (getInput().getNbBands() == 2){
-			demandLoadL = std::stoi(dataList[i][3]); // dataList[i][4])
-			demandMaxLengthL = std::stod(dataList[i][4]); // dataList[i][6])
+			demandLoadL = std::stoi(dataList[i][6]);
+			demandMaxCDL = std::stod(dataList[i][7]);
 		}
-		Demand demand(idDemand, demandSource, demandTarget, demandLoadC, demandLoadL, demandMaxLengthC, demandMaxLengthL, demandOsnrLimitC,demandOsnrLimitL, demandPchC, demandPchL, demandPchS, false);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoadC, demandLoadL, demandMaxCDC, demandMaxCDL, demandOsnrLimitC,demandOsnrLimitL, demandPchC, demandPchL, demandPchS, false);
 		this->tabDemand.push_back(demand);
 	}
 }
@@ -362,38 +361,30 @@ void Instance::generateDemandsFromFile(std::string filePath){
 		int demandSource = std::stoi(dataList[i][1]) - 1;
 		int demandTarget = std::stoi(dataList[i][2]) - 1;
 		int demandLoadC = std::stoi(dataList[i][3]);
-		double demandMaxLengthC = std::stod(dataList[i][4]); // dataList[i][5])
+		double demandMaxCDC = std::stod(dataList[i][4]); // dataList[i][5])
 		double demandOsnrLimitC=0.0;
 		int demandLoadL = 0.0;
-		double demandMaxLengthL = 0.0;
+		double demandMaxCDL = 0.0;
 		double demandOsnrLimitL=0.0;
 		double demandPchC = 0.0;
 		double demandPchL = 0.0;
 		double demandPchS = 0.0;
 		if (this->input.isOSNREnabled () == true ){
-			demandOsnrLimitC = std::stod(dataList[i][5]); 		// dataList[i][7])
-			demandPchC = std::stod(dataList[i][6]);				// dataList[i][9])
+			demandOsnrLimitC = std::stod(dataList[i][5]); 		
+			demandPchC = std::stod(dataList[i][10]);			
 			if (getInput().getNbBands() >= 2){
-				demandOsnrLimitL = std::stod(dataList[i][5]); 	// dataList[i][8])
-				demandPchL = std::stod(dataList[i][7]); 		// dataList[i][10])
+				demandOsnrLimitL = std::stod(dataList[i][8]); 	
+				demandPchL = std::stod(dataList[i][11]); 	
 			}
 			if (getInput().getNbBands() == 3){
-				demandPchS = std::stod(dataList[i][8]);			// dataList[i][11])
+				demandPchS = std::stod(dataList[i][12]);
 			}
 		}
 		if (getInput().getNbBands() == 2){
-			demandLoadL = std::stoi(dataList[i][3]); // dataList[i][4])
-			demandMaxLengthL = std::stod(dataList[i][4]); // dataList[i][6])
+			demandLoadL = std::stoi(dataList[i][6]);
+			demandMaxCDL = std::stod(dataList[i][7]);
 		}
-		std::string demandMode = "";
-		std::string demandSpacing = "";
-		std::string demandPathBandwidth = "";
-		if (input.isGNPYEnabled()){
-			demandMode = "mode_" + dataList[i][6];
-			demandSpacing = dataList[i][7];
-			demandPathBandwidth = dataList[i][8];
-		}
-		Demand demand(idDemand, demandSource, demandTarget, demandLoadC, demandLoadL, demandMaxLengthC, demandMaxLengthL, demandOsnrLimitC,demandOsnrLimitL, demandPchC, demandPchL, demandPchS, false, -1, 0, 0, demandMode, demandSpacing, demandPathBandwidth);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoadC, demandLoadL, demandMaxCDC, demandMaxCDL, demandOsnrLimitC,demandOsnrLimitL, demandPchC, demandPchL, demandPchS, false);
 		this->tabDemand.push_back(demand);
 	}
 	//std::cout << "out" << std::endl;
@@ -410,10 +401,10 @@ void Instance::generateRandomDemands(const int N){
 			demandTarget = rand() % getNbNodes();
 		} 
 		int demandLoad = 3;
-		double demandMaxLength = 3000;
+		double demandMaxCD = 3000;
 		double demandOsnrLimit = 13;
 		double demandPch = 0.000375;
-		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxLength, demandOsnrLimit, false);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoad, demandMaxCD, demandOsnrLimit, false);
 		this->tabDemand.push_back(demand);
 	}
 }
@@ -552,7 +543,7 @@ void Instance::outputDemands(std::string counter){
 			myfile << std::to_string(getDemandFromIndex(i).getSource()+1) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getTarget()+1) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getLoadC()) << delimiter;
-			myfile << std::to_string(getDemandFromIndex(i).getMaxLengthC()) << delimiter;
+			myfile << std::to_string(getDemandFromIndex(i).getmaxCDC()) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getOsnrLimitC()) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getPchC()) << delimiter;
 			myfile << std::to_string(getDemandFromIndex(i).getPchL()) << delimiter;

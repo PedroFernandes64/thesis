@@ -521,7 +521,7 @@ Constraint FlowForm::getStrongLengthConstraint(const Demand &demand, int d, int 
             for (ListDigraph::OutArcIt a((*vecGraph[d]), v); a != INVALID; ++a){
                 if (getArcSlice(a, d) == s){
                     int arc = getArcIndex(a, d); 
-                    Term term(x[d][arc], -demand.getMaxLengthC());
+                    Term term(x[d][arc], -demand.getmaxCDC());
                     exp.addTerm(term);
                 }
             }
@@ -550,9 +550,9 @@ Constraint FlowForm::getLengthConstraint(const Demand &demand, int d){
     Input::NodeMethod nodeMethod = instance.getInput().getChosenNodeMethod();
     double rhs; double rls;
     if(nodeMethod != Input::NODE_METHOD_LINEAR_RELAX){
-        rls = -demand.getMaxLengthC(); rhs = 0;
+        rls = -demand.getmaxCDC(); rhs = 0;
     }else{
-        rhs = demand.getMaxLengthC(); rls = 0;
+        rhs = demand.getmaxCDC(); rls = 0;
     }
     int source = demand.getSource();
     int hop = instance.getInput().getHopPenalty();

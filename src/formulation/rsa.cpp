@@ -2,7 +2,8 @@
 
 /* Constructor. A graph associated to the initial mapping (instance) is built as well as an extended graph for each demand to be routed. */
 RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), compactEdgeLabel(compactGraph), 
-                                compactEdgeLength(compactGraph), compactEdgeLineAmplifiers(compactGraph), compactEdgePnliC(compactGraph), compactEdgePaseLineC(compactGraph),compactEdgePnliL(compactGraph), compactEdgePaseLineL(compactGraph), compactNodeId(compactGraph), 
+                                compactEdgeLength(compactGraph), compactEdgeLineAmplifiers(compactGraph), compactEdgePnliC(compactGraph), compactEdgePaseLineC(compactGraph),compactEdgePnliL(compactGraph), 
+                                compactEdgePaseLineL(compactGraph),compactEdgeNoiseC(compactGraph),compactEdgeNoiseL(compactGraph), compactNodeId(compactGraph), 
                                 compactNodeLabel(compactGraph){
     setStatus(STATUS_UNKNOWN);
     /* Creates compact graph. */
@@ -71,18 +72,18 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
                             onLeftRegion = false;
                         }
                         if ( (onLeftRegion) && (s < instance.getInput().getPartitionSlice()) ){
-                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL());
-                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL());
+                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getPaseLineL());
+                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getPaseLineL());
                         }
                         if ( (!onLeftRegion) && (s >= instance.getInput().getPartitionSlice()) ){
-                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL());
-                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL());
+                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getPaseLineL());
+                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getPaseLineL());
                         }
                     }
                     else{
                         /* CREATE NODES (u, s) AND (v, s) IF THEY DO NOT ALREADY EXIST AND ADD AN ARC BETWEEN THEM */
-                        addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL());
-                        addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL());
+                        addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getPaseLineL());
+                        addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getPaseLineL());
                     }
                 }
             }
@@ -189,7 +190,7 @@ void RSA::AllPathsUtil(int u, int d, bool visited[], int path[], int& path_index
     path_index--;
     visited[u] = false;
 }
-
+/*
 double RSA::osnrPathC(double paselinc, double pasenodec, double pnlic, double pchc){
     double osnr;
     double osnrdb;		
@@ -212,7 +213,14 @@ double RSA::osnrPathS(double paselins, double pasenodes, double pnlis, double pc
     osnrdb = 10.0 * log10(osnr);
     return osnrdb;
 }
-
+*/
+double RSA::osnrPath(double noise, double pch){
+    double osnr;
+    double osnrdb;		
+    osnr = pch/(noise);
+    osnrdb = 10.0 * log10(osnr);
+    return osnrdb;
+}
 
 void RSA::AllPaths(){
     
@@ -259,6 +267,9 @@ void RSA::AllPaths(){
     std::vector<std::vector<double> > alldemandsPASEnodeS;
     std::vector<std::vector<double> > alldemandsPASElinS;
     std::vector<std::vector<double> > alldemandsPNLIS;
+    std::vector<std::vector<double> > alldemandsNoiseC;
+    std::vector<std::vector<double> > alldemandsNoiseL;
+    std::vector<std::vector<double> > alldemandsNoiseS;
     std::vector<double> thisdemanddistances;
     std::vector<double> thisdemandPASEnodeC;
     std::vector<double> thisdemandPASElinC;
@@ -269,6 +280,9 @@ void RSA::AllPaths(){
     std::vector<double> thisdemandPASEnodeS;
     std::vector<double> thisdemandPASElinS;
     std::vector<double> thisdemandPNLIS;
+    std::vector<double> thisdemandNoiseC;
+    std::vector<double> thisdemandNoiseL;
+    std::vector<double> thisdemandNoiseS;
     int currentnode;
     int nextnode;
     int vertexamplis;
@@ -282,6 +296,9 @@ void RSA::AllPaths(){
     double pnliPathS;
     double paseLinPathS;
     double paseNodepathS;
+    double noisePathC;
+    double noisePathL;
+    double noisePathS;
     int fibernumberinpath;
 
     for (int i = 0; i <allpaths.size(); ++i){
@@ -295,7 +312,10 @@ void RSA::AllPaths(){
             paseNodepathL = 0.0;
             pnliPathS = 0.0;
             paseLinPathS = 0.0;
-            paseNodepathS = 0.0;    
+            paseNodepathS = 0.0;
+            noisePathC = 0.0;
+            noisePathL = 0.0;
+            noisePathS = 0.0;    
             length = 0;          
             fibernumberinpath = 0;
             for (int k = 0; k <allpaths[i][j].size()-1; ++k){
@@ -312,14 +332,20 @@ void RSA::AllPaths(){
                 paseLinPathL += instance.getPhysicalLinkBetween(currentnode,nextnode).getPaseLineL();
             
                 pnliPathS += instance.getPhysicalLinkBetween(currentnode,nextnode).getPnliS();
-                paseLinPathS += instance.getPhysicalLinkBetween(currentnode,nextnode).getPaseLineS();                   
+                paseLinPathS += instance.getPhysicalLinkBetween(currentnode,nextnode).getPaseLineS();
 
+                noisePathC += instance.getPhysicalLinkBetween(currentnode,nextnode).getNoiseC();
+                noisePathL += instance.getPhysicalLinkBetween(currentnode,nextnode).getNoiseL();                 
+                noisePathS += instance.getPhysicalLinkBetween(currentnode,nextnode).getNoiseS();                
             }
 
             vertexamplis = vertexamplis +1;
             paseNodepathC = vertexamplis * instance.getPaseNodeC();
             paseNodepathL = vertexamplis * instance.getPaseNodeL();
             paseNodepathS = vertexamplis * instance.getPaseNodeS();
+            noisePathC += instance.getPaseNodeC();
+            noisePathL += instance.getPaseNodeL();                
+            noisePathS += instance.getPaseNodeS();
             thisdemanddistances.push_back(length);
             thisdemandPASEnodeC.push_back(paseNodepathC);
             thisdemandPASElinC.push_back(paseLinPathC);
@@ -330,6 +356,9 @@ void RSA::AllPaths(){
             thisdemandPASEnodeS.push_back(paseNodepathS);
             thisdemandPASElinS.push_back(paseLinPathS);
             thisdemandPNLIS.push_back(pnliPathS);
+            thisdemandNoiseC.push_back(noisePathC);
+            thisdemandNoiseL.push_back(noisePathL);
+            thisdemandNoiseS.push_back(noisePathS);
         }
         alldemandsdistances.push_back(thisdemanddistances);
         alldemandsPASEnodeC.push_back(thisdemandPASEnodeC);
@@ -341,6 +370,9 @@ void RSA::AllPaths(){
         alldemandsPASEnodeS.push_back(thisdemandPASEnodeS);
         alldemandsPASElinS.push_back(thisdemandPASElinS);
         alldemandsPNLIS.push_back(thisdemandPNLIS);
+        alldemandsNoiseC.push_back(thisdemandNoiseC);
+        alldemandsNoiseL.push_back(thisdemandNoiseL);
+        alldemandsNoiseS.push_back(thisdemandNoiseS);
         thisdemanddistances.clear();
         thisdemandPASEnodeC.clear();
         thisdemandPNLIC.clear();
@@ -351,6 +383,9 @@ void RSA::AllPaths(){
         thisdemandPASEnodeS.clear();
         thisdemandPNLIS.clear();
         thisdemandPASElinS.clear();
+        thisdemandNoiseC.clear();
+        thisdemandNoiseL.clear();
+        thisdemandNoiseS.clear();
     }
 
     //Computing OSNR possible paths for all possible demands
@@ -363,7 +398,7 @@ void RSA::AllPaths(){
     double dbOsnrL;
     double dbOsnrS;
     std::ofstream outfile;
-    bool printAllpaths = false;
+    bool printAllpaths = true;
     if(printAllpaths){
         std::cout << "Writing  OSNR's to file..." << std::endl;
         std::string outputOSNRName = "pathData.csv";
@@ -373,19 +408,22 @@ void RSA::AllPaths(){
     int total = 0;
     int bothC = 0;
     int osnrminC = 0;
-    int maxlenC = 0;
+    int maxCDC = 0;
     int noneC = 0;
     int bothL = 0;
-    int maxlenL = 0;
+    int maxCDL = 0;
     int osnrminL = 0;
     int noneL = 0;
 
     for (int i = 0 ; i <toBeRouted.size(); i++){	
         for (int j = 0; j< alldemandsdistances[i].size(); ++j){
             distance = alldemandsdistances[i][j];     
-            dbOsnrC = osnrPathC(alldemandsPASElinC[i][j], alldemandsPASEnodeC[i][j], alldemandsPNLIC[i][j], toBeRouted[i].getPchC());
-            dbOsnrL = osnrPathL(alldemandsPASElinL[i][j], alldemandsPASEnodeL[i][j], alldemandsPNLIL[i][j], toBeRouted[i].getPchL());
-            dbOsnrS = osnrPathS(alldemandsPASElinS[i][j], alldemandsPASEnodeS[i][j], alldemandsPNLIS[i][j], toBeRouted[i].getPchS());
+            //dbOsnrC = osnrPathC(alldemandsPASElinC[i][j], alldemandsPASEnodeC[i][j], alldemandsPNLIC[i][j], toBeRouted[i].getPchC());
+            //dbOsnrL = osnrPathL(alldemandsPASElinL[i][j], alldemandsPASEnodeL[i][j], alldemandsPNLIL[i][j], toBeRouted[i].getPchL());
+            //dbOsnrS = osnrPathS(alldemandsPASElinS[i][j], alldemandsPASEnodeS[i][j], alldemandsPNLIS[i][j], toBeRouted[i].getPchS());
+            dbOsnrC = osnrPath(alldemandsNoiseC[i][j], toBeRouted[i].getPchC());
+            dbOsnrL = osnrPath(alldemandsNoiseL[i][j], toBeRouted[i].getPchL());
+            dbOsnrS = osnrPath(alldemandsNoiseS[i][j], toBeRouted[i].getPchS());
             if(printAllpaths){
                 outfile << toBeRouted[i].getId() + 1;
                 outfile << ";";
@@ -394,9 +432,9 @@ void RSA::AllPaths(){
                 outfile << ";";
                 outfile << distance;
                 outfile << ";";
-                outfile << toBeRouted[i].getMaxLengthC();
+                outfile << toBeRouted[i].getmaxCDC();
                 outfile << ";";
-                outfile << toBeRouted[i].getMaxLengthL();
+                outfile << toBeRouted[i].getmaxCDL();
                 outfile << ";";
                 outfile << dbOsnrC;
                 outfile << ";";
@@ -410,28 +448,28 @@ void RSA::AllPaths(){
 
 
             }
-            if (distance <= toBeRouted[i].getMaxLengthC() && dbOsnrC >= toBeRouted[i].getOsnrLimitC()){
+            if (distance <= (toBeRouted[i].getmaxCDC()/20) && dbOsnrC >= toBeRouted[i].getOsnrLimitC()){
                 bothC = bothC +1;
             }
-            if (distance <= toBeRouted[i].getMaxLengthC() && dbOsnrC < toBeRouted[i].getOsnrLimitC()){
-                maxlenC = maxlenC +1;
+            if (distance <= (toBeRouted[i].getmaxCDC()/20) && dbOsnrC < toBeRouted[i].getOsnrLimitC()){
+                maxCDC = maxCDC +1;
             }
-            if (distance > toBeRouted[i].getMaxLengthC() && dbOsnrC >= toBeRouted[i].getOsnrLimitC()){
+            if (distance > (toBeRouted[i].getmaxCDC()/20) && dbOsnrC >= toBeRouted[i].getOsnrLimitC()){
                 osnrminC = osnrminC +1;
             }
-            if (distance > toBeRouted[i].getMaxLengthC() && dbOsnrC < toBeRouted[i].getOsnrLimitC()){
+            if (distance > (toBeRouted[i].getmaxCDC()/20)&& dbOsnrC < toBeRouted[i].getOsnrLimitC()){
                 noneC = noneC +1;
             }
-            if (distance <= toBeRouted[i].getMaxLengthL() && dbOsnrL >= toBeRouted[i].getOsnrLimitL()){
+            if (distance <= (toBeRouted[i].getmaxCDL()/22) && dbOsnrL >= toBeRouted[i].getOsnrLimitL()){
                 bothL = bothL +1;
             }
-            if (distance <= toBeRouted[i].getMaxLengthL() && dbOsnrL < toBeRouted[i].getOsnrLimitL()){
-                maxlenL = maxlenL +1;
+            if (distance <= (toBeRouted[i].getmaxCDL()/22) && dbOsnrL < toBeRouted[i].getOsnrLimitL()){
+                maxCDL = maxCDL +1;
             }
-            if (distance > toBeRouted[i].getMaxLengthL() && dbOsnrL >= toBeRouted[i].getOsnrLimitL()){
+            if (distance > (toBeRouted[i].getmaxCDL()/22) && dbOsnrL >= toBeRouted[i].getOsnrLimitL()){
                 osnrminL = osnrminL +1;
             }
-            if (distance > toBeRouted[i].getMaxLengthL() && dbOsnrL < toBeRouted[i].getOsnrLimitL()){
+            if (distance > (toBeRouted[i].getmaxCDL()/22) && dbOsnrL < toBeRouted[i].getOsnrLimitL()){
                 noneL = noneL +1;
             }
             total = total + 1;
@@ -440,12 +478,12 @@ void RSA::AllPaths(){
     possiblePaths = total;
     feasiblePathsC = bothC;
     onlyOsnrFeasiblePathsC = osnrminC;
-    onlyReachFeasiblePathsC = maxlenC;
-    infeasiblePathsC = noneC + osnrminC + maxlenC;
+    onlyReachFeasiblePathsC = maxCDL;
+    infeasiblePathsC = noneC + osnrminC + maxCDL;
     feasiblePathsL = bothL;
     onlyOsnrFeasiblePathsL = osnrminL;
-    onlyReachFeasiblePathsL = maxlenL;
-    infeasiblePathsL = noneL + osnrminL + maxlenL;
+    onlyReachFeasiblePathsL = maxCDL;
+    infeasiblePathsL = noneL + osnrminL + maxCDL;
            
 }
 
@@ -493,13 +531,16 @@ void RSA::buildCompactGraph(){
             compactEdgePaseLineC[e] = edge.getPaseLineC();
             compactEdgePnliL[e] = edge.getPnliL();
             compactEdgePaseLineL[e] = edge.getPaseLineL();
+            compactEdgeNoiseC[e] = edge.getNoiseC();
+            compactEdgeNoiseL[e] = edge.getNoiseL();
+            
         }
     }
 }
 
 /* Creates an arc -- and its nodes if necessary -- between nodes (source,slice) and (target,slice) on a graph. */
 //void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l){
-void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l, int la, double pnc, double pac, double pnl, double pal){
+void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l, int la, double pnc, double pac, double nc, double pnl, double pal, double nl ){
     ListDigraph::Node arcSource = getNode(d, linkSourceLabel, slice);
     ListDigraph::Node arcTarget = getNode(d, linkTargetLabel, slice);
 
@@ -531,10 +572,10 @@ void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel
     setArcPnliC(a, d, pnc);
     setArcPaseLineC(a, d, pac);
     //std::cout << "a: " << pnc+pac << "b: " <<  pnc+pac+instance.getPaseNodeC() <<std::endl;
-    setArcNoiseC(a,d,pnc+pac+instance.getPaseNodeC());
+    setArcNoiseC(a,d,nc);
     setArcPnliL(a, d, pnl);
     setArcPaseLineL(a, d, pal);
-    setArcNoiseL(a,d,pnl+pal+instance.getPaseNodeL());
+    setArcNoiseL(a,d,nl);
     int hop = instance.getInput().getHopPenalty();
     if (linkSourceLabel == getToBeRouted_k(d).getSource()){
         setArcLengthWithPenalty(a, d, l);
@@ -670,14 +711,14 @@ void RSA::preprocessing(){
         }
         //Tflow test
 
-        bool keepPreprocessing = lengthPreprocessing();
+        bool keepPreprocessing = CDPreprocessing();
         if (getInstance().getInput().isOSNREnabled() == true)
             keepPreprocessing = OSNRPreprocessingC();
         if (getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_FULL){
             // do full preprocessing;
             while (keepPreprocessing){
                 pathExistencePreprocessing(); 
-                keepPreprocessing = lengthPreprocessing();
+                keepPreprocessing = CDPreprocessing();
             }
             if (getInstance().getInput().isOSNREnabled() == true){
                 while (keepPreprocessing){
@@ -738,7 +779,7 @@ void RSA::pathExistencePreprocessing(){
 }
 
 /* Performs preprocessing based on the arc lengths and returns true if at least one arc is erased. */
-bool RSA::lengthPreprocessing(){
+bool RSA::CDPreprocessing(){
     std::cout << "Called Length preprocessing."<< std::endl;
     //Tflow test
     int nbEdges = countEdges(compactGraph);
@@ -758,9 +799,9 @@ bool RSA::lengthPreprocessing(){
             //currentArc = a;
             int slice = getArcSlice(a, d);
             int limitCband = instance.getPhysicalLinkFromIndex(getArcLabel(a, d)).getNbSlicesC();
-            int distanceToConsider = getToBeRouted_k(d).getMaxLengthC();
+            int distanceToConsider = getToBeRouted_k(d).getmaxCDC()/20;
             if (slice >= limitCband){
-                distanceToConsider = getToBeRouted_k(d).getMaxLengthL();
+                distanceToConsider = getToBeRouted_k(d).getmaxCDL()/22;
             }
             ListDigraph::Node source = getNode(d, getToBeRouted_k(d).getSource(), slice);
             ListDigraph::Node target = getNode(d, getToBeRouted_k(d).getTarget(), slice);
@@ -975,8 +1016,6 @@ bool RSA::OSNRPreprocessingC(){
     return false;
     
 }
-
-
 
 /* Returns the partial osnr of the shortest path from source to target passing through arc a in the C band. */
 double RSA::shortestOSNRPartial(int d, ListDigraph::Node &s, ListDigraph::Arc &a, ListDigraph::Node &t){
@@ -1219,7 +1258,7 @@ void RSA::displayToBeRouted(){
         std::cout << "#" << toBeRouted[i].getId()+1;
         std::cout << " (" << toBeRouted[i].getSource()+1 << ", " << toBeRouted[i].getTarget()+1 << "), ";
         std::cout << "requiring " << toBeRouted[i].getLoadC() << " slices and having Max length ";
-        std::cout << toBeRouted[i].getMaxLengthC() << std::endl;
+        std::cout << toBeRouted[i].getmaxCDC() << std::endl;
     }
 }
 /* Displays the loads to be routed in the next optimization. */

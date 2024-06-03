@@ -20,9 +20,9 @@ private:
 	int target;			/**< The demand's target node id. **/
 	int loadC;			/**< Refers to how many slices the demand requires. **/
 	int loadL;			/**< Refers to how many slices the demand requires. **/
-	double maxLengthC;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
+	double maxCDC;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
 	double osnrLimitC;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
-	double maxLengthL;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
+	double maxCDL;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
 	double osnrLimitL;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
 
 	bool routed;		/**< True if the demand is already routed. **/
@@ -77,10 +77,10 @@ public:
 	int getNbHops() const { return nbHops; }
 	
 	/** Returns the maximum length of the path on which the demand can be routed. **/
-	double getMaxLengthC() const { return maxLengthC; }
+	double getmaxCDC() const { return maxCDC; }
 
 	/** Returns the maximum length of the path on which the demand can be routed. **/
-	double getMaxLengthL() const { return maxLengthL; }
+	double getmaxCDL() const { return maxCDL; }
 
 	/** Returns the minimum OSNR of the path on which the demand can be routed. **/
 	double getOsnrLimitC() const { return osnrLimitC; }
@@ -129,10 +129,10 @@ public:
 	void setSliceAllocation(int i) { this->sliceAllocation = i; }
 	
 	/** Changes the maximum length of the path on which the demand can be routed. @param max New demand's maximum length value.**/
-	void setMaxLengthC(double max) { this->maxLengthC = max; }
+	void setmaxCDC(double max) { this->maxCDC = max; }
 
 	/** Changes the maximum length of the path on which the demand can be routed. @param max New demand's maximum length value.**/
-	void setMaxLengthL(double max) { this->maxLengthL = max; }
+	void setmaxCDL(double max) { this->maxCDL = max; }
 
 	/** Changes the OSNR Limit of the path on which demand is routed. @param osL The new path Osnr Limit. **/
 	void setOsnrLimitC(double os) { this->osnrLimitC = os; }

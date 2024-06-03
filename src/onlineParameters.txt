@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../Instances/European_18_40/Links/20_demands/Link.csv
+topologyFile=../Instances/Kingkong/European_18_40/Links/48_demands/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../Instances/European_18_40/Demands/20_demands
+demandToBeRoutedFolder=../Instances/Kingkong/European_18_40/Demands/48_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 

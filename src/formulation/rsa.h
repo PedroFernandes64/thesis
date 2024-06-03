@@ -142,7 +142,9 @@ protected:
     EdgeCost compactEdgePaseLineC;           /**< EdgeMap storing the edge pase line of the simple graph associated with the initial mapping. **/
     EdgeCost compactEdgePnliL;           /**< EdgeMap storing the edge pnli of the simple graph associated with the initial mapping. **/
     EdgeCost compactEdgePaseLineL;           /**< EdgeMap storing the edge pase line of the simple graph associated with the initial mapping. **/
-
+    EdgeCost compactEdgeNoiseC;           /**< EdgeMap storing the edge noise of the simple graph associated with the initial mapping. **/
+    EdgeCost compactEdgeNoiseL;           /**< EdgeMap storing the edge noise of the simple graph associated with the initial mapping. **/
+    
     std::vector<std::vector<std::vector<int> > > preProcessingErasedArcs;
     
     CompactNodeMap compactNodeId;       /**< NodeMap storing the LEMON node ids of the simple graph associated with the initial mapping. **/
@@ -306,6 +308,8 @@ public:
     double getCompactPaseLineC(const ListGraph::Edge &e) { return compactEdgePaseLineC[e]; }
     double getCompactPnliL(const ListGraph::Edge &e) { return compactEdgePnliL[e]; }
     double getCompactPaseLineL(const ListGraph::Edge &e) { return compactEdgePaseLineL[e]; }
+    double getCompactNoiseC(const ListGraph::Edge &e) { return compactEdgeNoiseC[e]; }
+    double getCompactNoiseL(const ListGraph::Edge &e) { return compactEdgeNoiseL[e]; }
     int getPossiblePaths(){ return possiblePaths; }
     int getFeasiblePathsC(){ return feasiblePathsC; }
     int getOsnrFeasiblePathsC(){ return onlyOsnrFeasiblePathsC; }
@@ -402,6 +406,9 @@ public:
     void setCompactPaseLineC(const ListGraph::Edge &e, double val) { compactEdgePaseLineC[e] = val; }
     void setCompactPnliL(const ListGraph::Edge &e, double val) { compactEdgePnliL[e] = val; }
     void setCompactPaseLineL(const ListGraph::Edge &e, double val) { compactEdgePaseLineL[e] = val; }
+    
+    void setCompactNoiseC(const ListGraph::Edge &e, double val) { compactEdgeNoiseC[e] = val; }
+    void setCompactNoiseL(const ListGraph::Edge &e, double val) { compactEdgeNoiseL[e] = val; }
 
 	/****************************************************************************************/
 	/*										Methods											*/
@@ -414,7 +421,7 @@ public:
      * @param d The graph index. @param source The source node's id. @param target The target node's id. 
      * @param linkLabel The arc's label. @param slice The arc's slice position. @param l The arc's length. 
      * @param la The arc's line amplifiers. @param pn The arc's pnli. @param pa The arc's pase line**/
-    void addArcs(int d, int source, int target, int linkLabel, int slice, double l, int la, double pnc, double pac, double pnl, double pal);    
+    void addArcs(int d, int source, int target, int linkLabel, int slice, double l, int la, double pnc, double pac, double nc, double pnl, double pal, double nl);    
      
     /** Updates the mapping stored in the given instance with the results obtained from RSA solution (i.e., vecOnPath). @param i The instance to be updated.*/
     void updateInstance(Instance &i);
@@ -435,7 +442,7 @@ public:
     void pathExistencePreprocessing();
 
     /** Performs preprocessing based on the arc lengths and returns true if at least one arc is erased. An arc (u,v) can only be part of a solution if the distance from demand source to u, plus the distance from v to demand target plus the arc length is less than or equal to the demand's maximum length. **/
-    bool lengthPreprocessing();
+    bool CDPreprocessing();
     bool OSNRPreprocessingC();
 
     /** Returns the distance of the shortest path from source to target passing through arc a. \note If there exists no st-path, returns +Infinity. @param d The graph index. @param source The source node.  @param a The arc required to be present. @param target The target node.  **/
@@ -451,6 +458,7 @@ public:
     double osnrPathC(double pl, double pn, double pnli, double pc);
     double osnrPathL(double pl, double pn, double pnli, double pc);
     double osnrPathS(double pl, double pn, double pnli, double pc);
+    double osnrPath(double n, double pc);
     void AllPaths();
     void AllPathsUtil(int u, int d, bool visited[], int path[], int& path_index);
 

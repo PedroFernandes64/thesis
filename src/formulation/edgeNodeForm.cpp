@@ -419,7 +419,7 @@ void EdgeNodeForm::setTransmissionReachConstraints(){
 /* Returns the Transmission-Reach constraint associated with a demand. */
 Constraint EdgeNodeForm::getTransmissionReachConstraint_k(int k){
     Expression exp;
-    double upperBound = getToBeRouted_k(k).getMaxLengthC();
+    double upperBound = getToBeRouted_k(k).getmaxCDC();
     int lowerBound = 0;
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);

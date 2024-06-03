@@ -495,7 +495,7 @@ void DrFormulation::setOsnrConstraints(){
 
 Constraint DrFormulation::getLengthConstraint(int d){
     Expression exp;
-    double upperBound = getToBeRouted_k(d).getMaxLengthC();
+    double upperBound = getToBeRouted_k(d).getmaxCDC();
     int lowerBound = 0;
     int nbEdges = countEdges(compactGraph);
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
