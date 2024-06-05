@@ -398,7 +398,7 @@ void RSA::AllPaths(){
     double dbOsnrL;
     double dbOsnrS;
     std::ofstream outfile;
-    bool printAllpaths = true;
+    bool printAllpaths = false;
     if(printAllpaths){
         std::cout << "Writing  OSNR's to file..." << std::endl;
         std::string outputOSNRName = "pathData.csv";
@@ -432,9 +432,9 @@ void RSA::AllPaths(){
                 outfile << ";";
                 outfile << distance;
                 outfile << ";";
-                outfile << toBeRouted[i].getmaxCDC();
+                outfile << toBeRouted[i].getmaxCDC()/20;
                 outfile << ";";
-                outfile << toBeRouted[i].getmaxCDL();
+                outfile << toBeRouted[i].getmaxCDL()/22;
                 outfile << ";";
                 outfile << dbOsnrC;
                 outfile << ";";
@@ -1328,20 +1328,15 @@ void RSA::displayOSNR(Instance &i){
                     if ((*vecOnPath[d])[a] != -1){
                         int limitCband = instance.getPhysicalLinkFromIndex(getArcLabel(a, d)).getNbSlicesC();
                         int slice = getArcSlice(a, d);
-                        double pnli = 0.0;
-                        double paseLine = 0.0;
-                        double paseNode = 0.0;
+                        double noise = 0.0;
+
                         if (slice < limitCband){
-                            pnli = ceil(getArcPnliC(a,d)* pow(10,8)*100)/100; //ROUNDING
-                            paseLine = ceil(getArcPaseLineC(a,d)* pow(10,8)*100)/100; //ROUNDING
-                            paseNode = ceil(instance.getPaseNodeC() * pow(10,8)*100)/100; //ROUNDING
+                            noise = ceil(getArcNoiseC(a,d)* pow(10,8)*100)/100; //ROUNDING
                         }else{
-                            pnli = ceil(getArcPnliL(a,d)* pow(10,8)*100)/100; //ROUNDING
-                            paseLine = ceil(getArcPaseLineL(a,d)* pow(10,8)*100)/100; //ROUNDING
-                            paseNode = ceil(instance.getPaseNodeL() * pow(10,8)*100)/100; //ROUNDING       
+                            noise = ceil(getArcNoiseL(a,d)* pow(10,8)*100)/100 ; //ROUNDING 
                             auxCband = false;                    
                         }
-                        osnrDenominator += pnli + paseLine + paseNode;
+                        osnrDenominator += noise;
                     }
                 }
                 if (auxCband == true){
@@ -1379,7 +1374,7 @@ void RSA::displayOFData(Instance &i){
     int OBJECTIVE_METRIC_TUS = 0;	/**< Minimize the sum of occupied slices. **/                                           //OK
     int OBJECTIVE_METRIC_TRL = 0;		/**< Minimize the path lengths. **/                                                 //OK
     int OBJECTIVE_METRIC_TUA = 0;	/**< Minimize the amplifiers. **/                                                       //OK 
-    int OBJECTIVE_METRIC_NLUS = 0;		/**< Minimize the max used slice position overall. **/
+    int OBJECTIVE_METRIC_NLUS = 0;		/**< Minimize the max used slice position overall. **/                              //OK 
     double OBJECTIVE_METRIC_TOS = 0.0; 	/**< Minimize the sum of differences between the OSNR of a path ant the OSNR limit **/
     int OBJECTIVE_METRIC_ADS = 0; 	/**< Minimize the weighted sum of rejected demands **/                                  //OK
     int OBJECTIVE_METRIC_LLB = 0; 	/**< Minimize the number of links with installed L band **/                             //OK
@@ -1427,6 +1422,16 @@ void RSA::displayOFData(Instance &i){
     std::cout << "Total route length: " << OBJECTIVE_METRIC_TRL << std::endl;
     std::cout << "Total used slots: " << OBJECTIVE_METRIC_TUS << std::endl;
     std::cout << "Total used amplifiers: " << OBJECTIVE_METRIC_TUA << std::endl;
+
+    ADS = OBJECTIVE_METRIC_ADS;
+    DCB = OBJECTIVE_METRIC_DCB ;
+    LLB = OBJECTIVE_METRIC_LLB ;  
+    NLUS = OBJECTIVE_METRIC_NLUS ;
+    SLUS = OBJECTIVE_METRIC_SLUS;
+    SULD = OBJECTIVE_METRIC_SULD;
+    TRL = OBJECTIVE_METRIC_TRL;
+    TUS = OBJECTIVE_METRIC_TUS;
+    TUA = OBJECTIVE_METRIC_TUA;
 
 }
 

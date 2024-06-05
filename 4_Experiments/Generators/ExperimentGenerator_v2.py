@@ -213,7 +213,7 @@ f.close()
 print("Experiments script created")
 
 with open("../Outputs/results.csv", "w") as f:
-    line = "LinkS;TranspS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Reach;OSNR;Cuts;Variables;Constraints;Paths;Feasible;Infeasible;OnlyOsnr;OnlyReach"
+    line = "LinkS;TranspS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Reach;OSNR;Cuts;Variables;Constraints;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tua"
     f.write(line)
     f.close() 
 print("Result table created")   

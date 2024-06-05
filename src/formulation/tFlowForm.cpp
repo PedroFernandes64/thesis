@@ -598,8 +598,13 @@ void TFlowForm::setConstraints(){
 
     
     nbConstraint = constraintSet.size();
+    //QOT PREPRO
     if (this->getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_PARTIAL){
         setPreprocessingConstraints();
+    }
+    //NO L BAND PREPRO
+    if(nbBands>1){                              // IF OF
+        this->setForcedMonobandConstraints();
     }
 }
 
@@ -880,6 +885,7 @@ void TFlowForm::setOSNRConstraints(){
 }
 
 /* Returns the OSNR constraint associated with a demand. */
+/*
 Constraint TFlowForm::getOSNRCConstraint(const Demand &demand, int k){
     Expression exp;
     double rhs; double lhs;
@@ -942,7 +948,9 @@ Constraint TFlowForm::getOSNRCConstraint(const Demand &demand, int k){
     //constraint.display();
     return constraint;
 }
+*/
 /* Returns the OSNR constraint associated with a demand. */
+/*
 Constraint TFlowForm::getOSNRLConstraint(const Demand &demand, int k){
     Expression exp;
     double rhs; double lhs;
@@ -990,6 +998,102 @@ Constraint TFlowForm::getOSNRLConstraint(const Demand &demand, int k){
         for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
             int edge = getCompactEdgeLabel(e);
             coeff2 = coeff2 + ceil(getCompactPaseLineL(e)*roundingFactor*100)/100 + ceil(getCompactPnliL(e)*roundingFactor*100)/100 + ceil(instance.getPaseNodeL() * roundingFactor*100)/100;
+        }
+        for (int s = 0; s < slicesC; s++){
+            Term term(y[s][k], -coeff2);
+            exp.addTerm(term);
+        }
+        lhs = -coeff2;
+    }
+    std::ostringstream constraintName;
+    constraintName << "OSNR_" << demand.getId()+1;
+    Constraint constraint(lhs, exp, rhs, constraintName.str());
+    //std::cout << "For demand " << d<< std::endl;
+    //constraint.display();
+    return constraint;
+}
+*/
+/* Returns the OSNR constraint associated with a demand. */
+Constraint TFlowForm::getOSNRCConstraint(const Demand &demand, int k){
+    Expression exp;
+    double rhs; double lhs;
+    
+    double osnrLimdb = demand.getOsnrLimitC();
+    double osnrLim = pow(10,osnrLimdb/10);
+    double pch = demand.getPchC();
+
+    double roundingFactor = pow(10,8);
+    
+    rhs = pch/osnrLim - instance.getPaseNodeC() ;
+    
+    rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
+    lhs = 0;
+
+    int nbEdges = countEdges(compactGraph);
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        //First term
+        double coeff = getCompactNoiseC(e)* roundingFactor;
+        coeff = ceil(coeff*100)/100; //ROUNDING
+        Term term(x[edge][k], coeff);
+        Term term2(x[edge + nbEdges][k], coeff);
+        exp.addTerm(term);
+        exp.addTerm(term2);
+    }
+    if(nbBands>1){
+        double coeff2 = 0.0;
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            coeff2 = coeff2 + ceil(getCompactNoiseC(e)*roundingFactor*100)/100;
+            //std::cout <<coeff2<< std::endl;
+        }
+        for (int s = slicesC; s < slicesC+slicesL; s++){
+            Term term(y[s][k], -coeff2);
+            exp.addTerm(term);
+        }
+        lhs = -coeff2;
+    }
+    std::ostringstream constraintName;
+    constraintName << "OSNR_" << demand.getId()+1;
+    Constraint constraint(lhs, exp, rhs, constraintName.str());
+    //std::cout << "For demand " << demand << std::endl;
+    //constraint.display();
+    return constraint;
+}
+/* Returns the OSNR constraint associated with a demand. */
+Constraint TFlowForm::getOSNRLConstraint(const Demand &demand, int k){
+    Expression exp;
+    double rhs; double lhs;
+    
+    double osnrLimdb = demand.getOsnrLimitL();
+    double osnrLim = pow(10,osnrLimdb/10);
+    double pch = demand.getPchL();
+
+    double roundingFactor = pow(10,8);
+    
+    rhs = pch/osnrLim - instance.getPaseNodeL() ;
+    
+    rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
+    lhs = 0;
+
+    int nbEdges = countEdges(compactGraph);
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+
+        //First term
+        double coeff = getCompactNoiseL(e)* roundingFactor;
+        coeff = ceil(coeff*100)/100; //ROUNDING
+        Term term(x[edge][k], coeff);
+        Term term2(x[edge + nbEdges][k], coeff);
+        exp.addTerm(term);
+        exp.addTerm(term2);
+
+    }
+    if(nbBands>1){
+        double coeff2 = 0.0;
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            coeff2 = coeff2 + ceil(getCompactNoiseL(e)*roundingFactor*100)/100;
         }
         for (int s = 0; s < slicesC; s++){
             Term term(y[s][k], -coeff2);
@@ -1706,6 +1810,28 @@ Constraint TFlowForm::getPreprocessingConstraintMultiL(int k, int e){
     }
     std::ostringstream constraintName;
     constraintName << "PreproL_" << getToBeRouted_k(k).getId()+1;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+void TFlowForm::setForcedMonobandConstraints(){
+    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+        const Constraint & forcedMonoConstraint = getForcedMonobandConstraint_k(getToBeRouted_k(k), k);
+        constraintSet.push_back(forcedMonoConstraint);
+    }
+    std::cout << "Forced monoband constraints have been defined..." << std::endl;
+}
+Constraint TFlowForm::getForcedMonobandConstraint_k(const Demand &demand, int k){
+    Expression exp;
+    double upperBound = 0;
+    int lowerBound = 0;
+    if(demand.getLoadL() == 0)
+        for (int s = slicesC; s < slicesC+slicesL; s++){
+            Term term(y[s][k], 1);
+            exp.addTerm(term);
+        }
+    std::ostringstream constraintName;
+    constraintName << "ForcedMono_" << getToBeRouted_k(k).getId()+1;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }

@@ -92,6 +92,15 @@ public:
     int getOsnrFeasiblePathsL(){ return formulation->getOsnrFeasiblePathsL(); }
     int getReachFeasiblePathsL(){ return formulation->getReachFeasiblePathsL(); }
     int getInfeasiblePathsL(){ return formulation->getInfeasiblePathsL(); }
+	int getADS(){ return formulation->getADS();}
+    int getDCB(){ return formulation->getDCB();}
+    int getLLB(){ return formulation->getLLB();}  
+    int getNLUS(){ return formulation->getNLUS();}
+    int getSLUS(){ return formulation->getSLUS();}
+    int getSULD(){ return formulation->getSULD();}
+    int getTRL(){ return formulation->getTRL();}
+    int getTUS(){ return formulation->getTUS();}
+    int getTUA(){ return formulation->getTUA();}
 
 	/****************************************************************************************/
 	/*											Setters										*/

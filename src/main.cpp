@@ -128,6 +128,15 @@ int main(int argc, char *argv[]) {
 			std::string onlyOsnrFeasiblePathsL =to_string(solver->getOsnrFeasiblePathsL());
 			std::string onlyReachFeasiblePathsL = to_string(solver->getReachFeasiblePathsL());
 			std::string infeasiblePathsL = to_string(solver->getInfeasiblePathsL());
+			std::string	ads = to_string(solver->getADS());
+			std::string	dcb = to_string(solver->getDCB());
+			std::string	llb = to_string(solver->getLLB());
+			std::string	nlus = to_string(solver->getNLUS());
+			std::string	slus = to_string(solver->getSLUS());
+			std::string	suld = to_string(solver->getSULD());
+			std::string	trl = to_string(solver->getTRL());
+			std::string	tus = to_string(solver->getTUS());
+			std::string	tua = to_string(solver->getTUA());
 
 			//AUXILIAR OUTPUT FILE
 			std::ofstream outfile;
@@ -161,7 +170,8 @@ int main(int argc, char *argv[]) {
   			outfile << "\n" + instanceName + ";" << ub + ";" + lb + ";" + gap +";" + time +";" + obj +";"+ formulation+ ";"+maxReach+";"+
 				minOsnr+";"+cuts+";"+variables+";"+constraints+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"+
 				onlyOsnrFeasiblePathsC+";"+onlyReachFeasiblePathsC+";"+feasiblePathsL+";"+infeasiblePathsL+";"+
-				onlyOsnrFeasiblePathsL+";"+onlyReachFeasiblePathsL; 
+				onlyOsnrFeasiblePathsL+";"+onlyReachFeasiblePathsL+";"+ads+";"+dcb+";"+llb+";"+nlus+";"+slus+";"+
+				suld+";"+trl+";"+tus+";"+tua;
 		}
 		
 

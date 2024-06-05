@@ -113,6 +113,7 @@ public:
 	void setMultibandConstraints();
 
 	void setPreprocessingConstraints();
+	void setForcedMonobandConstraints();
 
 	Constraint getSourceConstraint_k(int k);
 
@@ -150,6 +151,7 @@ public:
 	Constraint getPreprocessingConstraintMultiBi(int k);
 	Constraint getPreprocessingConstraintMultiC(int k, int e);
 	Constraint getPreprocessingConstraintMultiL(int k, int e);
+	Constraint getForcedMonobandConstraint_k(const Demand &demand, int d);
 
 	Constraint getMultibandConstraint(int k, int e);
 	Constraint getMultibandConstraint2(int k, int e);

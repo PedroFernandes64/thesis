@@ -60,6 +60,15 @@ protected:
     int onlyOsnrFeasiblePathsL;
     int onlyReachFeasiblePathsL;
     int infeasiblePathsL;
+    int ADS;
+    int DCB ;
+    int LLB ;  
+    int NLUS ;
+    int SLUS;
+    int SULD;
+    int TRL;
+    int TUS;
+    int TUA;
 
     /** A list of pointers to the extended graph associated with each demand to be routed. 
         \note (*vecGraph[i]) is the graph associated with the i-th demand to be routed. **/
@@ -319,6 +328,15 @@ public:
     int getOsnrFeasiblePathsL(){ return onlyOsnrFeasiblePathsL; }
     int getReachFeasiblePathsL(){ return onlyReachFeasiblePathsL; }
     int getInfeasiblePathsL(){ return infeasiblePathsL; }
+    int getADS(){ return ADS;};
+    int getDCB(){ return DCB;};
+    int getLLB(){ return LLB;};  
+    int getNLUS(){ return NLUS;};
+    int getSLUS(){ return SLUS;};
+    int getSULD(){ return SULD;};
+    int getTRL(){ return TRL;};
+    int getTUS(){ return TUS;};
+    int getTUA(){ return TUA;};
 
 
     ListGraph::Node getCompactNodeFromLabel(int label) const;

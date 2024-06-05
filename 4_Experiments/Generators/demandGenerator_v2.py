@@ -909,7 +909,7 @@ def addRandomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemand
                 #print(list(set(dataVector)))
                 data = random.sample(list(set(dataVector)),k=1)
                 data = data[0]
-                print(data)
+   
                 if len(feasibleTranspondersC)>1:
                     rowCounter3 = 1
                     efficiency = 10
@@ -1228,7 +1228,7 @@ demandStragegylist.append("10percent")
 
 addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,50)
 demandStragegylist.append("fullRandomPair50")
-CustomClassVerifier(NetworksDemandsSets)
+#CustomClassVerifier(NetworksDemandsSets)
 
 addCoreToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
 demandStragegylist.append("coreSet")
