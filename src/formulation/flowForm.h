@@ -18,7 +18,12 @@ private:
     VarMatrix x;				    /**< The matrix of assignement variables used in the MIP. x[d][a]=1 if the d-th demand is routed through the arc from index a. **/
     VarArray maxSlicePerLink;	    /**< The array of variables used in the MIP for verifying the max used slice position for each link in the topology network. maxSlicePerLink[i]=p if p is the max used slice position from the link with id i. **/
 	Variable maxSliceOverall;		/**< The max used slice position throughout all the network. **/
-	VarArray routedCBand;	    	/**< routedCBand[k]=1 if k is routed in C band. **/
+	
+	VarArray l;	    				    			
+	
+	int slicesC;
+	int slicesL;
+	int slicesTotal;
 
 public:
 	/****************************************************************************************/
@@ -57,6 +62,10 @@ public:
 
 	/** Changes the variable values. @param value The vector of values. **/
 	void setVariableValues(const std::vector<double> &value) override;
+
+
+	/** Defines the multiband variables. **/
+	void setMultibandVariables();
 
 	/****************************************************************************************/
 	/*										Constraints										*/
@@ -103,14 +112,16 @@ public:
 	/** Returns the OSNR constraint associated with a demand. @param demand The demand. @param d The demand index. **/
     Constraint getOSNRCConstraint(const Demand &demand, int d);
 
+	/** Returns the OSNR constraint associated with a demand. @param demand The demand. @param d The demand index. **/
+    Constraint getOSNRLConstraint(const Demand &demand, int d);
+
 	/** Returns the non-overlapping constraint associated with an edge and a slice. @param linkLabel The arc label. @param slice The arc slice. **/
 	Constraint getNonOverlappingConstraint(int linkLabel, int slice);
 
-	void setCBandRoutingConstraints();	
+	void setMultibandConstraints();	
 
-	Constraint getCBandRoutingConstraint(int k);
+	Constraint getMultibandConstraint(int k, int e);
 
-	Constraint getCBandRoutingConstraint2(int k, int e);
 
 	//---------------------------------- New constraints ---------------------------------- //
 
@@ -119,19 +130,9 @@ public:
 
 	/** Defines the Link's Max Used Slice Position constraints. The max used slice position on each link must be greater than every slice position used in the link. **/
 	void setMaxUsedSlicePerLinkConstraints();
-	/** Defines the Link's Max Used Slice Position constraints. The max used slice position on each link must be greater than every slice position used in the link. **/
-	void setMaxUsedSlicePerLinkConstraints2();
 
 	/** Defines the Overall Max Used Slice Position constraints. The max used slice position overall must be greater than every other slice position used in the network. **/
 	void setMaxUsedSliceOverallConstraints();
-
-	/** Defines the Overall Max Used Slice Position constraints. The max used slice position overall must be greater than every other slice position used in the network. **/
-	void setMaxUsedSliceOverallConstraints2();
-
-	/** Defines the Overall Max Used Slice Position constraints. The max used slice position overall must be greater than every other slice position used in the network. **/
-	void setMaxUsedSliceOverallConstraints3();
-	/** Defines the Overall Max Used Slice Position constraints. The max used slice position overall must be greater than every other slice position used in the network. **/
-	void setMaxUsedSliceOverallConstraints4();
 
 	/** Returns the strong max reach constraint associated with a demand and a slice. @param demand The demand. @param d The demand index. @param s The slice index.**/
 	Constraint getStrongLengthConstraint(const Demand &demand, int d, int s);
@@ -143,15 +144,6 @@ public:
 
 	/** Returns the Overall Max Used Slice Position constraints associated with a link and a demand. @param linkIndex The link's index. @param d The demand's index. **/
 	Constraint getMaxUsedSliceOverallConstraints(int d);
-
-	/** Returns the Overall Max Used Slice Position constraints associated with a link and a demand. @param linkIndex The link's index. **/
-	Constraint getMaxUsedSliceOverallConstraints2(int linkIndex, int s);
-
-	/** Returns the Overall Max Used Slice Position constraints associated with a link and a demand. @param linkIndex The link's index. **/
-	Constraint getMaxUsedSliceOverallConstraints3(int linkIndex, int s);
-	
-	/** Returns the Overall Max Used Slice Position constraints associated with a link and a demand. @param linkIndex The link's index. **/
-	Constraint getMaxUsedSliceOverallConstraints4(int linkIndex);
 
 	/** Returns the constraint rejecting the path stored for the d-th demand. @param d The d-th demand. **/	
 	Constraint getPathEliminationConstraint(int d);

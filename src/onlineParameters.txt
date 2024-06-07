@@ -17,9 +17,9 @@ TFlow_Policy=3
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
-formulation=2
+formulation=0
 userCuts=0
-obj=LLB
+obj=TUS
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
