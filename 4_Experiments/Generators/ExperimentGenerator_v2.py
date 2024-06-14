@@ -29,8 +29,8 @@ for linkStrategy in linkStrategies:
 #testUnitVerifier(testSet)
 
 solverSet = ["0"]
-formulationSet = ["2"]
-objSet = ["ADS","LLB","DCB","TUS"]
+formulationSet = ["0","2"]
+objSet = ["ADS","LLB","DCB","TUS","TRL"]
 maxReachSet=["1"]
 osnrSet=["1"]
 cutSet=["0"]
@@ -213,7 +213,7 @@ f.close()
 print("Experiments script created")
 
 with open("../Outputs/results.csv", "w") as f:
-    line = "LinkS;TranspS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Reach;OSNR;Cuts;Variables;Constraints;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tua"
+    line = "LinkS;TranspS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Reach;OSNR;Cuts;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tua"
     f.write(line)
     f.close() 
 print("Result table created")   

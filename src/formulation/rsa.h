@@ -51,6 +51,9 @@ protected:
 
     double RSAGraphConstructionTime;
     double PreprocessingTime;
+
+    int variablesSetTo0;
+    int preprocessingConstraints;
     int possiblePaths;
     int feasiblePathsC;
     int onlyOsnrFeasiblePathsC;
@@ -66,7 +69,7 @@ protected:
     int NLUS ;
     int SLUS;
     int SULD;
-    int TRL;
+    double TRL;
     int TUS;
     int TUA;
 
@@ -334,9 +337,11 @@ public:
     int getNLUS(){ return NLUS;};
     int getSLUS(){ return SLUS;};
     int getSULD(){ return SULD;};
-    int getTRL(){ return TRL;};
+    double getTRL(){ return TRL;};
     int getTUS(){ return TUS;};
     int getTUA(){ return TUA;};
+    int getVariablesSetTo0(){ return variablesSetTo0;};
+    int getPreprocessingConstraints(){ return preprocessingConstraints;};
 
 
     ListGraph::Node getCompactNodeFromLabel(int label) const;

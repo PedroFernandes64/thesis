@@ -413,13 +413,16 @@ void Instance::generateRandomDemands(const int N){
 bool Instance::hasEnoughSpace(const int i, const int s, const Demand &demand){
 	// std::cout << "Calling hasEnoughSpace..." << std::endl;
 	int LOAD;
+	int firstPosition;
 	if (s >= getPhysicalLinkFromIndex(i).getNbSlicesC() ){
 		LOAD = demand.getLoadL();
+		firstPosition = s-getPhysicalLinkFromIndex(i).getNbSlicesC() - LOAD + 1;
 	}
 	else{
 		LOAD = demand.getLoadC();
+		firstPosition = s - LOAD + 1;
 	}
-	int firstPosition = s - LOAD + 1;
+	
 	if (firstPosition < 0){
 		return false;
 	}

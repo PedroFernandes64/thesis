@@ -29,7 +29,7 @@ private:
 
 	int NonOverlappingType;
 	
-
+	int aux;
 public:
 	/****************************************************************************************/
 	/*										Constructors									*/

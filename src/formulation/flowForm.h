@@ -122,7 +122,9 @@ public:
 
 	Constraint getMultibandConstraint(int k, int e);
 
-
+	void setForcedMonobandConstraints();
+	Constraint getForcedMonobandConstraint_k(const Demand &demand, int d);
+	
 	//---------------------------------- New constraints ---------------------------------- //
 
 	/** Defines the reinforced max reach constraints. **/

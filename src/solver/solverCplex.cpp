@@ -136,8 +136,8 @@ void SolverCplex::solve(){
         setMipGap(cplex.getMIPRelativeGap()*100);
     }else{
         if (cplex.getStatus() == IloAlgorithm::Infeasible){
-            setUpperBound(0);
-            setLowerBound(0);
+            setUpperBound(-1);
+            setLowerBound(-1);
             setMipGap(0);    
         }else{
             // CPLEX STATUS UNKNOWN
@@ -145,6 +145,10 @@ void SolverCplex::solve(){
             setUpperBound(-1);
             setLowerBound(cplex.getBestObjValue());
             setMipGap(0);
+            if ((myObjectives[0].getId() == Input::OBJECTIVE_METRIC_ADS) || (myObjectives[0].getId()  == Input::OBJECTIVE_METRIC_DCB)){
+                setUpperBound(cplex.getBestObjValue());
+                setLowerBound(-1);
+            }
         }
     }
 	setTreeSize(cplex.getNnodes());

@@ -534,6 +534,11 @@ def chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, Networks
                                     newRow.append(0)
                                     newRow.append(0)
                                     newRow.append(data)
+                            else:
+                                newRow.append(0)
+                                newRow.append(0)
+                                newRow.append(0)
+                                newRow.append(data)
                         if pickC == True:
                             newNetworkDemandTable.append(newRow)
                         else:
@@ -740,6 +745,11 @@ def addCustomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemand
                                     newRow.append(0)
                                     newRow.append(0)
                                     newRow.append(data)
+                            else:
+                                newRow.append(0)
+                                newRow.append(0)
+                                newRow.append(0)
+                                newRow.append(data)
                         if pickC == True:
                             newNetworkDemandTable.append(newRow)
                         else:
@@ -1118,7 +1128,8 @@ def buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,
     return instanceSet
 
 def linkCapacityAdaptator(nbDemands,policy):
-    newCap = round(nbDemands * policy)
+    #newCap = round(nbDemands * policy)
+    newCap = policy
     if newCap > 320:
         newCap = 320
     return newCap
@@ -1222,16 +1233,20 @@ buildBaseDemandSet(NetworksDemandsSets,NetworksNodesToProcess)           #this c
 demandStragegylist.append("allPair")
 #CustomClassVerifier(NetworksDemandsSets)
 
-addXsampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess,20)
-demandStragegylist.append("10percent")
+#addXsampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess,20)
+#demandStragegylist.append("10percent")
 #CustomClassVerifier(NetworksDemandsSets)
 
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,50)
-demandStragegylist.append("fullRandomPair50")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,40)
+demandStragegylist.append("fullRandomPair40")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,60)
+demandStragegylist.append("fullRandomPair60")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,80)
+demandStragegylist.append("fullRandomPair80")
 #CustomClassVerifier(NetworksDemandsSets)
 
-addCoreToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
-demandStragegylist.append("coreSet")
+#addCoreToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
+#demandStragegylist.append("coreSet")
 #CustomClassVerifier(NetworksDemandsSets)
 
 
@@ -1258,7 +1273,8 @@ for network in NetworksDemandsSetsWithTransponders:
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 #====== LEVEL THREE CHOICES - DO FOR EACH DEMAND SET WITH TRANSPONDER
-linkPolicies = [1,2]
+#linkPolicies = [1,2]
+linkPolicies = [30,40,50]
 instanceSet = buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,linkPolicies)
 #InstanceVerifier(instanceSet)
 print(str(len(instanceSet)) + " instances sets")
@@ -1295,7 +1311,7 @@ for linkStrategy in linkPolicies:
             
             for instance in instanceSet:
                 #if len(instance.demands) >1 and len(instance.demands) <1000 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
-                if instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
+                if len(instance.demands) <85 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
                     counter = counter + 1
                     writeInstanceFiles(instance,adress3)
 print(str(counter) + " instances created")

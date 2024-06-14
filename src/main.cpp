@@ -137,6 +137,8 @@ int main(int argc, char *argv[]) {
 			std::string	trl = to_string(solver->getTRL());
 			std::string	tus = to_string(solver->getTUS());
 			std::string	tua = to_string(solver->getTUA());
+			std::string	v0 = to_string(solver->getVariablesSetTo0());
+			std::string	ppC = to_string(solver->getPreprocessingConstraints());
 
 			//AUXILIAR OUTPUT FILE
 			std::ofstream outfile;
@@ -168,7 +170,7 @@ int main(int argc, char *argv[]) {
 			}
 			//opening file and writing
   			outfile << "\n" + instanceName + ";" << ub + ";" + lb + ";" + gap +";" + time +";" + obj +";"+ formulation+ ";"+maxReach+";"+
-				minOsnr+";"+cuts+";"+variables+";"+constraints+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"+
+				minOsnr+";"+cuts+";"+variables+";"+constraints+";"+v0+";"+ppC+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"+
 				onlyOsnrFeasiblePathsC+";"+onlyReachFeasiblePathsC+";"+feasiblePathsL+";"+infeasiblePathsL+";"+
 				onlyOsnrFeasiblePathsL+";"+onlyReachFeasiblePathsL+";"+ads+";"+dcb+";"+llb+";"+nlus+";"+slus+";"+
 				suld+";"+trl+";"+tus+";"+tua;
