@@ -49,14 +49,14 @@ void TFlowForm::setVariables(){
         this->setAuxiliaryVariables();
     }
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
+    if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS) || (chosenObjectives.size()>1)){
         this->setMaxUsedSlicePerEdgeVariables();
     }
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+    if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS) || (chosenObjectives.size()>1)){
         this->setMaxUsedSliceOverallVariable();
     }
     if(nbBands>1){                              // IF OF
-        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
+        if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB) || (chosenObjectives.size()>1)){
             this->setMultibandVariables();
         }
     }
@@ -267,7 +267,7 @@ VarArray TFlowForm::getVariables(){
     }
     
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){    
+    if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS) || (chosenObjectives.size()>1)){    
         // Max slice variables
         for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
             int edge = getCompactEdgeLabel(e);
@@ -276,14 +276,14 @@ VarArray TFlowForm::getVariables(){
         }  
     }
 
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+    if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS) || (chosenObjectives.size()>1)){
         // Max slice overall
         int pos = maxSliceOverall.getId();
         vec[pos] = maxSliceOverall;
     }
 
     if(nbBands>1){
-        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
+        if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB) || (chosenObjectives.size()>1)){
         // multiband variables
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
@@ -339,7 +339,7 @@ void TFlowForm::setVariableValues(const std::vector<double> &vals){
         }
     }
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){  
+    if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS) || (chosenObjectives.size()>1)){  
         // Max slice variables
         for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
             int edge = getCompactEdgeLabel(e);
@@ -349,14 +349,14 @@ void TFlowForm::setVariableValues(const std::vector<double> &vals){
         }
     }
     // Max slice overall
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+    if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS) || (chosenObjectives.size()>1)){
         int pos = maxSliceOverall.getId();
         double newValue = vals[pos];
         maxSliceOverall.setVal(newValue);
     }
 
     if(nbBands>1){
-        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
+        if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB) || (chosenObjectives.size()>1)){
     // multiband variables
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
@@ -565,10 +565,10 @@ void TFlowForm::setConstraints(){
     }
 
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
+    if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS) || (chosenObjectives.size()>1)){
         this->setMaxUsedSlicePerLinkConstraints();
     }
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+    if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS) || (chosenObjectives.size()>1)){
         this->setMaxUsedSliceOverallConstraints();
     }
     
@@ -596,7 +596,7 @@ void TFlowForm::setConstraints(){
     }
 
     if(nbBands>1){                              // IF OF
-        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
+        if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB) || (chosenObjectives.size()>1)){
             this->setMultibandConstraints();
         }
     }
@@ -2337,19 +2337,19 @@ void TFlowForm::displayVariableValues(){
         }
     }
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
+    if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS) || (chosenObjectives.size()>1)){
         for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
             int edge = getCompactEdgeLabel(e);
             std::cout << maxSlicePerLink[edge].getName() << " = " << maxSlicePerLink[edge].getVal() << "   ";
         }
         std::cout << std::endl;
     }
-    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+    if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS) || (chosenObjectives.size()>1)){
         std::cout << maxSliceOverall.getName() << " = " << maxSliceOverall.getVal() << std::endl;
         std::cout << std::endl;
     }
     if(nbBands>1){                              // IF OF
-        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
+        if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB) || (chosenObjectives.size()>1)){
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 std::cout << l[edge].getName() << " = " << l[edge].getVal() << "   ";

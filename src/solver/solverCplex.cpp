@@ -94,19 +94,28 @@ void SolverCplex::solve(){
         //cplex.setOut(fout);
         //cplex.setWarning(fout);
         //cplex.setError(fout);
+        std::string	filename = formulation->getInstance().getInput().getParameterFile() + ".sol";
+        if(myObjectives.size()>1){
+            try {
+                cplex.readMIPStarts(filename.c_str());
+                //std::remove(filename.c_str());
+            }
+            catch(IloException& ex) {
+                std::cerr << "No firstRound.sol " << ex << std::endl;
+            }
+        }
+
         try {
             cplex.solve();
         }
         catch(IloException& ex) {
             std::cerr << "Error: " << ex << std::endl;
         }
-        catch(...) {
-            std::cerr << "Error: que pasa wey" << std::endl;
-        }
         //outfile.close();
         if ((cplex.getStatus() == IloAlgorithm::Optimal) || (cplex.getStatus() == IloAlgorithm::Feasible)){
             IloNum objValue = cplex.getObjValue();
             std::cout << "Objective Function Value: " << objValue << std::endl;
+            /*
             if (i < myObjectives.size() - 1){
                 IloExpr objectiveExpression = to_IloExpr(myObjectives[i].getExpression());
                 IloRange constraint(model.getEnv(), objValue, objectiveExpression, objValue);
@@ -114,6 +123,11 @@ void SolverCplex::solve(){
                 model.add(constraint);
                 objectiveExpression.end();
             }
+            */
+            if(myObjectives.size()>1){
+                cplex.writeMIPStarts(filename.c_str());
+            }
+            
         }else{
             if(cplex.getStatus() == IloAlgorithm::Infeasible){
                 std::cout << "Solver proved infeasibility solution..." << std::endl;
@@ -244,6 +258,7 @@ void SolverCplex::setCplexParams(const Input &input){
     //cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 57344);
     cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
     cplex.setParam(IloCplex::Param::Threads, 4);
+    cplex.setParam(IloCplex::IntParam::WriteLevel, 1);
 
     if(formulation->getInstance().getInput().isRelaxed()){
         Input::RootMethod rootMethod = formulation->getInstance().getInput().getChosenRootMethod();
