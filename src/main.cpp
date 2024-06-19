@@ -110,6 +110,9 @@ int main(int argc, char *argv[]) {
 			std::string gap = to_string(solver->getMipGap());
 			std::string time = to_string(round(solver->getDurationTime()*1000)/1000);
 			std::string obj = to_string(input.getChosenObj_k(0));
+			if(input.getChosenObj().size()>1){
+				obj = obj + "-" + to_string(input.getChosenObj_k(1));
+			}
 			std::string formulation = to_string(input.getChosenFormulation());
 			if (input.getChosenFormulation() == 2){
 				formulation = formulation + to_string(input.getNonOverTFlow());

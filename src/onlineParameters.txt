@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../4_Experiments/Outputs/Instances/50x/efficient/Nsfnet_14_21/Links/80_demands/Link.csv
+topologyFile=../4_Experiments/Outputs/Instances/40x/maxData200/German_17_26/Links/60_demands/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../4_Experiments/Outputs/Instances/50x/efficient/Nsfnet_14_21/Demands/80_demands
+demandToBeRoutedFolder=../4_Experiments/Outputs/Instances/40x/maxData200/German_17_26/Demands/60_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
@@ -19,7 +19,7 @@ TFlow_Policy=3
 nbDemandsAtOnce=1000
 formulation=2
 userCuts=0
-obj=TUS,DCB
+obj=TUS,TRL
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
