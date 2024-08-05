@@ -1273,7 +1273,7 @@ for network in NetworksDemandsSetsWithTransponders:
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 #====== LEVEL THREE CHOICES - DO FOR EACH DEMAND SET WITH TRANSPONDER
-linkPolicies = [1,2]
+linkPolicies = [0.5,1]
 #linkPolicies = [30,40,50]
 instanceSet = buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,linkPolicies)
 #InstanceVerifier(instanceSet)
