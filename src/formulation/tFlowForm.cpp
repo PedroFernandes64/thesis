@@ -11,6 +11,10 @@ TFlowForm::TFlowForm(const Instance &instance) : AbstractFormulation(instance){
     slicesC = instance.getTabEdge()[0].getNbSlicesC();
     slicesL = instance.getTabEdge()[0].getNbSlicesL();
     slicesTotal = slicesC + slicesL;
+    if( nbBands == 1 ){
+        slicesC = auxNbSlicesGlobalLimit;
+        slicesTotal = auxNbSlicesGlobalLimit;
+    }
     variablesSetTo0 = 0;
     preprocessingConstraints = 0;
     ClockTime time(ClockTime::getTimeNow());
@@ -45,8 +49,11 @@ void TFlowForm::printVariables(){
 void TFlowForm::setVariables(){
     this->setFlowVariables();
     this->setChannelVariables();
-    if((NonOverlappingType == 3) ||(NonOverlappingType == 4) ){
+    if(NonOverlappingType == 2){
         this->setAuxiliaryVariables();
+    }
+    if(NonOverlappingType == 3){
+        this->setHybridVariables();
     }
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
     if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS) || (chosenObjectives.size()>1)){
@@ -56,9 +63,7 @@ void TFlowForm::setVariables(){
         this->setMaxUsedSliceOverallVariable();
     }
     if(nbBands>1){                              // IF OF
-        if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB) || (chosenObjectives.size()>1)){
-            this->setMultibandVariables();
-        }
+        this->setMultibandVariables();
     }
     std::cout << "T-Flow variables have been defined..." << std::endl; 
 }
@@ -159,6 +164,34 @@ void TFlowForm::setAuxiliaryVariables(){
     }
 }
 
+void TFlowForm::setHybridVariables(){    
+// Variables x[a][d]
+    int nbEdges = countEdges(compactGraph);
+    h.resize(nbEdges);
+    int uId, vId;
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        uId = getCompactNodeLabel(compactGraph.u(e)) + 1;
+        vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
+        h[edge].resize(getNbDemandsToBeRouted());  
+        for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+            h[edge][k].resize(slicesTotal);
+            for (int s = 0; s < slicesTotal; s++){
+                std::ostringstream varName;
+                varName << "h";
+                varName << "(" + std::to_string(getToBeRouted_k(k).getId() + 1)  + "," ;
+                varName << std::to_string(uId)+ "," ;
+                varName << std::to_string(vId) + ",";
+                varName << std::to_string(s+1) + ")";
+                int upperBound = 1;
+                int varId = getNbVar();
+                h[edge][k][s] = Variable(varId, 0, upperBound, Variable::TYPE_BOOLEAN, 0, varName.str());
+                incNbVar();
+            }
+        }
+    }
+}
+
 void TFlowForm::setMaxUsedSlicePerEdgeVariables(){
     // Max slice variables
     int nbEdges = countEdges(compactGraph);
@@ -198,7 +231,7 @@ void TFlowForm::setMultibandVariables(){
     // C Band routing variables
     int nbEdges = countEdges(compactGraph);
     l.resize(nbEdges);
-    l2.resize(nbEdges);
+    //l2.resize(nbEdges);
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
         std::string varName = "l(" + std::to_string(edge+1) + ")";
@@ -212,6 +245,7 @@ void TFlowForm::setMultibandVariables(){
             l[edge] = Variable(varId, lowerBound, upperBound, Variable::TYPE_INTEGER, 0, varName);
         }
         incNbVar();
+        /*
         l2[edge].resize(getNbDemandsToBeRouted()); 
         for (int k = 0; k < getNbDemandsToBeRouted(); k++){
             std::ostringstream varName;
@@ -228,7 +262,7 @@ void TFlowForm::setMultibandVariables(){
             }
             incNbVar();
         }
-
+        */
     }
 }
 
@@ -257,11 +291,22 @@ VarArray TFlowForm::getVariables(){
         }
     }
             // Variables z[a][b]
-    if((NonOverlappingType == 3) ||(NonOverlappingType == 4) ){
+    if(NonOverlappingType == 2){
         for (int a = 0; a < getNbDemandsToBeRouted(); a++){
             for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
                 int pos = z[a][b].getId();
                 vec[pos] = z[a][b];
+            }
+        }
+    }
+    if(NonOverlappingType == 3){
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+                for (int s = 0; s < slicesTotal; s++){
+                    int pos = h[edge][k][s].getId();
+                    vec[pos] = h[edge][k][s];
+                }
             }
         }
     }
@@ -283,23 +328,22 @@ VarArray TFlowForm::getVariables(){
     }
 
     if(nbBands>1){
-        if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB) || (chosenObjectives.size()>1)){
         // multiband variables
-            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-                int edge = getCompactEdgeLabel(e);
-                int pos = l[edge].getId();
-                vec[pos] = l[edge];
-            }  
-            
-            // multiband variables
-            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){ 
-                int edge = getCompactEdgeLabel(e);
-                for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-                    int pos = l2[edge][k].getId();
-                    vec[pos] = l2[edge][k];
-                }
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            int pos = l[edge].getId();
+            vec[pos] = l[edge];
+        }  
+        /*
+        // multiband variables
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){ 
+            int edge = getCompactEdgeLabel(e);
+            for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+                int pos = l2[edge][k].getId();
+                vec[pos] = l2[edge][k];
             }
         }
+        */
     }
     return vec;
 }
@@ -329,7 +373,7 @@ void TFlowForm::setVariableValues(const std::vector<double> &vals){
         }
     }
     // Variables z[a][b]
-    if((NonOverlappingType == 3) ||(NonOverlappingType == 4) ){
+    if(NonOverlappingType == 2){
         for (int a = 0; a < getNbDemandsToBeRouted(); a++){
             for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
                 int pos = z[a][b].getId();
@@ -338,6 +382,19 @@ void TFlowForm::setVariableValues(const std::vector<double> &vals){
             }
         }
     }
+    if(NonOverlappingType == 3){
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+                for (int s = 0; s < slicesTotal; s++){
+                    int pos = h[edge][k][s].getId();
+                    double newValue = vals[pos];
+                    h[edge][k][s].setVal(newValue);
+                }
+            }
+        }
+    }
+
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
     if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS) || (chosenObjectives.size()>1)){  
         // Max slice variables
@@ -356,25 +413,24 @@ void TFlowForm::setVariableValues(const std::vector<double> &vals){
     }
 
     if(nbBands>1){
-        if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB) || (chosenObjectives.size()>1)){
     // multiband variables
-            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-                int edge = getCompactEdgeLabel(e);
-                int pos = l[edge].getId();
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            int pos = l[edge].getId();
+            double newValue = vals[pos];
+            l[edge].setVal(newValue);
+        }  
+        /*
+        // multiband variables link demand
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){ 
+            int edge = getCompactEdgeLabel(e);
+            for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+                int pos = l2[edge][k].getId();
                 double newValue = vals[pos];
-                l[edge].setVal(newValue);
-            }  
-
-            // multiband variables
-            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){ 
-                int edge = getCompactEdgeLabel(e);
-                for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-                    int pos = l2[edge][k].getId();
-                    double newValue = vals[pos];
-                    l2[edge][k].setVal(newValue);
-                }
+                l2[edge][k].setVal(newValue);
             }
         }
+        */
     }
 }
 
@@ -579,17 +635,12 @@ void TFlowForm::setConstraints(){
             setNonOverlappingConstraintsPair();
         }else{
             if(NonOverlappingType == 2){
-                setNonOverlappingConstraintsMinChannel();
+               setNonOverlappingConstraintsSharedLink();
             }else{
                 if(NonOverlappingType == 3){
-                    setNonOverlappingConstraintsSharedLink();
+                    setNonOverlappingConstraintsHybrid();
                 }else{
-                    if(NonOverlappingType == 4){
-                        setNonOverlappingConstraintsSpectrumPosition();
-                    }
-                    else{
-                        std::cout << "WARNING: No Non-overlapping constraints policy chosen." << std::endl;
-                    }
+                    std::cout << "WARNING: No Non-overlapping constraints policy chosen." << std::endl;
                 }
             }
         }
@@ -599,6 +650,7 @@ void TFlowForm::setConstraints(){
         if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB) || (chosenObjectives.size()>1)){
             this->setMultibandConstraints();
         }
+        this->setThresholdConstraints();
     }
 
     
@@ -1331,14 +1383,14 @@ void TFlowForm::setSliceConstraint(){
 }
 
 void TFlowForm::setNonOverlappingConstraintsPair(){
-    /*
+
     int counter = 0;
     for (int a = 0; a < getNbDemandsToBeRouted(); a++){
         for (int b = 0; b < getNbDemandsToBeRouted(); b++){
             if(a < b){
                 for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                     int edge = getCompactEdgeLabel(e);
-                    for (int s = 0; s < slicesBand*bands; s++){
+                    for (int s = 0; s <slicesTotal; s++){
                         const Constraint & nonOverlappingPair = getNonOverlappingConstraintPair(a, b, edge, s);
                         constraintSet.push_back(nonOverlappingPair);
                         counter = counter + 1;
@@ -1349,55 +1401,22 @@ void TFlowForm::setNonOverlappingConstraintsPair(){
     }
     std::cout << "Non-overlapping constraints pair have been defined..." << std::endl;
     std::cout << "Constraints = " << counter << std::endl;
-    */
 }
 
-void TFlowForm::setNonOverlappingConstraintsMinChannel(){
-    /*
-    int counter = 0;
-    for (int a = 0; a < getNbDemandsToBeRouted(); a++){
-        for (int b = 0; b < getNbDemandsToBeRouted(); b++){
-            if(a < b){
-                int minWk = 0;
-                if (getToBeRouted_k(a).getLoad() <= getToBeRouted_k(b).getLoad()){
-                    minWk = getToBeRouted_k(a).getLoad();
-                }else{
-                    minWk = getToBeRouted_k(b).getLoad();
-                }
-                for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-                    int edge = getCompactEdgeLabel(e);
-                    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
-                        if ((s+1)%minWk == 0){
-                            const Constraint & nonOverlappingPair = getNonOverlappingConstraintPair(a, b, edge, s);
-                            constraintSet.push_back(nonOverlappingPair);
-                            counter = counter + 1;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    std::cout << "Non-overlapping constraints have been defined..." << std::endl;
-    std::cout << "Constraints = " << counter << std::endl;
-    */
-}
-
-Constraint TFlowForm::getNonOverlappingConstraintPair(int a, int b, int arc, int s){
-    /*
-    int sliceLimit = getNbSlicesGlobalLimit();
+Constraint TFlowForm::getNonOverlappingConstraintPair(int a, int b, int edge, int s){
     Expression exp;
     int lowerBound = 0;
     int upperBound = 3;
-    int nbEdges = countEdges(compactGraph);
-    Term term1(x[arc][a], 1);
-    Term term2(x[arc][b], 1);
-    Term term3(x[arc + nbEdges][a], 1);
-    Term term4(x[arc + nbEdges][b], 1);
-    exp.addTerm(term1);
-    exp.addTerm(term2);
-    exp.addTerm(term3);
-    exp.addTerm(term4);
-    int sWk_1 = s + getToBeRouted_k(a).getLoad()-1;
+
+    int sliceLimit = slicesC;
+    int sWk_1 = s + getToBeRouted_k(a).getLoadC()-1;;
+    int sWk_2 = s + getToBeRouted_k(b).getLoadC()-1;;
+
+    if(s>=slicesC){
+        sliceLimit = slicesC+slicesL;
+        sWk_1 = s + getToBeRouted_k(a).getLoadL()-1;
+        sWk_2 = s + getToBeRouted_k(b).getLoadL()-1;
+    }
     if (sWk_1 >= sliceLimit){
         sWk_1 = sliceLimit-1;
     }
@@ -1405,24 +1424,32 @@ Constraint TFlowForm::getNonOverlappingConstraintPair(int a, int b, int arc, int
         Term term(y[sa][a], 1);
         exp.addTerm(term);
     }
-    sWk_1 = s + getToBeRouted_k(b).getLoad()-1;
-    if (sWk_1 >= sliceLimit){
-        sWk_1 = sliceLimit-1;
+    if (sWk_2 >= sliceLimit){
+        sWk_2 = sliceLimit-1;
     }
-    for (int sa = s; sa <= sWk_1; sa++){
+    for (int sa = s; sa <= sWk_2; sa++){
         Term term(y[sa][b], 1);
         exp.addTerm(term);
     }
+    int nbEdges = countEdges(compactGraph);
+    Term term1(x[edge][a], 1);
+    Term term2(x[edge][b], 1);
+    Term term3(x[edge + nbEdges][a], 1);
+    Term term4(x[edge + nbEdges][b], 1);
+    exp.addTerm(term1);
+    exp.addTerm(term2);
+    exp.addTerm(term3);
+    exp.addTerm(term4);
     
     std::ostringstream constraintName;
-    constraintName << "NonOverlapping_" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << arc;
+    constraintName << "NonOverlapping_" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << edge+1 << "_" << s+1 ;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
-    */
 }
 
 void TFlowForm::setNonOverlappingConstraintsSharedLink(){
     int counter = 0;
+    int erasedConstraints = 0;
     for (int a = 0; a < getNbDemandsToBeRouted(); a++){
         for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
             for (int s = 0; s < slicesTotal; s++){
@@ -1432,14 +1459,39 @@ void TFlowForm::setNonOverlappingConstraintsSharedLink(){
             }
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
+                int nbEdges = countEdges(compactGraph);
+                /*
+                int auxDemandA = 0;
+                int auxDemandB = 0;
+                //std::cout << "comparing demands: " << a+1 << " and: " << b+1  << " at link: " << edge << " and: " << edge+nbEdges<< std::endl;
+                //std::cout << "preprocessing for: " << a+1 << " Cband: " << preProcessingErasedArcs[a][edge][0] + preProcessingErasedArcs[a][edge+nbEdges][0]  << " Lband: " << preProcessingErasedArcs[a][edge][1] + preProcessingErasedArcs[a][edge+nbEdges][1]<< std::endl;
+                //std::cout << "preprocessing for: " << b+1 << " Cband: " << preProcessingErasedArcs[b][edge][0] + preProcessingErasedArcs[b][edge+nbEdges][0]  << " Lband: " << preProcessingErasedArcs[b][edge][1] + preProcessingErasedArcs[b][edge+nbEdges][1]<< std::endl;
+                //std::cout << "---------------" << std::endl;
+                if (getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_PARTIAL){
+                    auxDemandA = preProcessingErasedArcs[a][edge][0] + preProcessingErasedArcs[a][edge+nbEdges][0]  + preProcessingErasedArcs[a][edge][1] + preProcessingErasedArcs[a][edge+nbEdges][1];
+                    auxDemandB = preProcessingErasedArcs[b][edge][0] + preProcessingErasedArcs[b][edge+nbEdges][0]  + preProcessingErasedArcs[b][edge][1] + preProcessingErasedArcs[b][edge+nbEdges][1];
+                    //std::cout << "aux " << a+1 <<auxDemandA << "aux " << b+1 <<auxDemandB << std::endl;
+                    //std::cout << "---------------" << std::endl;
+                    if ((auxDemandA ==5) || (auxDemandB ==5)){
+                        std::cout << "demands: " << a+1 << " and: " << b+1  << " cant share link: " << edge << std::endl;
+                        erasedConstraints = erasedConstraints +1;
+                    }else{
+                        const Constraint & nonOverlappingSharedLinkConstraint2 = getNonOverlappingConstraintSharedLink2(a,b,edge);
+                        constraintSet.push_back(nonOverlappingSharedLinkConstraint2);
+                        counter = counter + 1;
+                    }
+                }else{
+                */
                 const Constraint & nonOverlappingSharedLinkConstraint2 = getNonOverlappingConstraintSharedLink2(a,b,edge);
                 constraintSet.push_back(nonOverlappingSharedLinkConstraint2);
                 counter = counter + 1;
+                //}
             }
         }
     }
     std::cout << "Non Overlapping Shared Link constraints have been defined..." << std::endl;
-    //std::cout << "Constraints = " << counter << std::endl;
+    std::cout << "Constraints = " << counter << std::endl;
+    //std::cout << "Erased constraints by prepro = " << erasedConstraints << std::endl;
 }
 
 Constraint TFlowForm::getNonOverlappingConstraintSharedLink1(int a, int b, int s){
@@ -1487,7 +1539,6 @@ Constraint TFlowForm::getNonOverlappingConstraintSharedLink2(int a, int b, int e
     int lowerBound = -1;
     int upperBound = 1;
     int nbEdges = countEdges(compactGraph);
-
     Term term1(x[edge][a], 1);
     Term term2(x[edge][b], 1);
     Term term3(x[edge + nbEdges][a], 1);
@@ -1505,90 +1556,145 @@ Constraint TFlowForm::getNonOverlappingConstraintSharedLink2(int a, int b, int e
     return constraint;
 }
 
-void TFlowForm::setNonOverlappingConstraintsSpectrumPosition(){
-    int counter = 0;
-    for (int a = 0; a < getNbDemandsToBeRouted(); a++){
-        for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
-            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-                int edge = getCompactEdgeLabel(e);
-                const Constraint & nonOverlappingSpectrumPositionConstraint1 = getNonOverlappingConstraintSpectrumPosition1(a,b,edge);
-                constraintSet.push_back(nonOverlappingSpectrumPositionConstraint1);
-                counter = counter + 1;
-                const Constraint & nonOverlappingSpectrumPositionConstraint2 = getNonOverlappingConstraintSpectrumPosition2(a,b,edge);
-                constraintSet.push_back(nonOverlappingSpectrumPositionConstraint2);
-                counter = counter + 1;
+void TFlowForm::setNonOverlappingConstraintsHybrid(){
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+            for (int s = 0; s < slicesTotal; s++){
+                const Constraint & channel = getHybridConstraint1(edge,k,s);
+                constraintSet.push_back(channel);
+                const Constraint & link = getHybridConstraint2(edge,k,s);
+                constraintSet.push_back(link);
+                const Constraint & combination = getHybridConstraint3(edge,k,s);
+                constraintSet.push_back(combination);
             }
         }
     }
-    std::cout << "Non Overlapping Spectrum Position constraints have been defined..." << std::endl;
-        std::cout << "Constraints = " << counter << std::endl;
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        for (int s = 0; s < slicesTotal; s++){
+            const Constraint & nonOverlapping = getHybridConstraint4(edge,s);
+            constraintSet.push_back(nonOverlapping);
+        }
+    }
+    std::cout << "Non Overlapping Hybrid constraints have been defined..." << std::endl;
 }
-
-Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition1(int a, int b, int edge){
-    /*
+ 
+Constraint TFlowForm::getHybridConstraint1(int e, int k, int s){
     Expression exp;
-    int lowerBound = -2*(getNbSlicesGlobalLimit());
-    int upperBound = getToBeRouted_k(a).getLoad();
+    int lowerBound = -1;
+    int upperBound = 0;
     int nbEdges = countEdges(compactGraph);
-
-    Term term1(x[edge][a], getToBeRouted_k(a).getLoad());
-    Term term2(x[edge][b], getToBeRouted_k(a).getLoad());
-    Term term3(x[edge + nbEdges][a], getToBeRouted_k(a).getLoad());
-    Term term4(x[edge + nbEdges][b], getToBeRouted_k(a).getLoad());
-    Term term5(z[a][b], -(getNbSlicesGlobalLimit()));
+    Term term1(h[e][k][s], 1);
     exp.addTerm(term1);
-    exp.addTerm(term2);
-    exp.addTerm(term3);
-    exp.addTerm(term4);
-    exp.addTerm(term5);
-    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
-        Term term(y[s][a], -(s+1));
-        exp.addTerm(term);
+    int sliceLimit = slicesC;
+    int sWk_1 = s + getToBeRouted_k(k).getLoadC()-1;
+    if(s>=slicesC){
+        sliceLimit = slicesC+slicesL;
+        sWk_1 = s + getToBeRouted_k(k).getLoadL()-1;
     }
-    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
-        Term term(y[s][b], s+1);
-        exp.addTerm(term);
+    if (sWk_1 >= sliceLimit){
+        sWk_1 = sliceLimit-1;
     }
-    
-    std::ostringstream constraintName;
-    constraintName << "NonOverlapping_1" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << edge;
-    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
-    return constraint;
-    */
-}
-
-Constraint TFlowForm::getNonOverlappingConstraintSpectrumPosition2(int a, int b, int edge){
-    /*
-    Expression exp;
-    int lowerBound = -2*(getNbSlicesGlobalLimit());
-    int upperBound = getToBeRouted_k(b).getLoad()+getNbSlicesGlobalLimit();
-    int nbEdges = countEdges(compactGraph);
-
-    Term term1(x[edge][a], getToBeRouted_k(b).getLoad());
-    Term term2(x[edge][b], getToBeRouted_k(b).getLoad());
-    Term term3(x[edge + nbEdges][a], getToBeRouted_k(b).getLoad());
-    Term term4(x[edge + nbEdges][b], getToBeRouted_k(b).getLoad());
-    Term term5(z[a][b], getNbSlicesGlobalLimit());
-    exp.addTerm(term1);
-    exp.addTerm(term2);
-    exp.addTerm(term3);
-    exp.addTerm(term4);
-    exp.addTerm(term5);
-    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
-        Term term(y[s][a], s+1);
-        exp.addTerm(term);
-    }
-    for (int s = 0; s < getNbSlicesGlobalLimit(); s++){
-        Term term(y[s][b], -(s+1));
-        exp.addTerm(term);
+    for (int sa = s; sa <= sWk_1; sa++){
+        exp.addTerm(Term(y[sa][k], -1));
     }    
     std::ostringstream constraintName;
-    constraintName << "NonOverlapping_2" << getToBeRouted_k(a).getId()+1 << "_" << getToBeRouted_k(b).getId()+1 << "_" << edge;
+    constraintName << "NonOverlapping_1_" << e+1 << "_" << getToBeRouted_k(k).getId()+1 << "_" << s+1;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
-    */
 }
 
+Constraint TFlowForm::getHybridConstraint2(int e, int k, int s){
+    Expression exp;
+    int lowerBound = -1;
+    int upperBound = 0;
+    int nbEdges = countEdges(compactGraph);
+    Term term1(h[e][k][s], 1);
+    exp.addTerm(term1);
+    Term term2(x[e][k], -1);
+    Term term3(x[e + nbEdges][k], -1);
+    exp.addTerm(term2);
+    exp.addTerm(term3);
+    std::ostringstream constraintName;
+    constraintName << "NonOverlapping_2_" << e+1 << "_" << getToBeRouted_k(k).getId()+1 << "_" << s+1;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+Constraint TFlowForm::getHybridConstraint3(int e, int k, int s){
+    Expression exp;
+    int lowerBound = -1;
+    int upperBound = 1;
+    int nbEdges = countEdges(compactGraph);
+    Term term1(h[e][k][s], -1);
+    exp.addTerm(term1);
+    int sliceLimit = slicesC;
+    int sWk_1 = s + getToBeRouted_k(k).getLoadC()-1;
+    if(s>=slicesC){
+        sliceLimit = slicesC+slicesL;
+        sWk_1 = s + getToBeRouted_k(k).getLoadL()-1;
+    }
+    if (sWk_1 >= sliceLimit){
+        sWk_1 = sliceLimit-1;
+    }
+    for (int sa = s; sa <= sWk_1; sa++){
+        exp.addTerm(Term(y[sa][k], 1));
+    }
+    Term term2(x[e][k], 1);
+    Term term3(x[e + nbEdges][k], 1);
+    exp.addTerm(term2);
+    exp.addTerm(term3);    
+    std::ostringstream constraintName;
+    constraintName << "NonOverlapping_3_" << e+1 << "_" << getToBeRouted_k(k).getId()+1 << "_" << s+1;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+Constraint TFlowForm::getHybridConstraint4(int e, int s){
+    Expression exp;
+    int lowerBound = 0;
+    int upperBound = 1;
+    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+        Term term1(h[e][k][s], 1);
+        exp.addTerm(term1);
+    }
+   
+    std::ostringstream constraintName;
+    constraintName << "NonOverlapping_4_" << e+1 << "_" << s+1;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+
+void TFlowForm::setThresholdConstraints(){
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        const Constraint & thresholdConstraint = getThresholdConstraint(edge);
+        constraintSet.push_back(thresholdConstraint);
+    }
+    std::cout << "Threshold constraints have been defined..." << std::endl;
+}
+
+
+Constraint TFlowForm::getThresholdConstraint(int e){
+    Expression exp;
+    int upperBound = ceil(0.7*slicesC);
+    int lowerBound = -slicesC;
+    int nbEdges = countEdges(compactGraph);
+    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+        Term term(x[e][k], getToBeRouted_k(k).getLoadC());
+        exp.addTerm(term);
+        Term term2(x[e + nbEdges][k], getToBeRouted_k(k).getLoadC());
+        exp.addTerm(term2);
+     }
+    Term term3(l[e], -slicesC);
+    exp.addTerm(term3);
+    std::ostringstream constraintName;
+    constraintName << "Threshold_" << e ;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
 
 void TFlowForm::setMultibandConstraints(){
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
@@ -1888,13 +1994,8 @@ void TFlowForm::setNonOverlappingType(){
             }else{
                 if(this->getInstance().getInput().getNonOverTFlow() == 3){
                     this->NonOverlappingType = 3;
-                }else{
-                    if(this->getInstance().getInput().getNonOverTFlow() == 4){
-                        this->NonOverlappingType = 4;
-                    }
-                    else{
-                        std::cout << "WARNING: No Non-overlapping policy chosen." << std::endl;
-                    }
+                } else{
+                    std::cout << "WARNING: No Non-overlapping policy chosen." << std::endl;
                 }
             }
         }
@@ -2328,12 +2429,22 @@ void TFlowForm::displayVariableValues(){
         }
         std::cout << std::endl;
     }
-    if((NonOverlappingType == 3) ||(NonOverlappingType == 4) ){
+    if(NonOverlappingType == 2){
         for (int a = 0; a < getNbDemandsToBeRouted(); a++){
             for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
             std::cout << z[a][b].getName() << " = " << z[a][b].getVal() << "   ";
         }
         std::cout << std::endl;
+        }
+    }
+    if(NonOverlappingType == 3){
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+                for (int s = 0; s < slicesTotal; s++){
+                    std::cout << h[edge][k][s].getName() << " = " << h[edge][k][s].getVal() << "   ";
+                }
+            }
         }
     }
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
@@ -2376,8 +2487,11 @@ std::string TFlowForm::displayDimensions(){
 TFlowForm::~TFlowForm(){
     x.clear();
     y.clear();
-    if((NonOverlappingType == 3) ||(NonOverlappingType == 4) ){
+    if(NonOverlappingType == 2){
         z.clear();
+    }
+    if(NonOverlappingType == 3){
+        h.clear();
     }
     maxSlicePerLink.clear();
 }

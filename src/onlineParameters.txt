@@ -1,60 +1,40 @@
 ******* Input File Paths *******
-topologyFile=../4_Experiments/Outputs/Instances/40x/maxData200/German_17_26/Links/60_demands/Link.csv
+topologyFile=../Instances/DONNY/6nodes9links_6_9/Links/15_demands/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../4_Experiments/Outputs/Instances/40x/maxData200/German_17_26/Demands/60_demands
+demandToBeRoutedFolder=../Instances/DONNY/6nodes9links_6_9/Demands/12_demands
 
 ******* GNPY parameters *******
 GNPY_activation=0 
-GNPY_topologyFile=../oopt-gnpy/gnpy/example-data/spain_topo.json 
-GNPY_equipmentFile=../oopt-gnpy/gnpy/example-data/spain_eqpt_config.json 
 
 ******* Thesis Pedro parameters *******
 MaxReach_activation=1
 OSNR_activation=1
 Bands=2
 TFlow_Policy=3
+Reinforcements=0
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
 formulation=2
 userCuts=0
-obj=TUS,TRL
+obj=TUS
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
-partitionLoad=4
-partitionSlice=15
-
+partitionLoad=0
+partitionSlice=0
 
 ******* Optimization parameters *******
 solver=0
 method=0 
-preprocessingLevel=2
+preprocessingLevel=0
 linearRelaxation=0
 relaxMethod=0 
 
 ******* Execution parameters *******
 outputPath=../Instances/Dump/
 outputLevel=0
-nbSlicesInOutputFile=320
+nbSlicesInOutputFile=0
 globalTimeLimit=50400 
 timeLimit=50400
-
-******* Fields below are reserved for team LIMOS ********
-lagrangianMultiplier_zero=0 
-lagrangianLambda_zero=2 
-nbIterationsWithoutImprovement=15 
-maxNbIterations=150 
-
-lagMethod=1 
-lagFormulation=0 
-heuristic=0 
-
-directionMethod=0 
-crowderParam=0 
-carmeriniParam=0 
-
-projection=0 
-alternativeStop=0 
-warmstart=0 

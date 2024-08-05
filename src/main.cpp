@@ -119,7 +119,6 @@ int main(int argc, char *argv[]) {
 			}
 			std::string maxReach = to_string(input.isMaxReachEnabled());
 			std::string minOsnr = to_string(input.isOSNREnabled());
-			std::string cuts = to_string(input.isUserCutsActivated());
 			std::string variables = to_string(solver->getNbVariable());
 			std::string	constraints = to_string(solver->getNbConstraint());
 			std::string possiblePaths =  to_string(solver->getPossiblePaths());
@@ -173,7 +172,7 @@ int main(int argc, char *argv[]) {
 			}
 			//opening file and writing
   			outfile << "\n" + instanceName + ";" << ub + ";" + lb + ";" + gap +";" + time +";" + obj +";"+ formulation+ ";"+maxReach+";"+
-				minOsnr+";"+cuts+";"+variables+";"+constraints+";"+v0+";"+ppC+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"+
+				minOsnr+";"+variables+";"+constraints+";"+v0+";"+ppC+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"+
 				onlyOsnrFeasiblePathsC+";"+onlyReachFeasiblePathsC+";"+feasiblePathsL+";"+infeasiblePathsL+";"+
 				onlyOsnrFeasiblePathsL+";"+onlyReachFeasiblePathsL+";"+ads+";"+dcb+";"+llb+";"+nlus+";"+slus+";"+
 				suld+";"+trl+";"+tus+";"+tua;

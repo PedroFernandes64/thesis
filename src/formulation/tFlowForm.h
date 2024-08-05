@@ -5,6 +5,7 @@
 
 typedef std::vector<Variable> VarArray;
 typedef std::vector<VarArray> VarMatrix;
+typedef std::vector<VarMatrix> Var3dMatrix;
 
 #define EPS 1e-4
 #define INFTY std::numeric_limits<double>::max()
@@ -21,7 +22,8 @@ private:
 	VarArray maxSlicePerLink;	    /**< The array of variables used in the MIP for verifying the max used slice position for each link in the topology network. maxSlicePerLink[i]=p if p is the max used slice position from the link with id i. **/
 	Variable maxSliceOverall;		/**< The max used slice position throughout all the network. **/
 	VarArray l;	    				
-	VarMatrix l2;	    			
+	VarMatrix l2;
+	Var3dMatrix h;	    			/**< Hybrid variables. h[a][k][s] = 1 if if demand k covers slot s at arc a. **/
 	
 	int slicesC;
 	int slicesL;
@@ -60,6 +62,8 @@ public:
 
 	/** Defines the auxiliary non overlapping variables. **/
 	void setAuxiliaryVariables();
+
+	void setHybridVariables();
 
 	/** Defines the max used slice per edge variables. **/
 	void setMaxUsedSlicePerEdgeVariables();
@@ -105,10 +109,11 @@ public:
 	void setSliceConstraint();
 	
 	void setNonOverlappingConstraintsPair();
-
-	void setNonOverlappingConstraintsMinChannel();
 	void setNonOverlappingConstraintsSharedLink();
-	void setNonOverlappingConstraintsSpectrumPosition();
+	void setNonOverlappingConstraintsHybrid();
+
+
+	void setThresholdConstraints();
 
 	void setMultibandConstraints();
 
@@ -140,13 +145,18 @@ public:
 
 	Constraint getSliceConstraint(int k);
 
-	Constraint getNonOverlappingConstraintPair(int a, int b, int arc, int s);
+	Constraint getNonOverlappingConstraintPair(int a, int b, int edge, int s);
 
 	Constraint getNonOverlappingConstraintSharedLink1(int a, int b, int s);
 	Constraint getNonOverlappingConstraintSharedLink2(int a, int b, int e);
-	Constraint getNonOverlappingConstraintSpectrumPosition1(int a, int b, int e);
-	Constraint getNonOverlappingConstraintSpectrumPosition2(int a, int b, int e);
+
+	Constraint getHybridConstraint1(int e, int k, int s);
+	Constraint getHybridConstraint2(int e, int k, int s);
+	Constraint getHybridConstraint3(int e, int k, int s);
+	Constraint getHybridConstraint4(int e, int s);
 	
+	Constraint getThresholdConstraint(int e);
+
 	Constraint getPreprocessingConstraint(int k);
 	Constraint getPreprocessingConstraintMultiBi(int k);
 	Constraint getPreprocessingConstraintMultiC(int k, int e);

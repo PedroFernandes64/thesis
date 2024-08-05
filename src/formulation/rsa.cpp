@@ -748,6 +748,13 @@ void RSA::preprocessing(){
                 }
             }           
         }
+        /*
+        for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+            for (int i=0; i<2*countEdges(compactGraph);i++){
+                std::cout << d+1 <<  ";"<< i <<  ";" <<  preProcessingErasedArcs[d][i][0] << ";" << preProcessingErasedArcs[d][i][1]<< std::endl;
+            }
+        }
+        */
     }
     
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
@@ -757,11 +764,6 @@ void RSA::preprocessing(){
 
     //for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         //std::cout << "> Number of arcs in graph #" << d << " before preprocessing: " << nbArcsOld[d] << ". After: " << countArcs((*vecGraph[d])) << std::endl;
-    //}
-    //for (int d = 0; d < getNbDemandsToBeRouted(); d++){
-    //    for (int i=0; i<2*countEdges(compactGraph);i++){
-    //        std::cout << d+1 <<  ";"<< i <<  ";" <<  preProcessingErasedArcs[d][i][0] << ";" << preProcessingErasedArcs[d][i][1]<< std::endl;
-    //    }
     //}
     std::cout << "> Variables set to 0: " << variablesSetTo0 << std::endl; 
 }

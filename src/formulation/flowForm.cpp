@@ -51,9 +51,7 @@ void FlowForm::setVariables(){
     }
 
     if(nbBands>1){                          // IF OF
-        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
-            this->setMultibandVariables();
-        }
+        this->setMultibandVariables();
     }
 }
 
@@ -80,7 +78,7 @@ void FlowForm::setFlowVariables(){
             //int varId = getNbVar();
             int varId = getVarId(a,d);
             /* When solving with subgradient methods we do not change the variable to continuous. */
-            if( (instance.getInput().isRelaxed() && (instance.getInput().getChosenNodeMethod() == Input::NODE_METHOD_LINEAR_RELAX) ) || ( instance.getInput().isLagrangianRelaxed() && (instance.getInput().getChosenNodeMethod()!=Input::NODE_METHOD_LINEAR_RELAX) )  ){
+            if(instance.getInput().isRelaxed() && (instance.getInput().getChosenNodeMethod() == Input::NODE_METHOD_LINEAR_RELAX)) {
                 x[d][arc] = Variable(varId, 0, upperBound, Variable::TYPE_REAL, 0, varName.str());
             }
             else{
@@ -169,13 +167,11 @@ VarArray FlowForm::getVariables(){
         vec[pos] = maxSliceOverall;
     }
     if(nbBands>1){                              // IF OF
-        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
-            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-                int edge = getCompactEdgeLabel(e);
-                int pos = l[edge].getId();
-                vec[pos] = l[edge];
-            }  
-        }
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            int pos = l[edge].getId();
+            vec[pos] = l[edge];
+        }  
     }
     return vec;
 }
@@ -212,7 +208,7 @@ void FlowForm::setVariableValues(const std::vector<double> &vals){
             double newValue = vals[pos];
             maxSliceOverall.setVal(newValue);
         }
-        if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
+        if(nbBands>1){
             // multiband variables
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
@@ -411,14 +407,21 @@ void FlowForm::setConstraints(){
     
     //this->setLengthConstraints();
     if (this->getInstance().getInput().isMaxReachEnabled() == true){
-        this->setLengthConstraints();
+        if (this->getInstance().getInput().areReinforcementsEnabled() == true){
+            this->setStrongLengthConstraints();
+        }
+        else{
+            this->setLengthConstraints();
+        }
     }
     if (this->getInstance().getInput().isOSNREnabled() == true){
-        this->setOSNRConstraints();
+        if (this->getInstance().getInput().areReinforcementsEnabled() == true){
+            this->setStrongOSNRConstraints();
+        }else{
+            this->setOSNRConstraints();
+        }
     }
-    //this->setStrongLengthConstraints();
-    this->setNonOverlappingConstraints();    
-
+    this->setNonOverlappingConstraints();   
 
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
     if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
@@ -431,6 +434,7 @@ void FlowForm::setConstraints(){
         if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
             this->setMultibandConstraints();
         }
+        this->setThresholdConstraints();
     }
        
     nbConstraint = constraintSet.size();
@@ -564,7 +568,11 @@ Constraint FlowForm::getTargetConstraint_d(const Demand & demand, int d){
 void FlowForm::setStrongLengthConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
         //for (int s = 0; s < getNbSlicesGlobalLimit(); s++){  
-        for (int s = 0; s < auxNbSlicesGlobalLimit; s++){  
+        int sliceLimit = auxNbSlicesGlobalLimit;
+        if(nbBands>1){
+            sliceLimit = slicesTotal;
+        }
+        for (int s = 0; s < sliceLimit; s++){  
             const Constraint & strongLengthConstraint = getStrongLengthConstraint(getToBeRouted_k(d), d, s);
             constraintSet.push_back(strongLengthConstraint);
         }
@@ -577,6 +585,7 @@ Constraint FlowForm::getStrongLengthConstraint(const Demand &demand, int d, int 
     Expression exp;
     int source = demand.getSource();
     int hop = instance.getInput().getHopPenalty();
+ 
     for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
         int arc = getArcIndex(a, d); 
         if (getArcSlice(a, d) == s){
@@ -593,8 +602,12 @@ Constraint FlowForm::getStrongLengthConstraint(const Demand &demand, int d, int 
         if (getNodeLabel(v, d) == source){
             for (ListDigraph::OutArcIt a((*vecGraph[d]), v); a != INVALID; ++a){
                 if (getArcSlice(a, d) == s){
-                    int arc = getArcIndex(a, d); 
-                    Term term(x[d][arc], -demand.getmaxCDC());
+                    int arc = getArcIndex(a, d);
+                    int coeff2 = -demand.getmaxCDC()/20.0;
+                    if(s>=slicesC){
+                        coeff2 = -demand.getmaxCDL()/22.0;
+                    } 
+                    Term term(x[d][arc], coeff2);
                     exp.addTerm(term);
                 }
             }
@@ -666,6 +679,128 @@ Constraint FlowForm::getLengthConstraint(const Demand &demand, int d){
 }
 
 /* Defines OSNR constraints. Demands must be routed within a OSNR limit. */
+void FlowForm::setStrongOSNRConstraints(){
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
+        int sliceLimit = auxNbSlicesGlobalLimit;
+        if(nbBands>1){
+            for (int s = 0; s < slicesC; s++){  
+                const Constraint & strongOSNRConstraintC = getStrongOSNRCConstraint(getToBeRouted_k(d), d,s);
+                constraintSet.push_back(strongOSNRConstraintC);
+            }
+            for (int s = slicesC; s < slicesC+slicesL; s++){  
+                const Constraint & StrongOSNRConstraintL = getStrongOSNRLConstraint(getToBeRouted_k(d), d,s);
+                constraintSet.push_back(StrongOSNRConstraintL);
+            } 
+        }else{
+            for (int s = 0; s < sliceLimit; s++){  
+                const Constraint & strongOSNRConstraintC = getStrongOSNRCConstraint(getToBeRouted_k(d), d,s);
+                constraintSet.push_back(strongOSNRConstraintC);
+            }
+        }
+ 
+    }
+    std::cout << "Strong OSNR constraints have been defined..." << std::endl;
+}
+
+/* Returns the OSNR constraint associated with a demand. */
+Constraint FlowForm::getStrongOSNRCConstraint(const Demand &demand, int d, int s){
+    int source = demand.getSource();
+    Expression exp;
+    double rhs;
+    
+    double osnrLimdb = demand.getOsnrLimitC();
+    double osnrLim = pow(10,osnrLimdb/10);
+    double pch = demand.getPchC();
+
+    double roundingFactor = pow(10,8);
+    
+    rhs = pch/osnrLim - instance.getPaseNodeC() ;
+    //std::cout << rhs << std::endl;
+    rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
+    //std::cout << rhs << std::endl;
+    for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+        if (getArcSlice(a, d) == s){
+            //First term
+            int arc = getArcIndex(a, d); 
+            double coeff = getArcNoiseC(a, d) * roundingFactor;
+            coeff = ceil(coeff*100)/100; //ROUNDING
+            //std::cout  << "-Pase line arredondado" << coeff << " Pase line" << getArcPaseLine(a, d) << std::endl;
+            Term term(x[d][arc], coeff);
+            exp.addTerm(term);
+        }
+    }
+    for (ListDigraph::NodeIt v(*vecGraph[d]); v != INVALID; ++v){
+        if (getNodeLabel(v, d) == source){
+            for (ListDigraph::OutArcIt a((*vecGraph[d]), v); a != INVALID; ++a){
+                if (getArcSlice(a, d) == s){
+                    int arc = getArcIndex(a, d);
+                    int coeff2 = -rhs;
+                    Term term(x[d][arc], coeff2);
+                    exp.addTerm(term);
+                }
+            }
+        }
+    }
+
+
+    std::ostringstream constraintName;
+    constraintName << "StrongOSNRC_" << demand.getId()+1 << "_" << s+1;
+    Constraint constraint(exp.getTrivialLb(), exp, 0, constraintName.str());
+    //std::cout << "For demand " << d<< std::endl;
+    //constraint.display();
+    return constraint;
+}
+
+/* Returns the OSNR constraint associated with a demand. */
+Constraint FlowForm::getStrongOSNRLConstraint(const Demand &demand, int d,int s){
+    int source = demand.getSource();
+    Expression exp;
+    double rhs;
+    
+    double osnrLimdb = demand.getOsnrLimitL();
+    double osnrLim = pow(10,osnrLimdb/10);
+    double pch = demand.getPchL();
+
+    double roundingFactor = pow(10,8);
+    
+    rhs = pch/osnrLim - instance.getPaseNodeL() ;
+    //std::cout << rhs << std::endl;
+    rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
+    //std::cout << rhs << std::endl;
+    for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+        if (getArcSlice(a, d) == s){
+            //First term
+            int arc = getArcIndex(a, d); 
+            double coeff = getArcNoiseL(a, d) * roundingFactor;
+            coeff = ceil(coeff*100)/100; //ROUNDING
+            //std::cout  << "-Pase line arredondado" << coeff << " Pase line" << getArcPaseLine(a, d) << std::endl;
+            Term term(x[d][arc], coeff);
+            exp.addTerm(term);
+        }
+    }
+    for (ListDigraph::NodeIt v(*vecGraph[d]); v != INVALID; ++v){
+        if (getNodeLabel(v, d) == source){
+            for (ListDigraph::OutArcIt a((*vecGraph[d]), v); a != INVALID; ++a){
+                if (getArcSlice(a, d) == s){
+                    int arc = getArcIndex(a, d);
+                    int coeff2 = -rhs;
+                    Term term(x[d][arc], coeff2);
+                    exp.addTerm(term);
+                }
+            }
+        }
+    }
+
+
+    std::ostringstream constraintName;
+    constraintName << "StrongOSNRL_" << demand.getId()+1 << "_" << s+1;
+    Constraint constraint(exp.getTrivialLb(), exp, 0, constraintName.str());
+    //std::cout << "For demand " << d<< std::endl;
+    //constraint.display();
+    return constraint;
+}
+
+/* Defines OSNR constraints. Demands must be routed within a OSNR limit. */
 void FlowForm::setOSNRConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
         const Constraint & OSNRConstraintC = getOSNRCConstraint(getToBeRouted_k(d), d);
@@ -674,11 +809,6 @@ void FlowForm::setOSNRConstraints(){
             const Constraint & OSNRConstraintL = getOSNRLConstraint(getToBeRouted_k(d), d);
             constraintSet.push_back(OSNRConstraintL);
         } 
-        if (getInstance().getInput().getNbBands() == 3) {
-            std::cout << "TODO: no OSNR constraints for band S yet" << std::endl;
-            //const Constraint & OSNRConstraintS = getOSNRSConstraint(getToBeRouted_k(d), d);
-            //constraintSet.push_back(OSNRConstraintS);
-        }  
     }
     std::cout << "OSNR constraints have been defined..." << std::endl;
 }
@@ -712,7 +842,7 @@ Constraint FlowForm::getOSNRCConstraint(const Demand &demand, int d){
             
     }
     std::ostringstream constraintName;
-    constraintName << "OSNR_" << demand.getId()+1;
+    constraintName << "OSNRC_" << demand.getId()+1;
     Constraint constraint(rls, exp, rhs, constraintName.str());
     //std::cout << "For demand " << d<< std::endl;
     //constraint.display();
@@ -748,7 +878,7 @@ Constraint FlowForm::getOSNRLConstraint(const Demand &demand, int d){
             
     }
     std::ostringstream constraintName;
-    constraintName << "OSNR_" << demand.getId()+1;
+    constraintName << "OSNRL_" << demand.getId()+1;
     Constraint constraint(rls, exp, rhs, constraintName.str());
     //std::cout << "For demand " << d<< std::endl;
     //constraint.display();
@@ -895,6 +1025,37 @@ Constraint FlowForm::getMaxUsedSliceOverallConstraints(int d){
     return constraint;
 }
 
+void FlowForm::setThresholdConstraints(){
+    for (int i = 0; i < instance.getNbEdges(); i++){
+        const Constraint & thresholdConstraint = getThresholdConstraint(i);
+        constraintSet.push_back(thresholdConstraint);
+    }
+    std::cout << "Threshold constraints have been defined..." << std::endl;
+}
+
+
+Constraint FlowForm::getThresholdConstraint(int linkIndex){
+    Expression exp;
+    int upperBound = ceil(0.7*slicesC);
+    int lowerBound = -slicesC;
+    int linkLabel = instance.getPhysicalLinkFromIndex(linkIndex).getId();
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[d]),linkLabel); a != INVALID; ++a){ 
+            int index = getArcIndex(a, d);
+            Term term(x[d][index], getToBeRouted_k(d).getLoadC());
+            exp.addTerm(term);
+        }
+    }
+    Term term3(l[linkIndex], -slicesC);
+    exp.addTerm(term3);
+    std::ostringstream constraintName;
+    constraintName << "Threshold_" << linkIndex ;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+
+
 void FlowForm::setMultibandConstraints(){
 
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
@@ -917,7 +1078,7 @@ Constraint FlowForm::getMultibandConstraint(int k, int e){
 
     for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[k]),linkLabel); a != INVALID; ++a){       
         int slice = getArcSlice(a,k);
-        std::cout << "Slice: " << slice << std::endl;
+        //std::cout << "Slice: " << slice << std::endl;
         if(slice >= slicesC){
             int index = getArcIndex(a, k);
             Term term(x[k][index], 1);
@@ -1080,7 +1241,6 @@ std::vector<int> FlowForm::getPathNodeSequence(int d){
 
 /* Recovers the obtained MIP solution and builds a path for each demand on its associated graph from RSA. */
 void FlowForm::updatePath(const std::vector<double> &vals){
-    
     setVariableValues(vals);
     // Reinitialize OnPath
     std::cout << "Enter update." << std::endl;
@@ -1194,10 +1354,10 @@ std::vector<Constraint> FlowForm::solveSeparationGnpy(const std::vector<double> 
 
     // launch GNPY
     std::string resultFile = instance.getInput().getOutputPath() + "result_" + std::to_string(threadNo) + ".json";
-    std::string arguments = instance.getInput().getGNPYTopologyFile() + " " + serviceFile;
-    std::string options = "-e " + instance.getInput().getGNPYEquipmentFile() + " -o " + resultFile;
-    std::string command = "gnpy-path-request " + arguments + " " + options;
-    system(command.c_str());
+    //std::string arguments = instance.getInput().getGNPYTopologyFile() + " " + serviceFile;
+    //std::string options = "-e " + instance.getInput().getGNPYEquipmentFile() + " -o " + resultFile;
+    //std::string command = "gnpy-path-request " + arguments + " " + options;
+    //system(command.c_str());
 
     // read result.json file
     std::ifstream ifs(resultFile.c_str());
@@ -1321,20 +1481,6 @@ void FlowForm::writePathRequest(std::ofstream &serviceFile, int d){
         serviceFile << "\t" << "}\n";
     }
 }
-
-/********************************** Lagrangian Inclusion ********************************/
-
-void FlowForm::setLagConstraints(){
-    this->setSourceConstraints();
-    this->setFlowConservationConstraints();
-    this->setTargetConstraints();
-    this->setLengthConstraints();
-    this->setNonOverlappingConstraints();    
-    
-    if(instance.getInput().isObj8(0)){
-        this->setMaxUsedSliceOverallConstraints();   
-    }
-} 
 
 /****************************************************************************************/
 /*										Destructor										*/

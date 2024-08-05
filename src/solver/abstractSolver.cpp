@@ -25,7 +25,7 @@ void AbstractSolver::updateRSA(Instance &instance){
         formulation->updateInstance(instance);
         instance.setWasBlocked(false);
         formulation->displayPaths();
-        //Display OSNR corrected if Obj 10 chosen
+        //Display OSNR corrected if osnr is active chosen
         formulation->displayOSNR(instance);
         formulation->displayOFData(instance);
     }

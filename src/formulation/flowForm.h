@@ -46,8 +46,6 @@ public:
 	/** Defines the decision variables need in the MIP formulation. **/
     void setVariables() override;
 
-	void setLagVariables();
-
 	/** Defines the flow variables. **/
 	void setFlowVariables();
 
@@ -118,6 +116,10 @@ public:
 	/** Returns the non-overlapping constraint associated with an edge and a slice. @param linkLabel The arc label. @param slice The arc slice. **/
 	Constraint getNonOverlappingConstraint(int linkLabel, int slice);
 
+	void setThresholdConstraints();
+
+	Constraint getThresholdConstraint(int e);
+
 	void setMultibandConstraints();	
 
 	Constraint getMultibandConstraint(int k, int e);
@@ -130,6 +132,8 @@ public:
 	/** Defines the reinforced max reach constraints. **/
 	void setStrongLengthConstraints();
 
+	void setStrongOSNRConstraints();
+
 	/** Defines the Link's Max Used Slice Position constraints. The max used slice position on each link must be greater than every slice position used in the link. **/
 	void setMaxUsedSlicePerLinkConstraints();
 
@@ -139,6 +143,13 @@ public:
 	/** Returns the strong max reach constraint associated with a demand and a slice. @param demand The demand. @param d The demand index. @param s The slice index.**/
 	Constraint getStrongLengthConstraint(const Demand &demand, int d, int s);
 	
+	/** Returns the OSNR constraint associated with a demand. @param demand The demand. @param d The demand index. **/
+    Constraint getStrongOSNRCConstraint(const Demand &demand, int d, int s);
+
+	/** Returns the OSNR constraint associated with a demand. @param demand The demand. @param d The demand index. **/
+    Constraint getStrongOSNRLConstraint(const Demand &demand, int d, int s);
+
+
 	/** Returns the Link's Max Used Slice Position constraint associated with a link and a demand. @param linkIndex The link's index. @param d The demand's index. **/
 	Constraint getMaxUsedSlicePerLinkConstraints(int linkIndex, int d);
 	/** Returns the Link's Max Used Slice Position constraint associated with a link and a demand. @param linkIndex The link's index. @param d The demand's index. **/

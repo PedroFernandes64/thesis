@@ -48,7 +48,7 @@ CPXLONG SolverCplex::context(Input::ObjectiveMetric obj, const Input &i){
         contextMask |= IloCplex::Callback::Context::Id::Candidate;
         contextMask |= IloCplex::Callback::Context::Id::Relaxation;
     }
-    if((i.getChosenFormulation() == Input::FORMULATION_T_FLOW) && ((i.getNonOverTFlow() == 0) || i.getNonOverTFlow() == 2)){
+    if((i.getChosenFormulation() == Input::FORMULATION_T_FLOW) && (i.getNonOverTFlow() == 0)){
         contextMask |= IloCplex::Callback::Context::Id::Candidate;
         contextMask |= IloCplex::Callback::Context::Id::Relaxation;
     }
@@ -84,7 +84,7 @@ void SolverCplex::solve(){
         if(!formulation->getInstance().getInput().isRelaxed()){
             cplex.use(&myGenericCallback, contextMask);
         }
-        //cplex.exportModel("nom_do_lp.lp");
+        cplex.exportModel("nom_do_lp.lp");
         //std::ofstream outfile;
         //outfile.open("test.csv");
         //outfile << "UB;LB;nodes;remainingNodes;time"<<std::endl; 
@@ -253,7 +253,7 @@ void SolverCplex::exportFormulation(const Instance &instance){
 }
 
 void SolverCplex::setCplexParams(const Input &input){
-    cplex.setParam(IloCplex::Param::MIP::Display, 3);
+    cplex.setParam(IloCplex::Param::MIP::Display, 2);
     cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 16384);
     //cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 57344);
     cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());

@@ -90,32 +90,7 @@ public:
 
 	/******** INCLUSION FOR LAGRANGIAN *********/
 
-	/** Enumerates all possible Lagrangian formulations to be applied **/
-	enum LagFormulation{
-		LAG_FLOW = 0,           /**< Uses the Lagrangian Flow formulation. **/
-		LAG_OVERLAPPING = 1,    /**< Uses the Lagrangian Overlapping formulation. **/
-		LAG_OVERLAP = 2,        /**< Uses the Lagrangian Overlap formulation. **/
-	};
-
-	/** Enumerates all possible Heuristics to be applied **/
-	enum Heuristic{
-		SHORT_PATH = 0,          /**< Uses the Shortest Path Heuristic. **/
-		PROBABILITY = 1,         /**< Uses the Probability Heuristic. TO DO.**/
-	}; 
-
-	/** Enumerates all possible forms to compute the direction in the subgradient method to be applied **/
-	enum DirectionMethod{
-		NORMAL = 0,              /**< Uses the gradient as direction. **/
-		CROWDER = 1,             /**< Uses the crowder rule to compute the direction. **/
-		CARMERINI = 2,           /**< Uses the carmerini fratta maffioli rule to compute the direction. **/
-		MODIFIED_CARMERINI = 3,  /**< Uses the modified carmerini fratta maffioli rule to compute the direction. **/
-	}; 
-
-	enum ProjectionType{
-		USUAL = 0,              /**< Uses all directions value to compute the stepsize. **/
-		IMPROVED = 1,            /**< Negative directions with multiplier eguals to zero are not considered on the stepsize. **/
-		PROJECTED = 2,           /**< Negatice direction are not considered in the stepsize. **/
-	};
+	
 	/*******************************************/
 	
 private:
@@ -149,13 +124,6 @@ private:
 	bool userCuts;						/**< If this option is active, apply user cuts. **/
 
 	bool GNPY_activation;				/**< If this option is active, the solution provided is guaranteed to satisfy GNPY constraints. Whenever a candidate solution is found, GNPY is called to validade or to reject such solution. **/
-	std::string GNPY_topologyFile;		/**< The .json file defining the topology that serves as input for GNPY. **/
-	std::string GNPY_equipmentFile;		/**< The .json file defining the equipment present in the topology that serves as input for GNPY. **/
-
-	double lagrangianMultiplier_zero;	/**< The initial value of the lagrangian multiplier used if subgradient method is chosen. **/
-	double lagrangianLambda_zero;		/**< The initial value of the lambda used for computing the step size if subgradient method is chosen. **/
-	int nbIterationsWithoutImprovement;	/**< The maximal number of iterations allowed in the subgradient method.**/
-	int maxNbIterations;				/**< The maximal number of iterations allowed without improving the lower bound in the subgradient method.**/
 
 	/******** INCLUSION FOR THESIS PEDRO *********/
 
@@ -163,19 +131,7 @@ private:
 	bool osnrActivation;					/**< If OSNR constraints will be used. **/
 	int nbBands;							/**< Number of bands. **/
 	int nonOverlappingTypeTFlow;
-
-	/******** INCLUSION FOR LAGRANGIAN *********/
-	bool lagrangianRelaxation;               /**< If this option is active, the lagrangian relaxation is run. **/
-	LagFormulation lagChosenFormulation;     /**< The chosen Lagrangian Formulation. **/
-	Heuristic chosenHeuristic;               /**< The chosen Heuristic. **/
-	DirectionMethod chosenDirectionMethod;   /**< The chosen Lagrangian Direction calculus method. **/
-	double crowderParameter;                 /**< Paramater for crowder direction calculus, if it was chosen. **/
-	double carmeriniParameter;               /**< Paramater for carmerini direction calculus, if it was chosen. **/
-	ProjectionType chosenProjection;         /**< The way the stepsize is computed. **/
-	bool alternativeStop;                    /**< If an alternative stopping criterion is used or not. **/
-	bool warmstart;                          /**< If the warmstart for the initial multipliers is used or not. **/
-	std::string lagOutputPath;	                 /**< Path to the folder where the lagrangian output files will be sent by the end of the optimization procedure.**/
-	/*******************************************/
+	int reinforcements;
 
 public:
 	/****************************************************************************************/
@@ -255,14 +211,9 @@ public:
 	bool isOSNREnabled() const { return osnrActivation; }
 	int getNbBands() const { return nbBands; }
 	int getNonOverTFlow() const { return nonOverlappingTypeTFlow; }
+	bool areReinforcementsEnabled() const { return reinforcements; }
 
 	bool isObj8(int i) const;
-
-	/** Returns the path to the .json topology file that serves as input for the GNPY.**/
-    std::string getGNPYTopologyFile() const { return GNPY_topologyFile; }
-
-	/** Returns the path to the .json equipment file that serves as input for the GNPY.**/
-    std::string getGNPYEquipmentFile() const { return GNPY_equipmentFile; }
 
 	/** Returns the identifier of the method chosen for solving each node. **/
     const NodeMethod & getChosenNodeMethod() const { return chosenNodeMethod; }
@@ -293,50 +244,6 @@ public:
 
 	/** Returns the identifier of the partition policy adopted. **/
     const PartitionPolicy & getChosenPartitionPolicy() const { return chosenPartitionPolicy; }
-
-	/** Returns the initial value of the lagrangian multiplier used if subgradient method is chosen. **/
-	double getInitialLagrangianMultiplier() const { return lagrangianMultiplier_zero; }
-	
-	/** Returns the initial value of the lambda used for computing the step size if subgradient method is chosen. **/
-	double getInitialLagrangianLambda() const { return lagrangianLambda_zero; }
-	
-	/** Returns the maximal number of iterations allowed in the subgradient method.**/
-	int getNbIterationsWithoutImprovement() const { return nbIterationsWithoutImprovement; }
-
-	/** Returns the maximal number of iterations allowed without improving the lower bound in the subgradient method.**/
-	int getMaxNbIterations() const { return maxNbIterations; }
-
-	/******** INCLUSION FOR LAGRANGIAN *********/
-
-	/** Returns true if lagrangian relaxation is applied. **/
-    bool isLagrangianRelaxed() const { return lagrangianRelaxation; }
-	
-	/** Returns the formulation used in the lagrangian procedure. **/
-	const LagFormulation & getChosenLagFormulation() const { return lagChosenFormulation;}
-
-	/** Returns the chosen heuristic used in the lagrangian procedure. **/
-	const Heuristic & getChosenHeuristic() const { return chosenHeuristic;}
-
-	/** Returns the direction method to be used in the lagrangian procedure. **/
-	const DirectionMethod & getChosenDirectionMethod() const { return chosenDirectionMethod; }
-
-	/** Returns the crowder parameter used if the crowder direction was chosen. **/
-	double getCrowderParameter() const { return crowderParameter;}
-
-	/** Returns the carmerini parameter used if the carmerine direction was chosen. **/
-	double getCarmeriniParameter() const { return carmeriniParameter;}
-
-	/** Returns the chosen projetion to use in the lagrangian procedure. **/
-	const ProjectionType & getChosenProjection() const { return chosenProjection;}
-
-	/** Returns if the alternative stop (maximum number of iterations without improvement) is used or not in the lagrangian procedure **/
-	bool getAlternativeStop() const { return alternativeStop;}
-
-	/** Returns if warmstart is used or not in the lagrangian procedure. **/
-	bool getWarmstart() const { return warmstart;}
-
-	/** Returns the path to the folder where the lagrangian output files will be sent by the end of the optimization procedure.**/
-    std::string getLagOutputPath() const { return lagOutputPath; }
 
 	/****************************************************************************************/
 	/*										Setters											*/
@@ -386,12 +293,6 @@ public:
 	
 	/** Checks if the gathered information is consistent with what is implemented. **/
 	void checkConsistency();
-
-	/******** INCLUSION FOR LAGRANGIAN *********/
-	LagFormulation to_LagFormulation(std::string data);
-	Heuristic to_Heuristic(std::string data);
-	DirectionMethod to_DirectionMethod(std::string data);
-	ProjectionType to_ProjectionType(std::string data);
 
 	/****************************************************************************************/
 	/*										Destructor										*/

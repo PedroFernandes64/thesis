@@ -1,6 +1,5 @@
 #include "solverSCIP.h"
 #include "objscip/objscip.h"
-#include "eventhdlrNonOverlapping.h"
 
 int SolverSCIP::count = 0;
 

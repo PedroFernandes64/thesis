@@ -6,8 +6,6 @@
                 "${workspaceFolder}/**",
                 "/opt/ibm/ILOG/CPLEX_Studio1210/cplex/include/**",
                 "/opt/ibm/ILOG/CPLEX_Studio1210/concert/include/**",
-                "/home/pefernan/ressources_thesis/lemon/include/**",
-                "/home/pefernan/ressources_thesis/boost_1_78_0/**",
                 "/usr/include/**",
                 "/usr/local/include/**",
                 "/usr/local/lib"
@@ -19,10 +17,10 @@
                 "DIL_STD",
                 "IL_STD"
             ],
-            "compilerPath": "/usr/bin/g++",
+            "compilerPath": "/usr/bin/gcc",
             "cStandard": "c11",
             "cppStandard": "c++11",
-            "intelliSenseMode": "clang-x64",
+            "intelliSenseMode": "linux-gcc-x86",
             "configurationProvider": "ms-vscode.makefile-tools",
             "compilerArgs": [
                 "-m64",

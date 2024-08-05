@@ -1,13 +1,14 @@
 #CONSTANTS C BAND
-lambdC = 1548.0 * pow(10,-9)                    #SI meters, m       Usually nanometer (x nanometer)
+lambdC = 1545.0 * pow(10,-9)                    #SI meters, m       Usually nanometer (x nanometer)
 aeffC = 80 * pow (10,-12)                       #SI m^2             Usually micrometer^2
 bwdmC = 5000 * pow(10,9)                        #SI #Hz             Usually gigahertz
-#PsatC = 50 * pow(10,-3)                         #SI #W              Usually mW
+PsatC = 50 * pow(10,-3)                         #SI #W              Usually mW
 alphaC = 0.2                                    #NOT SI dB/kilometer 
 NFC = 5.0                                       #SI dB
-DC = 17                                         #NOT SI ps/(nm km)
+DC = 16.5                                       #NOT SI ps/(nm km)
 GdbNodeC = 20.0                                 #SI dB
-pMaxC = 50 * pow(10,-3)
+pSatC = 50 * pow(10,-3)
+dispersionCoeffC = 20
 
 #CONSTANTS L BAND
 lambdL = 1580.0 * pow(10,-9)                    #SI meters, m       Usually nanometer (x nanometer)
@@ -19,6 +20,7 @@ NFL = 5.5                                       #SI dB
 DL = 20.0    
 GdbNodeL = 20.0                                    #NOT SI ps/(nm km)
 pSatL = 65 * pow(10,-3)
+dispersionCoeffL = 22
 
 #CONSTANTS S BAND
 lambdS = 1490.0 * pow(10,-9)                    #SI meters, m             Usually nanometer (x nanometer)
@@ -30,6 +32,7 @@ NFS = 7                                         #SI dB
 DS = 12.5                                       #NOT SI ps/(nm km)
 GdbNodeS = 20.0                                 #SI dB
 PsatS = 65 * pow(10,-3)                         #SI #W              Usually mW
+dispersionCoeffS = 22
 
 #CONSTANTS 
 c = 3.0 * pow(10,8)                             #SI meters by second, m
@@ -45,14 +48,13 @@ def computeAmps(l):
     amps = math.ceil(l/80.0)
     return amps
 
-def computePnliCBand(l,lambdC,DC,c,n2,aeffC,bwdmC,pMaxC,alphaC,Bn): 
+def computePnliCBand(l,lambdC,DC,c,n2,aeffC,bwdmC,PsatC,alphaC,Bn): 
     SI_DC = DC * pow (10,-6)                                #SI s/m^2)
     beta2C = abs(SI_DC) * pow(lambdC,2)/(2*math.pi*c)       #SI s^2/m   
     gamC = (n2/aeffC) * (2*math.pi/lambdC)                  #SI 1/W m
-    print("gamma = ", gamC)
-    gwdmC = pMaxC/bwdmC 
+    gwdmC = PsatC/bwdmC 
     aC = math.log(10)*alphaC/20 * pow(10,-3)                #SI 1/km            SI W/Hz
-    spans = math.ceil(l/110.0)
+    spans = math.ceil(l/80.0)
     lspan = l/spans
     Ls = lspan * pow(10,3)                                  #SI meters
     leffC = (1.0 - math.exp(-2.0*aC*Ls))/(2.0*aC)           #SI #km
@@ -65,7 +67,7 @@ def computePnliCBand(l,lambdC,DC,c,n2,aeffC,bwdmC,pMaxC,alphaC,Bn):
 def computePaseCBand(l,c,h,lambdC,NFC,alphaC,Bn): 
     nuC = c/lambdC                                          #SI 
     nspC = (1.0/2.0) * pow(10.0,NFC/10.0)    
-    spans = math.ceil(l/110.0)
+    spans = math.ceil(l/80.0) 
     lspan = l/spans 
     ls = lspan                                              #NOT SI kilometers
     GdbC = alphaC * ls                                      #SI #dB
@@ -74,8 +76,8 @@ def computePaseCBand(l,c,h,lambdC,NFC,alphaC,Bn):
     paseLinFiberC = paseLinSpanC * spans 
     return paseLinFiberC 
 
-def computePchCBand(s,pMaxC,bwdmC,Bn): 
-    gwdmC = pMaxC/bwdmC
+def computePchCBand(s,pSatC,bwdmC,Bn): 
+    gwdmC = pSatC/bwdmC
     pchDemandC = s * Bn * gwdmC
     return pchDemandC
 
@@ -182,7 +184,7 @@ def processLinks(table):
             rowCounter = rowCounter + 1
         else:
             amps = computeAmps(float(row[3]))
-            pnliC = computePnliCBand(float(row[3]),lambdC,DC,c,n2,aeffC,bwdmC,pMaxC,alphaC,Bn)
+            pnliC = computePnliCBand(float(row[3]),lambdC,DC,c,n2,aeffC,bwdmC,PsatC,alphaC,Bn)
             paseC = computePaseCBand(float(row[3]),c,h,lambdC,NFC,alphaC,Bn)
             pnliL = computePnliLBand(float(row[3]),lambdL,DL,c,n2,aeffL,bwdmL,PsatL,alphaL,Bn)
             paseL = computePaseLBand(float(row[3]),c,h,lambdL,NFL,alphaL,Bn)
@@ -192,9 +194,9 @@ def processLinks(table):
             row.append(pnliC+paseC+computePaseNodeCBand(c,h,lambdC,NFC,Bn,GdbNodeC))
             row.append(pnliL+paseL+computePaseNodeLBand(c,h,lambdL,NFL,Bn,GdbNodeL))
             row.append(pnliS+paseS+computePaseNodeSBand(c,h,lambdS,NFS,Bn,GdbNodeS))
-            row.append(DC)
-            row.append(DL)
-            row.append(DS)
+            row.append(dispersionCoeffC)
+            row.append(dispersionCoeffL)
+            row.append(dispersionCoeffS)
             rowCounter = rowCounter + 1
 
 def processDemands(table):
@@ -206,7 +208,7 @@ def processDemands(table):
             row.append('pchS')
             rowCounter = rowCounter + 1
         else:
-            pchC = computePchCBand(float(row[3]),pMaxC,bwdmC,Bn)
+            pchC = computePchCBand(float(row[3]),pSatC,bwdmC,Bn)
             pchL = computePchLBand(float(row[3]),pSatL,bwdmL,Bn)
             pchS = computePchSBand(float(row[3]),pSatS,bwdmS,Bn)
             row.append(pchC)

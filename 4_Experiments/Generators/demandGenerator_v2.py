@@ -1128,8 +1128,8 @@ def buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,
     return instanceSet
 
 def linkCapacityAdaptator(nbDemands,policy):
-    #newCap = round(nbDemands * policy)
-    newCap = policy
+    newCap = round(nbDemands * policy)
+    #newCap = policy
     if newCap > 320:
         newCap = 320
     return newCap
@@ -1254,17 +1254,17 @@ demandStragegylist.append("fullRandomPair80")
 NetworksDemandsSetsWithTransponders = []
 transponderStragegylist = []
 
-chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
-transponderStragegylist.append("efficient")
+#chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
+#transponderStragegylist.append("efficient")
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 addRandomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
 transponderStragegylist.append("random")
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
-dataLimit = 200
-addCustomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess,dataLimit)
-transponderStragegylist.append("maxData"+str(dataLimit))
+#dataLimit = 200
+#addCustomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess,dataLimit)
+#transponderStragegylist.append("maxData"+str(dataLimit))
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 
@@ -1273,8 +1273,8 @@ for network in NetworksDemandsSetsWithTransponders:
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 #====== LEVEL THREE CHOICES - DO FOR EACH DEMAND SET WITH TRANSPONDER
-#linkPolicies = [1,2]
-linkPolicies = [30,40,50]
+linkPolicies = [1,2]
+#linkPolicies = [30,40,50]
 instanceSet = buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,linkPolicies)
 #InstanceVerifier(instanceSet)
 print(str(len(instanceSet)) + " instances sets")

@@ -1,0 +1,7055 @@
+{
+  "elements": [
+    {
+      "uid": "trx Berlin",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 52.52,
+          "longitude": 13.48,
+          "city": "Berlin",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Bremen",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 53.08,
+          "longitude": 8.8,
+          "city": "Bremen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Dortmund",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 51.51,
+          "longitude": 7.48,
+          "city": "Dortmund",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Düsseldorf",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 51.22,
+          "longitude": 6.78,
+          "city": "Düsseldorf",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Essen",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 51.44,
+          "longitude": 7.0,
+          "city": "Essen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Frankfurt",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 50.14,
+          "longitude": 8.66,
+          "city": "Frankfurt",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Hamburg",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 53.55,
+          "longitude": 10.08,
+          "city": "Hamburg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Hannover",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Karlsruhe",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 49.01,
+          "longitude": 8.41,
+          "city": "Karlsruhe",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Köln",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 50.92,
+          "longitude": 7.01,
+          "city": "Köln",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Leipzig",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 51.34,
+          "longitude": 12.38,
+          "city": "Leipzig",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Mannheim",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 49.49,
+          "longitude": 8.49,
+          "city": "Mannheim",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx München",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 48.15,
+          "longitude": 11.55,
+          "city": "München",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Norden",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 53.6,
+          "longitude": 7.21,
+          "city": "Norden",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Nürnberg",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 49.45,
+          "longitude": 11.08,
+          "city": "Nürnberg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Stuttgart",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 48.73,
+          "longitude": 9.12,
+          "city": "Stuttgart",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "trx Ulm",
+      "type": "Transceiver",
+      "metadata": {
+        "location": {
+          "latitude": 48.4,
+          "longitude": 9.99,
+          "city": "Ulm",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Berlin",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Berlin_to_fiber (Berlin → Hamburg)-_(1/3)": -20,
+          "Edfa_booster_roadm Berlin_to_fiber (Berlin → Hannover)-_(1/3)": -20,
+          "Edfa_booster_roadm Berlin_to_fiber (Berlin → Leipzig)-_(1/2)": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.52,
+          "longitude": 13.48,
+          "city": "Berlin",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Bremen",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Bremen_to_fiber (Bremen → Hamburg)-": -20,
+          "Edfa_booster_roadm Bremen_to_fiber (Bremen → Hannover)-": -20,
+          "Edfa_booster_roadm Bremen_to_fiber (Bremen → Norden)-": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.08,
+          "longitude": 8.8,
+          "city": "Bremen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Dortmund",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Essen)-": -20,
+          "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Köln)-": -20,
+          "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Hannover)-_(1/3)": -20,
+          "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Norden)-_(1/3)": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.51,
+          "longitude": 7.48,
+          "city": "Dortmund",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Düsseldorf",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Düsseldorf_to_fiber (Düsseldorf → Essen)-": -20,
+          "Edfa_booster_roadm Düsseldorf_to_fiber (Düsseldorf → Köln)-": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.22,
+          "longitude": 6.78,
+          "city": "Düsseldorf",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Essen",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Essen_to_fiber (Essen → Dortmund)-": -20,
+          "Edfa_booster_roadm Essen_to_fiber (Essen → Düsseldorf)-": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.44,
+          "longitude": 7.0,
+          "city": "Essen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Frankfurt",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Mannheim)-": -20,
+          "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Hannover)-_(1/4)": -20,
+          "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Köln)-_(1/2)": -20,
+          "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Leipzig)-_(1/4)": -20,
+          "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Nürnberg)-_(1/3)": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.14,
+          "longitude": 8.66,
+          "city": "Frankfurt",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Hamburg",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Hamburg_to_fiber (Hamburg → Bremen)-": -20,
+          "Edfa_booster_roadm Hamburg_to_fiber (Hamburg → Hannover)-_(1/2)": -20,
+          "Edfa_booster_roadm Hamburg_to_fiber (Hamburg → Berlin)-_(1/3)": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.55,
+          "longitude": 10.08,
+          "city": "Hamburg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Hannover",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Hannover_to_fiber (Hannover → Bremen)-": -20,
+          "Edfa_booster_roadm Hannover_to_fiber (Hannover → Leipzig)-_(1/3)": -20,
+          "Edfa_booster_roadm Hannover_to_fiber (Hannover → Berlin)-_(1/3)": -20,
+          "Edfa_booster_roadm Hannover_to_fiber (Hannover → Dortmund)-_(1/3)": -20,
+          "Edfa_booster_roadm Hannover_to_fiber (Hannover → Frankfurt)-_(1/4)": -20,
+          "Edfa_booster_roadm Hannover_to_fiber (Hannover → Hamburg)-_(1/2)": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Karlsruhe",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Karlsruhe_to_fiber (Karlsruhe → Mannheim)-": -20,
+          "Edfa_booster_roadm Karlsruhe_to_fiber (Karlsruhe → Stuttgart)-": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.01,
+          "longitude": 8.41,
+          "city": "Karlsruhe",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Köln",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Köln_to_fiber (Köln → Dortmund)-": -20,
+          "Edfa_booster_roadm Köln_to_fiber (Köln → Düsseldorf)-": -20,
+          "Edfa_booster_roadm Köln_to_fiber (Köln → Frankfurt)-_(1/2)": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.92,
+          "longitude": 7.01,
+          "city": "Köln",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Leipzig",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Nürnberg)-_(1/3)": -20,
+          "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Berlin)-_(1/2)": -20,
+          "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Frankfurt)-_(1/4)": -20,
+          "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Hannover)-_(1/3)": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.34,
+          "longitude": 12.38,
+          "city": "Leipzig",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Mannheim",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Mannheim_to_fiber (Mannheim → Frankfurt)-": -20,
+          "Edfa_booster_roadm Mannheim_to_fiber (Mannheim → Karlsruhe)-": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.49,
+          "longitude": 8.49,
+          "city": "Mannheim",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm München",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm München_to_fiber (München → Ulm)-": -20,
+          "Edfa_booster_roadm München_to_fiber (München → Nürnberg)-_(1/2)": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.15,
+          "longitude": 11.55,
+          "city": "München",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Norden",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Norden_to_fiber (Norden → Bremen)-": -20,
+          "Edfa_booster_roadm Norden_to_fiber (Norden → Dortmund)-_(1/3)": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.6,
+          "longitude": 7.21,
+          "city": "Norden",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Nürnberg",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → Stuttgart)-_(1/2)": -20,
+          "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → Frankfurt)-_(1/3)": -20,
+          "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → Leipzig)-_(1/3)": -20,
+          "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → München)-_(1/2)": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.45,
+          "longitude": 11.08,
+          "city": "Nürnberg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Stuttgart",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Stuttgart_to_fiber (Stuttgart → Karlsruhe)-": -20,
+          "Edfa_booster_roadm Stuttgart_to_fiber (Stuttgart → Ulm)-": -20,
+          "Edfa_booster_roadm Stuttgart_to_fiber (Stuttgart → Nürnberg)-_(1/2)": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.73,
+          "longitude": 9.12,
+          "city": "Stuttgart",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "roadm Ulm",
+      "type": "Roadm",
+      "params": {
+        "target_pch_out_db": -20,
+        "restrictions": {
+          "preamp_variety_list": [],
+          "booster_variety_list": []
+        },
+        "per_degree_pch_out_db": {
+          "Edfa_booster_roadm Ulm_to_fiber (Ulm → München)-": -20,
+          "Edfa_booster_roadm Ulm_to_fiber (Ulm → Stuttgart)-": -20
+        }
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.4,
+          "longitude": 9.99,
+          "city": "Ulm",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "fiber (Bremen → Hamburg)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 114.764,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.315,
+          "longitude": 9.440000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Bremen → Hannover)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 121.377,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.735,
+          "longitude": 9.3,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Bremen → Norden)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 144.316,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.34,
+          "longitude": 8.005,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Dortmund → Essen)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 37.461,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 2.5077999999999996,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.474999999999994,
+          "longitude": 7.24,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Dortmund → Köln)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 84.335,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.215,
+          "longitude": 7.245,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Düsseldorf → Essen)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 36.971,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 2.6057999999999995,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.33,
+          "longitude": 6.890000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Düsseldorf → Köln)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 40.916,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 1.8167999999999989,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.07,
+          "longitude": 6.895,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Mannheim)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 85.463,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.815,
+          "longitude": 8.575,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Karlsruhe → Mannheim)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 63.886,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.25,
+          "longitude": 8.45,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Karlsruhe → Stuttgart)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 75.525,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.87,
+          "longitude": 8.765,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (München → Ulm)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 145.566,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.275,
+          "longitude": 10.77,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Stuttgart → Ulm)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 87.128,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.565,
+          "longitude": 9.555,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hamburg → Bremen)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 114.764,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.315,
+          "longitude": 9.440000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Bremen)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 121.377,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.735,
+          "longitude": 9.3,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Norden → Bremen)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 144.316,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.34,
+          "longitude": 8.005,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Essen → Dortmund)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 37.461,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 2.5077999999999996,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.474999999999994,
+          "longitude": 7.24,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Köln → Dortmund)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 84.335,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.215,
+          "longitude": 7.245,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Essen → Düsseldorf)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 36.971,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 2.6057999999999995,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.33,
+          "longitude": 6.890000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Köln → Düsseldorf)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 40.916,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 1.8167999999999989,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.07,
+          "longitude": 6.895,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Mannheim → Frankfurt)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 85.463,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.815,
+          "longitude": 8.575,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Mannheim → Karlsruhe)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 63.886,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.25,
+          "longitude": 8.45,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Stuttgart → Karlsruhe)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 75.525,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.87,
+          "longitude": 8.765,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Ulm → München)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 145.566,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.275,
+          "longitude": 10.77,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Ulm → Stuttgart)-",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 87.128,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.565,
+          "longitude": 9.555,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Berlin → Hamburg)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 102.111,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.69166666666667,
+          "longitude": 12.913333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Berlin → Hamburg)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 102.111,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.035,
+          "longitude": 11.780000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Berlin → Hamburg)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 102.111,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.37833333333333,
+          "longitude": 10.646666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Berlin → Hannover)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 98.300667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.498333333333335,
+          "longitude": 12.866666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Berlin → Hannover)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 98.300667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.455,
+          "longitude": 11.64,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Berlin → Hannover)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 98.300667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.41166666666667,
+          "longitude": 10.413333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Berlin → Leipzig)-_(1/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 86.635,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.225,
+          "longitude": 13.205,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Berlin → Leipzig)-_(2/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 86.635,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.635000000000005,
+          "longitude": 12.655000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Dortmund → Hannover)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 73.472333,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.656666666666666,
+          "longitude": 7.866666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Dortmund → Hannover)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 73.472333,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.95,
+          "longitude": 8.64,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Dortmund → Hannover)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 73.472333,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.24333333333333,
+          "longitude": 9.413333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Dortmund → Norden)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 93.248667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.858333333333334,
+          "longitude": 7.4350000000000005,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Dortmund → Norden)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 93.248667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.555,
+          "longitude": 7.345000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Dortmund → Norden)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 93.248667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.251666666666665,
+          "longitude": 7.255,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Hannover)-_(1/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 78.48875,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.42125,
+          "longitude": 8.8025,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Hannover)-_(2/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 78.48875,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.98375,
+          "longitude": 9.0875,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Hannover)-_(3/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 78.48875,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.54625,
+          "longitude": 9.3725,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Hannover)-_(4/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 78.48875,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.10875,
+          "longitude": 9.6575,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Köln)-_(1/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 91.032,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.335,
+          "longitude": 8.2475,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Köln)-_(2/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 91.032,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.725,
+          "longitude": 7.422499999999999,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Leipzig)-_(1/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 88.141,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.29,
+          "longitude": 9.125,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Leipzig)-_(2/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 88.141,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.59,
+          "longitude": 10.055,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Leipzig)-_(3/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 88.141,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.89,
+          "longitude": 10.985,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Leipzig)-_(4/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 88.141,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.190000000000005,
+          "longitude": 11.915000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Nürnberg)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 74.686333,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.025,
+          "longitude": 9.063333333333333,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Nürnberg)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 74.686333,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.795,
+          "longitude": 9.870000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Frankfurt → Nürnberg)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 74.686333,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.565000000000005,
+          "longitude": 10.676666666666666,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hamburg → Hannover)-_(1/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 80.479,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.26,
+          "longitude": 10.01,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hamburg → Hannover)-_(2/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 80.479,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.68,
+          "longitude": 9.870000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Leipzig)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 85.723667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.215,
+          "longitude": 10.23,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Leipzig)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 85.723667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.865,
+          "longitude": 11.09,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Leipzig)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 85.723667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.515,
+          "longitude": 11.950000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Leipzig → Nürnberg)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 91.550667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.025000000000006,
+          "longitude": 12.163333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Leipzig → Nürnberg)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 91.550667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.395,
+          "longitude": 11.73,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Leipzig → Nürnberg)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 91.550667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.765,
+          "longitude": 11.296666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (München → Nürnberg)-_(1/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 90.3985,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.475,
+          "longitude": 11.432500000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (München → Nürnberg)-_(2/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 90.3985,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.125,
+          "longitude": 11.1975,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Nürnberg → Stuttgart)-_(1/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 94.367,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.27,
+          "longitude": 10.59,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Nürnberg → Stuttgart)-_(2/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 94.367,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.91,
+          "longitude": 9.61,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hamburg → Berlin)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 102.111,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.37833333333333,
+          "longitude": 10.646666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hamburg → Berlin)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 102.111,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.035,
+          "longitude": 11.780000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hamburg → Berlin)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 102.111,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.69166666666667,
+          "longitude": 12.913333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Berlin)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 98.300667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.41166666666667,
+          "longitude": 10.413333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Berlin)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 98.300667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.455,
+          "longitude": 11.64,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Berlin)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 98.300667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.498333333333335,
+          "longitude": 12.866666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Leipzig → Berlin)-_(1/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 86.635,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.635000000000005,
+          "longitude": 12.655000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Leipzig → Berlin)-_(2/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 86.635,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.225,
+          "longitude": 13.205,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Dortmund)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 73.472333,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.24333333333333,
+          "longitude": 9.413333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Dortmund)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 73.472333,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.95,
+          "longitude": 8.64,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Dortmund)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 73.472333,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.656666666666666,
+          "longitude": 7.866666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Norden → Dortmund)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 93.248667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.251666666666665,
+          "longitude": 7.255,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Norden → Dortmund)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 93.248667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.555,
+          "longitude": 7.345000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Norden → Dortmund)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 93.248667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.858333333333334,
+          "longitude": 7.4350000000000005,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Frankfurt)-_(1/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 78.48875,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.10875,
+          "longitude": 9.6575,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Frankfurt)-_(2/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 78.48875,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.54625,
+          "longitude": 9.3725,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Frankfurt)-_(3/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 78.48875,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.98375,
+          "longitude": 9.0875,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Frankfurt)-_(4/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 78.48875,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.42125,
+          "longitude": 8.8025,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Köln → Frankfurt)-_(1/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 91.032,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.725,
+          "longitude": 7.422499999999999,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Köln → Frankfurt)-_(2/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 91.032,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.335,
+          "longitude": 8.2475,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Leipzig → Frankfurt)-_(1/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 88.141,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.190000000000005,
+          "longitude": 11.915000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Leipzig → Frankfurt)-_(2/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 88.141,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.89,
+          "longitude": 10.985000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Leipzig → Frankfurt)-_(3/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 88.141,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.59,
+          "longitude": 10.055,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Leipzig → Frankfurt)-_(4/4)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 88.141,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.29,
+          "longitude": 9.125,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Nürnberg → Frankfurt)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 74.686333,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.565000000000005,
+          "longitude": 10.676666666666666,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Nürnberg → Frankfurt)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 74.686333,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.795,
+          "longitude": 9.870000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Nürnberg → Frankfurt)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 74.686333,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.025,
+          "longitude": 9.063333333333333,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Hamburg)-_(1/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 80.479,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.68,
+          "longitude": 9.870000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Hannover → Hamburg)-_(2/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 80.479,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.26,
+          "longitude": 10.01,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Leipzig → Hannover)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 85.723667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.515,
+          "longitude": 11.950000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Leipzig → Hannover)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 85.723667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.865,
+          "longitude": 11.09,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Leipzig → Hannover)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 85.723667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.215,
+          "longitude": 10.23,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Nürnberg → Leipzig)-_(1/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 91.550667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.765,
+          "longitude": 11.296666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Nürnberg → Leipzig)-_(2/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 91.550667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.395,
+          "longitude": 11.73,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Nürnberg → Leipzig)-_(3/3)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 91.550667,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.025000000000006,
+          "longitude": 12.163333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Nürnberg → München)-_(1/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 90.3985,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.125,
+          "longitude": 11.1975,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Nürnberg → München)-_(2/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 90.3985,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.475,
+          "longitude": 11.432500000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Stuttgart → Nürnberg)-_(1/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 94.367,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.91,
+          "longitude": 9.61,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "fiber (Stuttgart → Nürnberg)-_(2/2)",
+      "type": "Fiber",
+      "type_variety": "SSMF",
+      "params": {
+        "length": 94.367,
+        "loss_coef": 0.2,
+        "length_units": "km",
+        "att_in": 0,
+        "con_in": 0,
+        "con_out": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.27,
+          "longitude": 10.59,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Berlin_from_fiber (Hamburg → Berlin)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.4222,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.52,
+          "longitude": 13.48,
+          "city": "Berlin",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Berlin_from_fiber (Hannover → Berlin)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 19.660133,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.52,
+          "longitude": 13.48,
+          "city": "Berlin",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Berlin_from_fiber (Leipzig → Berlin)-_(2/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.327,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.52,
+          "longitude": 13.48,
+          "city": "Berlin",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Berlin_to_fiber (Berlin → Hamburg)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0.0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.52,
+          "longitude": 13.48,
+          "city": "Berlin",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Berlin_to_fiber (Berlin → Hannover)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0.0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.52,
+          "longitude": 13.48,
+          "city": "Berlin",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Berlin_to_fiber (Berlin → Leipzig)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.52,
+          "longitude": 13.48,
+          "city": "Berlin",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Bremen_from_fiber (Hamburg → Bremen)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 21.9528,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.08,
+          "longitude": 8.8,
+          "city": "Bremen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Bremen_from_fiber (Hannover → Bremen)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 24.2754,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.08,
+          "longitude": 8.8,
+          "city": "Bremen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Bremen_from_fiber (Norden → Bremen)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 28.8632,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.08,
+          "longitude": 8.8,
+          "city": "Bremen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Bremen_to_fiber (Bremen → Hamburg)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.08,
+          "longitude": 8.8,
+          "city": "Bremen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Bremen_to_fiber (Bremen → Hannover)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.08,
+          "longitude": 8.8,
+          "city": "Bremen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Bremen_to_fiber (Bremen → Norden)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.08,
+          "longitude": 8.8,
+          "city": "Bremen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Dortmund_from_fiber (Essen → Dortmund)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 12.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.51,
+          "longitude": 7.48,
+          "city": "Dortmund",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Dortmund_from_fiber (Köln → Dortmund)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.867,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.51,
+          "longitude": 7.48,
+          "city": "Dortmund",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Dortmund_from_fiber (Hannover → Dortmund)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 16.194467,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.51,
+          "longitude": 7.48,
+          "city": "Dortmund",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Dortmund_from_fiber (Norden → Dortmund)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 19.149733,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.51,
+          "longitude": 7.48,
+          "city": "Dortmund",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Essen)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.51,
+          "longitude": 7.48,
+          "city": "Dortmund",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Köln)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.51,
+          "longitude": 7.48,
+          "city": "Dortmund",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Hannover)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.51,
+          "longitude": 7.48,
+          "city": "Dortmund",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Norden)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.51,
+          "longitude": 7.48,
+          "city": "Dortmund",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Düsseldorf_from_fiber (Essen → Düsseldorf)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 12.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.22,
+          "longitude": 6.78,
+          "city": "Düsseldorf",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Düsseldorf_from_fiber (Köln → Düsseldorf)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 12.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.22,
+          "longitude": 6.78,
+          "city": "Düsseldorf",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Düsseldorf_to_fiber (Düsseldorf → Essen)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.22,
+          "longitude": 6.78,
+          "city": "Düsseldorf",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Düsseldorf_to_fiber (Düsseldorf → Köln)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.22,
+          "longitude": 6.78,
+          "city": "Düsseldorf",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Essen_from_fiber (Dortmund → Essen)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 12.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.44,
+          "longitude": 7.0,
+          "city": "Essen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Essen_from_fiber (Düsseldorf → Essen)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 12.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.44,
+          "longitude": 7.0,
+          "city": "Essen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Essen_to_fiber (Essen → Dortmund)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.44,
+          "longitude": 7.0,
+          "city": "Essen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Essen_to_fiber (Essen → Düsseldorf)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.44,
+          "longitude": 7.0,
+          "city": "Essen",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Frankfurt_from_fiber (Mannheim → Frankfurt)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.0926,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.14,
+          "longitude": 8.66,
+          "city": "Frankfurt",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Frankfurt_from_fiber (Hannover → Frankfurt)-_(4/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.19775,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.14,
+          "longitude": 8.66,
+          "city": "Frankfurt",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Frankfurt_from_fiber (Köln → Frankfurt)-_(2/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.7064,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.14,
+          "longitude": 8.66,
+          "city": "Frankfurt",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Frankfurt_from_fiber (Leipzig → Frankfurt)-_(4/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.1282,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.14,
+          "longitude": 8.66,
+          "city": "Frankfurt",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Frankfurt_from_fiber (Nürnberg → Frankfurt)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 16.437267,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.14,
+          "longitude": 8.66,
+          "city": "Frankfurt",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Mannheim)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.14,
+          "longitude": 8.66,
+          "city": "Frankfurt",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Hannover)-_(1/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.14,
+          "longitude": 8.66,
+          "city": "Frankfurt",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Köln)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.14,
+          "longitude": 8.66,
+          "city": "Frankfurt",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Leipzig)-_(1/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.14,
+          "longitude": 8.66,
+          "city": "Frankfurt",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Nürnberg)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.14,
+          "longitude": 8.66,
+          "city": "Frankfurt",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Hamburg_from_fiber (Bremen → Hamburg)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 21.9528,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.55,
+          "longitude": 10.08,
+          "city": "Hamburg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Hamburg_from_fiber (Berlin → Hamburg)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.4222,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.55,
+          "longitude": 10.08,
+          "city": "Hamburg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Hamburg_from_fiber (Hannover → Hamburg)-_(2/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.0958,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.55,
+          "longitude": 10.08,
+          "city": "Hamburg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Hamburg_to_fiber (Hamburg → Bremen)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.55,
+          "longitude": 10.08,
+          "city": "Hamburg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Hamburg_to_fiber (Hamburg → Hannover)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.55,
+          "longitude": 10.08,
+          "city": "Hamburg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Hamburg_to_fiber (Hamburg → Berlin)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0.0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.55,
+          "longitude": 10.08,
+          "city": "Hamburg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Hannover_from_fiber (Bremen → Hannover)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 24.2754,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Hannover_from_fiber (Berlin → Hannover)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 19.660133,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Hannover_from_fiber (Dortmund → Hannover)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 16.194467,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Hannover_from_fiber (Frankfurt → Hannover)-_(4/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.19775,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Hannover_from_fiber (Hamburg → Hannover)-_(2/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.0958,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Hannover_from_fiber (Leipzig → Hannover)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.144733,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Bremen)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Leipzig)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Berlin)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0.0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Dortmund)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Frankfurt)-_(1/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Hamburg)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.39,
+          "longitude": 9.8,
+          "city": "Hannover",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Karlsruhe_from_fiber (Mannheim → Karlsruhe)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 14.7772,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.01,
+          "longitude": 8.41,
+          "city": "Karlsruhe",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Karlsruhe_from_fiber (Stuttgart → Karlsruhe)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 16.605,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.01,
+          "longitude": 8.41,
+          "city": "Karlsruhe",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Karlsruhe_to_fiber (Karlsruhe → Mannheim)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.01,
+          "longitude": 8.41,
+          "city": "Karlsruhe",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Karlsruhe_to_fiber (Karlsruhe → Stuttgart)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.01,
+          "longitude": 8.41,
+          "city": "Karlsruhe",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Köln_from_fiber (Dortmund → Köln)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.867,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.92,
+          "longitude": 7.01,
+          "city": "Köln",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Köln_from_fiber (Düsseldorf → Köln)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 12.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.92,
+          "longitude": 7.01,
+          "city": "Köln",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Köln_from_fiber (Frankfurt → Köln)-_(2/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.7064,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.92,
+          "longitude": 7.01,
+          "city": "Köln",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Köln_to_fiber (Köln → Dortmund)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 19.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.92,
+          "longitude": 7.01,
+          "city": "Köln",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Köln_to_fiber (Köln → Düsseldorf)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.92,
+          "longitude": 7.01,
+          "city": "Köln",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Köln_to_fiber (Köln → Frankfurt)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.92,
+          "longitude": 7.01,
+          "city": "Köln",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Leipzig_from_fiber (Berlin → Leipzig)-_(2/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.327,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.34,
+          "longitude": 12.38,
+          "city": "Leipzig",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Leipzig_from_fiber (Frankfurt → Leipzig)-_(4/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.1282,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.34,
+          "longitude": 12.38,
+          "city": "Leipzig",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Leipzig_from_fiber (Hannover → Leipzig)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.144733,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.34,
+          "longitude": 12.38,
+          "city": "Leipzig",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Leipzig_from_fiber (Nürnberg → Leipzig)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.810133,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.34,
+          "longitude": 12.38,
+          "city": "Leipzig",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Nürnberg)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.34,
+          "longitude": 12.38,
+          "city": "Leipzig",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Berlin)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.34,
+          "longitude": 12.38,
+          "city": "Leipzig",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Frankfurt)-_(1/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.34,
+          "longitude": 12.38,
+          "city": "Leipzig",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Hannover)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.34,
+          "longitude": 12.38,
+          "city": "Leipzig",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Mannheim_from_fiber (Frankfurt → Mannheim)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.0926,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.49,
+          "longitude": 8.49,
+          "city": "Mannheim",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Mannheim_from_fiber (Karlsruhe → Mannheim)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 14.7772,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.49,
+          "longitude": 8.49,
+          "city": "Mannheim",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Mannheim_to_fiber (Mannheim → Frankfurt)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.49,
+          "longitude": 8.49,
+          "city": "Mannheim",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Mannheim_to_fiber (Mannheim → Karlsruhe)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.49,
+          "longitude": 8.49,
+          "city": "Mannheim",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm München_from_fiber (Ulm → München)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 29.1132,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.15,
+          "longitude": 11.55,
+          "city": "München",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm München_from_fiber (Nürnberg → München)-_(2/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.5797,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.15,
+          "longitude": 11.55,
+          "city": "München",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm München_to_fiber (München → Ulm)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.15,
+          "longitude": 11.55,
+          "city": "München",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm München_to_fiber (München → Nürnberg)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.15,
+          "longitude": 11.55,
+          "city": "München",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Norden_from_fiber (Bremen → Norden)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 28.8632,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.6,
+          "longitude": 7.21,
+          "city": "Norden",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Norden_from_fiber (Dortmund → Norden)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 19.149733,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.6,
+          "longitude": 7.21,
+          "city": "Norden",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Norden_to_fiber (Norden → Bremen)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.6,
+          "longitude": 7.21,
+          "city": "Norden",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Norden_to_fiber (Norden → Dortmund)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.6,
+          "longitude": 7.21,
+          "city": "Norden",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Nürnberg_from_fiber (Frankfurt → Nürnberg)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 16.437267,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.45,
+          "longitude": 11.08,
+          "city": "Nürnberg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Nürnberg_from_fiber (Leipzig → Nürnberg)-_(3/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.810133,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.45,
+          "longitude": 11.08,
+          "city": "Nürnberg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Nürnberg_from_fiber (München → Nürnberg)-_(2/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.5797,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.45,
+          "longitude": 11.08,
+          "city": "Nürnberg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Nürnberg_from_fiber (Stuttgart → Nürnberg)-_(2/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 19.3734,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.45,
+          "longitude": 11.08,
+          "city": "Nürnberg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → Stuttgart)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.45,
+          "longitude": 11.08,
+          "city": "Nürnberg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → Frankfurt)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.45,
+          "longitude": 11.08,
+          "city": "Nürnberg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → Leipzig)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.45,
+          "longitude": 11.08,
+          "city": "Nürnberg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → München)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.45,
+          "longitude": 11.08,
+          "city": "Nürnberg",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Stuttgart_from_fiber (Karlsruhe → Stuttgart)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 16.605,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.73,
+          "longitude": 9.12,
+          "city": "Stuttgart",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Stuttgart_from_fiber (Ulm → Stuttgart)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.4256,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.73,
+          "longitude": 9.12,
+          "city": "Stuttgart",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Stuttgart_from_fiber (Nürnberg → Stuttgart)-_(2/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 19.3734,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.73,
+          "longitude": 9.12,
+          "city": "Stuttgart",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Stuttgart_to_fiber (Stuttgart → Karlsruhe)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.73,
+          "longitude": 9.12,
+          "city": "Stuttgart",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Stuttgart_to_fiber (Stuttgart → Ulm)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.73,
+          "longitude": 9.12,
+          "city": "Stuttgart",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Stuttgart_to_fiber (Stuttgart → Nürnberg)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.73,
+          "longitude": 9.12,
+          "city": "Stuttgart",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Ulm_from_fiber (München → Ulm)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 29.1132,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.4,
+          "longitude": 9.99,
+          "city": "Ulm",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_preamp_roadm Ulm_from_fiber (Stuttgart → Ulm)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.4256,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.4,
+          "longitude": 9.99,
+          "city": "Ulm",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Ulm_to_fiber (Ulm → München)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.4,
+          "longitude": 9.99,
+          "city": "Ulm",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_booster_roadm Ulm_to_fiber (Ulm → Stuttgart)-",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.0,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.4,
+          "longitude": 9.99,
+          "city": "Ulm",
+          "region": ""
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Berlin → Hamburg)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.4222,
+        "delta_p": 0.0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.86333333333333,
+          "longitude": 12.346666666666668,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Berlin → Hamburg)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.4222,
+        "delta_p": 0.0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.20666666666666,
+          "longitude": 11.213333333333335,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Berlin → Hannover)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 19.660133,
+        "delta_p": 0.0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.47666666666667,
+          "longitude": 12.253333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Berlin → Hannover)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 19.660133,
+        "delta_p": 0.0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.43333333333334,
+          "longitude": 11.026666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Berlin → Leipzig)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.327,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.93000000000001,
+          "longitude": 12.93,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Dortmund → Hannover)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 14.694467,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.803333333333335,
+          "longitude": 8.253333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Dortmund → Hannover)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 14.694467,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.096666666666664,
+          "longitude": 9.026666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Dortmund → Norden)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.649733,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.20666666666666,
+          "longitude": 7.390000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Dortmund → Norden)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.649733,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.903333333333336,
+          "longitude": 7.300000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Frankfurt → Hannover)-_(1/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 15.69775,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.7025,
+          "longitude": 8.945,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Frankfurt → Hannover)-_(2/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 15.69775,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.265,
+          "longitude": 9.23,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Frankfurt → Hannover)-_(3/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 15.69775,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.8275,
+          "longitude": 9.515,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Frankfurt → Köln)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.2064,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.53,
+          "longitude": 7.835,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Frankfurt → Leipzig)-_(1/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.6282,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.44,
+          "longitude": 9.59,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Frankfurt → Leipzig)-_(2/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.6282,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.74,
+          "longitude": 10.52,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Frankfurt → Leipzig)-_(3/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.6282,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.040000000000006,
+          "longitude": 11.45,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Frankfurt → Nürnberg)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 14.937267,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.91,
+          "longitude": 9.466666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Frankfurt → Nürnberg)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 14.937267,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.68000000000001,
+          "longitude": 10.273333333333333,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hamburg → Hannover)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 16.0958,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.97,
+          "longitude": 9.940000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hannover → Leipzig)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.144733,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.040000000000006,
+          "longitude": 10.66,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hannover → Leipzig)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.144733,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.69,
+          "longitude": 11.52,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Leipzig → Nürnberg)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.310133,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.71000000000001,
+          "longitude": 11.946666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Leipzig → Nürnberg)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.310133,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.08,
+          "longitude": 11.513333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (München → Nürnberg)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.0797,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.8,
+          "longitude": 11.315000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Nürnberg → Stuttgart)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.8734,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.09,
+          "longitude": 10.1,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hamburg → Berlin)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.4222,
+        "delta_p": 0.0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 53.20666666666666,
+          "longitude": 11.213333333333335,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hamburg → Berlin)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 20.4222,
+        "delta_p": 0.0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.86333333333333,
+          "longitude": 12.346666666666668,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hannover → Berlin)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 19.660133,
+        "delta_p": 0.0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.43333333333334,
+          "longitude": 11.026666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hannover → Berlin)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 19.660133,
+        "delta_p": 0.0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.47666666666667,
+          "longitude": 12.253333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Leipzig → Berlin)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.327,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.93000000000001,
+          "longitude": 12.93,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hannover → Dortmund)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 14.694467,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.096666666666664,
+          "longitude": 9.026666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hannover → Dortmund)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 14.694467,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.803333333333335,
+          "longitude": 8.253333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Norden → Dortmund)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.649733,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.903333333333336,
+          "longitude": 7.300000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Norden → Dortmund)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.649733,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.20666666666666,
+          "longitude": 7.390000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hannover → Frankfurt)-_(1/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 15.69775,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.8275,
+          "longitude": 9.515,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hannover → Frankfurt)-_(2/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 15.69775,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.265,
+          "longitude": 9.23,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hannover → Frankfurt)-_(3/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 15.69775,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.7025,
+          "longitude": 8.945,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Köln → Frankfurt)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.2064,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.53,
+          "longitude": 7.835,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Leipzig → Frankfurt)-_(1/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.6282,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.040000000000006,
+          "longitude": 11.450000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Leipzig → Frankfurt)-_(2/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.6282,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.74,
+          "longitude": 10.52,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Leipzig → Frankfurt)-_(3/4)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.6282,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.44,
+          "longitude": 9.59,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Nürnberg → Frankfurt)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 14.937267,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.68000000000001,
+          "longitude": 10.273333333333333,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Nürnberg → Frankfurt)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 14.937267,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.91,
+          "longitude": 9.466666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Hannover → Hamburg)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 16.0958,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.97,
+          "longitude": 9.940000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Leipzig → Hannover)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.144733,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 51.69,
+          "longitude": 11.52,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Leipzig → Hannover)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 17.144733,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 52.040000000000006,
+          "longitude": 10.66,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Nürnberg → Leipzig)-_(1/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.310133,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.08,
+          "longitude": 11.513333333333334,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Nürnberg → Leipzig)-_(2/3)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.310133,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 50.71000000000001,
+          "longitude": 11.946666666666667,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Nürnberg → München)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.0797,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 48.8,
+          "longitude": 11.315000000000001,
+          "city": null,
+          "region": null
+        }
+      }
+    },
+    {
+      "uid": "Edfa_fiber (Stuttgart → Nürnberg)-_(1/2)",
+      "type": "Edfa",
+      "type_variety": "std_fixed_gain",
+      "operational": {
+        "gain_target": 18.8734,
+        "delta_p": 0,
+        "tilt_target": 0,
+        "out_voa": 0
+      },
+      "metadata": {
+        "location": {
+          "latitude": 49.09,
+          "longitude": 10.1,
+          "city": null,
+          "region": null
+        }
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from_node": "trx Berlin",
+      "to_node": "roadm Berlin"
+    },
+    {
+      "from_node": "trx Bremen",
+      "to_node": "roadm Bremen"
+    },
+    {
+      "from_node": "trx Dortmund",
+      "to_node": "roadm Dortmund"
+    },
+    {
+      "from_node": "trx Düsseldorf",
+      "to_node": "roadm Düsseldorf"
+    },
+    {
+      "from_node": "trx Essen",
+      "to_node": "roadm Essen"
+    },
+    {
+      "from_node": "trx Frankfurt",
+      "to_node": "roadm Frankfurt"
+    },
+    {
+      "from_node": "trx Hamburg",
+      "to_node": "roadm Hamburg"
+    },
+    {
+      "from_node": "trx Hannover",
+      "to_node": "roadm Hannover"
+    },
+    {
+      "from_node": "trx Karlsruhe",
+      "to_node": "roadm Karlsruhe"
+    },
+    {
+      "from_node": "trx Köln",
+      "to_node": "roadm Köln"
+    },
+    {
+      "from_node": "trx Leipzig",
+      "to_node": "roadm Leipzig"
+    },
+    {
+      "from_node": "trx Mannheim",
+      "to_node": "roadm Mannheim"
+    },
+    {
+      "from_node": "trx München",
+      "to_node": "roadm München"
+    },
+    {
+      "from_node": "trx Norden",
+      "to_node": "roadm Norden"
+    },
+    {
+      "from_node": "trx Nürnberg",
+      "to_node": "roadm Nürnberg"
+    },
+    {
+      "from_node": "trx Stuttgart",
+      "to_node": "roadm Stuttgart"
+    },
+    {
+      "from_node": "trx Ulm",
+      "to_node": "roadm Ulm"
+    },
+    {
+      "from_node": "roadm Berlin",
+      "to_node": "trx Berlin"
+    },
+    {
+      "from_node": "roadm Berlin",
+      "to_node": "Edfa_booster_roadm Berlin_to_fiber (Berlin → Hamburg)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Berlin",
+      "to_node": "Edfa_booster_roadm Berlin_to_fiber (Berlin → Hannover)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Berlin",
+      "to_node": "Edfa_booster_roadm Berlin_to_fiber (Berlin → Leipzig)-_(1/2)"
+    },
+    {
+      "from_node": "roadm Bremen",
+      "to_node": "trx Bremen"
+    },
+    {
+      "from_node": "roadm Bremen",
+      "to_node": "Edfa_booster_roadm Bremen_to_fiber (Bremen → Hamburg)-"
+    },
+    {
+      "from_node": "roadm Bremen",
+      "to_node": "Edfa_booster_roadm Bremen_to_fiber (Bremen → Hannover)-"
+    },
+    {
+      "from_node": "roadm Bremen",
+      "to_node": "Edfa_booster_roadm Bremen_to_fiber (Bremen → Norden)-"
+    },
+    {
+      "from_node": "roadm Dortmund",
+      "to_node": "trx Dortmund"
+    },
+    {
+      "from_node": "roadm Dortmund",
+      "to_node": "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Essen)-"
+    },
+    {
+      "from_node": "roadm Dortmund",
+      "to_node": "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Köln)-"
+    },
+    {
+      "from_node": "roadm Dortmund",
+      "to_node": "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Hannover)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Dortmund",
+      "to_node": "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Norden)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Düsseldorf",
+      "to_node": "trx Düsseldorf"
+    },
+    {
+      "from_node": "roadm Düsseldorf",
+      "to_node": "Edfa_booster_roadm Düsseldorf_to_fiber (Düsseldorf → Essen)-"
+    },
+    {
+      "from_node": "roadm Düsseldorf",
+      "to_node": "Edfa_booster_roadm Düsseldorf_to_fiber (Düsseldorf → Köln)-"
+    },
+    {
+      "from_node": "roadm Essen",
+      "to_node": "trx Essen"
+    },
+    {
+      "from_node": "roadm Essen",
+      "to_node": "Edfa_booster_roadm Essen_to_fiber (Essen → Dortmund)-"
+    },
+    {
+      "from_node": "roadm Essen",
+      "to_node": "Edfa_booster_roadm Essen_to_fiber (Essen → Düsseldorf)-"
+    },
+    {
+      "from_node": "roadm Frankfurt",
+      "to_node": "trx Frankfurt"
+    },
+    {
+      "from_node": "roadm Frankfurt",
+      "to_node": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Mannheim)-"
+    },
+    {
+      "from_node": "roadm Frankfurt",
+      "to_node": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Hannover)-_(1/4)"
+    },
+    {
+      "from_node": "roadm Frankfurt",
+      "to_node": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Köln)-_(1/2)"
+    },
+    {
+      "from_node": "roadm Frankfurt",
+      "to_node": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Leipzig)-_(1/4)"
+    },
+    {
+      "from_node": "roadm Frankfurt",
+      "to_node": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Nürnberg)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Hamburg",
+      "to_node": "trx Hamburg"
+    },
+    {
+      "from_node": "roadm Hamburg",
+      "to_node": "Edfa_booster_roadm Hamburg_to_fiber (Hamburg → Bremen)-"
+    },
+    {
+      "from_node": "roadm Hamburg",
+      "to_node": "Edfa_booster_roadm Hamburg_to_fiber (Hamburg → Hannover)-_(1/2)"
+    },
+    {
+      "from_node": "roadm Hamburg",
+      "to_node": "Edfa_booster_roadm Hamburg_to_fiber (Hamburg → Berlin)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Hannover",
+      "to_node": "trx Hannover"
+    },
+    {
+      "from_node": "roadm Hannover",
+      "to_node": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Bremen)-"
+    },
+    {
+      "from_node": "roadm Hannover",
+      "to_node": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Leipzig)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Hannover",
+      "to_node": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Berlin)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Hannover",
+      "to_node": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Dortmund)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Hannover",
+      "to_node": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Frankfurt)-_(1/4)"
+    },
+    {
+      "from_node": "roadm Hannover",
+      "to_node": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Hamburg)-_(1/2)"
+    },
+    {
+      "from_node": "roadm Karlsruhe",
+      "to_node": "trx Karlsruhe"
+    },
+    {
+      "from_node": "roadm Karlsruhe",
+      "to_node": "Edfa_booster_roadm Karlsruhe_to_fiber (Karlsruhe → Mannheim)-"
+    },
+    {
+      "from_node": "roadm Karlsruhe",
+      "to_node": "Edfa_booster_roadm Karlsruhe_to_fiber (Karlsruhe → Stuttgart)-"
+    },
+    {
+      "from_node": "roadm Köln",
+      "to_node": "trx Köln"
+    },
+    {
+      "from_node": "roadm Köln",
+      "to_node": "Edfa_booster_roadm Köln_to_fiber (Köln → Dortmund)-"
+    },
+    {
+      "from_node": "roadm Köln",
+      "to_node": "Edfa_booster_roadm Köln_to_fiber (Köln → Düsseldorf)-"
+    },
+    {
+      "from_node": "roadm Köln",
+      "to_node": "Edfa_booster_roadm Köln_to_fiber (Köln → Frankfurt)-_(1/2)"
+    },
+    {
+      "from_node": "roadm Leipzig",
+      "to_node": "trx Leipzig"
+    },
+    {
+      "from_node": "roadm Leipzig",
+      "to_node": "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Nürnberg)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Leipzig",
+      "to_node": "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Berlin)-_(1/2)"
+    },
+    {
+      "from_node": "roadm Leipzig",
+      "to_node": "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Frankfurt)-_(1/4)"
+    },
+    {
+      "from_node": "roadm Leipzig",
+      "to_node": "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Hannover)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Mannheim",
+      "to_node": "trx Mannheim"
+    },
+    {
+      "from_node": "roadm Mannheim",
+      "to_node": "Edfa_booster_roadm Mannheim_to_fiber (Mannheim → Frankfurt)-"
+    },
+    {
+      "from_node": "roadm Mannheim",
+      "to_node": "Edfa_booster_roadm Mannheim_to_fiber (Mannheim → Karlsruhe)-"
+    },
+    {
+      "from_node": "roadm München",
+      "to_node": "trx München"
+    },
+    {
+      "from_node": "roadm München",
+      "to_node": "Edfa_booster_roadm München_to_fiber (München → Ulm)-"
+    },
+    {
+      "from_node": "roadm München",
+      "to_node": "Edfa_booster_roadm München_to_fiber (München → Nürnberg)-_(1/2)"
+    },
+    {
+      "from_node": "roadm Norden",
+      "to_node": "trx Norden"
+    },
+    {
+      "from_node": "roadm Norden",
+      "to_node": "Edfa_booster_roadm Norden_to_fiber (Norden → Bremen)-"
+    },
+    {
+      "from_node": "roadm Norden",
+      "to_node": "Edfa_booster_roadm Norden_to_fiber (Norden → Dortmund)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Nürnberg",
+      "to_node": "trx Nürnberg"
+    },
+    {
+      "from_node": "roadm Nürnberg",
+      "to_node": "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → Stuttgart)-_(1/2)"
+    },
+    {
+      "from_node": "roadm Nürnberg",
+      "to_node": "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → Frankfurt)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Nürnberg",
+      "to_node": "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → Leipzig)-_(1/3)"
+    },
+    {
+      "from_node": "roadm Nürnberg",
+      "to_node": "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → München)-_(1/2)"
+    },
+    {
+      "from_node": "roadm Stuttgart",
+      "to_node": "trx Stuttgart"
+    },
+    {
+      "from_node": "roadm Stuttgart",
+      "to_node": "Edfa_booster_roadm Stuttgart_to_fiber (Stuttgart → Karlsruhe)-"
+    },
+    {
+      "from_node": "roadm Stuttgart",
+      "to_node": "Edfa_booster_roadm Stuttgart_to_fiber (Stuttgart → Ulm)-"
+    },
+    {
+      "from_node": "roadm Stuttgart",
+      "to_node": "Edfa_booster_roadm Stuttgart_to_fiber (Stuttgart → Nürnberg)-_(1/2)"
+    },
+    {
+      "from_node": "roadm Ulm",
+      "to_node": "trx Ulm"
+    },
+    {
+      "from_node": "roadm Ulm",
+      "to_node": "Edfa_booster_roadm Ulm_to_fiber (Ulm → München)-"
+    },
+    {
+      "from_node": "roadm Ulm",
+      "to_node": "Edfa_booster_roadm Ulm_to_fiber (Ulm → Stuttgart)-"
+    },
+    {
+      "from_node": "fiber (Bremen → Hamburg)-",
+      "to_node": "Edfa_preamp_roadm Hamburg_from_fiber (Bremen → Hamburg)-"
+    },
+    {
+      "from_node": "fiber (Bremen → Hannover)-",
+      "to_node": "Edfa_preamp_roadm Hannover_from_fiber (Bremen → Hannover)-"
+    },
+    {
+      "from_node": "fiber (Bremen → Norden)-",
+      "to_node": "Edfa_preamp_roadm Norden_from_fiber (Bremen → Norden)-"
+    },
+    {
+      "from_node": "fiber (Dortmund → Essen)-",
+      "to_node": "Edfa_preamp_roadm Essen_from_fiber (Dortmund → Essen)-"
+    },
+    {
+      "from_node": "fiber (Dortmund → Köln)-",
+      "to_node": "Edfa_preamp_roadm Köln_from_fiber (Dortmund → Köln)-"
+    },
+    {
+      "from_node": "fiber (Düsseldorf → Essen)-",
+      "to_node": "Edfa_preamp_roadm Essen_from_fiber (Düsseldorf → Essen)-"
+    },
+    {
+      "from_node": "fiber (Düsseldorf → Köln)-",
+      "to_node": "Edfa_preamp_roadm Köln_from_fiber (Düsseldorf → Köln)-"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Mannheim)-",
+      "to_node": "Edfa_preamp_roadm Mannheim_from_fiber (Frankfurt → Mannheim)-"
+    },
+    {
+      "from_node": "fiber (Karlsruhe → Mannheim)-",
+      "to_node": "Edfa_preamp_roadm Mannheim_from_fiber (Karlsruhe → Mannheim)-"
+    },
+    {
+      "from_node": "fiber (Karlsruhe → Stuttgart)-",
+      "to_node": "Edfa_preamp_roadm Stuttgart_from_fiber (Karlsruhe → Stuttgart)-"
+    },
+    {
+      "from_node": "fiber (München → Ulm)-",
+      "to_node": "Edfa_preamp_roadm Ulm_from_fiber (München → Ulm)-"
+    },
+    {
+      "from_node": "fiber (Stuttgart → Ulm)-",
+      "to_node": "Edfa_preamp_roadm Ulm_from_fiber (Stuttgart → Ulm)-"
+    },
+    {
+      "from_node": "fiber (Hamburg → Bremen)-",
+      "to_node": "Edfa_preamp_roadm Bremen_from_fiber (Hamburg → Bremen)-"
+    },
+    {
+      "from_node": "fiber (Hannover → Bremen)-",
+      "to_node": "Edfa_preamp_roadm Bremen_from_fiber (Hannover → Bremen)-"
+    },
+    {
+      "from_node": "fiber (Norden → Bremen)-",
+      "to_node": "Edfa_preamp_roadm Bremen_from_fiber (Norden → Bremen)-"
+    },
+    {
+      "from_node": "fiber (Essen → Dortmund)-",
+      "to_node": "Edfa_preamp_roadm Dortmund_from_fiber (Essen → Dortmund)-"
+    },
+    {
+      "from_node": "fiber (Köln → Dortmund)-",
+      "to_node": "Edfa_preamp_roadm Dortmund_from_fiber (Köln → Dortmund)-"
+    },
+    {
+      "from_node": "fiber (Essen → Düsseldorf)-",
+      "to_node": "Edfa_preamp_roadm Düsseldorf_from_fiber (Essen → Düsseldorf)-"
+    },
+    {
+      "from_node": "fiber (Köln → Düsseldorf)-",
+      "to_node": "Edfa_preamp_roadm Düsseldorf_from_fiber (Köln → Düsseldorf)-"
+    },
+    {
+      "from_node": "fiber (Mannheim → Frankfurt)-",
+      "to_node": "Edfa_preamp_roadm Frankfurt_from_fiber (Mannheim → Frankfurt)-"
+    },
+    {
+      "from_node": "fiber (Mannheim → Karlsruhe)-",
+      "to_node": "Edfa_preamp_roadm Karlsruhe_from_fiber (Mannheim → Karlsruhe)-"
+    },
+    {
+      "from_node": "fiber (Stuttgart → Karlsruhe)-",
+      "to_node": "Edfa_preamp_roadm Karlsruhe_from_fiber (Stuttgart → Karlsruhe)-"
+    },
+    {
+      "from_node": "fiber (Ulm → München)-",
+      "to_node": "Edfa_preamp_roadm München_from_fiber (Ulm → München)-"
+    },
+    {
+      "from_node": "fiber (Ulm → Stuttgart)-",
+      "to_node": "Edfa_preamp_roadm Stuttgart_from_fiber (Ulm → Stuttgart)-"
+    },
+    {
+      "from_node": "fiber (Berlin → Hamburg)-_(1/3)",
+      "to_node": "Edfa_fiber (Berlin → Hamburg)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Berlin → Hamburg)-_(2/3)",
+      "to_node": "Edfa_fiber (Berlin → Hamburg)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Berlin → Hamburg)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Hamburg_from_fiber (Berlin → Hamburg)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Berlin → Hannover)-_(1/3)",
+      "to_node": "Edfa_fiber (Berlin → Hannover)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Berlin → Hannover)-_(2/3)",
+      "to_node": "Edfa_fiber (Berlin → Hannover)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Berlin → Hannover)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Hannover_from_fiber (Berlin → Hannover)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Berlin → Leipzig)-_(1/2)",
+      "to_node": "Edfa_fiber (Berlin → Leipzig)-_(1/2)"
+    },
+    {
+      "from_node": "fiber (Berlin → Leipzig)-_(2/2)",
+      "to_node": "Edfa_preamp_roadm Leipzig_from_fiber (Berlin → Leipzig)-_(2/2)"
+    },
+    {
+      "from_node": "fiber (Dortmund → Hannover)-_(1/3)",
+      "to_node": "Edfa_fiber (Dortmund → Hannover)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Dortmund → Hannover)-_(2/3)",
+      "to_node": "Edfa_fiber (Dortmund → Hannover)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Dortmund → Hannover)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Hannover_from_fiber (Dortmund → Hannover)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Dortmund → Norden)-_(1/3)",
+      "to_node": "Edfa_fiber (Dortmund → Norden)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Dortmund → Norden)-_(2/3)",
+      "to_node": "Edfa_fiber (Dortmund → Norden)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Dortmund → Norden)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Norden_from_fiber (Dortmund → Norden)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Hannover)-_(1/4)",
+      "to_node": "Edfa_fiber (Frankfurt → Hannover)-_(1/4)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Hannover)-_(2/4)",
+      "to_node": "Edfa_fiber (Frankfurt → Hannover)-_(2/4)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Hannover)-_(3/4)",
+      "to_node": "Edfa_fiber (Frankfurt → Hannover)-_(3/4)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Hannover)-_(4/4)",
+      "to_node": "Edfa_preamp_roadm Hannover_from_fiber (Frankfurt → Hannover)-_(4/4)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Köln)-_(1/2)",
+      "to_node": "Edfa_fiber (Frankfurt → Köln)-_(1/2)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Köln)-_(2/2)",
+      "to_node": "Edfa_preamp_roadm Köln_from_fiber (Frankfurt → Köln)-_(2/2)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Leipzig)-_(1/4)",
+      "to_node": "Edfa_fiber (Frankfurt → Leipzig)-_(1/4)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Leipzig)-_(2/4)",
+      "to_node": "Edfa_fiber (Frankfurt → Leipzig)-_(2/4)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Leipzig)-_(3/4)",
+      "to_node": "Edfa_fiber (Frankfurt → Leipzig)-_(3/4)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Leipzig)-_(4/4)",
+      "to_node": "Edfa_preamp_roadm Leipzig_from_fiber (Frankfurt → Leipzig)-_(4/4)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Nürnberg)-_(1/3)",
+      "to_node": "Edfa_fiber (Frankfurt → Nürnberg)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Nürnberg)-_(2/3)",
+      "to_node": "Edfa_fiber (Frankfurt → Nürnberg)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Frankfurt → Nürnberg)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Nürnberg_from_fiber (Frankfurt → Nürnberg)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Hamburg → Hannover)-_(1/2)",
+      "to_node": "Edfa_fiber (Hamburg → Hannover)-_(1/2)"
+    },
+    {
+      "from_node": "fiber (Hamburg → Hannover)-_(2/2)",
+      "to_node": "Edfa_preamp_roadm Hannover_from_fiber (Hamburg → Hannover)-_(2/2)"
+    },
+    {
+      "from_node": "fiber (Hannover → Leipzig)-_(1/3)",
+      "to_node": "Edfa_fiber (Hannover → Leipzig)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Hannover → Leipzig)-_(2/3)",
+      "to_node": "Edfa_fiber (Hannover → Leipzig)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Hannover → Leipzig)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Leipzig_from_fiber (Hannover → Leipzig)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Leipzig → Nürnberg)-_(1/3)",
+      "to_node": "Edfa_fiber (Leipzig → Nürnberg)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Leipzig → Nürnberg)-_(2/3)",
+      "to_node": "Edfa_fiber (Leipzig → Nürnberg)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Leipzig → Nürnberg)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Nürnberg_from_fiber (Leipzig → Nürnberg)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (München → Nürnberg)-_(1/2)",
+      "to_node": "Edfa_fiber (München → Nürnberg)-_(1/2)"
+    },
+    {
+      "from_node": "fiber (München → Nürnberg)-_(2/2)",
+      "to_node": "Edfa_preamp_roadm Nürnberg_from_fiber (München → Nürnberg)-_(2/2)"
+    },
+    {
+      "from_node": "fiber (Nürnberg → Stuttgart)-_(1/2)",
+      "to_node": "Edfa_fiber (Nürnberg → Stuttgart)-_(1/2)"
+    },
+    {
+      "from_node": "fiber (Nürnberg → Stuttgart)-_(2/2)",
+      "to_node": "Edfa_preamp_roadm Stuttgart_from_fiber (Nürnberg → Stuttgart)-_(2/2)"
+    },
+    {
+      "from_node": "fiber (Hamburg → Berlin)-_(1/3)",
+      "to_node": "Edfa_fiber (Hamburg → Berlin)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Hamburg → Berlin)-_(2/3)",
+      "to_node": "Edfa_fiber (Hamburg → Berlin)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Hamburg → Berlin)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Berlin_from_fiber (Hamburg → Berlin)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Hannover → Berlin)-_(1/3)",
+      "to_node": "Edfa_fiber (Hannover → Berlin)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Hannover → Berlin)-_(2/3)",
+      "to_node": "Edfa_fiber (Hannover → Berlin)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Hannover → Berlin)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Berlin_from_fiber (Hannover → Berlin)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Leipzig → Berlin)-_(1/2)",
+      "to_node": "Edfa_fiber (Leipzig → Berlin)-_(1/2)"
+    },
+    {
+      "from_node": "fiber (Leipzig → Berlin)-_(2/2)",
+      "to_node": "Edfa_preamp_roadm Berlin_from_fiber (Leipzig → Berlin)-_(2/2)"
+    },
+    {
+      "from_node": "fiber (Hannover → Dortmund)-_(1/3)",
+      "to_node": "Edfa_fiber (Hannover → Dortmund)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Hannover → Dortmund)-_(2/3)",
+      "to_node": "Edfa_fiber (Hannover → Dortmund)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Hannover → Dortmund)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Dortmund_from_fiber (Hannover → Dortmund)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Norden → Dortmund)-_(1/3)",
+      "to_node": "Edfa_fiber (Norden → Dortmund)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Norden → Dortmund)-_(2/3)",
+      "to_node": "Edfa_fiber (Norden → Dortmund)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Norden → Dortmund)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Dortmund_from_fiber (Norden → Dortmund)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Hannover → Frankfurt)-_(1/4)",
+      "to_node": "Edfa_fiber (Hannover → Frankfurt)-_(1/4)"
+    },
+    {
+      "from_node": "fiber (Hannover → Frankfurt)-_(2/4)",
+      "to_node": "Edfa_fiber (Hannover → Frankfurt)-_(2/4)"
+    },
+    {
+      "from_node": "fiber (Hannover → Frankfurt)-_(3/4)",
+      "to_node": "Edfa_fiber (Hannover → Frankfurt)-_(3/4)"
+    },
+    {
+      "from_node": "fiber (Hannover → Frankfurt)-_(4/4)",
+      "to_node": "Edfa_preamp_roadm Frankfurt_from_fiber (Hannover → Frankfurt)-_(4/4)"
+    },
+    {
+      "from_node": "fiber (Köln → Frankfurt)-_(1/2)",
+      "to_node": "Edfa_fiber (Köln → Frankfurt)-_(1/2)"
+    },
+    {
+      "from_node": "fiber (Köln → Frankfurt)-_(2/2)",
+      "to_node": "Edfa_preamp_roadm Frankfurt_from_fiber (Köln → Frankfurt)-_(2/2)"
+    },
+    {
+      "from_node": "fiber (Leipzig → Frankfurt)-_(1/4)",
+      "to_node": "Edfa_fiber (Leipzig → Frankfurt)-_(1/4)"
+    },
+    {
+      "from_node": "fiber (Leipzig → Frankfurt)-_(2/4)",
+      "to_node": "Edfa_fiber (Leipzig → Frankfurt)-_(2/4)"
+    },
+    {
+      "from_node": "fiber (Leipzig → Frankfurt)-_(3/4)",
+      "to_node": "Edfa_fiber (Leipzig → Frankfurt)-_(3/4)"
+    },
+    {
+      "from_node": "fiber (Leipzig → Frankfurt)-_(4/4)",
+      "to_node": "Edfa_preamp_roadm Frankfurt_from_fiber (Leipzig → Frankfurt)-_(4/4)"
+    },
+    {
+      "from_node": "fiber (Nürnberg → Frankfurt)-_(1/3)",
+      "to_node": "Edfa_fiber (Nürnberg → Frankfurt)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Nürnberg → Frankfurt)-_(2/3)",
+      "to_node": "Edfa_fiber (Nürnberg → Frankfurt)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Nürnberg → Frankfurt)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Frankfurt_from_fiber (Nürnberg → Frankfurt)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Hannover → Hamburg)-_(1/2)",
+      "to_node": "Edfa_fiber (Hannover → Hamburg)-_(1/2)"
+    },
+    {
+      "from_node": "fiber (Hannover → Hamburg)-_(2/2)",
+      "to_node": "Edfa_preamp_roadm Hamburg_from_fiber (Hannover → Hamburg)-_(2/2)"
+    },
+    {
+      "from_node": "fiber (Leipzig → Hannover)-_(1/3)",
+      "to_node": "Edfa_fiber (Leipzig → Hannover)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Leipzig → Hannover)-_(2/3)",
+      "to_node": "Edfa_fiber (Leipzig → Hannover)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Leipzig → Hannover)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Hannover_from_fiber (Leipzig → Hannover)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Nürnberg → Leipzig)-_(1/3)",
+      "to_node": "Edfa_fiber (Nürnberg → Leipzig)-_(1/3)"
+    },
+    {
+      "from_node": "fiber (Nürnberg → Leipzig)-_(2/3)",
+      "to_node": "Edfa_fiber (Nürnberg → Leipzig)-_(2/3)"
+    },
+    {
+      "from_node": "fiber (Nürnberg → Leipzig)-_(3/3)",
+      "to_node": "Edfa_preamp_roadm Leipzig_from_fiber (Nürnberg → Leipzig)-_(3/3)"
+    },
+    {
+      "from_node": "fiber (Nürnberg → München)-_(1/2)",
+      "to_node": "Edfa_fiber (Nürnberg → München)-_(1/2)"
+    },
+    {
+      "from_node": "fiber (Nürnberg → München)-_(2/2)",
+      "to_node": "Edfa_preamp_roadm München_from_fiber (Nürnberg → München)-_(2/2)"
+    },
+    {
+      "from_node": "fiber (Stuttgart → Nürnberg)-_(1/2)",
+      "to_node": "Edfa_fiber (Stuttgart → Nürnberg)-_(1/2)"
+    },
+    {
+      "from_node": "fiber (Stuttgart → Nürnberg)-_(2/2)",
+      "to_node": "Edfa_preamp_roadm Nürnberg_from_fiber (Stuttgart → Nürnberg)-_(2/2)"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Berlin_from_fiber (Hamburg → Berlin)-_(3/3)",
+      "to_node": "roadm Berlin"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Berlin_from_fiber (Hannover → Berlin)-_(3/3)",
+      "to_node": "roadm Berlin"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Berlin_from_fiber (Leipzig → Berlin)-_(2/2)",
+      "to_node": "roadm Berlin"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Berlin_to_fiber (Berlin → Hamburg)-_(1/3)",
+      "to_node": "fiber (Berlin → Hamburg)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Berlin_to_fiber (Berlin → Hannover)-_(1/3)",
+      "to_node": "fiber (Berlin → Hannover)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Berlin_to_fiber (Berlin → Leipzig)-_(1/2)",
+      "to_node": "fiber (Berlin → Leipzig)-_(1/2)"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Bremen_from_fiber (Hamburg → Bremen)-",
+      "to_node": "roadm Bremen"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Bremen_from_fiber (Hannover → Bremen)-",
+      "to_node": "roadm Bremen"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Bremen_from_fiber (Norden → Bremen)-",
+      "to_node": "roadm Bremen"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Bremen_to_fiber (Bremen → Hamburg)-",
+      "to_node": "fiber (Bremen → Hamburg)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Bremen_to_fiber (Bremen → Hannover)-",
+      "to_node": "fiber (Bremen → Hannover)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Bremen_to_fiber (Bremen → Norden)-",
+      "to_node": "fiber (Bremen → Norden)-"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Dortmund_from_fiber (Essen → Dortmund)-",
+      "to_node": "roadm Dortmund"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Dortmund_from_fiber (Köln → Dortmund)-",
+      "to_node": "roadm Dortmund"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Dortmund_from_fiber (Hannover → Dortmund)-_(3/3)",
+      "to_node": "roadm Dortmund"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Dortmund_from_fiber (Norden → Dortmund)-_(3/3)",
+      "to_node": "roadm Dortmund"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Essen)-",
+      "to_node": "fiber (Dortmund → Essen)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Köln)-",
+      "to_node": "fiber (Dortmund → Köln)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Hannover)-_(1/3)",
+      "to_node": "fiber (Dortmund → Hannover)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Dortmund_to_fiber (Dortmund → Norden)-_(1/3)",
+      "to_node": "fiber (Dortmund → Norden)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Düsseldorf_from_fiber (Essen → Düsseldorf)-",
+      "to_node": "roadm Düsseldorf"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Düsseldorf_from_fiber (Köln → Düsseldorf)-",
+      "to_node": "roadm Düsseldorf"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Düsseldorf_to_fiber (Düsseldorf → Essen)-",
+      "to_node": "fiber (Düsseldorf → Essen)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Düsseldorf_to_fiber (Düsseldorf → Köln)-",
+      "to_node": "fiber (Düsseldorf → Köln)-"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Essen_from_fiber (Dortmund → Essen)-",
+      "to_node": "roadm Essen"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Essen_from_fiber (Düsseldorf → Essen)-",
+      "to_node": "roadm Essen"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Essen_to_fiber (Essen → Dortmund)-",
+      "to_node": "fiber (Essen → Dortmund)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Essen_to_fiber (Essen → Düsseldorf)-",
+      "to_node": "fiber (Essen → Düsseldorf)-"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Frankfurt_from_fiber (Mannheim → Frankfurt)-",
+      "to_node": "roadm Frankfurt"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Frankfurt_from_fiber (Hannover → Frankfurt)-_(4/4)",
+      "to_node": "roadm Frankfurt"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Frankfurt_from_fiber (Köln → Frankfurt)-_(2/2)",
+      "to_node": "roadm Frankfurt"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Frankfurt_from_fiber (Leipzig → Frankfurt)-_(4/4)",
+      "to_node": "roadm Frankfurt"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Frankfurt_from_fiber (Nürnberg → Frankfurt)-_(3/3)",
+      "to_node": "roadm Frankfurt"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Mannheim)-",
+      "to_node": "fiber (Frankfurt → Mannheim)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Hannover)-_(1/4)",
+      "to_node": "fiber (Frankfurt → Hannover)-_(1/4)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Köln)-_(1/2)",
+      "to_node": "fiber (Frankfurt → Köln)-_(1/2)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Leipzig)-_(1/4)",
+      "to_node": "fiber (Frankfurt → Leipzig)-_(1/4)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Frankfurt_to_fiber (Frankfurt → Nürnberg)-_(1/3)",
+      "to_node": "fiber (Frankfurt → Nürnberg)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Hamburg_from_fiber (Bremen → Hamburg)-",
+      "to_node": "roadm Hamburg"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Hamburg_from_fiber (Berlin → Hamburg)-_(3/3)",
+      "to_node": "roadm Hamburg"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Hamburg_from_fiber (Hannover → Hamburg)-_(2/2)",
+      "to_node": "roadm Hamburg"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Hamburg_to_fiber (Hamburg → Bremen)-",
+      "to_node": "fiber (Hamburg → Bremen)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Hamburg_to_fiber (Hamburg → Hannover)-_(1/2)",
+      "to_node": "fiber (Hamburg → Hannover)-_(1/2)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Hamburg_to_fiber (Hamburg → Berlin)-_(1/3)",
+      "to_node": "fiber (Hamburg → Berlin)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Hannover_from_fiber (Bremen → Hannover)-",
+      "to_node": "roadm Hannover"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Hannover_from_fiber (Berlin → Hannover)-_(3/3)",
+      "to_node": "roadm Hannover"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Hannover_from_fiber (Dortmund → Hannover)-_(3/3)",
+      "to_node": "roadm Hannover"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Hannover_from_fiber (Frankfurt → Hannover)-_(4/4)",
+      "to_node": "roadm Hannover"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Hannover_from_fiber (Hamburg → Hannover)-_(2/2)",
+      "to_node": "roadm Hannover"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Hannover_from_fiber (Leipzig → Hannover)-_(3/3)",
+      "to_node": "roadm Hannover"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Bremen)-",
+      "to_node": "fiber (Hannover → Bremen)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Leipzig)-_(1/3)",
+      "to_node": "fiber (Hannover → Leipzig)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Berlin)-_(1/3)",
+      "to_node": "fiber (Hannover → Berlin)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Dortmund)-_(1/3)",
+      "to_node": "fiber (Hannover → Dortmund)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Frankfurt)-_(1/4)",
+      "to_node": "fiber (Hannover → Frankfurt)-_(1/4)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Hannover_to_fiber (Hannover → Hamburg)-_(1/2)",
+      "to_node": "fiber (Hannover → Hamburg)-_(1/2)"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Karlsruhe_from_fiber (Mannheim → Karlsruhe)-",
+      "to_node": "roadm Karlsruhe"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Karlsruhe_from_fiber (Stuttgart → Karlsruhe)-",
+      "to_node": "roadm Karlsruhe"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Karlsruhe_to_fiber (Karlsruhe → Mannheim)-",
+      "to_node": "fiber (Karlsruhe → Mannheim)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Karlsruhe_to_fiber (Karlsruhe → Stuttgart)-",
+      "to_node": "fiber (Karlsruhe → Stuttgart)-"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Köln_from_fiber (Dortmund → Köln)-",
+      "to_node": "roadm Köln"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Köln_from_fiber (Düsseldorf → Köln)-",
+      "to_node": "roadm Köln"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Köln_from_fiber (Frankfurt → Köln)-_(2/2)",
+      "to_node": "roadm Köln"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Köln_to_fiber (Köln → Dortmund)-",
+      "to_node": "fiber (Köln → Dortmund)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Köln_to_fiber (Köln → Düsseldorf)-",
+      "to_node": "fiber (Köln → Düsseldorf)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Köln_to_fiber (Köln → Frankfurt)-_(1/2)",
+      "to_node": "fiber (Köln → Frankfurt)-_(1/2)"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Leipzig_from_fiber (Berlin → Leipzig)-_(2/2)",
+      "to_node": "roadm Leipzig"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Leipzig_from_fiber (Frankfurt → Leipzig)-_(4/4)",
+      "to_node": "roadm Leipzig"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Leipzig_from_fiber (Hannover → Leipzig)-_(3/3)",
+      "to_node": "roadm Leipzig"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Leipzig_from_fiber (Nürnberg → Leipzig)-_(3/3)",
+      "to_node": "roadm Leipzig"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Nürnberg)-_(1/3)",
+      "to_node": "fiber (Leipzig → Nürnberg)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Berlin)-_(1/2)",
+      "to_node": "fiber (Leipzig → Berlin)-_(1/2)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Frankfurt)-_(1/4)",
+      "to_node": "fiber (Leipzig → Frankfurt)-_(1/4)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Leipzig_to_fiber (Leipzig → Hannover)-_(1/3)",
+      "to_node": "fiber (Leipzig → Hannover)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Mannheim_from_fiber (Frankfurt → Mannheim)-",
+      "to_node": "roadm Mannheim"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Mannheim_from_fiber (Karlsruhe → Mannheim)-",
+      "to_node": "roadm Mannheim"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Mannheim_to_fiber (Mannheim → Frankfurt)-",
+      "to_node": "fiber (Mannheim → Frankfurt)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Mannheim_to_fiber (Mannheim → Karlsruhe)-",
+      "to_node": "fiber (Mannheim → Karlsruhe)-"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm München_from_fiber (Ulm → München)-",
+      "to_node": "roadm München"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm München_from_fiber (Nürnberg → München)-_(2/2)",
+      "to_node": "roadm München"
+    },
+    {
+      "from_node": "Edfa_booster_roadm München_to_fiber (München → Ulm)-",
+      "to_node": "fiber (München → Ulm)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm München_to_fiber (München → Nürnberg)-_(1/2)",
+      "to_node": "fiber (München → Nürnberg)-_(1/2)"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Norden_from_fiber (Bremen → Norden)-",
+      "to_node": "roadm Norden"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Norden_from_fiber (Dortmund → Norden)-_(3/3)",
+      "to_node": "roadm Norden"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Norden_to_fiber (Norden → Bremen)-",
+      "to_node": "fiber (Norden → Bremen)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Norden_to_fiber (Norden → Dortmund)-_(1/3)",
+      "to_node": "fiber (Norden → Dortmund)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Nürnberg_from_fiber (Frankfurt → Nürnberg)-_(3/3)",
+      "to_node": "roadm Nürnberg"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Nürnberg_from_fiber (Leipzig → Nürnberg)-_(3/3)",
+      "to_node": "roadm Nürnberg"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Nürnberg_from_fiber (München → Nürnberg)-_(2/2)",
+      "to_node": "roadm Nürnberg"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Nürnberg_from_fiber (Stuttgart → Nürnberg)-_(2/2)",
+      "to_node": "roadm Nürnberg"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → Stuttgart)-_(1/2)",
+      "to_node": "fiber (Nürnberg → Stuttgart)-_(1/2)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → Frankfurt)-_(1/3)",
+      "to_node": "fiber (Nürnberg → Frankfurt)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → Leipzig)-_(1/3)",
+      "to_node": "fiber (Nürnberg → Leipzig)-_(1/3)"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Nürnberg_to_fiber (Nürnberg → München)-_(1/2)",
+      "to_node": "fiber (Nürnberg → München)-_(1/2)"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Stuttgart_from_fiber (Karlsruhe → Stuttgart)-",
+      "to_node": "roadm Stuttgart"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Stuttgart_from_fiber (Ulm → Stuttgart)-",
+      "to_node": "roadm Stuttgart"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Stuttgart_from_fiber (Nürnberg → Stuttgart)-_(2/2)",
+      "to_node": "roadm Stuttgart"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Stuttgart_to_fiber (Stuttgart → Karlsruhe)-",
+      "to_node": "fiber (Stuttgart → Karlsruhe)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Stuttgart_to_fiber (Stuttgart → Ulm)-",
+      "to_node": "fiber (Stuttgart → Ulm)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Stuttgart_to_fiber (Stuttgart → Nürnberg)-_(1/2)",
+      "to_node": "fiber (Stuttgart → Nürnberg)-_(1/2)"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Ulm_from_fiber (München → Ulm)-",
+      "to_node": "roadm Ulm"
+    },
+    {
+      "from_node": "Edfa_preamp_roadm Ulm_from_fiber (Stuttgart → Ulm)-",
+      "to_node": "roadm Ulm"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Ulm_to_fiber (Ulm → München)-",
+      "to_node": "fiber (Ulm → München)-"
+    },
+    {
+      "from_node": "Edfa_booster_roadm Ulm_to_fiber (Ulm → Stuttgart)-",
+      "to_node": "fiber (Ulm → Stuttgart)-"
+    },
+    {
+      "from_node": "Edfa_fiber (Berlin → Hamburg)-_(1/3)",
+      "to_node": "fiber (Berlin → Hamburg)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Berlin → Hamburg)-_(2/3)",
+      "to_node": "fiber (Berlin → Hamburg)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Berlin → Hannover)-_(1/3)",
+      "to_node": "fiber (Berlin → Hannover)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Berlin → Hannover)-_(2/3)",
+      "to_node": "fiber (Berlin → Hannover)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Berlin → Leipzig)-_(1/2)",
+      "to_node": "fiber (Berlin → Leipzig)-_(2/2)"
+    },
+    {
+      "from_node": "Edfa_fiber (Dortmund → Hannover)-_(1/3)",
+      "to_node": "fiber (Dortmund → Hannover)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Dortmund → Hannover)-_(2/3)",
+      "to_node": "fiber (Dortmund → Hannover)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Dortmund → Norden)-_(1/3)",
+      "to_node": "fiber (Dortmund → Norden)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Dortmund → Norden)-_(2/3)",
+      "to_node": "fiber (Dortmund → Norden)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Frankfurt → Hannover)-_(1/4)",
+      "to_node": "fiber (Frankfurt → Hannover)-_(2/4)"
+    },
+    {
+      "from_node": "Edfa_fiber (Frankfurt → Hannover)-_(2/4)",
+      "to_node": "fiber (Frankfurt → Hannover)-_(3/4)"
+    },
+    {
+      "from_node": "Edfa_fiber (Frankfurt → Hannover)-_(3/4)",
+      "to_node": "fiber (Frankfurt → Hannover)-_(4/4)"
+    },
+    {
+      "from_node": "Edfa_fiber (Frankfurt → Köln)-_(1/2)",
+      "to_node": "fiber (Frankfurt → Köln)-_(2/2)"
+    },
+    {
+      "from_node": "Edfa_fiber (Frankfurt → Leipzig)-_(1/4)",
+      "to_node": "fiber (Frankfurt → Leipzig)-_(2/4)"
+    },
+    {
+      "from_node": "Edfa_fiber (Frankfurt → Leipzig)-_(2/4)",
+      "to_node": "fiber (Frankfurt → Leipzig)-_(3/4)"
+    },
+    {
+      "from_node": "Edfa_fiber (Frankfurt → Leipzig)-_(3/4)",
+      "to_node": "fiber (Frankfurt → Leipzig)-_(4/4)"
+    },
+    {
+      "from_node": "Edfa_fiber (Frankfurt → Nürnberg)-_(1/3)",
+      "to_node": "fiber (Frankfurt → Nürnberg)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Frankfurt → Nürnberg)-_(2/3)",
+      "to_node": "fiber (Frankfurt → Nürnberg)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hamburg → Hannover)-_(1/2)",
+      "to_node": "fiber (Hamburg → Hannover)-_(2/2)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hannover → Leipzig)-_(1/3)",
+      "to_node": "fiber (Hannover → Leipzig)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hannover → Leipzig)-_(2/3)",
+      "to_node": "fiber (Hannover → Leipzig)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Leipzig → Nürnberg)-_(1/3)",
+      "to_node": "fiber (Leipzig → Nürnberg)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Leipzig → Nürnberg)-_(2/3)",
+      "to_node": "fiber (Leipzig → Nürnberg)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (München → Nürnberg)-_(1/2)",
+      "to_node": "fiber (München → Nürnberg)-_(2/2)"
+    },
+    {
+      "from_node": "Edfa_fiber (Nürnberg → Stuttgart)-_(1/2)",
+      "to_node": "fiber (Nürnberg → Stuttgart)-_(2/2)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hamburg → Berlin)-_(1/3)",
+      "to_node": "fiber (Hamburg → Berlin)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hamburg → Berlin)-_(2/3)",
+      "to_node": "fiber (Hamburg → Berlin)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hannover → Berlin)-_(1/3)",
+      "to_node": "fiber (Hannover → Berlin)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hannover → Berlin)-_(2/3)",
+      "to_node": "fiber (Hannover → Berlin)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Leipzig → Berlin)-_(1/2)",
+      "to_node": "fiber (Leipzig → Berlin)-_(2/2)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hannover → Dortmund)-_(1/3)",
+      "to_node": "fiber (Hannover → Dortmund)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hannover → Dortmund)-_(2/3)",
+      "to_node": "fiber (Hannover → Dortmund)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Norden → Dortmund)-_(1/3)",
+      "to_node": "fiber (Norden → Dortmund)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Norden → Dortmund)-_(2/3)",
+      "to_node": "fiber (Norden → Dortmund)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hannover → Frankfurt)-_(1/4)",
+      "to_node": "fiber (Hannover → Frankfurt)-_(2/4)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hannover → Frankfurt)-_(2/4)",
+      "to_node": "fiber (Hannover → Frankfurt)-_(3/4)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hannover → Frankfurt)-_(3/4)",
+      "to_node": "fiber (Hannover → Frankfurt)-_(4/4)"
+    },
+    {
+      "from_node": "Edfa_fiber (Köln → Frankfurt)-_(1/2)",
+      "to_node": "fiber (Köln → Frankfurt)-_(2/2)"
+    },
+    {
+      "from_node": "Edfa_fiber (Leipzig → Frankfurt)-_(1/4)",
+      "to_node": "fiber (Leipzig → Frankfurt)-_(2/4)"
+    },
+    {
+      "from_node": "Edfa_fiber (Leipzig → Frankfurt)-_(2/4)",
+      "to_node": "fiber (Leipzig → Frankfurt)-_(3/4)"
+    },
+    {
+      "from_node": "Edfa_fiber (Leipzig → Frankfurt)-_(3/4)",
+      "to_node": "fiber (Leipzig → Frankfurt)-_(4/4)"
+    },
+    {
+      "from_node": "Edfa_fiber (Nürnberg → Frankfurt)-_(1/3)",
+      "to_node": "fiber (Nürnberg → Frankfurt)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Nürnberg → Frankfurt)-_(2/3)",
+      "to_node": "fiber (Nürnberg → Frankfurt)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Hannover → Hamburg)-_(1/2)",
+      "to_node": "fiber (Hannover → Hamburg)-_(2/2)"
+    },
+    {
+      "from_node": "Edfa_fiber (Leipzig → Hannover)-_(1/3)",
+      "to_node": "fiber (Leipzig → Hannover)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Leipzig → Hannover)-_(2/3)",
+      "to_node": "fiber (Leipzig → Hannover)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Nürnberg → Leipzig)-_(1/3)",
+      "to_node": "fiber (Nürnberg → Leipzig)-_(2/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Nürnberg → Leipzig)-_(2/3)",
+      "to_node": "fiber (Nürnberg → Leipzig)-_(3/3)"
+    },
+    {
+      "from_node": "Edfa_fiber (Nürnberg → München)-_(1/2)",
+      "to_node": "fiber (Nürnberg → München)-_(2/2)"
+    },
+    {
+      "from_node": "Edfa_fiber (Stuttgart → Nürnberg)-_(1/2)",
+      "to_node": "fiber (Stuttgart → Nürnberg)-_(2/2)"
+    }
+  ]
+}

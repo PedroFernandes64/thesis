@@ -16,16 +16,13 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
     std::cout << "Getting GNPY parameters..." << std::endl;
 
     GNPY_activation = std::stoi(getParameterValue("GNPY_activation="));
-    if (isGNPYEnabled()){
-        GNPY_topologyFile = getParameterValue("GNPY_topologyFile=");
-        GNPY_equipmentFile = getParameterValue("GNPY_equipmentFile=");
-    }
 
     std::cout << "Getting Thesis Pedro parameters..." << std::endl;
     maxReachActivation = std::stoi(getParameterValue("MaxReach_activation="));
     osnrActivation = std::stoi(getParameterValue("OSNR_activation="));
     nbBands = std::stoi(getParameterValue("Bands="));
     nonOverlappingTypeTFlow = std::stoi(getParameterValue("TFlow_Policy="));
+    reinforcements = std::stoi(getParameterValue("Reinforcements="));
 
     std::cout << "Getting formulation parameters..." << std::endl;
 
@@ -56,27 +53,8 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
     nbSlicesInOutputFile = std::stoi(getParameterValue("nbSlicesInOutputFile="));
     timeLimit = to_timeLimit(getParameterValue("timeLimit="));
     globalTimeLimit = to_timeLimit(getParameterValue("globalTimeLimit="));
-    
-/*
-    std::cout << "Getting subgradient parameters..." << std::endl;
-    lagrangianMultiplier_zero = std::stod(getParameterValue("lagrangianMultiplier_zero="));
-    lagrangianLambda_zero = std::stod(getParameterValue("lagrangianLambda_zero="));
-    nbIterationsWithoutImprovement = std::stoi(getParameterValue("nbIterationsWithoutImprovement="));
-    maxNbIterations = std::stoi(getParameterValue("maxNbIterations="));
-/*
-    /******** INCLUSION FOR LAGRANGIAN *********
-    lagrangianRelaxation = std::stoi(getParameterValue("lagrangianRelaxation="));
-    lagChosenFormulation = to_LagFormulation(getParameterValue("lagFormulation="));
-    chosenHeuristic = to_Heuristic(getParameterValue("heuristic="));
-    chosenDirectionMethod = to_DirectionMethod(getParameterValue("directionMethod="));
-    crowderParameter = std::stod(getParameterValue("crowderParam="));
-    carmeriniParameter = std::stod(getParameterValue("carmeriniParam="));
-    chosenProjection = to_ProjectionType(getParameterValue("projection="));
-    alternativeStop = std::stoi(getParameterValue("alternativeStop="));
-    warmstart = std::stoi(getParameterValue("warmstart="));
-    lagOutputPath = getParameterValue("lagOutputPath=");
-
-    ********************************************/
+   
+   /********************************************/
 
     std::cout << "Populating online demand files..." << std::endl;
     populateOnlineDemandFiles();
@@ -95,14 +73,11 @@ Input::Input(const Input &i) : PARAMETER_FILE(i.getParameterFile()){
     demandToBeRoutedFile = i.getDemandToBeRoutedFiles();
 
     GNPY_activation = i.isGNPYEnabled();
-    if (isGNPYEnabled()){
-        GNPY_topologyFile = i.getGNPYTopologyFile();
-        GNPY_equipmentFile = i.getGNPYEquipmentFile();
-    }
     maxReachActivation = i.isMaxReachEnabled();
     osnrActivation = i.isOSNREnabled();
     nbBands = i.getNbBands();
     nonOverlappingTypeTFlow = i.getNonOverTFlow();
+    reinforcements = i.areReinforcementsEnabled();
     nbDemandsAtOnce = i.getNbDemandsAtOnce();
     chosenObj = i.getChosenObj();
     allowBlocking = i.isBlockingAllowed();
@@ -124,23 +99,6 @@ Input::Input(const Input &i) : PARAMETER_FILE(i.getParameterFile()){
     nbSlicesInOutputFile = i.getnbSlicesInOutputFile();
     timeLimit = i.getIterationTimeLimit();
     globalTimeLimit = i.getOptimizationTimeLimit();
-
-    lagrangianMultiplier_zero = i.getInitialLagrangianMultiplier();
-    lagrangianLambda_zero = i.getInitialLagrangianLambda();
-    maxNbIterations = i.getMaxNbIterations();
-    nbIterationsWithoutImprovement = i.getNbIterationsWithoutImprovement();
-
-    /******** INCLUSION FOR LAGRANGIAN *********/
-    lagrangianRelaxation = i.isLagrangianRelaxed();
-    lagChosenFormulation =i.getChosenLagFormulation();
-    chosenHeuristic = i.getChosenHeuristic();
-    chosenDirectionMethod = i.getChosenDirectionMethod();
-    crowderParameter = i.getCrowderParameter();
-    carmeriniParameter = i.getCarmeriniParameter();
-    chosenProjection = i.getChosenProjection();
-    alternativeStop = i.getAlternativeStop();
-    warmstart = i.getWarmstart();
-    lagOutputPath = i.getLagOutputPath();
 
     /********************************************/
 }
@@ -459,142 +417,6 @@ Input::MIP_Solver Input::to_MIP_Solver(std::string data){
     }
 }
 
-/******** INCLUSION FOR LAGRANGIAN *********/
-
-Input::LagFormulation Input::to_LagFormulation(std::string data){
-    Input::LagFormulation policy;
-    if (!data.empty()){
-        int policyId = std::stoi(data);
-        switch (policyId)
-        {
-        case 0: {
-            policy = LAG_FLOW;
-            return policy;
-            break;
-        }
-        case 1: {
-            policy = LAG_OVERLAPPING;
-            return policy;
-            break;
-        }
-        case 2: {
-            policy = LAG_OVERLAP;
-            return policy;
-            break;
-        }
-        default:
-            std::cout << "ERROR: Invalid LAG_FORMULATION." << std::endl;
-            exit(0);
-            break;
-        }
-    }
-    else{
-        std::cout << "ERROR: A lagrangian formulation must be specified." << std::endl;
-        exit(0);
-    }
-}
-
-Input::Heuristic Input::to_Heuristic(std::string data){
-    Input::Heuristic policy;
-    if (!data.empty()){
-        int policyId = std::stoi(data);
-        switch (policyId)
-        {
-        case 0: {
-            policy = SHORT_PATH;
-            return policy;
-            break;
-        }
-        case 1: {
-            policy = PROBABILITY;
-            std::cout << "ERROR: Probability heuristic not yet implemented." << std::endl;
-            exit(0);
-            return policy;
-            break;
-        }
-        default:
-            std::cout << "ERROR: Invalid HEURISTIC." << std::endl;
-            exit(0);
-            break;
-        }
-    }
-    else{
-        std::cout << "ERROR: A heuristic must be specified." << std::endl;
-        exit(0);
-    }
-}
-
-Input::DirectionMethod Input::to_DirectionMethod(std::string data){
-    Input::DirectionMethod policy;
-    if (!data.empty()){
-        int policyId = std::stoi(data);
-        switch (policyId)
-        {
-        case 0: {
-            policy = NORMAL;
-            return policy;
-            break;
-        }
-        case 1: {
-            policy = CROWDER;
-            return policy;
-            break;
-        }
-         case 2: {
-            policy = CARMERINI;
-            return policy;
-            break;
-        }
-         case 3: {
-            policy = MODIFIED_CARMERINI;
-            return policy;
-            break;
-        }
-        default:
-            std::cout << "ERROR: Invalid DIRECTION_METHOD." << std::endl;
-            exit(0);
-            break;
-        }
-    }
-    else{
-        std::cout << "ERROR: A lagrangian DIRECTION_METHOD must be specified." << std::endl;
-        exit(0);
-    }
-
-}
-
-Input::ProjectionType Input::to_ProjectionType(std::string data){
-    Input::ProjectionType policy;
-    if (!data.empty()){
-        int policyId = std::stoi(data);
-        switch (policyId)
-        {
-        case 0: {
-            policy = USUAL;
-            return policy;
-            break;
-        }
-        case 1: {
-            policy = IMPROVED;
-            return policy;
-            break;
-        }
-         case 2: {
-            policy = PROJECTED;
-            return policy;
-            break;
-        }
-        default:
-            std::cout << "ERROR: Invalid PROJECTION_METHOD." << std::endl;
-            exit(0);
-            break;
-        }
-    }
-    else{
-        std::cout << "ERROR: A lagrangian PROJECTION_METHOD must be specified." << std::endl;
-        exit(0);
-    }
-}
 /********************************************/
 
 void Input::checkConsistency(){
@@ -604,10 +426,6 @@ void Input::checkConsistency(){
     }
     if (getChosenNodeMethod() != NODE_METHOD_LINEAR_RELAX && getChosenMIPSolver() != MIP_SOLVER_CBC){
         std::cout << "ERROR: Subgradient methods should only be called with CBC." << std::endl;
-        exit(0);
-    }
-    if((getChosenNodeMethod() != NODE_METHOD_LINEAR_RELAX) && (getChosenLagFormulation() != LAG_FLOW) && (!isLagrangianRelaxed())){
-        std::cout << "ERROR: The Branch and Bound with lagrangian relaxation is defined only for the Lagrangian Flow formulation." << std::endl;
         exit(0);
     }
     if((getChosenNodeMethod() != NODE_METHOD_LINEAR_RELAX) && (chosenObj.size() > 1)){
