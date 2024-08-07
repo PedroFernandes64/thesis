@@ -169,7 +169,14 @@ public:
 	Constraint getMultibandConstraint4(int k, int e);
 	Constraint getMultibandConstraint5(int e);
 	
-
+	
+/*
+	void setStrongLengthConstraints();
+	void setStrongOSNRConstraints();
+	Constraint getStrongLengthConstraint(int k, int s);
+    Constraint getStrongOSNRCConstraint(const Demand &demand, int d, int s);
+    Constraint getStrongOSNRLConstraint(const Demand &demand, int d, int s);
+*/
 	/****************************************************************************************/
 	/*									Objective Functions									*/
 	/****************************************************************************************/

@@ -945,6 +945,68 @@ void TFlowForm::setCDConstraints(){
     std::cout << "Length constraints have been defined..." << std::endl;
 }
 
+/*
+void TFlowForm::setStrongLengthConstraints(){
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
+        //for (int s = 0; s < getNbSlicesGlobalLimit(); s++){  
+        int sliceLimit = auxNbSlicesGlobalLimit;
+        if(nbBands>1){
+            sliceLimit = slicesTotal;
+        }
+        for (int s = 0; s < sliceLimit; s++){  
+            const Constraint & strongLengthConstraint = getStrongLengthConstraint(d, s);
+            constraintSet.push_back(strongLengthConstraint);
+        }
+    }
+    std::cout << "Strong length constraints have been defined..." << std::endl;
+}
+Constraint TFlowForm::getStrongLengthConstraint(int k,int s){
+    Expression exp;
+    int lowerBound = 0;
+    int nbEdges = countEdges(compactGraph);
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        double coeff = getCompactLength(e);
+        Term term(h[edge][k][s], coeff);
+        exp.addTerm(term);
+    }
+    double coeff= getToBeRouted_k(k).getmaxCDC()/20.0;
+    if(s >= slicesC){
+        coeff = getToBeRouted_k(k).getmaxCDL()/22.0   - getToBeRouted_k(k).getmaxCDC()/20.0;
+    }
+    int source = getToBeRouted_k(k).getSource();
+    int nbEdges = countEdges(compactGraph);
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int labelU = getCompactNodeLabel(compactGraph.u(e));
+        int labelV = getCompactNodeLabel(compactGraph.v(e));
+        int edge = getCompactEdgeLabel(e);
+        if(labelU < labelV){
+            if(labelU == source){
+                Term term(h[edge][k][s], coeff, 1);
+                exp.addTerm(term);
+            }
+            else if(labelV == source){
+                Term term(h[edge][k][s], coeff, 1);
+                exp.addTerm(term);
+            }
+        }
+        else{
+            if(labelU == source){
+                Term term(h[edge][k][s], coeff, 1);
+                exp.addTerm(term);
+            }
+            else if(labelV == source){
+                Term term(h[edge][k][s], coeff, 1);
+                exp.addTerm(term);
+            }
+        }
+
+    std::ostringstream constraintName;
+    constraintName << "Length_" << getToBeRouted_k(k).getId()+1;
+    Constraint constraint(lowerBound, exp, 0, constraintName.str());
+    return constraint;
+}
+*/
 /* Defines OSNR constraints. Demands must be routed within a OSNR limit. */
 void TFlowForm::setOSNRConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
