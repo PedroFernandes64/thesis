@@ -1,0 +1,2 @@
+index;origin;destination;slotsC;max_cdC;osnr_limitC;TranpCId;slotsL;max_cdL;osnr_limitL;TranspLId;Gbits/s;pchC;pchL;pchS;
+1;2;17;6;20000;24;7;6;20000;24;7;400;0.00075;0.00075;0.00075;

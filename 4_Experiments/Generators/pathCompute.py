@@ -1,4 +1,4 @@
-import gnModelPrecomputingTool_v2 as pC
+import gnModelPrecomputingTool_v3 as pC
 import math
 
 def pnliComputer(path):
@@ -15,8 +15,8 @@ def paselineComputer(path):
 
 
 
-path = [144,121,312,85,63,75,87,145]
-s = 4
+path = [306,172,273,180]
+s = 3
 pnli = pnliComputer(path)
 print("NLI NOISE = ", pnli)
 paseLine = paselineComputer(path)

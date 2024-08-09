@@ -501,6 +501,7 @@ def chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, Networks
                                     chosenMaxCDC = row3[6]
                                     chosenOsnrLimC = row3[5]
                                     efficiency = int(row3[4])
+                                    transpCId = int(row3[0])
                                     pickC = True
                             rowCounter3 = rowCounter3 + 1
                         if pickC == True:
@@ -508,6 +509,7 @@ def chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, Networks
                             newRow.append(chosenSlotsC)
                             newRow.append(chosenMaxCDC)
                             newRow.append(chosenOsnrLimC)
+                            newRow.append(transpCId)
                             
 
                             if len(feasibleTranspondersL)>1:
@@ -521,20 +523,24 @@ def chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, Networks
                                             chosenSlotsL = row4[4]
                                             chosenMaxCDL = row4[6]
                                             chosenOsnrLimL = row4[5]
-                                            efficiency = int(row3[4])
+                                            efficiency = int(row4[4])
+                                            transpLId = int(row4[0])
                                             pickL = True
                                     rowCounter4 = rowCounter4 + 1
                                 if pickL == True:
                                     newRow.append(chosenSlotsL)
                                     newRow.append(chosenMaxCDL)
                                     newRow.append(chosenOsnrLimL)
+                                    newRow.append(transpLId)
                                     newRow.append(data)
                                 else:
                                     newRow.append(0)
                                     newRow.append(0)
                                     newRow.append(0)
+                                    newRow.append(0)
                                     newRow.append(data)
                             else:
+                                newRow.append(0)
                                 newRow.append(0)
                                 newRow.append(0)
                                 newRow.append(0)
@@ -550,10 +556,13 @@ def chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, Networks
                 newRow.append("slotsC")
                 newRow.append("max_cdC")
                 newRow.append("osnr_limitC")
+                newRow.append("TranpCId")
                 newRow.append("slotsL")
                 newRow.append("max_cdL")
-                newRow.append("osnr_limitL")
+                newRow.append("osnr_limitL")  
+                newRow.append("TranspLId")
                 newRow.append("Gbits/s")
+
                 newNetworkDemandTable.append(newRow)
             rowCounter = rowCounter + 1
         demands.demandStrategy = network.demandStrategy
@@ -711,6 +720,7 @@ def addCustomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemand
                                     chosenSlotsC = row3[4]
                                     chosenMaxCDC = row3[6]
                                     chosenOsnrLimC = row3[5]
+                                    transpCId = int(row3[0])
                                     efficiency = int(row3[4])
                                     pickC = True
                             rowCounter3 = rowCounter3 + 1
@@ -719,8 +729,8 @@ def addCustomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemand
                             newRow.append(chosenSlotsC)
                             newRow.append(chosenMaxCDC)
                             newRow.append(chosenOsnrLimC)
+                            newRow.append(transpCId)
                             
-
                             if len(feasibleTranspondersL)>1:
                                 #for abba in feasibleTranspondersL:
                                 #    print(abba)
@@ -732,20 +742,24 @@ def addCustomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemand
                                             chosenSlotsL = row4[4]
                                             chosenMaxCDL = row4[6]
                                             chosenOsnrLimL = row4[5]
-                                            efficiency = int(row3[4])
+                                            efficiency = int(row4[4])
+                                            transpLId = int(row4[0])
                                             pickL = True
                                     rowCounter4 = rowCounter4 + 1
                                 if pickL == True:
                                     newRow.append(chosenSlotsL)
                                     newRow.append(chosenMaxCDL)
                                     newRow.append(chosenOsnrLimL)
+                                    newRow.append(transpLId)
                                     newRow.append(data)
                                 else:
                                     newRow.append(0)
                                     newRow.append(0)
                                     newRow.append(0)
+                                    newRow.append(0)
                                     newRow.append(data)
                             else:
+                                newRow.append(0)
                                 newRow.append(0)
                                 newRow.append(0)
                                 newRow.append(0)
@@ -761,9 +775,11 @@ def addCustomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemand
                 newRow.append("slotsC")
                 newRow.append("max_cdC")
                 newRow.append("osnr_limitC")
+                newRow.append("TranpCId")
                 newRow.append("slotsL")
                 newRow.append("max_cdL")
-                newRow.append("osnr_limitL")
+                newRow.append("osnr_limitL")  
+                newRow.append("TranspLId")
                 newRow.append("Gbits/s")
                 newNetworkDemandTable.append(newRow)
             rowCounter = rowCounter + 1
@@ -929,6 +945,7 @@ def addRandomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemand
                                 chosenSlotsC = row3[4]
                                 chosenMaxCDC = row3[6]
                                 chosenOsnrLimC = row3[5]
+                                transpCId = int(row3[0])
                                 efficiency = int(row3[4])
                                 pickC = True
                         rowCounter3 = rowCounter3 + 1
@@ -938,6 +955,7 @@ def addRandomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemand
                         newRow.append(chosenSlotsC)
                         newRow.append(chosenMaxCDC)
                         newRow.append(chosenOsnrLimC)
+                        newRow.append(transpCId)
                         if len(feasibleTranspondersL)>1:
                             rowCounter4 = 1
                             efficiency = 10
@@ -947,18 +965,21 @@ def addRandomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemand
                                         chosenSlotsL = row4[4]
                                         chosenMaxCDL = row4[6]
                                         chosenOsnrLimL = row4[5]
-                                        efficiency = int(row3[4])
+                                        efficiency = int(row4[4])
+                                        transpLId = int(row4[0])
                                         pickL = True
                                 rowCounter4 = rowCounter4 + 1
                         if pickL == True:
                             newRow.append(chosenSlotsL)
                             newRow.append(chosenMaxCDL)
                             newRow.append(chosenOsnrLimL)
+                            newRow.append(transpLId)
                             newRow.append(data)
                         else:
                             newRow.append(0)
                             newRow.append(0)
                             newRow.append(0)
+                            newRow.append(0)                            
                             newRow.append(data)
                         newNetworkDemandTable.append(newRow)
                 else:
@@ -968,9 +989,11 @@ def addRandomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemand
                 newRow.append("slotsC")
                 newRow.append("max_cdC")
                 newRow.append("osnr_limitC")
+                newRow.append("TranpCId")
                 newRow.append("slotsL")
                 newRow.append("max_cdL")
-                newRow.append("osnr_limitL")
+                newRow.append("osnr_limitL")  
+                newRow.append("TranspLId")
                 newRow.append("Gbits/s")
                 newNetworkDemandTable.append(newRow)
             rowCounter = rowCounter + 1
