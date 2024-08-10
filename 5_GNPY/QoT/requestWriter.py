@@ -52,10 +52,6 @@ class REQUEST:
                 self.nodes_list.append("roadm-" + node)
 
     def toJson(self):
-        row = "{"
-        rowa = " \"path-request\": ["
-        self.jsonRows.append(row)
-        self.jsonRows.append(rowa)
         row1 = "{"
         row2 = "  \"request-id\": \"" + str(self.request_id) + "\","
         row3 = "  \"source\": \""+self.source  + "\","
@@ -128,14 +124,12 @@ class REQUEST:
         self.jsonRows[len( self.jsonRows)-1] =  self.jsonRows[len( self.jsonRows)-1][:-1]  
         row34 = "      ]"
         row35 = "  }"
-        row36 = "}"
+        row36 = "},"
         self.jsonRows.append(row34)
         self.jsonRows.append(row35)
         self.jsonRows.append(row36)
-        rowb = "]"
-        self.jsonRows.append(rowb)
-        rowc = "}"
-        self.jsonRows.append(rowc)
+        
+
 
     def print(self):
         for row in self.jsonRows:
@@ -160,13 +154,30 @@ demands = read("demands/demand_1.csv")
 paths = read("paths.csv")
 transponders = read("transponders.csv")
 
+finalJson = []
+row = "{"
+rowa = " \"path-request\": ["
+finalJson.append(row)
+finalJson.append(rowa)
+
 rowCount = 0
 for row in paths:
     if rowCount > 0:
-        request = REQUEST(1,demands[rowCount],transponders[7],paths[rowCount])
+        transp = int(paths[rowCount][1])
+        request = REQUEST(rowCount,demands[rowCount],transponders[transp],paths[rowCount])
         request.toJson()
+        requestList.append(request)
         rowCount = rowCount+1
     else:
         rowCount = rowCount+1
-    
-request.print()
+
+for request in requestList:
+    for row in request.jsonRows:
+        finalJson.append(row)
+finalJson[len(finalJson)-1] = finalJson[len(finalJson)-1][:-1]  
+rowb = "]"
+finalJson.append(rowb)
+rowc = "}"
+finalJson.append(rowc)
+for row in finalJson:
+    print(row)

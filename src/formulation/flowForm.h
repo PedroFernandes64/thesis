@@ -196,6 +196,8 @@ public:
 
 	void writeServiceFile(const std::string &file);
 
+	void writePathFile(const std::string &file);
+
 	void writePathRequest(std::ofstream &serviceFile, int d);
 
 	/** Returns a vector of node id's corresponding to the sequence of nodes that the d-th demand passes through. **/

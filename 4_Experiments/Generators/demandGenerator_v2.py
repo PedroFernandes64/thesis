@@ -1260,12 +1260,12 @@ demandStragegylist.append("allPair")
 #demandStragegylist.append("10percent")
 #CustomClassVerifier(NetworksDemandsSets)
 
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,40)
-demandStragegylist.append("fullRandomPair40")
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,60)
-demandStragegylist.append("fullRandomPair60")
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,80)
-demandStragegylist.append("fullRandomPair80")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,20)
+demandStragegylist.append("fullRandomPair20")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,60)
+#demandStragegylist.append("fullRandomPair60")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,80)
+#demandStragegylist.append("fullRandomPair80")
 #CustomClassVerifier(NetworksDemandsSets)
 
 #addCoreToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
@@ -1296,7 +1296,7 @@ for network in NetworksDemandsSetsWithTransponders:
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 #====== LEVEL THREE CHOICES - DO FOR EACH DEMAND SET WITH TRANSPONDER
-linkPolicies = [0.5,1]
+linkPolicies = [1]
 #linkPolicies = [30,40,50]
 instanceSet = buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,linkPolicies)
 #InstanceVerifier(instanceSet)

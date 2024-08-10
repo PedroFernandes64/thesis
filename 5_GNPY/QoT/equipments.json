@@ -64,15 +64,31 @@
             "pmd_coef": 0,
             "gamma": 1.37e-3
         }
+    ],    
+    "Span": [
+        {
+            "power_mode": true,
+            "delta_power_range_db": [0, 0, 0],
+            "max_fiber_lineic_loss_for_raman": 0.20,
+            "target_extended_gain": 0,
+            "max_length": 80,
+            "length_units": "km",
+            "max_loss": 16,
+            "padding": 0,
+            "EOL": 0,
+            "con_in": 0,
+            "con_out": 0
+        }
     ],
     "Roadm": [
         {
+            "target_pch_out_db": -20,
             "pmd": 0,
             "pdl": 0,
             "add_drop_osnr": 200,
             "restrictions": {
-                "preamp_variety_list": ["openroadm_mw_mw_preamp_worstcase_ver5"],
-                "booster_variety_list": ["openroadm_mw_mw_booster"]
+                "preamp_variety_list": ["std_fixed_gain"],
+                "booster_variety_list": ["std_fixed_gain"]
             }
         }
     ],

@@ -1349,16 +1349,26 @@ std::vector<Constraint> FlowForm::solveSeparationGnpy(const std::vector<double> 
     setVariableValues(solution);
     
     // write service.json file
-    std::string serviceFile = instance.getInput().getOutputPath() + "service_" + std::to_string(threadNo) + ".json";
-    writeServiceFile(serviceFile);
-
+    //std::string serviceFile = instance.getInput().getOutputPath() + "service_" + std::to_string(threadNo) + ".json";
+    //std::string serviceFile = "service_.json";
+    //writeServiceFile(serviceFile);
     // launch GNPY
-    std::string resultFile = instance.getInput().getOutputPath() + "result_" + std::to_string(threadNo) + ".json";
+    //std::string resultFile = instance.getInput().getOutputPath() + "result_" + std::to_string(threadNo) + ".json";
     //std::string arguments = instance.getInput().getGNPYTopologyFile() + " " + serviceFile;
     //std::string options = "-e " + instance.getInput().getGNPYEquipmentFile() + " -o " + resultFile;
     //std::string command = "gnpy-path-request " + arguments + " " + options;
     //system(command.c_str());
+    //0) no demand generator, copiar o arquivo nodes para cada instance
+    //1) cada experimento deve ter um folder QoT (O FODLER é A CHAVE) contendo equipments.json default_edfa_config.json sh.sh 
+    // transponders.csv e a pasta nodes. esse folder QoT deve ser gerado quando a demanda for gerada e ter como nome QoT + instancia
+    //2) c++ criara o fichier paths dentro dessa pasta com writePathFile("paths.csv")
+    writePathFile("paths.csv");
+    //3) c++ chamara o sh.sh
+    //4) read result.json file com o nome do file gerado pelo sh na pasta QoT
+ 
 
+
+    std::string resultFile = instance.getInput().getOutputPath() + "result_" + std::to_string(threadNo) + ".json";
     // read result.json file
     std::ifstream ifs(resultFile.c_str());
     std::string fileContent((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
@@ -1410,6 +1420,27 @@ Constraint FlowForm::getPathEliminationConstraint(int d){
     return Constraint(0, exp, rhs, constraintName.str());
 }
 
+void FlowForm::writePathFile(const std::string &file){
+    std::ofstream pathsFile;
+    pathsFile.open (file.c_str());
+    pathsFile << "demand;transpId;band;path";
+    pathsFile << std::endl;
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        int band = 1;
+        int transp = 7;
+        pathsFile <<  d+1 <<";"<<  band <<";"<<  transp <<";";
+        std::vector<int> path = getPathNodeSequence(d);
+        for (unsigned int i = 0; i < path.size(); i++){
+            pathsFile << std::to_string(path[i]+1);
+            if (i < path.size()-1){
+                pathsFile <<  "-";
+            }
+        }
+        pathsFile << std::endl;
+    }
+    
+}
+
 void FlowForm::writeServiceFile(const std::string &file){
     std::ofstream serviceFile;
     serviceFile.open (file.c_str());
@@ -1418,6 +1449,7 @@ void FlowForm::writeServiceFile(const std::string &file){
     serviceFile << "\t\"path-request\": [\n";
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         writePathRequest(serviceFile, d);
+        
     }
     
     serviceFile << "\t],\n";
@@ -1427,6 +1459,7 @@ void FlowForm::writeServiceFile(const std::string &file){
 }
 
 void FlowForm::writePathRequest(std::ofstream &serviceFile, int d){
+
     std::string source = std::to_string(getToBeRouted_k(d).getSource()+1) + ".1";
     std::string destination = std::to_string(getToBeRouted_k(d).getTarget()+1) + ".1";
     std::vector<int> path = getPathNodeSequence(d);
