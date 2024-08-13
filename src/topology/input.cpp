@@ -13,13 +13,14 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
     demandToBeRoutedFolder = getParameterValue("demandToBeRoutedFolder=");
 
 
-    std::cout << "Getting GNPY parameters..." << std::endl;
+    std::cout << "QoT parameters..." << std::endl;
 
     GNPY_activation = std::stoi(getParameterValue("GNPY_activation="));
-
-    std::cout << "Getting Thesis Pedro parameters..." << std::endl;
+    QoTFolder = getParameterValue("QoTFolder=");
     maxReachActivation = std::stoi(getParameterValue("MaxReach_activation="));
     osnrActivation = std::stoi(getParameterValue("OSNR_activation="));
+
+    std::cout << "Getting Thesis Pedro parameters..." << std::endl;
     nbBands = std::stoi(getParameterValue("Bands="));
     nonOverlappingTypeTFlow = std::stoi(getParameterValue("TFlow_Policy="));
     reinforcements = std::stoi(getParameterValue("Reinforcements="));
@@ -73,6 +74,7 @@ Input::Input(const Input &i) : PARAMETER_FILE(i.getParameterFile()){
     demandToBeRoutedFile = i.getDemandToBeRoutedFiles();
 
     GNPY_activation = i.isGNPYEnabled();
+    QoTFolder = i.getQotFolder();
     maxReachActivation = i.isMaxReachEnabled();
     osnrActivation = i.isOSNREnabled();
     nbBands = i.getNbBands();

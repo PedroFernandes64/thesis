@@ -100,8 +100,10 @@ private:
 	std::string initialMappingAssignmentFile;		/**< Path to the file containing information on the assignment of demands (i.e., on which edge/slice each demand is routed).**/
 	std::string demandToBeRoutedFolder;				/**< Path to the folder containing the files on the non-routed demands. **/
 	std::vector<std::string> demandToBeRoutedFile;	/**< A vector storing the paths to the files containing information on the non-routed demands. **/
-	std::string outputPath;							/**< Path to the folder where the output files will be sent by the end of the optimization procedure.**/	
+	std::string outputPath;							/**< Path to the folder where the output files will be sent by the end of the optimization procedure.**/
 
+	std::string QoTFolder;						/**< Path to the folder containing auxiliary files for QoT estimation.**/
+	
 	NodeMethod chosenNodeMethod;			/**< Refers to which method is applied for solving each node.**/
 	RootMethod chosenRootMethod;			/**< Refers to which method is applied for solving the root. **/
 	Formulation chosenFormulation;			/**< Refers to the formulation used to solve the problem. **/
@@ -172,7 +174,10 @@ public:
 
 	/** Returns the path to the folder where the output files will be sent by the end of the optimization procedure.**/
     std::string getOutputPath() const { return outputPath; }
-	
+
+
+    std::string getQotFolder() const { return QoTFolder; }
+		
 	/** Returns the number of demands to be treated in a single optimization. **/
     int getNbDemandsAtOnce() const { return nbDemandsAtOnce; }
 

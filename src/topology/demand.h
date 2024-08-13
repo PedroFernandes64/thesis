@@ -25,6 +25,9 @@ private:
 	double maxCDL;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
 	double osnrLimitL;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
 
+	int transpIdC;	
+	int transpIdL;	
+
 	bool routed;		/**< True if the demand is already routed. **/
 	int sliceAllocation;/**< The id of the last slice assigned to this demand. @warning Equals -1 if not routed yet. **/
 	double pathLength;	/**< The length of the path on which demand is routed. @warning Equals -1 if not routed yet. **/
@@ -47,7 +50,7 @@ public:
 	 * @param pos The last slice position assigned to the demand. @param len The length of the path assigned to the demand. 
 	 * @param hop The number of hops in the path assigned to the demand. * @param m The GNPY mode @param space The GNPY spacing 
 	 * @param pathBand The GNPY path_bandwidth. **/
-	Demand(int i = -1, int s = -1, int t = -1, int lC = 0, int lL = 0, double maxC = 0, double maxL = 0, double osC = 1, double osL = 0, double pc = 0,double pl = 0, double ps = 1, bool route=false, int pos=-1, double len = 0, int hop = 0, std::string m="", std::string space="",std::string pathBand="");
+	Demand(int i = -1, int s = -1, int t = -1, int lC = 0, int lL = 0, double maxC = 0, double maxL = 0, double osC = 1, double osL = 0, int tC = 0, int tL = 0, double pc = 0,double pl = 0, double ps = 1, bool route=false, int pos=-1, double len = 0, int hop = 0, std::string m="", std::string space="",std::string pathBand="");
 
 	/****************************************************************************************/
 	/*										Getters											*/
@@ -67,6 +70,10 @@ public:
 	/** Returns the number of slices requested by the demand. **/
 	int getLoadL() const { return loadL; }
 	
+
+	int getTranspIdC() const { return transpIdC; }
+	int getTranspIdL() const { return transpIdL; }
+
 	/** Returns the id of the last slice assigned to the demand. **/
 	int getSliceAllocation() const { return sliceAllocation; }
 
@@ -124,6 +131,10 @@ public:
 
 	/** Changes the number of slices requested by the demand. @param l New load value.**/
 	void setLoadL(int l) { this->loadL = l; }
+
+
+	void setTranspIdC(int t) { this->transpIdC = t; }
+	void setTranspIdL(int t) { this->transpIdL = t; }
 
 	/** Changes the id of the last slice assigned to the demand. @param i The new last slice position.**/
 	void setSliceAllocation(int i) { this->sliceAllocation = i; }

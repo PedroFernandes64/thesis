@@ -1,7 +1,7 @@
 #include "demand.h"
 
 /* Constructor. */
-Demand::Demand(int i, int s, int t, int lC, int lL, double maxC, double maxL, double osC, double osL, double pc, double pl, double ps, bool a, int slice, double pathLen, int hops, std::string m, std::string space, std::string b){
+Demand::Demand(int i, int s, int t, int lC, int lL, double maxC, double maxL, double osC, double osL, int tC, int tL, double pc, double pl, double ps, bool a, int slice, double pathLen, int hops, std::string m, std::string space, std::string b){
 	this->setId(i);
 	this->setSource(s);
 	this->setTarget(t);
@@ -11,6 +11,8 @@ Demand::Demand(int i, int s, int t, int lC, int lL, double maxC, double maxL, do
 	this->setLoadL(lL);
 	this->setmaxCDL(maxL);
 	this->setOsnrLimitL(osL);
+	this->setTranspIdC(tC);
+	this->setTranspIdL(tL);
 	this->setPchC(pc);
 	this->setPchL(pl);
 	this->setPchS(ps);
@@ -35,6 +37,8 @@ void Demand::copyDemand(const Demand & demand){
 	this->setLoadL(demand.getLoadL());
 	this->setmaxCDL(demand.getmaxCDL());
 	this->setOsnrLimitL(demand.getOsnrLimitL());
+	this->setTranspIdC(demand.getTranspIdC());
+	this->setTranspIdL(demand.getTranspIdL());
 	this->setPchC(demand.getPchC());
 	this->setPchL(demand.getPchL());
 	this->setPchS(demand.getPchS());
@@ -57,8 +61,8 @@ void Demand::displayDemand(){
 		r = "NO";
 	}
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
-	std::cout << ". nbSlices C: " << this->getLoadC() << ", maxCD C: " << this->getmaxCDC()<< ", osnrLimit C: " << this->getOsnrLimitC()<< ", pchC: " << this->getPchC();
-	std::cout << ". nbSlices L: " << this->getLoadL() << ", maxCD L: " << this->getmaxCDL()<< ", osnrLimit L: " << this->getOsnrLimitL()<< ", pchL: " << this->getPchL();
+	std::cout << ". nbSlices C: " << this->getLoadC() << ", maxCD C: " << this->getmaxCDC()<< ", osnrLimit C: " << this->getOsnrLimitC()<< ", pchC: " << this->getPchC()<< ", transpIdC: " << this->getTranspIdC();
+	std::cout << ". nbSlices L: " << this->getLoadL() << ", maxCD L: " << this->getmaxCDL()<< ", osnrLimit L: " << this->getOsnrLimitL()<< ", pchL: " << this->getPchL()<< ", transpIdL: " << this->getTranspIdL();
 	std::cout << ", ROUTED: " << r << std::endl;
 }
 

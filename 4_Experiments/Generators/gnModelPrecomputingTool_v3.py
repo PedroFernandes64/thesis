@@ -49,7 +49,6 @@ def computePnliCBand(l,lambdC,DC,c,n2,aeffC,bwdmC,pMaxC,alphaC,Bn):
     SI_DC = DC * pow (10,-6)                                #SI s/m^2)
     beta2C = abs(SI_DC) * pow(lambdC,2)/(2*math.pi*c)       #SI s^2/m   
     gamC = (n2/aeffC) * (2*math.pi/lambdC)                  #SI 1/W m
-    print("gamma = ", gamC)
     gwdmC = pMaxC/bwdmC 
     aC = math.log(10)*alphaC/20 * pow(10,-3)                #SI 1/km            SI W/Hz
     spans = math.ceil(l/110.0)

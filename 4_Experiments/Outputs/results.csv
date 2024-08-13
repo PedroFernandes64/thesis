@@ -1,1 +1,2 @@
 LinkS;TranspS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Reach;OSNR;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tua
+1.5x;random;German_17_26;20;-1.000000;10.193548;0.000000;182.546000;8;0;1;0;24101;10180;7100;0;1848;0;1848;0;1040;0;1848;0;0;0;32;0;-131663872;21910;0;0.000000;2705;0

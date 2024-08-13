@@ -636,9 +636,9 @@ Constraint FlowForm::getLengthConstraint(const Demand &demand, int d){
     Input::NodeMethod nodeMethod = instance.getInput().getChosenNodeMethod();
     double rhs; double rls;
     if(nodeMethod != Input::NODE_METHOD_LINEAR_RELAX){
-        rls = -demand.getmaxCDC()/20.0; rhs = 0;
+        rls = -demand.getmaxCDC()/17.0; rhs = 0;
     }else{
-        rhs = demand.getmaxCDC()/20.0; rls = 0;
+        rhs = demand.getmaxCDC()/17.0; rls = 0;
     }
     int source = demand.getSource();
     int hop = instance.getInput().getHopPenalty();
@@ -659,7 +659,7 @@ Constraint FlowForm::getLengthConstraint(const Demand &demand, int d){
         }
     }
     if(nbBands>1){
-        double coeff = getToBeRouted_k(d).getmaxCDL()/22.0   - getToBeRouted_k(d).getmaxCDC()/20.0;
+        double coeff = getToBeRouted_k(d).getmaxCDL()/20.0   - getToBeRouted_k(d).getmaxCDC()/17.0;
         for(IterableIntMap< ListDigraph, ListDigraph::Node >::ItemIt v((*mapItNodeLabel[d]),getToBeRouted_k(d).getSource()); v != INVALID; ++v){ 
             for (ListDigraph::OutArcIt a((*vecGraph[d]), v); a != INVALID; ++a){
                 int arc = getArcIndex(a, d); 
@@ -1357,18 +1357,33 @@ std::vector<Constraint> FlowForm::solveSeparationGnpy(const std::vector<double> 
     //std::string arguments = instance.getInput().getGNPYTopologyFile() + " " + serviceFile;
     //std::string options = "-e " + instance.getInput().getGNPYEquipmentFile() + " -o " + resultFile;
     //std::string command = "gnpy-path-request " + arguments + " " + options;
-    //system(command.c_str());
-    //0) no demand generator, copiar o arquivo nodes para cada instance
-    //1) cada experimento deve ter um folder QoT (O FODLER é A CHAVE) contendo equipments.json default_edfa_config.json sh.sh 
-    // transponders.csv e a pasta nodes. esse folder QoT deve ser gerado quando a demanda for gerada e ter como nome QoT + instancia
-    //2) c++ criara o fichier paths dentro dessa pasta com writePathFile("paths.csv")
-    writePathFile("paths.csv");
-    //3) c++ chamara o sh.sh
-    //4) read result.json file com o nome do file gerado pelo sh na pasta QoT
- 
 
+    std::cout << "Writing integer solution to file" << std::endl;
+    std::string QoTfolder = getInstance().getInput().getQotFolder();
+    writePathFile(QoTfolder+"/paths.csv");
+    std::cout << "Removing any previous network file" << std::endl;
+    std::string fileToRemove = QoTfolder+"/network.json";
+    std::remove(fileToRemove.c_str());
+    std::cout << "Generating network file" << std::endl;
+    std::string command = "python3 " +QoTfolder+ "/translator.py >> "+ QoTfolder+"/network.json";
+    system(command.c_str());
+    std::cout << "Removing any previous request file" << std::endl;
+    fileToRemove = QoTfolder+"/request.json";
+    std::remove(fileToRemove.c_str());
+    std::cout << "Generating request file" << std::endl;
+    command = "python3 " +QoTfolder+ "/requestWriter.py >> " + QoTfolder+"/request.json";
+    system(command.c_str());
+    std::cout << "Removing any previous requestOut file" << std::endl;
+    fileToRemove = QoTfolder+"/requestOut.json";
+    std::remove(fileToRemove.c_str());
+    std::cout << "Executing GNpy" << std::endl;
+    command = "gnpy-path-request -o " +QoTfolder+ "/requestOut.json" + QoTfolder+ "/network.json" + QoTfolder+ "/request.json -e "+  QoTfolder+ "/equipments.json" ;
+    system(command.c_str());
+    std::cout << "Reding  GNpy output" << std::endl;
+    std::string resultFile = QoTfolder+"/requestOut.json";
+    command = "python3 " +QoTfolder+ "/requestOutputReader.py >> " + QoTfolder+"/outAux.json";
+    system(command.c_str());
 
-    std::string resultFile = instance.getInput().getOutputPath() + "result_" + std::to_string(threadNo) + ".json";
     // read result.json file
     std::ifstream ifs(resultFile.c_str());
     std::string fileContent((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));

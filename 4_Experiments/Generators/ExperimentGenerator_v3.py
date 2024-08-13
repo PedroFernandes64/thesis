@@ -29,12 +29,12 @@ for linkStrategy in linkStrategies:
 #testUnitVerifier(testSet)
 
 maxReachSet=["1"]
-osnrSet=["1"]
+osnrSet=["0"]
 bands=["1"]
 TFlowSet=["1","2","3"]
 
-formulationSet = ["0","2"]
-objSet = ["TUS","NLUS","TRL","ADS"]
+formulationSet = ["0"]
+objSet = ["NLUS"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()
@@ -47,7 +47,14 @@ else:
     shutil.rmtree("../Outputs/parametersSet")
     os.mkdir("../Outputs/parametersSet")
 
+if "QoTSet" not in auxOutputFolder:
+    os.mkdir("../Outputs/QoTSet")
+else:
+    shutil.rmtree("../Outputs/QoTSet")
+    os.mkdir("../Outputs/QoTSet")
+
 auxParameterFolder = [f.name for f in os.scandir("../Outputs/parametersSet/") if f.is_dir()]
+auxQoTFolder = [f.name for f in os.scandir("../Outputs/parametersSet/") if f.is_dir()]
 
 batchs = 0
 counter = 0
@@ -75,25 +82,25 @@ with open("../Outputs/experimentList.csv", "w") as list:
 
         for obj in objSet:
             stringObj = "obj=" + obj + "\n"
-            lines[20] = stringObj
+            lines[21] = stringObj
 
             for form in formulationSet:
                 stringForm = "formulation=" + form + "\n"
-                lines[18] = stringForm
+                lines[19] = stringForm
 
                 for reach in maxReachSet:
                     stringReach = "MaxReach_activation=" + reach + "\n"
-                    lines[10] = stringReach
+                    lines[9] = stringReach
 
                     for osnr in osnrSet:
                         stringGN = "OSNR_activation=" + osnr + "\n"
-                        lines[11] = stringGN
+                        lines[10] = stringGN
                             
                         #verifying if tflow
                         if form == '2':
                             for tflow in TFlowSet:
                                 stringTflow = "TFlow_Policy=" + tflow  + "\n"
-                                lines[13] = stringTflow
+                                lines[14] = stringTflow
 
                                 #FOLDER MANAGEMENT
                                 if (counter % 300 == 0) or (counter == 0):
@@ -115,9 +122,10 @@ with open("../Outputs/experimentList.csv", "w") as list:
                                         f.write(line)
                                     f.close() 
                                 counter = counter + 1
+                                print(parametersName)
                         else:
                             stringTflow = "TFlow_Policy=0" + "\n"
-                            lines[13] = stringTflow
+                            lines[14] = stringTflow
 
                             #FOLDER MANAGEMENT
                             if (counter % 300 == 0) or (counter == 0):
@@ -131,6 +139,27 @@ with open("../Outputs/experimentList.csv", "w") as list:
                                     os.mkdir(currentBatchFolder)
                                 print("Batch folder created")
 
+
+                            qotFolder = "../Outputs/QoTSet" + "/oP" +auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr
+                            #os.mkdir(qotFolder)
+                            #print(qotFolder)
+                            shutil.copytree("../Inputs/QoT_ReferenceFolder", qotFolder)  
+                            thisQotFolderDemands = [f.name for f in os.scandir(qotFolder+"/demands") if f.is_file()]
+                            for element in thisQotFolderDemands:
+                                os.remove(qotFolder+"/demands/"+element)
+                            thisQotFolderTopology = [f.name for f in os.scandir(qotFolder+"/topology") if f.is_file()]
+                            for element in thisQotFolderTopology:
+                                os.remove(qotFolder+"/topology/"+element)
+                            os.remove(qotFolder+"/paths.csv")
+                            nodeFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Nodes/" + demandCode+"_demands" + "/Nodes.csv"
+                            linkFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Links/" + demandCode+"_demands" + "/Link.csv"
+                            demandFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Demands/" + demandCode+"_demands" + "/demands_1.csv"
+                            
+                            shutil.copyfile(nodeFile, qotFolder+"/topology/Node.csv")
+                            shutil.copyfile(linkFile, qotFolder+"/topology/Link.csv")
+                            shutil.copyfile(demandFile, qotFolder+"/demands/demand_1.csv")
+
+                            lines[8] = "QoTFolder="+qotFolder[11:]+ "\n"
                             parametersName = currentBatchFolder + "/oP" +auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + ".txt"
                             listLine = "\n" + linkStrategy+";"+ transponderStrategy+";"+topology + ";" + demandCode + ";" + obj + ";" + form +";" + reach + ";" + osnr + ";"
                             list.write(listLine)
@@ -139,6 +168,7 @@ with open("../Outputs/experimentList.csv", "w") as list:
                                     f.write(line)
                                 f.close() 
                             counter = counter + 1
+                            
 list.close() 
 
 print("Parameter Set created")

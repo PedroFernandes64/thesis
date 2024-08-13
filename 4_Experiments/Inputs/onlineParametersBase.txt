@@ -4,13 +4,14 @@ initialMappingDemandFile=
 initialMappingAssignmentFile=
 demandToBeRoutedFolder=
 
-******* GNPY parameters *******
-GNPY_activation=0 
-
-******* Thesis Pedro parameters *******
+******* QoT parameters *******
+GNPY_activation=1
+QoTFolder=
 MaxReach_activation=
 OSNR_activation=
-Bands=2
+
+******* Thesis Pedro parameters *******
+Bands=1
 TFlow_Policy=
 Reinforcements=0
 
