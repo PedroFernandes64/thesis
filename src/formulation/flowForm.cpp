@@ -1365,29 +1365,75 @@ std::vector<Constraint> FlowForm::solveSeparationGnpy(const std::vector<double> 
     std::string fileToRemove = QoTfolder+"/network.json";
     std::remove(fileToRemove.c_str());
     std::cout << "Generating network file" << std::endl;
-    std::string command = "python3 " +QoTfolder+ "/translator.py >> "+ QoTfolder+"/network.json";
+    std::string command = "python3 " +QoTfolder+ "/translator.py " +QoTfolder+"/ >> "+ QoTfolder+"/network.json";
+    //std::cout<< command << std::endl;
     system(command.c_str());
     std::cout << "Removing any previous request file" << std::endl;
     fileToRemove = QoTfolder+"/request.json";
     std::remove(fileToRemove.c_str());
     std::cout << "Generating request file" << std::endl;
-    command = "python3 " +QoTfolder+ "/requestWriter.py >> " + QoTfolder+"/request.json";
+    command = "python3 " +QoTfolder+ "/requestWriter.py " +QoTfolder+"/ >> " + QoTfolder+"/request.json";
+    //std::cout<< command << std::endl;
     system(command.c_str());
     std::cout << "Removing any previous requestOut file" << std::endl;
     fileToRemove = QoTfolder+"/requestOut.json";
     std::remove(fileToRemove.c_str());
     std::cout << "Executing GNpy" << std::endl;
-    command = "gnpy-path-request -o " +QoTfolder+ "/requestOut.json" + QoTfolder+ "/network.json" + QoTfolder+ "/request.json -e "+  QoTfolder+ "/equipments.json" ;
+    command = "gnpy-path-request -o " +QoTfolder+ "/requestOut.json " + QoTfolder+ "/network.json " + QoTfolder+ "/request.json -e "+  QoTfolder+ "/equipments.json" ;
+    //std::cout<< command << std::endl;
     system(command.c_str());
+    std::cout << "Removing any previous outAux file" << std::endl;
+    fileToRemove = QoTfolder+"/outAux.txt";
+    std::remove(fileToRemove.c_str());
     std::cout << "Reding  GNpy output" << std::endl;
     std::string resultFile = QoTfolder+"/requestOut.json";
-    command = "python3 " +QoTfolder+ "/requestOutputReader.py >> " + QoTfolder+"/outAux.json";
+    command = "python3 " +QoTfolder+ "/requestOutputReader.py " +QoTfolder+"/ >> " + QoTfolder+"/outAux.txt";
+    //std::cout<< command << std::endl;
     system(command.c_str());
+    std::string auxResultFile = QoTfolder+"/outAux.txt";
+    std::cout << "Verifying GNpy output" << std::endl;
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        std::string pattern = "Request-" + std::to_string(getToBeRouted_k(d).getId()+1) + "=";
+        //std::cout << "For demand " + std::to_string(getToBeRouted_k(d).getId()+1) + " looking for " + pattern;
+        std::string line;
+        std::string value = "";
+        std::ifstream myfile (auxResultFile.c_str());
+        if (myfile.is_open()) {
+            while ( std::getline (myfile, line) ) {
+                std::size_t pos = line.find(pattern);
+                if (pos != std::string::npos){
+                    value = line.substr(pos + pattern.size());
+                    //value.pop_back();
+                    if (value.empty()){
+                        std::cout << "WARNING: Field '" << pattern << "' is empty." << std::endl; 
+                    }
+                }
+            }
+            myfile.close();
+        }
+        else {
+            std::cerr << "ERROR: Unable to open parameters file '" << auxResultFile << "'." << std::endl; 
+            exit(0);
+        }
+        std::cout << value << std::endl;
+        if (value == "refused"){
+            std::cout << "Demand " << std::to_string(getToBeRouted_k(d).getId()+1) << ": Unfeasible." << std::endl;
+            cuts.push_back(getPathEliminationConstraint(d));
+        }
+        else if (value == ""){
+            std::cerr << "Request" << getToBeRouted_k(d).getId()+1 << " not found!" << std::endl;
+            exit(0);
+        }else{
+            std::cout << "Demand " << std::to_string(getToBeRouted_k(d).getId()+1) << ": OK." << std::endl;
+        }
+    }
 
+    /*
     // read result.json file
     std::ifstream ifs(resultFile.c_str());
     std::string fileContent((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        std::cout << d << std::endl;
         std::string requestContent;
         std::string firstDelimiter = "Demand " + std::to_string(getToBeRouted_k(d).getId()+1);
         std::size_t first = fileContent.find(firstDelimiter);
@@ -1409,7 +1455,7 @@ std::vector<Constraint> FlowForm::solveSeparationGnpy(const std::vector<double> 
             std::cout << "Demand " << std::to_string(getToBeRouted_k(d).getId()+1) << ": OK." << std::endl;
         }
     }
-    
+    */
     return cuts;
 }
 

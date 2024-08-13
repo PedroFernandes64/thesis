@@ -6,8 +6,8 @@ demandToBeRoutedFolder=Instances/1.5x/random/German_17_26/Demands/20_demands
 
 ******* QoT parameters *******
 GNPY_activation=1
-QoTFolder=QoTSet/oP_L1.5x_Tran_iGerman_17_26_d20_ofNLUS_f0_mr1_os0
-MaxReach_activation=1
+QoTFolder=QoTSet/oP_L1.5x_Tran_iGerman_17_26_d20_ofNLUS_f0_mr0_os0
+MaxReach_activation=0
 OSNR_activation=0
 
 ******* Thesis Pedro parameters *******

@@ -1,6 +1,12 @@
 import math
 import csv
+import sys
 
+path = ""
+
+if len(sys.argv) >1:
+    path = path +sys.argv[1]
+    
 class TRX:
     def __init__(self,tU,node):
     #gnpy param
@@ -439,7 +445,7 @@ class CONNECTION:
 
 def read_topology():
     links = []
-    file = "topology/Link.csv"
+    file = path+"topology/Link.csv"
     with open(file, newline='') as csvfile: 
         rows = csv.reader(csvfile, delimiter=';', quotechar='|')
         for row in rows:
@@ -450,7 +456,7 @@ def read_topology():
                 column = column + 1
             links.append(topologyLine)
     nodes = []
-    file = "topology/Node.csv"
+    file = path+"topology/Node.csv"
     with open(file, newline='') as csvfile: 
         rows = csv.reader(csvfile, delimiter=';', quotechar='|')
         for row in rows:

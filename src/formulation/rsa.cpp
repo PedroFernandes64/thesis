@@ -151,7 +151,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     onlyReachFeasiblePathsC = 0;
     infeasiblePathsC = 0;
     //if (this->getInstance().getInput().allPathsDataEnabled() == true){
-    if(true){
+    if(false){
         std::cout << "Computing statistics of all paths" << std::endl;
         AllPaths();
     }

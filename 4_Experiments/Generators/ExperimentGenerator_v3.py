@@ -28,7 +28,7 @@ for linkStrategy in linkStrategies:
 
 #testUnitVerifier(testSet)
 
-maxReachSet=["1"]
+maxReachSet=["0"]
 osnrSet=["0"]
 bands=["1"]
 TFlowSet=["1","2","3"]
@@ -150,7 +150,7 @@ with open("../Outputs/experimentList.csv", "w") as list:
                             thisQotFolderTopology = [f.name for f in os.scandir(qotFolder+"/topology") if f.is_file()]
                             for element in thisQotFolderTopology:
                                 os.remove(qotFolder+"/topology/"+element)
-                            os.remove(qotFolder+"/paths.csv")
+                            #os.remove(qotFolder+"/paths.csv")
                             nodeFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Nodes/" + demandCode+"_demands" + "/Nodes.csv"
                             linkFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Links/" + demandCode+"_demands" + "/Link.csv"
                             demandFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Demands/" + demandCode+"_demands" + "/demands_1.csv"

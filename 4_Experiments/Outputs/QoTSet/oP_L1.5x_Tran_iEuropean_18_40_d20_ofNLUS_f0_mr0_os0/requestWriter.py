@@ -1,6 +1,12 @@
 import math
 import csv
+import sys
 
+path = ""
+
+if len(sys.argv) >1:
+    path = path +sys.argv[1]
+    
 class REQUEST:
     def __init__(self,tU,demand,transponder,path):
     #gnpy param
@@ -110,7 +116,7 @@ class REQUEST:
             row28 = "         \"num-unnum-hop\": {"
             row29 = "           \"node-id\": \""+str(node)+"\","
             row30 = "           \"link-tp-id\": \"link-tp-id is not used\","
-            row31 = "           \"hop-type\": \"LOOSE\""
+            row31 = "           \"hop-type\": \"STRICT\""
             row32 = "          }"
             row33 = "       },"
             self.jsonRows.append(row26)
@@ -150,9 +156,9 @@ def read(file):
 
 requestList = []
 
-demands = read("demands/demand_1.csv")
-paths = read("paths.csv")
-transponders = read("transponders.csv")
+demands = read(path+"demands/demand_1.csv")
+paths = read(path+"paths.csv")
+transponders = read(path+"transponders.csv")
 
 finalJson = []
 row = "{"

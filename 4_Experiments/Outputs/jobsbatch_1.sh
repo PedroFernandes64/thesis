@@ -10,6 +10,6 @@
  
 #========================== TASKS ================================
 
-tab1=(/oP_L1.5x_Tran_iEuropean_18_40_d20_ofNLUS_f0_mr1_os0 /oP_L1.5x_Tran_iGerman_17_26_d20_ofNLUS_f0_mr1_os0 )
+tab1=(/oP_L1.5x_Tran_iEuropean_18_40_d20_ofNLUS_f0_mr0_os0 /oP_L1.5x_Tran_iGerman_17_26_d20_ofNLUS_f0_mr0_os0 )
 echo parametersSet/batch_1/${tab1[$SLURM_ARRAY_TASK_ID]}
 ./exec parametersSet/batch_1/${tab1[$SLURM_ARRAY_TASK_ID]}.txt >> executionOutputs${tab1[$SLURM_ARRAY_TASK_ID]}.txt
