@@ -94,9 +94,9 @@ public:
 	double getNoiseC() const { return noiseC; }
 	double getNoiseL() const { return noiseL; }
 	double getNoiseS() const { return noiseS; }
-	double getDispersionC() const { return dispersionC; }
-	double getDispersionL() const { return dispersionL; }
-	double getDispersionS() const { return dispersionS; }
+	double getDispersionCoeffC() const { return dispersionC; }
+	double getDispersionCoeffL() const { return dispersionL; }
+	double getDispersionCoeffS() const { return dispersionS; }
 
 
 	/** Returns the Pnli **/
@@ -161,9 +161,9 @@ public:
 	void setNoiseL(double n) { this->noiseL= n; }
 	void setNoiseS(double n) { this->noiseS = n; }
 
-	void setDispersionC(double n) { this->dispersionC = n; }
-	void setDispersionL(double n) { this->dispersionL= n; }
-	void setDispersionS(double n) { this->dispersionS = n; }
+	void setDispersionCoeffC(double n) { this->dispersionC = n; }
+	void setDispersionCoeffL(double n) { this->dispersionL= n; }
+	void setDispersionCoeffS(double n) { this->dispersionS = n; }
 
 	/** Changes the pnli @param pn New number **/
 	void setPnliC(double pn) { this->pnliC = pn; }

@@ -24,7 +24,8 @@ private:
 	double osnrLimitC;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
 	double maxCDL;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
 	double osnrLimitL;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
-
+	
+	double gBits;	
 	int transpIdC;	
 	int transpIdL;	
 
@@ -50,7 +51,7 @@ public:
 	 * @param pos The last slice position assigned to the demand. @param len The length of the path assigned to the demand. 
 	 * @param hop The number of hops in the path assigned to the demand. * @param m The GNPY mode @param space The GNPY spacing 
 	 * @param pathBand The GNPY path_bandwidth. **/
-	Demand(int i = -1, int s = -1, int t = -1, int lC = 0, int lL = 0, double maxC = 0, double maxL = 0, double osC = 1, double osL = 0, int tC = 0, int tL = 0, double pc = 0,double pl = 0, double ps = 1, bool route=false, int pos=-1, double len = 0, int hop = 0, std::string m="", std::string space="",std::string pathBand="");
+	Demand(int i = -1, int s = -1, int t = -1, int lC = 0, int lL = 0, double maxC = 0, double maxL = 0, double osC = 1, double osL = 0, int tC = 0, int tL = 0, double pc = 0,double pl = 0, double ps = 1, double gb = 0.0, bool route=false, int pos=-1, double len = 0, int hop = 0, std::string m="", std::string space="",std::string pathBand="");
 
 	/****************************************************************************************/
 	/*										Getters											*/
@@ -93,6 +94,9 @@ public:
 	double getOsnrLimitC() const { return osnrLimitC; }
 	/** Returns the minimum OSNR of the path on which the demand can be routed. **/
 	double getOsnrLimitL() const { return osnrLimitL; }
+
+
+	double getGBits() const { return gBits; }
 
 	/** Returns the power of the channel of the demand **/
 	double getPchC() const { return pchC; }
@@ -150,6 +154,9 @@ public:
 
 		/** Changes the OSNR Limit of the path on which demand is routed. @param osL The new path Osnr Limit. **/
 	void setOsnrLimitL(double os) { this->osnrLimitL = os; }
+
+
+	void setGBits(double gb) { this->gBits = gb; }
 
 	/** Changes the power of the channel of the demand **/
 	void setPchC(double p) { this->pchC = p; }

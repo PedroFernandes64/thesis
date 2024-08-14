@@ -391,7 +391,7 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_TUA:{
+        case Input::OBJECTIVE_METRIC_TASE:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -460,12 +460,12 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
     this->setDestinationConstraints();
     this->setMaxUsedSlicePerLinkConstraints();
     this->setMaxUsedSliceOverallConstraints();
-    this->setLengthConstraints();
+    this->setCDConstraints();
 
-    if (this->getInstance().getInput().isMaxReachEnabled() == true){
-        this->setLengthConstraints();
+    if (this->getInstance().getInput().isMaxCDEnabled() == true){
+        this->setCDConstraints();
     }
-    if (this->getInstance().getInput().isOSNREnabled() == true){
+    if (this->getInstance().getInput().isMinOSNREnabled() == true){
         this->setOsnrConstraints();
     }
     this->setCBandRoutingConstraints();
@@ -476,12 +476,12 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
      
 }
 
-void DrFormulation::setLengthConstraints(){
+void DrFormulation::setCDConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
-        const Constraint & lengthConstraint = getLengthConstraint(d);
+        const Constraint & lengthConstraint = getCDConstraint(d);
         constraintSet.push_back(lengthConstraint);
     }
-    std::cout << "Length constraints have been defined..." << std::endl;
+    std::cout << "CD constraints have been defined..." << std::endl;
 }
 
 void DrFormulation::setOsnrConstraints(){
@@ -493,7 +493,7 @@ void DrFormulation::setOsnrConstraints(){
 }
 
 
-Constraint DrFormulation::getLengthConstraint(int d){
+Constraint DrFormulation::getCDConstraint(int d){
     Expression exp;
     double upperBound = getToBeRouted_k(d).getmaxCDC();
     int lowerBound = 0;

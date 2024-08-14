@@ -86,8 +86,8 @@ public:
 	/** Defines Target constraints. Exactly one arc enters the demand's target. **/
     void setTargetConstraints();
 	
-	/** Defines Length constraints. Demands must be routed within a length limit. **/
-    void setLengthConstraints();
+	/** Defines CD constraints. Demands must be routed within a CD limit. **/
+    void setCDConstraints();
 
 	/** Defines OSNR constraints. Demands must be routed within a OSNR limit. **/
     void setOSNRConstraints();
@@ -104,8 +104,12 @@ public:
 	/** Returns the target constraint associated with a demand. @param demand The demand. @param d The demand index. **/
     Constraint getTargetConstraint_d(const Demand & demand, int d);
 	
-    /** Returns the length constraint associated with a demand. @param demand The demand. @param d The demand index. **/
-    Constraint getLengthConstraint(const Demand &demand, int d);
+    /** Returns the CD constraint associated with a demand. @param demand The demand. @param d The demand index. **/
+    Constraint getCDConstraintC(const Demand &demand, int d);
+
+	/** Returns the CD constraint associated with a demand. @param demand The demand. @param d The demand index. **/
+    Constraint getCDConstraintL(const Demand &demand, int d);
+
 
 	/** Returns the OSNR constraint associated with a demand. @param demand The demand. @param d The demand index. **/
     Constraint getOSNRCConstraint(const Demand &demand, int d);
@@ -130,7 +134,7 @@ public:
 	//---------------------------------- New constraints ---------------------------------- //
 
 	/** Defines the reinforced max reach constraints. **/
-	void setStrongLengthConstraints();
+	void setStrongCDConstraints();
 
 	void setStrongOSNRConstraints();
 
@@ -141,14 +145,10 @@ public:
 	void setMaxUsedSliceOverallConstraints();
 
 	/** Returns the strong max reach constraint associated with a demand and a slice. @param demand The demand. @param d The demand index. @param s The slice index.**/
-	Constraint getStrongLengthConstraint(const Demand &demand, int d, int s);
+	Constraint getStrongCDConstraint(const Demand &demand, int d, int s);
 	
 	/** Returns the OSNR constraint associated with a demand. @param demand The demand. @param d The demand index. **/
-    Constraint getStrongOSNRCConstraint(const Demand &demand, int d, int s);
-
-	/** Returns the OSNR constraint associated with a demand. @param demand The demand. @param d The demand index. **/
-    Constraint getStrongOSNRLConstraint(const Demand &demand, int d, int s);
-
+    Constraint getStrongOSNRConstraint(const Demand &demand, int d, int s);
 
 	/** Returns the Link's Max Used Slice Position constraint associated with a link and a demand. @param linkIndex The link's index. @param d The demand's index. **/
 	Constraint getMaxUsedSlicePerLinkConstraints(int linkIndex, int d);

@@ -59,7 +59,7 @@ public:
 		OBJECTIVE_METRIC_SULD = 2,		/**< Minimize the sum of (number of hops in paths) over demands. **/
 		OBJECTIVE_METRIC_TUS = 3,	/**< Minimize the sum of occupied slices. **/
 		OBJECTIVE_METRIC_TRL = 4,		/**< Minimize the path lengths. **/
-		OBJECTIVE_METRIC_TUA = 44,	/**< Minimize the amplifiers. **/
+		OBJECTIVE_METRIC_TASE = 44,	/**< Minimize the amplifiers. **/
 		OBJECTIVE_METRIC_NLUS = 8,		/**< Minimize the max used slice position overall. **/
 		OBJECTIVE_METRIC_TOS = 10, 	/**< Minimize the sum of differences between the OSNR of a path ant the OSNR limit **/
 		OBJECTIVE_METRIC_ADS = 1010, 	/**< Minimize the weighted sum of rejected demands **/
@@ -129,7 +129,7 @@ private:
 
 	/******** INCLUSION FOR THESIS PEDRO *********/
 
-	bool maxReachActivation;				/**< If Max Reach constraints will be used. **/
+	bool chromaticDispersionActivation;				/**< If Max Reach constraints will be used. **/
 	bool osnrActivation;					/**< If OSNR constraints will be used. **/
 	int nbBands;							/**< Number of bands. **/
 	int nonOverlappingTypeTFlow;
@@ -212,8 +212,8 @@ public:
     bool isGNPYEnabled() const { return GNPY_activation; }
 	
 	//PEDRO PEDRO PEDRO
-	bool isMaxReachEnabled() const { return maxReachActivation; }
-	bool isOSNREnabled() const { return osnrActivation; }
+	bool isMaxCDEnabled() const { return chromaticDispersionActivation; }
+	bool isMinOSNREnabled() const { return osnrActivation; }
 	int getNbBands() const { return nbBands; }
 	int getNonOverTFlow() const { return nonOverlappingTypeTFlow; }
 	bool areReinforcementsEnabled() const { return reinforcements; }

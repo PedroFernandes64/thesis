@@ -3,31 +3,29 @@
 
 /* Constructor. Builds the Online RSA mixed-integer program and solves it using a defined solver (CPLEX or CBC). */
 FlowForm::FlowForm(const Instance &inst) : AbstractFormulation(inst){
-    if(inst.getInput().getChosenNodeMethod() == Input::NODE_METHOD_LINEAR_RELAX){
 
-        ClockTime time(ClockTime::getTimeNow());
-        ClockTime time2(ClockTime::getTimeNow());
-        std::cout << "--- Flow formulation has been chosen. " << displayDimensions() << " ---" << std::endl;
+    ClockTime time(ClockTime::getTimeNow());
+    ClockTime time2(ClockTime::getTimeNow());
+    std::cout << "--- Flow formulation has been chosen. " << displayDimensions() << " ---" << std::endl;
 
-        slicesC = instance.getTabEdge()[0].getNbSlicesC();
-        slicesL = instance.getTabEdge()[0].getNbSlicesL();
-        slicesTotal = slicesC + slicesL;
+    slicesC = instance.getTabEdge()[0].getNbSlicesC();
+    slicesL = instance.getTabEdge()[0].getNbSlicesL();
+    slicesTotal = slicesC + slicesL;
 
-        this->setVariables();
-        varImpleTime = time.getTimeInSecFromStart() ;
-        time.setStart(ClockTime::getTimeNow());
-        this->setConstraints();
-        constImpleTime = time.getTimeInSecFromStart() ;
-        time.setStart(ClockTime::getTimeNow());
-        this->setCutPool();
-        cutImpleTime = time.getTimeInSecFromStart() ;
-        time.setStart(ClockTime::getTimeNow());
-        this->setObjectives();
-        objImpleTime = time.getTimeInSecFromStart() ;
-        std::cout << "--- Flow formulation has been defined ---" << std::endl;
-        totalImpleTime = time2.getTimeInSecFromStart() ;
-        //std::cout << "Time: " << time.getTimeInSecFromStart() << std::endl;
-    }
+    this->setVariables();
+    varImpleTime = time.getTimeInSecFromStart() ;
+    time.setStart(ClockTime::getTimeNow());
+    this->setConstraints();
+    constImpleTime = time.getTimeInSecFromStart() ;
+    time.setStart(ClockTime::getTimeNow());
+    this->setCutPool();
+    cutImpleTime = time.getTimeInSecFromStart() ;
+    time.setStart(ClockTime::getTimeNow());
+    this->setObjectives();
+    objImpleTime = time.getTimeInSecFromStart() ;
+    std::cout << "--- Flow formulation has been defined ---" << std::endl;
+    totalImpleTime = time2.getTimeInSecFromStart() ;
+    //std::cout << "Time: " << time.getTimeInSecFromStart() << std::endl;
 }
 
 std::string FlowForm::displayDimensions(){
@@ -306,14 +304,17 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
         }
         break;
         }
-    case Input::OBJECTIVE_METRIC_TUA:
+    case Input::OBJECTIVE_METRIC_TASE:
         {
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
             for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
                 int arc = getArcIndex(a, d);
-                double coeff = getCoeffObjTUA(a, d);
+                double coeff = getCoeffObjTASE(a, d);
                 Term term(x[d][arc], coeff);
                 obj.addTerm2(term);
+                double coeff2 = 1*(getToBeRouted_k(d).getGBits()/getToBeRouted_k(d).getLoadC());
+                Term term2(x[d][arc], coeff2);
+                obj.addTerm2(term2);
             }
         }
         break;
@@ -344,13 +345,13 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
                 for (ListDigraph::OutArcIt a((*vecGraph[k]), v); a != INVALID; ++a){
                     int arc = getArcIndex(a, k); 
                     int slice = getArcSlice(a, k);
-                    if (slice <= slicesC){
+                    if (slice < slicesC){
                         //Term term(x[k][arc], -getToBeRouted_k(k).getLoadC());
                         Term term(x[k][arc],1);
                         obj.addTerm(term);
                     }
                     if(nbBands>1){
-                        if (slice > slicesC){
+                        if (slice >= slicesC){
                             //Term term2(x[k][arc], -getToBeRouted_k(k).getLoadL());
                             Term term2(x[k][arc], 1);
                             obj.addTerm(term2);
@@ -377,7 +378,7 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
                     for (ListDigraph::OutArcIt a((*vecGraph[k]), v); a != INVALID; ++a){
                         int arc = getArcIndex(a, k); 
                         int slice = getArcSlice(a, k);
-                        if (slice <= slicesC){
+                        if (slice < slicesC){
                             Term term(x[k][arc], 1);
                             obj.addTerm(term);
                         }
@@ -405,16 +406,16 @@ void FlowForm::setConstraints(){
     this->setFlowConservationConstraints();
     this->setTargetConstraints();
     
-    //this->setLengthConstraints();
-    if (this->getInstance().getInput().isMaxReachEnabled() == true){
+    //this->setCDConstraints();
+    if (this->getInstance().getInput().isMaxCDEnabled() == true){
         if (this->getInstance().getInput().areReinforcementsEnabled() == true){
-            this->setStrongLengthConstraints();
+            this->setStrongCDConstraints();
         }
         else{
-            this->setLengthConstraints();
+            this->setCDConstraints();
         }
     }
-    if (this->getInstance().getInput().isOSNREnabled() == true){
+    if (this->getInstance().getInput().isMinOSNREnabled() == true){
         if (this->getInstance().getInput().areReinforcementsEnabled() == true){
             this->setStrongOSNRConstraints();
         }else{
@@ -565,7 +566,7 @@ Constraint FlowForm::getTargetConstraint_d(const Demand & demand, int d){
 }
 
 /* Defines the reinforced max reach constraints. */
-void FlowForm::setStrongLengthConstraints(){
+void FlowForm::setStrongCDConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
         //for (int s = 0; s < getNbSlicesGlobalLimit(); s++){  
         int sliceLimit = auxNbSlicesGlobalLimit;
@@ -573,26 +574,24 @@ void FlowForm::setStrongLengthConstraints(){
             sliceLimit = slicesTotal;
         }
         for (int s = 0; s < sliceLimit; s++){  
-            const Constraint & strongLengthConstraint = getStrongLengthConstraint(getToBeRouted_k(d), d, s);
-            constraintSet.push_back(strongLengthConstraint);
+            const Constraint & strongCDConstraint = getStrongCDConstraint(getToBeRouted_k(d), d, s);
+            constraintSet.push_back(strongCDConstraint);
         }
     }
-    std::cout << "Strong length constraints have been defined..." << std::endl;
+    std::cout << "Strong CD constraints have been defined..." << std::endl;
 }
 
 /* Returns the strong max reach constraint associated with a demand and a slice. */
-Constraint FlowForm::getStrongLengthConstraint(const Demand &demand, int d, int s){
+Constraint FlowForm::getStrongCDConstraint(const Demand &demand, int d, int s){
     Expression exp;
     int source = demand.getSource();
-    int hop = instance.getInput().getHopPenalty();
- 
+
     for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
         int arc = getArcIndex(a, d); 
         if (getArcSlice(a, d) == s){
-            double coeff = getArcLength(a, d);
-            int tail = getNodeLabel((*vecGraph[d]).source(a), d);
-            if (tail != source){
-                coeff += hop;
+            double coeff = getArcDispersionC(a, d);
+            if(s>=slicesC){
+                coeff = getArcDispersionL(a, d);
             }
             Term term(x[d][arc], coeff);
             exp.addTerm(term);
@@ -603,9 +602,9 @@ Constraint FlowForm::getStrongLengthConstraint(const Demand &demand, int d, int 
             for (ListDigraph::OutArcIt a((*vecGraph[d]), v); a != INVALID; ++a){
                 if (getArcSlice(a, d) == s){
                     int arc = getArcIndex(a, d);
-                    int coeff2 = -demand.getmaxCDC()/20.0;
+                    int coeff2 = -demand.getmaxCDC();
                     if(s>=slicesC){
-                        coeff2 = -demand.getmaxCDL()/22.0;
+                        coeff2 = -demand.getmaxCDL();
                     } 
                     Term term(x[d][arc], coeff2);
                     exp.addTerm(term);
@@ -614,107 +613,107 @@ Constraint FlowForm::getStrongLengthConstraint(const Demand &demand, int d, int 
         }
     }
     std::ostringstream constraintName;
-    constraintName << "StrongLength_" << demand.getId()+1 << "_" << s+1;
+    constraintName << "StrongCD_" << demand.getId()+1 << "_" << s+1;
     Constraint constraint(exp.getTrivialLb(), exp, 0, constraintName.str());
     return constraint;
 }
 
-/* Defines Length constraints. Demands must be routed within a length limit. */
-void FlowForm::setLengthConstraints(){
+/* Defines CD constraints. Demands must be routed within a CD limit. */
+void FlowForm::setCDConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
-        const Constraint & lengthConstraint = getLengthConstraint(getToBeRouted_k(d), d);
-        constraintSet.push_back(lengthConstraint);
+        const Constraint & cdConstraintC = getCDConstraintC(getToBeRouted_k(d), d);
+        constraintSet.push_back(cdConstraintC);
+        if (getInstance().getInput().getNbBands() >= 2) {
+            const Constraint & cdConstraintL = getCDConstraintL(getToBeRouted_k(d), d);
+            constraintSet.push_back(cdConstraintL);
+        } 
     }
-    std::cout << "Length constraints have been defined..." << std::endl;
+    std::cout << "CD constraints have been defined..." << std::endl;
 }
 
-/* Returns the length constraint associated with a demand. */
+/* Returns the CD constraint associated with a demand. */
 /* When we use it in the lagrangian, we multiply the constraint by -1 so it will be >= and it will be 
 * consistent with the minimization problem. */
-Constraint FlowForm::getLengthConstraint(const Demand &demand, int d){
+Constraint FlowForm::getCDConstraintC(const Demand &demand, int d){
     Expression exp;
-    Input::NodeMethod nodeMethod = instance.getInput().getChosenNodeMethod();
     double rhs; double rls;
-    if(nodeMethod != Input::NODE_METHOD_LINEAR_RELAX){
-        rls = -demand.getmaxCDC()/17.0; rhs = 0;
-    }else{
-        rhs = demand.getmaxCDC()/17.0; rls = 0;
-    }
-    int source = demand.getSource();
-    int hop = instance.getInput().getHopPenalty();
+
+    rhs = demand.getmaxCDC(); rls = 0;
     
     for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
         int arc = getArcIndex(a, d); 
-        double coeff = getArcLength(a, d);
-        int tail = getNodeLabel((*vecGraph[d]).source(a), d);
-        if (tail != source){
-            coeff += hop;
-        }
-        if(nodeMethod != Input::NODE_METHOD_LINEAR_RELAX){
-            Term term(x[d][arc], -coeff);
-            exp.addTerm(term);
-        }else{
-            Term term(x[d][arc], coeff);
+        double coeff = getArcDispersionC(a, d);
+        Term term(x[d][arc], coeff);
+        if (getArcSlice(a,d) < slicesC){
             exp.addTerm(term);
         }
-    }
-    if(nbBands>1){
-        double coeff = getToBeRouted_k(d).getmaxCDL()/20.0   - getToBeRouted_k(d).getmaxCDC()/17.0;
-        for(IterableIntMap< ListDigraph, ListDigraph::Node >::ItemIt v((*mapItNodeLabel[d]),getToBeRouted_k(d).getSource()); v != INVALID; ++v){ 
-            for (ListDigraph::OutArcIt a((*vecGraph[d]), v); a != INVALID; ++a){
-                int arc = getArcIndex(a, d); 
-                int slice = getArcSlice(a, d);
-                if (slice > slicesC){
-                    Term term2(x[d][arc], 1);
-                    exp.addTerm(term2);
-                }
-            }
-        }
-        
+
     }
     std::ostringstream constraintName;
-    constraintName << "Length_" << demand.getId()+1;
+    constraintName << "CD_" << demand.getId()+1;
     Constraint constraint(rls, exp, rhs, constraintName.str());
     return constraint;
 }
+
+Constraint FlowForm::getCDConstraintL(const Demand &demand, int d){
+    Expression exp;
+    double rhs; double rls;
+
+    rhs = demand.getmaxCDL(); rls = 0;
+    
+    for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+        int arc = getArcIndex(a, d); 
+        double coeff = getArcDispersionL(a, d);
+        Term term(x[d][arc], coeff);
+        if (getArcSlice(a,d) >= slicesC){
+            exp.addTerm(term);
+        }
+
+    }
+    std::ostringstream constraintName;
+    constraintName << "CD_" << demand.getId()+1;
+    Constraint constraint(rls, exp, rhs, constraintName.str());
+    return constraint;
+}
+
 
 /* Defines OSNR constraints. Demands must be routed within a OSNR limit. */
 void FlowForm::setStrongOSNRConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
         int sliceLimit = auxNbSlicesGlobalLimit;
         if(nbBands>1){
-            for (int s = 0; s < slicesC; s++){  
-                const Constraint & strongOSNRConstraintC = getStrongOSNRCConstraint(getToBeRouted_k(d), d,s);
-                constraintSet.push_back(strongOSNRConstraintC);
-            }
-            for (int s = slicesC; s < slicesC+slicesL; s++){  
-                const Constraint & StrongOSNRConstraintL = getStrongOSNRLConstraint(getToBeRouted_k(d), d,s);
-                constraintSet.push_back(StrongOSNRConstraintL);
-            } 
-        }else{
-            for (int s = 0; s < sliceLimit; s++){  
-                const Constraint & strongOSNRConstraintC = getStrongOSNRCConstraint(getToBeRouted_k(d), d,s);
-                constraintSet.push_back(strongOSNRConstraintC);
-            }
+            sliceLimit = slicesTotal;
+        }
+        for (int s = 0; s < sliceLimit; s++){   
+            const Constraint & strongOSNRConstraint = getStrongOSNRConstraint(getToBeRouted_k(d), d,s);
+            constraintSet.push_back(strongOSNRConstraint);
         }
  
     }
     std::cout << "Strong OSNR constraints have been defined..." << std::endl;
 }
 
+
 /* Returns the OSNR constraint associated with a demand. */
-Constraint FlowForm::getStrongOSNRCConstraint(const Demand &demand, int d, int s){
+Constraint FlowForm::getStrongOSNRConstraint(const Demand &demand, int d, int s){
     int source = demand.getSource();
     Expression exp;
     double rhs;
     
     double osnrLimdb = demand.getOsnrLimitC();
+    if(s>=slicesC){
+        osnrLimdb =demand.getOsnrLimitL();
+    }
+    
     double osnrLim = pow(10,osnrLimdb/10);
     double pch = demand.getPchC();
 
     double roundingFactor = pow(10,8);
     
     rhs = pch/osnrLim - instance.getPaseNodeC() ;
+    if(s>=slicesC){
+        rhs = pch/osnrLim - instance.getPaseNodeL() ;
+    }
     //std::cout << rhs << std::endl;
     rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
     //std::cout << rhs << std::endl;
@@ -723,6 +722,9 @@ Constraint FlowForm::getStrongOSNRCConstraint(const Demand &demand, int d, int s
             //First term
             int arc = getArcIndex(a, d); 
             double coeff = getArcNoiseC(a, d) * roundingFactor;
+            if(s>=slicesC){
+                coeff = getArcNoiseL(a, d) * roundingFactor;
+            }
             coeff = ceil(coeff*100)/100; //ROUNDING
             //std::cout  << "-Pase line arredondado" << coeff << " Pase line" << getArcPaseLine(a, d) << std::endl;
             Term term(x[d][arc], coeff);
@@ -744,56 +746,7 @@ Constraint FlowForm::getStrongOSNRCConstraint(const Demand &demand, int d, int s
 
 
     std::ostringstream constraintName;
-    constraintName << "StrongOSNRC_" << demand.getId()+1 << "_" << s+1;
-    Constraint constraint(exp.getTrivialLb(), exp, 0, constraintName.str());
-    //std::cout << "For demand " << d<< std::endl;
-    //constraint.display();
-    return constraint;
-}
-
-/* Returns the OSNR constraint associated with a demand. */
-Constraint FlowForm::getStrongOSNRLConstraint(const Demand &demand, int d,int s){
-    int source = demand.getSource();
-    Expression exp;
-    double rhs;
-    
-    double osnrLimdb = demand.getOsnrLimitL();
-    double osnrLim = pow(10,osnrLimdb/10);
-    double pch = demand.getPchL();
-
-    double roundingFactor = pow(10,8);
-    
-    rhs = pch/osnrLim - instance.getPaseNodeL() ;
-    //std::cout << rhs << std::endl;
-    rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
-    //std::cout << rhs << std::endl;
-    for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
-        if (getArcSlice(a, d) == s){
-            //First term
-            int arc = getArcIndex(a, d); 
-            double coeff = getArcNoiseL(a, d) * roundingFactor;
-            coeff = ceil(coeff*100)/100; //ROUNDING
-            //std::cout  << "-Pase line arredondado" << coeff << " Pase line" << getArcPaseLine(a, d) << std::endl;
-            Term term(x[d][arc], coeff);
-            exp.addTerm(term);
-        }
-    }
-    for (ListDigraph::NodeIt v(*vecGraph[d]); v != INVALID; ++v){
-        if (getNodeLabel(v, d) == source){
-            for (ListDigraph::OutArcIt a((*vecGraph[d]), v); a != INVALID; ++a){
-                if (getArcSlice(a, d) == s){
-                    int arc = getArcIndex(a, d);
-                    int coeff2 = -rhs;
-                    Term term(x[d][arc], coeff2);
-                    exp.addTerm(term);
-                }
-            }
-        }
-    }
-
-
-    std::ostringstream constraintName;
-    constraintName << "StrongOSNRL_" << demand.getId()+1 << "_" << s+1;
+    constraintName << "StrongOSNR_" << demand.getId()+1 << "_" << s+1;
     Constraint constraint(exp.getTrivialLb(), exp, 0, constraintName.str());
     //std::cout << "For demand " << d<< std::endl;
     //constraint.display();
@@ -836,7 +789,7 @@ Constraint FlowForm::getOSNRCConstraint(const Demand &demand, int d){
         coeff = ceil(coeff*100)/100; //ROUNDING
         //std::cout  << "-Pase line arredondado" << coeff << " Pase line" << getArcPaseLine(a, d) << std::endl;
         Term term(x[d][arc], coeff);
-        if (getArcSlice(a,d) <= slicesC){
+        if (getArcSlice(a,d) < slicesC){
             exp.addTerm(term);
         }
             
@@ -872,7 +825,7 @@ Constraint FlowForm::getOSNRLConstraint(const Demand &demand, int d){
         coeff = ceil(coeff*100)/100; //ROUNDING
         //std::cout  << "-Pase line arredondado" << coeff << " Pase line" << getArcPaseLine(a, d) << std::endl;
         Term term(x[d][arc], coeff);
-        if (getArcSlice(a,d) > slicesC){
+        if (getArcSlice(a,d) >= slicesC){
             exp.addTerm(term);
         }
             
@@ -917,7 +870,7 @@ Constraint FlowForm::getNonOverlappingConstraint(int linkLabel, int slice){
 
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         int demandLoad = getToBeRouted_k(d).getLoadC();
-        if (slice > slicesC){
+        if (slice >= slicesC){
             demandLoad = getToBeRouted_k(d).getLoadL();
         }
         for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[d]),linkLabel); a != INVALID; ++a){      

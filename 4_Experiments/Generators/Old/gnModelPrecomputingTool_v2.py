@@ -32,7 +32,7 @@ NFS = 7                                         #SI dB
 DS = 12.5                                       #NOT SI ps/(nm km)
 GdbNodeS = 20.0                                 #SI dB
 PsatS = 65 * pow(10,-3)                         #SI #W              Usually mW
-dispersionCoeffS = 22
+getDispersionCoeffS = 22
 
 #CONSTANTS 
 c = 3.0 * pow(10,8)                             #SI meters by second, m
@@ -196,7 +196,7 @@ def processLinks(table):
             row.append(pnliS+paseS+computePaseNodeSBand(c,h,lambdS,NFS,Bn,GdbNodeS))
             row.append(dispersionCoeffC)
             row.append(dispersionCoeffL)
-            row.append(dispersionCoeffS)
+            row.append(getDispersionCoeffS)
             rowCounter = rowCounter + 1
 
 def processDemands(table):

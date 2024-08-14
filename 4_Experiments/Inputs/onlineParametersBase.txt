@@ -7,7 +7,7 @@ demandToBeRoutedFolder=
 ******* QoT parameters *******
 GNPY_activation=1
 QoTFolder=
-MaxReach_activation=
+ChromaticDispersion_activation=
 OSNR_activation=
 
 ******* Thesis Pedro parameters *******
@@ -29,7 +29,7 @@ partitionSlice=0
 ******* Optimization parameters *******
 solver=0
 method=0 
-preprocessingLevel=0
+preprocessingLevel=
 linearRelaxation=0
 relaxMethod=0 
 

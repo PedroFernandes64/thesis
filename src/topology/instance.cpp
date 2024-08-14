@@ -173,7 +173,7 @@ void Instance::readTopology(){
 		double edgeDispersionL = 0.0;
 		double edgeNoiseS = 0.0;
 		double edgeDispersionS = 0.0;
-		if (this->input.isOSNREnabled() == true ){
+		if (this->input.isMinOSNREnabled() == true ){
 			edgeAmplis = std::stoi(dataList[i][6]);
 			edgeNoiseC = std::stod(dataList[i][7]);
 			edgeDispersionC = std::stod(dataList[i][10]);
@@ -220,11 +220,12 @@ void Instance::readDemands(){
 		int demandLoadL = 0.0;
 		double demandMaxCDL = 0.0;
 		double demandOsnrLimitL=0.0;
+		double gBits = std::stod(dataList[i][11]);
 		double demandPchC = 0.0;
 		double demandPchL = 0.0;
 		double demandPchS = 0.0;
 		double transpIdL = 0;
-		if (this->input.isOSNREnabled () == true ){
+		if (this->input.isMinOSNREnabled () == true ){
 			demandOsnrLimitC = std::stod(dataList[i][5]); 		
 			demandPchC = std::stod(dataList[i][12]);
 						
@@ -241,7 +242,7 @@ void Instance::readDemands(){
 			demandMaxCDL = std::stod(dataList[i][8]);
 			transpIdL = std::stod(dataList[i][10]);	
 		}
-		Demand demand(idDemand, demandSource, demandTarget, demandLoadC, demandLoadL, demandMaxCDC, demandMaxCDL, demandOsnrLimitC,demandOsnrLimitL,transpIdC,transpIdL, demandPchC, demandPchL, demandPchS, false);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoadC, demandLoadL, demandMaxCDC, demandMaxCDL, demandOsnrLimitC,demandOsnrLimitL,transpIdC,transpIdL, demandPchC, demandPchL, demandPchS, gBits,false);
 		this->tabDemand.push_back(demand);
 	}
 }
@@ -371,11 +372,12 @@ void Instance::generateDemandsFromFile(std::string filePath){
 		int demandLoadL = 0.0;
 		double demandMaxCDL = 0.0;
 		double demandOsnrLimitL=0.0;
+		double gBits = std::stod(dataList[i][11]);
 		double demandPchC = 0.0;
 		double demandPchL = 0.0;
 		double demandPchS = 0.0;
 		double transpIdL = 0;
-		if (this->input.isOSNREnabled () == true ){
+		if (this->input.isMinOSNREnabled () == true ){
 			demandOsnrLimitC = std::stod(dataList[i][5]); 		
 			demandPchC = std::stod(dataList[i][12]);
 						
@@ -392,7 +394,7 @@ void Instance::generateDemandsFromFile(std::string filePath){
 			demandMaxCDL = std::stod(dataList[i][8]);
 			transpIdL = std::stod(dataList[i][10]);	
 		}
-		Demand demand(idDemand, demandSource, demandTarget, demandLoadC, demandLoadL, demandMaxCDC, demandMaxCDL, demandOsnrLimitC,demandOsnrLimitL,transpIdC,transpIdL, demandPchC, demandPchL, demandPchS, false);
+		Demand demand(idDemand, demandSource, demandTarget, demandLoadC, demandLoadL, demandMaxCDC, demandMaxCDL, demandOsnrLimitC,demandOsnrLimitL,transpIdC,transpIdL, demandPchC, demandPchL, demandPchS, gBits, false);
 		this->tabDemand.push_back(demand);
 	}
 	//std::cout << "out" << std::endl;

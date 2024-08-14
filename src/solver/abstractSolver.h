@@ -100,7 +100,7 @@ public:
     int getSULD(){ return formulation->getSULD();}
     double getTRL(){ return formulation->getTRL();}
     int getTUS(){ return formulation->getTUS();}
-    int getTUA(){ return formulation->getTUA();}
+    double getTASE(){ return formulation->getTASE();}
 	int getVariablesSetTo0(){ return formulation->getVariablesSetTo0();}
 	int getPreprocessingConstraints(){ return formulation->getPreprocessingConstraints();}
 

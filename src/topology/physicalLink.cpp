@@ -25,9 +25,9 @@ Fiber::Fiber(int i, int ind, int s, int t, double l, int nb, double c, int la, d
 	this->setNoiseC(nC);
 	this->setNoiseL(nL);
 	this->setNoiseS(nS);
-	this->setDispersionC(dC);
-	this->setDispersionL(dL);
-	this->setDispersionS(dS);
+	this->setDispersionCoeffC(dC);
+	this->setDispersionCoeffL(dL);
+	this->setDispersionCoeffS(dS);
 }
 
 Fiber::Fiber(const Fiber & f){
@@ -49,9 +49,9 @@ Fiber::Fiber(const Fiber & f){
 	this->setNoiseC(f.noiseC);
 	this->setNoiseL(f.noiseL);
 	this->setNoiseS(f.noiseS);
-	this->setDispersionC(f.dispersionC);
-	this->setDispersionL(f.dispersionL);
-	this->setDispersionS(f.dispersionS);
+	this->setDispersionCoeffC(f.dispersionC);
+	this->setDispersionCoeffL(f.dispersionL);
+	this->setDispersionCoeffS(f.dispersionS);
 }
 
 /****************************************************************************************/
@@ -86,9 +86,9 @@ void Fiber::copyFiber(Fiber & edge){
 	this->setNoiseC(edge.getNoiseC());
 	this->setNoiseL(edge.getNoiseL());
 	this->setNoiseS(edge.getNoiseS());
-	this->setDispersionC(edge.getDispersionC());
-	this->setDispersionL(edge.getDispersionL());
-	this->setDispersionS(edge.getDispersionS());
+	this->setDispersionCoeffC(edge.getDispersionCoeffC());
+	this->setDispersionCoeffL(edge.getDispersionCoeffL());
+	this->setDispersionCoeffS(edge.getDispersionCoeffS());
 
 }
 

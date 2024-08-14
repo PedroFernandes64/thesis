@@ -3,7 +3,7 @@
 /* Constructor. A graph associated to the initial mapping (instance) is built as well as an extended graph for each demand to be routed. */
 RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), compactEdgeLabel(compactGraph), 
                                 compactEdgeLength(compactGraph), compactEdgeLineAmplifiers(compactGraph), compactEdgePnliC(compactGraph), compactEdgePaseLineC(compactGraph),compactEdgePnliL(compactGraph), 
-                                compactEdgePaseLineL(compactGraph),compactEdgeNoiseC(compactGraph),compactEdgeNoiseL(compactGraph), compactNodeId(compactGraph), 
+                                compactEdgePaseLineL(compactGraph),compactEdgeNoiseC(compactGraph),compactEdgeNoiseL(compactGraph),compactEdgeDispersionC(compactGraph),compactEdgeDispersionL(compactGraph), compactNodeId(compactGraph), 
                                 compactNodeLabel(compactGraph){
     setStatus(STATUS_UNKNOWN);
     /* Creates compact graph. */
@@ -28,7 +28,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
             loadsToBeRouted.push_back(demandLoad);
         }
     }
-    //displayLoadsToBeRouted();
+        //displayLoadsToBeRouted();
 
     /* Creates an extended graph for each one of the demands to be routed. */
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
@@ -45,6 +45,9 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
         vecArcPnliL.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
         vecArcPaseLineL.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
         vecArcNoiseL.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
+        vecArcDispersionC.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
+        vecArcDispersionL.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
+
         vecArcLengthWithPenalty.emplace_back( std::make_shared<ArcCost>((*vecGraph[d])) );
         vecNodeId.emplace_back( std::make_shared<NodeMap>((*vecGraph[d])) );
         vecNodeLabel.emplace_back( std::make_shared<NodeMap>((*vecGraph[d])) );
@@ -65,26 +68,9 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
             for (int s = 0; s < sliceLimit; s++){
                 /* IF SLICE s IS NOT USED */
                 if (instance.getPhysicalLinkFromIndex(i).getSlice_i(s).isUsed() == false){
-                    
-                    if (instance.getInput().getChosenPartitionPolicy() == Input::PARTITION_POLICY_HARD){
-                        bool onLeftRegion = true;
-                        if (getToBeRouted_k(d).getLoadC() > instance.getInput().getPartitionLoad()){
-                            onLeftRegion = false;
-                        }
-                        if ( (onLeftRegion) && (s < instance.getInput().getPartitionSlice()) ){
-                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getNoiseL());
-                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getNoiseL());
-                        }
-                        if ( (!onLeftRegion) && (s >= instance.getInput().getPartitionSlice()) ){
-                            addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getNoiseL());
-                            addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getNoiseL());
-                        }
-                    }
-                    else{
-                        /* CREATE NODES (u, s) AND (v, s) IF THEY DO NOT ALREADY EXIST AND ADD AN ARC BETWEEN THEM */
-                        addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getNoiseL());
-                        addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getNoiseL());
-                    }
+                    /* CREATE NODES (u, s) AND (v, s) IF THEY DO NOT ALREADY EXIST AND ADD AN ARC BETWEEN THEM */
+                    addArcs(d, linkSourceLabel, linkTargetLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getNoiseL(),instance.getPhysicalLinkFromIndex(i).getDispersionCoeffC()*instance.getPhysicalLinkFromIndex(i).getLength(),instance.getPhysicalLinkFromIndex(i).getDispersionCoeffL()*instance.getPhysicalLinkFromIndex(i).getLength());
+                    addArcs(d, linkTargetLabel, linkSourceLabel, i, s, instance.getPhysicalLinkFromIndex(i).getLength(), instance.getPhysicalLinkFromIndex(i).getLineAmplifiers(), instance.getPhysicalLinkFromIndex(i).getPnliC(), instance.getPhysicalLinkFromIndex(i).getPaseLineC(), instance.getPhysicalLinkFromIndex(i).getNoiseC(),instance.getPhysicalLinkFromIndex(i).getPnliL(), instance.getPhysicalLinkFromIndex(i).getPaseLineL(),instance.getPhysicalLinkFromIndex(i).getNoiseL(),instance.getPhysicalLinkFromIndex(i).getDispersionCoeffC()*instance.getPhysicalLinkFromIndex(i).getLength(),instance.getPhysicalLinkFromIndex(i).getDispersionCoeffL()*instance.getPhysicalLinkFromIndex(i).getLength());
                 }
             }
         }
@@ -533,6 +519,8 @@ void RSA::buildCompactGraph(){
             compactEdgePaseLineL[e] = edge.getPaseLineL();
             compactEdgeNoiseC[e] = edge.getNoiseC();
             compactEdgeNoiseL[e] = edge.getNoiseL();
+            compactEdgeDispersionC[e] = edge.getDispersionCoeffC()*edge.getLength();
+            compactEdgeDispersionL[e] = edge.getDispersionCoeffL()*edge.getLength();
             
         }
     }
@@ -540,7 +528,7 @@ void RSA::buildCompactGraph(){
 
 /* Creates an arc -- and its nodes if necessary -- between nodes (source,slice) and (target,slice) on a graph. */
 //void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l){
-void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l, int la, double pnc, double pac, double nc, double pnl, double pal, double nl ){
+void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel, int slice, double l, int la, double pnc, double pac, double nc, double pnl, double pal, double nl, double dc, double dl ){
     ListDigraph::Node arcSource = getNode(d, linkSourceLabel, slice);
     ListDigraph::Node arcTarget = getNode(d, linkTargetLabel, slice);
 
@@ -576,6 +564,8 @@ void RSA::addArcs(int d, int linkSourceLabel, int linkTargetLabel, int linkLabel
     setArcPnliL(a, d, pnl);
     setArcPaseLineL(a, d, pal);
     setArcNoiseL(a,d,nl);
+    setArcDispersionC(a,d,dc);
+    setArcDispersionL(a,d,dl);
     int hop = instance.getInput().getHopPenalty();
     if (linkSourceLabel == getToBeRouted_k(d).getSource()){
         setArcLengthWithPenalty(a, d, l);
@@ -732,19 +722,24 @@ void RSA::preprocessing(){
             }
         }
         //Tflow test
-
-        bool keepPreprocessing = CDPreprocessing();
-        if (getInstance().getInput().isOSNREnabled() == true)
-            keepPreprocessing = OSNRPreprocessingC();
+        bool keepPreprocessing;
+        if (getInstance().getInput().isMaxCDEnabled() == true)
+            keepPreprocessing = CDPreprocessing();
+        if (getInstance().getInput().isMinOSNREnabled() == true)
+            keepPreprocessing = OSNRPreprocessing();
+            
         if (getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_FULL){
             // do full preprocessing;
-            while (keepPreprocessing){
-                pathExistencePreprocessing(); 
-                keepPreprocessing = CDPreprocessing();
-            }
-            if (getInstance().getInput().isOSNREnabled() == true){
+            if (getInstance().getInput().isMaxCDEnabled() == true){
                 while (keepPreprocessing){
-                    keepPreprocessing = OSNRPreprocessingC();
+                    pathExistencePreprocessing(); 
+                    keepPreprocessing = CDPreprocessing();
+                }
+            }
+            if (getInstance().getInput().isMinOSNREnabled() == true){
+                while (keepPreprocessing){
+                    pathExistencePreprocessing(); 
+                    keepPreprocessing = OSNRPreprocessing();
                 }
             }           
         }
@@ -805,7 +800,7 @@ void RSA::pathExistencePreprocessing(){
 
 /* Performs preprocessing based on the arc lengths and returns true if at least one arc is erased. */
 bool RSA::CDPreprocessing(){
-    std::cout << "Called Length preprocessing."<< std::endl;
+    std::cout << "Called CD preprocessing."<< std::endl;
     //Tflow test
     int nbEdges = countEdges(compactGraph);
     int totalNbTflow = 0;
@@ -824,14 +819,14 @@ bool RSA::CDPreprocessing(){
             //currentArc = a;
             int slice = getArcSlice(a, d);
             int limitCband = instance.getPhysicalLinkFromIndex(getArcLabel(a, d)).getNbSlicesC();
-            double distanceToConsider = getToBeRouted_k(d).getmaxCDC()/20.0;
+            double distanceToConsider = getToBeRouted_k(d).getmaxCDC();
             if (slice >= limitCband){
-                distanceToConsider = getToBeRouted_k(d).getmaxCDL()/22.0;
+                distanceToConsider = getToBeRouted_k(d).getmaxCDL();
             }
             ListDigraph::Node source = getNode(d, getToBeRouted_k(d).getSource(), slice);
             ListDigraph::Node target = getNode(d, getToBeRouted_k(d).getTarget(), slice);
             if (source != INVALID && target != INVALID){
-                if (shortestDistance(d, source, a, target) > distanceToConsider + DBL_EPSILON){
+                if (shortestCD(d, source, a, target) > distanceToConsider + DBL_EPSILON){
                     //Tflow test
                     int arcTflowId = getArcLabel(a,d);
                     int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
@@ -897,7 +892,7 @@ bool RSA::CDPreprocessing(){
     }
     */
     if (totalNb >= 1){
-        std::cout << "> Number of erased arcs due to length in graph: "<< totalNb << std::endl;
+        std::cout << "> Number of erased arcs due to CD in graph: "<< totalNb << std::endl;
         if (nbBands == 1){
             std::cout << "> Number of erased arcs in tflow: "<< totalNbTflow << std::endl;
         }
@@ -907,30 +902,54 @@ bool RSA::CDPreprocessing(){
 }
 
 /* Returns the distance of the shortest path from source to target passing through arc a. */
-double RSA::shortestDistance(int d, ListDigraph::Node &s, ListDigraph::Arc &a, ListDigraph::Node &t){
-    double distance = 0.0;
-    Dijkstra< ListDigraph, ListDigraph::ArcMap<double> > s_u_path((*vecGraph[d]), (*vecArcLengthWithPenalty[d]));
+double RSA::shortestCD(int d, ListDigraph::Node &s, ListDigraph::Arc &a, ListDigraph::Node &t){
+    double cd = 0.0;
 
-    s_u_path.run(s,(*vecGraph[d]).source(a));
-    if (s_u_path.reached((*vecGraph[d]).source(a))){
-        distance += s_u_path.dist((*vecGraph[d]).source(a));
+    int slice = getArcSlice(a, d);
+    int limitCband = instance.getPhysicalLinkFromIndex(getArcLabel(a, d)).getNbSlicesC();
+    if (slice < limitCband){
+        Dijkstra< ListDigraph, ListDigraph::ArcMap<double> > s_u_path((*vecGraph[d]), (*vecArcDispersionC[d]));
+        s_u_path.run(s,(*vecGraph[d]).source(a));
+        if (s_u_path.reached((*vecGraph[d]).source(a))){
+            cd += s_u_path.dist((*vecGraph[d]).source(a));
+        }
+        else{
+            return DBL_MAX;
+        }
+        cd += getArcDispersionC(a, d);
+        Dijkstra< ListDigraph, ListDigraph::ArcMap<double> > v_t_path((*vecGraph[d]), (*vecArcDispersionC[d]));
+        v_t_path.run((*vecGraph[d]).target(a), t);
+        if (v_t_path.reached(t)){
+            cd += v_t_path.dist(t);
+        }
+        else{
+            return DBL_MAX;
+        }
+        return cd;
+    }else{
+        Dijkstra< ListDigraph, ListDigraph::ArcMap<double> > s_u_path((*vecGraph[d]), (*vecArcDispersionL[d]));
+        s_u_path.run(s,(*vecGraph[d]).source(a));
+        if (s_u_path.reached((*vecGraph[d]).source(a))){
+            cd += s_u_path.dist((*vecGraph[d]).source(a));
+        }
+        else{
+            return DBL_MAX;
+        }
+        cd += getArcDispersionL(a, d);
+        Dijkstra< ListDigraph, ListDigraph::ArcMap<double> > v_t_path((*vecGraph[d]), (*vecArcDispersionL[d]));
+        v_t_path.run((*vecGraph[d]).target(a), t);
+        if (v_t_path.reached(t)){
+            cd += v_t_path.dist(t);
+        }
+        else{
+            return DBL_MAX;
+        }
+        return cd;
     }
-    else{
-        return DBL_MAX;
-    }
-    distance += getArcLengthWithPenalties(a, d);
-    Dijkstra< ListDigraph, ListDigraph::ArcMap<double> > v_t_path((*vecGraph[d]), (*vecArcLengthWithPenalty[d]));
-    v_t_path.run((*vecGraph[d]).target(a), t);
-    if (v_t_path.reached(t)){
-        distance += v_t_path.dist(t);
-    }
-    else{
-        return DBL_MAX;
-    }
-    return distance;
+    
 }
 /* Performs preprocessing based on the arc partial osnr and returns true if at least one arc is erased. */
-bool RSA::OSNRPreprocessingC(){
+bool RSA::OSNRPreprocessing(){
     std::cout << "Called OSNR preprocessing."<< std::endl;
     //Tflow test
     int nbEdges = countEdges(compactGraph);
@@ -1172,8 +1191,8 @@ double RSA::getCoeffObjTRL(const ListDigraph::Arc &a, int d){
 }
 
 /* Returns the coefficient of an arc according to metric 4p on graph #d. */
-double RSA::getCoeffObjTUA(const ListDigraph::Arc &a, int d){
-    return getArcLineAmplifiers(a, d);
+double RSA::getCoeffObjTASE(const ListDigraph::Arc &a, int d){
+    return  getArcLineAmplifiers(a, d) * (getToBeRouted_k(d).getGBits()/getToBeRouted_k(d).getLoadC());
 }
 
 /* Returns the coefficient of an arc according to metric 8 on graph #d. */
@@ -1249,9 +1268,9 @@ double RSA::getCoeff(const ListDigraph::Arc &a, int d){
             coeff = getCoeffObjTRL(a, d);
             break;
         }
-        case Input::OBJECTIVE_METRIC_TUA:
+        case Input::OBJECTIVE_METRIC_TASE:
         {
-            coeff = getCoeffObjTUA(a, d);
+            coeff = getCoeffObjTASE(a, d);
             break;
         }
         case Input::OBJECTIVE_METRIC_NLUS:
@@ -1290,7 +1309,7 @@ void RSA::displayToBeRouted(){
     for (int i = 0; i < getNbDemandsToBeRouted(); i++){
         std::cout << "#" << toBeRouted[i].getId()+1;
         std::cout << " (" << toBeRouted[i].getSource()+1 << ", " << toBeRouted[i].getTarget()+1 << "), ";
-        std::cout << "requiring " << toBeRouted[i].getLoadC() << " slices and having Max length ";
+        std::cout << "requiring " << toBeRouted[i].getLoadC() << " slices and having Max CD ";
         std::cout << toBeRouted[i].getmaxCDC() << std::endl;
     }
 }
@@ -1347,7 +1366,7 @@ void RSA::displayPaths(){
 
 /* Displays the paths found for each of the new routed demands. */
 void RSA::displayOSNR(Instance &i){
-    if(this->getInstance().getInput().isOSNREnabled() == true){
+    if(this->getInstance().getInput().isMinOSNREnabled() == true){
         double osnrSurplus = 0.0;
         std::cout << "Displaying OSNR " << std::endl;
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
@@ -1408,7 +1427,7 @@ void RSA::displayOFData(Instance &i){
     int OBJECTIVE_METRIC_SULD = 0;		/**< Minimize the sum of (number of hops in paths) over demands. **/                //OK
     int OBJECTIVE_METRIC_TUS = 0;	/**< Minimize the sum of occupied slices. **/                                           //OK
     double OBJECTIVE_METRIC_TRL = 0;		/**< Minimize the path lengths. **/                                                 //OK
-    int OBJECTIVE_METRIC_TUA = 0;	/**< Minimize the amplifiers. **/                                                       //OK 
+    double OBJECTIVE_METRIC_TASE = 0;	/**< Minimize the amplifiers. **/                                                       //OK 
     int OBJECTIVE_METRIC_NLUS = 0;		/**< Minimize the max used slice position overall. **/                              //OK 
     double OBJECTIVE_METRIC_TOS = 0.0; 	/**< Minimize the sum of differences between the OSNR of a path ant the OSNR limit **/
     int OBJECTIVE_METRIC_ADS = 0; 	/**< Minimize the weighted sum of rejected demands **/                                  //OK
@@ -1422,7 +1441,7 @@ void RSA::displayOFData(Instance &i){
                 if ((*vecOnPath[d])[a] != -1){
                     OBJECTIVE_METRIC_SULD = OBJECTIVE_METRIC_SULD +1;
                     OBJECTIVE_METRIC_TRL = OBJECTIVE_METRIC_TRL + getArcLength(a,d);
-                    OBJECTIVE_METRIC_TUA = OBJECTIVE_METRIC_TUA + getArcLineAmplifiers(a,d);
+                    OBJECTIVE_METRIC_TASE = OBJECTIVE_METRIC_TASE + getArcLineAmplifiers(a,d);
                     int slice = getArcSlice(a, d);
                     int limitCband = instance.getPhysicalLinkFromIndex(getArcLabel(a, d)).getNbSlicesC();
                     if (slice < limitCband){
@@ -1456,7 +1475,7 @@ void RSA::displayOFData(Instance &i){
     std::cout << "Sum of used links by demands: " << OBJECTIVE_METRIC_SULD << std::endl;
     std::cout << "Total route length: " << OBJECTIVE_METRIC_TRL << std::endl;
     std::cout << "Total used slots: " << OBJECTIVE_METRIC_TUS << std::endl;
-    std::cout << "Total used amplifiers: " << OBJECTIVE_METRIC_TUA << std::endl;
+    std::cout << "Total used amplifiers: " << OBJECTIVE_METRIC_TASE << std::endl;
 
     ADS = OBJECTIVE_METRIC_ADS;
     DCB = OBJECTIVE_METRIC_DCB ;
@@ -1466,7 +1485,7 @@ void RSA::displayOFData(Instance &i){
     SULD = OBJECTIVE_METRIC_SULD;
     TRL = OBJECTIVE_METRIC_TRL;
     TUS = OBJECTIVE_METRIC_TUS;
-    TUA = OBJECTIVE_METRIC_TUA;
+    TASE = OBJECTIVE_METRIC_TASE;
 
 }
 

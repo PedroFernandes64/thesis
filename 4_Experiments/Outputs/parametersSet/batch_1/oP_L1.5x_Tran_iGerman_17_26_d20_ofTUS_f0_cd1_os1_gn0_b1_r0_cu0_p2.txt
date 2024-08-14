@@ -1,14 +1,14 @@
 ******* Input File Paths *******
-topologyFile=Instances/1.5x/random/European_18_40/Links/20_demands/Link.csv
+topologyFile=Instances/1.5x/random/German_17_26/Links/20_demands/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=Instances/1.5x/random/European_18_40/Demands/20_demands
+demandToBeRoutedFolder=Instances/1.5x/random/German_17_26/Demands/20_demands
 
 ******* QoT parameters *******
-GNPY_activation=1
-QoTFolder=QoTSet/oP_L1.5x_Tran_iEuropean_18_40_d20_ofNLUS_f0_mr0_os0
-MaxReach_activation=0
-OSNR_activation=0
+GNPY_activation=0
+QoTFolder=QoTSet/oP_L1.5x_Tran_iGerman_17_26_d20_ofTUS_f0_cd1_os1_gn0_b1_r0_cu0_p2
+ChromaticDispersion_activation=1
+OSNR_activation=1
 
 ******* Thesis Pedro parameters *******
 Bands=1
@@ -19,7 +19,7 @@ Reinforcements=0
 nbDemandsAtOnce=1000
 formulation=0
 userCuts=0
-obj=NLUS
+obj=TUS
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
@@ -29,7 +29,7 @@ partitionSlice=0
 ******* Optimization parameters *******
 solver=0
 method=0 
-preprocessingLevel=0
+preprocessingLevel=2
 linearRelaxation=0
 relaxMethod=0 
 

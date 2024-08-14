@@ -17,7 +17,7 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
 
     GNPY_activation = std::stoi(getParameterValue("GNPY_activation="));
     QoTFolder = getParameterValue("QoTFolder=");
-    maxReachActivation = std::stoi(getParameterValue("MaxReach_activation="));
+    chromaticDispersionActivation = std::stoi(getParameterValue("ChromaticDispersion_activation="));
     osnrActivation = std::stoi(getParameterValue("OSNR_activation="));
 
     std::cout << "Getting Thesis Pedro parameters..." << std::endl;
@@ -75,8 +75,8 @@ Input::Input(const Input &i) : PARAMETER_FILE(i.getParameterFile()){
 
     GNPY_activation = i.isGNPYEnabled();
     QoTFolder = i.getQotFolder();
-    maxReachActivation = i.isMaxReachEnabled();
-    osnrActivation = i.isOSNREnabled();
+    chromaticDispersionActivation = i.isMaxCDEnabled();
+    osnrActivation = i.isMinOSNREnabled();
     nbBands = i.getNbBands();
     nonOverlappingTypeTFlow = i.getNonOverTFlow();
     reinforcements = i.areReinforcementsEnabled();
@@ -182,8 +182,8 @@ std::string Input::getObjName(ObjectiveMetric obj) const{
     case OBJECTIVE_METRIC_TRL:
         name = "obj_trl";
         break;
-    case OBJECTIVE_METRIC_TUA:
-        name = "obj_tua";
+    case OBJECTIVE_METRIC_TASE:
+        name = "obj_tase";
         break;
     case OBJECTIVE_METRIC_NLUS:
         name = "obj_nlus";
@@ -234,8 +234,8 @@ std::vector<Input::ObjectiveMetric> Input::to_ObjectiveMetric(std::string data){
         else if (strVec[i] == "TRL"){
             objVec.push_back(OBJECTIVE_METRIC_TRL);
         }
-        else if (strVec[i] == "TUA"){
-            objVec.push_back(OBJECTIVE_METRIC_TUA);
+        else if (strVec[i] == "TASE"){
+            objVec.push_back(OBJECTIVE_METRIC_TASE);
         }
         else if (strVec[i] == "NLUS"){
             objVec.push_back(OBJECTIVE_METRIC_NLUS);

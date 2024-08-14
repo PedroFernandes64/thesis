@@ -71,7 +71,7 @@ protected:
     int SULD;
     double TRL;
     int TUS;
-    int TUA;
+    double TASE;
 
     /** A list of pointers to the extended graph associated with each demand to be routed. 
         \note (*vecGraph[i]) is the graph associated with the i-th demand to be routed. **/
@@ -105,6 +105,9 @@ protected:
     std::vector< std::shared_ptr<ArcCost> > vecArcPnliL;
     std::vector< std::shared_ptr<ArcCost> > vecArcPaseLineL;
     std::vector< std::shared_ptr<ArcCost> > vecArcNoiseL;
+
+    std::vector< std::shared_ptr<ArcCost> > vecArcDispersionC;
+    std::vector< std::shared_ptr<ArcCost> > vecArcDispersionL;
 
     /** A list of pointers to the map storing the arc lengths with hop penalties included of the graph associated with each demand to be routed. 
         \note (*vecArcLengthWithPenalty[i])[a] is the length with penalties of arc a in the graph associated with the i-th demand to be routed. **/
@@ -156,6 +159,8 @@ protected:
     EdgeCost compactEdgePaseLineL;           /**< EdgeMap storing the edge pase line of the simple graph associated with the initial mapping. **/
     EdgeCost compactEdgeNoiseC;           /**< EdgeMap storing the edge noise of the simple graph associated with the initial mapping. **/
     EdgeCost compactEdgeNoiseL;           /**< EdgeMap storing the edge noise of the simple graph associated with the initial mapping. **/
+    EdgeCost compactEdgeDispersionC;           /**< EdgeMap storing the edge dispersion C MULTIPLIED BY EDGE LENGTH of the simple graph associated with the initial mapping. **/
+    EdgeCost compactEdgeDispersionL;           /**< EdgeMap storing the edge dispersion L MULTIPLIED BY EDGE LENGTH of the simple graph associated with the initial mapping. **/
     
     std::vector<std::vector<std::vector<int> > > preProcessingErasedArcs;
     
@@ -248,6 +253,9 @@ public:
     double getArcPaseLineL(const ListDigraph::Arc &a, int d) const  {return (*vecArcPaseLineL[d])[a]; }
     double getArcNoiseL(const ListDigraph::Arc &a, int d) const  {return (*vecArcNoiseL[d])[a]; }
 
+    double getArcDispersionC(const ListDigraph::Arc &a, int d) const  {return (*vecArcDispersionC[d])[a]; }
+    double getArcDispersionL(const ListDigraph::Arc &a, int d) const  {return (*vecArcDispersionL[d])[a]; }
+
     /** Returns the length with hop penalties of an arc in a graph. @param a The arc. @param d The graph index. **/
     double getArcLengthWithPenalties(const ListDigraph::Arc &a, int d) const  {return (*vecArcLengthWithPenalty[d])[a]; }
 
@@ -287,7 +295,7 @@ public:
     double getCoeffObjTRL(const ListDigraph::Arc &a, int d);
 
     /** Returns the coefficient of an arc according to metric 4p on a graph. @param a The arc. @param d The graph index. \note Min path lengths. **/
-    double getCoeffObjTUA(const ListDigraph::Arc &a, int d);
+    double getCoeffObjTASE(const ListDigraph::Arc &a, int d);
 
     /** Returns the coefficient of an arc according to metric 8 on a graph. @param a The arc. @param d The graph index. \note Min max global used slice position. **/
     double getCoeffObjNLUS(const ListDigraph::Arc &a, int d);
@@ -322,6 +330,9 @@ public:
     double getCompactPaseLineL(const ListGraph::Edge &e) { return compactEdgePaseLineL[e]; }
     double getCompactNoiseC(const ListGraph::Edge &e) { return compactEdgeNoiseC[e]; }
     double getCompactNoiseL(const ListGraph::Edge &e) { return compactEdgeNoiseL[e]; }
+    double getCompactDispersionC(const ListGraph::Edge &e) { return compactEdgeDispersionC[e]; }
+    double getCompactDispersionL(const ListGraph::Edge &e) { return compactEdgeDispersionL[e]; }
+
     int getPossiblePaths(){ return possiblePaths; }
     int getFeasiblePathsC(){ return feasiblePathsC; }
     int getOsnrFeasiblePathsC(){ return onlyOsnrFeasiblePathsC; }
@@ -339,7 +350,7 @@ public:
     int getSULD(){ return SULD;};
     double getTRL(){ return TRL;};
     int getTUS(){ return TUS;};
-    int getTUA(){ return TUA;};
+    double getTASE(){ return TASE;};
     int getVariablesSetTo0(){ return variablesSetTo0;};
     int getPreprocessingConstraints(){ return preprocessingConstraints;};
 
@@ -398,6 +409,9 @@ public:
     void setArcPnliL(const ListDigraph::Arc &a, int d, double val) { (*vecArcPnliL[d])[a] = val; }
     void setArcPaseLineL(const ListDigraph::Arc &a, int d, double val) { (*vecArcPaseLineL[d])[a] = val; }
     void setArcNoiseL(const ListDigraph::Arc &a, int d, double val) { (*vecArcNoiseL[d])[a] = val; }
+
+    void setArcDispersionC(const ListDigraph::Arc &a, int d, double val) { (*vecArcDispersionC[d])[a] = val; }
+    void setArcDispersionL(const ListDigraph::Arc &a, int d, double val) { (*vecArcDispersionL[d])[a] = val; }
     
     /** Changes the length with hop penalty of an arc in a graph. @param a The arc. @param d The graph index. @param val The new length. **/
     void setArcLengthWithPenalty(const ListDigraph::Arc &a, int d, double val) { (*vecArcLengthWithPenalty[d])[a] = val; }
@@ -433,6 +447,9 @@ public:
     void setCompactNoiseC(const ListGraph::Edge &e, double val) { compactEdgeNoiseC[e] = val; }
     void setCompactNoiseL(const ListGraph::Edge &e, double val) { compactEdgeNoiseL[e] = val; }
 
+    void setCompactDispersionC(const ListGraph::Edge &e, double val) { compactEdgeDispersionC[e] = val; }
+    void setCompactDispersionL(const ListGraph::Edge &e, double val) { compactEdgeDispersionL[e] = val; }
+
 	/****************************************************************************************/
 	/*										Methods											*/
 	/****************************************************************************************/
@@ -444,7 +461,7 @@ public:
      * @param d The graph index. @param source The source node's id. @param target The target node's id. 
      * @param linkLabel The arc's label. @param slice The arc's slice position. @param l The arc's length. 
      * @param la The arc's line amplifiers. @param pn The arc's pnli. @param pa The arc's pase line**/
-    void addArcs(int d, int source, int target, int linkLabel, int slice, double l, int la, double pnc, double pac, double nc, double pnl, double pal, double nl);    
+    void addArcs(int d, int source, int target, int linkLabel, int slice, double l, int la, double pnc, double pac, double nc, double pnl, double pal, double nl, double dc, double dl);    
      
     /** Updates the mapping stored in the given instance with the results obtained from RSA solution (i.e., vecOnPath). @param i The instance to be updated.*/
     void updateInstance(Instance &i);
@@ -464,12 +481,12 @@ public:
     /** If there exists no path from (source,s) to (target,s), erases every arc with slice s. **/
     void pathExistencePreprocessing();
 
-    /** Performs preprocessing based on the arc lengths and returns true if at least one arc is erased. An arc (u,v) can only be part of a solution if the distance from demand source to u, plus the distance from v to demand target plus the arc length is less than or equal to the demand's maximum length. **/
+    /** Performs preprocessing based on the arc lengths and returns true if at least one arc is erased. An arc (u,v) can only be part of a solution if the distance from demand source to u, plus the distance from v to demand target plus the arc CD is less than or equal to the demand's maximum CD. **/
     bool CDPreprocessing();
-    bool OSNRPreprocessingC();
+    bool OSNRPreprocessing();
 
     /** Returns the distance of the shortest path from source to target passing through arc a. \note If there exists no st-path, returns +Infinity. @param d The graph index. @param source The source node.  @param a The arc required to be present. @param target The target node.  **/
-    double shortestDistance(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
+    double shortestCD(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
     double shortestOSNRPartial(int d, ListDigraph::Node &source, ListDigraph::Arc &a, ListDigraph::Node &target);
 
 

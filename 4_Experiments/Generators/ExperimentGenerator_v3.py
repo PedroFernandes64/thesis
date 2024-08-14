@@ -27,14 +27,19 @@ for linkStrategy in linkStrategies:
                 testSet.append(test)
 
 #testUnitVerifier(testSet)
+gnpyActivation = ["0"]
+CDSet=["1"]
+osnrSet=["1"]
 
-maxReachSet=["0"]
-osnrSet=["0"]
 bands=["1"]
-TFlowSet=["1","2","3"]
+TFlowSet=["3"]
+reinforcements=["0"]
 
 formulationSet = ["0"]
-objSet = ["NLUS"]
+userCuts = ["0"]
+objSet = ["TUS"]
+
+preprocessingSet= ["2"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()
@@ -61,7 +66,7 @@ counter = 0
 print(len(testSet))
 
 with open("../Outputs/experimentList.csv", "w") as list:
-    line = "LinkS;TranspS;Instance;Demands;OF;Formulation;Reach;OSNR;"
+    line = "LinkS;TranspS;Instance;Demands;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro"
     list.write(line)
     print("Test list table created")   
     for experiment in testSet:
@@ -88,87 +93,128 @@ with open("../Outputs/experimentList.csv", "w") as list:
                 stringForm = "formulation=" + form + "\n"
                 lines[19] = stringForm
 
-                for reach in maxReachSet:
-                    stringReach = "MaxReach_activation=" + reach + "\n"
-                    lines[9] = stringReach
+                for cd in CDSet:
+                    stringCD = "ChromaticDispersion_activation=" + cd + "\n"
+                    lines[9] = stringCD
 
                     for osnr in osnrSet:
-                        stringGN = "OSNR_activation=" + osnr + "\n"
-                        lines[10] = stringGN
-                            
-                        #verifying if tflow
-                        if form == '2':
-                            for tflow in TFlowSet:
-                                stringTflow = "TFlow_Policy=" + tflow  + "\n"
-                                lines[14] = stringTflow
+                        stringOSNR = "OSNR_activation=" + osnr + "\n"
+                        lines[10] = stringOSNR
 
-                                #FOLDER MANAGEMENT
-                                if (counter % 300 == 0) or (counter == 0):
-                                    batchs = batchs + 1
-                                    currentBatch = "batch_" + str(batchs)
-                                    currentBatchFolder = "../Outputs/parametersSet/" + currentBatch
-                                    if currentBatch not in auxParameterFolder:
-                                            os.mkdir(currentBatchFolder)
-                                    else:
-                                        shutil.rmtree(currentBatchFolder)
-                                        os.mkdir(currentBatchFolder)
-                                    print("Batch folder created")
+                        for gnpy in gnpyActivation:
+                            stringGN = "GNPY_activation=" + gnpy + "\n"
+                            lines[7] = stringGN
 
-                                parametersName = currentBatchFolder + "/oP"+auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + "_tf" + tflow+ ".txt"
-                                listLine = "\n" + linkStrategy+";"+ transponderStrategy+";"+topology + ";" + demandCode + ";" + obj + ";" + form + tflow +";" + reach + ";" + osnr + ";" 
-                                list.write(listLine)
-                                with open(parametersName, "w") as f:
-                                    for line in lines:
-                                        f.write(line)
-                                    f.close() 
-                                counter = counter + 1
-                                print(parametersName)
-                        else:
-                            stringTflow = "TFlow_Policy=0" + "\n"
-                            lines[14] = stringTflow
+                            for band in bands:
+                                stringBand = "Bands=" + band + "\n"
+                                lines[13] = stringBand
 
-                            #FOLDER MANAGEMENT
-                            if (counter % 300 == 0) or (counter == 0):
-                                batchs = batchs + 1
-                                currentBatch = "batch_" + str(batchs)
-                                currentBatchFolder = "../Outputs/parametersSet/" + currentBatch
-                                if currentBatch not in auxParameterFolder:
-                                        os.mkdir(currentBatchFolder)
-                                else:
-                                    shutil.rmtree(currentBatchFolder)
-                                    os.mkdir(currentBatchFolder)
-                                print("Batch folder created")
+                                for cut in userCuts:
+                                    stringCut = "userCuts=" + cut + "\n"
+                                    lines[20] = stringCut
+
+                                    for reinforcement in reinforcements:
+                                        stringReinfo = "Reinforcements=" + reinforcement + "\n"
+                                        lines[15] = stringReinfo
+
+                                        for prepro in preprocessingSet:
+                                            stringPrepro = "preprocessingLevel=" + prepro + "\n"
+                                            lines[31] = stringPrepro
 
 
-                            qotFolder = "../Outputs/QoTSet" + "/oP" +auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr
-                            #os.mkdir(qotFolder)
-                            #print(qotFolder)
-                            shutil.copytree("../Inputs/QoT_ReferenceFolder", qotFolder)  
-                            thisQotFolderDemands = [f.name for f in os.scandir(qotFolder+"/demands") if f.is_file()]
-                            for element in thisQotFolderDemands:
-                                os.remove(qotFolder+"/demands/"+element)
-                            thisQotFolderTopology = [f.name for f in os.scandir(qotFolder+"/topology") if f.is_file()]
-                            for element in thisQotFolderTopology:
-                                os.remove(qotFolder+"/topology/"+element)
-                            #os.remove(qotFolder+"/paths.csv")
-                            nodeFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Nodes/" + demandCode+"_demands" + "/Nodes.csv"
-                            linkFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Links/" + demandCode+"_demands" + "/Link.csv"
-                            demandFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Demands/" + demandCode+"_demands" + "/demands_1.csv"
-                            
-                            shutil.copyfile(nodeFile, qotFolder+"/topology/Node.csv")
-                            shutil.copyfile(linkFile, qotFolder+"/topology/Link.csv")
-                            shutil.copyfile(demandFile, qotFolder+"/demands/demand_1.csv")
+                                        #verifying if tflow
+                                        if form == '2':
+                                            for tflow in TFlowSet:
+                                                stringTflow = "TFlow_Policy=" + tflow  + "\n"
+                                                lines[14] = stringTflow
 
-                            lines[8] = "QoTFolder="+qotFolder[11:]+ "\n"
-                            parametersName = currentBatchFolder + "/oP" +auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_mr" + reach + "_os" + osnr + ".txt"
-                            listLine = "\n" + linkStrategy+";"+ transponderStrategy+";"+topology + ";" + demandCode + ";" + obj + ";" + form +";" + reach + ";" + osnr + ";"
-                            list.write(listLine)
-                            with open(parametersName, "w") as f:
-                                for line in lines:
-                                    f.write(line)
-                                f.close() 
-                            counter = counter + 1
-                            
+                                                #FOLDER MANAGEMENT
+                                                if (counter % 300 == 0) or (counter == 0):
+                                                    batchs = batchs + 1
+                                                    currentBatch = "batch_" + str(batchs)
+                                                    currentBatchFolder = "../Outputs/parametersSet/" + currentBatch
+                                                    if currentBatch not in auxParameterFolder:
+                                                            os.mkdir(currentBatchFolder)
+                                                    else:
+                                                        shutil.rmtree(currentBatchFolder)
+                                                        os.mkdir(currentBatchFolder)
+                                                    print("Batch folder created")
+
+                                                qotFolder = "../Outputs/QoTSet" + "/oP" +auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_tf" + tflow+ "_cd" + cd + "_os" + osnr + "_gn" + gnpy+ "_b" + band + "_r" + reinforcement + "_cu" + cut+ "_p" + prepro
+                                                #os.mkdir(qotFolder)
+                                                #print(qotFolder)
+                                                shutil.copytree("../Inputs/QoT_ReferenceFolder", qotFolder)  
+                                                thisQotFolderDemands = [f.name for f in os.scandir(qotFolder+"/demands") if f.is_file()]
+                                                for element in thisQotFolderDemands:
+                                                    os.remove(qotFolder+"/demands/"+element)
+                                                thisQotFolderTopology = [f.name for f in os.scandir(qotFolder+"/topology") if f.is_file()]
+                                                for element in thisQotFolderTopology:
+                                                    os.remove(qotFolder+"/topology/"+element)
+                                                #os.remove(qotFolder+"/paths.csv")
+                                                nodeFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Nodes/" + demandCode+"_demands" + "/Nodes.csv"
+                                                linkFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Links/" + demandCode+"_demands" + "/Link.csv"
+                                                demandFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Demands/" + demandCode+"_demands" + "/demands_1.csv"
+                                                
+                                                shutil.copyfile(nodeFile, qotFolder+"/topology/Node.csv")
+                                                shutil.copyfile(linkFile, qotFolder+"/topology/Link.csv")
+                                                shutil.copyfile(demandFile, qotFolder+"/demands/demand_1.csv")
+
+                                                lines[8] = "QoTFolder="+qotFolder[11:]+ "\n"
+                                                parametersName = currentBatchFolder + "/oP"+auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_tf" + tflow+ "_cd" + cd + "_os" + osnr + "_gn" + gnpy+ "_b" + band + "_r" + reinforcement + "_cu" + cut+ "_p" + prepro+ ".txt"
+                                                listLine = "\n" + linkStrategy+";"+ transponderStrategy+";"+topology + ";" + demandCode + ";" + obj + ";" + form + tflow +";" + cd + ";" + osnr + ";"+ gnpy + ";"+ band + ";"+ reinforcement + ";"+ cut + ";"+prepro+ ";"
+                                                list.write(listLine)
+                                                with open(parametersName, "w") as f:
+                                                    for line in lines:
+                                                        f.write(line)
+                                                    f.close() 
+                                                counter = counter + 1
+                                                print(parametersName)
+                                        else:
+                                            stringTflow = "TFlow_Policy=0" + "\n"
+                                            lines[14] = stringTflow
+
+                                            #FOLDER MANAGEMENT
+                                            if (counter % 300 == 0) or (counter == 0):
+                                                batchs = batchs + 1
+                                                currentBatch = "batch_" + str(batchs)
+                                                currentBatchFolder = "../Outputs/parametersSet/" + currentBatch
+                                                if currentBatch not in auxParameterFolder:
+                                                        os.mkdir(currentBatchFolder)
+                                                else:
+                                                    shutil.rmtree(currentBatchFolder)
+                                                    os.mkdir(currentBatchFolder)
+                                                print("Batch folder created")
+
+
+                                            qotFolder = "../Outputs/QoTSet" + "/oP" +auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_cd" + cd + "_os" + osnr + "_gn" + gnpy+ "_b" + band + "_r" + reinforcement + "_cu" + cut+ "_p" + prepro
+                                            #os.mkdir(qotFolder)
+                                            #print(qotFolder)
+                                            shutil.copytree("../Inputs/QoT_ReferenceFolder", qotFolder)  
+                                            thisQotFolderDemands = [f.name for f in os.scandir(qotFolder+"/demands") if f.is_file()]
+                                            for element in thisQotFolderDemands:
+                                                os.remove(qotFolder+"/demands/"+element)
+                                            thisQotFolderTopology = [f.name for f in os.scandir(qotFolder+"/topology") if f.is_file()]
+                                            for element in thisQotFolderTopology:
+                                                os.remove(qotFolder+"/topology/"+element)
+                                            #os.remove(qotFolder+"/paths.csv")
+                                            nodeFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Nodes/" + demandCode+"_demands" + "/Nodes.csv"
+                                            linkFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Links/" + demandCode+"_demands" + "/Link.csv"
+                                            demandFile = "../Outputs/Instances/" + linkStrategy + "/" + transponderStrategy+ "/" + topology  + "/Demands/" + demandCode+"_demands" + "/demands_1.csv"
+                                            
+                                            shutil.copyfile(nodeFile, qotFolder+"/topology/Node.csv")
+                                            shutil.copyfile(linkFile, qotFolder+"/topology/Link.csv")
+                                            shutil.copyfile(demandFile, qotFolder+"/demands/demand_1.csv")
+
+                                            lines[8] = "QoTFolder="+qotFolder[11:]+ "\n"
+                                            parametersName = currentBatchFolder + "/oP"+auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_cd" + cd + "_os" + osnr + "_gn" + gnpy+ "_b" + band + "_r" + reinforcement + "_cu" + cut+ "_p" + prepro+ ".txt"
+                                            listLine = "\n" + linkStrategy+";"+ transponderStrategy+";"+topology + ";" + demandCode + ";" + obj + ";" + form  +";" + cd + ";" + osnr + ";"+ gnpy + ";"+ band + ";"+ reinforcement + ";"+ cut + ";" +prepro + ";"
+                                            list.write(listLine)
+                                            with open(parametersName, "w") as f:
+                                                for line in lines:
+                                                    f.write(line)
+                                                f.close() 
+                                            counter = counter + 1
+                                        
 list.close() 
 
 print("Parameter Set created")
@@ -227,7 +273,7 @@ f.close()
 print("Experiments script created")
 
 with open("../Outputs/results.csv", "w") as f:
-    line = "LinkS;TranspS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Reach;OSNR;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tua"
+    line = "LinkS;TranspS;Instance;Demands;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tase"
     f.write(line)
     f.close() 
 print("Result table created")   

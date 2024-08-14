@@ -117,8 +117,14 @@ int main(int argc, char *argv[]) {
 			if (input.getChosenFormulation() == 2){
 				formulation = formulation + to_string(input.getNonOverTFlow());
 			}
-			std::string maxReach = to_string(input.isMaxReachEnabled());
-			std::string minOsnr = to_string(input.isOSNREnabled());
+			std::string maxCD = to_string(input.isMaxCDEnabled());
+			std::string minOsnr = to_string(input.isMinOSNREnabled());
+			std::string gnpy = to_string(input.isGNPYEnabled());
+			std::string bands = to_string(input.getNbBands());
+			std::string reinforcements = to_string(input.areReinforcementsEnabled());
+			std::string cuts = to_string(input.isUserCutsActivated());
+			std::string prepro = to_string(input.getChosenPreprLvl());
+
 			std::string variables = to_string(solver->getNbVariable());
 			std::string	constraints = to_string(solver->getNbConstraint());
 			std::string possiblePaths =  to_string(solver->getPossiblePaths());
@@ -138,7 +144,7 @@ int main(int argc, char *argv[]) {
 			std::string	suld = to_string(solver->getSULD());
 			std::string	trl = to_string(solver->getTRL());
 			std::string	tus = to_string(solver->getTUS());
-			std::string	tua = to_string(solver->getTUA());
+			std::string	tase = to_string(solver->getTASE());
 			std::string	v0 = to_string(solver->getVariablesSetTo0());
 			std::string	ppC = to_string(solver->getPreprocessingConstraints());
 
@@ -171,11 +177,12 @@ int main(int argc, char *argv[]) {
 				}
 			}
 			//opening file and writing
-  			outfile << "\n" + instanceName + ";" << ub + ";" + lb + ";" + gap +";" + time +";" + obj +";"+ formulation+ ";"+maxReach+";"+
-				minOsnr+";"+variables+";"+constraints+";"+v0+";"+ppC+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"+
+  			outfile << "\n" + instanceName + ";" << ub + ";" + lb + ";" + gap +";" + time +";" + obj +";"+ formulation+ ";"
+				+maxCD+";" + minOsnr+";"+ gnpy+";"+ bands+";"+ reinforcements+";"+ cuts+";"+ prepro+";"
+				+variables+";"+constraints+";"+v0+";"+ppC+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"+
 				onlyOsnrFeasiblePathsC+";"+onlyReachFeasiblePathsC+";"+feasiblePathsL+";"+infeasiblePathsL+";"+
 				onlyOsnrFeasiblePathsL+";"+onlyReachFeasiblePathsL+";"+ads+";"+dcb+";"+llb+";"+nlus+";"+slus+";"+
-				suld+";"+trl+";"+tus+";"+tua;
+				suld+";"+trl+";"+tus+";"+tase;
 		}
 		
 

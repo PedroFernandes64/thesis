@@ -130,7 +130,8 @@ public:
 
 	Constraint getTargetConstraint_k2(int k);
 
-	Constraint getCDConstraint_k(int k);
+	Constraint getCDCConstraint_k(int k);
+	Constraint getCDLConstraint_k(int k);
 
     Constraint getOSNRCConstraint(const Demand &demand, int d);
 	Constraint getOSNRLConstraint(const Demand &demand, int d);
@@ -171,9 +172,9 @@ public:
 	
 	
 /*
-	void setStrongLengthConstraints();
+	void setStrongCDConstraints();
 	void setStrongOSNRConstraints();
-	Constraint getStrongLengthConstraint(int k, int s);
+	Constraint getStrongCDConstraint(int k, int s);
     Constraint getStrongOSNRCConstraint(const Demand &demand, int d, int s);
     Constraint getStrongOSNRLConstraint(const Demand &demand, int d, int s);
 */

@@ -83,8 +83,8 @@ class DrFormulation : public AbstractFormulation{
 	/** Defines Target constraints. Exactly one arc enters the demand's target. **/
     void setDestinationConstraints();
 	
-	/** Defines Length constraints. Demands must be routed within a length limit. **/
-	void setLengthConstraints();
+	/** Defines CD constraints. Demands must be routed within a CD limit. **/
+	void setCDConstraints();
 
 	/** Defines OSNR constraints. Demands must be routed within a OSNR limit. **/
 	void setOsnrConstraints();
@@ -110,7 +110,7 @@ class DrFormulation : public AbstractFormulation{
 	Constraint getDestinationConstraint_k(int d);
 
 	/** Returns the transmission reach constraint associated with a demand. @param d The demand index. **/
-	Constraint getLengthConstraint(int d);
+	Constraint getCDConstraint(int d);
 
 	/** Returns the OSNR constraint associated with a demand. @param d The demand index. **/
 	Constraint getOsnrConstraint(int d);

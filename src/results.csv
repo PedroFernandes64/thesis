@@ -1,4 +1,4 @@
-LinkS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Reach;OSNR;Cuts;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tua
+LinkS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;Reach;OSNR;Cuts;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tase
 GODZILA;6nodes9links_6_9;12;12.000000;12.000000;0.000000;0.010000;3;0;1;1;0;2;70;22;0;1;1;0;0;0;0;1;0;0;1;1;0;6;12;2;500.000000;12;8
 GODZILA;6nodes9links_6_9;12;12.000000;12.000000;0.000000;0.013000;3;23;1;1;0;76;202;7;0;1;1;0;0;0;0;1;0;0;1;1;0;6;12;2;500.000000;12;8
 GODZILA;6nodes9links_6_9;12;12.000000;12.000000;0.000000;0.008000;3;23;1;1;0;76;202;7;0;1;1;0;0;0;0;1;0;0;1;1;0;6;12;2;500.000000;12;8

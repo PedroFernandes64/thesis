@@ -522,7 +522,7 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             }
             break;
         }
-        case Input::OBJECTIVE_METRIC_TUA:{
+        case Input::OBJECTIVE_METRIC_TASE:{
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -613,10 +613,10 @@ void TFlowForm::setConstraints(){
     setFlowConservationConstraints();
     setSliceConstraint();
 
-    if (this->getInstance().getInput().isMaxReachEnabled() == true){
+    if (this->getInstance().getInput().isMaxCDEnabled() == true){
         this->setCDConstraints();
     }
-    if (this->getInstance().getInput().isOSNREnabled() == true){
+    if (this->getInstance().getInput().isMinOSNREnabled() == true){
         this->setOSNRConstraints();
     }
 
@@ -909,44 +909,88 @@ void TFlowForm::setTargetConstraints(){
     std::cout << "Target constraints have been defined..." << std::endl;
 }
 
-/* Returns the Length constraint associated with a demand. */
-Constraint TFlowForm::getCDConstraint_k(int k){
+/* Returns the CD constraint associated with a demand. */
+Constraint TFlowForm::getCDCConstraint_k(int k){
     Expression exp;
-    double upperBound = getToBeRouted_k(k).getmaxCDC()/20.0;
+    double upperBound = getToBeRouted_k(k).getmaxCDC();
     int lowerBound = 0;
     int nbEdges = countEdges(compactGraph);
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
-        double coeff = getCompactLength(e);
+        double coeff = getCompactDispersionC(e);
         Term term(x[edge][k], coeff);
         Term term2(x[edge + nbEdges][k], coeff);
         exp.addTerm(term);
         exp.addTerm(term2);
     }
     if(nbBands>1){
-        double coeff = getToBeRouted_k(k).getmaxCDL()/22.0   - getToBeRouted_k(k).getmaxCDC()/20.0;
+        double coeff2 = 0.0;
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            coeff2 = coeff2 + getCompactDispersionC(e);
+            //std::cout <<coeff2<< std::endl;
+        }
         for (int s = slicesC; s < slicesC+slicesL; s++){
-            Term term(y[s][k], coeff);
+            Term term(y[s][k], -coeff2);
             exp.addTerm(term);
         }
+        lowerBound = -coeff2;
     }
     std::ostringstream constraintName;
-    constraintName << "Length_" << getToBeRouted_k(k).getId()+1;
+    constraintName << "CD_" << getToBeRouted_k(k).getId()+1;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }
 
-/* Defines Length constraints. Demands must be routed within a length limit. */
-void TFlowForm::setCDConstraints(){
-    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
-        const Constraint & lengthCConstraint = getCDConstraint_k(d);
-        constraintSet.push_back(lengthCConstraint);
+Constraint TFlowForm::getCDLConstraint_k(int k){
+    Expression exp;
+    double upperBound = getToBeRouted_k(k).getmaxCDL();
+    int lowerBound = 0;
+    int nbEdges = countEdges(compactGraph);
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        double coeff = getCompactDispersionL(e);
+        Term term(x[edge][k], coeff);
+        Term term2(x[edge + nbEdges][k], coeff);
+        exp.addTerm(term);
+        exp.addTerm(term2);
     }
-    std::cout << "Length constraints have been defined..." << std::endl;
+    if(nbBands>1){
+        double coeff2 = 0.0;
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            coeff2 = coeff2 + getCompactDispersionL(e);
+            //std::cout <<coeff2<< std::endl;
+        }
+        for (int s = 0; s < slicesC; s++){
+            Term term(y[s][k], -coeff2);
+            exp.addTerm(term);
+        }
+        lowerBound = -coeff2;
+    }
+    std::ostringstream constraintName;
+    constraintName << "CD_" << getToBeRouted_k(k).getId()+1;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
 }
 
+
+/* Defines CD constraints. Demands must be routed within a CD limit. */
+void TFlowForm::setCDConstraints(){
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
+        const Constraint & CDCConstraint = getCDCConstraint_k(d);
+        constraintSet.push_back(CDCConstraint);
+        if (getInstance().getInput().getNbBands() >= 2) {
+            const Constraint & CDCConstraint = getCDLConstraint_k((d));
+            constraintSet.push_back(CDCConstraint);
+        } 
+    }
+    std::cout << "CD constraints have been defined..." << std::endl;
+}
+
+
 /*
-void TFlowForm::setStrongLengthConstraints(){
+void TFlowForm::setStrongCDConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
         //for (int s = 0; s < getNbSlicesGlobalLimit(); s++){  
         int sliceLimit = auxNbSlicesGlobalLimit;
@@ -954,13 +998,13 @@ void TFlowForm::setStrongLengthConstraints(){
             sliceLimit = slicesTotal;
         }
         for (int s = 0; s < sliceLimit; s++){  
-            const Constraint & strongLengthConstraint = getStrongLengthConstraint(d, s);
+            const Constraint & strongLengthConstraint = getStrongCDConstraint(d, s);
             constraintSet.push_back(strongLengthConstraint);
         }
     }
-    std::cout << "Strong length constraints have been defined..." << std::endl;
+    std::cout << "Strong CD constraints have been defined..." << std::endl;
 }
-Constraint TFlowForm::getStrongLengthConstraint(int k,int s){
+Constraint TFlowForm::getStrongCDConstraint(int k,int s){
     Expression exp;
     int lowerBound = 0;
     int nbEdges = countEdges(compactGraph);
