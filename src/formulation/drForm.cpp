@@ -395,8 +395,8 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-                    Term term(y[edge][k], getCompactLineAmplifiers(e));
-                    Term term2(y[edge + nbEdges][k], getCompactLineAmplifiers(e));
+                    Term term(y[edge][k], (getCompactLineAmplifiers(e)+1)* (getToBeRouted_k(k).getGBits()/getToBeRouted_k(k).getLoadC()));
+                    Term term2(y[edge + nbEdges][k], (getCompactLineAmplifiers(e)+1)* (getToBeRouted_k(k).getGBits()/getToBeRouted_k(k).getLoadC()));
                     obj.addTerm(term);
                     obj.addTerm(term2);
                 }

@@ -312,9 +312,6 @@ Expression FlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObjec
                 double coeff = getCoeffObjTASE(a, d);
                 Term term(x[d][arc], coeff);
                 obj.addTerm2(term);
-                double coeff2 = 1*(getToBeRouted_k(d).getGBits()/getToBeRouted_k(d).getLoadC());
-                Term term2(x[d][arc], coeff2);
-                obj.addTerm2(term2);
             }
         }
         break;

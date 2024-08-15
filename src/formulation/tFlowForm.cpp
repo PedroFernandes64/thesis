@@ -526,8 +526,8 @@ Expression TFlowForm::getObjFunctionFromMetric(Input::ObjectiveMetric chosenObje
             for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
                 int edge = getCompactEdgeLabel(e);
                 for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-                    Term term(x[edge][k], getCompactLineAmplifiers(e));
-                    Term term2(x[edge + nbEdges][k], getCompactLineAmplifiers(e));
+                    Term term(x[edge][k], (getCompactLineAmplifiers(e)+1)* (getToBeRouted_k(k).getGBits()/getToBeRouted_k(k).getLoadC()));
+                    Term term2(x[edge + nbEdges][k], (getCompactLineAmplifiers(e)+1)* (getToBeRouted_k(k).getGBits()/getToBeRouted_k(k).getLoadC()));
                     obj.addTerm(term);
                     obj.addTerm(term2);
                 }
@@ -630,6 +630,7 @@ void TFlowForm::setConstraints(){
     
     if (NonOverlappingType == 0){
         std::cout << "No non-overlapping constraints have been defined..." << std::endl;
+        std::cout << "Non-overlapping Lazy Cuts must be activated" << std::endl;
     }else{
         if (NonOverlappingType == 1){
             setNonOverlappingConstraintsPair();
@@ -2473,47 +2474,101 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemFract(const std::vector
 
 
 std::vector<Constraint> TFlowForm::solveSeparationProblemInt(const std::vector<double> &solution, const int threadNo){
-    /*
-    //std::cout << "Solving separation problem integer..." << std::endl; 
+    
+    std::cout << "Solving separation problem integer..." << std::endl; 
+    std::cout << "Checking non Overlapping..." << std::endl; 
     setVariableValues(solution);
     std::vector<Constraint> cuts;
     int nbEdges = countEdges(compactGraph);
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
-        for (int s = 0; s < slicesBand*bands; s++){
+        for (int s = 0; s < slicesTotal; s++){
+            //std::cout << "current slot"<<s<<std::endl; 
+            std::vector<int> demandList;
             int sliceLimit;
-            if(s>=slicesBand){
-                sliceLimit = slicesBand*bands;
+            int largestOverlappingSlot = 0;
+            if(s>=slicesC){
+                sliceLimit = slicesL;
             }else{
-                sliceLimit = slicesBand;
+                sliceLimit = slicesC;
             }
-            Expression expr;
+            //Expression expr;
             int nbElementsC = 0;
             for (int k = 0; k < getNbDemandsToBeRouted(); ++k){
-                int sWk_1 = s + getToBeRouted_k(k).getLoad()-1;
+                int sWk_1 = s + getToBeRouted_k(k).getLoadC()-1;
+                if(s>=slicesC){
+                    sWk_1 = s + getToBeRouted_k(k).getLoadL()-1;
+                }
+
                 if (sWk_1 >= sliceLimit){
                     sWk_1 = sliceLimit-1;
                 }
                 if (x[edge][k].getVal() >= 1 - EPS || x[edge + nbEdges][k].getVal() >= 1 - EPS){
                     for (int sa = s; sa <= sWk_1; sa++){
                         if (y[sa][k].getVal() >= 1 - EPS){
-                            expr.addTerm(Term(x[edge][k], 1));
-                            expr.addTerm(Term(x[edge+nbEdges][k], 1));
-                            expr.addTerm(Term(y[sa][k], 1));
+                            //expr.addTerm(Term(x[edge][k], 1));
+                            //expr.addTerm(Term(x[edge+nbEdges][k], 1));
+                            //expr.addTerm(Term(y[sa][k], 1));
+                            if(sa>=largestOverlappingSlot){
+                                largestOverlappingSlot = sa;
+                            }
                             nbElementsC = nbElementsC + 1;
+                            demandList.push_back(k);
                         }
                     }
                 }
             }
             if(nbElementsC > 1){
-                cuts.push_back(Constraint(0, expr, nbElementsC + 1, "name_to_do"));
+                //OPTION 1
+                //cuts.push_back(Constraint(0, expr, nbElementsC + 1, "name_to_do"));
                 //std::cout << "Adding lazy constraint: " << expr.to_string() << " <= "  << nbElementsC + 1<< std::endl;
-                break;
+                //OPTION 2
+                //for (int a = 0; a < demandList.size(); a++){
+                //    std::cout << demandList[a] << " ";
+                //}
+                //std::cout << std::endl; 
+                //std::cout << "largestOverlappingSlot"<<largestOverlappingSlot<<std::endl; 
+                
+                for (int a = 0; a < demandList.size()-1; a++){
+                    for (int b = a+1; b < demandList.size(); b++){
+                        Expression expr2;
+                        expr2.addTerm(Term(x[edge][demandList[a]], 1));
+                        expr2.addTerm(Term(x[edge+nbEdges][demandList[a]], 1));
+                        expr2.addTerm(Term(x[edge][demandList[b]], 1));
+                        expr2.addTerm(Term(x[edge+nbEdges][demandList[b]], 1));
+
+                        int sWk_1 = s + getToBeRouted_k(demandList[a]).getLoadC()-1;
+                        if(s>=slicesC){
+                            sWk_1 = s + getToBeRouted_k(demandList[a]).getLoadL()-1;
+                        }
+                        if (sWk_1 >= sliceLimit){
+                            sWk_1 = sliceLimit-1;
+                        }
+                        int sWk_2 = s + getToBeRouted_k(demandList[b]).getLoadC()-1;
+                        if(s>=slicesC){
+                            sWk_2 = s + getToBeRouted_k(demandList[b]).getLoadL()-1;
+                        }
+                        if (sWk_2 >= sliceLimit){
+                            sWk_2 = sliceLimit-1;
+                        }
+                        for (int sa = s; sa <= sWk_1; sa++){
+                            expr2.addTerm(Term(y[sa][demandList[a]], 1));
+                        }
+                        for (int sa = s; sa <= sWk_2; sa++){
+                            expr2.addTerm(Term(y[sa][demandList[b]], 1));
+                        }
+                        std::ostringstream constraintName;
+                        constraintName <<  "NonOverlapping_" << (getToBeRouted_k(a).getId()+1) << "_" << getToBeRouted_k(b).getId()+1;
+                        cuts.push_back(Constraint(0, expr2, 3, constraintName.str()));
+                        //std::cout<< expr2.to_string() <<" <= 3"  <<std::endl;
+                    }
+                }
+                s = largestOverlappingSlot;
+                //break;
             }
         }
     }
     return cuts;
-    */
 }
 
 /****************************************************************************************/

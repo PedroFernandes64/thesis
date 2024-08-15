@@ -1,0 +1,190 @@
+{
+    "Edfa": [
+        {
+            "type_variety": "openroadm_ila_standard",
+            "type_def": "openroadm",
+            "gain_flatmax": 20,
+            "gain_min": 0,
+            "p_max": 17,
+            "nf_coef": [-5.952e-4, -6.250e-2, -1.071, 28.99],
+            "allowed_for_design": false
+        },
+        {
+            "type_variety": "openroadm_mw_mw_preamp_worstcase_ver5",
+            "type_def": "openroadm",
+            "gain_flatmax": 20,
+            "gain_min": 0,
+            "p_max": 17,
+            "nf_coef": [-5.952e-4, -6.250e-2, -1.071, 27.99],
+            "allowed_for_design": false
+        },
+        {
+            "type_variety": "openroadm_mw_mw_booster",
+            "type_def": "openroadm_booster",
+            "gain_flatmax": 20,
+            "gain_min": 0,
+            "p_max": 17,
+            "allowed_for_design": false
+        }, 
+        {
+            "type_variety": "std_medium_gain",
+            "type_def": "variable_gain",
+            "gain_flatmax": 20,
+            "gain_min": 10,
+            "p_max": 17,
+            "nf_min": 5,
+            "nf_max": 9,
+            "out_voa_auto": false,
+            "allowed_for_design": true
+        }, 
+        {
+            "type_variety": "openroadm_ila_low_noise",
+            "type_def": "openroadm",
+            "gain_flatmax": 20,
+            "gain_min": 0,
+            "p_max": 17,
+            "nf_coef": [-8.104e-4, -6.221e-2, -5.889e-1, 37.62],
+            "allowed_for_design": false
+        }, 
+        {
+            "type_variety": "std_fixed_gain",
+            "type_def": "fixed_gain",
+            "gain_flatmax": 20,
+            "gain_min": 5,
+            "p_max": 17,
+            "nf0": 5,
+            "allowed_for_design": false
+        }
+    ],
+    "Fiber": [
+        {
+            "type_variety": "SSMF",
+            "dispersion": 1.70e-05,
+            "effective_area": 80e-12,
+            "pmd_coef": 0,
+            "gamma": 1.37e-3
+        }
+    ],    
+    "Span": [
+        {
+            "power_mode": true,
+            "delta_power_range_db": [0, 0, 0],
+            "max_fiber_lineic_loss_for_raman": 0.20,
+            "target_extended_gain": 0,
+            "max_length": 80,
+            "length_units": "km",
+            "max_loss": 16,
+            "padding": 0,
+            "EOL": 0,
+            "con_in": 0,
+            "con_out": 0
+        }
+    ],
+    "Roadm": [
+        {
+            "target_pch_out_db": -20,
+            "pmd": 0,
+            "pdl": 0,
+            "add_drop_osnr": 200,
+            "restrictions": {
+                "preamp_variety_list": ["std_fixed_gain"],
+                "booster_variety_list": ["std_fixed_gain"]
+            }
+        }
+    ],
+    "SI": [
+        {
+            "f_min": 191.3e12,		
+            "baud_rate": 100e9,
+            "f_max": 196.3e12,
+            "power_dbm": 0,	
+            "power_range_db": [0, 0, 0],
+            "roll_off": null,
+            "tx_osnr": 120,	
+            "sys_margins": 0,
+            "slot_width": 12.5e9,
+            "spacing": 100e9
+        }
+    ],
+    "Transceiver": [
+        {
+            "type_variety": "transp",
+            "frequency": { 
+                "min": 191.3e12,	
+                "max": 196.3e12
+            },
+            "mode": [
+                {
+                    "format": "400 Gbit/s, 75.0 Gbaud, 16QAM, 6 slots",
+                    "baud_rate": 75e9,
+                    "OSNR": 24,
+                    "bit_rate": 400e9,
+                    "roll_off": null,
+                    "tx_osnr": 100,
+                    "min_spacing": 75e9,
+                    "cost": 1
+                },
+                {
+                    "format": "300 Gbit/s, 75.0 Gbaud, 8QAM, 6 slots",
+                    "baud_rate": 75e9,
+                    "OSNR": 21,
+                    "bit_rate": 300e9,
+                    "roll_off": null,
+                    "tx_osnr": 100,
+                    "min_spacing": 75e9,
+                    "cost": 1
+                },
+                {
+                    "format": "200 Gbit/s, 75.0 Gbaud, QPSK, 6 slots",
+                    "baud_rate": 75e9,
+                    "OSNR": 16,
+                    "bit_rate": 200e9,
+                    "roll_off": null,
+                    "tx_osnr": 100,
+                    "min_spacing": 75e9,
+                    "cost": 1
+                },
+                {
+                    "format": "200 Gbit/s, 37.5 Gbaud, 16QAM, 3 slots",
+                    "baud_rate": 37.5e9,
+                    "OSNR": 22,
+                    "bit_rate": 200e9,
+                    "roll_off": null,
+                    "tx_osnr": 100,
+                    "min_spacing": 37.5e9,
+                    "cost": 1
+                },
+                {
+                    "format": "200 Gbit/s, 50.0 Gbaud, 8QAM, 4 slots",
+                    "baud_rate": 50e9,
+                    "OSNR": 16,
+                    "bit_rate": 200e9,
+                    "roll_off": null,
+                    "tx_osnr": 100,
+                    "min_spacing": 50e9,
+                    "cost": 1
+                },
+                {
+                    "format": "100 Gbit/s, 37.5 Gbaud, QPSK, 3 slots",
+                    "baud_rate": 37.5e9,
+                    "OSNR": 13,
+                    "bit_rate": 100e9,
+                    "roll_off": null,
+                    "tx_osnr": 100,
+                    "min_spacing": 37.5e9,
+                    "cost": 1
+                },
+                {
+                    "format": "100 Gbit/s, 37.5 Gbaud, QPSK, 3 slots",
+                    "baud_rate": 37.5e9,
+                    "OSNR": 15,
+                    "bit_rate": 100e9,
+                    "roll_off": null,
+                    "tx_osnr": 100,
+                    "min_spacing": 37.5e9,
+                    "cost": 1
+                }
+            ]
+        }
+    ]
+}

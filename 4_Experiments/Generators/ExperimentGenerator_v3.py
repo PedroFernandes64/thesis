@@ -32,10 +32,10 @@ CDSet=["1"]
 osnrSet=["1"]
 
 bands=["1"]
-TFlowSet=["3"]
+TFlowSet=["0","1","2","3"]
 reinforcements=["0"]
 
-formulationSet = ["0"]
+formulationSet = ["2"]
 userCuts = ["0"]
 objSet = ["TUS"]
 

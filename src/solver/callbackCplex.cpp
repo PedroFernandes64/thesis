@@ -87,15 +87,16 @@ void CplexCallback::addLazyConstraints(const IloCplex::Callback::Context &contex
         std::vector<Constraint> constraint = formulation->solveSeparationProblemInt(getIntegerSolution(context), threadNo);
         if (!constraint.empty()){
             //std::cout << "A lazy constraint was found:";
+            std::cout << "A lazy constraint was found"<< std::endl;
             for (unsigned int i = 0; i < constraint.size(); i++){
-                //constraint.display();
+                //constraint[i].display();
                 IloRange cut(context.getEnv(), constraint[i].getLb(), to_IloExpr(context, constraint[i].getExpression()), constraint[i].getUb());
                 //std::cout << "CPLEX add lazy: " << cut << std::endl;
                 context.rejectCandidate(cut);
             }
         }
         else{
-            //std::cout << "The solution is valid." << std::endl;
+            std::cout << "Callback called but solution accepted" << std::endl;
         }
     }
     catch (...) {

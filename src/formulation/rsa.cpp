@@ -258,6 +258,8 @@ void RSA::AllPaths(){
     std::vector<std::vector<double> > alldemandsNoiseC;
     std::vector<std::vector<double> > alldemandsNoiseL;
     std::vector<std::vector<double> > alldemandsNoiseS;
+    std::vector<std::vector<double> > alldemandsDispersionC;
+    std::vector<std::vector<double> > alldemandsDispersionL;
     std::vector<double> thisdemanddistances;
     std::vector<double> thisdemandPASEnodeC;
     std::vector<double> thisdemandPASElinC;
@@ -271,6 +273,9 @@ void RSA::AllPaths(){
     std::vector<double> thisdemandNoiseC;
     std::vector<double> thisdemandNoiseL;
     std::vector<double> thisdemandNoiseS;
+    std::vector<double> thisdemandDispersionC;
+    std::vector<double> thisdemandDispersionL;
+
     int currentnode;
     int nextnode;
     int vertexamplis;
@@ -287,6 +292,8 @@ void RSA::AllPaths(){
     double noisePathC;
     double noisePathL;
     double noisePathS;
+    double dispersionPathC;
+    double dispersionPathL;
     int fibernumberinpath;
 
     for (int i = 0; i <allpaths.size(); ++i){
@@ -303,7 +310,9 @@ void RSA::AllPaths(){
             paseNodepathS = 0.0;
             noisePathC = 0.0;
             noisePathL = 0.0;
-            noisePathS = 0.0;    
+            noisePathS = 0.0;  
+            dispersionPathC = 0.0;
+            dispersionPathL = 0.0;  
             length = 0;          
             fibernumberinpath = 0;
             for (int k = 0; k <allpaths[i][j].size()-1; ++k){
@@ -324,7 +333,11 @@ void RSA::AllPaths(){
 
                 noisePathC += instance.getPhysicalLinkBetween(currentnode,nextnode).getNoiseC();
                 noisePathL += instance.getPhysicalLinkBetween(currentnode,nextnode).getNoiseL();                 
-                noisePathS += instance.getPhysicalLinkBetween(currentnode,nextnode).getNoiseS();                
+                noisePathS += instance.getPhysicalLinkBetween(currentnode,nextnode).getNoiseS();  
+
+                dispersionPathC += (instance.getPhysicalLinkBetween(currentnode,nextnode).getDispersionCoeffC()*instance.getPhysicalLinkBetween(currentnode,nextnode).getLength());
+                dispersionPathL += (instance.getPhysicalLinkBetween(currentnode,nextnode).getDispersionCoeffL()*instance.getPhysicalLinkBetween(currentnode,nextnode).getLength());
+                
             }
 
             vertexamplis = vertexamplis +1;
@@ -347,6 +360,8 @@ void RSA::AllPaths(){
             thisdemandNoiseC.push_back(noisePathC);
             thisdemandNoiseL.push_back(noisePathL);
             thisdemandNoiseS.push_back(noisePathS);
+            thisdemandDispersionC.push_back(dispersionPathC);
+            thisdemandDispersionL.push_back(dispersionPathL);
         }
         alldemandsdistances.push_back(thisdemanddistances);
         alldemandsPASEnodeC.push_back(thisdemandPASEnodeC);
@@ -361,6 +376,8 @@ void RSA::AllPaths(){
         alldemandsNoiseC.push_back(thisdemandNoiseC);
         alldemandsNoiseL.push_back(thisdemandNoiseL);
         alldemandsNoiseS.push_back(thisdemandNoiseS);
+        alldemandsDispersionC.push_back(thisdemandDispersionC);
+        alldemandsDispersionL.push_back(thisdemandDispersionL);
         thisdemanddistances.clear();
         thisdemandPASEnodeC.clear();
         thisdemandPNLIC.clear();
@@ -374,22 +391,26 @@ void RSA::AllPaths(){
         thisdemandNoiseC.clear();
         thisdemandNoiseL.clear();
         thisdemandNoiseS.clear();
+        thisdemandDispersionC.clear();
+        thisdemandDispersionL.clear();
     }
 
     //Computing OSNR possible paths for all possible demands
     //PATH
     double distance;
+    double dispersionC;
+    double dispersionL;
     //OSNR
     double dbOsnrC;
     double dbOsnrL;
     //double dbOsnrS;
     std::ofstream outfile;
-    bool printAllpaths = false;
+    bool printAllpaths = true;
     if(printAllpaths){
         std::cout << "Writing  OSNR's to file..." << std::endl;
         std::string outputOSNRName = "pathData.csv";
         outfile.open(outputOSNRName); 
-        outfile << "Demand;" <<"Path;" << "Distance;" << "max_lengthC lim;"<<"max_lengthL lim;" << "osnrC val;"<<"osnrC lim;" << "osnrL val;"<<"osnrL lim"<< std::endl;
+        outfile << "Demand;" <<"Path;" << "Distance;" << "dispersionC val;"<<"dispersionC lim;"<<"dispersionL val;"<<"dispersionL lim;"<< "osnrC val;"<<"osnrC lim;" << "osnrL val;"<<"osnrL lim"<< std::endl;
     }
     int total = 0;
     int bothC = 0;
@@ -403,7 +424,9 @@ void RSA::AllPaths(){
 
     for (int i = 0 ; i <toBeRouted.size(); i++){	
         for (int j = 0; j< alldemandsdistances[i].size(); ++j){
-            distance = alldemandsdistances[i][j];     
+            distance = alldemandsdistances[i][j];  
+            dispersionC = alldemandsDispersionC[i][j];  
+            dispersionL =  alldemandsDispersionL[i][j];  
             //dbOsnrC = osnrPathC(alldemandsPASElinC[i][j], alldemandsPASEnodeC[i][j], alldemandsPNLIC[i][j], toBeRouted[i].getPchC());
             //dbOsnrL = osnrPathL(alldemandsPASElinL[i][j], alldemandsPASEnodeL[i][j], alldemandsPNLIL[i][j], toBeRouted[i].getPchL());
             //dbOsnrS = osnrPathS(alldemandsPASElinS[i][j], alldemandsPASEnodeS[i][j], alldemandsPNLIS[i][j], toBeRouted[i].getPchS());
@@ -418,9 +441,13 @@ void RSA::AllPaths(){
                 outfile << ";";
                 outfile << distance;
                 outfile << ";";
-                outfile << toBeRouted[i].getmaxCDC()/20;
+                outfile << dispersionC;
                 outfile << ";";
-                outfile << toBeRouted[i].getmaxCDL()/22;
+                outfile << toBeRouted[i].getmaxCDC();
+                outfile << ";";
+                outfile << dispersionL;
+                outfile << ";";
+                outfile << toBeRouted[i].getmaxCDL();
                 outfile << ";";
                 outfile << dbOsnrC;
                 outfile << ";";
@@ -434,28 +461,28 @@ void RSA::AllPaths(){
 
 
             }
-            if (distance <= (toBeRouted[i].getmaxCDC()/20.0) && dbOsnrC >= toBeRouted[i].getOsnrLimitC()){
+            if (dispersionC <= (toBeRouted[i].getmaxCDC()) && dbOsnrC >= toBeRouted[i].getOsnrLimitC()){
                 bothC = bothC +1;
             }
-            if (distance <= (toBeRouted[i].getmaxCDC()/20.0) && dbOsnrC < toBeRouted[i].getOsnrLimitC()){
+            if (dispersionC <= (toBeRouted[i].getmaxCDC()) && dbOsnrC < toBeRouted[i].getOsnrLimitC()){
                 maxCDC = maxCDC +1;
             }
-            if (distance > (toBeRouted[i].getmaxCDC()/20.0) && dbOsnrC >= toBeRouted[i].getOsnrLimitC()){
+            if (dispersionC > (toBeRouted[i].getmaxCDC()) && dbOsnrC >= toBeRouted[i].getOsnrLimitC()){
                 osnrminC = osnrminC +1;
             }
-            if (distance > (toBeRouted[i].getmaxCDC()/20.0)&& dbOsnrC < toBeRouted[i].getOsnrLimitC()){
+            if (dispersionC > (toBeRouted[i].getmaxCDC())&& dbOsnrC < toBeRouted[i].getOsnrLimitC()){
                 noneC = noneC +1;
             }
-            if (distance <= (toBeRouted[i].getmaxCDL()/22.0) && dbOsnrL >= toBeRouted[i].getOsnrLimitL()){
+            if (dispersionL <= (toBeRouted[i].getmaxCDL()) && dbOsnrL >= toBeRouted[i].getOsnrLimitL()){
                 bothL = bothL +1;
             }
-            if (distance <= (toBeRouted[i].getmaxCDL()/22.0) && dbOsnrL < toBeRouted[i].getOsnrLimitL()){
+            if (dispersionL <= (toBeRouted[i].getmaxCDL()) && dbOsnrL < toBeRouted[i].getOsnrLimitL()){
                 maxCDL = maxCDL +1;
             }
-            if (distance > (toBeRouted[i].getmaxCDL()/22.0) && dbOsnrL >= toBeRouted[i].getOsnrLimitL()){
+            if (dispersionL > (toBeRouted[i].getmaxCDL()) && dbOsnrL >= toBeRouted[i].getOsnrLimitL()){
                 osnrminL = osnrminL +1;
             }
-            if (distance > (toBeRouted[i].getmaxCDL()/22.0) && dbOsnrL < toBeRouted[i].getOsnrLimitL()){
+            if (dispersionL > (toBeRouted[i].getmaxCDL()) && dbOsnrL < toBeRouted[i].getOsnrLimitL()){
                 noneL = noneL +1;
             }
             total = total + 1;
@@ -1192,7 +1219,7 @@ double RSA::getCoeffObjTRL(const ListDigraph::Arc &a, int d){
 
 /* Returns the coefficient of an arc according to metric 4p on graph #d. */
 double RSA::getCoeffObjTASE(const ListDigraph::Arc &a, int d){
-    return  getArcLineAmplifiers(a, d) * (getToBeRouted_k(d).getGBits()/getToBeRouted_k(d).getLoadC());
+    return  (getArcLineAmplifiers(a, d)+1) * (getToBeRouted_k(d).getGBits()/getToBeRouted_k(d).getLoadC());
 }
 
 /* Returns the coefficient of an arc according to metric 8 on graph #d. */
@@ -1441,7 +1468,7 @@ void RSA::displayOFData(Instance &i){
                 if ((*vecOnPath[d])[a] != -1){
                     OBJECTIVE_METRIC_SULD = OBJECTIVE_METRIC_SULD +1;
                     OBJECTIVE_METRIC_TRL = OBJECTIVE_METRIC_TRL + getArcLength(a,d);
-                    OBJECTIVE_METRIC_TASE = OBJECTIVE_METRIC_TASE + getArcLineAmplifiers(a,d);
+                    OBJECTIVE_METRIC_TASE = OBJECTIVE_METRIC_TASE + getCoeffObjTASE(a, d);
                     int slice = getArcSlice(a, d);
                     int limitCband = instance.getPhysicalLinkFromIndex(getArcLabel(a, d)).getNbSlicesC();
                     if (slice < limitCband){
