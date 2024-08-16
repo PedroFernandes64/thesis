@@ -27,9 +27,9 @@ for linkStrategy in linkStrategies:
                 testSet.append(test)
 
 #testUnitVerifier(testSet)
-gnpyActivation = ["0"]
-CDSet=["1"]
-osnrSet=["1"]
+gnpyActivation = ["1"]
+CDSet=["0"]
+osnrSet=["0"]
 
 bands=["1"]
 TFlowSet=["0","1","2","3"]

@@ -200,9 +200,15 @@ public:
 
     std::vector<Constraint> solveSeparationProblemInt(const std::vector<double> &solution, const int threadNo) override; 
 
+	std::vector<Constraint> solveSeparationGnpy(const std::vector<double> &value, const int threadNo);
+
 	void setNonOverlappingType();
 
+	void writePathFile(const std::string &file);
 
+	std::vector<int> getPathNodeSequence(int d);
+
+	Constraint getPathEliminationConstraint(int d);
 	/****************************************************************************************/
 	/*									Variable Fixing										*/
 	/****************************************************************************************/
