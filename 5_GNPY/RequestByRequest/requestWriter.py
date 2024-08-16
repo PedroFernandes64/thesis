@@ -160,11 +160,7 @@ demands = read(path+"demands/demand_1.csv")
 paths = read(path+"paths.csv")
 transponders = read(path+"transponders.csv")
 
-finalJson = []
-row = "{"
-rowa = " \"path-request\": ["
-finalJson.append(row)
-finalJson.append(rowa)
+
 
 rowCount = 0
 for row in paths:
@@ -178,12 +174,17 @@ for row in paths:
         rowCount = rowCount+1
 
 for request in requestList:
+    finalJson = []
+    row = "{"
+    rowa = " \"path-request\": ["
+    finalJson.append(row)
+    finalJson.append(rowa)
     for row in request.jsonRows:
         finalJson.append(row)
-finalJson[len(finalJson)-1] = finalJson[len(finalJson)-1][:-1]  
-rowb = "]"
-finalJson.append(rowb)
-rowc = "}"
-finalJson.append(rowc)
-for row in finalJson:
-    print(row)
+    finalJson[len(finalJson)-1] = finalJson[len(finalJson)-1][:-1]  
+    rowb = "]"
+    finalJson.append(rowb)
+    rowc = "}"
+    finalJson.append(rowc)
+    for row in finalJson:
+        print(row)
