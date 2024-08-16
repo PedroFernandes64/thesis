@@ -185,5 +185,9 @@ rowb = "]"
 finalJson.append(rowb)
 rowc = "}"
 finalJson.append(rowc)
-for row in finalJson:
-    print(row)
+
+with open(path+"/request.json", "w") as f:
+    for row in finalJson:
+        line = row +"\n"
+        f.write(line)
+    f.close() 

@@ -734,5 +734,9 @@ row5 = "  ]"
 row6 = "}"
 masterJason.append(row5)
 masterJason.append(row6)
-for element in masterJason:
-    print(element)
+
+with open(path+"/network.json", "w") as f:
+    for row in masterJason:
+        line = row +"\n"
+        f.write(line)
+    f.close() 

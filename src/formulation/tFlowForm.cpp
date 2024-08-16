@@ -2583,14 +2583,14 @@ std::vector<Constraint> TFlowForm::solveSeparationGnpy(const std::vector<double>
     std::string fileToRemove = QoTfolder+"/network.json";
     std::remove(fileToRemove.c_str());
     std::cout << "Generating network file" << std::endl;
-    std::string command = "python3 " +QoTfolder+ "/translator.py " +QoTfolder+"/ >> "+ QoTfolder+"/network.json";
+    std::string command = "python3 " +QoTfolder+ "/translator.py " +QoTfolder+"/";
     //std::cout<< command << std::endl;
     system(command.c_str());
     std::cout << "Removing any previous request file" << std::endl;
     fileToRemove = QoTfolder+"/request.json";
     std::remove(fileToRemove.c_str());
     std::cout << "Generating request file" << std::endl;
-    command = "python3 " +QoTfolder+ "/requestWriter.py " +QoTfolder+"/ >> " + QoTfolder+"/request.json";
+    command = "python3 " +QoTfolder+ "/requestWriter.py " +QoTfolder+"/";
     //std::cout<< command << std::endl;
     system(command.c_str());
     std::cout << "Removing any previous requestOut file" << std::endl;
@@ -2605,7 +2605,7 @@ std::vector<Constraint> TFlowForm::solveSeparationGnpy(const std::vector<double>
     std::remove(fileToRemove.c_str());
     std::cout << "Reding  GNpy output" << std::endl;
     std::string resultFile = QoTfolder+"/requestOut.json";
-    command = "python3 " +QoTfolder+ "/requestOutputReader.py " +QoTfolder+"/ >> " + QoTfolder+"/outAux.txt";
+    command = "python3 " +QoTfolder+ "/requestOutputReader.py " +QoTfolder+"/";
     //std::cout<< command << std::endl;
     system(command.c_str());
     std::string auxResultFile = QoTfolder+"/outAux.txt";
@@ -2676,7 +2676,7 @@ void TFlowForm::writePathFile(const std::string &file){
     pathsFile << std::endl;
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         int band = 1;
-        int transp = 7;
+        int transp = getToBeRouted_k(d).getTranspIdC();
         pathsFile <<  d+1 <<";"<<  band <<";"<<  transp <<";";
         std::vector<int> path = getPathNodeSequence(d);
         for (unsigned int i = 0; i < path.size(); i++){

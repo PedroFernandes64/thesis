@@ -1162,6 +1162,172 @@ void DrFormulation::updatePath(const std::vector<double> &vals){
     //std::cout << "Leave update." << std::endl;
 }
 
+
+std::vector<Constraint> DrFormulation::solveSeparationGnpy(const std::vector<double> &solution, const int threadNo){
+    std::cout << "Solving separation problem integer..." << std::endl; 
+    std::cout << "Checking OSNR Constraint..." << std::endl; 
+    setVariableValues(solution);
+    std::vector<Constraint> cuts;
+    int nbEdges = countEdges(compactGraph);
+    std::cout << "Writing integer solution to file" << std::endl;
+    std::string QoTfolder = getInstance().getInput().getQotFolder();
+    writePathFile(QoTfolder+"/paths.csv");
+    std::cout << "Removing any previous network file" << std::endl;
+    std::string fileToRemove = QoTfolder+"/network.json";
+    std::remove(fileToRemove.c_str());
+    std::cout << "Generating network file" << std::endl;
+    std::string command = "python3 " +QoTfolder+ "/translator.py " +QoTfolder+"/";
+    //std::cout<< command << std::endl;
+    system(command.c_str());
+    std::cout << "Removing any previous request file" << std::endl;
+    fileToRemove = QoTfolder+"/request.json";
+    std::remove(fileToRemove.c_str());
+    std::cout << "Generating request file" << std::endl;
+    command = "python3 " +QoTfolder+ "/requestWriter.py " +QoTfolder+"/";
+    //std::cout<< command << std::endl;
+    system(command.c_str());
+    std::cout << "Removing any previous requestOut file" << std::endl;
+    fileToRemove = QoTfolder+"/requestOut.json";
+    std::remove(fileToRemove.c_str());
+    std::cout << "Executing GNpy" << std::endl;
+    command = "gnpy-path-request -o " +QoTfolder+ "/requestOut.json " + QoTfolder+ "/network.json " + QoTfolder+ "/request.json -e "+  QoTfolder+ "/equipments.json" ;
+    //std::cout<< command << std::endl;
+    system(command.c_str());
+    std::cout << "Removing any previous outAux file" << std::endl;
+    fileToRemove = QoTfolder+"/outAux.txt";
+    std::remove(fileToRemove.c_str());
+    std::cout << "Reding  GNpy output" << std::endl;
+    std::string resultFile = QoTfolder+"/requestOut.json";
+    command = "python3 " +QoTfolder+ "/requestOutputReader.py " +QoTfolder+"/";
+    //std::cout<< command << std::endl;
+    system(command.c_str());
+    std::string auxResultFile = QoTfolder+"/outAux.txt";
+    std::cout << "Verifying GNpy output" << std::endl;
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        std::string pattern = "Request-" + std::to_string(getToBeRouted_k(d).getId()+1) + "=";
+        //std::cout << "For demand " + std::to_string(getToBeRouted_k(d).getId()+1) + " looking for " + pattern;
+        std::string line;
+        std::string value = "";
+        std::ifstream myfile (auxResultFile.c_str());
+        if (myfile.is_open()) {
+            while ( std::getline (myfile, line) ) {
+                std::size_t pos = line.find(pattern);
+                if (pos != std::string::npos){
+                    value = line.substr(pos + pattern.size());
+                    //value.pop_back();
+                    if (value.empty()){
+                        std::cout << "WARNING: Field '" << pattern << "' is empty." << std::endl; 
+                    }
+                }
+            }
+            myfile.close();
+        }
+        else {
+            std::cerr << "ERROR: Unable to open parameters file '" << auxResultFile << "'." << std::endl; 
+            exit(0);
+        }
+        std::cout << value << std::endl;
+        if (value == "refused"){
+            std::cout << "Demand " << std::to_string(getToBeRouted_k(d).getId()+1) << ": Unfeasible." << std::endl;
+            cuts.push_back(getPathEliminationConstraint(d));
+        }
+        else if (value == ""){
+            std::cerr << "Request" << getToBeRouted_k(d).getId()+1 << " not found!" << std::endl;
+            exit(0);
+        }else{
+            std::cout << "Demand " << std::to_string(getToBeRouted_k(d).getId()+1) << ": OK." << std::endl;
+        }
+    }
+    return cuts;
+}
+
+
+Constraint DrFormulation::getPathEliminationConstraint(int d){
+    int nbHops = 0;
+    Expression exp;
+    int nbEdges = countEdges(compactGraph);
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        if ((y[edge][d].getVal() >= 1 - EPS)||(y[edge + nbEdges][d].getVal() >= 1 - EPS)){
+            nbHops++;
+            Term term(y[edge][d], 1);
+            Term term2(y[edge + nbEdges][d], 1);
+            exp.addTerm(term);
+            exp.addTerm(term2);
+        }
+    }
+    int rhs = nbHops-1;
+    std::ostringstream constraintName;
+    constraintName << "PathElimination(" << std::to_string(getToBeRouted_k(d).getId()+1) << ")";
+    return Constraint(0, exp, rhs, constraintName.str());
+}
+
+void DrFormulation::writePathFile(const std::string &file){
+    std::ofstream pathsFile;
+    pathsFile.open(file.c_str());
+    pathsFile << "demand;transpId;band;path";
+    pathsFile << std::endl;
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        int band = 1;
+        int transp = getToBeRouted_k(d).getTranspIdC();
+        pathsFile <<  d+1 <<";"<<  band <<";"<<  transp <<";";
+        std::vector<int> path = getPathNodeSequence(d);
+        for (unsigned int i = 0; i < path.size(); i++){
+            pathsFile << std::to_string(path[i]+1);
+            if (i < path.size()-1){
+                pathsFile <<  "-";
+            }
+        }
+        pathsFile << std::endl;
+    }
+    pathsFile.close();
+    
+}
+
+std::vector<int> DrFormulation::getPathNodeSequence(int d){
+    std::vector<int> path;
+    int nbEdges = countEdges(compactGraph);
+    int origin = getToBeRouted_k(d).getSource();
+    int destination = getToBeRouted_k(d).getTarget();
+    ListDigraph::Node SOURCE = getFirstNodeFromLabel(d, origin);
+    ListDigraph::Node TARGET = getFirstNodeFromLabel(d, destination);
+    if (TARGET == INVALID || SOURCE == INVALID){
+        std::cout << "ERROR: Could not find source or target from demand " << getToBeRouted_k(d).getId() + 1 << "." << std::endl;
+        exit(0);
+    }
+    path.push_back(getNodeLabel(SOURCE, d));
+    //std::cout << "Search the path from origin to destination." << std::endl;
+    ListDigraph::Node currentNode = SOURCE;
+    while (currentNode != TARGET){
+        ListDigraph::Arc nextArc = INVALID;
+        for (ListDigraph::OutArcIt a(*vecGraph[d], currentNode); a != INVALID; ++a){
+            int edge = getArcLabel(a, d);
+            int u = getNodeLabel((*vecGraph[d]).source(a), d) ;
+            int v = getNodeLabel((*vecGraph[d]).target(a), d) ;
+            int slice = getArcSlice(a,d);
+            if (u < v){
+                if (y[edge][d].getVal() >= 1 - EPS){
+                    nextArc = a;
+                }
+            }else{
+                if (y[edge+nbEdges][d].getVal() >= 1 - EPS){
+                    nextArc = a;
+                }
+            }
+        }
+        if (nextArc == INVALID){
+            std::cout << "ERROR: Could not find path continuity.." << std::endl;
+            exit(0);
+        }
+        int previousNode = getNodeLabel(currentNode, d);
+        currentNode = (*vecGraph[d]).target(nextArc);
+        path.push_back(getNodeLabel(currentNode, d));        
+    }
+    return path;
+}
+
+
+
 void DrFormulation::displayVariableValues(){
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);

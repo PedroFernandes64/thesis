@@ -2,353 +2,713 @@
   "response": [
     {
       "response-id": "3",
-      "no-path": {
-        "no-path": "MODE_NOT_FEASIBLE",
-        "path-properties": {
-          "path-metric": [
-            {
-              "metric-type": "SNR-bandwidth",
-              "accumulative-value": 17.18
-            },
-            {
-              "metric-type": "SNR-0.1nm",
-              "accumulative-value": 21.95
-            },
-            {
-              "metric-type": "OSNR-bandwidth",
-              "accumulative-value": 17.62
-            },
-            {
-              "metric-type": "OSNR-0.1nm",
-              "accumulative-value": 22.39
-            },
-            {
-              "metric-type": "reference_power",
-              "accumulative-value": 0.001
-            },
-            {
-              "metric-type": "path_bandwidth",
-              "accumulative-value": 200000000000.0
-            }
-          ],
-          "path-route-objects": [
-            {
-              "path-route-object": {
-                "index": 0,
-                "num-unnum-hop": {
-                  "node-id": "trx-14-n14",
-                  "link-tp-id": "trx-14-n14"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 1,
-                "transponder": {
-                  "transponder-type": "transp",
-                  "transponder-mode": "200 Gbit/s, 37.5 Gbaud, 16QAM, 3 slots"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 2,
-                "num-unnum-hop": {
-                  "node-id": "roadm-14",
-                  "link-tp-id": "roadm-14"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 3,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_booster_roadm-24-a-(0/1)-(14,15)",
-                  "link-tp-id": "Edfa_booster_roadm-24-a-(0/1)-(14,15)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 4,
-                "num-unnum-hop": {
-                  "node-id": "fiber-24-a-(1/1)-(14,15)",
-                  "link-tp-id": "fiber-24-a-(1/1)-(14,15)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 5,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_preamp_roadm-24-a-(1/1)-(14,15)",
-                  "link-tp-id": "Edfa_preamp_roadm-24-a-(1/1)-(14,15)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 6,
-                "num-unnum-hop": {
-                  "node-id": "roadm-15",
-                  "link-tp-id": "roadm-15"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 7,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_booster_roadm-22-b-(0/3)-(15,13)",
-                  "link-tp-id": "Edfa_booster_roadm-22-b-(0/3)-(15,13)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 8,
-                "num-unnum-hop": {
-                  "node-id": "fiber-22-b-(1/3)-(15,13)",
-                  "link-tp-id": "fiber-22-b-(1/3)-(15,13)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 9,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_fiber-22-b-(1/3)-(15,13)",
-                  "link-tp-id": "Edfa_fiber-22-b-(1/3)-(15,13)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 10,
-                "num-unnum-hop": {
-                  "node-id": "fiber-22-b-(2/3)-(15,13)",
-                  "link-tp-id": "fiber-22-b-(2/3)-(15,13)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 11,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_fiber-22-b-(2/3)-(15,13)",
-                  "link-tp-id": "Edfa_fiber-22-b-(2/3)-(15,13)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 12,
-                "num-unnum-hop": {
-                  "node-id": "fiber-22-b-(3/3)-(15,13)",
-                  "link-tp-id": "fiber-22-b-(3/3)-(15,13)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 13,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_preamp_roadm-22-b-(3/3)-(15,13)",
-                  "link-tp-id": "Edfa_preamp_roadm-22-b-(3/3)-(15,13)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 14,
-                "num-unnum-hop": {
-                  "node-id": "roadm-13",
-                  "link-tp-id": "roadm-13"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 15,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_booster_roadm-18-b-(0/4)-(13,10)",
-                  "link-tp-id": "Edfa_booster_roadm-18-b-(0/4)-(13,10)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 16,
-                "num-unnum-hop": {
-                  "node-id": "fiber-18-b-(1/4)-(13,10)",
-                  "link-tp-id": "fiber-18-b-(1/4)-(13,10)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 17,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_fiber-18-b-(1/4)-(13,10)",
-                  "link-tp-id": "Edfa_fiber-18-b-(1/4)-(13,10)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 18,
-                "num-unnum-hop": {
-                  "node-id": "fiber-18-b-(2/4)-(13,10)",
-                  "link-tp-id": "fiber-18-b-(2/4)-(13,10)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 19,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_fiber-18-b-(2/4)-(13,10)",
-                  "link-tp-id": "Edfa_fiber-18-b-(2/4)-(13,10)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 20,
-                "num-unnum-hop": {
-                  "node-id": "fiber-18-b-(3/4)-(13,10)",
-                  "link-tp-id": "fiber-18-b-(3/4)-(13,10)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 21,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_fiber-18-b-(3/4)-(13,10)",
-                  "link-tp-id": "Edfa_fiber-18-b-(3/4)-(13,10)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 22,
-                "num-unnum-hop": {
-                  "node-id": "fiber-18-b-(4/4)-(13,10)",
-                  "link-tp-id": "fiber-18-b-(4/4)-(13,10)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 23,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_preamp_roadm-18-b-(4/4)-(13,10)",
-                  "link-tp-id": "Edfa_preamp_roadm-18-b-(4/4)-(13,10)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 24,
-                "num-unnum-hop": {
-                  "node-id": "roadm-10",
-                  "link-tp-id": "roadm-10"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 25,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_booster_roadm-8-b-(0/3)-(10,4)",
-                  "link-tp-id": "Edfa_booster_roadm-8-b-(0/3)-(10,4)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 26,
-                "num-unnum-hop": {
-                  "node-id": "fiber-8-b-(1/3)-(10,4)",
-                  "link-tp-id": "fiber-8-b-(1/3)-(10,4)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 27,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_fiber-8-b-(1/3)-(10,4)",
-                  "link-tp-id": "Edfa_fiber-8-b-(1/3)-(10,4)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 28,
-                "num-unnum-hop": {
-                  "node-id": "fiber-8-b-(2/3)-(10,4)",
-                  "link-tp-id": "fiber-8-b-(2/3)-(10,4)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 29,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_fiber-8-b-(2/3)-(10,4)",
-                  "link-tp-id": "Edfa_fiber-8-b-(2/3)-(10,4)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 30,
-                "num-unnum-hop": {
-                  "node-id": "fiber-8-b-(3/3)-(10,4)",
-                  "link-tp-id": "fiber-8-b-(3/3)-(10,4)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 31,
-                "num-unnum-hop": {
-                  "node-id": "Edfa_preamp_roadm-8-b-(3/3)-(10,4)",
-                  "link-tp-id": "Edfa_preamp_roadm-8-b-(3/3)-(10,4)"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 32,
-                "num-unnum-hop": {
-                  "node-id": "roadm-4",
-                  "link-tp-id": "roadm-4"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 33,
-                "num-unnum-hop": {
-                  "node-id": "trx-4-n4",
-                  "link-tp-id": "trx-4-n4"
-                }
-              }
-            },
-            {
-              "path-route-object": {
-                "index": 34,
-                "transponder": {
-                  "transponder-type": "transp",
-                  "transponder-mode": "200 Gbit/s, 37.5 Gbaud, 16QAM, 3 slots"
-                }
+      "path-properties": {
+        "path-metric": [
+          {
+            "metric-type": "SNR-bandwidth",
+            "accumulative-value": 16.73
+          },
+          {
+            "metric-type": "SNR-0.1nm",
+            "accumulative-value": 22.75
+          },
+          {
+            "metric-type": "OSNR-bandwidth",
+            "accumulative-value": 17.12
+          },
+          {
+            "metric-type": "OSNR-0.1nm",
+            "accumulative-value": 23.14
+          },
+          {
+            "metric-type": "reference_power",
+            "accumulative-value": 0.001
+          },
+          {
+            "metric-type": "path_bandwidth",
+            "accumulative-value": 200000000000.0
+          }
+        ],
+        "path-route-objects": [
+          {
+            "path-route-object": {
+              "index": 0,
+              "num-unnum-hop": {
+                "node-id": "trx-14-n14",
+                "link-tp-id": "trx-14-n14"
               }
             }
-          ]
-        }
+          },
+          {
+            "path-route-object": {
+              "index": 1,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 2,
+              "transponder": {
+                "transponder-type": "transp",
+                "transponder-mode": "200 Gbit/s, 50.0 Gbaud, 8QAM, 4 slots"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 3,
+              "num-unnum-hop": {
+                "node-id": "roadm-14",
+                "link-tp-id": "roadm-14"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 4,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 5,
+              "num-unnum-hop": {
+                "node-id": "Edfa_booster_roadm-24-a-(0/1)-(14,15)",
+                "link-tp-id": "Edfa_booster_roadm-24-a-(0/1)-(14,15)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 6,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 7,
+              "num-unnum-hop": {
+                "node-id": "fiber-24-a-(1/1)-(14,15)",
+                "link-tp-id": "fiber-24-a-(1/1)-(14,15)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 8,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 9,
+              "num-unnum-hop": {
+                "node-id": "Edfa_preamp_roadm-24-a-(1/1)-(14,15)",
+                "link-tp-id": "Edfa_preamp_roadm-24-a-(1/1)-(14,15)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 10,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 11,
+              "num-unnum-hop": {
+                "node-id": "roadm-15",
+                "link-tp-id": "roadm-15"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 12,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 13,
+              "num-unnum-hop": {
+                "node-id": "Edfa_booster_roadm-22-b-(0/3)-(15,13)",
+                "link-tp-id": "Edfa_booster_roadm-22-b-(0/3)-(15,13)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 14,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 15,
+              "num-unnum-hop": {
+                "node-id": "fiber-22-b-(1/3)-(15,13)",
+                "link-tp-id": "fiber-22-b-(1/3)-(15,13)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 16,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 17,
+              "num-unnum-hop": {
+                "node-id": "Edfa_fiber-22-b-(1/3)-(15,13)",
+                "link-tp-id": "Edfa_fiber-22-b-(1/3)-(15,13)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 18,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 19,
+              "num-unnum-hop": {
+                "node-id": "fiber-22-b-(2/3)-(15,13)",
+                "link-tp-id": "fiber-22-b-(2/3)-(15,13)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 20,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 21,
+              "num-unnum-hop": {
+                "node-id": "Edfa_fiber-22-b-(2/3)-(15,13)",
+                "link-tp-id": "Edfa_fiber-22-b-(2/3)-(15,13)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 22,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 23,
+              "num-unnum-hop": {
+                "node-id": "fiber-22-b-(3/3)-(15,13)",
+                "link-tp-id": "fiber-22-b-(3/3)-(15,13)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 24,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 25,
+              "num-unnum-hop": {
+                "node-id": "Edfa_preamp_roadm-22-b-(3/3)-(15,13)",
+                "link-tp-id": "Edfa_preamp_roadm-22-b-(3/3)-(15,13)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 26,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 27,
+              "num-unnum-hop": {
+                "node-id": "roadm-13",
+                "link-tp-id": "roadm-13"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 28,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 29,
+              "num-unnum-hop": {
+                "node-id": "Edfa_booster_roadm-18-b-(0/4)-(13,10)",
+                "link-tp-id": "Edfa_booster_roadm-18-b-(0/4)-(13,10)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 30,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 31,
+              "num-unnum-hop": {
+                "node-id": "fiber-18-b-(1/4)-(13,10)",
+                "link-tp-id": "fiber-18-b-(1/4)-(13,10)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 32,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 33,
+              "num-unnum-hop": {
+                "node-id": "Edfa_fiber-18-b-(1/4)-(13,10)",
+                "link-tp-id": "Edfa_fiber-18-b-(1/4)-(13,10)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 34,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 35,
+              "num-unnum-hop": {
+                "node-id": "fiber-18-b-(2/4)-(13,10)",
+                "link-tp-id": "fiber-18-b-(2/4)-(13,10)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 36,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 37,
+              "num-unnum-hop": {
+                "node-id": "Edfa_fiber-18-b-(2/4)-(13,10)",
+                "link-tp-id": "Edfa_fiber-18-b-(2/4)-(13,10)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 38,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 39,
+              "num-unnum-hop": {
+                "node-id": "fiber-18-b-(3/4)-(13,10)",
+                "link-tp-id": "fiber-18-b-(3/4)-(13,10)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 40,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 41,
+              "num-unnum-hop": {
+                "node-id": "Edfa_fiber-18-b-(3/4)-(13,10)",
+                "link-tp-id": "Edfa_fiber-18-b-(3/4)-(13,10)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 42,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 43,
+              "num-unnum-hop": {
+                "node-id": "fiber-18-b-(4/4)-(13,10)",
+                "link-tp-id": "fiber-18-b-(4/4)-(13,10)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 44,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 45,
+              "num-unnum-hop": {
+                "node-id": "Edfa_preamp_roadm-18-b-(4/4)-(13,10)",
+                "link-tp-id": "Edfa_preamp_roadm-18-b-(4/4)-(13,10)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 46,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 47,
+              "num-unnum-hop": {
+                "node-id": "roadm-10",
+                "link-tp-id": "roadm-10"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 48,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 49,
+              "num-unnum-hop": {
+                "node-id": "Edfa_booster_roadm-8-b-(0/3)-(10,4)",
+                "link-tp-id": "Edfa_booster_roadm-8-b-(0/3)-(10,4)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 50,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 51,
+              "num-unnum-hop": {
+                "node-id": "fiber-8-b-(1/3)-(10,4)",
+                "link-tp-id": "fiber-8-b-(1/3)-(10,4)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 52,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 53,
+              "num-unnum-hop": {
+                "node-id": "Edfa_fiber-8-b-(1/3)-(10,4)",
+                "link-tp-id": "Edfa_fiber-8-b-(1/3)-(10,4)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 54,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 55,
+              "num-unnum-hop": {
+                "node-id": "fiber-8-b-(2/3)-(10,4)",
+                "link-tp-id": "fiber-8-b-(2/3)-(10,4)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 56,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 57,
+              "num-unnum-hop": {
+                "node-id": "Edfa_fiber-8-b-(2/3)-(10,4)",
+                "link-tp-id": "Edfa_fiber-8-b-(2/3)-(10,4)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 58,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 59,
+              "num-unnum-hop": {
+                "node-id": "fiber-8-b-(3/3)-(10,4)",
+                "link-tp-id": "fiber-8-b-(3/3)-(10,4)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 60,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 61,
+              "num-unnum-hop": {
+                "node-id": "Edfa_preamp_roadm-8-b-(3/3)-(10,4)",
+                "link-tp-id": "Edfa_preamp_roadm-8-b-(3/3)-(10,4)"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 62,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 63,
+              "num-unnum-hop": {
+                "node-id": "roadm-4",
+                "link-tp-id": "roadm-4"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 64,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 65,
+              "num-unnum-hop": {
+                "node-id": "trx-4-n4",
+                "link-tp-id": "trx-4-n4"
+              }
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 66,
+              "label-hop": [
+                {
+                  "N": -284,
+                  "M": 4
+                }
+              ]
+            }
+          },
+          {
+            "path-route-object": {
+              "index": 67,
+              "transponder": {
+                "transponder-type": "transp",
+                "transponder-mode": "200 Gbit/s, 50.0 Gbaud, 8QAM, 4 slots"
+              }
+            }
+          }
+        ]
       }
     }
   ]

@@ -31,7 +31,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-2",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        },
        {
@@ -39,7 +39,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-4",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        },
        {
@@ -47,7 +47,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-10",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        },
        {
@@ -55,7 +55,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-13",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        },
        {
@@ -63,7 +63,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-17",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        }
       ]
@@ -100,7 +100,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-2",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        },
        {
@@ -108,7 +108,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-5",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        },
        {
@@ -116,7 +116,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-11",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        },
        {
@@ -124,7 +124,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-12",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        },
        {
@@ -132,7 +132,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-14",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        }
       ]
@@ -149,15 +149,15 @@
      "te-bandwidth": {
        "technology": "flexi-grid",
        "trx_type": "transp",
-       "trx_mode": "200 Gbit/s, 37.5 Gbaud, 16QAM, 3 slots",
+       "trx_mode": "200 Gbit/s, 50.0 Gbaud, 8QAM, 4 slots",
        "effective-freq-slot": [
          {
            "N": null,
            "M": null
          }
        ],
-       "spacing": 37500000000.0,
-       "max-nb-of-channel": 133,
+       "spacing": 50000000000.0,
+       "max-nb-of-channel": 100,
        "output-power": 0.001,
        "path_bandwidth": 200000000000.0
      }
@@ -169,7 +169,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-14",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        },
        {
@@ -177,7 +177,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-15",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        },
        {
@@ -185,7 +185,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-13",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        },
        {
@@ -193,7 +193,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-10",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        },
        {
@@ -201,7 +201,7 @@
          "num-unnum-hop": {
            "node-id": "roadm-4",
            "link-tp-id": "link-tp-id is not used",
-           "hop-type": "LOOSE"
+           "hop-type": "STRICT"
           }
        }
       ]
