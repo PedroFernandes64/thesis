@@ -707,9 +707,9 @@ Constraint FlowForm::getStrongOSNRConstraint(const Demand &demand, int d, int s)
 
     double roundingFactor = pow(10,8);
     
-    rhs = pch/osnrLim - instance.getPaseNodeC() ;
+    rhs = pch/osnrLim ;//- instance.getPaseNodeC() ; //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
     if(s>=slicesC){
-        rhs = pch/osnrLim - instance.getPaseNodeL() ;
+        rhs = pch/osnrLim; // - instance.getPaseNodeL() ; //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
     }
     //std::cout << rhs << std::endl;
     rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
@@ -774,7 +774,7 @@ Constraint FlowForm::getOSNRCConstraint(const Demand &demand, int d){
 
     double roundingFactor = pow(10,8);
     
-    rhs = pch/osnrLim - instance.getPaseNodeC() ;
+    rhs = pch/osnrLim; //- instance.getPaseNodeC() ; //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
     //std::cout << rhs << std::endl;
     rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
     //std::cout << rhs << std::endl;
@@ -810,7 +810,7 @@ Constraint FlowForm::getOSNRLConstraint(const Demand &demand, int d){
 
     double roundingFactor = pow(10,8);
     
-    rhs = pch/osnrLim - instance.getPaseNodeL() ;
+    rhs = pch/osnrLim ; //- instance.getPaseNodeL() ; //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
     //std::cout << rhs << std::endl;
     rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
     //std::cout << rhs << std::endl;

@@ -344,9 +344,9 @@ void RSA::AllPaths(){
             paseNodepathC = vertexamplis * instance.getPaseNodeC();
             paseNodepathL = vertexamplis * instance.getPaseNodeL();
             paseNodepathS = vertexamplis * instance.getPaseNodeS();
-            noisePathC += instance.getPaseNodeC();
-            noisePathL += instance.getPaseNodeL();                
-            noisePathS += instance.getPaseNodeS();
+            //noisePathC += instance.getPaseNodeC(); //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
+            //noisePathL += instance.getPaseNodeL(); //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK               
+            //noisePathS += instance.getPaseNodeS(); //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
             thisdemanddistances.push_back(length);
             thisdemandPASEnodeC.push_back(paseNodepathC);
             thisdemandPASElinC.push_back(paseLinPathC);
@@ -1003,15 +1003,15 @@ bool RSA::OSNRPreprocessing(){
             double osnrRhs;
             double osnrLimdb = getToBeRouted_k(d).getOsnrLimitC();
             double pch = getToBeRouted_k(d).getPchC();
-            double lastAmpNoise = instance.getPaseNodeC();
+            //double lastAmpNoise = instance.getPaseNodeC();    //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
             double shortestOSNR = shortestOSNRPartial(d, source, a, target);
             if (slice >= limitCband){
                 osnrLimdb = getToBeRouted_k(d).getOsnrLimitL();
                 pch = getToBeRouted_k(d).getPchL();
-                lastAmpNoise = instance.getPaseNodeL();
+                //lastAmpNoise = instance.getPaseNodeL();       //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
             }
             double osnrLim = pow(10,osnrLimdb/10);
-            osnrRhs = pch/osnrLim - lastAmpNoise;
+            osnrRhs = pch/osnrLim; //- lastAmpNoise;               //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
             if (source != INVALID && target != INVALID){
                 //std::cout << "rhs: " << osnrRhs << " lhs:" << shortestOSNRCPartial(d, source, a, target) <<std::endl;
                 if (shortestOSNR > osnrRhs + DBL_EPSILON){

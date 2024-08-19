@@ -188,7 +188,7 @@ def processLinks(table):
             pnliS = computePnliSBand(float(row[3]),lambdS,DS,c,n2,aeffS,bwdmS,PsatS,alphaS,Bn)
             paseS = computePaseSBand(float(row[3]),c,h,lambdS,NFS,alphaS,Bn)
             row.append(amps)
-            row.append(pnliC+paseC+computePaseNodeCBand(c,h,lambdC,NFC,Bn,GdbNodeC))
+            row.append(pnliC+paseC+computePaseNodeCBand(c,h,lambdC,NFC,Bn,GdbNodeC)) #aqui adiciono pnli, paseC é o pase ampli linha e o pase node c band é o ampli da origem do link
             row.append(pnliL+paseL+computePaseNodeLBand(c,h,lambdL,NFL,Bn,GdbNodeL))
             row.append(pnliS+paseS+computePaseNodeSBand(c,h,lambdS,NFS,Bn,GdbNodeS))
             row.append(DC)

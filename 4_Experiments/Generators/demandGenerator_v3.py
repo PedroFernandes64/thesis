@@ -379,14 +379,14 @@ def chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, Networks
                 for graph in NetworkAsOSNRGraphsC:
                     if graph.topology == network.topology:
                         shortestNoiseC, pathosC = shortestPath(graph.rows, originDemand,destinationDemand)
-                        shortestNoiseC = shortestNoiseC +getPaseNodeC()
+                        shortestNoiseC = shortestNoiseC #+getPaseNodeC() #RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
                         for links in NetworksLinksToProcess:
                             if links.topology == network.topology:
                                 dispersionC  = dispersionOfPath(links.rows,pathosC,"c")
                 for graph in NetworkAsOSNRGraphsL:
                     if graph.topology == network.topology:
                         shortestNoiseL, pathosL = shortestPath(graph.rows, originDemand,destinationDemand)
-                        shortestNoiseL = shortestNoiseL +getPaseNodeL()
+                        shortestNoiseL = shortestNoiseL #+getPaseNodeL() #RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
                         for links in NetworksLinksToProcess:
                             if links.topology == network.topology:
                                 dispersionL  = dispersionOfPath(links.rows,pathosL,"l")
@@ -599,14 +599,14 @@ def addCustomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemand
                 for graph in NetworkAsOSNRGraphsC:
                     if graph.topology == network.topology:
                         shortestNoiseC, pathosC = shortestPath(graph.rows, originDemand,destinationDemand)
-                        shortestNoiseC = shortestNoiseC +getPaseNodeC()
+                        shortestNoiseC = shortestNoiseC #+getPaseNodeC() #RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
                         for links in NetworksLinksToProcess:
                             if links.topology == network.topology:
                                 dispersionC  = dispersionOfPath(links.rows,pathosC,"c")
                 for graph in NetworkAsOSNRGraphsL:
                     if graph.topology == network.topology:
                         shortestNoiseL, pathosL = shortestPath(graph.rows, originDemand,destinationDemand)
-                        shortestNoiseL = shortestNoiseL +getPaseNodeL()
+                        shortestNoiseL = shortestNoiseL #+getPaseNodeL() #RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
                         for links in NetworksLinksToProcess:
                             if links.topology == network.topology:
                                 dispersionL  = dispersionOfPath(links.rows,pathosL,"l")
@@ -817,14 +817,14 @@ def addRandomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemand
                 for graph in NetworkAsOSNRGraphsC:
                     if graph.topology == network.topology:
                         shortestNoiseC, pathosC = shortestPath(graph.rows, originDemand,destinationDemand)
-                        shortestNoiseC = shortestNoiseC +getPaseNodeC()
+                        shortestNoiseC = shortestNoiseC #+getPaseNodeC() #RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
                         for links in NetworksLinksToProcess:
                             if links.topology == network.topology:
                                 dispersionC  = dispersionOfPath(links.rows,pathosC,"c")
                 for graph in NetworkAsOSNRGraphsL:
                     if graph.topology == network.topology:
                         shortestNoiseL, pathosL = shortestPath(graph.rows, originDemand,destinationDemand)
-                        shortestNoiseL = shortestNoiseL +getPaseNodeL()
+                        shortestNoiseL = shortestNoiseL #+getPaseNodeL() #RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
                         for links in NetworksLinksToProcess:
                             if links.topology == network.topology:
                                 dispersionL  = dispersionOfPath(links.rows,pathosL,"l")
@@ -1064,6 +1064,7 @@ def shortestPath(graph, src, dest):
 
     return chosendistance, pathNodes[destPos]
 
+#RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
 def noiseOfPath(links, path, Band):
     numberOfNodes = len(path)
     counter = 0
@@ -1079,11 +1080,14 @@ def noiseOfPath(links, path, Band):
                 if Band == "l":
                     lhs = lhs + float(link[8])
                 break
+    #RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
+    '''
     if Band == "c":
         paseNode = getPaseNodeC()
     if Band == "l":
         paseNode = getPaseNodeL()
     lhs = lhs + paseNode
+    '''
     return lhs
 
 def dispersionOfPath(links, path, Band):

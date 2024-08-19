@@ -15,13 +15,13 @@ def paselineComputer(path):
 
 
 
-path = [306,172,273,180]
-s = 3
+path = [288,195,281,166]
+s = 6
 pnli = pnliComputer(path)
 print("NLI NOISE = ", pnli)
 paseLine = paselineComputer(path)
 print("LINE AMP NOISE = ", paseLine)
-paseNode = len(path) * pC.computePaseNodeCBand(pC.c,pC.h,pC.lambdC,pC.NFC,pC.Bn,pC.GdbNodeC)
+paseNode = (len(path)-1) * pC.computePaseNodeCBand(pC.c,pC.h,pC.lambdC,pC.NFC,pC.Bn,pC.GdbNodeC) #RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
 print("NODE AMP NOISE = ", paseNode)
 pch = pC.computePchCBand(s,pC.pMaxC,pC.bwdmC,pC.Bn)
 print("CHANNEL POWER = ", paseNode)

@@ -1205,7 +1205,7 @@ Constraint TFlowForm::getOSNRCConstraint(const Demand &demand, int k){
 
     double roundingFactor = pow(10,8);
     
-    rhs = pch/osnrLim - instance.getPaseNodeC() ;
+    rhs = pch/osnrLim ; //- instance.getPaseNodeC() ; //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
     
     rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
     lhs = 0;
@@ -1252,7 +1252,7 @@ Constraint TFlowForm::getOSNRLConstraint(const Demand &demand, int k){
 
     double roundingFactor = pow(10,8);
     
-    rhs = pch/osnrLim - instance.getPaseNodeL() ;
+    rhs = pch/osnrLim ; //- instance.getPaseNodeL() ; //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
     
     rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
     lhs = 0;

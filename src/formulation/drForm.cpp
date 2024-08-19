@@ -523,7 +523,7 @@ Constraint DrFormulation::getOsnrConstraint(int d){ //TODO
 
     double roundingFactor = pow(10,8);
     
-    rhs = pch/osnrLim - instance.getPaseNodeC() ;
+    rhs = pch/osnrLim ; //- instance.getPaseNodeC() ; //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
     
     rhs = ceil(rhs * roundingFactor*100)/100 ; //ROUNDING
     lhs = 0;
