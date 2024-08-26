@@ -21,7 +21,7 @@ class REQUEST:
         self.trx_mode = ""     
         self.spacing = 0
         self.max_nb_of_channel = 0
-        self.out_power = 0.001
+        self.out_power = 0.0
         self.path_bandwidth = 0
         '''
         self.trx_type = "transp"
@@ -49,6 +49,7 @@ class REQUEST:
         self.spacing = float(transponder[4])*12.5 *math.pow(10,9)
         self.max_nb_of_channel = math.floor(5000/float(str(float(transponder[4])*12.5)))
         self.path_bandwidth = float(transponder[1]) * math.pow(10,9)
+        self.out_power = 12.5*10*float(transponder[4])*0.000001
         
 
     def setPath(self,path):

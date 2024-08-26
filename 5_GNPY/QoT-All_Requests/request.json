@@ -20,7 +20,7 @@
        ],
        "spacing": 75000000000.0,
        "max-nb-of-channel": 66,
-       "output-power": 0.001,
+       "output-power": 0.00075,
        "path_bandwidth": 400000000000.0
      }
   },
@@ -89,7 +89,7 @@
        ],
        "spacing": 50000000000.0,
        "max-nb-of-channel": 100,
-       "output-power": 0.001,
+       "output-power": 0.0005,
        "path_bandwidth": 200000000000.0
      }
   },
@@ -158,7 +158,7 @@
        ],
        "spacing": 37500000000.0,
        "max-nb-of-channel": 133,
-       "output-power": 0.001,
+       "output-power": 0.000375,
        "path_bandwidth": 100000000000.0
      }
   },

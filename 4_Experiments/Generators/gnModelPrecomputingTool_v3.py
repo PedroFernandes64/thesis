@@ -1,5 +1,5 @@
 #CONSTANTS C BAND
-lambdC = 1548.0 * pow(10,-9)                    #SI meters, m       Usually nanometer (x nanometer)
+lambdC = 1547.0 * pow(10,-9)                    #SI meters, m       Usually nanometer (x nanometer)
 aeffC = 80 * pow (10,-12)                       #SI m^2             Usually micrometer^2
 bwdmC = 5000 * pow(10,9)                        #SI #Hz             Usually gigahertz
 #PsatC = 50 * pow(10,-3)                         #SI #W              Usually mW

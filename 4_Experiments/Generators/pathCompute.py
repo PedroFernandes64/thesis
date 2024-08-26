@@ -18,24 +18,56 @@ def paselineComputer(path):
 path = [288,195,281,166]
 s = 6
 pnli = pnliComputer(path)
-print("NLI NOISE = ", pnli)
+#print("NLI NOISE = ", pnli)
 paseLine = paselineComputer(path)
-print("LINE AMP NOISE = ", paseLine)
-paseNode = (len(path)-1) * pC.computePaseNodeCBand(pC.c,pC.h,pC.lambdC,pC.NFC,pC.Bn,pC.GdbNodeC) #RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
-print("NODE AMP NOISE = ", paseNode)
+#print("LINE AMP NOISE = ", paseLine)
+paseNode = len(path) * pC.computePaseNodeCBand(pC.c,pC.h,pC.lambdC,pC.NFC,pC.Bn,pC.GdbNodeC) #RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
+#print("NODE AMP NOISE = ", paseNode)
 pch = pC.computePchCBand(s,pC.pMaxC,pC.bwdmC,pC.Bn)
-print("CHANNEL POWER = ", paseNode)
-
-'''
-osnr = pch/(paseLine+paseNode)
-osnrdb = 10.0 * math.log10(osnr) 
-print("OSNR PASE (db) = ", osnrdb)
-
-osnr = pch/(pnli)
-osnrdb = 10.0 * math.log10(osnr) 
-print("OSNR PNLI (db) = ", osnrdb)
-'''
 
 osnr = pch/(pnli+paseLine+paseNode)
 osnrdb = 10.0 * math.log10(osnr) 
+print("================")
 print("OSNR (db) = ", osnrdb)
+print("CHANNEL POWER = ", pch)
+print("CHANNEL POWER in db = ", 10*math.log10(pch))
+print("NOISE = ", pnli+paseLine+paseNode)
+print("NOISE in db = ", 10*math.log10(pnli+paseLine+paseNode))
+
+path = [288,195,281,166]
+s = 4
+pnli = pnliComputer(path)
+#print("NLI NOISE = ", pnli)
+paseLine = paselineComputer(path)
+#print("LINE AMP NOISE = ", paseLine)
+paseNode = len(path) * pC.computePaseNodeCBand(pC.c,pC.h,pC.lambdC,pC.NFC,pC.Bn,pC.GdbNodeC) #RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
+#print("NODE AMP NOISE = ", paseNode)
+pch = pC.computePchCBand(s,pC.pMaxC,pC.bwdmC,pC.Bn)
+osnr = pch/(pnli+paseLine+paseNode)
+osnrdb = 10.0 * math.log10(osnr) 
+print("================")
+print("OSNR (db) = ", osnrdb)
+print("CHANNEL POWER = ", pch)
+print("CHANNEL POWER in db = ", 10*math.log10(pch))
+print("NOISE = ", pnli+paseLine+paseNode)
+print("NOISE in db = ", 10*math.log10(pnli+paseLine+paseNode))
+
+path = [288,195,281,166]
+s = 3
+pnli = pnliComputer(path)
+#print("NLI NOISE = ", pnli)
+paseLine = paselineComputer(path)
+#print("LINE AMP NOISE = ", paseLine)
+paseNode = len(path)* pC.computePaseNodeCBand(pC.c,pC.h,pC.lambdC,pC.NFC,pC.Bn,pC.GdbNodeC) #RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
+#print("NODE AMP NOISE = ", paseNode)
+pch = pC.computePchCBand(s,pC.pMaxC,pC.bwdmC,pC.Bn)
+
+
+osnr = pch/(pnli+paseLine+paseNode)
+osnrdb = 10.0 * math.log10(osnr) 
+print("================")
+print("OSNR (db) = ", osnrdb)
+print("CHANNEL POWER = ", pch)
+print("CHANNEL POWER in db = ", 10*math.log10(pch))
+print("NOISE = ", pnli+paseLine+paseNode)
+print("NOISE in db = ", 10*math.log10(pnli+paseLine+paseNode))

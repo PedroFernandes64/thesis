@@ -4,14 +4,14 @@
       "uid": "roadm-1",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-1-a-(0/2)-(1,3)": -20,
-          "Edfa_booster_roadm-2-a-(0/4)-(1,9)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-1-a-(0/2)-(1,3)": 0.0001,
+          "Edfa_booster_roadm-2-a-(0/4)-(1,9)": 0.0001
           }
         },
       "metadata": {
@@ -27,15 +27,15 @@
       "uid": "roadm-2",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-3-a-(0/2)-(2,3)": -20,
-          "Edfa_booster_roadm-4-a-(0/4)-(2,4)": -20,
-          "Edfa_booster_roadm-5-a-(0/2)-(2,5)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-3-a-(0/2)-(2,3)": 0.0001,
+          "Edfa_booster_roadm-4-a-(0/4)-(2,4)": 0.0001,
+          "Edfa_booster_roadm-5-a-(0/2)-(2,5)": 0.0001
           }
         },
       "metadata": {
@@ -51,15 +51,15 @@
       "uid": "roadm-3",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-1-b-(0/2)-(3,1)": -20,
-          "Edfa_booster_roadm-3-b-(0/2)-(3,2)": -20,
-          "Edfa_booster_roadm-6-a-(0/2)-(3,5)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-1-b-(0/2)-(3,1)": 0.0001,
+          "Edfa_booster_roadm-3-b-(0/2)-(3,2)": 0.0001,
+          "Edfa_booster_roadm-6-a-(0/2)-(3,5)": 0.0001
           }
         },
       "metadata": {
@@ -75,15 +75,15 @@
       "uid": "roadm-4",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-4-b-(0/4)-(4,2)": -20,
-          "Edfa_booster_roadm-7-a-(0/4)-(4,5)": -20,
-          "Edfa_booster_roadm-8-a-(0/3)-(4,10)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-4-b-(0/4)-(4,2)": 0.0001,
+          "Edfa_booster_roadm-7-a-(0/4)-(4,5)": 0.0001,
+          "Edfa_booster_roadm-8-a-(0/3)-(4,10)": 0.0001
           }
         },
       "metadata": {
@@ -99,18 +99,18 @@
       "uid": "roadm-5",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-5-b-(0/2)-(5,2)": -20,
-          "Edfa_booster_roadm-6-b-(0/2)-(5,3)": -20,
-          "Edfa_booster_roadm-7-b-(0/4)-(5,4)": -20,
-          "Edfa_booster_roadm-9-a-(0/3)-(5,9)": -20,
-          "Edfa_booster_roadm-10-a-(0/4)-(5,10)": -20,
-          "Edfa_booster_roadm-11-a-(0/5)-(5,11)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-5-b-(0/2)-(5,2)": 0.0001,
+          "Edfa_booster_roadm-6-b-(0/2)-(5,3)": 0.0001,
+          "Edfa_booster_roadm-7-b-(0/4)-(5,4)": 0.0001,
+          "Edfa_booster_roadm-9-a-(0/3)-(5,9)": 0.0001,
+          "Edfa_booster_roadm-10-a-(0/4)-(5,10)": 0.0001,
+          "Edfa_booster_roadm-11-a-(0/5)-(5,11)": 0.0001
           }
         },
       "metadata": {
@@ -126,14 +126,14 @@
       "uid": "roadm-6",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-12-a-(0/1)-(6,7)": -20,
-          "Edfa_booster_roadm-13-a-(0/1)-(6,9)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-12-a-(0/1)-(6,7)": 0.0001,
+          "Edfa_booster_roadm-13-a-(0/1)-(6,9)": 0.0001
           }
         },
       "metadata": {
@@ -149,14 +149,14 @@
       "uid": "roadm-7",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-12-b-(0/1)-(7,6)": -20,
-          "Edfa_booster_roadm-14-a-(0/1)-(7,8)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-12-b-(0/1)-(7,6)": 0.0001,
+          "Edfa_booster_roadm-14-a-(0/1)-(7,8)": 0.0001
           }
         },
       "metadata": {
@@ -172,15 +172,15 @@
       "uid": "roadm-8",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-14-b-(0/1)-(8,7)": -20,
-          "Edfa_booster_roadm-15-a-(0/2)-(8,9)": -20,
-          "Edfa_booster_roadm-16-a-(0/3)-(8,11)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-14-b-(0/1)-(8,7)": 0.0001,
+          "Edfa_booster_roadm-15-a-(0/2)-(8,9)": 0.0001,
+          "Edfa_booster_roadm-16-a-(0/3)-(8,11)": 0.0001
           }
         },
       "metadata": {
@@ -196,16 +196,16 @@
       "uid": "roadm-9",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-2-b-(0/4)-(9,1)": -20,
-          "Edfa_booster_roadm-9-b-(0/3)-(9,5)": -20,
-          "Edfa_booster_roadm-13-b-(0/1)-(9,6)": -20,
-          "Edfa_booster_roadm-15-b-(0/2)-(9,8)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-2-b-(0/4)-(9,1)": 0.0001,
+          "Edfa_booster_roadm-9-b-(0/3)-(9,5)": 0.0001,
+          "Edfa_booster_roadm-13-b-(0/1)-(9,6)": 0.0001,
+          "Edfa_booster_roadm-15-b-(0/2)-(9,8)": 0.0001
           }
         },
       "metadata": {
@@ -221,16 +221,16 @@
       "uid": "roadm-10",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-8-b-(0/3)-(10,4)": -20,
-          "Edfa_booster_roadm-10-b-(0/4)-(10,5)": -20,
-          "Edfa_booster_roadm-17-a-(0/5)-(10,11)": -20,
-          "Edfa_booster_roadm-18-a-(0/4)-(10,13)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-8-b-(0/3)-(10,4)": 0.0001,
+          "Edfa_booster_roadm-10-b-(0/4)-(10,5)": 0.0001,
+          "Edfa_booster_roadm-17-a-(0/5)-(10,11)": 0.0001,
+          "Edfa_booster_roadm-18-a-(0/4)-(10,13)": 0.0001
           }
         },
       "metadata": {
@@ -246,17 +246,17 @@
       "uid": "roadm-11",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-11-b-(0/5)-(11,5)": -20,
-          "Edfa_booster_roadm-16-b-(0/3)-(11,8)": -20,
-          "Edfa_booster_roadm-17-b-(0/5)-(11,10)": -20,
-          "Edfa_booster_roadm-19-a-(0/1)-(11,12)": -20,
-          "Edfa_booster_roadm-20-a-(0/3)-(11,13)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-11-b-(0/5)-(11,5)": 0.0001,
+          "Edfa_booster_roadm-16-b-(0/3)-(11,8)": 0.0001,
+          "Edfa_booster_roadm-17-b-(0/5)-(11,10)": 0.0001,
+          "Edfa_booster_roadm-19-a-(0/1)-(11,12)": 0.0001,
+          "Edfa_booster_roadm-20-a-(0/3)-(11,13)": 0.0001
           }
         },
       "metadata": {
@@ -272,14 +272,14 @@
       "uid": "roadm-12",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-19-b-(0/1)-(12,11)": -20,
-          "Edfa_booster_roadm-21-a-(0/1)-(12,14)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-19-b-(0/1)-(12,11)": 0.0001,
+          "Edfa_booster_roadm-21-a-(0/1)-(12,14)": 0.0001
           }
         },
       "metadata": {
@@ -295,16 +295,16 @@
       "uid": "roadm-13",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-18-b-(0/4)-(13,10)": -20,
-          "Edfa_booster_roadm-20-b-(0/3)-(13,11)": -20,
-          "Edfa_booster_roadm-22-a-(0/3)-(13,15)": -20,
-          "Edfa_booster_roadm-23-a-(0/3)-(13,17)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-18-b-(0/4)-(13,10)": 0.0001,
+          "Edfa_booster_roadm-20-b-(0/3)-(13,11)": 0.0001,
+          "Edfa_booster_roadm-22-a-(0/3)-(13,15)": 0.0001,
+          "Edfa_booster_roadm-23-a-(0/3)-(13,17)": 0.0001
           }
         },
       "metadata": {
@@ -320,14 +320,14 @@
       "uid": "roadm-14",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-21-b-(0/1)-(14,12)": -20,
-          "Edfa_booster_roadm-24-a-(0/1)-(14,15)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-21-b-(0/1)-(14,12)": 0.0001,
+          "Edfa_booster_roadm-24-a-(0/1)-(14,15)": 0.0001
           }
         },
       "metadata": {
@@ -343,15 +343,15 @@
       "uid": "roadm-15",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-22-b-(0/3)-(15,13)": -20,
-          "Edfa_booster_roadm-24-b-(0/1)-(15,14)": -20,
-          "Edfa_booster_roadm-25-a-(0/2)-(15,16)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-22-b-(0/3)-(15,13)": 0.0001,
+          "Edfa_booster_roadm-24-b-(0/1)-(15,14)": 0.0001,
+          "Edfa_booster_roadm-25-a-(0/2)-(15,16)": 0.0001
           }
         },
       "metadata": {
@@ -367,14 +367,14 @@
       "uid": "roadm-16",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-25-b-(0/2)-(16,15)": -20,
-          "Edfa_booster_roadm-26-a-(0/2)-(16,17)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-25-b-(0/2)-(16,15)": 0.0001,
+          "Edfa_booster_roadm-26-a-(0/2)-(16,17)": 0.0001
           }
         },
       "metadata": {
@@ -390,14 +390,14 @@
       "uid": "roadm-17",
       "type": "Roadm",
       "params": {
-        "target_pch_out_db": -20,
+        "target_out_mWperSlotWidth": 0.0001,
         "restrictions": {
            "preamp_variety_list": [],
            "booster_variety_list": []
          },
-        "per_degree_pch_out_db": {
-          "Edfa_booster_roadm-23-b-(0/3)-(17,13)": -20,
-          "Edfa_booster_roadm-26-b-(0/2)-(17,16)": -20
+        "per_degree_target_out_mWperSlotWidth": {
+          "Edfa_booster_roadm-23-b-(0/3)-(17,13)": 0.0001,
+          "Edfa_booster_roadm-26-b-(0/2)-(17,16)": 0.0001
           }
         },
       "metadata": {
