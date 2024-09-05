@@ -15,7 +15,7 @@ def paselineComputer(path):
 
 
 
-path = [288,195,281,166]
+path = [288,195,393,225,166]
 s = 6
 pnli = pnliComputer(path)
 #print("NLI NOISE = ", pnli)
@@ -33,8 +33,12 @@ print("CHANNEL POWER = ", pch)
 print("CHANNEL POWER in db = ", 10*math.log10(pch))
 print("NOISE = ", pnli+paseLine+paseNode)
 print("NOISE in db = ", 10*math.log10(pnli+paseLine+paseNode))
+print("NLI = ", pnli)
+print("NLI in db = ", 10*math.log10(pch)-10*math.log10(pnli))
+print("ASE = ", paseLine+paseNode)
+print("ASE in db = ", 10*math.log10(pch)-10*math.log10(paseLine+paseNode))
 
-path = [288,195,281,166]
+path = [288,195,393,225,166]
 s = 4
 pnli = pnliComputer(path)
 #print("NLI NOISE = ", pnli)
@@ -51,8 +55,12 @@ print("CHANNEL POWER = ", pch)
 print("CHANNEL POWER in db = ", 10*math.log10(pch))
 print("NOISE = ", pnli+paseLine+paseNode)
 print("NOISE in db = ", 10*math.log10(pnli+paseLine+paseNode))
+print("NLI = ", pnli)
+print("NLI in db = ", 10*math.log10(pch)-10*math.log10(pnli))
+print("ASE = ", paseLine+paseNode)
+print("ASE in db = ", 10*math.log10(pch)-10*math.log10(paseLine+paseNode))
 
-path = [288,195,281,166]
+path = [288,195,393,225,166]
 s = 3
 pnli = pnliComputer(path)
 #print("NLI NOISE = ", pnli)
@@ -71,3 +79,7 @@ print("CHANNEL POWER = ", pch)
 print("CHANNEL POWER in db = ", 10*math.log10(pch))
 print("NOISE = ", pnli+paseLine+paseNode)
 print("NOISE in db = ", 10*math.log10(pnli+paseLine+paseNode))
+print("NLI = ", pnli)
+print("NLI in db = ", 10*math.log10(pch)-10*math.log10(pnli))
+print("ASE = ", paseLine+paseNode)
+print("ASE in db = ", 10*math.log10(pch)-10*math.log10(paseLine+paseNode))

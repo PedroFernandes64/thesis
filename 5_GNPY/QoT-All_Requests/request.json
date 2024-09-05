@@ -53,6 +53,14 @@
        {
          "index": 0,
          "num-unnum-hop": {
+           "node-id": "roadm-11",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
            "node-id": "roadm-13",
            "link-tp-id": "link-tp-id is not used",
            "hop-type": "STRICT"
@@ -122,6 +130,14 @@
        {
          "index": 0,
          "num-unnum-hop": {
+           "node-id": "roadm-11",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
            "node-id": "roadm-13",
            "link-tp-id": "link-tp-id is not used",
            "hop-type": "STRICT"
@@ -184,6 +200,14 @@
          "index": 0,
          "num-unnum-hop": {
            "node-id": "roadm-10",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-11",
            "link-tp-id": "link-tp-id is not used",
            "hop-type": "STRICT"
           }

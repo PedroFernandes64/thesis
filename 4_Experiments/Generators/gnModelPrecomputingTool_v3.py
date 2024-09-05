@@ -51,7 +51,7 @@ def computePnliCBand(l,lambdC,DC,c,n2,aeffC,bwdmC,pMaxC,alphaC,Bn):
     gamC = (n2/aeffC) * (2*math.pi/lambdC)                  #SI 1/W m
     gwdmC = pMaxC/bwdmC 
     aC = math.log(10)*alphaC/20 * pow(10,-3)                #SI 1/km            SI W/Hz
-    spans = math.ceil(l/110.0)
+    spans = math.ceil(l/80.0)
     lspan = l/spans
     Ls = lspan * pow(10,3)                                  #SI meters
     leffC = (1.0 - math.exp(-2.0*aC*Ls))/(2.0*aC)           #SI #km
@@ -64,12 +64,12 @@ def computePnliCBand(l,lambdC,DC,c,n2,aeffC,bwdmC,pMaxC,alphaC,Bn):
 def computePaseCBand(l,c,h,lambdC,NFC,alphaC,Bn): 
     nuC = c/lambdC                                          #SI 
     nspC = (1.0/2.0) * pow(10.0,NFC/10.0)    
-    spans = math.ceil(l/110.0)
+    spans = math.ceil(l/80.0)
     lspan = l/spans 
     ls = lspan                                              #NOT SI kilometers
     GdbC = alphaC * ls                                      #SI #dB
     GlinC = pow(10,GdbC/10)                                 #LINEAR
-    paseLinSpanC = 2.0* h * nuC * nspC * (GlinC-1.0) * Bn 
+    paseLinSpanC = 2.0* h * nuC * nspC * (GlinC) * Bn 
     paseLinFiberC = paseLinSpanC * spans 
     return paseLinFiberC 
 
@@ -82,7 +82,7 @@ def computePaseNodeCBand(c,h,lambdC,NFC,Bn,GdbNodeC):
     nuC = c/lambdC                                          #SI 
     nspC = (1.0/2.0) * pow(10.0,NFC/10.0)    
     GlinC = pow(10,GdbNodeC/10)                             #LINEAR
-    paseNodeC = 2.0* h * nuC * nspC * (GlinC-1.0) * Bn 
+    paseNodeC = 2.0* h * nuC * nspC * (GlinC) * Bn 
     return paseNodeC 
 
 def computePnliLBand(l,lambdL,DL,c,n2,aeffL,bwdmL,PsatL,alphaL,Bn): 
