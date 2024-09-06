@@ -18,7 +18,7 @@ FlowForm::FlowForm(const Instance &inst) : AbstractFormulation(inst){
     this->setConstraints();
     constImpleTime = time.getTimeInSecFromStart() ;
     time.setStart(ClockTime::getTimeNow());
-    this->setCutPool();
+    //this->setCutPool();
     cutImpleTime = time.getTimeInSecFromStart() ;
     time.setStart(ClockTime::getTimeNow());
     this->setObjectives();

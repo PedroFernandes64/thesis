@@ -1,0 +1,137 @@
+{
+ "path-request": [
+{
+  "request-id": "5903",
+  "source": "trx-4-n4",
+  "destination": "trx-17-n17",
+  "src-tp-id": "trx-4-n4",
+  "dst-tp-id": "trx-17-n17",
+  "bidirectional": false,
+  "path-constraints": {
+     "te-bandwidth": {
+       "technology": "flexi-grid",
+       "trx_type": "transp",
+       "trx_mode": "100 Gbit/s, 37.5 Gbaud, QPSK, 3 slots",
+       "effective-freq-slot": [
+         {
+           "N": null,
+           "M": null
+         }
+       ],
+       "spacing": 37500000000.0,
+       "max-nb-of-channel": 133,
+       "output-power": 0.001,
+       "path_bandwidth": 100000000000.0
+     }
+  },
+  "explicit-route-objects": {
+     "route-object-include-exclude": [
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-4",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-5",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-3",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-1",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-9",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-6",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-7",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-8",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-11",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-13",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-15",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-16",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-17",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       }
+      ]
+  }
+}
+]
+}

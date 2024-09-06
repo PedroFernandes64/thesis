@@ -1,11 +1,5 @@
 LinkS;TranspS;Instance;Demands;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro
-1.5x;random;European_18_40;20;TUS;0;0;0;1;1;0;0;2;
-1.5x;random;European_18_40;20;TUS;20;0;0;1;1;0;0;2;
-1.5x;random;European_18_40;20;TUS;21;0;0;1;1;0;0;2;
-1.5x;random;European_18_40;20;TUS;22;0;0;1;1;0;0;2;
-1.5x;random;European_18_40;20;TUS;23;0;0;1;1;0;0;2;
-1.5x;random;German_17_26;20;TUS;0;0;0;1;1;0;0;2;
-1.5x;random;German_17_26;20;TUS;20;0;0;1;1;0;0;2;
-1.5x;random;German_17_26;20;TUS;21;0;0;1;1;0;0;2;
-1.5x;random;German_17_26;20;TUS;22;0;0;1;1;0;0;2;
-1.5x;random;German_17_26;20;TUS;23;0;0;1;1;0;0;2;
+1.5x;random;German_17_26;136;TUS;0;1;1;0;1;0;0;0;
+1.5x;random;Nsfnet_14_21;91;TUS;0;1;1;0;1;0;0;0;
+1.5x;random;6nodes9links_6_9;15;TUS;0;1;1;0;1;0;0;0;
+1.5x;random;European_18_40;153;TUS;0;1;1;0;1;0;0;0;

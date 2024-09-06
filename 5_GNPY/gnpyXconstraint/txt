@@ -1,0 +1,8 @@
+0) ativar gerar path data e gerar paths as demands 
+    e rodar uma instancia com todos pares ok dk
+1) gerar path data
+2) mudar path data na mao pra virar paths do gnpy (add coluna band) =LEFT(D2;LEN(D2)-1)
+3) mudar demand pra demandAux demand_1
+4) criar outaux com a primeira linha Demand;OSNR;\n
+5) rodar shgnscript
+6) criar tabela results e rodar

@@ -88,11 +88,11 @@ class ROADM:
         self.city = ""
         self.region = ""
         #params
-        self.target_pch_out_db = -20
+        self.target_out_mWperSlotWidth = 1e-4
             #restrictions
         self.preamp_variety_list = []
         self.booster_variety_list = []
-        self.per_degree_pch_out_db = -20 #one for each booster with booster name
+        self.per_degree_target_out_mWperSlotWidth = 1e-4 #one for each booster with booster name
 
     #translator param
         self.typeUnity = tU                 #roadm number
@@ -131,12 +131,12 @@ class ROADM:
         row2 = "  \"uid\": \"" + self.uid + "\","
         row3 = "  \"type\": \""+self.type  + "\","
         row4 = "  \"params\": {"
-        row5 = "    \"target_pch_out_db\": " + str(self.target_pch_out_db) + ","
+        row5 = "    \"target_out_mWperSlotWidth\": " + str(self.target_out_mWperSlotWidth) + ","
         row6 = "    \"restrictions\": {"
         row7 = "       \"preamp_variety_list\": [],"
         row8 = "       \"booster_variety_list\": []"
         row9 = "     },"
-        row10 = "    \"per_degree_pch_out_db\": {"
+        row10 = "    \"per_degree_target_out_mWperSlotWidth\": {"
         self.jsonRows.append(row1)
         self.jsonRows.append(row2)
         self.jsonRows.append(row3)
@@ -148,7 +148,7 @@ class ROADM:
         self.jsonRows.append(row9)
         self.jsonRows.append(row10)
         for edfa in self.connectorsBoosterList:
-            row = "      \""+  edfa + "\": "+str(self.target_pch_out_db)  +","
+            row = "      \""+  edfa + "\": "+str(self.target_out_mWperSlotWidth)  +","
             self.jsonRows.append(row)
         self.jsonRows[len(self.jsonRows)-1]=self.jsonRows[len(self.jsonRows)-1][:-1]
         row11 = "      }"
@@ -735,7 +735,7 @@ row6 = "}"
 masterJason.append(row5)
 masterJason.append(row6)
 
-with open(path+"/network.json", "w") as f:
+with open(path+"network.json", "w") as f:
     for row in masterJason:
         line = row +"\n"
         f.write(line)

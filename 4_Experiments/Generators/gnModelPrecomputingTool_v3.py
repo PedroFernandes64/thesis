@@ -109,7 +109,7 @@ def computePaseLBand(l,c,h,lambdL,NFL,alphaL,Bn):
     ls = lspan                                              #NOT SI kilometers
     GdbL = alphaL * ls                                      #SI #dB
     GlinL = pow(10,GdbL/10)                                 #LINEAR
-    paseLinSpanL = 2.0* h * nuL * nspL * (GlinL-1.0) * Bn 
+    paseLinSpanL = 2.0* h * nuL * nspL * (GlinL) * Bn 
     paseLinFiberL = paseLinSpanL * spans 
     return paseLinFiberL 
 
@@ -122,7 +122,7 @@ def computePaseNodeLBand(c,h,lambdL,NFL,Bn,GdbNodeL):
     nuL = c/lambdL                                          #SI 
     nspL = (1.0/2.0) * pow(10.0,NFL/10.0)    
     GlinL = pow(10,GdbNodeL/10)                             #LINEAR
-    paseNodeL = 2.0* h * nuL * nspL * (GlinL-1.0) * Bn 
+    paseNodeL = 2.0* h * nuL * nspL * (GlinL) * Bn 
     return paseNodeL 
 
 
@@ -151,7 +151,7 @@ def computePaseSBand(l,c,h,lambdS,NFS,alphaS,Bn):
     ls = lspan                                              #NOT SI kilometers
     GdbS = alphaS * ls                                      #SI #dB
     GlinS = pow(10,GdbS/10)                                 #LINEAR
-    paseLinSpanS = 2.0* h * nuS * nspS * (GlinS-1.0) * Bn 
+    paseLinSpanS = 2.0* h * nuS * nspS * (GlinS) * Bn 
     paseLinFiberS = paseLinSpanS * spans 
     return paseLinFiberS 
 
@@ -164,7 +164,7 @@ def computePaseNodeSBand(c,h,lambdS,NFS,Bn,GdbNodeS):
     nuS = c/lambdS                                          #SI 
     nspS = (1.0/2.0) * pow(10.0,NFS/10.0)    
     GlinS = pow(10,GdbNodeS/10)                             #LINEAR
-    paseNodeS = 2.0* h * nuS * nspS* (GlinS-1.0) * Bn 
+    paseNodeS = 2.0* h * nuS * nspS* (GlinS) * Bn 
     return paseNodeS 
 
 def processLinks(table):

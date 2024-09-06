@@ -15,9 +15,9 @@ data = json.load(f)
 
 # Iterating through the json
 # list
-with open("outAux.txt", "a") as f2:
+
+with open(path+"outAux.txt", "a") as f2:
     for i in data["response"]:
-        
         if "no-path" in i:
             f2.write("Request-" + i["response-id"] + "-OSNR=" + str(i["no-path"]["path-properties"]["path-metric"][1]["accumulative-value"])+"\n" )
             f2.write("Request-" + i["response-id"] + "=refused"+"\n")

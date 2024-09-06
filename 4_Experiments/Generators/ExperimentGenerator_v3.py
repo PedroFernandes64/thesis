@@ -27,19 +27,19 @@ for linkStrategy in linkStrategies:
                 testSet.append(test)
 
 #testUnitVerifier(testSet)
-gnpyActivation = ["1"]
-CDSet=["0"]
-osnrSet=["0"]
+gnpyActivation = ["0"]
+CDSet=["1"]
+osnrSet=["1"]
 
 bands=["1"]
-TFlowSet=["0","1","2","3"]
+TFlowSet=["0"]
 reinforcements=["0"]
 
-formulationSet = ["0","2"]
+formulationSet = ["0"]
 userCuts = ["0"]
 objSet = ["TUS"]
 
-preprocessingSet= ["2"]
+preprocessingSet= ["0"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()

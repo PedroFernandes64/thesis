@@ -50,8 +50,8 @@
             "type_variety": "std_fixed_gain",
             "type_def": "fixed_gain",
             "gain_flatmax": 20,
-            "gain_min": 5,
-            "p_max": 17,
+            "gain_min": 8,
+            "p_max":20,
             "nf0": 5,
             "allowed_for_design": false
         }
@@ -67,7 +67,7 @@
     ],    
     "Span": [
         {
-            "power_mode": true,
+            "power_mode": false,
             "delta_power_range_db": [0, 0, 0],
             "max_fiber_lineic_loss_for_raman": 0.20,
             "target_extended_gain": 0,
@@ -82,10 +82,11 @@
     ],
     "Roadm": [
         {
-            "target_pch_out_db": -20,
+            "type_variety": "default",
+            "target_out_mWperSlotWidth": 1e-4,
             "pmd": 0,
             "pdl": 0,
-            "add_drop_osnr": 200,
+            "add_drop_osnr": 100,
             "restrictions": {
                 "preamp_variety_list": ["std_fixed_gain"],
                 "booster_variety_list": ["std_fixed_gain"]
@@ -95,15 +96,15 @@
     "SI": [
         {
             "f_min": 191.3e12,		
-            "baud_rate": 100e9,
+            "baud_rate": 12.5e9,
             "f_max": 196.3e12,
             "power_dbm": 0,	
             "power_range_db": [0, 0, 0],
             "roll_off": null,
-            "tx_osnr": 120,	
+            "tx_osnr": 100,	
             "sys_margins": 0,
             "slot_width": 12.5e9,
-            "spacing": 100e9
+            "spacing":12.5e9
         }
     ],
     "Transceiver": [

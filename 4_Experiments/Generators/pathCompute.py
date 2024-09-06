@@ -29,6 +29,7 @@ osnr = pch/(pnli+paseLine+paseNode)
 osnrdb = 10.0 * math.log10(osnr) 
 print("================")
 print("OSNR (db) = ", osnrdb)
+'''
 print("CHANNEL POWER = ", pch)
 print("CHANNEL POWER in db = ", 10*math.log10(pch))
 print("NOISE = ", pnli+paseLine+paseNode)
@@ -38,6 +39,7 @@ print("NLI in db = ", 10*math.log10(pch)-10*math.log10(pnli))
 print("ASE = ", paseLine+paseNode)
 print("ASE in db = ", 10*math.log10(pch)-10*math.log10(paseLine+paseNode))
 
+'''
 path = [288,195,393,225,166]
 s = 4
 pnli = pnliComputer(path)
@@ -51,6 +53,7 @@ osnr = pch/(pnli+paseLine+paseNode)
 osnrdb = 10.0 * math.log10(osnr) 
 print("================")
 print("OSNR (db) = ", osnrdb)
+'''
 print("CHANNEL POWER = ", pch)
 print("CHANNEL POWER in db = ", 10*math.log10(pch))
 print("NOISE = ", pnli+paseLine+paseNode)
@@ -59,6 +62,7 @@ print("NLI = ", pnli)
 print("NLI in db = ", 10*math.log10(pch)-10*math.log10(pnli))
 print("ASE = ", paseLine+paseNode)
 print("ASE in db = ", 10*math.log10(pch)-10*math.log10(paseLine+paseNode))
+'''
 
 path = [288,195,393,225,166]
 s = 3
@@ -75,6 +79,7 @@ osnr = pch/(pnli+paseLine+paseNode)
 osnrdb = 10.0 * math.log10(osnr) 
 print("================")
 print("OSNR (db) = ", osnrdb)
+'''
 print("CHANNEL POWER = ", pch)
 print("CHANNEL POWER in db = ", 10*math.log10(pch))
 print("NOISE = ", pnli+paseLine+paseNode)
@@ -83,3 +88,4 @@ print("NLI = ", pnli)
 print("NLI in db = ", 10*math.log10(pch)-10*math.log10(pnli))
 print("ASE = ", paseLine+paseNode)
 print("ASE in db = ", 10*math.log10(pch)-10*math.log10(paseLine+paseNode))
+'''

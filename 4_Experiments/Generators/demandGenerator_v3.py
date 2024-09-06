@@ -1258,7 +1258,7 @@ print(str(NumberOfNetworks) + " topologies")
 
 for network in NetworksLinksToProcess:
     preCompute.processLinks(network.rows)                                                        #this add GN model columns in the link table
-CustomClassVerifier(NetworksLinksToProcess)
+#CustomClassVerifier(NetworksLinksToProcess)
 print("Attributes computed for links")
 
 NetworkAsDispersionGraphsC = buildDispersionGraphSet(NetworksLinksToProcess,NetworksNodesToProcess, "c")              #this create a graph for each table of links
@@ -1292,8 +1292,8 @@ demandStragegylist.append("allPair")
 #demandStragegylist.append("10percent")
 #CustomClassVerifier(NetworksDemandsSets)
 
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,20)
-demandStragegylist.append("fullRandomPair20")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,20)
+#demandStragegylist.append("fullRandomPair20")
 #addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,60)
 #demandStragegylist.append("fullRandomPair60")
 #addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,80)
@@ -1369,7 +1369,7 @@ for linkStrategy in linkPolicies:
             
             for instance in instanceSet:
                 #if len(instance.demands) >1 and len(instance.demands) <1000 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
-                if len(instance.demands) <85 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
+                if instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
                     counter = counter + 1
                     writeInstanceFiles(instance,adress3)
 print(str(counter) + " instances created")

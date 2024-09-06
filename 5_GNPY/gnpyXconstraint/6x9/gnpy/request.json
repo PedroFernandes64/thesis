@@ -1,0 +1,81 @@
+{
+ "path-request": [
+{
+  "request-id": "109",
+  "source": "trx-5-n5",
+  "destination": "trx-6-n6",
+  "src-tp-id": "trx-5-n5",
+  "dst-tp-id": "trx-6-n6",
+  "bidirectional": false,
+  "path-constraints": {
+     "te-bandwidth": {
+       "technology": "flexi-grid",
+       "trx_type": "transp",
+       "trx_mode": "400 Gbit/s, 75.0 Gbaud, 16QAM, 6 slots",
+       "effective-freq-slot": [
+         {
+           "N": null,
+           "M": null
+         }
+       ],
+       "spacing": 75000000000.0,
+       "max-nb-of-channel": 66,
+       "output-power": 0.001,
+       "path_bandwidth": 400000000000.0
+     }
+  },
+  "explicit-route-objects": {
+     "route-object-include-exclude": [
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-5",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-3",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-1",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-2",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-4",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       },
+       {
+         "index": 0,
+         "num-unnum-hop": {
+           "node-id": "roadm-6",
+           "link-tp-id": "link-tp-id is not used",
+           "hop-type": "STRICT"
+          }
+       }
+      ]
+  }
+}
+]
+}

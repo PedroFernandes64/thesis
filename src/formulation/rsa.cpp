@@ -137,7 +137,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     onlyReachFeasiblePathsC = 0;
     infeasiblePathsC = 0;
     //if (this->getInstance().getInput().allPathsDataEnabled() == true){
-    if(false){
+    if(true){
         std::cout << "Computing statistics of all paths" << std::endl;
         AllPaths();
     }
@@ -410,7 +410,15 @@ void RSA::AllPaths(){
         std::cout << "Writing  OSNR's to file..." << std::endl;
         std::string outputOSNRName = "pathData.csv";
         outfile.open(outputOSNRName); 
-        outfile << "Demand;" <<"Path;" << "Distance;" << "dispersionC val;"<<"dispersionC lim;"<<"dispersionL val;"<<"dispersionL lim;"<< "osnrC val;"<<"osnrC lim;" << "osnrL val;"<<"osnrL lim"<< std::endl;
+        outfile << "Demand;"<<"TranspId;" <<"Path;" << "Distance;" << "dispersionC val;"<<"dispersionC lim;"<<"dispersionL val;"<<"dispersionL lim;"<< "osnrC val;"<<"osnrC lim;" << "osnrL val;"<<"osnrL lim"<< std::endl;
+    }
+    std::ofstream outfile2;
+    bool printAuxDemand = true;
+    if(printAuxDemand){
+        std::cout << "Writing  paths as demands..." << std::endl;
+        std::string outputDemandName = "demandAux.csv";
+        outfile2.open(outputDemandName); 
+        outfile2 << "index;origin;destination;slotsC;max_cdC;osnr_limitC;TranpCId;slotsL;max_cdL;osnr_limitL;TranspLId;Gbits/s;pchC;pchL;pchS"<< std::endl;
     }
     int total = 0;
     int bothC = 0;
@@ -434,7 +442,14 @@ void RSA::AllPaths(){
             dbOsnrL = osnrPath(alldemandsNoiseL[i][j], toBeRouted[i].getPchL());
             //dbOsnrS = osnrPath(alldemandsNoiseS[i][j], toBeRouted[i].getPchS());
             if(printAllpaths){
-                outfile << toBeRouted[i].getId() + 1;
+                if(printAuxDemand){
+                    outfile << total + 1;
+                }
+                else{
+                    outfile << toBeRouted[i].getId() + 1;
+                }
+                outfile << ";";
+                outfile << toBeRouted[i].getTranspIdC();
                 outfile << ";";
                 for (int k = 0; k <allpaths[i][j].size(); ++k)
                     outfile << getCompactNodeLabel(allpaths[i][j][k]) + 1 << "-";
@@ -458,8 +473,39 @@ void RSA::AllPaths(){
                 outfile << toBeRouted[i].getOsnrLimitL();
                 outfile << ";";
                 outfile << "\n";
-
-
+            }
+            if(printAuxDemand){
+                outfile2 << total + 1;
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getSource()+1;
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getTarget()+1;
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getLoadC();
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getmaxCDC();
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getOsnrLimitC();
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getTranspIdC();
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getLoadL();
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getmaxCDL();
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getOsnrLimitL();
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getTranspIdL();
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getGBits();
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getPchC();
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getPchL();
+                outfile2 << ";";
+                outfile2 << toBeRouted[i].getPchS();
+                outfile2 << ";";
+                outfile2 << "\n";
             }
             if (dispersionC <= (toBeRouted[i].getmaxCDC()) && dbOsnrC >= toBeRouted[i].getOsnrLimitC()){
                 bothC = bothC +1;
