@@ -1,17 +1,17 @@
 {
  "path-request": [
 {
-  "request-id": "5903",
-  "source": "trx-4-n4",
+  "request-id": "13641",
+  "source": "trx-16-n16",
   "destination": "trx-17-n17",
-  "src-tp-id": "trx-4-n4",
+  "src-tp-id": "trx-16-n16",
   "dst-tp-id": "trx-17-n17",
   "bidirectional": false,
   "path-constraints": {
      "te-bandwidth": {
        "technology": "flexi-grid",
        "trx_type": "transp",
-       "trx_mode": "100 Gbit/s, 37.5 Gbaud, QPSK, 3 slots",
+       "trx_mode": "200 Gbit/s, 37.5 Gbaud, 16QAM, 3 slots",
        "effective-freq-slot": [
          {
            "N": null,
@@ -21,7 +21,7 @@
        "spacing": 37500000000.0,
        "max-nb-of-channel": 133,
        "output-power": 0.001,
-       "path_bandwidth": 100000000000.0
+       "path_bandwidth": 200000000000.0
      }
   },
   "explicit-route-objects": {
@@ -29,79 +29,7 @@
        {
          "index": 0,
          "num-unnum-hop": {
-           "node-id": "roadm-4",
-           "link-tp-id": "link-tp-id is not used",
-           "hop-type": "STRICT"
-          }
-       },
-       {
-         "index": 0,
-         "num-unnum-hop": {
-           "node-id": "roadm-5",
-           "link-tp-id": "link-tp-id is not used",
-           "hop-type": "STRICT"
-          }
-       },
-       {
-         "index": 0,
-         "num-unnum-hop": {
-           "node-id": "roadm-3",
-           "link-tp-id": "link-tp-id is not used",
-           "hop-type": "STRICT"
-          }
-       },
-       {
-         "index": 0,
-         "num-unnum-hop": {
-           "node-id": "roadm-1",
-           "link-tp-id": "link-tp-id is not used",
-           "hop-type": "STRICT"
-          }
-       },
-       {
-         "index": 0,
-         "num-unnum-hop": {
-           "node-id": "roadm-9",
-           "link-tp-id": "link-tp-id is not used",
-           "hop-type": "STRICT"
-          }
-       },
-       {
-         "index": 0,
-         "num-unnum-hop": {
-           "node-id": "roadm-6",
-           "link-tp-id": "link-tp-id is not used",
-           "hop-type": "STRICT"
-          }
-       },
-       {
-         "index": 0,
-         "num-unnum-hop": {
-           "node-id": "roadm-7",
-           "link-tp-id": "link-tp-id is not used",
-           "hop-type": "STRICT"
-          }
-       },
-       {
-         "index": 0,
-         "num-unnum-hop": {
-           "node-id": "roadm-8",
-           "link-tp-id": "link-tp-id is not used",
-           "hop-type": "STRICT"
-          }
-       },
-       {
-         "index": 0,
-         "num-unnum-hop": {
-           "node-id": "roadm-11",
-           "link-tp-id": "link-tp-id is not used",
-           "hop-type": "STRICT"
-          }
-       },
-       {
-         "index": 0,
-         "num-unnum-hop": {
-           "node-id": "roadm-13",
+           "node-id": "roadm-16",
            "link-tp-id": "link-tp-id is not used",
            "hop-type": "STRICT"
           }
@@ -117,7 +45,7 @@
        {
          "index": 0,
          "num-unnum-hop": {
-           "node-id": "roadm-16",
+           "node-id": "roadm-13",
            "link-tp-id": "link-tp-id is not used",
            "hop-type": "STRICT"
           }

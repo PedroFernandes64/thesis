@@ -1,12 +1,12 @@
 ******* Input File Paths *******
-topologyFile=Instances/1.5x/random/Nsfnet_14_21/Links/91_demands/Link.csv
+topologyFile=Instances/1.5x/random/German_17_26/Links/136_demands/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=Instances/1.5x/random/Nsfnet_14_21/Demands/91_demands
+demandToBeRoutedFolder=Instances/1.5x/random/German_17_26/Demands/136_demands
 
 ******* QoT parameters *******
 GNPY_activation=0
-QoTFolder=QoTSet/oP_L1.5x_Tran_iNsfnet_14_21_d91_ofTUS_f0_cd1_os1_gn0_b1_r0_cu0_p0
+QoTFolder=QoTSet/oP_L1.5x_Tran_iGerman_17_26_d136_ofTUS_f0_cd1_os1_gn0_b1_r0_cu0_p2
 ChromaticDispersion_activation=1
 OSNR_activation=1
 
@@ -29,7 +29,7 @@ partitionSlice=0
 ******* Optimization parameters *******
 solver=0
 method=0 
-preprocessingLevel=0
+preprocessingLevel=2
 linearRelaxation=0
 relaxMethod=0 
 

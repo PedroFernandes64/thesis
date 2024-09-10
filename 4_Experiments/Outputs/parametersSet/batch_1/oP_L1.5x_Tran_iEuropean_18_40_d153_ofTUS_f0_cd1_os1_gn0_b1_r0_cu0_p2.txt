@@ -1,12 +1,12 @@
 ******* Input File Paths *******
-topologyFile=Instances/1.5x/random/6nodes9links_6_9/Links/15_demands/Link.csv
+topologyFile=Instances/1.5x/random/European_18_40/Links/153_demands/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=Instances/1.5x/random/6nodes9links_6_9/Demands/15_demands
+demandToBeRoutedFolder=Instances/1.5x/random/European_18_40/Demands/153_demands
 
 ******* QoT parameters *******
 GNPY_activation=0
-QoTFolder=QoTSet/oP_L1.5x_Tran_i6nodes9links_6_9_d15_ofTUS_f0_cd1_os1_gn0_b1_r0_cu0_p0
+QoTFolder=QoTSet/oP_L1.5x_Tran_iEuropean_18_40_d153_ofTUS_f0_cd1_os1_gn0_b1_r0_cu0_p2
 ChromaticDispersion_activation=1
 OSNR_activation=1
 
@@ -29,7 +29,7 @@ partitionSlice=0
 ******* Optimization parameters *******
 solver=0
 method=0 
-preprocessingLevel=0
+preprocessingLevel=2
 linearRelaxation=0
 relaxMethod=0 
 

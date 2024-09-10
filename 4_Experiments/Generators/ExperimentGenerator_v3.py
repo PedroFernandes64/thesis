@@ -39,7 +39,7 @@ formulationSet = ["0"]
 userCuts = ["0"]
 objSet = ["TUS"]
 
-preprocessingSet= ["0"]
+preprocessingSet= ["2"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()
