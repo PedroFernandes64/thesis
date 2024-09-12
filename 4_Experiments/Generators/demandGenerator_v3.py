@@ -1115,10 +1115,10 @@ def osnrPchC(slots):
     return pchDemand
 
 def osnrPchL(slots):
-    pSatL = preCompute.PsatL
+    pMaxL = preCompute.pMaxL
     bwdmL = preCompute.bwdmL
     Bn = preCompute.Bn
-    pchDemand = preCompute.computePchCBand(float(slots),pSatL,bwdmL,Bn)
+    pchDemand = preCompute.computePchCBand(float(slots),pMaxL,bwdmL,Bn)
     return pchDemand
 
 
@@ -1292,12 +1292,14 @@ demandStragegylist.append("allPair")
 #demandStragegylist.append("10percent")
 #CustomClassVerifier(NetworksDemandsSets)
 
-#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,20)
-#demandStragegylist.append("fullRandomPair20")
-#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,60)
-#demandStragegylist.append("fullRandomPair60")
-#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,80)
-#demandStragegylist.append("fullRandomPair80")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,20)
+demandStragegylist.append("fullRandomPair20")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,40)
+demandStragegylist.append("fullRandomPair40")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,60)
+demandStragegylist.append("fullRandomPair60")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,80)
+demandStragegylist.append("fullRandomPair80")
 #CustomClassVerifier(NetworksDemandsSets)
 
 #addCoreToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
@@ -1309,8 +1311,8 @@ demandStragegylist.append("allPair")
 NetworksDemandsSetsWithTransponders = []
 transponderStragegylist = []
 
-#chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
-#transponderStragegylist.append("efficient")
+chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
+transponderStragegylist.append("efficient")
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 addRandomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
@@ -1328,7 +1330,7 @@ for network in NetworksDemandsSetsWithTransponders:
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 #====== LEVEL THREE CHOICES - DO FOR EACH DEMAND SET WITH TRANSPONDER
-linkPolicies = [1.5]
+linkPolicies = [0.75,1]
 #linkPolicies = [30,40,50]
 instanceSet = buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,NetworksNodesToProcess,linkPolicies)
 
@@ -1369,7 +1371,7 @@ for linkStrategy in linkPolicies:
             
             for instance in instanceSet:
                 #if len(instance.demands) >1 and len(instance.demands) <1000 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
-                if instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
+                if len(instance.demands) >19 and len(instance.demands) <82 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
                     counter = counter + 1
                     writeInstanceFiles(instance,adress3)
 print(str(counter) + " instances created")
