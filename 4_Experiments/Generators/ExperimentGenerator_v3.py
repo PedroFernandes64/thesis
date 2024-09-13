@@ -66,7 +66,7 @@ counter = 0
 print(len(testSet))
 
 with open("../Outputs/experimentList.csv", "w") as list:
-    line = "LinkS;TranspS;Instance;Demands;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro"
+    line = "LinkS;TranspS;Instance;Demands;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro"
     list.write(line)
     print("Test list table created")  
     counb = 0 
@@ -273,7 +273,7 @@ f.close()
 print("Experiments script created")
 
 with open("../Outputs/results.csv", "w") as f:
-    line = "LinkS;TranspS;Instance;Demands;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tase"
+    line = "LinkS;TranspS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tase"
     f.write(line)
     f.close() 
 print("Result table created")   

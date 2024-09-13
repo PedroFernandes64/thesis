@@ -1330,7 +1330,7 @@ for network in NetworksDemandsSetsWithTransponders:
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 #====== LEVEL THREE CHOICES - DO FOR EACH DEMAND SET WITH TRANSPONDER
-linkPolicies = [0.75,1]
+linkPolicies = [1]
 #linkPolicies = [30,40,50]
 instanceSet = buildInstanceSet(NetworksDemandsSetsWithTransponders,NetworksLinksToProcess,NetworksNodesToProcess,linkPolicies)
 
