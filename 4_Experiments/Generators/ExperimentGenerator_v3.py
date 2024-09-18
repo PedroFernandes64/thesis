@@ -28,8 +28,8 @@ for linkStrategy in linkStrategies:
 
 #testUnitVerifier(testSet)
 gnpyActivation = ["0"]
-CDSet=["1"]
-osnrSet=["1"]
+CDSet=["0","1"]
+osnrSet=["0","1"]
 
 bands=["1"]
 TFlowSet=["0"]
@@ -37,9 +37,9 @@ reinforcements=["0"]
 
 formulationSet = ["0"]
 userCuts = ["0"]
-objSet = ["NLUS"]
+objSet = ["TUS","NLUS"]
 
-preprocessingSet= ["2"]
+preprocessingSet= ["0","2"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()
@@ -273,7 +273,7 @@ f.close()
 print("Experiments script created")
 
 with open("../Outputs/results.csv", "w") as f:
-    line = "LinkS;TranspS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tase"
+    line = "LinkS;TranspS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro;PreproTime;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tase"
     f.write(line)
     f.close() 
 print("Result table created")   

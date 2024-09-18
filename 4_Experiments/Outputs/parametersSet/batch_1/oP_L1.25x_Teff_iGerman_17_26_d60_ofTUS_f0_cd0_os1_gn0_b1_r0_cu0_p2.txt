@@ -1,0 +1,41 @@
+******* Input File Paths *******
+topologyFile=Instances/1.25x/efficient/German_17_26/Links/60_demands/Link.csv
+initialMappingDemandFile=
+initialMappingAssignmentFile=
+demandToBeRoutedFolder=Instances/1.25x/efficient/German_17_26/Demands/60_demands
+
+******* QoT parameters *******
+GNPY_activation=0
+QoTFolder=QoTSet/oP_L1.25x_Teff_iGerman_17_26_d60_ofTUS_f0_cd0_os1_gn0_b1_r0_cu0_p2
+ChromaticDispersion_activation=0
+OSNR_activation=1
+
+******* Thesis Pedro parameters *******
+Bands=1
+TFlow_Policy=0
+Reinforcements=0
+
+******* Formulation parameters *******
+nbDemandsAtOnce=1000
+formulation=0
+userCuts=0
+obj=TUS
+allowBlocking=0
+hopPenalty=0
+partitionPolicy=0
+partitionLoad=0
+partitionSlice=0
+
+******* Optimization parameters *******
+solver=0
+method=0 
+preprocessingLevel=2
+linearRelaxation=0
+relaxMethod=0 
+
+******* Execution parameters *******
+outputPath=../Instances/Dump/
+outputLevel=0
+nbSlicesInOutputFile=0
+globalTimeLimit=14400
+timeLimit=14400

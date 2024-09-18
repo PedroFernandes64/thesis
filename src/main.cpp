@@ -124,6 +124,7 @@ int main(int argc, char *argv[]) {
 			std::string reinforcements = to_string(input.areReinforcementsEnabled());
 			std::string cuts = to_string(input.isUserCutsActivated());
 			std::string prepro = to_string(input.getChosenPreprLvl());
+			std::string preproTime = to_string(solver->getPreprocessingTime());
 
 			std::string variables = to_string(solver->getNbVariable());
 			std::string	constraints = to_string(solver->getNbConstraint());
@@ -178,7 +179,7 @@ int main(int argc, char *argv[]) {
 			}
 			//opening file and writing
   			outfile << "\n" + instanceName + ";" << ub + ";" + lb + ";" + gap +";" + time +";" + obj +";"+ formulation+ ";"
-				+maxCD+";" + minOsnr+";"+ gnpy+";"+ bands+";"+ reinforcements+";"+ cuts+";"+ prepro+";"
+				+maxCD+";" + minOsnr+";"+ gnpy+";"+ bands+";"+ reinforcements+";"+ cuts+";"+ prepro+";" +preproTime +";"
 				+variables+";"+constraints+";"+v0+";"+ppC+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"+
 				onlyOsnrFeasiblePathsC+";"+onlyReachFeasiblePathsC+";"+feasiblePathsL+";"+infeasiblePathsL+";"+
 				onlyOsnrFeasiblePathsL+";"+onlyReachFeasiblePathsL+";"+ads+";"+dcb+";"+llb+";"+nlus+";"+slus+";"+

@@ -103,6 +103,7 @@ public:
     double getTASE(){ return formulation->getTASE();}
 	int getVariablesSetTo0(){ return formulation->getVariablesSetTo0();}
 	int getPreprocessingConstraints(){ return formulation->getPreprocessingConstraints();}
+	double getPreprocessingTime(){ return formulation->getPreprocessingTime();}
 
 	/****************************************************************************************/
 	/*											Setters										*/
