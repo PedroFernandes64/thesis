@@ -413,7 +413,7 @@ void RSA::AllPaths(){
         outfile << "Demand;"<<"TranspId;" <<"Path;" << "Distance;" << "dispersionC val;"<<"dispersionC lim;"<<"dispersionL val;"<<"dispersionL lim;"<< "osnrC val;"<<"osnrC lim;" << "osnrL val;"<<"osnrL lim"<< std::endl;
     }
     std::ofstream outfile2;
-    bool printAuxDemand = true;
+    bool printAuxDemand = false;
     if(printAuxDemand){
         std::cout << "Writing  paths as demands..." << std::endl;
         std::string outputDemandName = "demandAux.csv";
