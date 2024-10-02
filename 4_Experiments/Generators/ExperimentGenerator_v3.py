@@ -37,7 +37,7 @@ reinforcements=["0"]
 
 formulationSet = ["0"]
 userCuts = ["0"]
-objSet = ["TUS"]
+objSet = ["NLUS"]
 
 preprocessingSet= ["0"]
 

@@ -1284,8 +1284,8 @@ for topology in topologyList:
 #====== LEVEL ONE CHOICES - DO FOR EACH NODE SET
 NetworksDemandsSets = []
 demandStragegylist = []
-buildBaseDemandSet(NetworksDemandsSets,NetworksNodesToProcess)           #this create a base demand set for each table of nodes
-demandStragegylist.append("allPair")
+#buildBaseDemandSet(NetworksDemandsSets,NetworksNodesToProcess)           #this create a base demand set for each table of nodes
+#demandStragegylist.append("allPair")
 #CustomClassVerifier(NetworksDemandsSets)
 
 #addXsampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess,20)
@@ -1293,14 +1293,16 @@ demandStragegylist.append("allPair")
 #CustomClassVerifier(NetworksDemandsSets)
 
 
-#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,20)
-#demandStragegylist.append("fullRandomPair20")
-#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,40)
-#demandStragegylist.append("fullRandomPair40")
-#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,60)
-#demandStragegylist.append("fullRandomPair60")
-#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,80)
-#demandStragegylist.append("fullRandomPair80")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,10)
+demandStragegylist.append("fullRandomPair10")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,20)
+demandStragegylist.append("fullRandomPair20")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,30)
+demandStragegylist.append("fullRandomPair30")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,40)
+demandStragegylist.append("fullRandomPair40")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,50)
+demandStragegylist.append("fullRandomPair50")
 #CustomClassVerifier(NetworksDemandsSets)
 
 #addCoreToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
@@ -1312,12 +1314,12 @@ demandStragegylist.append("allPair")
 NetworksDemandsSetsWithTransponders = []
 transponderStragegylist = []
 
-chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
-transponderStragegylist.append("efficient")
+#chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
+#transponderStragegylist.append("efficient")
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
-#addRandomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
-#transponderStragegylist.append("random")
+addRandomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
+transponderStragegylist.append("random")
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 #dataLimit = 200
@@ -1372,7 +1374,7 @@ for linkStrategy in linkPolicies:
             
             for instance in instanceSet:
                 #if len(instance.demands) >1 and len(instance.demands) <1000 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
-                if instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
+                if len(instance.demands) <55 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
                     counter = counter + 1
                     writeInstanceFiles(instance,adress3)
 print(str(counter) + " instances created")
