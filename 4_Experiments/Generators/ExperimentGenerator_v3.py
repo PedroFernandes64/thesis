@@ -258,7 +258,7 @@ for batch in batchsList:
         f.write(stringLine1)
         echoLine = "echo parametersSet/" + batch + "/${tab1[$SLURM_ARRAY_TASK_ID]}\n"
         f.write(echoLine)
-        lastLine = "./exec parametersSet/" + batch + "/${tab1[$SLURM_ARRAY_TASK_ID]}.txt >> executionOutputs${tab1[$SLURM_ARRAY_TASK_ID]}.txt" 
+        lastLine = "./RSASolver parametersSet/" + batch + "/${tab1[$SLURM_ARRAY_TASK_ID]}.txt >> executionOutputs${tab1[$SLURM_ARRAY_TASK_ID]}.txt" 
         f.write(lastLine)
         f.close() 
 print("Jobs script created")
