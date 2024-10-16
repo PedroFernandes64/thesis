@@ -1303,6 +1303,16 @@ addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,40)
 demandStragegylist.append("fullRandomPair40")
 addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,50)
 demandStragegylist.append("fullRandomPair50")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,60)
+demandStragegylist.append("fullRandomPair60")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,70)
+demandStragegylist.append("fullRandomPair70")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,80)
+demandStragegylist.append("fullRandomPair80")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,90)
+demandStragegylist.append("fullRandomPair90")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,100)
+demandStragegylist.append("fullRandomPair100")
 #CustomClassVerifier(NetworksDemandsSets)
 
 #addCoreToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
@@ -1374,7 +1384,7 @@ for linkStrategy in linkPolicies:
             
             for instance in instanceSet:
                 #if len(instance.demands) >1 and len(instance.demands) <1000 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
-                if len(instance.demands) <55 and instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
+                if instance.topology == topology and instance.slotStrategy == str(linkStrategy) + "x" and instance.transponderStrategy == transponderStrategy:
                     counter = counter + 1
                     writeInstanceFiles(instance,adress3)
 print(str(counter) + " instances created")

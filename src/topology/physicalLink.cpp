@@ -158,7 +158,7 @@ void Fiber::displayFiber(){
 /* Displays detailed information about state of the fiber. */
 void Fiber::displayDetailedFiber(){
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
-	std::cout << ". lenght: " << this->getLength() << ", cost: " << this->getCost() << ", amplis: " << this->getLineAmplifiers() << std::endl;
+	std::cout << ". length: " << this->getLength() << ", cost: " << this->getCost() << ", amplis: " << this->getLineAmplifiers() << std::endl;
 	for (int i = 0; i < this->getNbSlices(); i++){
 		std::cout << "\tSlice #" << i+1 << ". ";
 		if (this->spectrum[i].isUsed()) {

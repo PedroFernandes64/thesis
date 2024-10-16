@@ -767,7 +767,7 @@ class ThirdFrame(tk.Frame):
 
         Label(self.top, text="Objective :", background='white', font=parent.fontStyle3).grid(row=7, column=0, padx=6, pady=2)
         OptionMenu(self.top, parent.obj, "Choose", "1", "1p", "2", "2p", "4", "8").grid(row=8, column=1, padx=6, pady=2)
-        Label(self.top, text= "Which objective to be optimized. 1 for minimize last slot used per demand. 1p for minimize last slot used per edge. 2 for minimize number of hops. 2p for minimize used slices. 4 minimize path lenght. 8 minimize last slot used overall.", font=parent.fontStyle4, wraplength=580, background='white').grid(row=8, column=0, padx=6, pady=2)
+        Label(self.top, text= "Which objective to be optimized. 1 for minimize last slot used per demand. 1p for minimize last slot used per edge. 2 for minimize number of hops. 2p for minimize used slices. 4 minimize path length. 8 minimize last slot used overall.", font=parent.fontStyle4, wraplength=580, background='white').grid(row=8, column=0, padx=6, pady=2)
 
         tk.Button(self.top, text="Done", background='#959bcf', borderwidth=3, command=self.top.destroy).grid(row=19, column=0, pady=10) #lambda:self.setFparam(parent)
 
@@ -799,7 +799,7 @@ class ThirdFrame(tk.Frame):
 
         #Label(self.top, text="Objective :", background='white', font=parent.fontStyle3).grid(row=7, column=0, padx=6, pady=2)
         #OptionMenu(self.top, parent.obj, "Choose", "1", "1p", "2", "2p", "4", "8").grid(row=8, column=1, padx=6, pady=2)
-        #Label(self.top, text= "Which objective to be optimized. 1 for minimize last slot used per demand. 1p for minimize last slot used per edge. 2 for minimize number of hops. 2p for minimize used slices. 4 minimize path lenght. 8 minimize last slot used overall.", font=parent.fontStyle4, wraplength=580, background='white').grid(row=8, column=0, padx=6, pady=2)
+        #Label(self.top, text= "Which objective to be optimized. 1 for minimize last slot used per demand. 1p for minimize last slot used per edge. 2 for minimize number of hops. 2p for minimize used slices. 4 minimize path length. 8 minimize last slot used overall.", font=parent.fontStyle4, wraplength=580, background='white').grid(row=8, column=0, padx=6, pady=2)
 
         Label(self.top, text="Allow Blocking :", background='white', font=parent.fontStyle3).grid(row=9, column=0, padx=6, pady=2)
         OptionMenu(self.top, parent.allowBlocking, "Choose", "Deactivated", "Activated").grid(row=10, column=1, padx=6, pady=2)
