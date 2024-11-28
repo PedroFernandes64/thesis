@@ -152,7 +152,7 @@ int Fiber::getNbUsedSlices() const {
 /* Displays summarized information about the fiber. */
 void Fiber::displayFiber(){
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
-	std::cout << ". nb slices in C band: " << this->getNbSlicesC()<< ", nb slices in L band: " << this->getNbSlicesL()  << ", length: " << this->getLength() << ", amplis: " << this->getLineAmplifiers() << ", noiseC: " << this->getNoiseC() << ", noiseL: " << this->getNoiseL()<<std::endl;
+	std::cout << ". nb slices in C band: " << this->getNbSlicesC()<< ", nb slices in L band: " << this->getNbSlicesL()  << ", length: " << this->getLength() << ", amplis: " << this->getLineAmplifiers() << ", noiseC: " << this->getNoiseC() << ", noiseL: " << this->getNoiseL()<< ", noiseS: " << this->getNoiseS()<<std::endl;
 }
 
 /* Displays detailed information about state of the fiber. */

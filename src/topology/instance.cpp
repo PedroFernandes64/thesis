@@ -160,7 +160,7 @@ void Instance::readTopology(){
 		int edgeNbSlicesL = 0;
 		int installedBands = 1;
 		int availableBands = 1;
-		if (getInput().getNbBands() == 2){
+		if (getInput().getNbBands() >= 2){
 			edgeNbSlicesL = std::stoi(dataList[i][5]);
 			availableBands = 2;
 		}
@@ -237,7 +237,7 @@ void Instance::readDemands(){
 				demandPchS = std::stod(dataList[i][14]);
 			}
 		}
-		if (getInput().getNbBands() == 2){
+		if (getInput().getNbBands() >= 2){
 			demandLoadL = std::stoi(dataList[i][7]);
 			demandMaxCDL = std::stod(dataList[i][8]);
 			transpIdL = std::stod(dataList[i][10]);	
@@ -389,7 +389,7 @@ void Instance::generateDemandsFromFile(std::string filePath){
 				demandPchS = std::stod(dataList[i][14]);
 			}
 		}
-		if (getInput().getNbBands() == 2){
+		if (getInput().getNbBands() >= 2){
 			demandLoadL = std::stoi(dataList[i][7]);
 			demandMaxCDL = std::stod(dataList[i][8]);
 			transpIdL = std::stod(dataList[i][10]);	

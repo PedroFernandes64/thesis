@@ -24,6 +24,8 @@ Demand::Demand(int i, int s, int t, int lC, int lL, double maxC, double maxL, do
 	this->setMode(m);
 	this->setSpacing(space);
 	this->setPathBandwidth(b);
+	this->setmaxCDS(maxL);
+	this->setOsnrLimitS(osL);
 }
 
 
@@ -51,6 +53,8 @@ void Demand::copyDemand(const Demand & demand){
 	this->setMode(demand.getMode());
 	this->setSpacing(demand.getSpacing());
 	this->setPathBandwidth(demand.getPathBandwidth());
+	this->setmaxCDS(demand.getmaxCDS());
+	this->setOsnrLimitS(demand.getOsnrLimitS());
 }
 
 /* Displays demand information. */
@@ -65,6 +69,7 @@ void Demand::displayDemand(){
 	std::cout << "#" << this->getId()+1 << ". " << this->getSource()+1 << " -- " << this->getTarget()+1;
 	std::cout << ". nbSlices C: " << this->getLoadC() << ", maxCD C: " << this->getmaxCDC()<< ", osnrLimit C: " << this->getOsnrLimitC()<< ", pchC: " << this->getPchC()<< ", transpIdC: " << this->getTranspIdC();
 	std::cout << ". nbSlices L: " << this->getLoadL() << ", maxCD L: " << this->getmaxCDL()<< ", osnrLimit L: " << this->getOsnrLimitL()<< ", pchL: " << this->getPchL()<< ", transpIdL: " << this->getTranspIdL();
+	std::cout << ", maxCD S: " << this->getmaxCDS()<< ", osnrLimit S: " << this->getOsnrLimitS()<< ", pchS: " << this->getPchS();
 	std::cout << ". Gbits/s: " << this->getGBits();
 	std::cout << ", ROUTED: " << r << std::endl;
 }

@@ -502,6 +502,11 @@ public:
     void AllPaths();
     void AllPathsUtil(int u, int d, bool visited[], int path[], int& path_index);
 
+    void Heuristic();
+    std::vector<std::vector<Fiber> > kdijkstra(std::vector<std::vector<int> > graph, int src, int dest, int K);
+    int minDistance(std::vector<int> dist, std::vector<bool> sptSet);
+    std::vector<int> dijkstra(std::vector<std::vector<int> > graph, int src, int dest, double & pathdistance);
+    
 	/****************************************************************************************/
 	/*										Display											*/
 	/****************************************************************************************/

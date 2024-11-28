@@ -24,7 +24,9 @@ private:
 	double osnrLimitC;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
 	double maxCDL;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
 	double osnrLimitL;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
-	
+	double maxCDS;	/**< Refers to the maximum length of the path on which the demand can be routed. **/
+	double osnrLimitS;	/**< Refers to the minimum OSNR of the path on which the demand can be routed. **/
+
 	double gBits;	
 	int transpIdC;	
 	int transpIdL;	
@@ -90,10 +92,15 @@ public:
 	/** Returns the maximum length of the path on which the demand can be routed. **/
 	double getmaxCDL() const { return maxCDL; }
 
+	/** Returns the maximum length of the path on which the demand can be routed. **/
+	double getmaxCDS() const { return maxCDS; }
+
 	/** Returns the minimum OSNR of the path on which the demand can be routed. **/
 	double getOsnrLimitC() const { return osnrLimitC; }
 	/** Returns the minimum OSNR of the path on which the demand can be routed. **/
 	double getOsnrLimitL() const { return osnrLimitL; }
+	/** Returns the minimum OSNR of the path on which the demand can be routed. **/
+	double getOsnrLimitS() const { return osnrLimitS; }
 
 
 	double getGBits() const { return gBits; }
@@ -154,6 +161,12 @@ public:
 
 		/** Changes the OSNR Limit of the path on which demand is routed. @param osL The new path Osnr Limit. **/
 	void setOsnrLimitL(double os) { this->osnrLimitL = os; }
+
+	/** Changes the maximum length of the path on which the demand can be routed. @param max New demand's maximum length value.**/
+	void setmaxCDS(double max) { this->maxCDS = max; }
+
+	/** Changes the OSNR Limit of the path on which demand is routed. @param osL The new path Osnr Limit. **/
+	void setOsnrLimitS(double os) { this->osnrLimitS = os; }
 
 
 	void setGBits(double gb) { this->gBits = gb; }

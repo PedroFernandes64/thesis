@@ -31,13 +31,13 @@ gnpyActivation = ["0"]
 CDSet=["1"]
 osnrSet=["1"]
 
-bands=["1"]
+bands=["2"]
 TFlowSet=["0"]
 reinforcements=["0"]
 
 formulationSet = ["0"]
 userCuts = ["0"]
-objSet = ["NLUS"]
+objSet = ["TUS"]
 
 preprocessingSet= ["0"]
 

@@ -1284,8 +1284,8 @@ for topology in topologyList:
 #====== LEVEL ONE CHOICES - DO FOR EACH NODE SET
 NetworksDemandsSets = []
 demandStragegylist = []
-#buildBaseDemandSet(NetworksDemandsSets,NetworksNodesToProcess)           #this create a base demand set for each table of nodes
-#demandStragegylist.append("allPair")
+buildBaseDemandSet(NetworksDemandsSets,NetworksNodesToProcess)           #this create a base demand set for each table of nodes
+demandStragegylist.append("allPair")
 #CustomClassVerifier(NetworksDemandsSets)
 
 #addXsampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess,20)
@@ -1293,26 +1293,26 @@ demandStragegylist = []
 #CustomClassVerifier(NetworksDemandsSets)
 
 
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,10)
-demandStragegylist.append("fullRandomPair10")
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,20)
-demandStragegylist.append("fullRandomPair20")
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,30)
-demandStragegylist.append("fullRandomPair30")
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,40)
-demandStragegylist.append("fullRandomPair40")
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,50)
-demandStragegylist.append("fullRandomPair50")
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,60)
-demandStragegylist.append("fullRandomPair60")
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,70)
-demandStragegylist.append("fullRandomPair70")
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,80)
-demandStragegylist.append("fullRandomPair80")
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,90)
-demandStragegylist.append("fullRandomPair90")
-addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,100)
-demandStragegylist.append("fullRandomPair100")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,10)
+#demandStragegylist.append("fullRandomPair10")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,20)
+#demandStragegylist.append("fullRandomPair20")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,30)
+#demandStragegylist.append("fullRandomPair30")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,40)
+#demandStragegylist.append("fullRandomPair40")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,50)
+#demandStragegylist.append("fullRandomPair50")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,60)
+#demandStragegylist.append("fullRandomPair60")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,70)
+#demandStragegylist.append("fullRandomPair70")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,80)
+#demandStragegylist.append("fullRandomPair80")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,90)
+#demandStragegylist.append("fullRandomPair90")
+#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,100)
+#demandStragegylist.append("fullRandomPair100")
 #CustomClassVerifier(NetworksDemandsSets)
 
 #addCoreToDemandSet(NetworksDemandsSets,NetworksNodesToProcess)
