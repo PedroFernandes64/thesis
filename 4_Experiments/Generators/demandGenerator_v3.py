@@ -1324,12 +1324,12 @@ demandStragegylist.append("allPair")
 NetworksDemandsSetsWithTransponders = []
 transponderStragegylist = []
 
-#chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
-#transponderStragegylist.append("efficient")
+chooseMostEfficientTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
+transponderStragegylist.append("efficient")
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
-addRandomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
-transponderStragegylist.append("random")
+#addRandomDataTransponder(NetworksDemandsSetsWithTransponders, NetworksDemandsSets,NetworkAsDispersionGraphsC, NetworkAsDispersionGraphsL ,NetworkAsOSNRGraphsC, NetworkAsOSNRGraphsL,TransponderTable,NetworksLinksToProcess)
+#transponderStragegylist.append("random")
 #DemandVerifier(NetworksDemandsSetsWithTransponders)
 
 #dataLimit = 200

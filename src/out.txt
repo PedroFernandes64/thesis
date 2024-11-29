@@ -1,0 +1,3984 @@
+PARAMETER FILE: ../test/op.txt
+Getting input file paths...
+Getting topology file...
+... ../test/Instances/6nodes9links_6_9/Links/15_demands/Link.csv
+WARNING: Field 'initialMappingDemandFile=' is empty.
+WARNING: Field 'initialMappingAssignmentFile=' is empty.
+QoT parameters...
+WARNING: Field 'QoTFolder=' is empty.
+Getting Thesis Pedro parameters...
+Getting formulation parameters...
+Getting optimization parameters...
+Getting execution parameters...
+Populating online demand files...
+Finish reading input.
+TOPOLOGY FILE: ../test/Instances/6nodes9links_6_9/Links/15_demands/Link.csv
+ROUTED DEMANDS FILE: 
+INITIAL ASSIGNMENT FILE: 
+All information from input is consistent.
+> Number of online demand files: 1
+--- READING INSTANCE... --- 
+--- CREATING INITIAL MAPPING... --- 
+Reading ../test/Instances/6nodes9links_6_9/Links/15_demands/Link.csv.
+Creating edge #1. 1 -- 2. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
+Creating edge #2. 1 -- 3. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
+Creating edge #3. 2 -- 3. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
+Creating edge #4. 2 -- 4. nb slices in C band: 30, nb slices in L band: 0, length: 500, amplis: 7, noiseC: 1.61895e-06, noiseL: 0, noiseS: 0
+Creating edge #5. 3 -- 4. nb slices in C band: 30, nb slices in L band: 0, length: 560, amplis: 7, noiseC: 2.08419e-06, noiseL: 0, noiseS: 0
+Creating edge #6. 3 -- 5. nb slices in C band: 30, nb slices in L band: 0, length: 500, amplis: 7, noiseC: 1.61895e-06, noiseL: 0, noiseS: 0
+Creating edge #7. 4 -- 5. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
+Creating edge #8. 4 -- 6. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
+Creating edge #9. 5 -- 6. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
+Starting with an empty initial mapping. 
+Number of bands : 1
+0 are present in the initial mapping.
+--- READING NEW DEMANDS TO BE ROUTED... --- 
+Reading ../test/Instances/6nodes9links_6_9/Demands/15_demands/demands_1.csv ...
+
+--- The Non Routed Demands ---
+#1. 1 -- 2. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#2. 1 -- 3. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#3. 1 -- 4. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#4. 1 -- 5. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#5. 1 -- 6. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#6. 2 -- 3. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#7. 2 -- 4. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#8. 2 -- 5. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#9. 2 -- 6. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#10. 3 -- 4. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#11. 3 -- 5. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#12. 3 -- 6. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#13. 4 -- 5. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#14. 4 -- 6. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#15. 5 -- 6. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+
+15 demands to be routed.
+> Non routable arcs: 3375
+> Variables set to 0: 3375
+Heuristic
+
+Path from 1 to 2 is: 1-2|OSNR 28.9484 CD 4250|
+Path from 1 to 2 is: 1-3|2-3|OSNR 25.9381 CD 8500|
+Path from 1 to 2 is: 1-3|3-4|2-4|OSNR 22.068 CD 22270|REFUSED
+Path from 1 to 2 is: 1-3|3-5|4-5|2-4|OSNR 21.6335 CD 25500|REFUSED
+Path from 1 to 3 is: 1-3|OSNR 28.9484 CD 4250|
+Path from 1 to 3 is: 1-2|2-3|OSNR 25.9381 CD 8500|
+Path from 1 to 3 is: 1-2|2-4|3-4|OSNR 22.068 CD 22270|REFUSED
+Path from 1 to 3 is: 1-2|2-4|4-5|3-5|OSNR 21.6335 CD 25500|REFUSED
+Path from 1 to 4 is: 1-2|2-4|OSNR 24.6438 CD 12750|
+Path from 1 to 4 is: 1-3|3-4|OSNR 23.9224 CD 13770|REFUSED
+Path from 1 to 4 is: 1-3|2-3|2-4|OSNR 23.273 CD 17000|REFUSED
+Path from 1 to 4 is: 1-3|3-5|4-5|OSNR 23.273 CD 17000|REFUSED
+Path from 1 to 5 is: 1-3|3-5|OSNR 24.6438 CD 12750|
+Path from 1 to 5 is: 1-2|2-3|3-5|OSNR 23.273 CD 17000|REFUSED
+Path from 1 to 5 is: 1-2|2-4|4-5|OSNR 23.273 CD 17000|REFUSED
+Path from 1 to 5 is: 1-3|3-4|4-5|OSNR 22.7353 CD 18020|REFUSED
+Path from 1 to 6 is: 1-3|3-5|5-6|OSNR 23.273 CD 17000|
+Path from 1 to 6 is: 1-2|2-4|4-6|OSNR 23.273 CD 17000|
+Path from 1 to 6 is: 1-3|3-4|4-6|OSNR 22.7353 CD 18020|
+Path from 1 to 6 is: 1-3|3-5|4-5|4-6|OSNR 22.2326 CD 21250|
+Path from 2 to 3 is: 2-3|OSNR 28.9484 CD 4250|
+Path from 2 to 3 is: 1-2|1-3|OSNR 25.9381 CD 8500|
+Path from 2 to 3 is: 2-4|3-4|OSNR 23.0649 CD 18020|REFUSED
+Path from 2 to 3 is: 2-4|4-5|3-5|OSNR 22.525 CD 21250|REFUSED
+Path from 2 to 4 is: 2-4|OSNR 26.6583 CD 8500|
+Path from 2 to 4 is: 2-3|3-4|OSNR 23.9224 CD 13770|REFUSED
+Path from 2 to 4 is: 2-3|3-5|4-5|OSNR 23.273 CD 17000|REFUSED
+Path from 2 to 4 is: 1-2|1-3|3-4|OSNR 22.7353 CD 18020|REFUSED
+Path from 2 to 5 is: 2-3|3-5|OSNR 24.6438 CD 12750|
+Path from 2 to 5 is: 2-4|4-5|OSNR 24.6438 CD 12750|
+Path from 2 to 5 is: 1-2|1-3|3-5|OSNR 23.273 CD 17000|REFUSED
+Path from 2 to 5 is: 2-4|4-6|5-6|OSNR 23.273 CD 17000|REFUSED
+Path from 2 to 6 is: 2-4|4-6|OSNR 24.6438 CD 12750|
+Path from 2 to 6 is: 2-3|3-5|5-6|OSNR 23.273 CD 17000|REFUSED
+Path from 2 to 6 is: 2-4|4-5|5-6|OSNR 23.273 CD 17000|REFUSED
+Path from 2 to 6 is: 2-3|3-4|4-6|OSNR 22.7353 CD 18020|REFUSED
+Path from 3 to 4 is: 3-4|OSNR 25.5612 CD 9520|
+Path from 3 to 4 is: 2-3|2-4|OSNR 24.6438 CD 12750|
+Path from 3 to 4 is: 3-5|4-5|OSNR 24.6438 CD 12750|
+Path from 3 to 4 is: 1-3|1-2|2-4|OSNR 23.273 CD 17000|REFUSED
+Path from 3 to 5 is: 3-5|OSNR 26.6583 CD 8500|
+Path from 3 to 5 is: 3-4|4-5|OSNR 23.9224 CD 13770|REFUSED
+Path from 3 to 5 is: 2-3|2-4|4-5|OSNR 23.273 CD 17000|REFUSED
+Path from 3 to 5 is: 3-4|4-6|5-6|OSNR 22.7353 CD 18020|REFUSED
+Path from 3 to 6 is: 3-5|5-6|OSNR 24.6438 CD 12750|
+Path from 3 to 6 is: 3-4|4-6|OSNR 23.9224 CD 13770|REFUSED
+Path from 3 to 6 is: 3-5|4-5|4-6|OSNR 23.273 CD 17000|REFUSED
+Path from 3 to 6 is: 2-3|2-4|4-6|OSNR 23.273 CD 17000|REFUSED
+Path from 4 to 5 is: 4-5|OSNR 28.9484 CD 4250|
+Path from 4 to 5 is: 4-6|5-6|OSNR 25.9381 CD 8500|
+Path from 4 to 5 is: 3-4|3-5|OSNR 23.0649 CD 18020|REFUSED
+Path from 4 to 5 is: 2-4|2-3|3-5|OSNR 22.525 CD 21250|REFUSED
+Path from 4 to 6 is: 4-6|OSNR 28.9484 CD 4250|
+Path from 4 to 6 is: 4-5|5-6|OSNR 25.9381 CD 8500|
+Path from 4 to 6 is: 3-4|3-5|5-6|OSNR 22.068 CD 22270|REFUSED
+Path from 4 to 6 is: 2-4|2-3|3-5|5-6|OSNR 21.6335 CD 25500|REFUSED
+Path from 5 to 6 is: 5-6|OSNR 28.9484 CD 4250|
+Path from 5 to 6 is: 4-5|4-6|OSNR 25.9381 CD 8500|
+Path from 5 to 6 is: 3-5|3-4|4-6|OSNR 22.068 CD 22270|REFUSED
+Path from 5 to 6 is: 3-5|2-3|2-4|4-6|OSNR 21.6335 CD 25500|REFUSEDasdasdas
+demand 1
+option 1 || 1-2|
+option 2 || 1-3|2-3|
+demand 2
+option 1 || 1-3|
+option 2 || 1-2|2-3|
+demand 3
+option 1 || 1-2|2-4|
+demand 4
+option 1 || 1-3|3-5|
+demand 5
+option 1 || 1-3|3-5|5-6|
+option 2 || 1-2|2-4|4-6|
+option 3 || 1-3|3-4|4-6|
+option 4 || 1-3|3-5|4-5|4-6|
+demand 6
+option 1 || 2-3|
+option 2 || 1-2|1-3|
+demand 7
+option 1 || 2-4|
+demand 8
+option 1 || 2-3|3-5|
+option 2 || 2-4|4-5|
+demand 9
+option 1 || 2-4|4-6|
+demand 10
+option 1 || 3-4|
+option 2 || 2-3|2-4|
+option 3 || 3-5|4-5|
+demand 11
+option 1 || 3-5|
+demand 12
+option 1 || 3-5|5-6|
+demand 13
+option 1 || 4-5|
+option 2 || 4-6|5-6|
+demand 14
+option 1 || 4-6|
+option 2 || 4-5|5-6|
+demand 15
+option 1 || 5-6|
+option 2 || 4-5|4-6|
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 138
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 138
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 174
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 138
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 138
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 138
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 138
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 138
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 138
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 138
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 138
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 138
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 132
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 168
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 138
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 150
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-2|2-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 5-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 156
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-3|3-5|5-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-4|4-5|
+demand 9 || 2-4|4-6|
+demand 10 || 3-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-5|5-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 144
+DISPLAYING POPULATION 
+demand 1 || 1-3|2-3|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 1-2|1-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-6|5-6|
+demand 14 || 4-6|
+demand 15 || 4-5|4-6|
+no coloring
+metric 162
+DISPLAYING POPULATION 
+demand 1 || 1-2|
+demand 2 || 1-3|
+demand 3 || 1-2|2-4|
+demand 4 || 1-3|3-5|
+demand 5 || 1-2|2-4|4-6|
+demand 6 || 2-3|
+demand 7 || 2-4|
+demand 8 || 2-3|3-5|
+demand 9 || 2-4|4-6|
+demand 10 || 2-3|2-4|
+demand 11 || 3-5|
+demand 12 || 3-5|5-6|
+demand 13 || 4-5|
+demand 14 || 4-6|
+demand 15 || 5-6|
+no coloring
+metric 138
+--- Flow formulation has been chosen. |K| = 15, |S| = 30. ---
+Flow variables have been defined...
+Source constraints have been defined...
+Flow conservation constraints have been defined...
+Target constraints have been defined...
+CD constraints have been defined...
+OSNR constraints have been defined...
+Non-Overlapping constraints has been defined...
+Constraints = 270
+Objective obj_tus has been defined.
+--- Flow formulation has been defined ---
+--- CPLEX has been initialized ---
+CPLEX parameters have been defined...
+CPLEX variables have been defined...
+CPLEX constraints have been defined...
+CPLEX objective has been defined...
+Solving...
+Chosen objective: obj_tus
+Version identifier: 22.1.1.0 | 2022-11-28 | 9160aff4d
+CPXPARAM_Threads                                 4
+CPXPARAM_Output_WriteLevel                       1
+CPXPARAM_TimeLimit                               14400
+CPXPARAM_MIP_Limits_TreeMemory                   16384
+Tried aggregator 4 times.
+MIP Presolve eliminated 489 rows and 2125 columns.
+MIP Presolve modified 4465 coefficients.
+Aggregator did 825 substitutions.
+Reduced MIP has 891 rows, 2135 columns, and 19980 nonzeros.
+Reduced MIP has 2135 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.17 sec. (198.45 ticks)
+Found incumbent of value 138.000000 after 0.19 sec. (217.81 ticks)
+Probing fixed 1325 vars, tightened 0 bounds.
+Probing time = 0.04 sec. (15.31 ticks)
+Tried aggregator 2 times.
+MIP Presolve eliminated 510 rows and 1385 columns.
+MIP Presolve modified 297 coefficients.
+Aggregator did 80 substitutions.
+Reduced MIP has 301 rows, 670 columns, and 6145 nonzeros.
+Reduced MIP has 670 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.02 sec. (14.63 ticks)
+Probing time = 0.01 sec. (2.57 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve modified 40 coefficients.
+Reduced MIP has 301 rows, 670 columns, and 6265 nonzeros.
+Reduced MIP has 670 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (6.41 ticks)
+Probing time = 0.00 sec. (2.56 ticks)
+Clique table members: 1397.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (1.22 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                          138.0000        0.0000           100.00%
+      0     0      132.0000    25      138.0000      132.0000       27    4.35%
+*     0+    0                          132.0000      132.0000             0.00%
+      0     0        cutoff            132.0000      132.0000       27    0.00%
+Elapsed time = 0.30 sec. (266.64 ticks, tree = 0.01 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.30 sec. (266.82 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.30 sec. (266.82 ticks)
+Objective Function Value: 132
+User cuts 0
+Total cuts 0
+Optimization done in 0.299173 secs.
+Status: Optimal
+Objective Function Value: 132
+x(1,1,2,6) = 1
+x(2,1,3,30) = 1
+x(3,2,4,30) = 1
+x(3,1,2,30) = 1
+x(4,3,5,18) = 1
+x(4,1,3,18) = 1
+x(5,4,6,6) = 1
+x(5,3,4,6) = 1
+x(5,1,3,6) = 1
+x(6,2,3,6) = 1
+x(7,2,4,24) = 1
+x(8,4,5,6) = 1
+x(8,2,4,6) = 1
+x(9,4,6,15) = 1
+x(9,2,4,15) = 1
+x(10,3,4,30) = 1
+x(11,3,5,30) = 1
+x(12,5,6,6) = 1
+x(12,3,5,6) = 1
+x(13,4,5,30) = 1
+x(14,4,6,30) = 1
+x(15,5,6,30) = 1
+ Time: 0.299173
+
+Update RSA
+Feasible
+Enter update.
+Leave update.
+
+--- Slice occupation ---
+#1. 1-2. ******------------------******
+#2. 1-3. ******------******------******
+#3. 2-3. ******------------------------
+#4. 2-4. ******---******---************
+#5. 3-4. ******------------------******
+#6. 3-5. ******------******------******
+#7. 4-5. ******------------------******
+#8. 4-6. ******---******---------******
+#9. 5-6. ******------------------******
+
+For demand 1 : 
+(1--2, 6)
+
+For demand 2 : 
+(1--3, 30)
+
+For demand 3 : 
+(2--4, 30)
+(1--2, 30)
+
+For demand 4 : 
+(3--5, 18)
+(1--3, 18)
+
+For demand 5 : 
+(4--6, 6)
+(3--4, 6)
+(1--3, 6)
+
+For demand 6 : 
+(2--3, 6)
+
+For demand 7 : 
+(2--4, 24)
+
+For demand 8 : 
+(4--5, 6)
+(2--4, 6)
+
+For demand 9 : 
+(4--6, 15)
+(2--4, 15)
+
+For demand 10 : 
+(3--4, 30)
+
+For demand 11 : 
+(3--5, 30)
+
+For demand 12 : 
+(5--6, 6)
+(3--5, 6)
+
+For demand 13 : 
+(4--5, 30)
+
+For demand 14 : 
+(4--6, 30)
+
+For demand 15 : 
+(5--6, 30)
+
+Displaying OSNR 
+For demand 1 : 28.9483 x 24 limit
+For demand 2 : 28.9483 x 24 limit
+For demand 3 : 24.6437 x 24 limit
+For demand 4 : 24.6437 x 24 limit
+For demand 5 : 22.7352 x 21 limit
+For demand 6 : 28.9483 x 24 limit
+For demand 7 : 26.6581 x 24 limit
+For demand 8 : 24.6437 x 24 limit
+For demand 9 : 24.6437 x 24 limit
+For demand 10 : 25.5612 x 24 limit
+For demand 11 : 26.6581 x 24 limit
+For demand 12 : 24.6437 x 24 limit
+For demand 13 : 28.9483 x 24 limit
+For demand 14 : 28.9483 x 24 limit
+For demand 15 : 28.9483 x 24 limit
+Extra OSNR in routing: 41.521
+Displaying data for multiple metrics 
+Accepted demand set: 15
+Demands in C band: 15
+Links with L band: 0
+Network last used slot: 30
+Sum of last used slots: 246
+Sum of used links by demands: 22
+Total route length: 7870
+Total used slots: 132
+Total used amplifiers: 8833.33
+Time taken by iteration is : 0.618012 sec
+UB: 132.000000000
+LB: 132.000000000
+GAP: 0.000000000
+Tree size: 0
+Time: 0.299173117
+
+
+--- The Demands ---
+#1. 1 -- 2. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#2. 1 -- 3. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#3. 1 -- 4. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#4. 1 -- 5. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#5. 1 -- 6. nbSlices C: 6, maxCD C: 40000.000000000, osnrLimit C: 21.000000000, pchC: 0.000750000, transpIdC: 6. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 300.000000000, ROUTED: YES
+#6. 2 -- 3. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#7. 2 -- 4. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#8. 2 -- 5. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#9. 2 -- 6. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#10. 3 -- 4. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#11. 3 -- 5. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#12. 3 -- 6. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#13. 4 -- 5. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#14. 4 -- 6. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+#15. 5 -- 6. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
+
+Time taken by optimization is : 0.619737345 sec
+Total time taken by program is : 0.621134275 sec

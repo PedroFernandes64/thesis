@@ -12,6 +12,8 @@
 #include "../topology/instance.h"
 #include "../tools/clockTime.h"
 
+#include "genetic.h"
+
 
 using namespace lemon;
 

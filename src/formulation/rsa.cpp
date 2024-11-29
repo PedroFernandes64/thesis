@@ -143,7 +143,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     }
     if(true){
         std::cout << "Heuristic" << std::endl;
-        Heuristic();
+        Genetic Genetic(instance);
     }
     //PEDRO PEDRO PEDRO
 }
@@ -556,6 +556,7 @@ int RSA::getTotalLoadsToBeRouted() const{
     return total;
 }
 
+/*
 void RSA::Heuristic(){
     
 	//DJIKISTRA MODULE     
@@ -610,10 +611,11 @@ void RSA::Heuristic(){
         //    std::cout << std::endl;
         // }
         
-        
         std::vector<std::vector<Fiber> > kpathsedges;
+        
+        std::vector<std::vector<Fiber> > kcandidates;
         //DEFINE K SHORTEST
-        int k = 3;
+        int k = 5;
         kpathsedges = kdijkstra(adjmatrix,originDjikistra, destinationDijikistra, k);
         for (int k = 0; k < kpathsedges.size(); k++){
             double pathNoise = 0.0;
@@ -631,15 +633,33 @@ void RSA::Heuristic(){
             double osnrLim = toBeRouted[i].getOsnrLimitC();		
             osnr = pch/(pathNoise);
             osnrdb = 10.0 * log10(osnr);
-            double CDLim = toBeRouted[i].getmaxCDC();                   
-            std::cout << "OSNR " << osnrdb << "CD " << pathCD <<"|" ;
-
-            //djikistraPathsEdges[toBeRouted[i].getId()].push_back(kpathsedges[k]);
+            double CDLim = toBeRouted[i].getmaxCDC();                  
+            std::cout << "OSNR " << osnrdb << " CD " << pathCD <<"|" ;
+            if ((pathCD <= CDLim) && (osnrdb>=osnrLim)){
+                std::vector<Fiber> candidate;
+                for (int p = 0; p != kpathsedges[k].size(); ++p){
+                    candidate.push_back(kpathsedges[k][p]);
+                }
+                kcandidates.push_back(candidate);
+            }else{
+                std::cout << "REFUSED"<<std::endl ;
+            }
+                
         }
-        //std::cout << std::endl << "===========demanda: "<< i+1 << std::endl;
-        
+        djikistraPathsEdges.push_back(kcandidates);
     }
+    for (int a = 0; a < djikistraPathsEdges.size(); a++){
+        std::cout << "demand "<< a + 1 <<std::endl ;
+        for (int b = 0; b < djikistraPathsEdges[a].size(); b++){
+            std::cout << "option "<< b + 1 << " || " ;
+            for (int c = 0; c < djikistraPathsEdges[a][b].size(); c++){
+                std::cout << djikistraPathsEdges[a][b][c].getSource()+1 << "-" << djikistraPathsEdges[a][b][c].getTarget()+1 << "|" ;
+            }
+        std::cout <<std::endl ;
+        }
+    }        
 }
+  
 
 std::vector<std::vector<Fiber> > RSA::kdijkstra(std::vector<std::vector<int> > graph, int src, int dest, int K){
 	std::vector<std::vector<int> > modifiablegraph = graph;
@@ -955,7 +975,7 @@ std::vector<int> RSA::dijkstra(std::vector<std::vector<int> > graph, int src, in
 	std::cout << dest + 1;
 	std::cout<< std::endl;
 	*/
-	
+	/*
 	double chosendistance = dist[dest];
     /*
 	std::cout << "Chosen distance " << chosendistance << endl;
@@ -965,7 +985,7 @@ std::vector<int> RSA::dijkstra(std::vector<std::vector<int> > graph, int src, in
         std::cout << i+1 << " " << dist[i] << std::endl;
 	}
 	*/
-    
+        /*
 	std::vector<int> sol;
 	for (int i = pathNodes[dest].size() -1 ; i >= 0; i--){
 		sol.push_back(pathNodes[dest][i] + 1); 
@@ -974,7 +994,7 @@ std::vector<int> RSA::dijkstra(std::vector<std::vector<int> > graph, int src, in
 	
 	return sol;
 }
-
+*/
 
 
 /* Builds the simple graph associated with the initial mapping. */
@@ -1885,7 +1905,7 @@ void RSA::displayOSNR(Instance &i){
                 }
                 //std::cout <<"NOISE: "<< osnrDenominator << std::endl;
                 if (auxCband == true){
-                    osnrDenominator += ceil(instance.getPaseNodeC()* pow(10,8)*100)/100;
+                    //osnrDenominator += ceil(instance.getPaseNodeC()* pow(10,8)*100)/100;
                     osnrNumerator += ceil(getToBeRouted_k(d).getPchC()* pow(10,8)*100)/100;
                     osnr = osnrNumerator/osnrDenominator;
                     osnrDb = 10*log10(osnr);
@@ -1895,7 +1915,7 @@ void RSA::displayOSNR(Instance &i){
                     std::cout << "For demand " << getToBeRouted_k(d).getId() + 1 << " : " << osnrDb << " x " << getToBeRouted_k(d).getOsnrLimitC() << " limit" << std::endl;
                     osnrSurplus += osnrDb - getToBeRouted_k(d).getOsnrLimitC();
                 }else{
-                    osnrDenominator += ceil(instance.getPaseNodeL()* pow(10,8)*100)/100;
+                    //osnrDenominator += ceil(instance.getPaseNodeL()* pow(10,8)*100)/100;
                     osnrNumerator += ceil(getToBeRouted_k(d).getPchL()* pow(10,8)*100)/100;
                     osnr = osnrNumerator/osnrDenominator;
                     osnrDb = 10*log10(osnr);
