@@ -19,8 +19,12 @@ public:
     bool tryColoring();
     void display();
     void setMetric(double m);
+    ~Routing();
 };
 
+struct sortRouting{
+    bool operator() (Routing a, Routing b){return (a.metric<b.metric);}
+} sorter;
 
 class Genetic{
 
@@ -34,7 +38,10 @@ protected:
     int extraK;
 
     int nbInitialPop;
-    std::vector<Routing> initalPopulation;
+    std::vector<Routing> population;
+    std::vector<Routing> thisIterationCrossing;
+    std::vector<Routing> thisIterationMutation;
+    std::vector<Routing> thisIterationSelected;
 
 
 public:
@@ -81,6 +88,9 @@ public:
     std::vector<int> dijkstra(std::vector<std::vector<int> > graph, int src, int dest, double & pathdistance);
     
     void GenerateInitialPopulation(int nbPop);
+    void doCrossing();
+    void doMutation();
+	void doSelection();
 
 	/****************************************************************************************/
 	/*										Display											*/
