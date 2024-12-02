@@ -10,21 +10,33 @@ using namespace lemon;
 class Routing{  
 public:
     std::vector<std::vector<Fiber> > routes;
-    std::vector<std::vector<int> >colors;
+    std::vector<int> loads;
+    std::vector<int> colors;
     bool colored;
+    bool feasible;
+    int nbEdges;
+    int nbSlots;
     double metric;
+    int metricId;
 
-    Routing(std::vector<std::vector<Fiber> > routes);
+    Routing(std::vector<std::vector<Fiber> > routes, std::vector<int> loads);
+
+    void building(double metr, int edges, int slots, bool toColor, std::vector<int> c);
+
+    void setNbEdges(int nb);
+    void setNbSlots(int nb);
     bool isColored() const {return colored;}
     bool tryColoring();
+    void copyColoring(std::vector<int> c);
     void display();
+    void setMetricId(int id){this->metricId = id;};
     void setMetric(double m);
     ~Routing();
 };
 
 struct sortRouting{
     bool operator() (Routing a, Routing b){return (a.metric<b.metric);}
-} sorter;
+};
 
 class Genetic{
 
@@ -32,6 +44,7 @@ protected:
 
     Instance instance;                  /**< An instance describing the initial mapping. **/
     std::vector<Demand> toBeRouted;     /**< The list of demands to be routed in the next optimization. **/
+    std::vector<int> loads;
     
     std::vector<std::vector<std::vector<Fiber> > > shortestRoutesByDemand;
     int chosenK;
@@ -74,6 +87,7 @@ public:
 
     /** Changes the vector of demands to be routed. @param vec The new vector of demands. **/
     void setToBeRouted(const std::vector<Demand> &vec){this->toBeRouted = vec;}
+    void setLoadVector();
 
 
 	/****************************************************************************************/

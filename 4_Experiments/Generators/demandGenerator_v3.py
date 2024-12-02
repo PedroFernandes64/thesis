@@ -1284,8 +1284,8 @@ for topology in topologyList:
 #====== LEVEL ONE CHOICES - DO FOR EACH NODE SET
 NetworksDemandsSets = []
 demandStragegylist = []
-buildBaseDemandSet(NetworksDemandsSets,NetworksNodesToProcess)           #this create a base demand set for each table of nodes
-demandStragegylist.append("allPair")
+#buildBaseDemandSet(NetworksDemandsSets,NetworksNodesToProcess)           #this create a base demand set for each table of nodes
+#demandStragegylist.append("allPair")
 #CustomClassVerifier(NetworksDemandsSets)
 
 #addXsampleToDemandSet(NetworksDemandsSets,NetworksNodesToProcess,20)
@@ -1301,8 +1301,8 @@ demandStragegylist.append("allPair")
 #demandStragegylist.append("fullRandomPair30")
 #addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,40)
 #demandStragegylist.append("fullRandomPair40")
-#addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,50)
-#demandStragegylist.append("fullRandomPair50")
+addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,50)
+demandStragegylist.append("fullRandomPair50")
 #addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,60)
 #demandStragegylist.append("fullRandomPair60")
 #addFullRandomN(NetworksDemandsSets,NetworksNodesToProcess,70)
