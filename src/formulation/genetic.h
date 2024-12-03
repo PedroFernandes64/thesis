@@ -16,26 +16,25 @@ public:
     bool feasible;
     int nbEdges;
     int nbSlots;
-    double metric;
-    int metricId;
+    int metricVal;
 
     Routing(std::vector<std::vector<Fiber> > routes, std::vector<int> loads);
 
-    void building(double metr, int edges, int slots, bool toColor, std::vector<int> c);
-
+    void building(int metr, int edges, int slots);
+    void copying(Routing r);
+    void computeMetric(int m);
     void setNbEdges(int nb);
     void setNbSlots(int nb);
     bool isColored() const {return colored;}
     bool tryColoring();
     void copyColoring(std::vector<int> c);
     void display();
-    void setMetricId(int id){this->metricId = id;};
     void setMetric(double m);
     ~Routing();
 };
 
 struct sortRouting{
-    bool operator() (Routing a, Routing b){return (a.metric<b.metric);}
+    bool operator() (Routing a, Routing b){return (a.metricVal<b.metricVal);}
 };
 
 class Genetic{
@@ -49,6 +48,7 @@ protected:
     std::vector<std::vector<std::vector<Fiber> > > shortestRoutesByDemand;
     int chosenK;
     int extraK;
+    int metric;
 
     int nbInitialPop;
     std::vector<Routing> population;

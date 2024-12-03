@@ -4,28 +4,44 @@ Routing::Routing(std::vector<std::vector<Fiber> > r, std::vector<int> l) : route
 	for (int d = 0; d < routes.size(); ++d){
 		colors.push_back(0) ;
 	}
+	metricVal = 0;
 }
 
-void Routing::building(double metr, int edges, int slots, bool toColor, std::vector<int> c) {
-	
-	setMetric(metr);
+void Routing::computeMetric(int m){
+	if(m == 1){
+		for (int a = 0; a < this->routes.size(); a++){
+			metricVal= metricVal+ this->routes[a].size()*loads[a];
+		}
+	}else{
+		if(m == 2){
+			metricVal= 1;
+			for(int i = 0; i < colors.size(); ++i){
+				if((colors[i]+loads[i]-1)>=metricVal){
+					metricVal=(colors[i]+loads[i]-1);
+				}
+			}
+		}
+	}
+}
+
+void Routing::building(int metr, int edges, int slots) {
 	setNbEdges(edges);
 	setNbSlots(slots);
-	
-	if(toColor == true){
-		//std::cout << " COLORING " << std::endl;
-		feasible = tryColoring();
+	//std::cout << " COLORING " << std::endl;
+	feasible = tryColoring();
+	if(feasible == true){
 		colored = true;
-	}else{
-		//std::cout << " COPYING COLORING " << std::endl;
-		/*for (int i;i < c.size();++i){
-			std::cout<< c[i] << " ";
-		}*/
-		copyColoring(c);
-		feasible = true;
-		colored = true;
+		computeMetric(metr);
 	}
+}
 
+void Routing::copying(Routing r) {
+	setMetric(r.metricVal);
+	setNbEdges(r.nbEdges);
+	setNbSlots(r.nbSlots);
+	copyColoring(r.colors);
+	feasible = true;
+	colored = true;
 }
 
 void Routing::copyColoring(std::vector<int> c){
@@ -176,7 +192,7 @@ bool Routing::tryColoring(){
 }
 
 void Routing::setMetric(double m){
-	this->metric = m;
+	this->metricVal = m;
 }
 void Routing::setNbEdges(int nb){
 	this->nbEdges = nb;
@@ -198,7 +214,7 @@ void Routing::display(){
 	}else{
 		std::cout<< "coloring" <<std::endl ;
 	}    
-	std::cout<< "metric "<< metric <<std::endl ;
+	std::cout<< "metric "<< metricVal <<std::endl ;
 }
 /* Constructor. A graph associated to the initial mapping (instance) is built as well as an extended graph for each demand to be routed. */
 Genetic::Genetic(const Instance &inst) : instance(inst){
@@ -206,18 +222,20 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
     this->setToBeRouted(instance.getNextDemands());
 	setLoadVector();
     //displayToBeRouted();
-	chosenK = 2;
-	extraK = 2;
+	chosenK = 3;
+	extraK = 3;
+	metric = 1;
 	ClockTime clock(ClockTime::getTimeNow());
 	clock.setStart(ClockTime::getTimeNow());
     GenerateShortestRoutes();
 	std::cout<< "shortest CLOCK: "<< clock.getTimeInSecFromStart() <<std::endl ;
-	nbInitialPop = 500;
+	nbInitialPop = 1000;
+
 	clock.setStart(ClockTime::getTimeNow());
 	GenerateInitialPopulation(nbInitialPop);
-	for (int i = 0; i < population.size(); i++){
-		population[i].display();
-	}
+	//for (int i = 0; i < population.size(); i++){
+	//	population[i].display();
+	//}
 	int iterations = 20;
 	for (int i = 1; i <= iterations; ++i){
 		doCrossing();
@@ -230,9 +248,11 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 		//}
 		doSelection();
 		std::cout<<"FIN IT: "<< i<<std::endl;
-	}
-	for (int i = 0; i < population.size(); i++){
-		population[i].display();
+		std::cout<<"First place: "<< population[0].metricVal<<std::endl;
+		std::cout<<"Last place: "<< population[population.size()-1].metricVal<<std::endl;
+		//for (int i = 0; i < population.size(); i++){
+		//	population[i].display();
+		//}
 	}
 	std::cout<< "genetic CLOCK: "<< clock.getTimeInSecFromStart() <<std::endl ;
 
@@ -258,7 +278,7 @@ void Genetic::doSelection(){
 		}
 		Routing member(routes,loads);
 		
-		member.building(population[i].metric,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC(),false,population[i].colors);
+		member.copying(population[i]);
 		thisIterationSelected.push_back(member);
 	}
 	std::cout << "ADDING CROSSED: " << thisIterationCrossing.size() << std::endl;
@@ -273,7 +293,7 @@ void Genetic::doSelection(){
 			routes.push_back(route);
 		}
 		Routing member(routes,loads);	
-		member.building(thisIterationCrossing[i].metric,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC(),false,thisIterationSelected[i].colors);
+		member.copying(thisIterationCrossing[i]);
 		thisIterationSelected.push_back(member);
 	}
 	std::cout << "ADDING MUTANTS: " << thisIterationMutation.size() << std::endl;
@@ -288,7 +308,7 @@ void Genetic::doSelection(){
 			routes.push_back(route);
 		}
 		Routing member(routes,loads);
-		member.building(thisIterationMutation[i].metric,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC(),false,thisIterationSelected[i].colors);
+		member.copying(thisIterationMutation[i]);
 		thisIterationSelected.push_back(member);
 	}
 	std::cout << "TOTAL POP : " << thisIterationSelected.size() << std::endl;
@@ -339,7 +359,7 @@ void Genetic::doSelection(){
 			routes.push_back(route);
 		}
 		Routing member(routes,loads);
-		member.building(thisIterationSelected[i].metric,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC(),false,thisIterationSelected[i].colors);
+		member.copying(thisIterationSelected[i]);
 		population.push_back(member);
 	}
 	/*
@@ -354,7 +374,8 @@ void Genetic::doSelection(){
 }
 void Genetic::doMutation(){
 	std::cout << "MUTATION OPERATION" << std::endl;
-	int nbMutations = floor(population.size()/5); 
+	//int nbMutations = floor(population.size()/5);
+	int nbMutations = floor(population.size()/2);  
 	std::vector<int> canMutate;
 		
 	for (int d = 0; d < toBeRouted.size(); ++d){
@@ -388,17 +409,13 @@ void Genetic::doMutation(){
 			}
 		}
 		Routing member(routes,loads);
-		double metr = 0 ;
-		for (int a = 0; a < member.routes.size(); a++){
-			metr = metr + member.routes[a].size()*toBeRouted[a].getLoadC();
-		}
-
-		member.building(metr,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC(),true,{0});
+		member.building(metric,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC());
 		if(member.feasible == true){
-			std::cout << "Member accepted "<< i << std::endl;
+			//std::cout << "Member accepted "<< i << std::endl;
 			thisIterationMutation.push_back(member);
 		}else{
-			std::cout << "Member refused "<< i << std::endl;
+			//std::cout << "Member refused "<< i << std::endl;
+			//member.display();
 		}
 	}
 
@@ -407,7 +424,8 @@ void Genetic::doMutation(){
 
 void Genetic::doCrossing(){
 	std::cout << "CROSSING OPERATION" << std::endl;
-	int nbCrossings = floor(population.size()/2); 
+	//int nbCrossings = floor(population.size()/2); 
+	int nbCrossings = floor(population.size()); 
 	for (int i = 0; i < nbCrossings; ++i){
 		int progenitor1;
 		int progenitor2;
@@ -433,17 +451,13 @@ void Genetic::doCrossing(){
 		}
 		
 		Routing member(routes,loads);
-		double metr = 0 ;
-		for (int a = 0; a < member.routes.size(); a++){
-			metr = metr + member.routes[a].size()*toBeRouted[a].getLoadC();
-		}
-
-		member.building(metr,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC(),true,{0});
+		member.building(metric,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC());
 		if(member.feasible == true){
-			std::cout << "Member accepted "<< i << std::endl;
+			//std::cout << "Member accepted "<< i << std::endl;
 			thisIterationCrossing.push_back(member);
 		}else{
-			std::cout << "Member refused " << i << std::endl;
+			//std::cout << "Member refused " << i << std::endl;
+			//member.display();
 		}
 	}
 }
@@ -476,28 +490,16 @@ void Genetic::GenerateInitialPopulation(int nbPop){
 		}
 		
 		Routing member(routes,loads);
-		double metr = 0 ;
-		for (int a = 0; a < member.routes.size(); a++){
-			metr = metr + member.routes[a].size()*toBeRouted[a].getLoadC();
-		}
-
-		member.building(metr,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC(),true,{0});
+		member.building(metric,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC());
 		if(member.feasible == true){
-			std::cout << "Member accepted "<< i << std::endl;
+			//std::cout << "Member accepted "<< i << std::endl;
 			population.push_back(member);
 		}else{
-			std::cout << "Member refused "<< i << std::endl;
+			//std::cout << "Member refused "<< i << std::endl;
+			//member.display();
 		}
 		
 	}
-	/*for (int i = 0; i < population.size(); i++){
-		double metr = 0 ;
-		for (int a = 0; a < population[i].routes.size(); a++){
-			metr = metr + population[i].routes[a].size()*toBeRouted[a].getLoadC();
-		}
-		population[i].building(metr,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC(),true,{0});
-		//population[i].display();
-	}*/
 }
 
 double Genetic::osnrPath(double noise, double pch){
@@ -540,13 +542,13 @@ void Genetic::GenerateShortestRoutes(){
                 //std::cout << "origin "<< edgeorigin<< std::endl;
                 //std::cout << "dest "<< edgedestination<< std::endl;
                 if (edgedestination == demandorigin){
-                    adjmatrix[i][edgeorigin] = getInstance().getTabEdge()[j].getLength();
-                    //adjmatrix[i][edgeorigin] = 1;
+                    //adjmatrix[i][edgeorigin] = getInstance().getTabEdge()[j].getLength();
+                    adjmatrix[i][edgeorigin] = 1;
                 }
                 else{
                     if (edgeorigin == demandorigin){
-                        adjmatrix[i][edgedestination] = getInstance().getTabEdge()[j].getLength();
-                        //adjmatrix[i][edgedestination] = 1;
+                        //adjmatrix[i][edgedestination] = getInstance().getTabEdge()[j].getLength();
+                        adjmatrix[i][edgedestination] = 1;
                     }
                 }
             }
