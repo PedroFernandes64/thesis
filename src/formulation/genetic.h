@@ -37,6 +37,16 @@ struct sortRouting{
     bool operator() (Routing a, Routing b){return (a.metricVal<b.metricVal);}
 };
 
+struct sequenciator{
+    int id;
+    int criteria;
+};
+
+struct sortSequenciator{
+    bool operator() (sequenciator a, sequenciator b){return (a.criteria>b.criteria);}
+};
+
+
 class Genetic{
 
 protected: 

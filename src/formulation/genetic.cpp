@@ -59,6 +59,12 @@ Routing::~Routing() {
 bool Routing::tryColoring(){
 	std::vector<std::vector<int> > demandsOnThisEdge;
 	std::vector<std::vector<int> > matrixDd;
+	std::vector<int> priorityList;
+	std::vector<sequenciator> sequenceVector;
+	int priorityParam;
+
+	priorityParam = 1;
+
 	for (int e = 0; e < nbEdges; ++e){
 		std::vector<int> list;
 		demandsOnThisEdge.push_back(list) ;
@@ -94,7 +100,43 @@ bool Routing::tryColoring(){
 			}
 		}
 	}
+	if(priorityParam==0){
+		for (int d = 0; d < matrixDd.size(); ++d){
+			sequenciator demand;
+			demand.id = d;
+			demand.criteria = 1;
+			sequenceVector.push_back(demand);
+		}
+	}
+	if(priorityParam==1){
+		for (int d = 0; d < matrixDd.size(); ++d){
+			int counter = 0;
+			//std::cout << "Demand " << d << " has ";
+			for (int d2 = 0; d2 < matrixDd[d].size(); ++d2){	
+				if(matrixDd[d][d2] == 1){
+					counter = counter + 1;
+				}
+			}
+			//std::cout << counter << " neighboors "<<std::endl;
+			sequenciator demand;
+			demand.id = d;
+			demand.criteria = counter;
+			sequenceVector.push_back(demand);
+		}
+		//for (int d = 0; d < sequenceVector.size(); ++d){
+		//	std::cout << "Demand " << sequenceVector[d].id << " h as " << sequenceVector[d].criteria << std::endl;
+		//}
+		sortSequenciator sorter;
+		std::sort (sequenceVector.begin(),sequenceVector.end(),sorter);
+
+
+	}
 	/*
+	std::cout << "SORTED" << std::endl;
+		for (int d = 0; d < sequenceVector.size(); ++d){
+			std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
+	}
+
 	for (int d = 0; d < routes.size(); ++d){
 		for (int d2 = 0; d2 < routes.size(); ++d2){
 			std::cout << matrixDd[d][d2] << "|";
@@ -110,18 +152,21 @@ bool Routing::tryColoring(){
 	*/
 	bool canColor = true;
 	for (int d = 0; d < routes.size(); ++d){
-		//std::cout<< "demand " << d << std::endl ;
+
+		int coloringTarget = sequenceVector[d].id;
 		int feasible = true;
 		int candidateColor = 1;
-		int rightSlot = candidateColor + loads[d] - 1;
+		int rightSlot = candidateColor + loads[coloringTarget] - 1;
 		int nextLowestColor = 1;
 		int chosenColor = 0;
 		bool ovDetected = true;
+
+		//std::cout<< "demand " << coloringTarget << std::endl ;
 		while(ovDetected == true){
 			ovDetected = false;
 			//std::cout<< "Looking for overlapping between slots "<< candidateColor << "and " << rightSlot <<std::endl ;
 			for (int d2 = 0; d2 < routes.size(); ++d2){
-				if(matrixDd[d][d2] == 1){
+				if(matrixDd[coloringTarget][d2] == 1){
 					//std::cout<< "First neighboor "<< d2 << std::endl;
 					int neighboorLeft =  colors[d2] ;
 					if (neighboorLeft == 0){
@@ -144,18 +189,18 @@ bool Routing::tryColoring(){
 					}
 				}
 			}
-			if((nextLowestColor > nbSlots-loads[d] + 1)){
+			if((nextLowestColor > nbSlots-loads[coloringTarget] + 1)){
 				feasible = false;
 				ovDetected = false;
 			}else{
 				if(ovDetected == false){
 					feasible = true;
 					chosenColor = candidateColor;
-					//std::cout<< "demand " << d << " gets " <<chosenColor << std::endl ;
-					colors[d]=chosenColor;
+					//std::cout<< "demand " << coloringTarget << " gets " <<chosenColor << std::endl ;
+					colors[coloringTarget]=chosenColor;
 				}else{
 					candidateColor = nextLowestColor;
-					rightSlot = candidateColor + loads[d] - 1;
+					rightSlot = candidateColor + loads[coloringTarget] - 1;
 				}
 			}
 		}
@@ -224,19 +269,21 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
     //displayToBeRouted();
 	chosenK = 3;
 	extraK = 3;
-	metric = 1;
+	metric = 2;
 	ClockTime clock(ClockTime::getTimeNow());
 	clock.setStart(ClockTime::getTimeNow());
     GenerateShortestRoutes();
 	std::cout<< "shortest CLOCK: "<< clock.getTimeInSecFromStart() <<std::endl ;
-	nbInitialPop = 1000;
+	nbInitialPop = 500;
 
 	clock.setStart(ClockTime::getTimeNow());
 	GenerateInitialPopulation(nbInitialPop);
+
 	//for (int i = 0; i < population.size(); i++){
 	//	population[i].display();
 	//}
-	int iterations = 20;
+
+	int iterations = 5;
 	for (int i = 1; i <= iterations; ++i){
 		doCrossing();
 		//for (int i = 0; i < thisIterationCrossing.size(); i++){
