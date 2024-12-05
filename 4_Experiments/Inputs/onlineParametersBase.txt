@@ -5,7 +5,7 @@ initialMappingAssignmentFile=
 demandToBeRoutedFolder=
 
 ******* QoT parameters *******
-GNPY_activation=1
+GNPY_activation=
 QoTFolder=
 ChromaticDispersion_activation=
 OSNR_activation=

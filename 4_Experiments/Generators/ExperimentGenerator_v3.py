@@ -28,8 +28,8 @@ for linkStrategy in linkStrategies:
 
 #testUnitVerifier(testSet)
 gnpyActivation = ["0"]
-CDSet=["1"]
-osnrSet=["1"]
+CDSet=["0"]
+osnrSet=["0"]
 
 bands=["2"]
 TFlowSet=["0"]
@@ -37,9 +37,9 @@ reinforcements=["0"]
 
 formulationSet = ["0"]
 userCuts = ["0"]
-objSet = ["TUS"]
+objSet = ["LLB"]
 
-preprocessingSet= ["0"]
+preprocessingSet= ["2"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()
@@ -66,7 +66,7 @@ counter = 0
 print(len(testSet))
 
 with open("../Outputs/experimentList.csv", "w") as list:
-    line = "LinkS;TranspS;Instance;Demands;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro"
+    line = "LinkS;TranspS;Instance;Demands;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro"
     list.write(line)
     print("Test list table created")  
     counb = 0 

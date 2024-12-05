@@ -30,7 +30,7 @@ void DrFormulation::setVariables() {
     this->setRightVariables();
     this->setMaxUsedSliceOverallVariable();
     this->setMaxUsedSlicePerEdgeVariable();
-    this->setCBandRoutingVariable();
+    //this->setCBandRoutingVariable();
     std::cout << "DR-AOV variables have been defined..." << std::endl;
 }
 
@@ -242,10 +242,10 @@ VarArray DrFormulation::getVariables(){
     vec[pos] = maxSliceOverall;
 
     // C Band routing variables
-    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        int pos = routedCBand[k].getId();
-        vec[pos] = routedCBand[k];
-    }  
+    //for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+    //    int pos = routedCBand[k].getId();
+    //    vec[pos] = routedCBand[k];
+   // }  
 
     return vec;
     
@@ -302,11 +302,11 @@ void DrFormulation::setVariableValues(const std::vector<double> &vals){
     double newValue = vals[pos];
     maxSliceOverall.setVal(newValue);   
     // C Band routing variables
-    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        int pos = routedCBand[k].getId();
-        double newValue = vals[pos];
-        routedCBand[k].setVal(newValue);
-    }     
+    //for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+    //    int pos = routedCBand[k].getId();
+    //    double newValue = vals[pos];
+    //    routedCBand[k].setVal(newValue);
+    //}     
 }
 
 
@@ -460,7 +460,7 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
     this->setDestinationConstraints();
     this->setMaxUsedSlicePerLinkConstraints();
     this->setMaxUsedSliceOverallConstraints();
-    this->setCDConstraints();
+    //this->setCDConstraints();
 
     if (this->getInstance().getInput().isMaxCDEnabled() == true){
         this->setCDConstraints();
@@ -468,7 +468,7 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
     if (this->getInstance().getInput().isMinOSNREnabled() == true){
         this->setOsnrConstraints();
     }
-    this->setCBandRoutingConstraints();
+    //this->setCBandRoutingConstraints();
     nbConstraint = constraintSet.size();
     if (this->getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_PARTIAL){
         this->setPreprocessingConstraints();
@@ -977,18 +977,18 @@ void DrFormulation::setPreprocessingConstraints(){
 }
 
 Constraint DrFormulation::getPreprocessingConstraint(int k){
-    /*Expression exp;
+    Expression exp;
     double upperBound = 0;
     int lowerBound = 0;
     int nbEdges = countEdges(compactGraph);
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
         double coeff = 1;
-        if (preProcessingErasedArcs[k][edge] == 1){
+        if (preProcessingErasedArcs[k][edge][0] == 1){
             Term term(y[edge][k], coeff);
             exp.addTerm(term);
         }
-        if (preProcessingErasedArcs[k][edge + nbEdges] == 1){
+        if (preProcessingErasedArcs[k][edge + nbEdges][0] == 1){
             Term term2(y[edge + nbEdges][k], coeff);
             exp.addTerm(term2);
         }
@@ -997,7 +997,7 @@ Constraint DrFormulation::getPreprocessingConstraint(int k){
     constraintName << "Prepro_" << getToBeRouted_k(k).getId()+1;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
-    */
+    
 }
 
 
