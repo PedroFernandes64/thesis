@@ -7,8 +7,8 @@ demandToBeRoutedFolder=../testHsmall/Instances/6nodes9links_6_9/Demands/15_deman
 ******* QoT parameters *******
 GNPY_activation=0
 QoTFolder=
-ChromaticDispersion_activation=0
-OSNR_activation=0
+ChromaticDispersion_activation=1
+OSNR_activation=1
 
 ******* Thesis Pedro parameters *******
 Bands=1

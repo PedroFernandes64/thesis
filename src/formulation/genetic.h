@@ -66,6 +66,14 @@ protected:
     std::vector<Routing> thisIterationMutation;
     std::vector<Routing> thisIterationSelected;
 
+    double heuristicTime;
+    double coloringTime;
+    double kShortestTime;
+    double initialPopTime;
+    double crossingTime;
+    double mutationTime;
+    double consolidatingSelectedTime;
+    double sortingSelectedTime;
 
 public:
 	/****************************************************************************************/

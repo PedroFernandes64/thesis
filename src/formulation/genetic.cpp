@@ -131,12 +131,30 @@ bool Routing::tryColoring(){
 
 
 	}
-	/*
-	std::cout << "SORTED" << std::endl;
-		for (int d = 0; d < sequenceVector.size(); ++d){
-			std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
-	}
+	if(priorityParam==2){
+		for (int d = 0; d < routes.size(); ++d){
+			int counter = routes[d].size();
+			//std::cout << "Demand " << d << " has " << counter << " links";
+			//std::cout << " and uses " << counter*loads[d] << " slots " << std::endl;
+			sequenciator demand;
+			demand.id = d;
+			demand.criteria = counter*loads[d];
+			sequenceVector.push_back(demand);
+		}
+		//for (int d = 0; d < sequenceVector.size(); ++d){
+			//std::cout << "Demand " << sequenceVector[d].id << " h as " << sequenceVector[d].criteria << std::endl;
+		//}
+		sortSequenciator sorter;
+		std::sort (sequenceVector.begin(),sequenceVector.end(),sorter);
 
+
+	}
+	
+	//std::cout << "SORTED" << std::endl;
+	//	for (int d = 0; d < sequenceVector.size(); ++d){
+	//		std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
+	//}
+	/*
 	for (int d = 0; d < routes.size(); ++d){
 		for (int d2 = 0; d2 < routes.size(); ++d2){
 			std::cout << matrixDd[d][d2] << "|";
@@ -274,7 +292,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 	clock.setStart(ClockTime::getTimeNow());
     GenerateShortestRoutes();
 	std::cout<< "shortest CLOCK: "<< clock.getTimeInSecFromStart() <<std::endl ;
-	nbInitialPop = 500;
+	nbInitialPop = 1;
 
 	clock.setStart(ClockTime::getTimeNow());
 	GenerateInitialPopulation(nbInitialPop);
@@ -283,7 +301,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 	//	population[i].display();
 	//}
 
-	int iterations = 5;
+	int iterations = 1;
 	for (int i = 1; i <= iterations; ++i){
 		doCrossing();
 		//for (int i = 0; i < thisIterationCrossing.size(); i++){
@@ -482,7 +500,8 @@ void Genetic::doCrossing(){
 		//std::cout << "crossing " << progenitor1 + 1<< "and " << progenitor2 + 1<< std::endl;
 		for (int d = 0; d < toBeRouted.size(); ++d){
 			std::vector<Fiber> route;
-			if (d%2 == 0){
+			int randProgenitor = rand() % 2 + 1; //random between 1 and 2
+			if (randProgenitor == 1){
 				for (int l = 0; l < population[progenitor1].routes[d].size(); ++l){
 					route.push_back(population[progenitor1].routes[d][l]);
 

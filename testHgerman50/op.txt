@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../test3/Instances/6nodes9links_6_9/Links/15_demands/Link.csv
+topologyFile=../testHgerman50/Instances/6nodes9links_6_9/Links/15_demands/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../test3/Instances/6nodes9links_6_9/Demands/15_demands
+demandToBeRoutedFolder=../testHgerman50/Instances/6nodes9links_6_9/Demands/15_demands
 
 ******* QoT parameters *******
 GNPY_activation=0
