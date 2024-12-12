@@ -297,8 +297,8 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
     this->setToBeRouted(instance.getNextDemands());
 	setLoadVector();
     //displayToBeRouted();
-	chosenK = 10;
-	extraK = 10;
+	chosenK = 5;
+	extraK = 5;
 	metric = 2;
 	coloringTime =0.0;
 	initialPopTime = 0.0;
