@@ -26,13 +26,14 @@ public:
     void setNbEdges(int nb);
     void setNbSlots(int nb);
     bool isColored() const {return colored;}
-    bool tryColoring();
+    bool tryColoring(int prio);
     void copyColoring(std::vector<int> c);
     void display();
     void setMetric(double m);
     ~Routing();
 };
 
+//lowest first
 struct sortRouting{
     bool operator() (Routing a, Routing b){return (a.metricVal<b.metricVal);}
 };
@@ -41,11 +42,20 @@ struct sequenciator{
     int id;
     int criteria;
 };
-
+//highest first
 struct sortSequenciator{
     bool operator() (sequenciator a, sequenciator b){return (a.criteria>b.criteria);}
 };
-
+struct prePath{
+    std::vector<Fiber> links;
+    double length;
+    double noise;
+    int nbEdges;
+};
+//lowest first
+struct sortPrePath{
+    bool operator() (prePath a, prePath b){return (a.nbEdges<b.nbEdges);}
+};
 
 class Genetic{
 
@@ -54,7 +64,15 @@ protected:
     Instance instance;                  /**< An instance describing the initial mapping. **/
     std::vector<Demand> toBeRouted;     /**< The list of demands to be routed in the next optimization. **/
     std::vector<int> loads;
+
+    std::vector<std::vector<int>> edgeSlotMap;
+    std::vector<int> lastSlotDemand;
+    std::vector<std::vector<int>> nodesByDemand;
     
+    std::vector<std::vector<int> > adj_list;
+    std::vector<std::vector<int> >  pathsdemand;
+    std::vector<std::vector<std::vector<int> > > allpaths;
+
     std::vector<std::vector<std::vector<Fiber> > > shortestRoutesByDemand;
     int chosenK;
     int extraK;
@@ -113,7 +131,9 @@ public:
 	/****************************************************************************************/
 
     void GenerateShortestRoutes();
+    void GenerateShortestRoutes2();
     
+    void AllPathsUtil(int u, int d, bool visited[], int path[], int& path_index);
     double osnrPath(double n, double pc);
     std::vector<std::vector<Fiber> > kdijkstra(std::vector<std::vector<int> > graph, int src, int dest, int K);
     int minDistance(std::vector<int> dist, std::vector<bool> sptSet);
@@ -123,6 +143,10 @@ public:
     void doCrossing();
     void doMutation();
 	void doSelection();
+
+    std::vector<std::vector<int> > buildMatrixKsol(int k);
+    std::vector<std::vector<int> > buildPathNodesByDemand(int k);
+    std::vector<int> buildLastSlotByDemand(int k);
 
 	/****************************************************************************************/
 	/*										Display											*/

@@ -1,590 +1,3 @@
-PARAMETER FILE: ../testHsmall/op.txt
-Getting input file paths...
-Getting topology file...
-... ../testHsmall/Instances/6nodes9links_6_9/Links/15_demands/Link.csv
-WARNING: Field 'initialMappingDemandFile=' is empty.
-WARNING: Field 'initialMappingAssignmentFile=' is empty.
-QoT parameters...
-WARNING: Field 'QoTFolder=' is empty.
-Getting Thesis Pedro parameters...
-Getting formulation parameters...
-Getting optimization parameters...
-Getting execution parameters...
-Populating online demand files...
-Finish reading input.
-TOPOLOGY FILE: ../testHsmall/Instances/6nodes9links_6_9/Links/15_demands/Link.csv
-ROUTED DEMANDS FILE: 
-INITIAL ASSIGNMENT FILE: 
-All information from input is consistent.
-> Number of online demand files: 1
---- READING INSTANCE... --- 
---- CREATING INITIAL MAPPING... --- 
-Reading ../testHsmall/Instances/6nodes9links_6_9/Links/15_demands/Link.csv.
-Creating edge #1. 1 -- 2. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
-Creating edge #2. 1 -- 3. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
-Creating edge #3. 2 -- 3. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
-Creating edge #4. 2 -- 4. nb slices in C band: 30, nb slices in L band: 0, length: 500, amplis: 7, noiseC: 1.61895e-06, noiseL: 0, noiseS: 0
-Creating edge #5. 3 -- 4. nb slices in C band: 30, nb slices in L band: 0, length: 560, amplis: 7, noiseC: 2.08419e-06, noiseL: 0, noiseS: 0
-Creating edge #6. 3 -- 5. nb slices in C band: 30, nb slices in L band: 0, length: 500, amplis: 7, noiseC: 1.61895e-06, noiseL: 0, noiseS: 0
-Creating edge #7. 4 -- 5. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
-Creating edge #8. 4 -- 6. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
-Creating edge #9. 5 -- 6. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
-Starting with an empty initial mapping. 
-Number of bands : 1
-0 are present in the initial mapping.
---- READING NEW DEMANDS TO BE ROUTED... --- 
-Reading ../testHsmall/Instances/6nodes9links_6_9/Demands/15_demands/demands_1.csv ...
-
---- The Non Routed Demands ---
-#1. 1 -- 2. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#2. 1 -- 3. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#3. 1 -- 4. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#4. 1 -- 5. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#5. 1 -- 6. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
-#6. 2 -- 3. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#7. 2 -- 4. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#8. 2 -- 5. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#9. 2 -- 6. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#10. 3 -- 4. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#11. 3 -- 5. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#12. 3 -- 6. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#13. 4 -- 5. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#14. 4 -- 6. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#15. 5 -- 6. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-
-15 demands to be routed.
-> Non routable arcs: 3375
-> Variables set to 0: 3375
-Heuristic
-GENERATING SHORTEST ROUTES
-BUILDING INITIAL POP
-CROSSING OPERATION
-MUTATION OPERATION
-ADDING OLD POP: 1
-ADDING CROSSED: 1
-ADDING MUTANTS: 1
-TOTAL POP : 3
-SORTING POP
-SELECTING POP
-DELETED: 2
-CLEANING SELECTED VECTOR
-FIN IT: 1
-First place: 162
-Last place: 162
-Total time: 0.00201763
-K-shortest: 0.000997187
-Generating initial 6.776e-05
-Crossing 5.257e-05
-Mutation 4.9364e-05
-Consolidating 0.000460831
-Sorting 0.000161579
-Coloring 0.000118947
-Others 0.00010939
-Demand 1 || Slots : 13-18 |||1-3|2-3|
-Demand 2 || Slots : 25-30 |||1-3|
-Demand 3 || Slots : 7-12 |||1-2|2-4|
-Demand 4 || Slots : 7-12 |||1-3|3-5|
-Demand 5 || Slots : 1-6 |||1-3|3-5|5-6|
-Demand 6 || Slots : 19-24 |||1-2|1-3|
-Demand 7 || Slots : 19-24 |||2-4|
-Demand 8 || Slots : 19-24 |||2-3|3-5|
-Demand 9 || Slots : 13-18 |||2-4|4-6|
-Demand 10 || Slots : 1-6 |||2-3|2-4|
-Demand 11 || Slots : 25-30 |||3-5|
-Demand 12 || Slots : 13-18 |||3-5|5-6|
-Demand 13 || Slots : 13-18 |||4-5|
-Demand 14 || Slots : 7-12 |||4-5|5-6|
-Demand 15 || Slots : 1-6 |||4-5|4-6|
-coloring
-metric 162
-Demand 1 || Slots : 13-18 |||1-3|2-3|
-Demand 2 || Slots : 25-30 |||1-3|
-Demand 3 || Slots : 7-12 |||1-2|2-4|
-Demand 4 || Slots : 7-12 |||1-3|3-5|
-Demand 5 || Slots : 1-6 |||1-3|3-5|5-6|
-Demand 6 || Slots : 19-24 |||1-2|1-3|
-Demand 7 || Slots : 19-24 |||2-4|
-Demand 8 || Slots : 19-24 |||2-3|3-5|
-Demand 9 || Slots : 13-18 |||2-4|4-6|
-Demand 10 || Slots : 1-6 |||2-3|2-4|
-Demand 11 || Slots : 25-30 |||3-5|
-Demand 12 || Slots : 13-18 |||3-5|5-6|
-Demand 13 || Slots : 13-18 |||4-5|
-Demand 14 || Slots : 7-12 |||4-5|5-6|
-Demand 15 || Slots : 1-6 |||4-5|4-6|
-coloring
-metric 162
-Demand 1 || Slots : 13-18 |||1-3|2-3|
-Demand 2 || Slots : 25-30 |||1-3|
-Demand 3 || Slots : 7-12 |||1-2|2-4|
-Demand 4 || Slots : 7-12 |||1-3|3-5|
-Demand 5 || Slots : 1-6 |||1-3|3-5|5-6|
-Demand 6 || Slots : 19-24 |||1-2|1-3|
-Demand 7 || Slots : 19-24 |||2-4|
-Demand 8 || Slots : 19-24 |||2-3|3-5|
-Demand 9 || Slots : 13-18 |||2-4|4-6|
-Demand 10 || Slots : 1-6 |||2-3|2-4|
-Demand 11 || Slots : 25-30 |||3-5|
-Demand 12 || Slots : 13-18 |||3-5|5-6|
-Demand 13 || Slots : 13-18 |||4-5|
-Demand 14 || Slots : 7-12 |||4-5|5-6|
-Demand 15 || Slots : 1-6 |||4-5|4-6|
-coloring
-metric 162
-Feasible SOL
-0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 6 0 0 0 0 0 0 
-0 0 0 0 0 5 0 0 0 0 0 4 0 0 0 0 0 1 0 0 0 0 0 6 0 0 0 0 0 2 
-0 0 0 0 0 10 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 8 0 0 0 0 0 0 
-0 0 0 0 0 10 0 0 0 0 0 3 0 0 0 0 0 9 0 0 0 0 0 7 0 0 0 0 0 0 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 5 0 0 0 0 0 4 0 0 0 0 0 12 0 0 0 0 0 8 0 0 0 0 0 11 
-0 0 0 0 0 15 0 0 0 0 0 14 0 0 0 0 0 13 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 15 0 0 0 0 0 0 0 0 0 0 0 9 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 5 0 0 0 0 0 14 0 0 0 0 0 12 0 0 0 0 0 0 0 0 0 0 0 0 
-Demand 1 s: 18
-Demand 2 s: 30
-Demand 3 s: 12
-Demand 4 s: 12
-Demand 5 s: 6
-Demand 6 s: 24
-Demand 7 s: 24
-Demand 8 s: 24
-Demand 9 s: 18
-Demand 10 s: 6
-Demand 11 s: 30
-Demand 12 s: 18
-Demand 13 s: 18
-Demand 14 s: 12
-Demand 15 s: 6
-1 3 2 
-1 3 
-1 2 4 
-1 3 5 
-1 3 5 6 
-2 1 3 
-2 4 
-2 3 5 
-2 4 6 
-3 2 4 
-3 5 
-3 5 6 
-4 5 
-4 5 6 
-5 4 6 
---- Flow formulation has been chosen. |K| = 15, |S| = 30. ---
-PARAMETER FILE: ../testHsmall/op.txt
-Getting input file paths...
-Getting topology file...
-... ../testHsmall/Instances/6nodes9links_6_9/Links/15_demands/Link.csv
-WARNING: Field 'initialMappingDemandFile=' is empty.
-WARNING: Field 'initialMappingAssignmentFile=' is empty.
-QoT parameters...
-WARNING: Field 'QoTFolder=' is empty.
-Getting Thesis Pedro parameters...
-Getting formulation parameters...
-Getting optimization parameters...
-Getting execution parameters...
-Populating online demand files...
-Finish reading input.
-TOPOLOGY FILE: ../testHsmall/Instances/6nodes9links_6_9/Links/15_demands/Link.csv
-ROUTED DEMANDS FILE: 
-INITIAL ASSIGNMENT FILE: 
-All information from input is consistent.
-> Number of online demand files: 1
---- READING INSTANCE... --- 
---- CREATING INITIAL MAPPING... --- 
-Reading ../testHsmall/Instances/6nodes9links_6_9/Links/15_demands/Link.csv.
-Creating edge #1. 1 -- 2. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
-Creating edge #2. 1 -- 3. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
-Creating edge #3. 2 -- 3. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
-Creating edge #4. 2 -- 4. nb slices in C band: 30, nb slices in L band: 0, length: 500, amplis: 7, noiseC: 1.61895e-06, noiseL: 0, noiseS: 0
-Creating edge #5. 3 -- 4. nb slices in C band: 30, nb slices in L band: 0, length: 560, amplis: 7, noiseC: 2.08419e-06, noiseL: 0, noiseS: 0
-Creating edge #6. 3 -- 5. nb slices in C band: 30, nb slices in L band: 0, length: 500, amplis: 7, noiseC: 1.61895e-06, noiseL: 0, noiseS: 0
-Creating edge #7. 4 -- 5. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
-Creating edge #8. 4 -- 6. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
-Creating edge #9. 5 -- 6. nb slices in C band: 30, nb slices in L band: 0, length: 250, amplis: 4, noiseC: 9.55481e-07, noiseL: 0, noiseS: 0
-Starting with an empty initial mapping. 
-Number of bands : 1
-0 are present in the initial mapping.
---- READING NEW DEMANDS TO BE ROUTED... --- 
-Reading ../testHsmall/Instances/6nodes9links_6_9/Demands/15_demands/demands_1.csv ...
-
---- The Non Routed Demands ---
-#1. 1 -- 2. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#2. 1 -- 3. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#3. 1 -- 4. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#4. 1 -- 5. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#5. 1 -- 6. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
-#6. 2 -- 3. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#7. 2 -- 4. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#8. 2 -- 5. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#9. 2 -- 6. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#10. 3 -- 4. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#11. 3 -- 5. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#12. 3 -- 6. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#13. 4 -- 5. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#14. 4 -- 6. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-#15. 5 -- 6. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
-
-15 demands to be routed.
-> Non routable arcs: 3375
-> Variables set to 0: 3375
-Heuristic
-GENERATING SHORTEST ROUTES
-BUILDING INITIAL POP
-CROSSING OPERATION
-MUTATION OPERATION
-ADDING OLD POP: 1
-ADDING CROSSED: 1
-ADDING MUTANTS: 1
-TOTAL POP : 3
-SORTING POP
-SELECTING POP
-DELETED: 2
-CLEANING SELECTED VECTOR
-FIN IT: 1
-First place: 162
-Last place: 162
-Total time: 0.00344915
-K-shortest: 0.00173447
-Generating initial 0.000121823
-Crossing 0.000111013
-Mutation 0.000113738
-Consolidating 0.000805671
-Sorting 0.000225922
-Coloring 0.000180564
-Others 0.000155947
-Demand 1 || Slots : 13-18 |||1-3|2-3|
-Demand 2 || Slots : 25-30 |||1-3|
-Demand 3 || Slots : 7-12 |||1-2|2-4|
-Demand 4 || Slots : 7-12 |||1-3|3-5|
-Demand 5 || Slots : 1-6 |||1-3|3-5|5-6|
-Demand 6 || Slots : 19-24 |||1-2|1-3|
-Demand 7 || Slots : 19-24 |||2-4|
-Demand 8 || Slots : 19-24 |||2-3|3-5|
-Demand 9 || Slots : 13-18 |||2-4|4-6|
-Demand 10 || Slots : 1-6 |||2-3|2-4|
-Demand 11 || Slots : 25-30 |||3-5|
-Demand 12 || Slots : 13-18 |||3-5|5-6|
-Demand 13 || Slots : 13-18 |||4-5|
-Demand 14 || Slots : 7-12 |||4-5|5-6|
-Demand 15 || Slots : 1-6 |||4-5|4-6|
-coloring
-metric 162
-Demand 1 || Slots : 13-18 |||1-3|2-3|
-Demand 2 || Slots : 25-30 |||1-3|
-Demand 3 || Slots : 7-12 |||1-2|2-4|
-Demand 4 || Slots : 7-12 |||1-3|3-5|
-Demand 5 || Slots : 1-6 |||1-3|3-5|5-6|
-Demand 6 || Slots : 19-24 |||1-2|1-3|
-Demand 7 || Slots : 19-24 |||2-4|
-Demand 8 || Slots : 19-24 |||2-3|3-5|
-Demand 9 || Slots : 13-18 |||2-4|4-6|
-Demand 10 || Slots : 1-6 |||2-3|2-4|
-Demand 11 || Slots : 25-30 |||3-5|
-Demand 12 || Slots : 13-18 |||3-5|5-6|
-Demand 13 || Slots : 13-18 |||4-5|
-Demand 14 || Slots : 7-12 |||4-5|5-6|
-Demand 15 || Slots : 1-6 |||4-5|4-6|
-coloring
-metric 162
-Demand 1 || Slots : 13-18 |||1-3|2-3|
-Demand 2 || Slots : 25-30 |||1-3|
-Demand 3 || Slots : 7-12 |||1-2|2-4|
-Demand 4 || Slots : 7-12 |||1-3|3-5|
-Demand 5 || Slots : 1-6 |||1-3|3-5|5-6|
-Demand 6 || Slots : 19-24 |||1-2|1-3|
-Demand 7 || Slots : 19-24 |||2-4|
-Demand 8 || Slots : 19-24 |||2-3|3-5|
-Demand 9 || Slots : 13-18 |||2-4|4-6|
-Demand 10 || Slots : 1-6 |||2-3|2-4|
-Demand 11 || Slots : 25-30 |||3-5|
-Demand 12 || Slots : 13-18 |||3-5|5-6|
-Demand 13 || Slots : 13-18 |||4-5|
-Demand 14 || Slots : 7-12 |||4-5|5-6|
-Demand 15 || Slots : 1-6 |||4-5|4-6|
-coloring
-metric 162
-Feasible SOL
-0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 6 0 0 0 0 0 0 
-0 0 0 0 0 5 0 0 0 0 0 4 0 0 0 0 0 1 0 0 0 0 0 6 0 0 0 0 0 2 
-0 0 0 0 0 10 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 8 0 0 0 0 0 0 
-0 0 0 0 0 10 0 0 0 0 0 3 0 0 0 0 0 9 0 0 0 0 0 7 0 0 0 0 0 0 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 5 0 0 0 0 0 4 0 0 0 0 0 12 0 0 0 0 0 8 0 0 0 0 0 11 
-0 0 0 0 0 15 0 0 0 0 0 14 0 0 0 0 0 13 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 15 0 0 0 0 0 0 0 0 0 0 0 9 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 5 0 0 0 0 0 14 0 0 0 0 0 12 0 0 0 0 0 0 0 0 0 0 0 0 
-Demand 1 s: 18
-Demand 2 s: 30
-Demand 3 s: 12
-Demand 4 s: 12
-Demand 5 s: 6
-Demand 6 s: 24
-Demand 7 s: 24
-Demand 8 s: 24
-Demand 9 s: 18
-Demand 10 s: 6
-Demand 11 s: 30
-Demand 12 s: 18
-Demand 13 s: 18
-Demand 14 s: 12
-Demand 15 s: 6
-1 3 2 
-1 3 
-1 2 4 
-1 3 5 
-1 3 5 6 
-2 1 3 
-2 4 
-2 3 5 
-2 4 6 
-3 2 4 
-3 5 
-3 5 6 
-4 5 
-4 5 6 
-5 4 6 
---- Flow formulation has been chosen. |K| = 15, |S| = 30. ---
-Flow variables have been defined...
-Max slice overall variable has been defined...
-Source constraints have been defined...
-Flow conservation constraints have been defined...
-Target constraints have been defined...
-CD constraints have been defined...
-OSNR constraints have been defined...
-Non-Overlapping constraints has been defined...
-Constraints = 270
-Max Used Slice Overall constraints have been defined...
-Objective obj_nlus has been defined.
---- Flow formulation has been defined ---
---- CPLEX has been initialized ---
-CPLEX parameters have been defined...
-CPLEX variables have been defined...
-CPLEX constraints have been defined...
-CPLEX objective has been defined...
-Solving...
-Chosen objective: obj_nlus
-Version identifier: 22.1.1.0 | 2022-11-28 | 9160aff4d
-CPXPARAM_Threads                                 4
-CPXPARAM_Output_WriteLevel                       1
-CPXPARAM_TimeLimit                               14400
-CPXPARAM_MIP_Limits_TreeMemory                   16384
-Generic callback                                 0x40
-Tried aggregator 4 times.
-MIP Presolve eliminated 489 rows and 1935 columns.
-MIP Presolve modified 5590 coefficients.
-Aggregator did 825 substitutions.
-Reduced MIP has 906 rows, 2341 columns, and 22236 nonzeros.
-Reduced MIP has 2325 binaries, 0 generals, 0 SOSs, and 0 indicators.
-Presolve time = 0.29 sec. (206.74 ticks)
-Found incumbent of value 30.000000 after 0.34 sec. (248.33 ticks)
-Probing fixed 1325 vars, tightened 0 bounds.
-Probing time = 0.08 sec. (18.52 ticks)
-Tried aggregator 2 times.
-MIP Presolve eliminated 491 rows and 1326 columns.
-MIP Presolve modified 335 coefficients.
-Aggregator did 99 substitutions.
-Reduced MIP has 316 rows, 916 columns, and 8455 nonzeros.
-Reduced MIP has 900 binaries, 0 generals, 0 SOSs, and 0 indicators.
-Presolve time = 0.02 sec. (16.96 ticks)
-Probing time = 0.01 sec. (2.62 ticks)
-Tried aggregator 1 time.
-Detecting symmetries...
-Reduced MIP has 316 rows, 916 columns, and 8455 nonzeros.
-Reduced MIP has 900 binaries, 0 generals, 0 SOSs, and 0 indicators.
-Presolve time = 0.01 sec. (7.43 ticks)
-Probing time = 0.00 sec. (2.62 ticks)
-Clique table members: 671.
-MIP emphasis: balance optimality and feasibility.
-MIP search method: dynamic search.
-Parallel mode: deterministic, using up to 4 threads.
-Root relaxation solution time = 0.00 sec. (2.52 ticks)
-
-        Nodes                                         Cuts/
-   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
-
-*     0+    0                           30.0000        6.0000            80.00%
-      0     0       13.7143    46       30.0000       13.7143      112   54.29%
-*     0+    0                           24.0000       13.7143            42.86%
-      0     0       14.2687    50       24.0000      Cuts: 40      223   40.55%
-      0     0       15.1000    48       24.0000      Cuts: 22      298   37.08%
-      0     0       15.1106    54       24.0000      Cuts: 15      308   37.04%
-      0     0       15.1146    59       24.0000      Cuts: 16      326   37.02%
-      0     0       15.1190    58       24.0000      Cuts: 20      342   37.00%
-Detecting symmetries...
-      0     0       15.1299    59       24.0000      Cuts: 13      356   36.96%
-      0     0       15.1314    56       24.0000      Cuts: 16      366   36.95%
-      0     0       15.1332    55       24.0000    MIRcuts: 7      376   36.95%
-      0     0       15.1332    55       24.0000    MIRcuts: 4      377   36.95%
-      0     0        cutoff             24.0000       24.0000      377    0.00%
-Elapsed time = 0.64 sec. (385.17 ticks, tree = 0.01 MB, solutions = 2)
-
-Mixed integer rounding cuts applied:  10
-Zero-half cuts applied:  7
-Gomory fractional cuts applied:  6
-
-Root node processing (before b&c):
-  Real time             =    0.64 sec. (385.36 ticks)
-Parallel b&c, 4 threads:
-  Real time             =    0.00 sec. (0.00 ticks)
-  Sync time (average)   =    0.00 sec.
-  Wait time (average)   =    0.00 sec.
-                          ------------
-Total (root+branch&cut) =    0.64 sec. (385.36 ticks)
-Objective Function Value: 24
-User cuts 0
-Total cuts 23
-Optimization done in 0.641933 secs.
-Status: Optimal
-Objective Function Value: 24
-x(1,1,2,6) = 1
-x(2,1,3,12) = 1
-x(3,1,2,12) = 1
-x(3,2,4,12) = 1
-x(4,3,5,24) = 1
-x(4,1,3,24) = 1
-x(5,4,6,6) = 1
-x(5,3,4,6) = 1
-x(5,1,3,6) = 1
-x(6,2,3,6) = 1
-x(7,2,4,6) = 1
-x(8,4,5,24) = 1
-x(8,2,4,24) = 1
-x(9,4,6,18) = 1
-x(9,2,4,18) = 1
-x(10,3,4,12) = 1
-x(11,3,5,12) = 1
-x(12,5,6,18) = 1
-x(12,3,5,18) = 1
-x(13,4,5,6) = 1
-x(14,4,6,12) = 1
-x(15,5,6,6) = 1
-maxSliceOverall = 24
- Time: 0.641933
-
-Update RSA
-Feasible
-Enter update.
-Leave update.
-
---- Slice occupation ---
-#1. 1-2. ************------------------
-#2. 1-3. ************------******------
-#3. 2-3. ******------------------------
-#4. 2-4. ************************------
-#5. 3-4. ************------------------
-#6. 3-5. ------******************------
-#7. 4-5. ******------------******------
-#8. 4-6. ******************------------
-#9. 5-6. ******------******------------
-
-For demand 1 : 
-(1--2, 6)
-
-For demand 2 : 
-(1--3, 12)
-
-For demand 3 : 
-(1--2, 12)
-(2--4, 12)
-
-For demand 4 : 
-(3--5, 24)
-(1--3, 24)
-
-For demand 5 : 
-(4--6, 6)
-(3--4, 6)
-(1--3, 6)
-
-For demand 6 : 
-(2--3, 6)
-
-For demand 7 : 
-(2--4, 6)
-
-For demand 8 : 
-(4--5, 24)
-(2--4, 24)
-
-For demand 9 : 
-(4--6, 18)
-(2--4, 18)
-
-For demand 10 : 
-(3--4, 12)
-
-For demand 11 : 
-(3--5, 12)
-
-For demand 12 : 
-(5--6, 18)
-(3--5, 18)
-
-For demand 13 : 
-(4--5, 6)
-
-For demand 14 : 
-(4--6, 12)
-
-For demand 15 : 
-(5--6, 6)
-
-Displaying OSNR 
-For demand 1 : 28.9483 x 24 limit
-For demand 2 : 28.9483 x 24 limit
-For demand 3 : 24.6437 x 24 limit
-For demand 4 : 24.6437 x 24 limit
-For demand 5 : 22.7352 x 21 limit
-For demand 6 : 28.9483 x 24 limit
-For demand 7 : 26.6581 x 24 limit
-For demand 8 : 24.6437 x 24 limit
-For demand 9 : 24.6437 x 24 limit
-For demand 10 : 25.5612 x 24 limit
-For demand 11 : 26.6581 x 24 limit
-For demand 12 : 24.6437 x 24 limit
-For demand 13 : 28.9483 x 24 limit
-For demand 14 : 28.9483 x 24 limit
-For demand 15 : 28.9483 x 24 limit
-Extra OSNR in routing: 41.521
-Displaying data for multiple metrics 
-Accepted demand set: 15
-Demands in C band: 15
-Links with L band: 0
-Network last used slot: 24
-Sum of last used slots: 162
-Sum of used links by demands: 22
-Total route length: 7870
-Total used slots: 132
-Total used amplifiers: 8833.33
-Time taken by iteration is : 0.756829 sec
-UB: 24.000000000
-LB: 24.000000000
-GAP: 0.000000000
-Tree size: 0
-Time: 0.641932964
-
-
---- The Demands ---
-#1. 1 -- 2. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#2. 1 -- 3. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#3. 1 -- 4. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#4. 1 -- 5. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#5. 1 -- 6. nbSlices C: 6, maxCD C: 40000.000000000, osnrLimit C: 21.000000000, pchC: 0.000750000, transpIdC: 6. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 300.000000000, ROUTED: YES
-#6. 2 -- 3. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#7. 2 -- 4. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#8. 2 -- 5. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#9. 2 -- 6. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#10. 3 -- 4. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#11. 3 -- 5. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#12. 3 -- 6. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#13. 4 -- 5. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#14. 4 -- 6. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-#15. 5 -- 6. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
-
-Time taken by optimization is : 0.758266199 sec
-Total time taken by program is : 0.759412551 sec
 PARAMETER FILE: ../testHgerman50/op.txt
 Getting input file paths...
 Getting topology file...
@@ -699,309 +112,143 @@ GENERATING SHORTEST ROUTES
 BUILDING INITIAL POP
 CROSSING OPERATION
 MUTATION OPERATION
-ADDING OLD POP: 1
-ADDING CROSSED: 1
-ADDING MUTANTS: 1
-TOTAL POP : 3
+ADDING OLD POP: 989
+ADDING CROSSED: 986
+ADDING MUTANTS: 988
+TOTAL POP : 2963
 SORTING POP
 SELECTING POP
-DELETED: 2
+DELETED: 1963
 CLEANING SELECTED VECTOR
 FIN IT: 1
-First place: 840
-Last place: 840
-Total time: 0.0932936
-K-shortest: 0.0876905
-Generating initial 0.000398835
-Crossing 0.000382192
-Mutation 0.000429393
-Consolidating 0.00265614
-Sorting 0.000783442
-Coloring 0.000646999
-Others 0.000306015
-Demand 1 || Slots : 37-42 |||5-11|11-12|12-14|
-Demand 2 || Slots : 43-48 |||5-10|5-9|6-9|
-Demand 3 || Slots : 7-12 |||5-10|
-Demand 4 || Slots : 1-6 |||10-11|4-10|
-Demand 5 || Slots : 25-30 |||2-5|5-11|11-13|13-15|14-15|
-Demand 6 || Slots : 55-60 |||12-14|14-15|13-15|
-Demand 7 || Slots : 7-12 |||13-15|11-13|8-11|8-9|
-Demand 8 || Slots : 49-54 |||6-7|6-9|
-Demand 9 || Slots : 7-12 |||4-10|10-13|13-17|
-Demand 10 || Slots : 13-18 |||5-9|5-11|8-11|
-Demand 11 || Slots : 19-24 |||8-11|5-11|5-9|
-Demand 12 || Slots : 49-54 |||12-14|11-12|8-11|7-8|
-Demand 13 || Slots : 31-36 |||6-7|6-9|
-Demand 14 || Slots : 7-12 |||1-9|5-9|5-11|11-12|
-Demand 15 || Slots : 55-60 |||8-11|11-12|
-Demand 16 || Slots : 49-54 |||2-5|5-11|11-13|13-17|
-Demand 17 || Slots : 7-12 |||6-9|6-7|
-Demand 18 || Slots : 79-84 |||5-9|
-Demand 19 || Slots : 19-24 |||1-9|6-9|
-Demand 20 || Slots : 61-66 |||11-13|5-11|2-5|
-Demand 21 || Slots : 31-36 |||11-13|10-11|
-Demand 22 || Slots : 67-72 |||5-9|6-9|
-Demand 23 || Slots : 31-36 |||10-13|13-15|
-Demand 24 || Slots : 7-12 |||4-5|
-Demand 25 || Slots : 1-6 |||2-5|2-3|1-3|
-Demand 26 || Slots : 1-6 |||15-16|13-15|10-13|5-10|4-5|
-Demand 27 || Slots : 19-24 |||11-12|11-13|
-Demand 28 || Slots : 1-6 |||1-9|5-9|5-11|11-12|
-Demand 29 || Slots : 19-24 |||14-15|13-15|10-13|
-Demand 30 || Slots : 43-48 |||5-11|8-11|8-9|
-Demand 31 || Slots : 37-42 |||2-3|3-5|5-9|6-9|
-Demand 32 || Slots : 61-66 |||5-9|6-9|6-7|
-Demand 33 || Slots : 1-6 |||11-13|8-11|8-9|6-9|
-Demand 34 || Slots : 37-42 |||13-15|
-Demand 35 || Slots : 25-30 |||5-10|5-9|6-9|6-7|
-Demand 36 || Slots : 7-12 |||1-3|3-5|
-Demand 37 || Slots : 13-18 |||7-8|8-9|6-9|
-Demand 38 || Slots : 1-6 |||6-7|
-Demand 39 || Slots : 13-18 |||11-12|11-13|10-13|
-Demand 40 || Slots : 73-78 |||5-9|1-9|
-Demand 41 || Slots : 13-18 |||12-14|14-15|13-15|
-Demand 42 || Slots : 31-36 |||12-14|11-12|5-11|4-5|
-Demand 43 || Slots : 25-30 |||11-12|8-11|8-9|
-Demand 44 || Slots : 43-48 |||14-15|12-14|11-12|
-Demand 45 || Slots : 55-60 |||11-13|5-11|3-5|1-3|
-Demand 46 || Slots : 61-66 |||11-12|10-11|4-10|
-Demand 47 || Slots : 25-30 |||10-13|
-Demand 48 || Slots : 31-36 |||8-9|5-9|2-5|
-Demand 49 || Slots : 55-60 |||8-9|5-9|5-10|
-Demand 50 || Slots : 49-54 |||4-5|5-9|8-9|
-coloring
-metric 840
-Demand 1 || Slots : 37-42 |||5-11|11-12|12-14|
-Demand 2 || Slots : 43-48 |||5-10|5-9|6-9|
-Demand 3 || Slots : 7-12 |||5-10|
-Demand 4 || Slots : 1-6 |||10-11|4-10|
-Demand 5 || Slots : 25-30 |||2-5|5-11|11-13|13-15|14-15|
-Demand 6 || Slots : 55-60 |||12-14|14-15|13-15|
-Demand 7 || Slots : 7-12 |||13-15|11-13|8-11|8-9|
-Demand 8 || Slots : 49-54 |||6-7|6-9|
-Demand 9 || Slots : 7-12 |||4-10|10-13|13-17|
-Demand 10 || Slots : 13-18 |||5-9|5-11|8-11|
-Demand 11 || Slots : 19-24 |||8-11|5-11|5-9|
-Demand 12 || Slots : 49-54 |||12-14|11-12|8-11|7-8|
-Demand 13 || Slots : 31-36 |||6-7|6-9|
-Demand 14 || Slots : 7-12 |||1-9|5-9|5-11|11-12|
-Demand 15 || Slots : 55-60 |||8-11|11-12|
-Demand 16 || Slots : 49-54 |||2-5|5-11|11-13|13-17|
-Demand 17 || Slots : 7-12 |||6-9|6-7|
-Demand 18 || Slots : 79-84 |||5-9|
-Demand 19 || Slots : 19-24 |||1-9|6-9|
-Demand 20 || Slots : 61-66 |||11-13|5-11|2-5|
-Demand 21 || Slots : 31-36 |||11-13|10-11|
-Demand 22 || Slots : 67-72 |||5-9|6-9|
-Demand 23 || Slots : 31-36 |||10-13|13-15|
-Demand 24 || Slots : 7-12 |||4-5|
-Demand 25 || Slots : 1-6 |||2-5|2-3|1-3|
-Demand 26 || Slots : 1-6 |||15-16|13-15|10-13|5-10|4-5|
-Demand 27 || Slots : 19-24 |||11-12|11-13|
-Demand 28 || Slots : 1-6 |||1-9|5-9|5-11|11-12|
-Demand 29 || Slots : 19-24 |||14-15|13-15|10-13|
-Demand 30 || Slots : 43-48 |||5-11|8-11|8-9|
-Demand 31 || Slots : 37-42 |||2-3|3-5|5-9|6-9|
-Demand 32 || Slots : 61-66 |||5-9|6-9|6-7|
-Demand 33 || Slots : 1-6 |||11-13|8-11|8-9|6-9|
-Demand 34 || Slots : 37-42 |||13-15|
-Demand 35 || Slots : 25-30 |||5-10|5-9|6-9|6-7|
-Demand 36 || Slots : 7-12 |||1-3|3-5|
-Demand 37 || Slots : 13-18 |||7-8|8-9|6-9|
-Demand 38 || Slots : 1-6 |||6-7|
-Demand 39 || Slots : 13-18 |||11-12|11-13|10-13|
-Demand 40 || Slots : 73-78 |||5-9|1-9|
-Demand 41 || Slots : 13-18 |||12-14|14-15|13-15|
-Demand 42 || Slots : 31-36 |||12-14|11-12|5-11|4-5|
-Demand 43 || Slots : 25-30 |||11-12|8-11|8-9|
-Demand 44 || Slots : 43-48 |||14-15|12-14|11-12|
-Demand 45 || Slots : 55-60 |||11-13|5-11|3-5|1-3|
-Demand 46 || Slots : 61-66 |||11-12|10-11|4-10|
-Demand 47 || Slots : 25-30 |||10-13|
-Demand 48 || Slots : 31-36 |||8-9|5-9|2-5|
-Demand 49 || Slots : 55-60 |||8-9|5-9|5-10|
-Demand 50 || Slots : 49-54 |||4-5|5-9|8-9|
-coloring
-metric 840
-Demand 1 || Slots : 37-42 |||5-11|11-12|12-14|
-Demand 2 || Slots : 43-48 |||5-10|5-9|6-9|
-Demand 3 || Slots : 7-12 |||5-10|
-Demand 4 || Slots : 1-6 |||10-11|4-10|
-Demand 5 || Slots : 25-30 |||2-5|5-11|11-13|13-15|14-15|
-Demand 6 || Slots : 55-60 |||12-14|14-15|13-15|
-Demand 7 || Slots : 7-12 |||13-15|11-13|8-11|8-9|
-Demand 8 || Slots : 49-54 |||6-7|6-9|
-Demand 9 || Slots : 7-12 |||4-10|10-13|13-17|
-Demand 10 || Slots : 13-18 |||5-9|5-11|8-11|
-Demand 11 || Slots : 19-24 |||8-11|5-11|5-9|
-Demand 12 || Slots : 49-54 |||12-14|11-12|8-11|7-8|
-Demand 13 || Slots : 31-36 |||6-7|6-9|
-Demand 14 || Slots : 7-12 |||1-9|5-9|5-11|11-12|
-Demand 15 || Slots : 55-60 |||8-11|11-12|
-Demand 16 || Slots : 49-54 |||2-5|5-11|11-13|13-17|
-Demand 17 || Slots : 7-12 |||6-9|6-7|
-Demand 18 || Slots : 79-84 |||5-9|
-Demand 19 || Slots : 19-24 |||1-9|6-9|
-Demand 20 || Slots : 61-66 |||11-13|5-11|2-5|
-Demand 21 || Slots : 31-36 |||11-13|10-11|
-Demand 22 || Slots : 67-72 |||5-9|6-9|
-Demand 23 || Slots : 31-36 |||10-13|13-15|
-Demand 24 || Slots : 7-12 |||4-5|
-Demand 25 || Slots : 1-6 |||2-5|2-3|1-3|
-Demand 26 || Slots : 1-6 |||15-16|13-15|10-13|5-10|4-5|
-Demand 27 || Slots : 19-24 |||11-12|11-13|
-Demand 28 || Slots : 1-6 |||1-9|5-9|5-11|11-12|
-Demand 29 || Slots : 19-24 |||14-15|13-15|10-13|
-Demand 30 || Slots : 43-48 |||5-11|8-11|8-9|
-Demand 31 || Slots : 37-42 |||2-3|3-5|5-9|6-9|
-Demand 32 || Slots : 61-66 |||5-9|6-9|6-7|
-Demand 33 || Slots : 1-6 |||11-13|8-11|8-9|6-9|
-Demand 34 || Slots : 37-42 |||13-15|
-Demand 35 || Slots : 25-30 |||5-10|5-9|6-9|6-7|
-Demand 36 || Slots : 7-12 |||1-3|3-5|
-Demand 37 || Slots : 13-18 |||7-8|8-9|6-9|
-Demand 38 || Slots : 1-6 |||6-7|
-Demand 39 || Slots : 13-18 |||11-12|11-13|10-13|
-Demand 40 || Slots : 73-78 |||5-9|1-9|
-Demand 41 || Slots : 13-18 |||12-14|14-15|13-15|
-Demand 42 || Slots : 31-36 |||12-14|11-12|5-11|4-5|
-Demand 43 || Slots : 25-30 |||11-12|8-11|8-9|
-Demand 44 || Slots : 43-48 |||14-15|12-14|11-12|
-Demand 45 || Slots : 55-60 |||11-13|5-11|3-5|1-3|
-Demand 46 || Slots : 61-66 |||11-12|10-11|4-10|
-Demand 47 || Slots : 25-30 |||10-13|
-Demand 48 || Slots : 31-36 |||8-9|5-9|2-5|
-Demand 49 || Slots : 55-60 |||8-9|5-9|5-10|
-Demand 50 || Slots : 49-54 |||4-5|5-9|8-9|
-coloring
-metric 840
-Feasible SOL
-0 0 0 0 0 25 0 0 0 0 0 36 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 45 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 28 0 0 0 0 0 14 0 0 0 0 0 0 0 0 0 0 0 19 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 40 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 25 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 25 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 0 0 48 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16 0 0 0 0 0 0 0 0 0 0 0 20 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 0 0 0 0 0 0 36 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 45 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 26 0 0 0 0 0 24 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 42 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 50 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 4 0 0 0 0 0 9 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 46 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 28 0 0 0 0 0 14 0 0 0 0 0 10 0 0 0 0 0 11 0 0 0 0 0 35 0 0 0 0 0 48 0 0 0 0 0 31 0 0 0 0 0 2 0 0 0 0 0 50 0 0 0 0 0 49 0 0 0 0 0 32 0 0 0 0 0 22 0 0 0 0 0 40 0 0 0 0 0 18 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 26 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 35 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 49 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 28 0 0 0 0 0 14 0 0 0 0 0 10 0 0 0 0 0 11 0 0 0 0 0 5 0 0 0 0 0 42 0 0 0 0 0 1 0 0 0 0 0 30 0 0 0 0 0 16 0 0 0 0 0 45 0 0 0 0 0 20 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 38 0 0 0 0 0 17 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 35 0 0 0 0 0 13 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 8 0 0 0 0 0 0 0 0 0 0 0 32 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 33 0 0 0 0 0 17 0 0 0 0 0 37 0 0 0 0 0 19 0 0 0 0 0 35 0 0 0 0 0 13 0 0 0 0 0 31 0 0 0 0 0 2 0 0 0 0 0 8 0 0 0 0 0 0 0 0 0 0 0 32 0 0 0 0 0 22 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 37 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 12 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 33 0 0 0 0 0 7 0 0 0 0 0 37 0 0 0 0 0 0 0 0 0 0 0 43 0 0 0 0 0 48 0 0 0 0 0 0 0 0 0 0 0 30 0 0 0 0 0 50 0 0 0 0 0 49 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 33 0 0 0 0 0 7 0 0 0 0 0 10 0 0 0 0 0 11 0 0 0 0 0 43 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 0 0 0 0 0 12 0 0 0 0 0 15 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 21 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 46 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 26 0 0 0 0 0 9 0 0 0 0 0 39 0 0 0 0 0 29 0 0 0 0 0 47 0 0 0 0 0 23 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 28 0 0 0 0 0 14 0 0 0 0 0 39 0 0 0 0 0 27 0 0 0 0 0 43 0 0 0 0 0 42 0 0 0 0 0 1 0 0 0 0 0 44 0 0 0 0 0 12 0 0 0 0 0 15 0 0 0 0 0 46 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 33 0 0 0 0 0 7 0 0 0 0 0 39 0 0 0 0 0 27 0 0 0 0 0 5 0 0 0 0 0 21 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16 0 0 0 0 0 45 0 0 0 0 0 20 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 41 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 42 0 0 0 0 0 1 0 0 0 0 0 44 0 0 0 0 0 12 0 0 0 0 0 6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 26 0 0 0 0 0 7 0 0 0 0 0 41 0 0 0 0 0 29 0 0 0 0 0 5 0 0 0 0 0 23 0 0 0 0 0 34 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 0 0 0 0 0 0 9 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 41 0 0 0 0 0 29 0 0 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 44 0 0 0 0 0 0 0 0 0 0 0 6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 26 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-Demand 1 s: 42
-Demand 2 s: 48
-Demand 3 s: 12
-Demand 4 s: 6
-Demand 5 s: 30
-Demand 6 s: 60
-Demand 7 s: 12
-Demand 8 s: 54
-Demand 9 s: 12
-Demand 10 s: 18
-Demand 11 s: 24
-Demand 12 s: 54
-Demand 13 s: 36
-Demand 14 s: 12
-Demand 15 s: 60
-Demand 16 s: 54
-Demand 17 s: 12
-Demand 18 s: 84
-Demand 19 s: 24
-Demand 20 s: 66
-Demand 21 s: 36
-Demand 22 s: 72
-Demand 23 s: 36
-Demand 24 s: 12
-Demand 25 s: 6
-Demand 26 s: 6
-Demand 27 s: 24
-Demand 28 s: 6
-Demand 29 s: 24
-Demand 30 s: 48
-Demand 31 s: 42
-Demand 32 s: 66
-Demand 33 s: 6
-Demand 34 s: 42
-Demand 35 s: 30
-Demand 36 s: 12
-Demand 37 s: 18
-Demand 38 s: 6
-Demand 39 s: 18
-Demand 40 s: 78
-Demand 41 s: 18
-Demand 42 s: 36
-Demand 43 s: 30
-Demand 44 s: 48
-Demand 45 s: 60
-Demand 46 s: 66
-Demand 47 s: 30
-Demand 48 s: 36
-Demand 49 s: 60
-Demand 50 s: 54
-5 11 12 14 
-10 5 9 6 
-5 10 
-11 10 4 
-2 5 11 13 15 14 
-12 14 15 13 
-15 13 11 8 9 
-7 6 9 
-4 10 13 17 
-9 5 11 8 
-8 11 5 9 
-14 12 11 8 7 
-7 6 9 
-1 9 5 11 12 
-8 11 12 
-2 5 11 13 17 
-9 6 7 
-5 9 
-1 9 6 
-13 11 5 2 
-13 11 10 
-5 9 6 
-10 13 15 
-4 5 
-5 2 3 1 
-16 15 13 10 5 4 
-12 11 13 
-1 9 5 11 12 
-14 15 13 10 
-5 11 8 9 
-2 3 5 9 6 
-5 9 6 7 
-13 11 8 9 6 
-15 13 
-10 5 9 6 7 
-1 3 5 
-7 8 9 6 
-7 6 
-12 11 13 10 
-5 9 1 
-12 14 15 13 
-14 12 11 5 4 
-12 11 8 9 
-15 14 12 11 
-13 11 5 3 1 
-12 11 10 4 
-13 10 
-8 9 5 2 
-8 9 5 10 
-4 5 9 8 
+First place: 762
+Last place: 828
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 1000
+ADDING CROSSED: 991
+ADDING MUTANTS: 1000
+TOTAL POP : 2991
+SORTING POP
+SELECTING POP
+DELETED: 1991
+CLEANING SELECTED VECTOR
+FIN IT: 2
+First place: 762
+Last place: 816
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 1000
+ADDING CROSSED: 991
+ADDING MUTANTS: 995
+TOTAL POP : 2986
+SORTING POP
+SELECTING POP
+DELETED: 1986
+CLEANING SELECTED VECTOR
+FIN IT: 3
+First place: 750
+Last place: 804
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 1000
+ADDING CROSSED: 991
+ADDING MUTANTS: 998
+TOTAL POP : 2989
+SORTING POP
+SELECTING POP
+DELETED: 1989
+CLEANING SELECTED VECTOR
+FIN IT: 4
+First place: 750
+Last place: 792
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 1000
+ADDING CROSSED: 994
+ADDING MUTANTS: 997
+TOTAL POP : 2991
+SORTING POP
+SELECTING POP
+DELETED: 1991
+CLEANING SELECTED VECTOR
+FIN IT: 5
+First place: 744
+Last place: 780
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 1000
+ADDING CROSSED: 995
+ADDING MUTANTS: 997
+TOTAL POP : 2992
+SORTING POP
+SELECTING POP
+DELETED: 1992
+CLEANING SELECTED VECTOR
+FIN IT: 6
+First place: 738
+Last place: 774
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 1000
+ADDING CROSSED: 997
+ADDING MUTANTS: 998
+TOTAL POP : 2995
+SORTING POP
+SELECTING POP
+DELETED: 1995
+CLEANING SELECTED VECTOR
+FIN IT: 7
+First place: 738
+Last place: 768
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 1000
+ADDING CROSSED: 995
+ADDING MUTANTS: 998
+TOTAL POP : 2993
+SORTING POP
+SELECTING POP
+DELETED: 1993
+CLEANING SELECTED VECTOR
+FIN IT: 8
+First place: 732
+Last place: 756
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 1000
+ADDING CROSSED: 991
+ADDING MUTANTS: 997
+TOTAL POP : 2988
+SORTING POP
+SELECTING POP
+DELETED: 1988
+CLEANING SELECTED VECTOR
+FIN IT: 9
+First place: 732
+Last place: 750
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 1000
+ADDING CROSSED: 998
+ADDING MUTANTS: 997
+TOTAL POP : 2995
+SORTING POP
+SELECTING POP
+DELETED: 1995
+CLEANING SELECTED VECTOR
+FIN IT: 10
+First place: 732
+Last place: 744
+Total time: 100.828
+K-shortest: 0.101444
+Generating initial 0.444355
+Crossing 3.67153
+Mutation 3.61896
+Consolidating 22.6067
+Sorting 63.5672
+Coloring 4.56861
+Others 2.249
 --- Flow formulation has been chosen. |K| = 50, |S| = 100. ---
 Flow variables have been defined...
 Source constraints have been defined...
@@ -1031,31 +278,31 @@ MIP Presolve modified 10558 coefficients.
 Aggregator did 485 substitutions.
 Reduced MIP has 74016 rows, 210969 columns, and 2237927 nonzeros.
 Reduced MIP has 210969 binaries, 0 generals, 0 SOSs, and 0 indicators.
-Presolve time = 3.18 sec. (3004.97 ticks)
-Elapsed time = 30.04 sec. (10000.12 ticks) for 63% of probing (27027 vars fixed)
+Presolve time = 3.73 sec. (3004.97 ticks)
+Elapsed time = 32.45 sec. (10000.12 ticks) for 63% of probing (27027 vars fixed)
 Probing fixed 78311 vars, tightened 0 bounds.
 Probing changed sense of 1 constraints.
-Probing time = 45.94 sec. (14932.73 ticks)
+Probing time = 49.24 sec. (14932.73 ticks)
 Tried aggregator 5 times.
 MIP Presolve eliminated 28814 rows and 88070 columns.
 MIP Presolve modified 3402 coefficients.
 Aggregator did 4779 substitutions.
 Reduced MIP has 40422 rows, 118120 columns, and 1305100 nonzeros.
 Reduced MIP has 118120 binaries, 0 generals, 0 SOSs, and 0 indicators.
-Presolve time = 9.04 sec. (6401.88 ticks)
+Presolve time = 6.17 sec. (6401.88 ticks)
 Probing fixed 26953 vars, tightened 0 bounds.
 Probing changed sense of 3 constraints.
-Probing time = 19.45 sec. (6079.60 ticks)
+Probing time = 17.59 sec. (6079.60 ticks)
 Tried aggregator 5 times.
 MIP Presolve eliminated 7998 rows and 28649 columns.
 MIP Presolve modified 5829 coefficients.
 Aggregator did 3030 substitutions.
 Reduced MIP has 29394 rows, 86441 columns, and 959191 nonzeros.
 Reduced MIP has 86441 binaries, 0 generals, 0 SOSs, and 0 indicators.
-Presolve time = 5.43 sec. (4711.91 ticks)
+Presolve time = 5.98 sec. (4711.91 ticks)
 Probing fixed 13254 vars, tightened 0 bounds.
 Probing changed sense of 8 constraints.
-Probing time = 10.59 sec. (3767.93 ticks)
+Probing time = 9.39 sec. (3767.93 ticks)
 Tried aggregator 6 times.
 Detecting symmetries...
 MIP Presolve eliminated 3281 rows and 15824 columns.
@@ -1063,14 +310,14 @@ MIP Presolve modified 3753 coefficients.
 Aggregator did 2334 substitutions.
 Reduced MIP has 23779 rows, 68283 columns, and 763621 nonzeros.
 Reduced MIP has 68283 binaries, 0 generals, 0 SOSs, and 0 indicators.
-Presolve time = 7.21 sec. (4946.83 ticks)
+Presolve time = 4.89 sec. (4946.83 ticks)
 Probing fixed 11051 vars, tightened 0 bounds.
-Probing time = 7.73 sec. (3350.89 ticks)
+Probing time = 6.76 sec. (3350.89 ticks)
 Clique table members: 450679.
 MIP emphasis: balance optimality and feasibility.
 MIP search method: dynamic search.
 Parallel mode: deterministic, using up to 4 threads.
-Root relaxation solution time = 0.93 sec. (834.62 ticks)
+Root relaxation solution time = 0.87 sec. (834.62 ticks)
 
         Nodes                                         Cuts/
    Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
@@ -1080,23 +327,23 @@ Root relaxation solution time = 0.93 sec. (834.62 ticks)
       0     0      732.0000   133      828.0000      732.0000     6671   11.59%
 *     0+    0                          732.0000      732.0000             0.00%
       0     0        cutoff            732.0000      732.0000     6732    0.00%
-Elapsed time = 119.39 sec. (53800.48 ticks, tree = 0.01 MB, solutions = 3)
+Elapsed time = 113.42 sec. (53800.48 ticks, tree = 0.01 MB, solutions = 3)
 
 Clique cuts applied:  2
 Gomory fractional cuts applied:  4
 
 Root node processing (before b&c):
-  Real time             =  119.41 sec. (53811.83 ticks)
+  Real time             =  113.45 sec. (53811.83 ticks)
 Parallel b&c, 4 threads:
   Real time             =    0.00 sec. (0.00 ticks)
   Sync time (average)   =    0.00 sec.
   Wait time (average)   =    0.00 sec.
                           ------------
-Total (root+branch&cut) =  119.41 sec. (53811.83 ticks)
+Total (root+branch&cut) =  113.45 sec. (53811.83 ticks)
 Objective Function Value: 732
 User cuts 0
 Total cuts 6
-Optimization done in 119.456 secs.
+Optimization done in 113.487 secs.
 Status: Optimal
 Objective Function Value: 732
 x(1,12,14,79) = 1
@@ -1221,7 +468,7 @@ x(49,11,10,6) = 1
 x(50,5,9,57) = 1
 x(50,4,5,57) = 1
 x(50,9,8,57) = 1
- Time: 119.456
+ Time: 113.487
 
 Update RSA
 Feasible
@@ -1540,12 +787,12 @@ Sum of used links by demands: 122
 Total route length: 21523
 Total used slots: 732
 Total used amplifiers: 26833.3
-Time taken by iteration is : 122.960349 sec
+Time taken by iteration is : 217.829938 sec
 UB: 732.000000000
 LB: 732.000000000
 GAP: 0.000000000
 Tree size: 0
-Time: 119.455549002
+Time: 113.487416983
 
 
 --- The Demands ---
@@ -1600,5 +847,5 @@ Time: 119.455549002
 #49. 8 -- 10. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
 #50. 4 -- 8. nbSlices C: 6, maxCD C: 20000.000000000, osnrLimit C: 24.000000000, pchC: 0.000750000, transpIdC: 7. nbSlices L: 0, maxCD L: 0.000000000, osnrLimit L: 0.000000000, pchL: 0.000000000, transpIdL: 0, maxCD S: 0.000000000, osnrLimit S: 0.000000000, pchS: 0.000000000. Gbits/s: 400.000000000, ROUTED: YES
 
-Time taken by optimization is : 122.963835640 sec
-Total time taken by program is : 122.964794628 sec
+Time taken by optimization is : 217.832912973 sec
+Total time taken by program is : 217.833827330 sec

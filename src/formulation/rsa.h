@@ -75,6 +75,10 @@ protected:
     int TUS;
     double TASE;
 
+    std::vector<std::vector<int>> feasibleSolutionEdgeSlotMap;
+    std::vector<int> feasibleSolutionLastSlotDemand;
+    std::vector<std::vector<int>> feasibleSolutionNodesByDemand;
+
     /** A list of pointers to the extended graph associated with each demand to be routed. 
         \note (*vecGraph[i]) is the graph associated with the i-th demand to be routed. **/
     std::vector< std::shared_ptr<ListDigraph> > vecGraph;
@@ -504,11 +508,7 @@ public:
     void AllPaths();
     void AllPathsUtil(int u, int d, bool visited[], int path[], int& path_index);
 
-    void Heuristic();
-    std::vector<std::vector<Fiber> > kdijkstra(std::vector<std::vector<int> > graph, int src, int dest, int K);
-    int minDistance(std::vector<int> dist, std::vector<bool> sptSet);
-    std::vector<int> dijkstra(std::vector<std::vector<int> > graph, int src, int dest, double & pathdistance);
-    
+
 	/****************************************************************************************/
 	/*										Display											*/
 	/****************************************************************************************/
