@@ -23,6 +23,7 @@ FlowForm::FlowForm(const Instance &inst) : AbstractFormulation(inst){
     time.setStart(ClockTime::getTimeNow());
     this->setObjectives();
     objImpleTime = time.getTimeInSecFromStart() ;
+    this->setWarmValues();
     std::cout << "--- Flow formulation has been defined ---" << std::endl;
     totalImpleTime = time2.getTimeInSecFromStart() ;
     //std::cout << "Time: " << time.getTimeInSecFromStart() << std::endl;
@@ -218,6 +219,46 @@ void FlowForm::setVariableValues(const std::vector<double> &vals){
         }
     }
 }
+
+void FlowForm::setWarmValues(){
+    
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        int demand = d;
+        int lastSlot = feasibleSolutionLastSlotDemand[d];
+        for (int node = 0; node < feasibleSolutionNodesByDemand[d].size()-1; node++){
+            int origin = feasibleSolutionNodesByDemand[d][node];
+            int destination = feasibleSolutionNodesByDemand[d][node+1];
+            //verifying VAR
+            for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+                int labelSource = getNodeLabel((*vecGraph[d]).source(a), d)+1 ;
+                int labelTarget = getNodeLabel((*vecGraph[d]).target(a), d)+1 ;
+                int slice = getArcSlice(a, d)+1;
+                if((lastSlot == slice)&&(origin == labelSource)&&(destination == labelTarget)){
+                    //std::cout<<"f(" << d+1<<","<< origin<<","<< destination<<","<< lastSlot<<")"<<std::endl;
+                    //std::cout<<"f(" << d+1<<","<< labelSource<<","<< labelTarget<<","<< slice<<")"<<std::endl;
+                    int arc = getArcIndex(a, d); 
+                    x[d][arc].setWarmstartValue(1.0);
+                }
+            }
+        }
+    }
+    
+
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+        int max = 1;
+        for (int i = 0; i < feasibleSolutionLastSlotDemand.size(); i++){
+            if(feasibleSolutionLastSlotDemand[i]>max){
+                max=feasibleSolutionLastSlotDemand[i];
+            }
+        }
+        //std::cout<<"p = " << max<<std::endl;                
+        maxSliceOverall.setWarmstartValue(max);
+    }
+    
+}
+
+
 /****************************************************************************************/
 /*									Objective Function    								*/
 /****************************************************************************************/

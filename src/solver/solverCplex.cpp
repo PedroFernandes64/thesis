@@ -103,7 +103,11 @@ void SolverCplex::solve(){
                 std::cerr << "No firstRound.sol " << ex << std::endl;
             }
         }
-
+        if(true){
+            setWarmVariables(formulation->getVariables());
+            cplex.addMIPStart(var,warmVar);
+            //std::remove(filename.c_str());
+        }
         try {
             cplex.solve();
         }
@@ -252,6 +256,7 @@ void SolverCplex::exportFormulation(const Instance &instance){
 }
 
 void SolverCplex::setCplexParams(const Input &input){
+    //cplex.setParam(IloCplex::Param::Preprocessing::Presolve, 0);
     cplex.setParam(IloCplex::Param::MIP::Display, 2);
     cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 16384);
     //cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 57344);
@@ -401,7 +406,18 @@ void SolverCplex::setVariables(const std::vector<Variable> &myVars){
     std::cout << "CPLEX variables have been defined..." << std::endl;
 }
 
-
+void SolverCplex::setWarmVariables(const std::vector<Variable> &myVars){
+    warmVar = IloNumArray(model.getEnv(), myVars.size());
+    for (unsigned int i = 0; i < myVars.size(); i++){ 
+        int pos = myVars[i].getId();
+        warmVar[pos] = IloNum(myVars[i].getWarmstartValue());
+        //std::cout << "Created warm value: " << myVars[i].getWarmstartValue() << std::endl;
+        //std::cout << "Created warm value: " << warmVar[pos] << std::endl;
+        //model.addMIPStart(var[pos]);
+        //getCplex().setPriority(var[pos],myVars[i].getPriority());
+    }
+    std::cout << "CPLEX warmstart values have been defined..." << std::endl;
+}
 
 /** Displays the value of each variable in the obtained solution. **/
 void SolverCplex::displaySolution(){

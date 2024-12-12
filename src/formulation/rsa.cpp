@@ -148,7 +148,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
         feasibleSolutionLastSlotDemand = genetic.buildLastSlotByDemand(0);
         feasibleSolutionNodesByDemand = genetic.buildPathNodesByDemand(0);
         std::cout << "Feasible SOL" << std::endl;
-        
+        /*
         for (int i = 0; i < feasibleSolutionEdgeSlotMap.size(); ++i){	
             for (int j = 0; j < feasibleSolutionEdgeSlotMap[i].size(); ++j){	
                 std::cout << feasibleSolutionEdgeSlotMap[i][j] << " ";
@@ -164,7 +164,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
             }
             std::cout << std::endl; 
         }
-        
+        */
     }
     //PEDRO PEDRO PEDRO
 }

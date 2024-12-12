@@ -67,6 +67,9 @@ public:
 	/** Changes the variable values. @param value The vector of values. **/
 	virtual void setVariableValues(const std::vector<double> &value) = 0;
 
+	/** Defines the decision variables need in the MIP formulation. **/
+    virtual void setWarmValues() = 0;
+
 	/****************************************************************************************/
 	/*										Constraints										*/
 	/****************************************************************************************/

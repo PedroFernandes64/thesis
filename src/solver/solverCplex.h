@@ -19,6 +19,8 @@ private:
     IloNumVarArray var;				/**< The array of variables used in the MIP. **/
 	IloObjective obj;
 
+	IloNumArray warmVar;
+
 	IloCplex::Algorithm algo;       /**< Algorithm used by cplex to solve the problem. **/
 
 public:
@@ -59,6 +61,8 @@ public:
 	void setCplexParams(const Input &input);
 
 	void setAlgorithm(const IloCplex::Algorithm &a) { algo = a;}
+
+	void setWarmVariables(const std::vector<Variable> &myVars);
 	/****************************************************************************************/
 	/*										Methods											*/
 	/****************************************************************************************/

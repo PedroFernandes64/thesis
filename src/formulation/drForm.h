@@ -37,6 +37,8 @@ class DrFormulation : public AbstractFormulation{
 	@note The position of a variable in the array is given by its id. */
     VarArray getVariables() override;
 
+	void setWarmValues() override{};
+
 	Variable getMaxSliceOverall() const {return maxSliceOverall;}
 
     void printVariables();

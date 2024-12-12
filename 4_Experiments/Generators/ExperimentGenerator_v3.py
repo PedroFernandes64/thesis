@@ -28,16 +28,16 @@ for linkStrategy in linkStrategies:
 
 #testUnitVerifier(testSet)
 gnpyActivation = ["0"]
-CDSet=["0"]
-osnrSet=["0"]
+CDSet=["1"]
+osnrSet=["1"]
 
-bands=["2"]
+bands=["1"]
 TFlowSet=["0"]
 reinforcements=["0"]
 
 formulationSet = ["0"]
 userCuts = ["0"]
-objSet = ["LLB"]
+objSet = ["NLUS"]
 
 preprocessingSet= ["2"]
 

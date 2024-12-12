@@ -30,6 +30,8 @@ private:
     std::string name;	/** The variable name. **/
 	int priority;		/** The variable priority during branching. **/
 
+	double warmstartValue;
+
 public:
     /** Constructor. @param lowerBound The variable lower bound. @param upperBound The variable upper bound. @param varType The variable type. @param val The variable value. @param varName The variable name. **/
     Variable(int identifier=-1, double lowerBound=0, double upperBound=1, Type varType=TYPE_BOOLEAN, double val=0, std::string varName="",int prio =0);
@@ -63,6 +65,9 @@ public:
 	/** Returns the variable's priority. **/
     double getPriority() const { return priority; }
 
+	/** Returns the variable's priority. **/
+    double getWarmstartValue() const { return warmstartValue; }
+
 	/****************************************************************************************/
 	/*										Setters											*/
 	/****************************************************************************************/
@@ -83,6 +88,10 @@ public:
 
 	/** Changes the variable's priority. @param prio The new value. **/
     void setPriority(double prio) { this->priority = prio; }
+
+
+	/** Changes the variable's priority. @param prio The new value. **/
+    void setWarmstartValue(double val) { this->warmstartValue = val; }
 };
 
 

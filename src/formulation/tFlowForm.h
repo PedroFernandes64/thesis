@@ -46,6 +46,8 @@ public:
 
 	void printVariables();
 
+	void setWarmValues() override{};
+
 	/** Puts all variables into a single array of variables and returns it. @note The position of a variable in the array is given by its id. **/
 	VarArray getVariables() override; 
 

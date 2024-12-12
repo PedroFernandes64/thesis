@@ -1,6 +1,6 @@
 #include "formulationComponents.h"
 
-Variable::Variable(int identifier, double lowerBound, double upperBound, Type varType, double val, std::string varName, int prio): id(identifier), lb(lowerBound), ub(upperBound), type(varType), value(val), name(varName), priority(prio){}
+Variable::Variable(int identifier, double lowerBound, double upperBound, Type varType, double val, std::string varName, int prio): id(identifier), lb(lowerBound), ub(upperBound), type(varType), value(val), name(varName), priority(prio), warmstartValue(0.0){}
 
 Variable::Variable(const Variable& var){
     id = var.id;
@@ -10,6 +10,7 @@ Variable::Variable(const Variable& var){
     value = var.value;
     name = var.name;
     priority = var.priority;
+    warmstartValue = var.warmstartValue;
 }
 
 Variable& Variable::operator=(const Variable& var){
@@ -20,6 +21,7 @@ Variable& Variable::operator=(const Variable& var){
     value = var.value;
     name = var.name;
     priority = var.priority;
+    warmstartValue = var.warmstartValue;
     return (*this);
 }
 

@@ -46,6 +46,8 @@ public:
 	/** Defines the decision variables need in the MIP formulation. **/
     void setVariables() override;
 
+    void setWarmValues() override;
+
 	/** Defines the flow variables. **/
 	void setFlowVariables();
 

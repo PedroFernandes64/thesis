@@ -37,5 +37,5 @@ relaxMethod=0
 outputPath=../Instances/Dump/
 outputLevel=0
 nbSlicesInOutputFile=0
-globalTimeLimit=14400
-timeLimit=14400
+globalTimeLimit=28800
+timeLimit=28800

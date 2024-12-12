@@ -297,9 +297,9 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
     this->setToBeRouted(instance.getNextDemands());
 	setLoadVector();
     //displayToBeRouted();
-	chosenK = 3;
-	extraK = 3;
-	metric = 1;
+	chosenK = 10;
+	extraK = 10;
+	metric = 2;
 	coloringTime =0.0;
 	initialPopTime = 0.0;
 	crossingTime = 0.0;
@@ -313,7 +313,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
     //GenerateShortestRoutes();
 	//displayShortestRoutes();
 
-	nbInitialPop = 1;
+	nbInitialPop = 1000;
 	
 	GenerateInitialPopulation(nbInitialPop);
 
@@ -321,7 +321,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 	//	population[i].display();
 	//}
 
-	int iterations = 1;
+	int iterations = 15;
 	for (int i = 1; i <= iterations; ++i){
 		doCrossing();
 		//for (int i = 0; i < thisIterationCrossing.size(); i++){
@@ -368,7 +368,7 @@ std::vector<std::vector<int>> Genetic::buildMatrixKsol(int k){
 		std::cout << std::endl; 
 	}
 	*/
-	population[k].display();
+	//population[k].display();
 	for (int a = 0; a < population[k].routes.size(); a++){
 		int demand = a +1;
 		int lastSlot = population[k].colors[a] + population[k].loads[a] -1;
@@ -391,7 +391,7 @@ std::vector<std::vector<int>> Genetic::buildMatrixKsol(int k){
 
 std::vector<int> Genetic::buildLastSlotByDemand(int k){
 	std::vector<int> slotsByDemand;
-	population[k].display();
+	//population[k].display();
 	for (int a = 0; a < population[k].colors.size(); a++){
 		slotsByDemand.push_back(population[k].colors[a] + population[k].loads[a] -1);
 	}
@@ -406,7 +406,7 @@ std::vector<int> Genetic::buildLastSlotByDemand(int k){
 
 std::vector<std::vector<int>> Genetic::buildPathNodesByDemand(int k){
 	std::vector<std::vector<int> > nodesListDemand;
-	population[k].display();
+	//population[k].display();
 	for (int a = 0; a < population[k].routes.size(); a++){
 		//std::cout  << "Demand " << a+1<< std::endl;
 		std::vector<int> nodesThisDemand;
@@ -567,8 +567,8 @@ void Genetic::doSelection(){
 void Genetic::doMutation(){
 	std::cout << "MUTATION OPERATION" << std::endl;
 
-	//int nbMutations = floor(population.size()/5);
-	int nbMutations = floor(population.size());  
+	int nbMutations = floor(population.size()/2);
+	//int nbMutations = floor(population.size());  
 	std::vector<int> canMutate;
 		
 	for (int d = 0; d < toBeRouted.size(); ++d){
@@ -640,8 +640,8 @@ void Genetic::doMutation(){
 void Genetic::doCrossing(){
 	std::cout << "CROSSING OPERATION" << std::endl;
 
-	//int nbCrossings = floor(population.size()/2); 
-	int nbCrossings = floor(population.size()); 
+	int nbCrossings = floor(population.size()/2); 
+	//int nbCrossings = floor(population.size()); 
 	for (int i = 0; i < nbCrossings; ++i){
 		ClockTime clockCrossing(ClockTime::getTimeNow());
 		clockCrossing.setStart(ClockTime::getTimeNow());
