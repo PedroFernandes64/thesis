@@ -141,7 +141,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
         std::cout << "Computing statistics of all paths" << std::endl;
         AllPaths();
     }
-    if(true){
+    if(false){
         std::cout << "Heuristic" << std::endl;
         Genetic genetic(instance);
         feasibleSolutionEdgeSlotMap = genetic.buildMatrixKsol(0);

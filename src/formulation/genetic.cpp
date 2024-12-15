@@ -313,7 +313,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
     //GenerateShortestRoutes();
 	//displayShortestRoutes();
 
-	nbInitialPop = 1000;
+	nbInitialPop = 100;
 	
 	GenerateInitialPopulation(nbInitialPop);
 
@@ -321,7 +321,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 	//	population[i].display();
 	//}
 
-	int iterations = 15;
+	int iterations = 20;
 	for (int i = 1; i <= iterations; ++i){
 		doCrossing();
 		//for (int i = 0; i < thisIterationCrossing.size(); i++){
@@ -567,7 +567,7 @@ void Genetic::doSelection(){
 void Genetic::doMutation(){
 	std::cout << "MUTATION OPERATION" << std::endl;
 
-	int nbMutations = floor(population.size()/2);
+	int nbMutations = floor(population.size());
 	//int nbMutations = floor(population.size());  
 	std::vector<int> canMutate;
 		
@@ -640,7 +640,7 @@ void Genetic::doMutation(){
 void Genetic::doCrossing(){
 	std::cout << "CROSSING OPERATION" << std::endl;
 
-	int nbCrossings = floor(population.size()/2); 
+	int nbCrossings = floor(population.size()); 
 	//int nbCrossings = floor(population.size()); 
 	for (int i = 0; i < nbCrossings; ++i){
 		ClockTime clockCrossing(ClockTime::getTimeNow());

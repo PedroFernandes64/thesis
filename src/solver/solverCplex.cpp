@@ -103,7 +103,7 @@ void SolverCplex::solve(){
                 std::cerr << "No firstRound.sol " << ex << std::endl;
             }
         }
-        if(true){
+        if(false){
             setWarmVariables(formulation->getVariables());
             cplex.addMIPStart(var,warmVar);
             //std::remove(filename.c_str());
