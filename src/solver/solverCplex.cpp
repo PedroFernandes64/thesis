@@ -261,7 +261,7 @@ void SolverCplex::setCplexParams(const Input &input){
     cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 16384);
     //cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 57344);
     cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
-    cplex.setParam(IloCplex::Param::Threads, 4);
+    cplex.setParam(IloCplex::Param::Threads, 1); //CHANGE TO 4
     cplex.setParam(IloCplex::IntParam::WriteLevel, 1);
 
     if(formulation->getInstance().getInput().isRelaxed()){

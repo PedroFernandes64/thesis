@@ -27,19 +27,19 @@ for linkStrategy in linkStrategies:
                 testSet.append(test)
 
 #testUnitVerifier(testSet)
-gnpyActivation = ["0"]
-CDSet=["0"]
+gnpyActivation = ["1"]
+CDSet=["1"]
 osnrSet=["0"]
 
-bands=["2"]
+bands=["1"]
 TFlowSet=["0"]
 reinforcements=["0"]
 
 formulationSet = ["0"]
 userCuts = ["0"]
-objSet = ["LLB"]
+objSet = ["TUS"]
 
-preprocessingSet= ["2"]
+preprocessingSet= ["0"]
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()
@@ -139,7 +139,7 @@ with open("../Outputs/experimentList.csv", "w") as list:
                                                             shutil.rmtree(currentBatchFolder)
                                                             os.mkdir(currentBatchFolder)
                                                         print("Batch folder created")
-                                                    '''
+                                                    
                                                     qotFolder = "../Outputs/QoTSet" + "/oP" +auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_tf" + tflow+ "_cd" + cd + "_os" + osnr + "_gn" + gnpy+ "_b" + band + "_r" + reinforcement + "_cu" + cut+ "_p" + prepro
                                                     #os.mkdir(qotFolder)
                                                     #print(qotFolder)
@@ -159,9 +159,9 @@ with open("../Outputs/experimentList.csv", "w") as list:
                                                     shutil.copyfile(nodeFile, qotFolder+"/topology/Node.csv")
                                                     shutil.copyfile(linkFile, qotFolder+"/topology/Link.csv")
                                                     shutil.copyfile(demandFile, qotFolder+"/demands/demand_1.csv")
-                                                    '''
-                                                    #lines[8] = "QoTFolder="+qotFolder[11:]+ "\n"
-                                                    lines[8] = "QoTFolder=none"+ "\n"
+                                                   
+                                                    lines[8] = "QoTFolder="+qotFolder[11:]+ "\n"
+                                                    #lines[8] = "QoTFolder=none"+ "\n"
                                                     parametersName = currentBatchFolder + "/oP"+auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_tf" + tflow+ "_cd" + cd + "_os" + osnr + "_gn" + gnpy+ "_b" + band + "_r" + reinforcement + "_cu" + cut+ "_p" + prepro+ ".txt"
                                                     listLine = "\n" + linkStrategy+";"+ transponderStrategy+";"+topology + ";" + demandCode + ";" + obj + ";" + form + tflow +";" + cd + ";" + osnr + ";"+ gnpy + ";"+ band + ";"+ reinforcement + ";"+ cut + ";"+prepro+ ";"
                                                     list.write(listLine)
@@ -187,7 +187,7 @@ with open("../Outputs/experimentList.csv", "w") as list:
                                                         os.mkdir(currentBatchFolder)
                                                     print("Batch folder created")
 
-                                                '''
+                                                
                                                 qotFolder = "../Outputs/QoTSet" + "/oP" +auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_cd" + cd + "_os" + osnr + "_gn" + gnpy+ "_b" + band + "_r" + reinforcement + "_cu" + cut+ "_p" + prepro
                                                 #os.mkdir(qotFolder)
                                                 #print(qotFolder)
@@ -207,9 +207,9 @@ with open("../Outputs/experimentList.csv", "w") as list:
                                                 shutil.copyfile(nodeFile, qotFolder+"/topology/Node.csv")
                                                 shutil.copyfile(linkFile, qotFolder+"/topology/Link.csv")
                                                 shutil.copyfile(demandFile, qotFolder+"/demands/demand_1.csv")
-                                                '''
-                                                #lines[8] = "QoTFolder="+qotFolder[11:]+ "\n"
-                                                lines[8] = "QoTFolder=none"+ "\n"
+                                                
+                                                lines[8] = "QoTFolder="+qotFolder[11:]+ "\n"
+                                                #lines[8] = "QoTFolder=none"+ "\n"
                                                 parametersName = currentBatchFolder + "/oP"+auxLinkStrategy+ auxTransponderStrategy+ "_i" + topology + "_d" + demandCode + "_of" + obj + "_f" + form + "_cd" + cd + "_os" + osnr + "_gn" + gnpy+ "_b" + band + "_r" + reinforcement + "_cu" + cut+ "_p" + prepro+ ".txt"
                                                 listLine = "\n" + linkStrategy+";"+ transponderStrategy+";"+topology + ";" + demandCode + ";" + obj + ";" + form  +";" + cd + ";" + osnr + ";"+ gnpy + ";"+ band + ";"+ reinforcement + ";"+ cut + ";" +prepro + ";"
                                                 list.write(listLine)
