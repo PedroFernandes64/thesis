@@ -43,7 +43,7 @@ struct sequenciator{
     int criteria;
 };
 //highest first
-struct sortSequenciator{
+struct sortSequenciatorHigher{
     bool operator() (sequenciator a, sequenciator b){return (a.criteria>b.criteria);}
 };
 struct prePath{
@@ -53,6 +53,11 @@ struct prePath{
     int nbEdges;
 };
 //lowest first
+struct sortSequenciatorLower{
+    bool operator() (sequenciator a, sequenciator b){return (a.criteria<b.criteria);}
+};
+
+
 struct sortPrePath{
     bool operator() (prePath a, prePath b){return (a.nbEdges<b.nbEdges);}
 };
@@ -82,6 +87,7 @@ protected:
     std::vector<Routing> population;
     std::vector<Routing> thisIterationCrossing;
     std::vector<Routing> thisIterationMutation;
+    std::vector<Routing> thisIterationTotalPop;
     std::vector<Routing> thisIterationSelected;
 
     double heuristicTime;
