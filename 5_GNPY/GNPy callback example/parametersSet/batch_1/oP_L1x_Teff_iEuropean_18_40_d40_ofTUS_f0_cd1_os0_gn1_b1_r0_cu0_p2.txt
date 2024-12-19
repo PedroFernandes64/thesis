@@ -5,10 +5,10 @@ initialMappingAssignmentFile=
 demandToBeRoutedFolder=Instances/1x/efficient/European_18_40/Demands/5_demands
 
 ******* QoT parameters *******
-GNPY_activation=1
+GNPY_activation=0
 QoTFolder=QoTSet/oP_L1x_Teff_iEuropean_18_40_d40_ofTUS_f0_cd1_os0_gn1_b1_r0_cu0_p2
 ChromaticDispersion_activation=1
-OSNR_activation=0
+OSNR_activation=1
 
 ******* Thesis Pedro parameters *******
 Bands=1

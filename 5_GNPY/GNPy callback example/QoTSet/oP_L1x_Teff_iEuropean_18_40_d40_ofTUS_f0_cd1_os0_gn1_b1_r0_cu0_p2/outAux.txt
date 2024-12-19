@@ -1,8 +1,8 @@
-Request-1-OSNR=19.12
+Request-1-OSNR=18.96
 Request-1=accepted
-Request-2-OSNR=17.74
+Request-2-OSNR=18.71
 Request-2=accepted
-Request-3-OSNR=15.68
+Request-3-OSNR=16.59
 Request-3=accepted
 Request-4-OSNR=25.13
 Request-4=accepted

@@ -45,7 +45,7 @@
        {
          "index": 0,
          "num-unnum-hop": {
-           "node-id": "roadm-5",
+           "node-id": "roadm-18",
            "link-tp-id": "link-tp-id is not used",
            "hop-type": "STRICT"
           }
@@ -98,7 +98,7 @@
        {
          "index": 0,
          "num-unnum-hop": {
-           "node-id": "roadm-11",
+           "node-id": "roadm-3",
            "link-tp-id": "link-tp-id is not used",
            "hop-type": "STRICT"
           }
@@ -106,7 +106,7 @@
        {
          "index": 0,
          "num-unnum-hop": {
-           "node-id": "roadm-16",
+           "node-id": "roadm-5",
            "link-tp-id": "link-tp-id is not used",
            "hop-type": "STRICT"
           }
@@ -159,7 +159,7 @@
        {
          "index": 0,
          "num-unnum-hop": {
-           "node-id": "roadm-7",
+           "node-id": "roadm-16",
            "link-tp-id": "link-tp-id is not used",
            "hop-type": "STRICT"
           }

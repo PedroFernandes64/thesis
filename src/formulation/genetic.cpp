@@ -299,7 +299,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
     //displayToBeRouted();
 	chosenK = 5;
 	extraK = 5;
-	metric = 2;
+	metric = 1;
 	coloringTime =0.0;
 	initialPopTime = 0.0;
 	crossingTime = 0.0;
@@ -313,7 +313,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
     //GenerateShortestRoutes();
 	//displayShortestRoutes();
 
-	nbInitialPop = 100;
+	nbInitialPop = 500;
 	
 	GenerateInitialPopulation(nbInitialPop);
 
