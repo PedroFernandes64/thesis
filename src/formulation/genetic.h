@@ -19,6 +19,15 @@ public:
     int metricVal;
 
     Routing(std::vector<std::vector<Fiber> > routes, std::vector<int> loads);
+    Routing(const Routing& other)
+        : routes(other.routes),         // Deep copy the vector of vectors
+          loads(other.loads),           // Deep copy the loads vector
+          colors(other.colors),         // Deep copy the colors vector
+          colored(other.colored),       // Copy the boolean value
+          feasible(other.feasible),     // Copy the boolean value
+          nbEdges(other.nbEdges),       // Copy the integer value
+          nbSlots(other.nbSlots),       // Copy the integer value
+          metricVal(other.metricVal) {} // Copy the integer value
 
     void building(int metr, int edges, int slots);
     void copying(Routing r);
@@ -97,7 +106,7 @@ protected:
     double crossingTime;
     double mutationTime;
     double consolidatingSelectedTime;
-    double sortingSelectedTime;
+    double selectionTime;
 
 public:
 	/****************************************************************************************/

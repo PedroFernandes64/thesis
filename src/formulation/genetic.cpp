@@ -303,7 +303,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 	crossingTime = 0.0;
     mutationTime= 0.0;
     consolidatingSelectedTime= 0.0;
-    sortingSelectedTime= 0.0;
+    selectionTime= 0.0;
 	ClockTime clockHeuristc(ClockTime::getTimeNow());
 	clockHeuristc.setStart(ClockTime::getTimeNow());
 	GenerateShortestRoutes2();
@@ -311,7 +311,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
     //GenerateShortestRoutes();
 	//displayShortestRoutes();
 
-	nbInitialPop = 500;
+	nbInitialPop = 1000;
 	
 	GenerateInitialPopulation(nbInitialPop);
 
@@ -319,7 +319,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 	//	population[i].display();
 	//}
 
-	int iterations = 1;
+	int iterations = 20;
 	for (int i = 1; i <= iterations; ++i){
 		doCrossing();
 		//for (int i = 0; i < thisIterationCrossing.size(); i++){
@@ -344,9 +344,9 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 	std::cout<<"Crossing "<< crossingTime<<std::endl;
 	std::cout<<"Mutation "<< mutationTime<<std::endl;
 	std::cout<<"Consolidating "<< consolidatingSelectedTime<<std::endl;
-	std::cout<<"Sorting "<< sortingSelectedTime<<std::endl;
+	std::cout<<"Sorting "<< selectionTime<<std::endl;
 	std::cout<<"Coloring "<< coloringTime<<std::endl;
-	std::cout<<"Others "<< heuristicTime-kShortestTime-initialPopTime-crossingTime-mutationTime-consolidatingSelectedTime-sortingSelectedTime-coloringTime<<std::endl;
+	std::cout<<"Others "<< heuristicTime-kShortestTime-initialPopTime-crossingTime-mutationTime-consolidatingSelectedTime-selectionTime-coloringTime<<std::endl;
 }
 
 std::vector<std::vector<int>> Genetic::buildMatrixKsol(int k){
@@ -447,6 +447,141 @@ void Genetic::setLoadVector(){
 void Genetic::doSelection(){
 	ClockTime clockConsolidate(ClockTime::getTimeNow());
 	clockConsolidate.setStart(ClockTime::getTimeNow());
+
+	std::vector<sequenciator> sequenceVector;
+	int posMaxOldPop = population.size()-1;
+	int posMaxCrossingPop = population.size() + thisIterationCrossing.size()-1;
+	int posMaxMutationPop = population.size() + thisIterationCrossing.size() + thisIterationMutation.size()-1;
+	int pos = 0;
+	int totalPop = population.size() + thisIterationCrossing.size() + thisIterationMutation.size();
+	//std::cout << "pos 1: " << posMaxOldPop << std::endl;
+	//std::cout << "pos 2: " << posMaxCrossingPop << std::endl;
+	//std::cout << "pos 3: " << posMaxMutationPop << std::endl;
+	std::cout << "ADDING OLD POP: " << population.size() << std::endl;
+	for (int i = 0; i < population.size(); ++i){
+		sequenciator popMember;
+		popMember.id = pos;
+		popMember.criteria = population[i].metricVal;
+		sequenceVector.push_back(popMember);
+		pos = pos +1;
+	}
+	std::cout << "ADDING CROSSED: " << thisIterationCrossing.size() << std::endl;
+	for (int i = 0; i < thisIterationCrossing.size(); ++i){
+		sequenciator popMember;
+		popMember.id = pos;
+		popMember.criteria = thisIterationCrossing[i].metricVal;
+		sequenceVector.push_back(popMember);
+		pos = pos +1;
+	}
+	std::cout << "ADDING MUTANTS: " << thisIterationMutation.size() << std::endl;
+	for (int i = 0; i < thisIterationMutation.size(); ++i){
+		sequenciator popMember;
+		popMember.id = pos;
+		popMember.criteria = thisIterationMutation[i].metricVal;
+		sequenceVector.push_back(popMember);
+		pos = pos +1;
+	}
+	std::cout << "TOTAL POP : " << totalPop << std::endl;
+	consolidatingSelectedTime = consolidatingSelectedTime+ clockConsolidate.getTimeInSecFromStart();
+	//for (int d = 0; d < sequenceVector.size(); ++d){
+	//	std::cout << "id : " << sequenceVector[d].id  << "metric : " << sequenceVector[d].criteria << std::endl;
+	//}
+
+
+	ClockTime clockSelect(ClockTime::getTimeNow());
+	clockSelect.setStart(ClockTime::getTimeNow());
+	std::cout << "SELECTING POP" << std::endl;
+	
+	// SORTING
+	sortSequenciatorLower sorter2;
+	std::sort (sequenceVector.begin(),sequenceVector.end(),sorter2);
+	selectionTime = selectionTime+ clockSelect.getTimeInSecFromStart();
+	std::cout << "CONSOLIDATING DATA" << std::endl;
+
+	clockConsolidate.setStart(ClockTime::getTimeNow());
+	int toDelete = totalPop - nbInitialPop;
+	if (toDelete < 0){
+		toDelete = 0;
+	}
+	std::cout << "TO DELETE: " << toDelete << std::endl;
+	std::cout << "BUILDING NEW POP" << std::endl;
+	int limit = nbInitialPop;
+	if (limit > totalPop){
+		limit = totalPop;
+	}
+	//std::cout << "limit "<<limit << std::endl;
+	for (int i = 0; i < limit; ++i){
+		std::vector<std::vector<Fiber> > routes;
+		//std::cout << "looking for: "<< sequenceVector[i].id << std::endl;
+		if(sequenceVector[i].id <= posMaxOldPop){
+			int element = sequenceVector[i].id;
+			//std::cout << "in pos: "<< element << std::endl;
+			for (int d = 0; d < population[element].routes.size(); ++d){
+				std::vector<Fiber> route;
+				for (int l = 0; l < population[element].routes[d].size(); ++l){
+					route.push_back(population[element].routes[d][l]);
+				}
+				routes.push_back(route);
+			}
+			Routing member(routes,loads);
+			member.copying(population[element]);
+			thisIterationTotalPop.push_back(member);
+		}else{
+			if(sequenceVector[i].id <= posMaxCrossingPop){
+				int element = sequenceVector[i].id-population.size();
+				//std::cout << "in pos: "<< element << std::endl;
+				for (int d = 0; d < thisIterationCrossing[element].routes.size(); ++d){
+					std::vector<Fiber> route;
+					for (int l = 0; l < thisIterationCrossing[element].routes[d].size(); ++l){
+						route.push_back(thisIterationCrossing[element].routes[d][l]);
+					}
+					routes.push_back(route);
+				}
+				Routing member(routes,loads);
+				member.copying(thisIterationCrossing[element]);
+				thisIterationTotalPop.push_back(member);
+			}else{
+				if(sequenceVector[i].id <= posMaxMutationPop){
+					int element = sequenceVector[i].id-thisIterationCrossing.size()-population.size();
+					//std::cout << "in pos: "<< element << std::endl;
+					for (int d = 0; d < thisIterationMutation[element].routes.size(); ++d){
+						std::vector<Fiber> route;
+						for (int l = 0; l < thisIterationMutation[element].routes[d].size(); ++l){
+							route.push_back(thisIterationMutation[element].routes[d][l]);
+						}
+						routes.push_back(route);
+					}
+					Routing member(routes,loads);
+					member.copying(thisIterationMutation[element]);
+					thisIterationTotalPop.push_back(member);
+				}else{
+					std::cout << "ERROR"<<std::endl;
+				}
+			}
+		}
+	}
+
+	while(population.size()>0){
+		population.pop_back();
+	}
+	while(thisIterationCrossing.size()>0){
+		thisIterationCrossing.pop_back();
+	}
+	while(thisIterationMutation.size()>0){
+		thisIterationMutation.pop_back();
+	}
+	population = thisIterationTotalPop;
+	std::cout << "CLEANING SELECTED VECTOR" << std::endl;
+	while(thisIterationTotalPop.size()>0){
+		thisIterationTotalPop.pop_back();
+	}
+	consolidatingSelectedTime = consolidatingSelectedTime+ clockConsolidate.getTimeInSecFromStart();
+}
+
+/*
+void Genetic::doSelection(){
+	ClockTime clockConsolidate(ClockTime::getTimeNow());
+	clockConsolidate.setStart(ClockTime::getTimeNow());
 	std::cout << "ADDING OLD POP: " << population.size() << std::endl;
 	for (int i = 0; i < population.size(); ++i){
 		//population[i].display();
@@ -494,20 +629,13 @@ void Genetic::doSelection(){
 		thisIterationTotalPop.push_back(member);
 	}
 	std::cout << "TOTAL POP : " << thisIterationTotalPop.size() << std::endl;
-	
-	//for (int i = 0; i < thisIterationTotalPop.size(); i++){
-	//	thisIterationTotalPop[i].display();
-	//}
-	
 	consolidatingSelectedTime = consolidatingSelectedTime+ clockConsolidate.getTimeInSecFromStart();
-	
-	ClockTime clockSort(ClockTime::getTimeNow());
-	clockSort.setStart(ClockTime::getTimeNow());
-	std::cout << "SORTING POP" << std::endl;
 
-	ClockTime sorting2(ClockTime::getTimeNow());
+	ClockTime clockSelect(ClockTime::getTimeNow());
+	clockSelect.setStart(ClockTime::getTimeNow());
+	std::cout << "SELECTING POP" << std::endl;
 	
-	// SORTING 2
+	// SORTING
 	std::vector<sequenciator> sequenceVector;
 	int pos = 0;
 	for (int i = 0; i < thisIterationTotalPop.size(); ++i){
@@ -519,39 +647,27 @@ void Genetic::doSelection(){
 		sequenceVector.push_back(popMember);
 		pos = pos +1;
 	}
-	/*
-	for (int d = 0; d < sequenceVector.size(); ++d){
-		std::cout << "pop " << sequenceVector[d].id << " h as " << sequenceVector[d].criteria << std::endl;
-	}*/
 	sortSequenciatorLower sorter2;
 	std::sort (sequenceVector.begin(),sequenceVector.end(),sorter2);
-	/*
-	for (int d = 0; d < sequenceVector.size(); ++d){
-		std::cout << "pop " << sequenceVector[d].id << " h as " << sequenceVector[d].criteria << std::endl;
-	}*/
-	std::cout << "time sorting 2: " << sorting2.getTimeInSecFromStart()<<std::endl;
-	// SORTING 1
-	ClockTime sorting1(ClockTime::getTimeNow());
-
-	sortRouting sorter;
-	std::sort (thisIterationTotalPop.begin(),thisIterationTotalPop.end(),sorter);
-	sortingSelectedTime = sortingSelectedTime+ clockSort.getTimeInSecFromStart();
-
-	std::cout << "time sorting 1: " << sorting1.getTimeInSecFromStart()<<std::endl;
-	/*
-	for (int i = 0; i < thisIterationTotalPop.size(); i++){
-		thisIterationTotalPop[i].display();
-	}*/
-	
-
+	selectionTime = selectionTime+ clockSelect.getTimeInSecFromStart();
+	std::cout << "CONSOLIDATING DATA" << std::endl;
 
 	clockConsolidate.setStart(ClockTime::getTimeNow());
-	std::cout << "SELECTING POP" << std::endl;
 	int toDelete = thisIterationTotalPop.size() - nbInitialPop;
-	std::cout << "DELETED: " << toDelete << std::endl;
-	//SELECTING2
-	ClockTime selecting2(ClockTime::getTimeNow());
-	
+	if (toDelete < 0){
+		toDelete = 0;
+	}
+	std::cout << "TO DELETE: " << toDelete << std::endl;
+	while(population.size()>0){
+		population.pop_back();
+	}
+	while(thisIterationCrossing.size()>0){
+		thisIterationCrossing.pop_back();
+	}
+	while(thisIterationMutation.size()>0){
+		thisIterationMutation.pop_back();
+	}
+	std::cout << "BUILDING NEW POP" << std::endl;
 	int limit = nbInitialPop;
 	if (limit > thisIterationTotalPop.size()){
 		limit = thisIterationTotalPop.size();
@@ -567,62 +683,19 @@ void Genetic::doSelection(){
 			routes.push_back(route);
 		}
 		Routing member(routes,loads);
-		member.copying(thisIterationTotalPop[i]);
-		thisIterationSelected.push_back(member);
-	}
-	std::cout << "complement time sorting 1: " << selecting2.getTimeInSecFromStart()<<std::endl;
-	/*
-	std::cout << "NEW POP2: " << thisIterationSelected.size() << std::endl;
-	for (int i = 0; i < thisIterationSelected.size(); i++){
-		thisIterationSelected[i].display();
-	}*/
-
-	//SELECTING 1
-	for (int i = 0; i < toDelete; i++){
-		thisIterationTotalPop.pop_back();
-	}
-	/*
-	for (int i = 0; i < thisIterationTotalPop.size(); i++){
-		thisIterationTotalPop[i].display();
-	}*/
-
-	//std::cout << "CLEANING OLD POPS" << std::endl;
-	while(population.size()>0){
-		population.pop_back();
-	}
-	while(thisIterationCrossing.size()>0){
-		thisIterationCrossing.pop_back();
-	}
-	while(thisIterationMutation.size()>0){
-		thisIterationMutation.pop_back();
-	}
-	//std::cout <<  population.size() << std::endl;
-	//std::cout << "ADDING SELECTED TO POP" << std::endl;
-	for (int i = 0; i < thisIterationTotalPop.size(); ++i){
-		std::vector<std::vector<Fiber> > routes;
-		//std::cout << "1" << std::endl;
-		for (int d = 0; d < thisIterationTotalPop[i].routes.size(); ++d){
-			std::vector<Fiber> route;
-			for (int l = 0; l < thisIterationTotalPop[i].routes[d].size(); ++l){
-				route.push_back(thisIterationTotalPop[i].routes[d][l]);
-			}
-			routes.push_back(route);
-		}
-		Routing member(routes,loads);
-		member.copying(thisIterationTotalPop[i]);
+		member.copying(thisIterationTotalPop[sequenceVector[i].id]);
 		population.push_back(member);
 	}
-	/*
-	std::cout << "NEW POP: " << population.size() << std::endl;
-	for (int i = 0; i < population.size(); i++){
-		population[i].display();
-	}*/
+
 	std::cout << "CLEANING SELECTED VECTOR" << std::endl;
 	while(thisIterationTotalPop.size()>0){
 		thisIterationTotalPop.pop_back();
 	}
 	consolidatingSelectedTime = consolidatingSelectedTime+ clockConsolidate.getTimeInSecFromStart();
 }
+*/
+
+
 void Genetic::doMutation(){
 	std::cout << "MUTATION OPERATION" << std::endl;
 
