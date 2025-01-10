@@ -132,8 +132,19 @@ private:
 	bool chromaticDispersionActivation;				/**< If Max Reach constraints will be used. **/
 	bool osnrActivation;					/**< If OSNR constraints will be used. **/
 	int nbBands;							/**< Number of bands. **/
+	int allPathsCompute;
+	int allPathsPrint;
 	int nonOverlappingTypeTFlow;
 	int reinforcements;
+	int relaxationVariables;
+	int geneticUse;
+	int geneticMetric;
+	int geneticIterations;
+	int geneticPopulation;
+	int geneticCrossing;
+	int geneticMutation;
+	int geneticChosenK;
+	int geneticExtraK;
 
 public:
 	/****************************************************************************************/
@@ -214,10 +225,21 @@ public:
 	//PEDRO PEDRO PEDRO
 	bool isMaxCDEnabled() const { return chromaticDispersionActivation; }
 	bool isMinOSNREnabled() const { return osnrActivation; }
+	bool computeAllPaths() const { return allPathsCompute; }
+	bool printAllPaths() const { return allPathsPrint; }
 	int getNbBands() const { return nbBands; }
 	int getNonOverTFlow() const { return nonOverlappingTypeTFlow; }
 	bool areReinforcementsEnabled() const { return reinforcements; }
-
+	bool recoverRelaxationVariables() const { return relaxationVariables; }
+	bool activateGeneticAlgorithm() const { return geneticUse; }
+	int geneticAlgorithmMetric() const { return geneticMetric; }
+	int geneticAlgorithmIterations() const { return geneticIterations; }
+	int geneticAlgorithmPopulation() const { return geneticPopulation; }
+	int geneticAlgorithmCrossing() const { return geneticCrossing; }
+	int geneticAlgorithmMutation() const { return geneticMutation; }
+	int geneticGetChosenK() const { return geneticChosenK; }
+	int geneticGetExtraK() const { return geneticExtraK; }
+	
 	bool isObj8(int i) const;
 
 	/** Returns the identifier of the method chosen for solving each node. **/

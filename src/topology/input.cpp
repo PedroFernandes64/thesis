@@ -24,7 +24,17 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
     nbBands = std::stoi(getParameterValue("Bands="));
     nonOverlappingTypeTFlow = std::stoi(getParameterValue("TFlow_Policy="));
     reinforcements = std::stoi(getParameterValue("Reinforcements="));
-
+    allPathsCompute = std::stoi(getParameterValue("All_paths_compute="));
+	allPathsPrint = std::stoi(getParameterValue("All_paths_print="));
+	relaxationVariables= std::stoi(getParameterValue("Relaxation_variables="));
+	geneticUse= std::stoi(getParameterValue("Genetic="));
+	geneticMetric= std::stoi(getParameterValue("Genetic_metric="));
+	geneticIterations= std::stoi(getParameterValue("Genetic_iterations="));
+	geneticPopulation= std::stoi(getParameterValue("Genetic_population="));
+	geneticCrossing= std::stoi(getParameterValue("Genetic_crossing="));
+	geneticMutation= std::stoi(getParameterValue("Genetic_mutation="));
+    geneticChosenK= std::stoi(getParameterValue("Genetic_chosenK="));
+    geneticExtraK= std::stoi(getParameterValue("Genetic_extraK="));
     std::cout << "Getting formulation parameters..." << std::endl;
 
     nbDemandsAtOnce = std::stoi(getParameterValue("nbDemandsAtOnce="));
@@ -80,6 +90,17 @@ Input::Input(const Input &i) : PARAMETER_FILE(i.getParameterFile()){
     nbBands = i.getNbBands();
     nonOverlappingTypeTFlow = i.getNonOverTFlow();
     reinforcements = i.areReinforcementsEnabled();
+    allPathsCompute = i.computeAllPaths();
+	allPathsPrint = i.printAllPaths();
+	relaxationVariables= i.recoverRelaxationVariables();
+	geneticUse= i.activateGeneticAlgorithm();
+	geneticMetric= i.geneticAlgorithmMetric();
+	geneticIterations= i.geneticAlgorithmIterations();
+	geneticPopulation= i.geneticAlgorithmPopulation();
+	geneticCrossing= i.geneticAlgorithmCrossing();
+	geneticMutation= i.geneticAlgorithmMutation();
+    geneticChosenK= i.geneticGetChosenK();
+	geneticExtraK= i.geneticGetExtraK();
     nbDemandsAtOnce = i.getNbDemandsAtOnce();
     chosenObj = i.getChosenObj();
     allowBlocking = i.isBlockingAllowed();

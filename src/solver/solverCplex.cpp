@@ -7,6 +7,16 @@ ILOMIPINFOCALLBACK3(infocallback, std::ofstream&, file, IloCplex, cplex, IloNum,
     //}
 }
 
+ILOSOLVECALLBACK5(solvecallback, std::ofstream&, file, IloCplex, cplex, IloModel, model, IloNum, timeBegin, IloNumVarArray,vars){
+    file <<  "Current LP Relaxation Solution:" << std::endl;
+    IloNumArray vals(getEnv(), vars.getSize());
+    cplex.getValues(vals, vars);
+    
+    for (IloInt i = 0; i < vars.getSize(); ++i) {
+        file <<  "Variable " << vars[i].getName() << ": " << vals[i] << std::endl;
+    }
+    std::cout << "PASSARALHO" << std::endl;
+}
 
 int SolverCplex::count = 0;
 
@@ -88,6 +98,10 @@ void SolverCplex::solve(){
         //outfile.open("test.csv");
         //outfile << "UB;LB;nodes;remainingNodes;time"<<std::endl; 
         //cplex.use(infocallback(cplex.getEnv(),outfile,cplex,timeStart));
+        //std::ofstream outfile2;
+        //outfile2.open("sols.txt");
+        //cplex.use(solvecallback(cplex.getEnv(),outfile2,cplex,model,timeStart, var));
+        
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
         //std::ofstream fout("mylog.log");
         //cplex.setOut(fout);
@@ -103,7 +117,7 @@ void SolverCplex::solve(){
                 std::cerr << "No firstRound.sol " << ex << std::endl;
             }
         }
-        if(true){
+        if( formulation->getInstance().getInput().activateGeneticAlgorithm()){
             setWarmVariables(formulation->getVariables());
             cplex.addMIPStart(var,warmVar);
             //std::remove(filename.c_str());

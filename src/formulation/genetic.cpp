@@ -291,13 +291,21 @@ void Routing::display(){
 }
 /* Constructor. A graph associated to the initial mapping (instance) is built as well as an extended graph for each demand to be routed. */
 Genetic::Genetic(const Instance &inst) : instance(inst){
-    
-    this->setToBeRouted(instance.getNextDemands());
+	std::cout<<"Genetic metric: "<< instance.getInput().geneticAlgorithmMetric()<<std::endl;
+	std::cout<<"Genetic iterations: "<< instance.getInput().geneticAlgorithmIterations()<<std::endl;
+	std::cout<<"Genetic population "<< instance.getInput().geneticAlgorithmPopulation()<<std::endl;
+	std::cout<<"Genetic crossing tax "<< instance.getInput().geneticAlgorithmCrossing()<<std::endl;
+	std::cout<<"Genetic mutation tax "<< instance.getInput().geneticAlgorithmMutation()<<std::endl;
+	std::cout<<"Genetic chosenK "<< instance.getInput().geneticGetChosenK()<<std::endl;
+	std::cout<<"Genetic extraK "<<  instance.getInput().geneticGetExtraK()<<std::endl;
+
+	
+	this->setToBeRouted(instance.getNextDemands());
 	setLoadVector();
     //displayToBeRouted();
-	chosenK = 5;
-	extraK = 5;
-	metric = 1;
+	chosenK = instance.getInput().geneticGetChosenK();
+	extraK = instance.getInput().geneticGetExtraK();
+	metric = instance.getInput().geneticAlgorithmMetric();
 	coloringTime =0.0;
 	initialPopTime = 0.0;
 	crossingTime = 0.0;
@@ -311,7 +319,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
     //GenerateShortestRoutes();
 	//displayShortestRoutes();
 
-	nbInitialPop = 1000;
+	nbInitialPop =  instance.getInput().geneticAlgorithmPopulation();
 	
 	GenerateInitialPopulation(nbInitialPop);
 
@@ -319,7 +327,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 	//	population[i].display();
 	//}
 
-	int iterations = 20;
+	int iterations = instance.getInput().geneticAlgorithmIterations();
 	for (int i = 1; i <= iterations; ++i){
 		doCrossing();
 		//for (int i = 0; i < thisIterationCrossing.size(); i++){
@@ -699,7 +707,7 @@ void Genetic::doSelection(){
 void Genetic::doMutation(){
 	std::cout << "MUTATION OPERATION" << std::endl;
 
-	int nbMutations = floor(population.size());
+	int nbMutations = floor(population.size()* ((double)instance.getInput().geneticAlgorithmMutation()/100.0));
 	//int nbMutations = floor(population.size());  
 	std::vector<int> canMutate;
 		
@@ -772,7 +780,7 @@ void Genetic::doMutation(){
 void Genetic::doCrossing(){
 	std::cout << "CROSSING OPERATION" << std::endl;
 
-	int nbCrossings = floor(population.size()); 
+	int nbCrossings = floor(population.size()* ((double)instance.getInput().geneticAlgorithmCrossing()/100.0)); 
 	//int nbCrossings = floor(population.size()); 
 	for (int i = 0; i < nbCrossings; ++i){
 		ClockTime clockCrossing(ClockTime::getTimeNow());

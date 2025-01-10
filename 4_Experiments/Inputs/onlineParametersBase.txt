@@ -14,6 +14,17 @@ OSNR_activation=
 Bands=1
 TFlow_Policy=
 Reinforcements=0
+All_paths_compute=0
+All_paths_print=0
+Relaxation_variables=0
+Genetic=0
+Genetic_metric=1
+Genetic_iterations=20
+Genetic_population=100
+Genetic_crossing=100
+Genetic_mutation=100
+Genetic_chosenK=3
+Genetic_extraK=3
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000

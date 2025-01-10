@@ -29,17 +29,31 @@ for linkStrategy in linkStrategies:
 #testUnitVerifier(testSet)
 gnpyActivation = ["1"]
 CDSet=["1"]
-osnrSet=["0"]
+osnrSet=["1"]
 
 bands=["1"]
 TFlowSet=["0"]
 reinforcements=["0"]
+allPaths = ["0"]
+allPathsPrint= ["0"]
+relaxationVariables= ["0"]
+genetic= ["0"]
+geneticMetric= ["1"]
+geneticIterations= ["20"]
+geneticPopulation= ["100"]
+geneticCrossing= ["100"]
+geneticMutation= ["100"]
+geneticChosenK= ["3"]
+geneticExtraK= ["3"]
+
 
 formulationSet = ["0"]
 userCuts = ["0"]
 objSet = ["TUS"]
 
 preprocessingSet= ["0"]
+
+
 
 with open('../Inputs/onlineParametersBase.txt', "r") as f:
     lines = f.readlines()

@@ -14,6 +14,10 @@ void CplexCallback::invoke (const IloCplex::Callback::Context &context){
         if ( input.isUserCutsActivated() ){
             addUserCuts(context);
         }
+        if ( input.recoverRelaxationVariables() ){
+            getRelaxVars(context);
+        }
+       
         //getBound(context);
     }
     if ( context.inCandidate()){
@@ -69,6 +73,28 @@ void CplexCallback::addUserCuts(const IloCplex::Callback::Context &context) cons
                                         to_IloExpr(context, constraint[i].getExpression()),
                                         constraint[i].getUb(), constraint[i].getName().c_str()),
                                     IloCplex::UseCutForce, IloFalse);
+            }
+        }
+    }
+    catch (...) {
+        throw;
+    }
+}
+
+void CplexCallback::getRelaxVars(const IloCplex::Callback::Context &context) const{
+    try {
+        std::ofstream outfile2;
+        outfile2.open("sols.txt");
+        outfile2 <<  "Current LP Relaxation Solution:" << std::endl;
+        const int NB_VAR = var.getSize();
+        std::vector<double> solution(NB_VAR);
+        for (int i = 0; i < NB_VAR; i++){
+            solution[i] = context.getRelaxationPoint(var[i]);
+        }
+    
+        for (IloInt i = 0; i < var.getSize(); ++i) {
+            if ((solution[i]>= EPS)&&(solution[i]< 1 - EPS)){
+                outfile2 <<  "Variable " << var[i].getName() << ": " << solution[i] << std::endl;
             }
         }
     }

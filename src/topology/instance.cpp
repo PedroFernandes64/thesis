@@ -752,7 +752,7 @@ Fiber Instance::getPhysicalLinkBetween(int u, int v){
 /*PEDRO PEDRO PEDRO*/
 void Instance::setPaseNodeC() { 
 	double h = 6.62 * pow(10,-34);                      //SI Joules second, J*s
-    double lambd = 1545.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
+    double lambd = 1547.0 * pow(10,-9);                 //SI meters, m                   #Usually nanometer (x nanometer)
     double c = 3.0 *pow(10,8);                          //SI meters by second, m 
     double nu = c/lambd;                                //SI hertz
     double NF = 5.0;                                    //SI dB

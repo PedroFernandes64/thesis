@@ -20,6 +20,7 @@ public:
 	CplexCallback(const IloNumVarArray _var, AbstractFormulation* &_formulation, const Input& _input, bool _obj8);
 
 	void addUserCuts (const IloCplex::Callback::Context &context) const; 
+    void getRelaxVars (const IloCplex::Callback::Context &context) const; 
     
     void addLazyConstraints(const IloCplex::Callback::Context &context) const;
     void addGnpyConstraints(const IloCplex::Callback::Context &context) const;

@@ -23,7 +23,10 @@ FlowForm::FlowForm(const Instance &inst) : AbstractFormulation(inst){
     time.setStart(ClockTime::getTimeNow());
     this->setObjectives();
     objImpleTime = time.getTimeInSecFromStart() ;
-    this->setWarmValues();
+    if (instance.getInput().activateGeneticAlgorithm()){
+        this->setWarmValues();
+    }
+    
     std::cout << "--- Flow formulation has been defined ---" << std::endl;
     totalImpleTime = time2.getTimeInSecFromStart() ;
     //std::cout << "Time: " << time.getTimeInSecFromStart() << std::endl;

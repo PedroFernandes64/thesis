@@ -137,11 +137,11 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     onlyReachFeasiblePathsC = 0;
     infeasiblePathsC = 0;
     //if (this->getInstance().getInput().allPathsDataEnabled() == true){
-    if(false){
+    if(instance.getInput().computeAllPaths()){
         std::cout << "Computing statistics of all paths" << std::endl;
         AllPaths();
     }
-    if(true){
+    if(instance.getInput().activateGeneticAlgorithm()){
         std::cout << "Heuristic" << std::endl;
         Genetic genetic(instance);
         feasibleSolutionEdgeSlotMap = genetic.buildMatrixKsol(0);
@@ -414,8 +414,8 @@ void RSA::AllPaths(){
     double dbOsnrL;
     double dbOsnrS;
     std::ofstream outfile;
-    bool printAllpaths = true;
-    if(printAllpaths){
+   
+    if(instance.getInput().printAllPaths()){
         std::cout << "Writing  OSNR's to file..." << std::endl;
         std::string outputOSNRName = "pathData.csv";
         outfile.open(outputOSNRName); 
@@ -451,7 +451,7 @@ void RSA::AllPaths(){
             dbOsnrC = osnrPath(alldemandsNoiseC[i][j], toBeRouted[i].getPchC());
             dbOsnrL = osnrPath(alldemandsNoiseL[i][j], toBeRouted[i].getPchL());
             dbOsnrS = osnrPath(alldemandsNoiseS[i][j], toBeRouted[i].getPchS());
-            if(printAllpaths){
+            if(instance.getInput().printAllPaths()){
                 if(printAuxDemand){
                     outfile << total + 1;
                 }
