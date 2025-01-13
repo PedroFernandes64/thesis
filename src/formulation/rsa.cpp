@@ -132,10 +132,10 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     onlyOsnrFeasiblePathsC = 0;
     onlyReachFeasiblePathsC = 0;
     infeasiblePathsC = 0;
-    feasiblePathsC = 0;
-    onlyOsnrFeasiblePathsC = 0;
-    onlyReachFeasiblePathsC = 0;
-    infeasiblePathsC = 0;
+    feasiblePathsL = 0;
+    onlyOsnrFeasiblePathsL = 0;
+    onlyReachFeasiblePathsL = 0;
+    infeasiblePathsL = 0;
     heuristicTime= 0.0;
     timeToBest= 0.0;
     itToBest= 0;

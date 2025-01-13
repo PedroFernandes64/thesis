@@ -93,6 +93,11 @@ void SolverCplex::solve(){
         if(!formulation->getInstance().getInput().isRelaxed()){
             cplex.use(&myGenericCallback, contextMask);
         }
+        if ( formulation->getInstance().getInput().recoverRelaxationVariables() ){
+            std::ofstream outfile2;
+            outfile2.open("sols.txt");
+            outfile2.close();
+        }
         //cplex.exportModel("nom_do_lp.lp");
         //std::ofstream outfile;
         //outfile.open("test.csv");

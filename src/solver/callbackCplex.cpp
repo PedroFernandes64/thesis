@@ -100,7 +100,6 @@ void CplexCallback::getRelaxVars(const IloCplex::Callback::Context &context) con
                 outfile2 <<  "Variable " << var[i].getName() << ": " << solution[i] << std::endl;
             }
         }
-        std::cout << "PASSARALHO"<<std::endl;
     }
     catch (...) {
         throw;

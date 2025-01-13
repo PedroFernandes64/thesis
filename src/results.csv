@@ -1,2 +1,1 @@
 Instance;Demands;UB;LB;GAP;Time;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro;Genetic;It;Pop;Cross;Mut;cK;eK;GenTime;GenSol;GenSolIt;GenSolTime;PreproTime;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tase
-6nodes9links_6_9;15;24.000000;24.000000;0.000000;0.665000;8;0;1;1;0;1;0;0;0;1;10;50;50;50;5;5;0.084498;24;1;0.015816;0.001388;4726;2220;3375;0;0;0;0;0;0;0;0;54;0;15;15;0;24;150;25;8620.000000;150;9666.666667
