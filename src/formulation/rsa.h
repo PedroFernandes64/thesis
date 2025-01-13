@@ -74,6 +74,10 @@ protected:
     double TRL;
     int TUS;
     double TASE;
+    double heuristicTime;
+    double timeToBest;
+    int itToBest;
+    int bestSol;
 
     std::vector<std::vector<int>> feasibleSolutionEdgeSlotMap;
     std::vector<int> feasibleSolutionLastSlotDemand;
@@ -359,6 +363,11 @@ public:
     double getTASE(){ return TASE;};
     int getVariablesSetTo0(){ return variablesSetTo0;};
     int getPreprocessingConstraints(){ return preprocessingConstraints;};
+
+    double getHeuristicTime(){ return heuristicTime;}
+    double getTimeToBest(){ return timeToBest;}; 
+    int getItToBest(){ return itToBest;};
+    int getBestSol(){ return bestSol;};
 
 
     ListGraph::Node getCompactNodeFromLabel(int label) const;

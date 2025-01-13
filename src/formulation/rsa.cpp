@@ -136,6 +136,10 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     onlyOsnrFeasiblePathsC = 0;
     onlyReachFeasiblePathsC = 0;
     infeasiblePathsC = 0;
+    heuristicTime= 0.0;
+    timeToBest= 0.0;
+    itToBest= 0;
+    bestSol= 0;
     //if (this->getInstance().getInput().allPathsDataEnabled() == true){
     if(instance.getInput().computeAllPaths()){
         std::cout << "Computing statistics of all paths" << std::endl;
@@ -148,6 +152,10 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
         feasibleSolutionLastSlotDemand = genetic.buildLastSlotByDemand(0);
         feasibleSolutionNodesByDemand = genetic.buildPathNodesByDemand(0);
         std::cout << "Feasible SOL" << std::endl;
+        heuristicTime= genetic.getHeuristicTime();
+        timeToBest= genetic.getTimeToBest();
+        itToBest= genetic.getItToBest();
+        bestSol= genetic.getBestSol();
         /*
         for (int i = 0; i < feasibleSolutionEdgeSlotMap.size(); ++i){	
             for (int j = 0; j < feasibleSolutionEdgeSlotMap[i].size(); ++j){	

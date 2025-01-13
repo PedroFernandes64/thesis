@@ -326,7 +326,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 	//for (int i = 0; i < population.size(); i++){
 	//	population[i].display();
 	//}
-
+	currentBest = INT_MAX;
 	int iterations = instance.getInput().geneticAlgorithmIterations();
 	for (int i = 1; i <= iterations; ++i){
 		doCrossing();
@@ -341,11 +341,19 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 		std::cout<<"FIN IT: "<< i<<std::endl;
 		std::cout<<"First place: "<< population[0].metricVal<<std::endl;
 		std::cout<<"Last place: "<< population[population.size()-1].metricVal<<std::endl;
+		if (currentBest > population[0].metricVal){
+			std::cout<<"UPDATE BEST SOL"<<std::endl;
+			currentBest = population[0].metricVal;
+			itToBest = i;
+			timeToBest =  clockHeuristc.getTimeInSecFromStart();
+		}
 	}
 	//for (int i = 0; i < 2; i++){
 	//	population[i].display();
 	//}
 	heuristicTime = clockHeuristc.getTimeInSecFromStart();
+	std::cout<<"Best SOL: "<< currentBest<<std::endl;
+	std::cout<<"Found at it: "<< itToBest<<" after " << timeToBest <<std::endl;
 	std::cout<<"Total time: "<< heuristicTime<<std::endl;
 	std::cout<<"K-shortest: "<< kShortestTime<<std::endl;
 	std::cout<<"Generating initial "<< initialPopTime<<std::endl;

@@ -104,6 +104,10 @@ public:
 	int getVariablesSetTo0(){ return formulation->getVariablesSetTo0();}
 	int getPreprocessingConstraints(){ return formulation->getPreprocessingConstraints();}
 	double getPreprocessingTime(){ return formulation->getPreprocessingTime();}
+	double getHeuristicTime(){ return formulation->getHeuristicTime();}
+    double getTimeToBest(){ return formulation->getTimeToBest();}; 
+    int getItToBest(){ return formulation->getItToBest();};
+    int getBestSol(){ return formulation->getBestSol();};
 
 	/****************************************************************************************/
 	/*											Setters										*/

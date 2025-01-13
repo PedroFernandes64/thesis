@@ -99,6 +99,10 @@ protected:
     std::vector<Routing> thisIterationTotalPop;
     std::vector<Routing> thisIterationSelected;
 
+    double timeToBest;
+    int itToBest;
+    int currentBest;
+
     double heuristicTime;
     double coloringTime;
     double kShortestTime;
@@ -130,6 +134,12 @@ public:
 
     /** Returns the number of demands to be routed. **/
     int getNbDemandsToBeRouted() const { return toBeRouted.size(); }
+
+    double getHeuristicTime(){ return heuristicTime;};
+    double getTimeToBest(){ return timeToBest;}; 
+    int getItToBest(){ return itToBest;};
+    int getBestSol(){ return currentBest;};
+    
 
 	/****************************************************************************************/
 	/*										Setters											*/

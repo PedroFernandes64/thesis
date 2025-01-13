@@ -124,8 +124,19 @@ int main(int argc, char *argv[]) {
 			std::string reinforcements = to_string(input.areReinforcementsEnabled());
 			std::string cuts = to_string(input.isUserCutsActivated());
 			std::string prepro = to_string(input.getChosenPreprLvl());
+			std::string genetic = to_string(input.activateGeneticAlgorithm());
+			std::string it = to_string(input.geneticAlgorithmIterations());
+			std::string pop = to_string(input.geneticAlgorithmPopulation());
+			std::string cross = to_string(input.geneticAlgorithmCrossing());
+			std::string mut = to_string(input.geneticAlgorithmMutation());
+			std::string cK = to_string(input.geneticGetChosenK());
+			std::string eK = to_string(input.geneticGetExtraK());
+	
+			std::string genTime= to_string(solver->getHeuristicTime());
+			std::string genSol= to_string(solver->getBestSol());
+			std::string genSolIt= to_string(solver->getItToBest());
+			std::string genSolTime= to_string(solver->getTimeToBest());
 			std::string preproTime = to_string(solver->getPreprocessingTime());
-
 			std::string variables = to_string(solver->getNbVariable());
 			std::string	constraints = to_string(solver->getNbConstraint());
 			std::string possiblePaths =  to_string(solver->getPossiblePaths());
@@ -179,11 +190,11 @@ int main(int argc, char *argv[]) {
 			}
 			//opening file and writing
   			outfile << "\n" + instanceName + ";" << ub + ";" + lb + ";" + gap +";" + time +";" + obj +";"+ formulation+ ";"
-				+maxCD+";" + minOsnr+";"+ gnpy+";"+ bands+";"+ reinforcements+";"+ cuts+";"+ prepro+";" +preproTime +";"
-				+variables+";"+constraints+";"+v0+";"+ppC+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"+
-				onlyOsnrFeasiblePathsC+";"+onlyReachFeasiblePathsC+";"+feasiblePathsL+";"+infeasiblePathsL+";"+
-				onlyOsnrFeasiblePathsL+";"+onlyReachFeasiblePathsL+";"+ads+";"+dcb+";"+llb+";"+nlus+";"+slus+";"+
-				suld+";"+trl+";"+tus+";"+tase;
+				+maxCD+";" + minOsnr+";"+ gnpy+";"+ bands+";"+ reinforcements+";"+ cuts+";"+ prepro+";"+genetic+";"+it+";"
+				+pop+";"+cross+";"+mut+";"+cK+";"+eK+";"+genTime+";"+genSol+";"+genSolIt+";"+genSolTime+";"+preproTime +";"
+				+variables+";"+constraints+";"+v0+";"+ppC+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"
+				+onlyOsnrFeasiblePathsC+";"+onlyReachFeasiblePathsC+";"+feasiblePathsL+";"+infeasiblePathsL+";"+onlyOsnrFeasiblePathsL+";"
+				+onlyReachFeasiblePathsL+";"+ads+";"+dcb+";"+llb+";"+nlus+";"+slus+";"+suld+";"+trl+";"+tus+";"+tase;
 		}
 		
 

@@ -84,8 +84,11 @@ void CplexCallback::addUserCuts(const IloCplex::Callback::Context &context) cons
 void CplexCallback::getRelaxVars(const IloCplex::Callback::Context &context) const{
     try {
         std::ofstream outfile2;
-        outfile2.open("sols.txt");
-        outfile2 <<  "Current LP Relaxation Solution:" << std::endl;
+        outfile2.open("sols.txt",std::ios_base::app);
+        outfile2 << std::endl<<  "Current LP Relaxation Solution:" << std::endl;
+        outfile2 << "LB " << context.getRelaxationObjective();
+        outfile2 << " x UB " << context.getIncumbentObjective();
+        outfile2 << std::endl;
         const int NB_VAR = var.getSize();
         std::vector<double> solution(NB_VAR);
         for (int i = 0; i < NB_VAR; i++){
@@ -97,6 +100,7 @@ void CplexCallback::getRelaxVars(const IloCplex::Callback::Context &context) con
                 outfile2 <<  "Variable " << var[i].getName() << ": " << solution[i] << std::endl;
             }
         }
+        std::cout << "PASSARALHO"<<std::endl;
     }
     catch (...) {
         throw;
