@@ -78,6 +78,7 @@ protected:
     double timeToBest;
     int itToBest;
     int bestSol;
+    int computedLB;
 
     std::vector<std::vector<int>> feasibleSolutionEdgeSlotMap;
     std::vector<int> feasibleSolutionLastSlotDemand;
@@ -367,7 +368,8 @@ public:
     double getHeuristicTime(){ return heuristicTime;}
     double getTimeToBest(){ return timeToBest;}; 
     int getItToBest(){ return itToBest;};
-    int getBestSol(){ return bestSol;};
+    int getBestSol(){ return bestSol;}
+    int getComputedLB(){ return computedLB;}
 
 
     ListGraph::Node getCompactNodeFromLabel(int label) const;

@@ -148,6 +148,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     if(instance.getInput().activateGeneticAlgorithm()){
         std::cout << "Heuristic" << std::endl;
         Genetic genetic(instance);
+        genetic.run();
         feasibleSolutionEdgeSlotMap = genetic.buildMatrixKsol(0);
         feasibleSolutionLastSlotDemand = genetic.buildLastSlotByDemand(0);
         feasibleSolutionNodesByDemand = genetic.buildPathNodesByDemand(0);
@@ -156,23 +157,14 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
         timeToBest= genetic.getTimeToBest();
         itToBest= genetic.getItToBest();
         bestSol= genetic.getBestSol();
-        /*
-        for (int i = 0; i < feasibleSolutionEdgeSlotMap.size(); ++i){	
-            for (int j = 0; j < feasibleSolutionEdgeSlotMap[i].size(); ++j){	
-                std::cout << feasibleSolutionEdgeSlotMap[i][j] << " ";
-            }
-		std::cout << std::endl; 
-	    }
-        for (int a = 0; a < feasibleSolutionLastSlotDemand.size(); a++){
-		    std::cout << "Demand " << a+1 << " s: " << feasibleSolutionLastSlotDemand[a] << std::endl;
-	    }
-        for (int i = 0; i < feasibleSolutionNodesByDemand.size(); ++i){	
-            for (int j = 0; j < feasibleSolutionNodesByDemand[i].size(); ++j){	
-                std::cout << feasibleSolutionNodesByDemand[i][j] << " ";
-            }
-            std::cout << std::endl; 
-        }
-        */
+    }
+
+    if(instance.getInput().activateLB()){
+        Genetic genetic(instance);
+        genetic.computeLB();
+        computedLB =  genetic.getComputedLB();
+        //
+        std::cout << "Computed LB  " << computedLB << std::endl;
     }
     //PEDRO PEDRO PEDRO
 }
@@ -427,7 +419,7 @@ void RSA::AllPaths(){
         std::cout << "Writing  OSNR's to file..." << std::endl;
         std::string outputOSNRName = "pathData.csv";
         outfile.open(outputOSNRName); 
-        outfile << "Demand;"<<"TranspId;" <<"Path;" << "Distance;" << "dispersionC val;"<<"dispersionC lim;"<<"dispersionL val;"<<"dispersionL lim;"<< "dispersionS val;"<<"dispersionS lim;"<< "osnrC val;"<<"osnrC lim;" << "osnrL val;"<<"osnrL lim;"<< "osnrS val;"<<"osnrS lim"<< std::endl;
+        outfile << "Demand;"<<"TranspId;" <<"Path;" <<"slotsC;"<<"links;"<< "Distance;" << "dispersionC val;"<<"dispersionC lim;"<<"dispersionL val;"<<"dispersionL lim;"<< "dispersionS val;"<<"dispersionS lim;"<< "osnrC val;"<<"osnrC lim;" << "osnrL val;"<<"osnrL lim;"<< "osnrS val;"<<"osnrS lim"<< std::endl;
     }
     std::ofstream outfile2;
     bool printAuxDemand = false;
@@ -471,6 +463,10 @@ void RSA::AllPaths(){
                 outfile << ";";
                 for (int k = 0; k <allpaths[i][j].size(); ++k)
                     outfile << getCompactNodeLabel(allpaths[i][j][k]) + 1 << "-";
+                outfile << ";";
+                outfile << toBeRouted[i].getLoadC();
+                outfile << ";";
+                outfile << allpaths[i][j].size()-1;
                 outfile << ";";
                 outfile << distance;
                 outfile << ";";

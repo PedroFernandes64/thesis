@@ -35,6 +35,7 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
 	geneticMutation= std::stoi(getParameterValue("Genetic_mutation="));
     geneticChosenK= std::stoi(getParameterValue("Genetic_chosenK="));
     geneticExtraK= std::stoi(getParameterValue("Genetic_extraK="));
+    lbActive = std::stoi(getParameterValue("ActivateLB="));
     std::cout << "Getting formulation parameters..." << std::endl;
 
     nbDemandsAtOnce = std::stoi(getParameterValue("nbDemandsAtOnce="));
@@ -101,6 +102,7 @@ Input::Input(const Input &i) : PARAMETER_FILE(i.getParameterFile()){
 	geneticMutation= i.geneticAlgorithmMutation();
     geneticChosenK= i.geneticGetChosenK();
 	geneticExtraK= i.geneticGetExtraK();
+    lbActive= i.activateLB();
     nbDemandsAtOnce = i.getNbDemandsAtOnce();
     chosenObj = i.getChosenObj();
     allowBlocking = i.isBlockingAllowed();

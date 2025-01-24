@@ -136,6 +136,10 @@ int main(int argc, char *argv[]) {
 			std::string genSol= to_string(solver->getBestSol());
 			std::string genSolIt= to_string(solver->getItToBest());
 			std::string genSolTime= to_string(solver->getTimeToBest());
+
+			std::string lbAc = to_string(input.activateLB());
+			std::string cpLb = to_string(solver->getComputedLB());
+
 			std::string preproTime = to_string(solver->getPreprocessingTime());
 			std::string variables = to_string(solver->getNbVariable());
 			std::string	constraints = to_string(solver->getNbConstraint());
@@ -191,7 +195,7 @@ int main(int argc, char *argv[]) {
 			//opening file and writing
   			outfile << "\n" + instanceName + ";" << ub + ";" + lb + ";" + gap +";" + time +";" + obj +";"+ formulation+ ";"
 				+maxCD+";" + minOsnr+";"+ gnpy+";"+ bands+";"+ reinforcements+";"+ cuts+";"+ prepro+";"+genetic+";"+it+";"
-				+pop+";"+cross+";"+mut+";"+cK+";"+eK+";"+genTime+";"+genSol+";"+genSolIt+";"+genSolTime+";"+preproTime +";"
+				+pop+";"+cross+";"+mut+";"+cK+";"+eK+";"+genTime+";"+genSol+";"+genSolIt+";"+genSolTime+";"+lbAc+";"+cpLb+";"+preproTime +";"
 				+variables+";"+constraints+";"+v0+";"+ppC+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"
 				+onlyOsnrFeasiblePathsC+";"+onlyReachFeasiblePathsC+";"+feasiblePathsL+";"+infeasiblePathsL+";"+onlyOsnrFeasiblePathsL+";"
 				+onlyReachFeasiblePathsL+";"+ads+";"+dcb+";"+llb+";"+nlus+";"+slus+";"+suld+";"+trl+";"+tus+";"+tase;

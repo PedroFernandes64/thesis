@@ -112,6 +112,8 @@ protected:
     double consolidatingSelectedTime;
     double selectionTime;
 
+    int computedLB;
+
 public:
 	/****************************************************************************************/
 	/*										Constructor										*/
@@ -124,6 +126,9 @@ public:
 	/*										Getters 										*/
 	/****************************************************************************************/
     /** Returns the input instance. **/
+
+    void run();
+
     Instance getInstance() const{ return instance; }
 
     /** Returns the vector of demands to be routed. **/
@@ -139,6 +144,8 @@ public:
     double getTimeToBest(){ return timeToBest;}; 
     int getItToBest(){ return itToBest;};
     int getBestSol(){ return currentBest;};
+
+    int getComputedLB(){ return computedLB;};
     
 
 	/****************************************************************************************/
@@ -172,6 +179,9 @@ public:
     std::vector<std::vector<int> > buildMatrixKsol(int k);
     std::vector<std::vector<int> > buildPathNodesByDemand(int k);
     std::vector<int> buildLastSlotByDemand(int k);
+
+    void computeLB();
+
 
 	/****************************************************************************************/
 	/*										Display											*/

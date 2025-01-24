@@ -98,7 +98,7 @@ void SolverCplex::solve(){
             outfile2.open("sols.txt");
             outfile2.close();
         }
-        //cplex.exportModel("nom_do_lp.lp");
+        cplex.exportModel("nom_do_lp.lp");
         //std::ofstream outfile;
         //outfile.open("test.csv");
         //outfile << "UB;LB;nodes;remainingNodes;time"<<std::endl; 
@@ -280,7 +280,7 @@ void SolverCplex::setCplexParams(const Input &input){
     cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 16384);
     //cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 57344);
     cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
-    cplex.setParam(IloCplex::Param::Threads, 4); //CHANGE TO 4
+    cplex.setParam(IloCplex::Param::Threads, 8); //CHANGE TO 4
     cplex.setParam(IloCplex::IntParam::WriteLevel, 1);
 
     if(formulation->getInstance().getInput().isRelaxed()){

@@ -145,6 +145,7 @@ private:
 	int geneticMutation;
 	int geneticChosenK;
 	int geneticExtraK;
+	bool lbActive;
 
 public:
 	/****************************************************************************************/
@@ -239,6 +240,7 @@ public:
 	int geneticAlgorithmMutation() const { return geneticMutation; }
 	int geneticGetChosenK() const { return geneticChosenK; }
 	int geneticGetExtraK() const { return geneticExtraK; }
+	bool activateLB() const { return lbActive; }
 	
 	bool isObj8(int i) const;
 

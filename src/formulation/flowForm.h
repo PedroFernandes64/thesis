@@ -146,6 +146,10 @@ public:
 	/** Defines the Overall Max Used Slice Position constraints. The max used slice position overall must be greater than every other slice position used in the network. **/
 	void setMaxUsedSliceOverallConstraints();
 
+	void setLBConstraints();
+
+	Constraint getLbConstraints();
+
 	/** Returns the strong max reach constraint associated with a demand and a slice. @param demand The demand. @param d The demand index. @param s The slice index.**/
 	Constraint getStrongCDConstraint(const Demand &demand, int d, int s);
 	

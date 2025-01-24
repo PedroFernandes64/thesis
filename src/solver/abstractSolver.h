@@ -108,6 +108,7 @@ public:
     double getTimeToBest(){ return formulation->getTimeToBest();}; 
     int getItToBest(){ return formulation->getItToBest();};
     int getBestSol(){ return formulation->getBestSol();};
+	int getComputedLB(){ return formulation->getComputedLB();}
 
 	/****************************************************************************************/
 	/*											Setters										*/

@@ -96,7 +96,7 @@ void CplexCallback::getRelaxVars(const IloCplex::Callback::Context &context) con
         }
     
         for (IloInt i = 0; i < var.getSize(); ++i) {
-            if ((solution[i]>= EPS)&&(solution[i]< 1 - EPS)){
+            if (solution[i]>= EPS){
                 outfile2 <<  "Variable " << var[i].getName() << ": " << solution[i] << std::endl;
             }
         }

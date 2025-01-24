@@ -111,6 +111,9 @@ void FlowForm::setMaxUsedSlicePerEdgeVariables(){
 void FlowForm::setMaxUsedSliceOverallVariable(){
     std::string varName = "maxSliceOverall";
     int lowerBound = std::max(0,instance.getMaxUsedSlicePosition());
+    if(instance.getInput().activateLB()){
+        lowerBound = getComputedLB();
+    }
     int upperBound = getNbSlicesGlobalLimit();
     if(nbBands>1){  
         upperBound =slicesTotal;
@@ -472,6 +475,12 @@ void FlowForm::setConstraints(){
     if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
         this->setMaxUsedSliceOverallConstraints();  
     }
+    if((chosenObjectives[0] == Input::OBJECTIVE_METRIC_TUS)&&(instance.getInput().activateLB())){
+        this->setLBConstraints();
+    }
+
+
+
     if(nbBands>1){                              // IF OF
         if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
             this->setMultibandConstraints();
@@ -976,6 +985,31 @@ void FlowForm::setMaxUsedSliceOverallConstraints(){
         constraintSet.push_back(maxUsedSliceOverallConst);
     }
     std::cout << "Max Used Slice Overall constraints have been defined..." << std::endl;
+}
+
+/* Defines the Overall Max Used Slice Position constraints. */
+void FlowForm::setLBConstraints(){
+    Constraint lbConst = getLbConstraints();
+    constraintSet.push_back(lbConst);
+    std::cout << "LB constraints have been defined..." << std::endl;
+}
+
+Constraint FlowForm::getLbConstraints(){
+    Expression exp;
+    int upperBound = instance.getNbEdges()*getNbSlicesGlobalLimit();
+    int lowerBound = getComputedLB();
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+            int arc = getArcIndex(a, d);
+            double coeff = getCoeffObjTUS(a, d);
+            Term term(x[d][arc], coeff);
+            exp.addTerm2(term);
+        }
+    }
+    std::ostringstream constraintName;
+    constraintName << "LB_" ;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
 }
 
 /* When we use it in the lagrangian, we multiply the constraint by -1 so it will be >= and it will be 

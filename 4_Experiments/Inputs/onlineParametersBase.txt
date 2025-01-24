@@ -25,6 +25,7 @@ Genetic_crossing=100
 Genetic_mutation=100
 Genetic_chosenK=3
 Genetic_extraK=3
+ActivateLB=0
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000

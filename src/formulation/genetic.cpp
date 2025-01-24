@@ -289,8 +289,8 @@ void Routing::display(){
 	}    
 	std::cout<< "metric "<< metricVal <<std::endl ;
 }
-/* Constructor. A graph associated to the initial mapping (instance) is built as well as an extended graph for each demand to be routed. */
-Genetic::Genetic(const Instance &inst) : instance(inst){
+
+void Genetic::run(){
 	std::cout<<"Genetic metric: "<< instance.getInput().geneticAlgorithmMetric()<<std::endl;
 	std::cout<<"Genetic iterations: "<< instance.getInput().geneticAlgorithmIterations()<<std::endl;
 	std::cout<<"Genetic population "<< instance.getInput().geneticAlgorithmPopulation()<<std::endl;
@@ -298,14 +298,6 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 	std::cout<<"Genetic mutation tax "<< instance.getInput().geneticAlgorithmMutation()<<std::endl;
 	std::cout<<"Genetic chosenK "<< instance.getInput().geneticGetChosenK()<<std::endl;
 	std::cout<<"Genetic extraK "<<  instance.getInput().geneticGetExtraK()<<std::endl;
-
-	
-	this->setToBeRouted(instance.getNextDemands());
-	setLoadVector();
-    //displayToBeRouted();
-	chosenK = instance.getInput().geneticGetChosenK();
-	extraK = instance.getInput().geneticGetExtraK();
-	metric = instance.getInput().geneticAlgorithmMetric();
 	coloringTime =0.0;
 	initialPopTime = 0.0;
 	crossingTime = 0.0;
@@ -365,6 +357,15 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 	std::cout<<"Others "<< heuristicTime-kShortestTime-initialPopTime-crossingTime-mutationTime-consolidatingSelectedTime-selectionTime-coloringTime<<std::endl;
 }
 
+Genetic::Genetic(const Instance &inst) : instance(inst){
+	this->setToBeRouted(instance.getNextDemands());
+	setLoadVector();
+    //displayToBeRouted();
+	chosenK = instance.getInput().geneticGetChosenK();
+	extraK = instance.getInput().geneticGetExtraK();
+	metric = instance.getInput().geneticAlgorithmMetric();
+	}
+
 std::vector<std::vector<int>> Genetic::buildMatrixKsol(int k){
 	for (int i = 0; i < instance.getTabEdge().size(); ++i){	
 		std::vector<int> thisEdgeSlots;
@@ -394,7 +395,7 @@ std::vector<std::vector<int>> Genetic::buildMatrixKsol(int k){
 	/*
 	for (int i = 0; i < edgeSlotMap.size(); ++i){	
 		std::vector<int> thisEdgeSlots;
-		//std::cout << i + 1 << '| ';
+		//std::cout << i + 1 <<  "|  ";
 		for (int j = 0; j < edgeSlotMap[i].size(); ++j){	
 			std::cout << edgeSlotMap[i][j] << " ";
 		}
@@ -1524,6 +1525,64 @@ std::vector<int> Genetic::dijkstra(std::vector<std::vector<int> > graph, int src
 	sol.push_back(dest+ 1);
 	
 	return sol;
+}
+
+void Genetic::computeLB()
+{
+	double totalMinimumSlots=0.0;
+	//DJIKISTRA MODULE     	
+    int originDjikistra;
+    int destinationDijikistra;
+
+
+    for (int i = 0; i < toBeRouted.size(); ++i){
+        originDjikistra = toBeRouted[i].getSource();
+        destinationDijikistra = toBeRouted[i].getTarget();
+        //creating adj matrix
+        std::vector<std::vector<int> > adjmatrix;
+        std::vector<int> auxadj;
+        for (int i = 0; i < getInstance().getNbNodes(); ++i){
+            for (int j = 0; j < getInstance().getNbNodes(); ++j){
+                auxadj.push_back(0);
+            }
+            adjmatrix.push_back(auxadj);
+            auxadj.clear();
+        }
+        //filling adj matrix
+        for (int i = 0; i < getInstance().getNbNodes(); ++i){
+            int demandorigin = i;
+            for (int j = 0; j < getInstance().getTabEdge().size(); ++j){
+                int edgeorigin = getInstance().getTabEdge()[j].getSource();
+                int edgedestination = getInstance().getTabEdge()[j].getTarget();
+                //std::cout << "origin "<< edgeorigin<< std::endl;
+                //std::cout << "dest "<< edgedestination<< std::endl;
+                if (edgedestination == demandorigin){
+                    adjmatrix[i][edgeorigin] = 1;
+                }
+                else{
+                    if (edgeorigin == demandorigin){
+                        adjmatrix[i][edgedestination] = 1;
+                    }
+                }
+            }
+        }
+		std::vector<int> djikistraSolution;
+
+		double dist;
+		djikistraSolution = dijkstra(adjmatrix,originDjikistra,destinationDijikistra,dist);
+		totalMinimumSlots = totalMinimumSlots + (djikistraSolution.size()-1)*toBeRouted[i].getLoadC();
+		//std::cout << "demand  " << i <<  " edges  " << djikistraSolution.size() <<  " total s  " <<djikistraSolution.size()*toBeRouted[i].getLoadC();
+		//std::cout << "total  " << totalMinimumSlots << std::endl;
+	}
+	if(metric==1){
+		computedLB = totalMinimumSlots;
+		//std::cout << "LB  " << computedLB << std::endl;
+	}
+	if(metric==2){
+		computedLB = ceil(totalMinimumSlots/instance.getNbEdges());
+		//std::cout << "LB non round  " << totalMinimumSlots/instance.getNbEdges() << std::endl;
+		//std::cout << "LB  " << computedLB << std::endl;
+	}
 }
 
 
