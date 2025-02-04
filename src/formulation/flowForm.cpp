@@ -475,11 +475,8 @@ void FlowForm::setConstraints(){
     if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
         this->setMaxUsedSliceOverallConstraints();  
     }
-    if((chosenObjectives[0] == Input::OBJECTIVE_METRIC_TUS)&&(instance.getInput().activateLB())){
-        this->setLBConstraints();
-    }
 
-
+    setLowerBoundReinforcementsConstraints();
 
     if(nbBands>1){                              // IF OF
         if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
@@ -987,14 +984,27 @@ void FlowForm::setMaxUsedSliceOverallConstraints(){
     std::cout << "Max Used Slice Overall constraints have been defined..." << std::endl;
 }
 
-/* Defines the Overall Max Used Slice Position constraints. */
-void FlowForm::setLBConstraints(){
-    Constraint lbConst = getLbConstraints();
-    constraintSet.push_back(lbConst);
-    std::cout << "LB constraints have been defined..." << std::endl;
+void FlowForm::setLowerBoundReinforcementsConstraints(){
+    const std::vector<Input::ObjectiveMetric> & obj = instance.getInput().getChosenObj();
+    if((obj[0] == Input::OBJECTIVE_METRIC_TUS)&&(instance.getInput().activateLB())){
+        this->setLBTUSConstraints();
+    }
+    if((obj[0] == Input::OBJECTIVE_METRIC_NLUS)&&(instance.getInput().activateLB())){
+        this->setLinkLoadConstraints();
+        this->setMinSliceAtVertexConstraints();
+        this->setMinSliceAtOriginConstraints();
+        this->setMinSliceLeavingEdgeConstraints();
+    }
 }
 
-Constraint FlowForm::getLbConstraints(){
+
+void FlowForm::setLBTUSConstraints(){
+    Constraint lbConst = getLbTUSConstraints();
+    constraintSet.push_back(lbConst);
+    std::cout << "LB TUS constraints have been defined..." << std::endl;
+}
+
+Constraint FlowForm::getLbTUSConstraints(){
     Expression exp;
     int upperBound = instance.getNbEdges()*getNbSlicesGlobalLimit();
     int lowerBound = getComputedLB();
@@ -1003,12 +1013,296 @@ Constraint FlowForm::getLbConstraints(){
             int arc = getArcIndex(a, d);
             double coeff = getCoeffObjTUS(a, d);
             Term term(x[d][arc], coeff);
-            exp.addTerm2(term);
+            exp.addTerm(term);
         }
     }
     std::ostringstream constraintName;
-    constraintName << "LB_" ;
+    constraintName << "LB_TUS_" ;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+void FlowForm::setLinkLoadConstraints(){
+    for (int i = 0; i < instance.getNbEdges(); i++){
+        const Constraint & loadConst = getLinkLoadConstraints(instance.getPhysicalLinkFromIndex(i).getId());
+        constraintSet.push_back(loadConst);
+    }
+    std::cout << "Link Load Constraints for NLUS constraints have been defined..." << std::endl;
+}
+
+
+Constraint FlowForm::getLinkLoadConstraints(int linkLabel){
+	Expression exp;
+    int upperBound = 0;
+    int lowerBound = -getNbSlicesGlobalLimit();
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        int demandLoad = getToBeRouted_k(d).getLoadC();
+        for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[d]),linkLabel); a != INVALID; ++a){       
+            int index = getArcIndex(a, d);
+            Term term(x[d][index], demandLoad);
+            exp.addTerm(term);
+        }
+    }
+    Term term(maxSliceOverall, -1);
+    exp.addTerm(term);
+    std::ostringstream constraintName;
+    constraintName << "Link_Load_" << linkLabel+1;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+void FlowForm::setMinSliceAtVertexConstraints(){ 
+    for (ListGraph::NodeIt v(compactGraph); v != INVALID; ++v){
+        int demands = 0;
+        int nodeLabel = getCompactNodeLabel(v);
+        for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
+            if( (nodeLabel == getToBeRouted_k(d).getSource()) || (nodeLabel == getToBeRouted_k(d).getTarget()) ){
+                demands = demands+1;
+            }
+        }
+        if (demands >0){
+            const Constraint & minSlice = getMinSliceAtVertexConstraint_v(v);
+            constraintSet.push_back(minSlice);
+        }
+    }
+    std::cout << "Min Slice at Vertex constraints have been defined..." << std::endl;
+}
+
+Constraint FlowForm::getMinSliceAtVertexConstraint_v(ListGraph::Node &v){ 
+    int nodeMinLoad = 0;
+    int nodeLabel = getCompactNodeLabel(v);
+    int demands = 0;
+    //std::cout << "looking at node " << nodeLabel+1 <<std::endl;
+    int degree = getDegree(v);
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
+        if( (nodeLabel == getToBeRouted_k(d).getSource()) || (nodeLabel == getToBeRouted_k(d).getTarget()) ){
+            nodeMinLoad = nodeMinLoad + getToBeRouted_k(d).getLoadC();
+            //std::cout << "demand " << d+1  << "start or finish"<<std::endl;
+            demands = demands+1;
+        }
+    }
+    int minSlice = static_cast<int>(std::ceil(static_cast<double>(nodeMinLoad) / degree));
+    std::cout << "minload " << nodeMinLoad << " degree " << degree  << " minslice"<<minSlice<<std::endl;
+    Expression exp;
+    int rhs = demands;
+    int lhs = 1;
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){  
+        for (ListDigraph::NodeIt v2(*vecGraph[d]); v2 != INVALID; ++v2){
+            int label = getNodeLabel(v2, d);
+            //std::cout << "looking if node " << label+1 << " is "<< nodeLabel+1 <<std::endl;
+            if (( nodeLabel == label)&&((nodeLabel == getToBeRouted_k(d).getSource()) || (nodeLabel == getToBeRouted_k(d).getTarget()))){
+                //std::cout << "esse é, add arcos "  <<std::endl;
+                for (ListDigraph::OutArcIt a((*vecGraph[d]), v2); a != INVALID; ++a){
+                    if (getArcSlice(a, d) >= minSlice-1){
+                        int arc = getArcIndex(a, d);
+                        Term term(x[d][arc], 1);
+                        exp.addTerm(term);
+                    }
+                }
+                for (ListDigraph::InArcIt a((*vecGraph[d]), v2); a != INVALID; ++a){
+                        if (getArcSlice(a, d) >= minSlice-1){
+                        int arc = getArcIndex(a, d); 
+                        Term term(x[d][arc], 1);
+                        exp.addTerm(term);
+                    }
+                }
+            }
+        }
+    }
+    std::ostringstream constraintName;
+    //std::cout << "end node " << nodeLabel+1 <<std::endl;
+    if (maxSliceOverall.getLb() < minSlice){      
+        std::cout<<"CHANGE OVERALL LB FROM "<< maxSliceOverall.getLb() <<" TO " << minSlice <<std::endl;
+        maxSliceOverall.setLb( minSlice);
+
+    }  
+    constraintName << "Min_Slice_n" << nodeLabel+1;
+    Constraint constraint(lhs, exp, rhs, constraintName.str());
+    return constraint;
+
+}
+
+void FlowForm::setMinSliceAtOriginConstraints(){ 
+    const Constraint & minSliceO = getMinSliceAtOriginConstraint();
+    constraintSet.push_back(minSliceO);
+    std::cout << "Min Slice at Origin constraints have been defined..." << std::endl;
+}
+
+Constraint FlowForm::getMinSliceAtOriginConstraint(){ 
+    Expression exp;
+    int rhs,rls;
+    rhs = getNbDemandsToBeRouted();
+    rls = 1;
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
+        for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+            if (getToBeRouted_k(d).getSource() == getNodeLabel((*vecGraph[d]).source(a), d)){
+                if (getArcSlice(a, d) >= getComputedLB()-1){
+                    int arc = getArcIndex(a, d);
+                    Term term(x[d][arc], 1);
+                    exp.addTerm(term);
+                }
+            }
+        }
+    }
+
+    std::ostringstream constraintName;
+    constraintName << "MinSliceAtOrigin_" ;
+    Constraint constraint(rls, exp, rhs, constraintName.str());
+    return constraint;
+    
+}
+
+void FlowForm::setMinSliceLeavingEdgeConstraints(){
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        ListGraph::Node u = compactGraph.u(e);
+        ListGraph::Node v = compactGraph.v(e);
+        //std::cout << "node " <<  getCompactNodeLabel(u) << " and "<< getCompactNodeLabel(v) << std::endl;
+        int demands = 0;
+        int uLabel = getCompactNodeLabel(u);
+        int vLabel = getCompactNodeLabel(v);
+        for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+            int dSource = getToBeRouted_k(d).getSource();
+            int dTarget = getToBeRouted_k(d).getTarget();   
+            //std::cout << "looking at demand " << dSource << "-" << dTarget <<std::endl;
+            //std::cout << "at edge " << uLabel << "-" << vLabel <<std::endl;
+            //source is not U, target is not V
+            if( !((dSource == uLabel ) && (dTarget == vLabel)) ){
+                //source is not V, target is not U
+                if( !((dSource == vLabel ) && (dTarget == uLabel)) ){
+                    if ((dSource == uLabel)||(dSource == vLabel)||
+                        (dTarget == uLabel)||(dTarget == vLabel)){  
+                        demands = demands+1;
+                    }
+                }
+                
+            }
+        }
+        if (demands >0){
+            const Constraint & edgeConst = getMinSliceLeavingEdgeConstraint(e);
+            constraintSet.push_back(edgeConst);
+        }
+    }
+    std::cout << "Min Slice leaving edge constraints have been defined..." << std::endl;
+}
+
+Constraint FlowForm::getMinSliceLeavingEdgeConstraint(ListGraph::Edge &e){
+    int edgeMinLoad = 0;
+    ListGraph::Node u = compactGraph.u(e);
+    ListGraph::Node v = compactGraph.v(e);
+    int demands = 0;
+    int uLabel = getCompactNodeLabel(u);
+    int vLabel = getCompactNodeLabel(v);
+    std::vector<int> demandList;
+
+    //std::cout << "looking at node " << nodeLabel+1 <<std::endl;
+    int degree = getDegree(u)+getDegree(v)-2;
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        int dSource = getToBeRouted_k(d).getSource();
+        int dTarget = getToBeRouted_k(d).getTarget();   
+        //std::cout << "looking at demand " << dSource+1 << "-" << dTarget+1  <<std::endl;
+        //std::cout << "at edge " << uLabel+1 << "-" << vLabel+1  <<std::endl;
+        //source is not U, target is not V
+        if( !((dSource == uLabel ) && (dTarget == vLabel)) ){
+            //source is not V, target is not U
+            if( !((dSource == vLabel ) && (dTarget == uLabel)) ){
+                if ((dSource == uLabel)||(dSource == vLabel)||
+                    (dTarget == uLabel)||(dTarget == vLabel)){  
+                    demands = demands+1;
+                    edgeMinLoad = edgeMinLoad + getToBeRouted_k(d).getLoadC();
+                    //std::cout << "demand " << d+1  << "start or finish"<<std::endl;
+                    demandList.push_back(d);
+                }
+            }
+            
+        }
+    }
+    int minSlice = static_cast<int>(std::ceil(static_cast<double>(edgeMinLoad) / degree));
+    /*std::cout << "at edge " << uLabel+1 << "-" << vLabel+1  <<std::endl;
+    for (int d = 0; d < demandList.size(); d++){ 
+        std::cout << demandList[d]+1 << "-";
+    }
+    std::cout <<std::endl;*/
+    std::cout << "minload " << edgeMinLoad << " degree " << degree  << " minslice "<<minSlice<<std::endl;
+    
+    
+    Expression exp;
+    int rhs = demands;
+    int lhs = 1;
+    for (int d = 0; d < demandList.size(); d++){  
+        int demand = demandList[d];
+        //std::cout << "DEMAND " << demand+1 << " " << getToBeRouted_k(demand).getSource()+1<< "-"<< getToBeRouted_k(demand).getTarget()+1<< std::endl;
+        for (ListDigraph::NodeIt v2(*vecGraph[demand]); v2 != INVALID; ++v2){
+            int label = getNodeLabel(v2, demand);
+            //std::cout << "looking if node " << label+1 << " is "<< uLabel+1 <<std::endl;
+            if ( uLabel == label){
+                //std::cout << "esse é, add arcos "  <<std::endl;
+                for (ListDigraph::OutArcIt a((*vecGraph[demand]), v2); a != INVALID; ++a){
+                    if ((getArcSlice(a, demand) >= minSlice-1)&&(getNodeLabel((*vecGraph[demand]).target(a), demand)!=vLabel)){
+                        int arc = getArcIndex(a,demand);
+                        Term term(x[demand][arc], 1);
+                        exp.addTerm(term);
+                        //std::cout<< "MUST ACCEPT"<< getNodeLabel((*vecGraph[demand]).source(a), demand)+1<<"-"<< getNodeLabel((*vecGraph[demand]).target(a), demand)+1<<std::endl;
+                    }
+                    else{
+                        if(getNodeLabel((*vecGraph[demand]).target(a), demand)==vLabel){
+                            //std::cout<< "MUST REFUSE"<< getNodeLabel((*vecGraph[demand]).source(a), demand)+1<<"-"<< getNodeLabel((*vecGraph[demand]).target(a), demand)+1<<std::endl;
+                        }
+                    }
+                }
+                for (ListDigraph::InArcIt a((*vecGraph[demand]), v2); a != INVALID; ++a){
+                    if ((getArcSlice(a, demand) >= minSlice-1)&&(getNodeLabel((*vecGraph[demand]).source(a), demand)!=vLabel)){
+                        int arc = getArcIndex(a,demand);
+                        Term term(x[demand][arc], 1);
+                        exp.addTerm(term);
+                        //std::cout<< "MUST ACCEPT"<< getNodeLabel((*vecGraph[demand]).source(a), demand)+1<<"-"<< getNodeLabel((*vecGraph[demand]).target(a), demand)+1<<std::endl;
+                    }
+                    else{
+                        if(getNodeLabel((*vecGraph[demand]).source(a), demand)==vLabel){
+                            //std::cout<< "MUST REFUSE"<< getNodeLabel((*vecGraph[demand]).source(a), demand)+1<<"-"<< getNodeLabel((*vecGraph[demand]).target(a), demand)+1<<std::endl;
+                        }
+                    }
+                }
+            }
+            //std::cout << "looking if node " << label+1 << " is "<< vLabel+1 <<std::endl;
+            if ( vLabel == label){
+                //std::cout << "esse é, add arcos "  <<std::endl;
+                for (ListDigraph::OutArcIt a((*vecGraph[demand]), v2); a != INVALID; ++a){
+                    if ((getArcSlice(a, demand) >= minSlice-1)&&(getNodeLabel((*vecGraph[demand]).target(a), demand)!=uLabel)){
+                        int arc = getArcIndex(a,demand);
+                        Term term(x[demand][arc], 1);
+                        exp.addTerm(term);
+                        //std::cout<< "MUST ACCEPT"<< getNodeLabel((*vecGraph[demand]).source(a), demand)+1<<"-"<< getNodeLabel((*vecGraph[demand]).target(a), demand)+1<<std::endl;
+                    }
+                    else{
+                        if(getNodeLabel((*vecGraph[demand]).target(a), demand)==uLabel){
+                            //std::cout<< "MUST REFUSE"<< getNodeLabel((*vecGraph[demand]).source(a), demand)+1<<"-"<< getNodeLabel((*vecGraph[demand]).target(a), demand)+1<<std::endl;
+                        }
+                    }
+                }
+                for (ListDigraph::InArcIt a((*vecGraph[demand]), v2); a != INVALID; ++a){
+                    if ((getArcSlice(a, demand) >= minSlice-1)&&(getNodeLabel((*vecGraph[demand]).source(a), demand)!=uLabel)){
+                        int arc = getArcIndex(a,demand);
+                        Term term(x[demand][arc], 1);
+                        exp.addTerm(term);
+                        //std::cout<< "MUST ACCEPT"<< getNodeLabel((*vecGraph[demand]).source(a), demand)+1<<"-"<< getNodeLabel((*vecGraph[demand]).target(a), demand)+1<<std::endl;
+                    }
+                    else{
+                        if(getNodeLabel((*vecGraph[demand]).source(a), demand)==uLabel){
+                            //std::cout<< "MUST REFUSE"<< getNodeLabel((*vecGraph[demand]).source(a), demand)+1<<"-"<< getNodeLabel((*vecGraph[demand]).target(a), demand)+1<<std::endl;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (maxSliceOverall.getLb() < minSlice){      
+        std::cout<<"CHANGE OVERALL LB FROM "<< maxSliceOverall.getLb() <<" TO " << minSlice <<std::endl;
+        maxSliceOverall.setLb( minSlice);
+
+    }  
+    std::ostringstream constraintName;
+    constraintName << "MinSliceLeavingEdge_"<< uLabel+1<< "_"<< vLabel+1;
+    Constraint constraint(lhs, exp, rhs, constraintName.str());
     return constraint;
 }
 

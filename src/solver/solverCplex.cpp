@@ -98,7 +98,7 @@ void SolverCplex::solve(){
             outfile2.open("sols.txt");
             outfile2.close();
         }
-        cplex.exportModel("nom_do_lp.lp");
+        //cplex.exportModel("nom_do_lp.lp");
         //std::ofstream outfile;
         //outfile.open("test.csv");
         //outfile << "UB;LB;nodes;remainingNodes;time"<<std::endl; 

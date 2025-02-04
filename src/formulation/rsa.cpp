@@ -160,8 +160,12 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     }
 
     if(instance.getInput().activateLB()){
+        bool prep = false;
+        if (getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_PARTIAL){
+            prep = true;
+        }
         Genetic genetic(instance);
-        genetic.computeLB();
+        genetic.computeLB(preProcessingErasedArcs,prep);
         computedLB =  genetic.getComputedLB();
         //
         std::cout << "Computed LB  " << computedLB << std::endl;

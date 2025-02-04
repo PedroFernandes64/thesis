@@ -1036,7 +1036,10 @@ void Genetic::GenerateShortestRoutes2(){
 		*/
 		sortPrePath sorter;
 		std::sort(qualifiedForThisDemand.begin(),qualifiedForThisDemand.end(),sorter);
-		/*
+		
+		std::cout << "demand " <<i+1 << std::endl;
+
+		
 		for (int i = 0; i <qualifiedForThisDemand.size(); ++i){
 			for (int j = 0; j <qualifiedForThisDemand[i].links.size(); ++j){
 				std::cout << qualifiedForThisDemand[i].links[j].getSource()+1 << "-" << qualifiedForThisDemand[i].links[j].getTarget()+1 << "|" ;
@@ -1045,9 +1048,11 @@ void Genetic::GenerateShortestRoutes2(){
 			std::cout <<  " noise " << qualifiedForThisDemand[i].noise << "|" ;
 			std::cout <<  " nb edges " << qualifiedForThisDemand[i].nbEdges << "|"<<std::endl;
 		}
-		*/
+	
 		std::vector<std::vector<Fiber> > kcandidates;
 		int limit = chosenK+extraK;
+
+		
 		if(qualifiedForThisDemand.size()<limit){
 			limit = qualifiedForThisDemand.size();
 		}
@@ -1527,13 +1532,17 @@ std::vector<int> Genetic::dijkstra(std::vector<std::vector<int> > graph, int src
 	return sol;
 }
 
-void Genetic::computeLB()
+void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessingErasedArcs,bool prepro)
 {
 	double totalMinimumSlots=0.0;
 	//DJIKISTRA MODULE     	
     int originDjikistra;
     int destinationDijikistra;
-
+	int thisDemandMinimumSlots = 0;
+	int nbEdges = getInstance().getTabEdge().size();
+	
+	std::vector<double> linkCharge(nbEdges, 0.0);
+	
 
     for (int i = 0; i < toBeRouted.size(); ++i){
         originDjikistra = toBeRouted[i].getSource();
@@ -1570,10 +1579,53 @@ void Genetic::computeLB()
 
 		double dist;
 		djikistraSolution = dijkstra(adjmatrix,originDjikistra,destinationDijikistra,dist);
-		totalMinimumSlots = totalMinimumSlots + (djikistraSolution.size()-1)*toBeRouted[i].getLoadC();
-		//std::cout << "demand  " << i <<  " edges  " << djikistraSolution.size() <<  " total s  " <<djikistraSolution.size()*toBeRouted[i].getLoadC();
-		//std::cout << "total  " << totalMinimumSlots << std::endl;
+		thisDemandMinimumSlots = (djikistraSolution.size()-1)*toBeRouted[i].getLoadC();
+		totalMinimumSlots = totalMinimumSlots + thisDemandMinimumSlots;
+		std::cout << "Demand  " << i +1 <<  " used at least " << djikistraSolution.size()-1 <<  " edges so total s " <<thisDemandMinimumSlots<<std::endl;
+		std::cout << "total  " << totalMinimumSlots << std::endl;
+		/*if (prepro == true){
+			std::vector<int> thisDemandEdges(nbEdges, 1);
+			std::cout << "Normally this demand could use these links " <<std::endl;
+			for (int a = 0; a < thisDemandEdges.size(); ++a){ 
+				std::cout<< thisDemandEdges[a] << " ";
+			}
+			int forbiddenLinks = 0;
+			for (int edge = 0; edge < nbEdges; ++edge){ 
+				if ((preProcessingErasedArcs[i][edge][0] == 1) && (preProcessingErasedArcs[i][edge + nbEdges][0] == 1)){
+					thisDemandEdges[edge] = 0;
+					forbiddenLinks = forbiddenLinks+ 1;
+				}
+			}
+			std::cout << "but prepro says  " <<std::endl;
+			for (int a = 0; a < thisDemandEdges.size(); ++a){ 
+				std::cout<< thisDemandEdges[a] << " ";
+			}
+
+			int divideOverXLinks = getInstance().getTabEdge().size()-forbiddenLinks;
+			std::cout << "So to distribute "<< thisDemandMinimumSlots<<  "over " << divideOverXLinks << std::endl;
+			double slotsToDistribute = static_cast<double>(thisDemandMinimumSlots) / divideOverXLinks;
+			std::cout << "Results in these slots for each " << slotsToDistribute << std::endl;
+			std::cout << "Link charge for the moment " << slotsToDistribute << std::endl;
+			for (int a = 0; a < getInstance().getTabEdge().size(); ++a){
+				if (thisDemandEdges[a] ==1 ){
+					linkCharge[a] = linkCharge[a] + slotsToDistribute;
+				}
+				
+			}
+			for (int a = 0; a < getInstance().getTabEdge().size(); ++a){ 
+				std::cout<< linkCharge[a] << " ";
+			}
+			std::cout << std::endl<< std::endl;
+		}*/
+
 	}
+	/*
+	double maxLinkCharge =0;
+	if (prepro == true){
+    	maxLinkCharge = *std::max_element(linkCharge.begin(), linkCharge.end());
+	}*/
+
+
 	if(metric==1){
 		computedLB = totalMinimumSlots;
 		//std::cout << "LB  " << computedLB << std::endl;
@@ -1581,7 +1633,8 @@ void Genetic::computeLB()
 	if(metric==2){
 		computedLB = ceil(totalMinimumSlots/instance.getNbEdges());
 		//std::cout << "LB non round  " << totalMinimumSlots/instance.getNbEdges() << std::endl;
-		//std::cout << "LB  " << computedLB << std::endl;
+		std::cout << "LB dividing charge by all links  " << computedLB << std::endl;
+		//std::cout << "LB dividing charge by preprocessed links  " << ceil(maxLinkCharge) << std::endl;
 	}
 }
 

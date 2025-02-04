@@ -180,7 +180,7 @@ public:
     std::vector<std::vector<int> > buildPathNodesByDemand(int k);
     std::vector<int> buildLastSlotByDemand(int k);
 
-    void computeLB();
+    void computeLB(std::vector<std::vector<std::vector<int> > > preProcessingErasedArcs, bool prepro);
 
 
 	/****************************************************************************************/
