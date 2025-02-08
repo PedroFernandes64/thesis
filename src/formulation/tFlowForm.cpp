@@ -30,6 +30,10 @@ TFlowForm::TFlowForm(const Instance &instance) : AbstractFormulation(instance){
     time.setStart(ClockTime::getTimeNow());
     this->setObjectives();
     objImpleTime = time.getTimeInSecFromStart() ;
+    if (instance.getInput().activateGeneticAlgorithm()){
+        this->setWarmValues();
+    }
+
     std::cout << "--- T-flow formulation has been defined ---" << std::endl;
     totalImpleTime = time2.getTimeInSecFromStart() ;
 }
@@ -433,6 +437,87 @@ void TFlowForm::setVariableValues(const std::vector<double> &vals){
         */
     }
 }
+
+void TFlowForm::setWarmValues(){
+    std::cout << "Setting warmstart solution " << std::endl;
+    int nbEdges = countEdges(compactGraph);
+    
+    // Variables f[k][a] OK
+    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+        for (int node = 0; node < feasibleSolutionNodesByDemand[k].size()-1; node++){
+            int origin = feasibleSolutionNodesByDemand[k][node];
+            int destination = feasibleSolutionNodesByDemand[k][node+1];
+            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                int uId = getCompactNodeLabel(compactGraph.u(e)) + 1;
+                int vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
+                int edge = getCompactEdgeLabel(e);
+                if((origin==uId)&&(destination==vId)){
+                    std::cout<<"f(" << k+1<<","<< uId<<","<< vId <<")"<<std::endl;
+                    x[edge][k].setWarmstartValue(1.0);
+                }
+                if((destination==uId)&&(origin==vId)){
+                    std::cout<<"f(" << k+1<<","<< vId<<","<< uId <<")"<<std::endl;
+                    x[edge + nbEdges][k].setWarmstartValue(1.0);
+                }
+            }
+        }
+    }
+
+    // Variables y[s][d] OK
+    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+        int lastSlot = feasibleSolutionLastSlotDemand[k];
+        std::cout<<"c(" << k+1<<","<< lastSlot <<")"<<std::endl;             
+        y[lastSlot-1][k].setWarmstartValue(1.0);
+    }
+    /*
+    // Variables z[a][b]
+    if(NonOverlappingType == 2){
+        for (int a = 0; a < getNbDemandsToBeRouted(); a++){
+            for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
+                int pos = z[a][b].getId();
+                double newValue = vals[pos];
+                z[a][b].setVal(newValue);
+            }
+        }
+    }
+    */
+   // Variables hybrid f[k][a][s] OK
+    if(NonOverlappingType == 3){
+        for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+            int lastSlot = feasibleSolutionLastSlotDemand[k];
+            for (int node = 0; node < feasibleSolutionNodesByDemand[k].size()-1; node++){
+                int origin = feasibleSolutionNodesByDemand[k][node];
+                int destination = feasibleSolutionNodesByDemand[k][node+1];
+                for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                    int uId = getCompactNodeLabel(compactGraph.u(e)) + 1;
+                    int vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
+                    int edge = getCompactEdgeLabel(e);
+                    if(((origin==uId)&&(destination==vId))||((destination==uId)&&(origin==vId))){
+                        for (int w = 0; w < getToBeRouted_k(k).getLoadC(); w++){
+                            std::cout<<"h(" << k+1<<","<< uId<<","<< vId<<","<< lastSlot-w <<")"<<std::endl;
+                            h[edge][k][lastSlot-1-w].setWarmstartValue(1.0);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Variables p OK
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+        int max = 1;
+        for (int i = 0; i < feasibleSolutionLastSlotDemand.size(); i++){
+            if(feasibleSolutionLastSlotDemand[i]>max){
+                max=feasibleSolutionLastSlotDemand[i];
+            }
+        }
+        std::cout<<"p = " << max<<std::endl;                
+        maxSliceOverall.setWarmstartValue(max);
+    }    
+}
+
+
 
 /****************************************************************************************/
 /*									Objective Function    								*/

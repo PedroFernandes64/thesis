@@ -46,8 +46,6 @@ public:
 
 	void printVariables();
 
-	void setWarmValues() override{};
-
 	/** Puts all variables into a single array of variables and returns it. @note The position of a variable in the array is given by its id. **/
 	VarArray getVariables() override; 
 
@@ -82,7 +80,8 @@ public:
     /** Changes the variable values. @param value The vector of values. **/
 	void setVariableValues(const std::vector<double> &value) override; 
 
-	
+	void setWarmValues() override;
+
 	/****************************************************************************************/
 	/*										Constraints										*/
 	/****************************************************************************************/
