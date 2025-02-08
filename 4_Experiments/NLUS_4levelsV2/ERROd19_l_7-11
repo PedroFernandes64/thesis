@@ -1,0 +1,2399 @@
+PARAMETER FILE: parametersSet/batch_1/oP_L1.5x_Tran_iEuropean_18_40_d20_ofNLUS_f0_cd1_os1_gn0_b1_r0_cu0_p2_g1_it50_p500_c100_m100_cK5_eK5_lb1.txt
+Getting input file paths...
+Getting topology file...
+... Instances/1.5x/random/European_18_40/Links/20_demands/Link.csv
+WARNING: Field 'initialMappingDemandFile=' is empty.
+WARNING: Field 'initialMappingAssignmentFile=' is empty.
+QoT parameters...
+Getting Thesis Pedro parameters...
+Getting formulation parameters...
+Getting optimization parameters...
+Getting execution parameters...
+Populating online demand files...
+Finish reading input.
+TOPOLOGY FILE: Instances/1.5x/random/European_18_40/Links/20_demands/Link.csv
+ROUTED DEMANDS FILE: 
+INITIAL ASSIGNMENT FILE: 
+All information from input is consistent.
+> Number of online demand files: 1
+--- READING INSTANCE... --- 
+--- CREATING INITIAL MAPPING... --- 
+Reading Instances/1.5x/random/European_18_40/Links/20_demands/Link.csv.
+Creating edge #1. 1 -- 5. nb slices in C band: 30, nb slices in L band: 0, length: 523, amplis: 7, noiseC: 1.77635e-06, noiseL: 0, noiseS: 0
+Creating edge #2. 1 -- 14. nb slices in C band: 30, nb slices in L band: 0, length: 1282, amplis: 17, noiseC: 3.67775e-06, noiseL: 0, noiseS: 0
+Creating edge #3. 1 -- 15. nb slices in C band: 30, nb slices in L band: 0, length: 592, amplis: 8, noiseC: 1.91622e-06, noiseL: 0, noiseS: 0
+Creating edge #4. 1 -- 17. nb slices in C band: 30, nb slices in L band: 0, length: 264, amplis: 4, noiseC: 1.02016e-06, noiseL: 0, noiseS: 0
+Creating edge #5. 1 -- 18. nb slices in C band: 30, nb slices in L band: 0, length: 257, amplis: 4, noiseC: 9.8658e-07, noiseL: 0, noiseS: 0
+Creating edge #6. 2 -- 4. nb slices in C band: 30, nb slices in L band: 0, length: 264, amplis: 4, noiseC: 1.02016e-06, noiseL: 0, noiseS: 0
+Creating edge #7. 2 -- 5. nb slices in C band: 30, nb slices in L band: 0, length: 649, amplis: 9, noiseC: 1.97613e-06, noiseL: 0, noiseS: 0
+Creating edge #8. 2 -- 9. nb slices in C band: 30, nb slices in L band: 0, length: 187, amplis: 3, noiseC: 8.41345e-07, noiseL: 0, noiseS: 0
+Creating edge #9. 2 -- 10. nb slices in C band: 30, nb slices in L band: 0, length: 173, amplis: 3, noiseC: 7.87527e-07, noiseL: 0, noiseS: 0
+Creating edge #10. 2 -- 16. nb slices in C band: 30, nb slices in L band: 0, length: 320, amplis: 4, noiseC: 1.40845e-06, noiseL: 0, noiseS: 0
+Creating edge #11. 3 -- 5. nb slices in C band: 30, nb slices in L band: 0, length: 356, amplis: 5, noiseC: 1.29416e-06, noiseL: 0, noiseS: 0
+Creating edge #12. 3 -- 6. nb slices in C band: 30, nb slices in L band: 0, length: 520, amplis: 7, noiseC: 1.75447e-06, noiseL: 0, noiseS: 0
+Creating edge #13. 3 -- 11. nb slices in C band: 30, nb slices in L band: 0, length: 482, amplis: 7, noiseC: 1.51099e-06, noiseL: 0, noiseS: 0
+Creating edge #14. 3 -- 18. nb slices in C band: 30, nb slices in L band: 0, length: 634, amplis: 8, noiseC: 2.25423e-06, noiseL: 0, noiseS: 0
+Creating edge #15. 4 -- 7. nb slices in C band: 30, nb slices in L band: 0, length: 778, amplis: 10, noiseC: 2.564e-06, noiseL: 0, noiseS: 0
+Creating edge #16. 4 -- 9. nb slices in C band: 30, nb slices in L band: 0, length: 288, amplis: 4, noiseC: 1.1573e-06, noiseL: 0, noiseS: 0
+Creating edge #17. 4 -- 12. nb slices in C band: 30, nb slices in L band: 0, length: 1452, amplis: 19, noiseC: 4.19984e-06, noiseL: 0, noiseS: 0
+Creating edge #18. 4 -- 13. nb slices in C band: 30, nb slices in L band: 0, length: 1051, amplis: 14, noiseC: 3.08236e-06, noiseL: 0, noiseS: 0
+Creating edge #19. 4 -- 15. nb slices in C band: 30, nb slices in L band: 0, length: 790, amplis: 10, noiseC: 2.66844e-06, noiseL: 0, noiseS: 0
+Creating edge #20. 4 -- 16. nb slices in C band: 30, nb slices in L band: 0, length: 342, amplis: 5, noiseC: 1.21146e-06, noiseL: 0, noiseS: 0
+Creating edge #21. 5 -- 9. nb slices in C band: 30, nb slices in L band: 0, length: 601, amplis: 8, noiseC: 1.98204e-06, noiseL: 0, noiseS: 0
+Creating edge #22. 5 -- 10. nb slices in C band: 30, nb slices in L band: 0, length: 574, amplis: 8, noiseC: 1.79418e-06, noiseL: 0, noiseS: 0
+Creating edge #23. 5 -- 18. nb slices in C band: 30, nb slices in L band: 0, length: 279, amplis: 4, noiseC: 1.10152e-06, noiseL: 0, noiseS: 0
+Creating edge #24. 6 -- 11. nb slices in C band: 30, nb slices in L band: 0, length: 417, amplis: 6, noiseC: 1.38977e-06, noiseL: 0, noiseS: 0
+Creating edge #25. 7 -- 11. nb slices in C band: 30, nb slices in L band: 0, length: 1264, amplis: 16, noiseC: 3.96503e-06, noiseL: 0, noiseS: 0
+Creating edge #26. 7 -- 16. nb slices in C band: 30, nb slices in L band: 0, length: 463, amplis: 6, noiseC: 1.70967e-06, noiseL: 0, noiseS: 0
+Creating edge #27. 8 -- 12. nb slices in C band: 30, nb slices in L band: 0, length: 1683, amplis: 22, noiseC: 4.79668e-06, noiseL: 0, noiseS: 0
+Creating edge #28. 8 -- 13. nb slices in C band: 30, nb slices in L band: 0, length: 1188, amplis: 15, noiseC: 3.77588e-06, noiseL: 0, noiseS: 0
+Creating edge #29. 8 -- 14. nb slices in C band: 30, nb slices in L band: 0, length: 1461, amplis: 19, noiseC: 4.2722e-06, noiseL: 0, noiseS: 0
+Creating edge #30. 8 -- 17. nb slices in C band: 30, nb slices in L band: 0, length: 527, amplis: 7, noiseC: 1.80619e-06, noiseL: 0, noiseS: 0
+Creating edge #31. 9 -- 10. nb slices in C band: 30, nb slices in L band: 0, length: 320, amplis: 4, noiseC: 1.40845e-06, noiseL: 0, noiseS: 0
+Creating edge #32. 9 -- 15. nb slices in C band: 30, nb slices in L band: 0, length: 304, amplis: 4, noiseC: 1.27153e-06, noiseL: 0, noiseS: 0
+Creating edge #33. 10 -- 16. nb slices in C band: 30, nb slices in L band: 0, length: 357, amplis: 5, noiseC: 1.30047e-06, noiseL: 0, noiseS: 0
+Creating edge #34. 11 -- 16. nb slices in C band: 30, nb slices in L band: 0, length: 1153, amplis: 15, noiseC: 3.4762e-06, noiseL: 0, noiseS: 0
+Creating edge #35. 12 -- 13. nb slices in C band: 30, nb slices in L band: 0, length: 502, amplis: 7, noiseC: 1.63173e-06, noiseL: 0, noiseS: 0
+Creating edge #36. 13 -- 15. nb slices in C band: 30, nb slices in L band: 0, length: 1246, amplis: 16, noiseC: 3.80811e-06, noiseL: 0, noiseS: 0
+Creating edge #37. 14 -- 17. nb slices in C band: 30, nb slices in L band: 0, length: 1083, amplis: 14, noiseC: 3.33465e-06, noiseL: 0, noiseS: 0
+Creating edge #38. 14 -- 18. nb slices in C band: 30, nb slices in L band: 0, length: 1535, amplis: 20, noiseC: 4.4469e-06, noiseL: 0, noiseS: 0
+Creating edge #39. 15 -- 17. nb slices in C band: 30, nb slices in L band: 0, length: 591, amplis: 8, noiseC: 1.90911e-06, noiseL: 0, noiseS: 0
+Creating edge #40. 8 -- 15. nb slices in C band: 30, nb slices in L band: 0, length: 217, amplis: 3, noiseC: 1.0014e-06, noiseL: 0, noiseS: 0
+Starting with an empty initial mapping. 
+Number of bands : 1
+0 are present in the initial mapping.
+--- READING NEW DEMANDS TO BE ROUTED... --- 
+Reading Instances/1.5x/random/European_18_40/Demands/20_demands/demands_1.csv ...
+
+--- The Non Routed Demands ---
+#1. 16 -- 15. nbSlices C: 4, maxCD C: 20000, osnrLimit C: 16, pchC: 0.0005, transpIdC: 3. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#2. 13 -- 9. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#3. 18 -- 11. nbSlices C: 4, maxCD C: 20000, osnrLimit C: 16, pchC: 0.0005, transpIdC: 3. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#4. 2 -- 12. nbSlices C: 6, maxCD C: 50000, osnrLimit C: 16, pchC: 0.00075, transpIdC: 5. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#5. 10 -- 1. nbSlices C: 4, maxCD C: 20000, osnrLimit C: 16, pchC: 0.0005, transpIdC: 3. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#6. 12 -- 16. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#7. 13 -- 6. nbSlices C: 3, maxCD C: 100000, osnrLimit C: 13, pchC: 0.000375, transpIdC: 2. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 100, ROUTED: NO
+#8. 17 -- 14. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#9. 12 -- 8. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#10. 6 -- 8. nbSlices C: 3, maxCD C: 40000, osnrLimit C: 15, pchC: 0.000375, transpIdC: 1. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 100, ROUTED: NO
+#11. 18 -- 11. nbSlices C: 4, maxCD C: 20000, osnrLimit C: 16, pchC: 0.0005, transpIdC: 3. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#12. 1 -- 6. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#13. 17 -- 1. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#14. 16 -- 9. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#15. 1 -- 16. nbSlices C: 6, maxCD C: 50000, osnrLimit C: 16, pchC: 0.00075, transpIdC: 5. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#16. 12 -- 10. nbSlices C: 3, maxCD C: 40000, osnrLimit C: 15, pchC: 0.000375, transpIdC: 1. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 100, ROUTED: NO
+#17. 6 -- 16. nbSlices C: 6, maxCD C: 50000, osnrLimit C: 16, pchC: 0.00075, transpIdC: 5. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#18. 11 -- 7. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#19. 7 -- 3. nbSlices C: 3, maxCD C: 40000, osnrLimit C: 15, pchC: 0.000375, transpIdC: 1. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 100, ROUTED: NO
+#20. 16 -- 14. nbSlices C: 3, maxCD C: 100000, osnrLimit C: 13, pchC: 0.000375, transpIdC: 2. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 100, ROUTED: NO
+
+20 demands to be routed.
+> Non routable arcs: 10315
+> Variables set to 0: 10315
+Heuristic
+Genetic metric: 2
+Genetic iterations: 50
+Genetic population 500
+Genetic crossing tax 100
+Genetic mutation tax 100
+Genetic chosenK 5
+Genetic extraK 5
+GENERATING SHORTEST ROUTES
+BUILDING INITIAL POP
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 491
+ADDING CROSSED: 481
+ADDING MUTANTS: 485
+TOTAL POP : 1457
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 957
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 1
+First place: 13
+Last place: 21
+UPDATE BEST SOL
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 499
+ADDING MUTANTS: 500
+TOTAL POP : 1499
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 999
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 2
+First place: 13
+Last place: 19
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 3
+First place: 12
+Last place: 18
+UPDATE BEST SOL
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 4
+First place: 12
+Last place: 17
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 5
+First place: 12
+Last place: 16
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 6
+First place: 12
+Last place: 15
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 7
+First place: 12
+Last place: 15
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 8
+First place: 12
+Last place: 15
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 9
+First place: 12
+Last place: 15
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 10
+First place: 11
+Last place: 15
+UPDATE BEST SOL
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 11
+First place: 11
+Last place: 15
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 12
+First place: 11
+Last place: 15
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 13
+First place: 11
+Last place: 14
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 14
+First place: 11
+Last place: 13
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 15
+First place: 11
+Last place: 13
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 16
+First place: 11
+Last place: 13
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 17
+First place: 11
+Last place: 13
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 18
+First place: 11
+Last place: 13
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 19
+First place: 11
+Last place: 13
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 20
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 21
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 22
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 23
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 24
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 25
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 26
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 27
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 28
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 29
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 30
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 31
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 32
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 33
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 34
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 35
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 36
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 37
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 38
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 39
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 40
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 41
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 42
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 43
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 44
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 45
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 46
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 47
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 48
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 49
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 50
+First place: 11
+Last place: 11
+Best SOL: 11
+Found at it: 10 after 9.77051
+Total time: 17.6658
+K-shortest: 7.81829
+Generating initial 0.0300048
+Crossing 1.6719
+Mutation 1.66917
+Consolidating 3.62932
+Sorting 0.0019271
+Coloring 1.97682
+Others 0.868331
+Demand 1 s: 4
+Demand 2 s: 10
+Demand 3 s: 7
+Demand 4 s: 10
+Demand 5 s: 10
+Demand 6 s: 10
+Demand 7 s: 3
+Demand 8 s: 6
+Demand 9 s: 6
+Demand 10 s: 3
+Demand 11 s: 11
+Demand 12 s: 9
+Demand 13 s: 6
+Demand 14 s: 9
+Demand 15 s: 9
+Demand 16 s: 3
+Demand 17 s: 9
+Demand 18 s: 9
+Demand 19 s: 3
+Demand 20 s: 6
+Feasible SOL
+Demand  1 used at least 2 edges so total s 8
+total  8
+Demand  2 used at least 2 edges so total s 12
+total  20
+Demand  3 used at least 2 edges so total s 8
+total  28
+Demand  4 used at least 2 edges so total s 12
+total  40
+Demand  5 used at least 2 edges so total s 8
+total  48
+Demand  6 used at least 2 edges so total s 12
+total  60
+Demand  7 used at least 4 edges so total s 12
+total  72
+Demand  8 used at least 1 edges so total s 6
+total  78
+Demand  9 used at least 1 edges so total s 6
+total  84
+Demand  10 used at least 4 edges so total s 12
+total  96
+Demand  11 used at least 2 edges so total s 8
+total  104
+Demand  12 used at least 3 edges so total s 18
+total  122
+Demand  13 used at least 1 edges so total s 6
+total  128
+Demand  14 used at least 2 edges so total s 12
+total  140
+Demand  15 used at least 3 edges so total s 18
+total  158
+Demand  16 used at least 3 edges so total s 9
+total  167
+Demand  17 used at least 2 edges so total s 12
+total  179
+Demand  18 used at least 1 edges so total s 6
+total  185
+Demand  19 used at least 2 edges so total s 6
+total  191
+Demand  20 used at least 4 edges so total s 12
+total  203
+LB dividing charge by all links  6
+Computed LB  6
+--- Flow formulation has been chosen. |K| = 20, |S| = 30. ---
+Flow variables have been defined...
+Max slice overall variable has been defined...
+Source constraints have been defined...
+Flow conservation constraints have been defined...
+Target constraints have been defined...
+CD constraints have been defined...
+OSNR constraints have been defined...
+Non-Overlapping constraints has been defined...
+Constraints = 1200
+Max Used Slice Overall constraints have been defined...
+Link Load Constraints for NLUS constraints have been defined...
+demand 3start or finish
+demand 11start or finish
+node 18 minload 8 degree 4 minslice2
+demand 8start or finish
+demand 13start or finish
+node 17 minload 12 degree 4 minslice3
+demand 1start or finish
+demand 6start or finish
+demand 14start or finish
+demand 15start or finish
+demand 17start or finish
+demand 20start or finish
+node 16 minload 31 degree 5 minslice7
+CHANGE OVERALL LB FROM 6 TO 7
+demand 1start or finish
+node 15 minload 4 degree 6 minslice1
+demand 8start or finish
+demand 20start or finish
+node 14 minload 9 degree 4 minslice3
+demand 2start or finish
+demand 7start or finish
+node 13 minload 9 degree 4 minslice3
+demand 4start or finish
+demand 6start or finish
+demand 9start or finish
+demand 16start or finish
+node 12 minload 21 degree 3 minslice7
+demand 3start or finish
+demand 11start or finish
+demand 18start or finish
+node 11 minload 14 degree 4 minslice4
+demand 5start or finish
+demand 16start or finish
+node 10 minload 7 degree 4 minslice2
+demand 2start or finish
+demand 14start or finish
+node 9 minload 12 degree 5 minslice3
+demand 9start or finish
+demand 10start or finish
+node 8 minload 9 degree 5 minslice2
+demand 18start or finish
+demand 19start or finish
+node 7 minload 9 degree 3 minslice3
+demand 7start or finish
+demand 10start or finish
+demand 12start or finish
+demand 17start or finish
+node 6 minload 18 degree 2 minslice9
+CHANGE OVERALL LB FROM 7 TO 9
+demand 19start or finish
+node 3 minload 3 degree 4 minslice1
+demand 4start or finish
+node 2 minload 6 degree 5 minslice2
+demand 5start or finish
+demand 12start or finish
+demand 13start or finish
+demand 15start or finish
+node 1 minload 22 degree 5 minslice5
+Min Slice at Vertex constraints have been defined...
+Min Slice at Origin constraints have been defined...
+at edge 15-17
+1-8-13-
+edge 15-17 minload 16 degree 8 minslice 2
+at edge 14-18
+3-8-11-20-
+edge 14-18 minload 17 degree 6 minslice 3
+at edge 14-17
+13-20-
+edge 14-17 minload 9 degree 6 minslice 2
+at edge 13-15
+1-2-7-
+edge 13-15 minload 13 degree 8 minslice 2
+at edge 12-13
+2-4-6-7-9-16-
+edge 12-13 minload 30 degree 5 minslice 6
+at edge 11-16
+1-3-6-11-14-15-17-18-20-
+edge 11-16 minload 45 degree 7 minslice 7
+at edge 10-16
+1-5-6-14-15-16-17-20-
+edge 10-16 minload 38 degree 7 minslice 6
+at edge 9-15
+1-2-14-
+edge 9-15 minload 16 degree 9 minslice 2
+at edge 9-10
+2-5-14-16-
+edge 9-10 minload 19 degree 7 minslice 3
+at edge 8-15
+1-9-10-
+edge 8-15 minload 13 degree 9 minslice 2
+at edge 8-17
+8-9-10-13-
+edge 8-17 minload 21 degree 7 minslice 3
+at edge 8-14
+8-9-10-20-
+edge 8-14 minload 18 degree 7 minslice 3
+at edge 8-13
+2-7-9-10-
+edge 8-13 minload 18 degree 7 minslice 3
+at edge 8-12
+4-6-10-16-
+edge 8-12 minload 18 degree 6 minslice 3
+at edge 7-16
+1-6-14-15-17-18-19-20-
+edge 7-16 minload 40 degree 6 minslice 7
+at edge 7-11
+3-11-19-
+edge 7-11 minload 11 degree 5 minslice 3
+at edge 6-11
+3-7-10-11-12-17-18-
+edge 6-11 minload 32 degree 4 minslice 8
+at edge 5-18
+3-11-
+edge 5-18 minload 8 degree 8 minslice 1
+at edge 5-10
+5-16-
+edge 5-10 minload 7 degree 8 minslice 1
+at edge 5-9
+2-14-
+edge 5-9 minload 12 degree 9 minslice 2
+at edge 4-16
+1-6-14-15-17-20-
+edge 4-16 minload 31 degree 10 minslice 4
+at edge 4-15
+1-
+edge 4-15 minload 4 degree 11 minslice 1
+at edge 4-13
+2-7-
+edge 4-13 minload 9 degree 9 minslice 1
+at edge 4-12
+4-6-9-16-
+edge 4-12 minload 21 degree 8 minslice 3
+at edge 4-9
+2-14-
+edge 4-9 minload 12 degree 10 minslice 2
+at edge 4-7
+18-19-
+edge 4-7 minload 9 degree 8 minslice 2
+at edge 3-18
+3-11-19-
+edge 3-18 minload 11 degree 6 minslice 2
+at edge 3-11
+3-11-18-19-
+edge 3-11 minload 17 degree 6 minslice 3
+at edge 3-6
+7-10-12-17-19-
+edge 3-6 minload 21 degree 4 minslice 6
+at edge 3-5
+19-
+edge 3-5 minload 3 degree 8 minslice 1
+at edge 2-16
+1-4-6-14-15-17-20-
+edge 2-16 minload 37 degree 8 minslice 5
+at edge 2-10
+4-5-16-
+edge 2-10 minload 13 degree 7 minslice 2
+at edge 2-9
+2-4-14-
+edge 2-9 minload 18 degree 8 minslice 3
+at edge 2-5
+4-
+edge 2-5 minload 6 degree 9 minslice 1
+at edge 2-4
+4-
+edge 2-4 minload 6 degree 10 minslice 1
+at edge 1-18
+3-5-11-12-13-15-
+edge 1-18 minload 30 degree 7 minslice 5
+at edge 1-17
+5-8-12-15-
+edge 1-17 minload 22 degree 7 minslice 4
+at edge 1-15
+1-5-12-13-15-
+edge 1-15 minload 26 degree 9 minslice 3
+at edge 1-14
+5-8-12-13-15-20-
+edge 1-14 minload 31 degree 7 minslice 5
+at edge 1-5
+5-12-13-15-
+edge 1-5 minload 22 degree 9 minslice 3
+Min Slice leaving edge constraints have been defined...
+Objective obj_nlus has been defined.
+f(1,16,4,4)
+f(1,4,2,4)
+f(1,2,9,4)
+f(1,9,15,4)
+f(2,13,15,10)
+f(2,15,9,10)
+f(3,18,5,7)
+f(3,5,3,7)
+f(3,3,11,7)
+f(4,2,9,10)
+f(4,9,4,10)
+f(4,4,13,10)
+f(4,13,12,10)
+f(5,10,5,10)
+f(5,5,1,10)
+f(6,12,4,10)
+f(6,4,16,10)
+f(7,13,15,3)
+f(7,15,4,3)
+f(7,4,7,3)
+f(7,7,11,3)
+f(7,11,6,3)
+f(8,17,14,6)
+f(9,12,8,6)
+f(10,6,3,3)
+f(10,3,5,3)
+f(10,5,1,3)
+f(10,1,15,3)
+f(10,15,8,3)
+f(11,18,5,11)
+f(11,5,3,11)
+f(11,3,11,11)
+f(12,1,18,9)
+f(12,18,3,9)
+f(12,3,6,9)
+f(13,17,1,6)
+f(14,16,10,9)
+f(14,10,9,9)
+f(15,1,15,9)
+f(15,15,4,9)
+f(15,4,7,9)
+f(15,7,16,9)
+f(16,12,13,3)
+f(16,13,4,3)
+f(16,4,9,3)
+f(16,9,10,3)
+f(17,6,11,9)
+f(17,11,16,9)
+f(18,11,7,9)
+f(19,7,16,3)
+f(19,16,11,3)
+f(19,11,3,3)
+f(20,16,2,6)
+f(20,2,5,6)
+f(20,5,1,6)
+f(20,1,14,6)
+p = 11
+--- Flow formulation has been defined ---
+--- CPLEX has been initialized ---
+CPLEX parameters have been defined...
+CPLEX variables have been defined...
+CPLEX constraints have been defined...
+CPLEX objective has been defined...
+Solving...
+Chosen objective: obj_nlus
+CPLEX warmstart values have been defined...
+Version identifier: 22.1.1.0 | 2022-11-28 | 9160aff4d
+CPXPARAM_Threads                                 8
+CPXPARAM_Output_WriteLevel                       1
+CPXPARAM_TimeLimit                               14400
+CPXPARAM_MIP_Limits_TreeMemory                   16384
+Generic callback                                 0x40
+Presolve time = 0.01 sec. (9.68 ticks)
+Retaining values of one MIP start for possible repair.
+Tried aggregator 2 times.
+MIP Presolve eliminated 1843 rows and 4576 columns.
+MIP Presolve modified 6312 coefficients.
+Aggregator did 106 substitutions.
+Reduced MIP has 9386 rows, 34675 columns, and 406108 nonzeros.
+Reduced MIP has 34575 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.99 sec. (986.91 ticks)
+Probing fixed 8408 vars, tightened 0 bounds.
+Probing changed sense of 1 constraints.
+Probing time = 1.69 sec. (495.78 ticks)
+Tried aggregator 3 times.
+MIP Presolve eliminated 1512 rows and 8956 columns.
+MIP Presolve modified 980 coefficients.
+Aggregator did 117 substitutions.
+Reduced MIP has 7757 rows, 25602 columns, and 298802 nonzeros.
+Reduced MIP has 25507 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.91 sec. (589.01 ticks)
+Probing fixed 3006 vars, tightened 0 bounds.
+Probing changed sense of 1 constraints.
+Probing time = 0.81 sec. (262.11 ticks)
+Tried aggregator 2 times.
+Detecting symmetries...
+MIP Presolve eliminated 795 rows and 3224 columns.
+MIP Presolve modified 721 coefficients.
+Aggregator did 69 substitutions.
+Reduced MIP has 6892 rows, 22309 columns, and 258734 nonzeros.
+Reduced MIP has 22219 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.50 sec. (508.66 ticks)
+Probing fixed 1310 vars, tightened 0 bounds.
+Probing changed sense of 1 constraints.
+Probing time = 0.87 sec. (269.58 ticks)
+Clique table members: 36085.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 8 threads.
+Root relaxation solution time = 1.19 sec. (587.98 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0        9.2500   239                      9.2500     3401         
+*     0+    0                           15.0000        9.2500            38.33%
+      0     0        9.2500   261       15.0000      Cuts: 33     4368   38.33%
+      0     0        9.2500   178       15.0000      Cuts: 14     5559   38.33%
+      0     0        9.5000   274       15.0000      Cuts: 82     7413   36.67%
+*     0+    0                           14.0000        9.5000            32.14%
+*     0+    0                           13.0000        9.5000            26.92%
+      0     0  -1.00000e+75     0       13.0000        9.5000     7413   26.92%
+      0     0        9.5000   337       13.0000      Cuts: 73    11473   26.92%
+*     0+    0                           12.0000        9.5000            20.83%
+      0     0  -1.00000e+75     0       12.0000        9.5000    11517   20.83%
+*     0+    0                           11.0000        9.5000            13.64%
+      0     0  -1.00000e+75     0       11.0000        9.5000    11517   13.64%
+Repair heuristic succeeded.
+Detecting symmetries...
+      0     2        9.8000   188       11.0000        9.5000    15156   13.64%
+Elapsed time = 26.50 sec. (19849.16 ticks, tree = 0.02 MB, solutions = 5)
+      2     3        9.8000   163       11.0000        9.8000    15201   10.91%
+      3     3        9.8000   277       11.0000        9.8000    17639   10.91%
+      7     4        9.8000   316       11.0000        9.8000    25077   10.91%
+     10     5       10.0000   355       11.0000        9.8000    27464   10.91%
+PARAMETER FILE: parametersSet/batch_1/oP_L1.5x_Tran_iEuropean_18_40_d20_ofNLUS_f0_cd1_os1_gn0_b1_r0_cu0_p2_g1_it50_p500_c100_m100_cK5_eK5_lb1.txt
+Getting input file paths...
+Getting topology file...
+... Instances/1.5x/random/European_18_40/Links/20_demands/Link.csv
+WARNING: Field 'initialMappingDemandFile=' is empty.
+WARNING: Field 'initialMappingAssignmentFile=' is empty.
+QoT parameters...
+Getting Thesis Pedro parameters...
+Getting formulation parameters...
+Getting optimization parameters...
+Getting execution parameters...
+Populating online demand files...
+Finish reading input.
+TOPOLOGY FILE: Instances/1.5x/random/European_18_40/Links/20_demands/Link.csv
+ROUTED DEMANDS FILE: 
+INITIAL ASSIGNMENT FILE: 
+All information from input is consistent.
+> Number of online demand files: 1
+--- READING INSTANCE... --- 
+--- CREATING INITIAL MAPPING... --- 
+Reading Instances/1.5x/random/European_18_40/Links/20_demands/Link.csv.
+Creating edge #1. 1 -- 5. nb slices in C band: 30, nb slices in L band: 0, length: 523, amplis: 7, noiseC: 1.77635e-06, noiseL: 0, noiseS: 0
+Creating edge #2. 1 -- 14. nb slices in C band: 30, nb slices in L band: 0, length: 1282, amplis: 17, noiseC: 3.67775e-06, noiseL: 0, noiseS: 0
+Creating edge #3. 1 -- 15. nb slices in C band: 30, nb slices in L band: 0, length: 592, amplis: 8, noiseC: 1.91622e-06, noiseL: 0, noiseS: 0
+Creating edge #4. 1 -- 17. nb slices in C band: 30, nb slices in L band: 0, length: 264, amplis: 4, noiseC: 1.02016e-06, noiseL: 0, noiseS: 0
+Creating edge #5. 1 -- 18. nb slices in C band: 30, nb slices in L band: 0, length: 257, amplis: 4, noiseC: 9.8658e-07, noiseL: 0, noiseS: 0
+Creating edge #6. 2 -- 4. nb slices in C band: 30, nb slices in L band: 0, length: 264, amplis: 4, noiseC: 1.02016e-06, noiseL: 0, noiseS: 0
+Creating edge #7. 2 -- 5. nb slices in C band: 30, nb slices in L band: 0, length: 649, amplis: 9, noiseC: 1.97613e-06, noiseL: 0, noiseS: 0
+Creating edge #8. 2 -- 9. nb slices in C band: 30, nb slices in L band: 0, length: 187, amplis: 3, noiseC: 8.41345e-07, noiseL: 0, noiseS: 0
+Creating edge #9. 2 -- 10. nb slices in C band: 30, nb slices in L band: 0, length: 173, amplis: 3, noiseC: 7.87527e-07, noiseL: 0, noiseS: 0
+Creating edge #10. 2 -- 16. nb slices in C band: 30, nb slices in L band: 0, length: 320, amplis: 4, noiseC: 1.40845e-06, noiseL: 0, noiseS: 0
+Creating edge #11. 3 -- 5. nb slices in C band: 30, nb slices in L band: 0, length: 356, amplis: 5, noiseC: 1.29416e-06, noiseL: 0, noiseS: 0
+Creating edge #12. 3 -- 6. nb slices in C band: 30, nb slices in L band: 0, length: 520, amplis: 7, noiseC: 1.75447e-06, noiseL: 0, noiseS: 0
+Creating edge #13. 3 -- 11. nb slices in C band: 30, nb slices in L band: 0, length: 482, amplis: 7, noiseC: 1.51099e-06, noiseL: 0, noiseS: 0
+Creating edge #14. 3 -- 18. nb slices in C band: 30, nb slices in L band: 0, length: 634, amplis: 8, noiseC: 2.25423e-06, noiseL: 0, noiseS: 0
+Creating edge #15. 4 -- 7. nb slices in C band: 30, nb slices in L band: 0, length: 778, amplis: 10, noiseC: 2.564e-06, noiseL: 0, noiseS: 0
+Creating edge #16. 4 -- 9. nb slices in C band: 30, nb slices in L band: 0, length: 288, amplis: 4, noiseC: 1.1573e-06, noiseL: 0, noiseS: 0
+Creating edge #17. 4 -- 12. nb slices in C band: 30, nb slices in L band: 0, length: 1452, amplis: 19, noiseC: 4.19984e-06, noiseL: 0, noiseS: 0
+Creating edge #18. 4 -- 13. nb slices in C band: 30, nb slices in L band: 0, length: 1051, amplis: 14, noiseC: 3.08236e-06, noiseL: 0, noiseS: 0
+Creating edge #19. 4 -- 15. nb slices in C band: 30, nb slices in L band: 0, length: 790, amplis: 10, noiseC: 2.66844e-06, noiseL: 0, noiseS: 0
+Creating edge #20. 4 -- 16. nb slices in C band: 30, nb slices in L band: 0, length: 342, amplis: 5, noiseC: 1.21146e-06, noiseL: 0, noiseS: 0
+Creating edge #21. 5 -- 9. nb slices in C band: 30, nb slices in L band: 0, length: 601, amplis: 8, noiseC: 1.98204e-06, noiseL: 0, noiseS: 0
+Creating edge #22. 5 -- 10. nb slices in C band: 30, nb slices in L band: 0, length: 574, amplis: 8, noiseC: 1.79418e-06, noiseL: 0, noiseS: 0
+Creating edge #23. 5 -- 18. nb slices in C band: 30, nb slices in L band: 0, length: 279, amplis: 4, noiseC: 1.10152e-06, noiseL: 0, noiseS: 0
+Creating edge #24. 6 -- 11. nb slices in C band: 30, nb slices in L band: 0, length: 417, amplis: 6, noiseC: 1.38977e-06, noiseL: 0, noiseS: 0
+Creating edge #25. 7 -- 11. nb slices in C band: 30, nb slices in L band: 0, length: 1264, amplis: 16, noiseC: 3.96503e-06, noiseL: 0, noiseS: 0
+Creating edge #26. 7 -- 16. nb slices in C band: 30, nb slices in L band: 0, length: 463, amplis: 6, noiseC: 1.70967e-06, noiseL: 0, noiseS: 0
+Creating edge #27. 8 -- 12. nb slices in C band: 30, nb slices in L band: 0, length: 1683, amplis: 22, noiseC: 4.79668e-06, noiseL: 0, noiseS: 0
+Creating edge #28. 8 -- 13. nb slices in C band: 30, nb slices in L band: 0, length: 1188, amplis: 15, noiseC: 3.77588e-06, noiseL: 0, noiseS: 0
+Creating edge #29. 8 -- 14. nb slices in C band: 30, nb slices in L band: 0, length: 1461, amplis: 19, noiseC: 4.2722e-06, noiseL: 0, noiseS: 0
+Creating edge #30. 8 -- 17. nb slices in C band: 30, nb slices in L band: 0, length: 527, amplis: 7, noiseC: 1.80619e-06, noiseL: 0, noiseS: 0
+Creating edge #31. 9 -- 10. nb slices in C band: 30, nb slices in L band: 0, length: 320, amplis: 4, noiseC: 1.40845e-06, noiseL: 0, noiseS: 0
+Creating edge #32. 9 -- 15. nb slices in C band: 30, nb slices in L band: 0, length: 304, amplis: 4, noiseC: 1.27153e-06, noiseL: 0, noiseS: 0
+Creating edge #33. 10 -- 16. nb slices in C band: 30, nb slices in L band: 0, length: 357, amplis: 5, noiseC: 1.30047e-06, noiseL: 0, noiseS: 0
+Creating edge #34. 11 -- 16. nb slices in C band: 30, nb slices in L band: 0, length: 1153, amplis: 15, noiseC: 3.4762e-06, noiseL: 0, noiseS: 0
+Creating edge #35. 12 -- 13. nb slices in C band: 30, nb slices in L band: 0, length: 502, amplis: 7, noiseC: 1.63173e-06, noiseL: 0, noiseS: 0
+Creating edge #36. 13 -- 15. nb slices in C band: 30, nb slices in L band: 0, length: 1246, amplis: 16, noiseC: 3.80811e-06, noiseL: 0, noiseS: 0
+Creating edge #37. 14 -- 17. nb slices in C band: 30, nb slices in L band: 0, length: 1083, amplis: 14, noiseC: 3.33465e-06, noiseL: 0, noiseS: 0
+Creating edge #38. 14 -- 18. nb slices in C band: 30, nb slices in L band: 0, length: 1535, amplis: 20, noiseC: 4.4469e-06, noiseL: 0, noiseS: 0
+Creating edge #39. 15 -- 17. nb slices in C band: 30, nb slices in L band: 0, length: 591, amplis: 8, noiseC: 1.90911e-06, noiseL: 0, noiseS: 0
+Creating edge #40. 8 -- 15. nb slices in C band: 30, nb slices in L band: 0, length: 217, amplis: 3, noiseC: 1.0014e-06, noiseL: 0, noiseS: 0
+Starting with an empty initial mapping. 
+Number of bands : 1
+0 are present in the initial mapping.
+--- READING NEW DEMANDS TO BE ROUTED... --- 
+Reading Instances/1.5x/random/European_18_40/Demands/20_demands/demands_1.csv ...
+
+--- The Non Routed Demands ---
+#1. 16 -- 15. nbSlices C: 4, maxCD C: 20000, osnrLimit C: 16, pchC: 0.0005, transpIdC: 3. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#2. 13 -- 9. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#3. 18 -- 11. nbSlices C: 4, maxCD C: 20000, osnrLimit C: 16, pchC: 0.0005, transpIdC: 3. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#4. 2 -- 12. nbSlices C: 6, maxCD C: 50000, osnrLimit C: 16, pchC: 0.00075, transpIdC: 5. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#5. 10 -- 1. nbSlices C: 4, maxCD C: 20000, osnrLimit C: 16, pchC: 0.0005, transpIdC: 3. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#6. 12 -- 16. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#7. 13 -- 6. nbSlices C: 3, maxCD C: 100000, osnrLimit C: 13, pchC: 0.000375, transpIdC: 2. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 100, ROUTED: NO
+#8. 17 -- 14. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#9. 12 -- 8. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#10. 6 -- 8. nbSlices C: 3, maxCD C: 40000, osnrLimit C: 15, pchC: 0.000375, transpIdC: 1. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 100, ROUTED: NO
+#11. 18 -- 11. nbSlices C: 4, maxCD C: 20000, osnrLimit C: 16, pchC: 0.0005, transpIdC: 3. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#12. 1 -- 6. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#13. 17 -- 1. nbSlices C: 6, maxCD C: 20000, osnrLimit C: 24, pchC: 0.00075, transpIdC: 7. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 400, ROUTED: NO
+#14. 16 -- 9. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#15. 1 -- 16. nbSlices C: 6, maxCD C: 50000, osnrLimit C: 16, pchC: 0.00075, transpIdC: 5. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#16. 12 -- 10. nbSlices C: 3, maxCD C: 40000, osnrLimit C: 15, pchC: 0.000375, transpIdC: 1. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 100, ROUTED: NO
+#17. 6 -- 16. nbSlices C: 6, maxCD C: 50000, osnrLimit C: 16, pchC: 0.00075, transpIdC: 5. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 200, ROUTED: NO
+#18. 11 -- 7. nbSlices C: 6, maxCD C: 40000, osnrLimit C: 21, pchC: 0.00075, transpIdC: 6. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 300, ROUTED: NO
+#19. 7 -- 3. nbSlices C: 3, maxCD C: 40000, osnrLimit C: 15, pchC: 0.000375, transpIdC: 1. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 100, ROUTED: NO
+#20. 16 -- 14. nbSlices C: 3, maxCD C: 100000, osnrLimit C: 13, pchC: 0.000375, transpIdC: 2. nbSlices L: 0, maxCD L: 0, osnrLimit L: 0, pchL: 0, transpIdL: 0, maxCD S: 0, osnrLimit S: 0, pchS: 0. Gbits/s: 100, ROUTED: NO
+
+20 demands to be routed.
+> Non routable arcs: 10315
+> Variables set to 0: 10315
+Heuristic
+Genetic metric: 2
+Genetic iterations: 50
+Genetic population 500
+Genetic crossing tax 100
+Genetic mutation tax 100
+Genetic chosenK 5
+Genetic extraK 5
+GENERATING SHORTEST ROUTES
+BUILDING INITIAL POP
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 491
+ADDING CROSSED: 481
+ADDING MUTANTS: 485
+TOTAL POP : 1457
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 957
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 1
+First place: 13
+Last place: 21
+UPDATE BEST SOL
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 499
+ADDING MUTANTS: 500
+TOTAL POP : 1499
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 999
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 2
+First place: 13
+Last place: 19
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 3
+First place: 12
+Last place: 18
+UPDATE BEST SOL
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 4
+First place: 12
+Last place: 17
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 5
+First place: 12
+Last place: 16
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 6
+First place: 12
+Last place: 15
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 7
+First place: 12
+Last place: 15
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 8
+First place: 12
+Last place: 15
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 9
+First place: 12
+Last place: 15
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 10
+First place: 11
+Last place: 15
+UPDATE BEST SOL
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 11
+First place: 11
+Last place: 15
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 12
+First place: 11
+Last place: 15
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 13
+First place: 11
+Last place: 14
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 14
+First place: 11
+Last place: 13
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 15
+First place: 11
+Last place: 13
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 16
+First place: 11
+Last place: 13
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 17
+First place: 11
+Last place: 13
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 18
+First place: 11
+Last place: 13
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 19
+First place: 11
+Last place: 13
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 20
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 21
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 22
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 23
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 24
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 25
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 26
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 27
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 28
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 29
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 30
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 31
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 32
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 33
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 34
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 35
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 36
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 37
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 38
+First place: 11
+Last place: 12
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 39
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 40
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 41
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 42
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 43
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 44
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 45
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 46
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 47
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 48
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 49
+First place: 11
+Last place: 11
+CROSSING OPERATION
+MUTATION OPERATION
+ADDING OLD POP: 500
+ADDING CROSSED: 500
+ADDING MUTANTS: 500
+TOTAL POP : 1500
+SELECTING POP
+CONSOLIDATING DATA
+TO DELETE: 1000
+BUILDING NEW POP
+CLEANING SELECTED VECTOR
+FIN IT: 50
+First place: 11
+Last place: 11
+Best SOL: 11
+Found at it: 10 after 10.7185
+Total time: 18.883
+K-shortest: 8.7813
+Generating initial 0.0292337
+Crossing 1.71049
+Mutation 1.71414
+Consolidating 3.73315
+Sorting 0.00180058
+Coloring 2.05922
+Others 0.853702
+Demand 1 s: 4
+Demand 2 s: 10
+Demand 3 s: 7
+Demand 4 s: 10
+Demand 5 s: 10
+Demand 6 s: 10
+Demand 7 s: 3
+Demand 8 s: 6
+Demand 9 s: 6
+Demand 10 s: 3
+Demand 11 s: 11
+Demand 12 s: 9
+Demand 13 s: 6
+Demand 14 s: 9
+Demand 15 s: 9
+Demand 16 s: 3
+Demand 17 s: 9
+Demand 18 s: 9
+Demand 19 s: 3
+Demand 20 s: 6
+Feasible SOL
+Demand  1 used at least 2 edges so total s 8
+total  8
+Demand  2 used at least 2 edges so total s 12
+total  20
+Demand  3 used at least 2 edges so total s 8
+total  28
+Demand  4 used at least 2 edges so total s 12
+total  40
+Demand  5 used at least 2 edges so total s 8
+total  48
+Demand  6 used at least 2 edges so total s 12
+total  60
+Demand  7 used at least 4 edges so total s 12
+total  72
+Demand  8 used at least 1 edges so total s 6
+total  78
+Demand  9 used at least 1 edges so total s 6
+total  84
+Demand  10 used at least 4 edges so total s 12
+total  96
+Demand  11 used at least 2 edges so total s 8
+total  104
+Demand  12 used at least 3 edges so total s 18
+total  122
+Demand  13 used at least 1 edges so total s 6
+total  128
+Demand  14 used at least 2 edges so total s 12
+total  140
+Demand  15 used at least 3 edges so total s 18
+total  158
+Demand  16 used at least 3 edges so total s 9
+total  167
+Demand  17 used at least 2 edges so total s 12
+total  179
+Demand  18 used at least 1 edges so total s 6
+total  185
+Demand  19 used at least 2 edges so total s 6
+total  191
+Demand  20 used at least 4 edges so total s 12
+total  203
+LB dividing charge by all links  6
+Computed LB  6
+--- Flow formulation has been chosen. |K| = 20, |S| = 30. ---
+Flow variables have been defined...
+Max slice overall variable has been defined...
+Source constraints have been defined...
+Flow conservation constraints have been defined...
+Target constraints have been defined...
+CD constraints have been defined...
+OSNR constraints have been defined...
+Non-Overlapping constraints has been defined...
+Constraints = 1200
+Max Used Slice Overall constraints have been defined...
+Link Load Constraints for NLUS constraints have been defined...
+demand 3start or finish
+demand 11start or finish
+node 18 minload 8 degree 4 minslice2
+demand 8start or finish
+demand 13start or finish
+node 17 minload 12 degree 4 minslice3
+demand 1start or finish
+demand 6start or finish
+demand 14start or finish
+demand 15start or finish
+demand 17start or finish
+demand 20start or finish
+node 16 minload 31 degree 5 minslice7
+CHANGE OVERALL LB FROM 6 TO 7
+demand 1start or finish
+node 15 minload 4 degree 6 minslice1
+demand 8start or finish
+demand 20start or finish
+node 14 minload 9 degree 4 minslice3
+demand 2start or finish
+demand 7start or finish
+node 13 minload 9 degree 4 minslice3
+demand 4start or finish
+demand 6start or finish
+demand 9start or finish
+demand 16start or finish
+node 12 minload 21 degree 3 minslice7
+demand 3start or finish
+demand 11start or finish
+demand 18start or finish
+node 11 minload 14 degree 4 minslice4
+demand 5start or finish
+demand 16start or finish
+node 10 minload 7 degree 4 minslice2
+demand 2start or finish
+demand 14start or finish
+node 9 minload 12 degree 5 minslice3
+demand 9start or finish
+demand 10start or finish
+node 8 minload 9 degree 5 minslice2
+demand 18start or finish
+demand 19start or finish
+node 7 minload 9 degree 3 minslice3
+demand 7start or finish
+demand 10start or finish
+demand 12start or finish
+demand 17start or finish
+node 6 minload 18 degree 2 minslice9
+CHANGE OVERALL LB FROM 7 TO 9
+demand 19start or finish
+node 3 minload 3 degree 4 minslice1
+demand 4start or finish
+node 2 minload 6 degree 5 minslice2
+demand 5start or finish
+demand 12start or finish
+demand 13start or finish
+demand 15start or finish
+node 1 minload 22 degree 5 minslice5
+Min Slice at Vertex constraints have been defined...
+Min Slice at Origin constraints have been defined...
+at edge 15-17
+1-8-13-
+edge 15-17 minload 16 degree 8 minslice 2
+at edge 14-18
+3-8-11-20-
+edge 14-18 minload 17 degree 6 minslice 3
+at edge 14-17
+13-20-
+edge 14-17 minload 9 degree 6 minslice 2
+at edge 13-15
+1-2-7-
+edge 13-15 minload 13 degree 8 minslice 2
+at edge 12-13
+2-4-6-7-9-16-
+edge 12-13 minload 30 degree 5 minslice 6
+at edge 11-16
+1-3-6-11-14-15-17-18-20-
+edge 11-16 minload 45 degree 7 minslice 7
+at edge 10-16
+1-5-6-14-15-16-17-20-
+edge 10-16 minload 38 degree 7 minslice 6
+at edge 9-15
+1-2-14-
+edge 9-15 minload 16 degree 9 minslice 2
+at edge 9-10
+2-5-14-16-
+edge 9-10 minload 19 degree 7 minslice 3
+at edge 8-15
+1-9-10-
+edge 8-15 minload 13 degree 9 minslice 2
+at edge 8-17
+8-9-10-13-
+edge 8-17 minload 21 degree 7 minslice 3
+at edge 8-14
+8-9-10-20-
+edge 8-14 minload 18 degree 7 minslice 3
+at edge 8-13
+2-7-9-10-
+edge 8-13 minload 18 degree 7 minslice 3
+at edge 8-12
+4-6-10-16-
+edge 8-12 minload 18 degree 6 minslice 3
+at edge 7-16
+1-6-14-15-17-18-19-20-
+edge 7-16 minload 40 degree 6 minslice 7
+at edge 7-11
+3-11-19-
+edge 7-11 minload 11 degree 5 minslice 3
+at edge 6-11
+3-7-10-11-12-17-18-
+edge 6-11 minload 32 degree 4 minslice 8
+at edge 5-18
+3-11-
+edge 5-18 minload 8 degree 8 minslice 1
+at edge 5-10
+5-16-
+edge 5-10 minload 7 degree 8 minslice 1
+at edge 5-9
+2-14-
+edge 5-9 minload 12 degree 9 minslice 2
+at edge 4-16
+1-6-14-15-17-20-
+edge 4-16 minload 31 degree 10 minslice 4
+at edge 4-15
+1-
+edge 4-15 minload 4 degree 11 minslice 1
+at edge 4-13
+2-7-
+edge 4-13 minload 9 degree 9 minslice 1
+at edge 4-12
+4-6-9-16-
+edge 4-12 minload 21 degree 8 minslice 3
+at edge 4-9
+2-14-
+edge 4-9 minload 12 degree 10 minslice 2
+at edge 4-7
+18-19-
+edge 4-7 minload 9 degree 8 minslice 2
+at edge 3-18
+3-11-19-
+edge 3-18 minload 11 degree 6 minslice 2
+at edge 3-11
+3-11-18-19-
+edge 3-11 minload 17 degree 6 minslice 3
+at edge 3-6
+7-10-12-17-19-
+edge 3-6 minload 21 degree 4 minslice 6
+at edge 3-5
+19-
+edge 3-5 minload 3 degree 8 minslice 1
+at edge 2-16
+1-4-6-14-15-17-20-
+edge 2-16 minload 37 degree 8 minslice 5
+at edge 2-10
+4-5-16-
+edge 2-10 minload 13 degree 7 minslice 2
+at edge 2-9
+2-4-14-
+edge 2-9 minload 18 degree 8 minslice 3
+at edge 2-5
+4-
+edge 2-5 minload 6 degree 9 minslice 1
+at edge 2-4
+4-
+edge 2-4 minload 6 degree 10 minslice 1
+at edge 1-18
+3-5-11-12-13-15-
+edge 1-18 minload 30 degree 7 minslice 5
+at edge 1-17
+5-8-12-15-
+edge 1-17 minload 22 degree 7 minslice 4
+at edge 1-15
+1-5-12-13-15-
+edge 1-15 minload 26 degree 9 minslice 3
+at edge 1-14
+5-8-12-13-15-20-
+edge 1-14 minload 31 degree 7 minslice 5
+at edge 1-5
+5-12-13-15-
+edge 1-5 minload 22 degree 9 minslice 3
+Min Slice leaving edge constraints have been defined...
+Objective obj_nlus has been defined.
+f(1,16,4,4)
+f(1,4,2,4)
+f(1,2,9,4)
+f(1,9,15,4)
+f(2,13,15,10)
+f(2,15,9,10)
+f(3,18,5,7)
+f(3,5,3,7)
+f(3,3,11,7)
+f(4,2,9,10)
+f(4,9,4,10)
+f(4,4,13,10)
+f(4,13,12,10)
+f(5,10,5,10)
+f(5,5,1,10)
+f(6,12,4,10)
+f(6,4,16,10)
+f(7,13,15,3)
+f(7,15,4,3)
+f(7,4,7,3)
+f(7,7,11,3)
+f(7,11,6,3)
+f(8,17,14,6)
+f(9,12,8,6)
+f(10,6,3,3)
+f(10,3,5,3)
+f(10,5,1,3)
+f(10,1,15,3)
+f(10,15,8,3)
+f(11,18,5,11)
+f(11,5,3,11)
+f(11,3,11,11)
+f(12,1,18,9)
+f(12,18,3,9)
+f(12,3,6,9)
+f(13,17,1,6)
+f(14,16,10,9)
+f(14,10,9,9)
+f(15,1,15,9)
+f(15,15,4,9)
+f(15,4,7,9)
+f(15,7,16,9)
+f(16,12,13,3)
+f(16,13,4,3)
+f(16,4,9,3)
+f(16,9,10,3)
+f(17,6,11,9)
+f(17,11,16,9)
+f(18,11,7,9)
+f(19,7,16,3)
+f(19,16,11,3)
+f(19,11,3,3)
+f(20,16,2,6)
+f(20,2,5,6)
+f(20,5,1,6)
+f(20,1,14,6)
+p = 11
+--- Flow formulation has been defined ---
+--- CPLEX has been initialized ---
+CPLEX parameters have been defined...
+CPLEX variables have been defined...
+CPLEX constraints have been defined...
+CPLEX objective has been defined...
+Solving...
+Chosen objective: obj_nlus
+CPLEX warmstart values have been defined...
+Version identifier: 22.1.1.0 | 2022-11-28 | 9160aff4d
+CPXPARAM_Threads                                 8
+CPXPARAM_Output_WriteLevel                       1
+CPXPARAM_TimeLimit                               14400
+CPXPARAM_MIP_Limits_TreeMemory                   16384
+Generic callback                                 0x40
+Presolve time = 0.01 sec. (9.68 ticks)
+1 of 1 MIP starts provided solutions.
+MIP start 'm1' defined initial solution with objective 11.0000.
+Tried aggregator 2 times.
+MIP Presolve eliminated 1845 rows and 4576 columns.
+MIP Presolve modified 6572 coefficients.
+Aggregator did 106 substitutions.
+Reduced MIP has 9384 rows, 34674 columns, and 405238 nonzeros.
+Reduced MIP has 34575 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 1.01 sec. (1012.08 ticks)
+Probing fixed 8396 vars, tightened 0 bounds.
+Probing changed sense of 1 constraints.
+Probing time = 1.74 sec. (494.86 ticks)
+Tried aggregator 2 times.
+MIP Presolve eliminated 1515 rows and 8937 columns.
+MIP Presolve modified 841 coefficients.
+Aggregator did 122 substitutions.
+Reduced MIP has 7747 rows, 25612 columns, and 295592 nonzeros.
+Reduced MIP has 25518 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.48 sec. (490.78 ticks)
+Probing fixed 2860 vars, tightened 0 bounds.
+Probing changed sense of 2 constraints.
+Probing time = 0.95 sec. (260.11 ticks)
+Tried aggregator 2 times.
+Detecting symmetries...
+MIP Presolve eliminated 769 rows and 3101 columns.
+MIP Presolve modified 502 coefficients.
+Aggregator did 49 substitutions.
+Reduced MIP has 6928 rows, 22460 columns, and 254899 nonzeros.
+Reduced MIP has 22371 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 1.36 sec. (560.04 ticks)
+Probing fixed 799 vars, tightened 0 bounds.
+Probing changed sense of 1 constraints.
+Probing time = 0.69 sec. (267.50 ticks)
+Clique table members: 43590.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 8 threads.
+Root relaxation solution time = 0.95 sec. (681.05 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                           11.0000        9.0000            18.18%
+      0     0        9.2500   292       11.0000        9.2500     3484   15.91%
+      0     0        9.3333   248       11.0000      Cuts: 44     7262   15.15%

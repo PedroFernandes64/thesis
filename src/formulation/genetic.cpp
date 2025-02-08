@@ -298,6 +298,7 @@ void Genetic::run(){
 	std::cout<<"Genetic mutation tax "<< instance.getInput().geneticAlgorithmMutation()<<std::endl;
 	std::cout<<"Genetic chosenK "<< instance.getInput().geneticGetChosenK()<<std::endl;
 	std::cout<<"Genetic extraK "<<  instance.getInput().geneticGetExtraK()<<std::endl;
+	bool stop = false;
 	coloringTime =0.0;
 	initialPopTime = 0.0;
 	crossingTime = 0.0;
@@ -319,8 +320,13 @@ void Genetic::run(){
 	//	population[i].display();
 	//}
 	currentBest = INT_MAX;
-	int iterations = instance.getInput().geneticAlgorithmIterations();
-	for (int i = 1; i <= iterations; ++i){
+	int inputIterations = instance.getInput().geneticAlgorithmIterations();
+	int currentIt = 0;
+	int itWithoutImprovement=0;
+	bool improvementPhase = false;
+	while(stop == false){
+		currentIt = currentIt +1;
+		std::cout<<"==========BEGIN IT: "<< currentIt<<std::endl;
 		doCrossing();
 		//for (int i = 0; i < thisIterationCrossing.size(); i++){
 		////	thisIterationCrossing[i].display();
@@ -330,14 +336,35 @@ void Genetic::run(){
 		//	thisIterationMutation[i].display();
 		//}
 		doSelection();
-		std::cout<<"FIN IT: "<< i<<std::endl;
 		std::cout<<"First place: "<< population[0].metricVal<<std::endl;
 		std::cout<<"Last place: "<< population[population.size()-1].metricVal<<std::endl;
-		if (currentBest > population[0].metricVal){
-			std::cout<<"UPDATE BEST SOL"<<std::endl;
-			currentBest = population[0].metricVal;
-			itToBest = i;
-			timeToBest =  clockHeuristc.getTimeInSecFromStart();
+		std::cout<<"==========FIN IT: "<< currentIt<<std::endl;
+		if(improvementPhase ==false){
+			if (currentBest > population[0].metricVal) {
+				std::cout<<"UPDATE BEST SOL"<<std::endl;
+				currentBest = population[0].metricVal;
+				itToBest = currentIt;
+				timeToBest =  clockHeuristc.getTimeInSecFromStart();
+			}
+			if(currentIt >=inputIterations) {
+				std::cout<<"NUMBER OF ITERATIONS ATTAINED"<<std::endl;
+				std::cout<<"Continuing until 10 iterations without improvement"<<std::endl;
+				improvementPhase = true;	
+			}
+		}else{
+			if (currentBest > population[0].metricVal) {
+				std::cout<<"UPDATE BEST SOL"<<std::endl;
+				currentBest = population[0].metricVal;
+				itToBest = currentIt;
+				timeToBest =  clockHeuristc.getTimeInSecFromStart();
+				itWithoutImprovement=0;
+			}else{
+				itWithoutImprovement = itWithoutImprovement +1;
+				std::cout<<"No improvement for " << itWithoutImprovement << " it"<<std::endl;
+			}
+			if (itWithoutImprovement >= 10) {
+				stop = true;
+			}
 		}
 	}
 	//for (int i = 0; i < 2; i++){
@@ -357,7 +384,7 @@ void Genetic::run(){
 	std::cout<<"Others "<< heuristicTime-kShortestTime-initialPopTime-crossingTime-mutationTime-consolidatingSelectedTime-selectionTime-coloringTime<<std::endl;
 }
 
-Genetic::Genetic(const Instance &inst) : instance(inst){
+Genetic::Genetic(const Instance &inst) : instance(inst),rng(std::random_device{}()){
 	this->setToBeRouted(instance.getNextDemands());
 	setLoadVector();
     //displayToBeRouted();
@@ -366,7 +393,7 @@ Genetic::Genetic(const Instance &inst) : instance(inst){
 	metric = instance.getInput().geneticAlgorithmMetric();
 	}
 
-std::vector<std::vector<int>> Genetic::buildMatrixKsol(int k){
+	std::vector<std::vector<int>> Genetic::buildMatrixKsol(int k){
 	for (int i = 0; i < instance.getTabEdge().size(); ++i){	
 		std::vector<int> thisEdgeSlots;
 		for (int j = 0; j < instance.getTabEdge()[0].getNbSlicesC(); ++j){	
@@ -474,7 +501,7 @@ void Genetic::doSelection(){
 	//std::cout << "pos 1: " << posMaxOldPop << std::endl;
 	//std::cout << "pos 2: " << posMaxCrossingPop << std::endl;
 	//std::cout << "pos 3: " << posMaxMutationPop << std::endl;
-	std::cout << "ADDING OLD POP: " << population.size() << std::endl;
+	std::cout << "OLD POP: " << population.size();
 	for (int i = 0; i < population.size(); ++i){
 		sequenciator popMember;
 		popMember.id = pos;
@@ -482,7 +509,7 @@ void Genetic::doSelection(){
 		sequenceVector.push_back(popMember);
 		pos = pos +1;
 	}
-	std::cout << "ADDING CROSSED: " << thisIterationCrossing.size() << std::endl;
+	std::cout << ", ADDING CROSSED: " << thisIterationCrossing.size() ;
 	for (int i = 0; i < thisIterationCrossing.size(); ++i){
 		sequenciator popMember;
 		popMember.id = pos;
@@ -490,7 +517,7 @@ void Genetic::doSelection(){
 		sequenceVector.push_back(popMember);
 		pos = pos +1;
 	}
-	std::cout << "ADDING MUTANTS: " << thisIterationMutation.size() << std::endl;
+	std::cout << ", ADDING MUTANTS: " << thisIterationMutation.size();
 	for (int i = 0; i < thisIterationMutation.size(); ++i){
 		sequenciator popMember;
 		popMember.id = pos;
@@ -498,7 +525,7 @@ void Genetic::doSelection(){
 		sequenceVector.push_back(popMember);
 		pos = pos +1;
 	}
-	std::cout << "TOTAL POP : " << totalPop << std::endl;
+	std::cout << " = TOTAL POP : " << totalPop << std::endl;
 	consolidatingSelectedTime = consolidatingSelectedTime+ clockConsolidate.getTimeInSecFromStart();
 	//for (int d = 0; d < sequenceVector.size(); ++d){
 	//	std::cout << "id : " << sequenceVector[d].id  << "metric : " << sequenceVector[d].criteria << std::endl;
@@ -507,20 +534,20 @@ void Genetic::doSelection(){
 
 	ClockTime clockSelect(ClockTime::getTimeNow());
 	clockSelect.setStart(ClockTime::getTimeNow());
-	std::cout << "SELECTING POP" << std::endl;
+	std::cout << "SELECTING POP";
 	
 	// SORTING
 	sortSequenciatorLower sorter2;
 	std::sort (sequenceVector.begin(),sequenceVector.end(),sorter2);
 	selectionTime = selectionTime+ clockSelect.getTimeInSecFromStart();
-	std::cout << "CONSOLIDATING DATA" << std::endl;
+	//std::cout << "CONSOLIDATING DATA" << std::endl;
 
 	clockConsolidate.setStart(ClockTime::getTimeNow());
 	int toDelete = totalPop - nbInitialPop;
 	if (toDelete < 0){
 		toDelete = 0;
 	}
-	std::cout << "TO DELETE: " << toDelete << std::endl;
+	std::cout << ", TO DELETE: " << toDelete << std::endl;
 	std::cout << "BUILDING NEW POP" << std::endl;
 	int limit = nbInitialPop;
 	if (limit > totalPop){
@@ -588,7 +615,7 @@ void Genetic::doSelection(){
 		thisIterationMutation.pop_back();
 	}
 	population = thisIterationTotalPop;
-	std::cout << "CLEANING SELECTED VECTOR" << std::endl;
+	//std::cout << "CLEANING SELECTED VECTOR" << std::endl;
 	while(thisIterationTotalPop.size()>0){
 		thisIterationTotalPop.pop_back();
 	}
@@ -734,13 +761,13 @@ void Genetic::doMutation(){
 	for (int i = 0; i < nbMutations; ++i){
 		ClockTime clockMutation(ClockTime::getTimeNow());
 		clockMutation.setStart(ClockTime::getTimeNow());
-		int mutant = rand() % population.size();
+		int mutant = getRandomNumber(0, population.size()-1);
 		std::vector<std::vector<Fiber> > routes;
 		//std::cout << "mutating " << mutant + 1 << std::endl;
 		int genesMutated = 0;
 		std::vector<int> thisMutationList;
 		while(genesMutated < mutationsByMember){
-			int positionInAuxiliary = rand() % canMutate.size();
+			int positionInAuxiliary = getRandomNumber(0, canMutate.size()-1);
 			int toMutateNow = canMutate[positionInAuxiliary];
 			//std::cout << "CHOICE" << toMutateNow << std::endl;
 			thisMutationList.push_back(toMutateNow);
@@ -752,7 +779,7 @@ void Genetic::doMutation(){
 			if (mutantGene  == true){
 				//std::cout << "NEW gene  " << d + 1 << std::endl;
 				int options = shortestRoutesByDemand[d].size() - chosenK;
-				int newGene = rand() % options;
+				int newGene = getRandomNumber(0, options-1);
 				for (int l = 0; l < shortestRoutesByDemand[d][newGene+chosenK].size(); ++l){
 					route.push_back(shortestRoutesByDemand[d][newGene+chosenK][l]);
 					//std::cout << shortestRoutesByDemand[d][newGene+chosenK][l].getSource()+1 << "-" << shortestRoutesByDemand[d][newGene+chosenK][l].getTarget()+1 << "|" ;
@@ -796,13 +823,13 @@ void Genetic::doCrossing(){
 		clockCrossing.setStart(ClockTime::getTimeNow());
 		int progenitor1;
 		int progenitor2;
-		progenitor1 = rand() % population.size();
-		progenitor2 = rand() % population.size();
+		progenitor1 = getRandomNumber(0, population.size()-1);
+		progenitor2 = getRandomNumber(0, population.size()-1);
 		std::vector<std::vector<Fiber> > routes;
 		//std::cout << "crossing " << progenitor1 + 1<< "and " << progenitor2 + 1<< std::endl;
 		for (int d = 0; d < toBeRouted.size(); ++d){
 			std::vector<Fiber> route;
-			int randProgenitor = rand() % 2 + 1; //random between 1 and 2
+			int randProgenitor = getRandomNumber(1, 2); //random between 1 and 2
 			if (randProgenitor == 1){
 				for (int l = 0; l < population[progenitor1].routes[d].size(); ++l){
 					route.push_back(population[progenitor1].routes[d][l]);
@@ -852,7 +879,7 @@ void Genetic::GenerateInitialPopulation(int nbPop){
 			}else{
 				upperlimit = chosenK;
 			}
-			randomChoice = rand() % upperlimit;
+			randomChoice = getRandomNumber(0, upperlimit-1); 
 
 			for (int l = 0; l < shortestRoutesByDemand[d][randomChoice].size(); ++l){
 				route.push_back(shortestRoutesByDemand[d][randomChoice][l]);
@@ -936,16 +963,19 @@ void Genetic::GenerateShortestRoutes2(){
 	std::vector<std::vector<double> > alldemandsDispersionC;
 	std::vector<std::vector<double> > alldemandsNoiseC;
 	std::vector<std::vector<int> > alldemandsNbEdges;
+	std::vector<std::vector<int> > alldemandsAmplis;
 	std::vector<double> thisdemanddistances;
 	std::vector<double> thisdemandDispersionC;
 	std::vector<double> thisdemandNoiseC;
 	std::vector<int> thisdemandNbEdges;
+	std::vector<int> thisdemandAmplis;
 	int currentnode;
     int nextnode;
     double length;
 	double dispersionPathC;
     double noisePathC;
 	int nbEdges;
+	int amplis;
 
     for (int i = 0; i <allpaths.size(); ++i){
         for (int j = 0; j <allpaths[i].size(); ++j){
@@ -953,6 +983,7 @@ void Genetic::GenerateShortestRoutes2(){
             length = 0.0;
 			nbEdges= 0;
 			dispersionPathC =0.0;
+			amplis = 0;
             for (int k = 0; k <allpaths[i][j].size()-1; ++k){
                 currentnode = allpaths[i][j][k];
                 nextnode = allpaths[i][j][k+1];
@@ -960,20 +991,25 @@ void Genetic::GenerateShortestRoutes2(){
 				dispersionPathC += (instance.getPhysicalLinkBetween(currentnode,nextnode).getDispersionCoeffC()*instance.getPhysicalLinkBetween(currentnode,nextnode).getLength());
                 noisePathC += instance.getPhysicalLinkBetween(currentnode,nextnode).getNoiseC();
 				nbEdges = nbEdges+1;
+				amplis += instance.getPhysicalLinkBetween(currentnode,nextnode).getLineAmplifiers();
 			}			
 			thisdemanddistances.push_back(length);
 			thisdemandDispersionC.push_back(dispersionPathC);
             thisdemandNoiseC.push_back(noisePathC);
             thisdemandNbEdges.push_back(nbEdges);
+			thisdemandAmplis.push_back(amplis+nbEdges); //summing line amplifiers + node amplifiers
+
         }
         alldemandsdistances.push_back(thisdemanddistances);
 		alldemandsDispersionC.push_back(thisdemandDispersionC);
         alldemandsNoiseC.push_back(thisdemandNoiseC);
         alldemandsNbEdges.push_back(thisdemandNbEdges);
+		alldemandsAmplis.push_back(thisdemandAmplis);
         thisdemanddistances.clear();
 		thisdemandDispersionC.clear();
         thisdemandNoiseC.clear();
 		thisdemandNbEdges.clear();
+		thisdemandAmplis.clear();
     }
 	/*
 	for (int i=0; i< allpaths.size(); ++i){
@@ -986,6 +1022,7 @@ void Genetic::GenerateShortestRoutes2(){
 			std::cout <<  " length" << alldemandsdistances[i][j]<< "|" ;
 			std::cout <<  " noise" << alldemandsNoiseC[i][j] << "|" ;
 			std::cout <<  " nb edges" << alldemandsNbEdges[i][j] << "|" <<std::endl;
+			std::cout <<  " amplis" << alldemandsAmplis[i][j] << "|" <<std::endl;
 			std::cout<<std::endl;
 		}
 		std::cout<<std::endl;
@@ -1004,8 +1041,9 @@ void Genetic::GenerateShortestRoutes2(){
                 //if qot ok we add it to set
 				prePath aux;
 				aux.length = alldemandsdistances[i][j];
-    			aux.noise= alldemandsNoiseC[i][j];
-    			aux.nbEdges=alldemandsNbEdges[i][j];
+    			aux.noise = alldemandsNoiseC[i][j];
+    			aux.nbEdges = alldemandsNbEdges[i][j];
+				aux.amplis = alldemandsAmplis[i][j];
 				std::vector<Fiber> auxin;
 				for (int k = 0; k <allpaths[i][j].size()-1; ++k){
 					auxin.push_back(instance.getPhysicalLinkBetween(allpaths[i][j][k],allpaths[i][j][k+1]));
@@ -1016,9 +1054,10 @@ void Genetic::GenerateShortestRoutes2(){
 				for (int i = 0; i <aux.links.size(); ++i){
 					std::cout << aux.links[i].getSource()+1 << "-" << aux.links[i].getTarget()+1 << "|" ;
 				}
-                std::cout <<  " length " << aux.length*17 << "|" ;
+                std::cout <<  " dispersion " << aux.length*17 << "|" ;
 				std::cout <<  " noise " << aux.noise << "|" ;
 				std::cout <<  " nb edges " << aux.nbEdges << "|";
+				std::cout <<  " amplis " << aux.amplis << "|";
 				std::cout <<  " osnr " << dbOsnrC << "|" <<std::endl;
 				*/
             }
@@ -1034,21 +1073,31 @@ void Genetic::GenerateShortestRoutes2(){
 		}
 		std::cout << "SORTED for demand " << i +1 <<std::endl;
 		*/
-		sortPrePath sorter;
-		std::sort(qualifiedForThisDemand.begin(),qualifiedForThisDemand.end(),sorter);
 		
-		std::cout << "demand " <<i+1 << std::endl;
+		sortPrePathByEdges sorterA;
+		sortPrePathByAmps sorterB;
 
-		
+		if(metric==1){
+			//std::cout << "Sorting by nb edges"<< std::endl;
+			std::sort(qualifiedForThisDemand.begin(),qualifiedForThisDemand.end(),sorterA);
+		}
+		if(metric==2){
+			//std::cout << "Sorting by amplis"<< std::endl;
+			std::sort(qualifiedForThisDemand.begin(),qualifiedForThisDemand.end(),sorterB);
+		}
+
+		//std::cout << "demand " <<i+1 << std::endl;
+		/*
 		for (int i = 0; i <qualifiedForThisDemand.size(); ++i){
 			for (int j = 0; j <qualifiedForThisDemand[i].links.size(); ++j){
 				std::cout << qualifiedForThisDemand[i].links[j].getSource()+1 << "-" << qualifiedForThisDemand[i].links[j].getTarget()+1 << "|" ;
 			}
-			std::cout <<  " length " << qualifiedForThisDemand[i].length*17 << "|" ;
+			std::cout <<  " cd " << qualifiedForThisDemand[i].length*17 << "|" ;
 			std::cout <<  " noise " << qualifiedForThisDemand[i].noise << "|" ;
+			std::cout <<  " amplis " << qualifiedForThisDemand[i].amplis << "|";
 			std::cout <<  " nb edges " << qualifiedForThisDemand[i].nbEdges << "|"<<std::endl;
 		}
-	
+		*/
 		std::vector<std::vector<Fiber> > kcandidates;
 		int limit = chosenK+extraK;
 
@@ -1581,8 +1630,8 @@ void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessi
 		djikistraSolution = dijkstra(adjmatrix,originDjikistra,destinationDijikistra,dist);
 		thisDemandMinimumSlots = (djikistraSolution.size()-1)*toBeRouted[i].getLoadC();
 		totalMinimumSlots = totalMinimumSlots + thisDemandMinimumSlots;
-		std::cout << "Demand  " << i +1 <<  " used at least " << djikistraSolution.size()-1 <<  " edges so total s " <<thisDemandMinimumSlots<<std::endl;
-		std::cout << "total  " << totalMinimumSlots << std::endl;
+		//std::cout << "Demand  " << i +1 <<  " used at least " << djikistraSolution.size()-1 <<  " edges so total s " <<thisDemandMinimumSlots<<std::endl;
+		//std::cout << "total  " << totalMinimumSlots << std::endl;
 		/*if (prepro == true){
 			std::vector<int> thisDemandEdges(nbEdges, 1);
 			std::cout << "Normally this demand could use these links " <<std::endl;
@@ -1636,6 +1685,12 @@ void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessi
 		std::cout << "LB dividing charge by all links  " << computedLB << std::endl;
 		//std::cout << "LB dividing charge by preprocessed links  " << ceil(maxLinkCharge) << std::endl;
 	}
+}
+
+
+int Genetic::getRandomNumber(int min, int max) {
+    std::uniform_int_distribution<int> dist(min, max);  // Create distribution per call
+    return dist(rng);
 }
 
 

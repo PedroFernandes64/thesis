@@ -227,7 +227,7 @@ void FlowForm::setVariableValues(const std::vector<double> &vals){
 }
 
 void FlowForm::setWarmValues(){
-    
+    std::cout << "Setting warmstart solution " << std::endl;
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         int demand = d;
         int lastSlot = feasibleSolutionLastSlotDemand[d];
@@ -241,7 +241,7 @@ void FlowForm::setWarmValues(){
                 int slice = getArcSlice(a, d)+1;
                 if((lastSlot == slice)&&(origin == labelSource)&&(destination == labelTarget)){
                     //std::cout<<"f(" << d+1<<","<< origin<<","<< destination<<","<< lastSlot<<")"<<std::endl;
-                    //std::cout<<"f(" << d+1<<","<< labelSource<<","<< labelTarget<<","<< slice<<")"<<std::endl;
+                    std::cout<<"f(" << d+1<<","<< labelSource<<","<< labelTarget<<","<< slice<<")"<<std::endl;
                     int arc = getArcIndex(a, d); 
                     x[d][arc].setWarmstartValue(1.0);
                 }
@@ -258,7 +258,7 @@ void FlowForm::setWarmValues(){
                 max=feasibleSolutionLastSlotDemand[i];
             }
         }
-        //std::cout<<"p = " << max<<std::endl;                
+        std::cout<<"p = " << max<<std::endl;                
         maxSliceOverall.setWarmstartValue(max);
     }
     
@@ -1074,15 +1074,17 @@ Constraint FlowForm::getMinSliceAtVertexConstraint_v(ListGraph::Node &v){
     int demands = 0;
     //std::cout << "looking at node " << nodeLabel+1 <<std::endl;
     int degree = getDegree(v);
+    std::cout << "node " << nodeLabel+1<<std::endl;
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
         if( (nodeLabel == getToBeRouted_k(d).getSource()) || (nodeLabel == getToBeRouted_k(d).getTarget()) ){
             nodeMinLoad = nodeMinLoad + getToBeRouted_k(d).getLoadC();
-            //std::cout << "demand " << d+1  << "start or finish"<<std::endl;
+            std::cout <<  d+1  << "-";
             demands = demands+1;
         }
     }
+    std::cout << std::endl;
     int minSlice = static_cast<int>(std::ceil(static_cast<double>(nodeMinLoad) / degree));
-    std::cout << "minload " << nodeMinLoad << " degree " << degree  << " minslice"<<minSlice<<std::endl;
+    std::cout << "node " << nodeLabel+1<< " minload " << nodeMinLoad << " degree " << degree  << " minslice"<<minSlice<<std::endl;
     Expression exp;
     int rhs = demands;
     int lhs = 1;
@@ -1217,16 +1219,16 @@ Constraint FlowForm::getMinSliceLeavingEdgeConstraint(ListGraph::Edge &e){
         }
     }
     int minSlice = static_cast<int>(std::ceil(static_cast<double>(edgeMinLoad) / degree));
-    /*std::cout << "at edge " << uLabel+1 << "-" << vLabel+1  <<std::endl;
+    std::cout << "at edge " << uLabel+1 << "-" << vLabel+1  <<std::endl;
     for (int d = 0; d < demandList.size(); d++){ 
         std::cout << demandList[d]+1 << "-";
     }
-    std::cout <<std::endl;*/
-    std::cout << "minload " << edgeMinLoad << " degree " << degree  << " minslice "<<minSlice<<std::endl;
+    std::cout <<std::endl;
+    std::cout << "edge " << uLabel+1<< "-" << vLabel+1<< " minload " << edgeMinLoad << " degree " << degree  << " minslice "<<minSlice<<std::endl;
     
     
     Expression exp;
-    int rhs = demands;
+    int rhs = demands*3;
     int lhs = 1;
     for (int d = 0; d < demandList.size(); d++){  
         int demand = demandList[d];

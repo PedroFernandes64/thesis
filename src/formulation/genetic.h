@@ -60,6 +60,7 @@ struct prePath{
     double length;
     double noise;
     int nbEdges;
+    int amplis;
 };
 //lowest first
 struct sortSequenciatorLower{
@@ -67,8 +68,12 @@ struct sortSequenciatorLower{
 };
 
 
-struct sortPrePath{
+struct sortPrePathByEdges{
     bool operator() (prePath a, prePath b){return (a.nbEdges<b.nbEdges);}
+};
+
+struct sortPrePathByAmps{
+    bool operator() (prePath a, prePath b){return (a.amplis<b.amplis);}
 };
 
 class Genetic{
@@ -114,6 +119,8 @@ protected:
 
     int computedLB;
 
+    std::mt19937 rng;  // Mersenne Twister PRNG
+
 public:
 	/****************************************************************************************/
 	/*										Constructor										*/
@@ -147,6 +154,7 @@ public:
 
     int getComputedLB(){ return computedLB;};
     
+    int getRandomNumber(int min, int max);
 
 	/****************************************************************************************/
 	/*										Setters											*/
