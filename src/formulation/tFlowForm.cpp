@@ -469,18 +469,31 @@ void TFlowForm::setWarmValues(){
         std::cout<<"c(" << k+1<<","<< lastSlot <<")"<<std::endl;             
         y[lastSlot-1][k].setWarmstartValue(1.0);
     }
-    /*
+    
     // Variables z[a][b]
     if(NonOverlappingType == 2){
         for (int a = 0; a < getNbDemandsToBeRouted(); a++){
             for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
-                int pos = z[a][b].getId();
-                double newValue = vals[pos];
-                z[a][b].setVal(newValue);
+                double shareLink = false;
+                for (int node1 = 0; node1 < feasibleSolutionNodesByDemand[a].size()-1; node1++){
+                    int u1 = feasibleSolutionNodesByDemand[a][node1];
+                    int v1 = feasibleSolutionNodesByDemand[a][node1+1];
+                    for (int node2 = 0; node2 < feasibleSolutionNodesByDemand[b].size()-1; node2++){
+                        int u2 = feasibleSolutionNodesByDemand[b][node2];
+                        int v2 = feasibleSolutionNodesByDemand[b][node2+1];
+                        if(((u1==u2) && (v1==v2)) || ((u1==v2) && (v1==u2))){
+                            if(shareLink == false){
+                                std::cout<<"z(" << a+1<<","<< b+1<<")"<<std::endl;
+                                z[a][b].setWarmstartValue(1.0);
+                                shareLink = true;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
-    */
+
    // Variables hybrid f[k][a][s] OK
     if(NonOverlappingType == 3){
         for (int k = 0; k < getNbDemandsToBeRouted(); k++){
