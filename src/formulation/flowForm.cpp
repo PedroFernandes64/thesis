@@ -991,8 +991,8 @@ void FlowForm::setLowerBoundReinforcementsConstraints(){
     }
     if((obj[0] == Input::OBJECTIVE_METRIC_NLUS)&&(instance.getInput().activateLB())){
         this->setLinkLoadConstraints();
-        this->setMinSliceAtVertexConstraints();
         this->setMinSliceAtOriginConstraints();
+        this->setMinSliceAtVertexConstraints();
         this->setMinSliceLeavingEdgeConstraints();
     }
 }
@@ -1051,79 +1051,6 @@ Constraint FlowForm::getLinkLoadConstraints(int linkLabel){
     return constraint;
 }
 
-void FlowForm::setMinSliceAtVertexConstraints(){ 
-    for (ListGraph::NodeIt v(compactGraph); v != INVALID; ++v){
-        int demands = 0;
-        int nodeLabel = getCompactNodeLabel(v);
-        for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
-            if( (nodeLabel == getToBeRouted_k(d).getSource()) || (nodeLabel == getToBeRouted_k(d).getTarget()) ){
-                demands = demands+1;
-            }
-        }
-        if (demands >0){
-            const Constraint & minSlice = getMinSliceAtVertexConstraint_v(v);
-            constraintSet.push_back(minSlice);
-        }
-    }
-    std::cout << "Min Slice at Vertex constraints have been defined..." << std::endl;
-}
-
-Constraint FlowForm::getMinSliceAtVertexConstraint_v(ListGraph::Node &v){ 
-    int nodeMinLoad = 0;
-    int nodeLabel = getCompactNodeLabel(v);
-    int demands = 0;
-    //std::cout << "looking at node " << nodeLabel+1 <<std::endl;
-    int degree = getDegree(v);
-    std::cout << "node " << nodeLabel+1<<std::endl;
-    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
-        if( (nodeLabel == getToBeRouted_k(d).getSource()) || (nodeLabel == getToBeRouted_k(d).getTarget()) ){
-            nodeMinLoad = nodeMinLoad + getToBeRouted_k(d).getLoadC();
-            std::cout <<  d+1  << "-";
-            demands = demands+1;
-        }
-    }
-    std::cout << std::endl;
-    int minSlice = static_cast<int>(std::ceil(static_cast<double>(nodeMinLoad) / degree));
-    std::cout << "node " << nodeLabel+1<< " minload " << nodeMinLoad << " degree " << degree  << " minslice"<<minSlice<<std::endl;
-    Expression exp;
-    int rhs = demands;
-    int lhs = 1;
-    for (int d = 0; d < getNbDemandsToBeRouted(); d++){  
-        for (ListDigraph::NodeIt v2(*vecGraph[d]); v2 != INVALID; ++v2){
-            int label = getNodeLabel(v2, d);
-            //std::cout << "looking if node " << label+1 << " is "<< nodeLabel+1 <<std::endl;
-            if (( nodeLabel == label)&&((nodeLabel == getToBeRouted_k(d).getSource()) || (nodeLabel == getToBeRouted_k(d).getTarget()))){
-                //std::cout << "esse é, add arcos "  <<std::endl;
-                for (ListDigraph::OutArcIt a((*vecGraph[d]), v2); a != INVALID; ++a){
-                    if (getArcSlice(a, d) >= minSlice-1){
-                        int arc = getArcIndex(a, d);
-                        Term term(x[d][arc], 1);
-                        exp.addTerm(term);
-                    }
-                }
-                for (ListDigraph::InArcIt a((*vecGraph[d]), v2); a != INVALID; ++a){
-                        if (getArcSlice(a, d) >= minSlice-1){
-                        int arc = getArcIndex(a, d); 
-                        Term term(x[d][arc], 1);
-                        exp.addTerm(term);
-                    }
-                }
-            }
-        }
-    }
-    std::ostringstream constraintName;
-    //std::cout << "end node " << nodeLabel+1 <<std::endl;
-    if (maxSliceOverall.getLb() < minSlice){      
-        std::cout<<"CHANGE OVERALL LB FROM "<< maxSliceOverall.getLb() <<" TO " << minSlice <<std::endl;
-        maxSliceOverall.setLb( minSlice);
-
-    }  
-    constraintName << "Min_Slice_n" << nodeLabel+1;
-    Constraint constraint(lhs, exp, rhs, constraintName.str());
-    return constraint;
-
-}
-
 void FlowForm::setMinSliceAtOriginConstraints(){ 
     const Constraint & minSliceO = getMinSliceAtOriginConstraint();
     constraintSet.push_back(minSliceO);
@@ -1152,6 +1079,117 @@ Constraint FlowForm::getMinSliceAtOriginConstraint(){
     Constraint constraint(rls, exp, rhs, constraintName.str());
     return constraint;
     
+}
+
+void FlowForm::setMinSliceAtVertexConstraints(){ 
+    for (ListGraph::NodeIt v(compactGraph); v != INVALID; ++v){
+        int demands = 0;
+        int nodeLabel = getCompactNodeLabel(v);
+        for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
+            if( (nodeLabel == getToBeRouted_k(d).getSource()) || (nodeLabel == getToBeRouted_k(d).getTarget()) ){
+                demands = demands+1;
+            }
+        }
+        if (demands >0){
+            const Constraint & minSlice = getMinSliceAtVertexConstraint_v(v);
+            constraintSet.push_back(minSlice);
+        }
+    }
+    std::cout << "Min Slice at Vertex constraints have been defined..." << std::endl;
+}
+
+Constraint FlowForm::getMinSliceAtVertexConstraint_v(ListGraph::Node &v){ 
+    int nodeMinLoad = 0;
+    int nodeLabel = getCompactNodeLabel(v);
+    int demands = 0;
+    int sminv = 0;
+    std::vector<int> demandList;
+    //std::cout << "looking at node " << nodeLabel+1 <<std::endl;
+    int degree = getDegree(v);
+    std::cout << "node " << nodeLabel+1<<std::endl;
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
+        if( (nodeLabel == getToBeRouted_k(d).getSource()) || (nodeLabel == getToBeRouted_k(d).getTarget()) ){
+            nodeMinLoad = nodeMinLoad + getToBeRouted_k(d).getLoadC();
+            std::cout <<  d+1  << "-";
+            demands = demands+1;
+            demandList.push_back(d);
+        }
+    }
+    std::cout << std::endl;
+    std::cout << "node " << nodeLabel+1<< " minload " << nodeMinLoad << " degree " << degree  << " demands " << demands<<std::endl;
+    int Av = static_cast<int>(std::ceil(static_cast<double>(nodeMinLoad) / degree));
+    std::cout << "Av (distributed load): " << Av <<std::endl;
+    if(Av>sminv){
+        sminv=Av;
+    }
+    int maxWk = 0;
+    for (int d = 0; d < demandList.size(); d++){  
+        int demand = demandList[d];
+        if(getToBeRouted_k(demand).getLoadC()>maxWk){
+            maxWk=getToBeRouted_k(demand).getLoadC();
+        }
+    }
+    std::cout << "Bv (largest demand): " << maxWk<< std::endl;
+    int Bv =maxWk;
+    if(Bv>sminv){
+        sminv=Bv;
+    }
+    if(degree<demands){
+        int maxWkWk = 15;
+        for (int d1 = 0; d1 < demandList.size(); d1++){
+            int demand1 = demandList[d1];
+            for (int d2 = d1+1; d2 < demandList.size(); d2++){   
+                int demand2 = demandList[d2];
+                int sum = getToBeRouted_k(demand1).getLoadC()+getToBeRouted_k(demand2).getLoadC();
+                if(sum<maxWkWk){
+                    maxWkWk=sum;
+                }
+            }
+        }
+        std::cout << "Cv (smallest demand pair): " << maxWkWk<< std::endl;
+        int Cv = maxWkWk;
+        if(Cv>sminv){
+            sminv=Cv;
+        }
+    }
+    std::cout << "sminv (max term): " << sminv<< std::endl;
+    Expression exp;
+    int rhs = demands;
+    int lhs = 1;
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){  
+        for (ListDigraph::NodeIt v2(*vecGraph[d]); v2 != INVALID; ++v2){
+            int label = getNodeLabel(v2, d);
+            //std::cout << "looking if node " << label+1 << " is "<< nodeLabel+1 <<std::endl;
+            if (( nodeLabel == label)&&((nodeLabel == getToBeRouted_k(d).getSource()) || (nodeLabel == getToBeRouted_k(d).getTarget()))){
+                //std::cout << "esse é, add arcos "  <<std::endl;
+                for (ListDigraph::OutArcIt a((*vecGraph[d]), v2); a != INVALID; ++a){
+                    if (getArcSlice(a, d) >= sminv-1){
+                        int arc = getArcIndex(a, d);
+                        Term term(x[d][arc], 1);
+                        exp.addTerm(term);
+                    }
+                }
+                for (ListDigraph::InArcIt a((*vecGraph[d]), v2); a != INVALID; ++a){
+                        if (getArcSlice(a, d) >= sminv-1){
+                        int arc = getArcIndex(a, d); 
+                        Term term(x[d][arc], 1);
+                        exp.addTerm(term);
+                    }
+                }
+            }
+        }
+    }
+    std::ostringstream constraintName;
+    //std::cout << "end node " << nodeLabel+1 <<std::endl;
+    if (maxSliceOverall.getLb() < sminv){      
+        std::cout<<"CHANGE OVERALL LB FROM "<< maxSliceOverall.getLb() <<" TO " << sminv <<std::endl;
+        maxSliceOverall.setLb( sminv);
+
+    }  
+    constraintName << "Min_Slice_n" << nodeLabel+1;
+    Constraint constraint(lhs, exp, rhs, constraintName.str());
+    return constraint;
+
 }
 
 void FlowForm::setMinSliceLeavingEdgeConstraints(){

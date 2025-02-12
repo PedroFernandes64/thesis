@@ -18,8 +18,8 @@ TFlow_Policy=2
 Reinforcements=0
 Relaxation_variables=0
 Genetic=1
-Genetic_metric=1
-Genetic_iterations=30
+Genetic_metric=2
+Genetic_iterations=10
 Genetic_population=500
 Genetic_crossing=100
 Genetic_mutation=200
@@ -29,9 +29,9 @@ ActivateLB=1
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
-formulation=2
+formulation=0
 userCuts=0
-obj=TUS
+obj=NLUS
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
