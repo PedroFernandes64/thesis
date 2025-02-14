@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "/opt/ibm/ILOG/CPLEX_Studio1210/cplex/include/**",
                 "/opt/ibm/ILOG/CPLEX_Studio1210/concert/include/**",
-                "/usr/**"
+                "/usr/include/c++/11"
+                
             ],
             "defines": [
                 "fPIC",

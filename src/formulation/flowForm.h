@@ -164,6 +164,9 @@ public:
 	void setMinSliceLeavingEdgeConstraints();
 	Constraint getMinSliceLeavingEdgeConstraint(ListGraph::Edge &e);
 
+	void setMinSliceLeavingEdgeInternalDemandConstraints();
+	Constraint getMinSliceLeavingEdgeInternalDemandConstraint(ListGraph::Edge &e, int intDemand, std::vector<int> demandList);
+
 	/** Returns the strong max reach constraint associated with a demand and a slice. @param demand The demand. @param d The demand index. @param s The slice index.**/
 	Constraint getStrongCDConstraint(const Demand &demand, int d, int s);
 	

@@ -157,6 +157,7 @@ with open("../Outputs/experimentList.csv", "w") as list:
                                                                 stringGeneticM = "Genetic_metric=1" + "\n"
                                                             lines[20] = stringGeneticM
                                                             firstPassage = "0"
+                                                            tflowAlreadyDone0 = []
 
                                                             for iterationsXPop in geneticIterationsXPopulation:
                                                                 stringIterations = "Genetic_iterations=" + iterationsXPop[0] + "\n"
@@ -179,9 +180,10 @@ with open("../Outputs/experimentList.csv", "w") as list:
                                                                         #verifying if tflow
                                                                         if form == '2':
                                                                             for tflow in TFlowSet:
+                                                                                firstPassage = "0"
                                                                                 stringTflow = "TFlow_Policy=" + tflow  + "\n"
                                                                                 lines[16] = stringTflow
-                                                                                if (gen == "0" and firstPassage == "0") or (gen=="1"):
+                                                                                if (gen == "0" and tflow not in tflowAlreadyDone0) or (gen=="1"):
                                                                                     #FOLDER MANAGEMENT
                                                                                     if (counter % 200 == 0) or (counter == 0):
                                                                                         batchs = batchs + 1
@@ -229,9 +231,7 @@ with open("../Outputs/experimentList.csv", "w") as list:
                                                                                         f.close() 
                                                                                     counter = counter + 1
                                                                                     print(parametersName)
-                                                                                    firstPassage ="1"
-                                                                                if gen == "0" and firstPassage == "1":
-                                                                                    print("DENY REPETITION")
+                                                                                    tflowAlreadyDone0.append(tflow)
                                                                         else:
                                                                             stringTflow = "TFlow_Policy=0" + "\n"
                                                                             lines[16] = stringTflow

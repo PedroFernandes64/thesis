@@ -171,6 +171,25 @@ public:
 	Constraint getMultibandConstraint4(int k, int e);
 	Constraint getMultibandConstraint5(int e);
 	
+	void setLowerBoundReinforcementsConstraints();
+	
+	void setLBTUSConstraints();
+	Constraint getLbTUSConstraints();
+
+	void setLinkLoadConstraints();
+	Constraint getLinkLoadConstraints(int edge);
+
+	void setMinSliceAtVertexConstraints();
+	Constraint getMinSliceAtVertexConstraint_v(ListGraph::Node &v);
+
+	void setMinSliceAtOriginConstraints();
+	Constraint getMinSliceAtOriginConstraint();
+
+	void setMinSliceLeavingEdgeConstraints();
+	Constraint getMinSliceLeavingEdgeConstraint(ListGraph::Edge &e);
+
+	void setMinSliceLeavingEdgeInternalDemandConstraints();
+	Constraint getMinSliceLeavingEdgeInternalDemandConstraint(ListGraph::Edge &e, int intDemand, std::vector<int> demandList);
 	
 /*
 	void setStrongCDConstraints();
