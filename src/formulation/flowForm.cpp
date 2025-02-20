@@ -103,7 +103,7 @@ void FlowForm::setMaxUsedSlicePerEdgeVariables(){
         //int upperBound = getNbSlicesLimitFromEdge(i);
         int upperBound = auxNbSlicesLimitFromEdge[i];
         int varId = getNbVar();
-        maxSlicePerLink[i] = Variable(varId, lowerBound, upperBound, Variable::TYPE_REAL, 0, varName);
+        maxSlicePerLink[i] = Variable(varId, lowerBound, upperBound, Variable::TYPE_INTEGER, 0, varName);
         incNbVar();
     }
     std::cout << "Max slice variables have been defined..." << std::endl;
@@ -121,7 +121,7 @@ void FlowForm::setMaxUsedSliceOverallVariable(){
     }
     //int upperBound = auxNbSlicesGlobalLimit-1;
     int varId = getNbVar();
-    maxSliceOverall = Variable(varId, lowerBound, upperBound, Variable::TYPE_REAL, 0, varName);
+    maxSliceOverall = Variable(varId, lowerBound, upperBound, Variable::TYPE_INTEGER, 0, varName);
     incNbVar();
     std::cout << "Max slice overall variable has been defined..." << std::endl;
 }
@@ -1415,15 +1415,17 @@ void FlowForm::setMinSliceLeavingEdgeInternalDemandConstraints(){
         }
         if ((demands >0)&&(internalDemandList.size()>0)){
             for (int i = 0; i < internalDemandList.size(); i++){
-                const Constraint & edgeInternalConst = getMinSliceLeavingEdgeInternalDemandConstraint(e,internalDemandList[i],demandList);
-                constraintSet.push_back(edgeInternalConst);
+                const std::vector<Constraint> & edgeInternalConst = getMinSliceLeavingEdgeInternalDemandConstraint(e,internalDemandList[i],demandList);
+                for (int a = 0; a < edgeInternalConst.size(); a++){
+                    constraintSet.push_back(edgeInternalConst[a]);
+                }
             }
         }
     }
     std::cout << "Min Slice leaving edge internal demand constraints have been defined..." << std::endl;
 }
 
-Constraint FlowForm::getMinSliceLeavingEdgeInternalDemandConstraint(ListGraph::Edge &e, int intDemand, std::vector<int> demandList){
+std::vector<Constraint> FlowForm::getMinSliceLeavingEdgeInternalDemandConstraint(ListGraph::Edge &e, int intDemand, std::vector<int> demandList){
     int edgeMinLoad = 0;
     ListGraph::Node u = compactGraph.u(e);
     ListGraph::Node v = compactGraph.v(e);
@@ -1529,7 +1531,7 @@ Constraint FlowForm::getMinSliceLeavingEdgeInternalDemandConstraint(ListGraph::E
 
     std::cout << "sminv (max term): " << sminv1v2<< std::endl;
     std::cout << "sminvk (max term with k): " << sminv1v2k<< std::endl;
-
+    std::vector<Constraint> constraints;
     Expression exp;
     int rhs = -sminv1v2k;
     int lhs = -getNbSlicesGlobalLimit()-(sminv1v2k-sminv1v2);
@@ -1543,9 +1545,71 @@ Constraint FlowForm::getMinSliceLeavingEdgeInternalDemandConstraint(ListGraph::E
     Term term2(maxSliceOverall, -1);
     exp.addTerm(term2);
     std::ostringstream constraintName;
-    constraintName << "MinSliceLeavingEdgeInternalDemand_"<< uLabel+1<< "_"<< vLabel+1;
+    constraintName << "MinSliceLeavingEdgeInternalDemandP_"<< uLabel+1<< "_"<< vLabel+1;
     Constraint constraint(lhs, exp, rhs, constraintName.str());
-    return constraint;
+    constraints.push_back(constraint);
+
+    Expression exp2;
+    int rhs2 = demands*3+3;
+    int lhs2 = 1;
+    demandList.push_back(intDemand);
+    for (int d = 0; d < demandList.size(); d++){  
+        int demand = demandList[d];
+        //std::cout << "DEMAND " << demand+1 << " " << getToBeRouted_k(demand).getSource()+1<< "-"<< getToBeRouted_k(demand).getTarget()+1<< std::endl;
+        for (ListDigraph::NodeIt v2(*vecGraph[demand]); v2 != INVALID; ++v2){
+            int label = getNodeLabel(v2, demand);
+            //std::cout << "looking if node " << label+1 << " is "<< uLabel+1 <<std::endl;
+            if ( uLabel == label){
+                //std::cout << "esse é, add arcos "  <<std::endl;
+                for (ListDigraph::OutArcIt a((*vecGraph[demand]), v2); a != INVALID; ++a){
+                    if ((getArcSlice(a, demand) >= sminv1v2k-1)&&(getNodeLabel((*vecGraph[demand]).target(a), demand)!=vLabel)){
+                        int arc = getArcIndex(a,demand);
+                        Term term(x[demand][arc], 1);
+                        exp2.addTerm(term);
+                        //std::cout<< "MUST ACCEPT"<< getNodeLabel((*vecGraph[demand]).source(a), demand)+1<<"-"<< getNodeLabel((*vecGraph[demand]).target(a), demand)+1<<std::endl;
+                    }
+                }
+                for (ListDigraph::InArcIt a((*vecGraph[demand]), v2); a != INVALID; ++a){
+                    if ((getArcSlice(a, demand) >= sminv1v2k-1)&&(getNodeLabel((*vecGraph[demand]).source(a), demand)!=vLabel)){
+                        int arc = getArcIndex(a,demand);
+                        Term term(x[demand][arc], 1);
+                        exp2.addTerm(term);
+                        //std::cout<< "MUST ACCEPT"<< getNodeLabel((*vecGraph[demand]).source(a), demand)+1<<"-"<< getNodeLabel((*vecGraph[demand]).target(a), demand)+1<<std::endl;
+                    }
+                }
+            }
+            //std::cout << "looking if node " << label+1 << " is "<< vLabel+1 <<std::endl;
+            if ( vLabel == label){
+                //std::cout << "esse é, add arcos "  <<std::endl;
+                for (ListDigraph::OutArcIt a((*vecGraph[demand]), v2); a != INVALID; ++a){
+                    if ((getArcSlice(a, demand) >= sminv1v2k-1)&&(getNodeLabel((*vecGraph[demand]).target(a), demand)!=uLabel)){
+                        int arc = getArcIndex(a,demand);
+                        Term term(x[demand][arc], 1);
+                        exp2.addTerm(term);
+                        //std::cout<< "MUST ACCEPT"<< getNodeLabel((*vecGraph[demand]).source(a), demand)+1<<"-"<< getNodeLabel((*vecGraph[demand]).target(a), demand)+1<<std::endl;
+                    }
+                }
+                for (ListDigraph::InArcIt a((*vecGraph[demand]), v2); a != INVALID; ++a){
+                    if ((getArcSlice(a, demand) >= sminv1v2k-1)&&(getNodeLabel((*vecGraph[demand]).source(a), demand)!=uLabel)){
+                        int arc = getArcIndex(a,demand);
+                        Term term(x[demand][arc], 1);
+                        exp2.addTerm(term);
+                        //std::cout<< "MUST ACCEPT"<< getNodeLabel((*vecGraph[demand]).source(a), demand)+1<<"-"<< getNodeLabel((*vecGraph[demand]).target(a), demand)+1<<std::endl;
+                    }
+                }
+            }
+        }
+    }
+    for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[intDemand]),linkLabel); a != INVALID; ++a){   
+        int index = getArcIndex(a, intDemand);
+        Term term(x[intDemand][index], -1);
+        exp2.addTerm(term);
+    }    
+    std::ostringstream constraintName2;
+    constraintName2 << "MinSliceLeavingEdgeInternalDemandSminK_"<< uLabel+1<< "_"<< vLabel+1;
+    Constraint constraint2(lhs2, exp2, rhs2, constraintName2.str());
+    constraints.push_back(constraint2);
+    return constraints;
 }
 
 

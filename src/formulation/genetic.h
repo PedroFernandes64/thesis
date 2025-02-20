@@ -9,7 +9,7 @@ using namespace lemon;
 
 class Routing{  
 public:
-    std::vector<std::vector<Fiber> > routes;
+    std::vector<const std::vector<Fiber>* > routes;
     std::vector<int> loads;
     std::vector<int> colors;
     bool colored;
@@ -18,7 +18,7 @@ public:
     int nbSlots;
     int metricVal;
 
-    Routing(std::vector<std::vector<Fiber> > routes, std::vector<int> loads);
+    Routing(std::vector<const std::vector<Fiber>* > routes, std::vector<int> loads);
     Routing(const Routing& other)
         : routes(other.routes),         // Deep copy the vector of vectors
           loads(other.loads),           // Deep copy the loads vector

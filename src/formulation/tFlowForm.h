@@ -189,7 +189,7 @@ public:
 	Constraint getMinSliceLeavingEdgeConstraint(ListGraph::Edge &e);
 
 	void setMinSliceLeavingEdgeInternalDemandConstraints();
-	Constraint getMinSliceLeavingEdgeInternalDemandConstraint(ListGraph::Edge &e, int intDemand, std::vector<int> demandList);
+	std::vector<Constraint> getMinSliceLeavingEdgeInternalDemandConstraint(ListGraph::Edge &e, int intDemand, std::vector<int> demandList);
 	
 /*
 	void setStrongCDConstraints();

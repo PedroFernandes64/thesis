@@ -2371,15 +2371,17 @@ void TFlowForm::setMinSliceLeavingEdgeInternalDemandConstraints(){
         }
         if ((demands >0)&&(internalDemandList.size()>0)){
             for (int i = 0; i < internalDemandList.size(); i++){
-                const Constraint & edgeInternalConst = getMinSliceLeavingEdgeInternalDemandConstraint(e,internalDemandList[i],demandList);
-                constraintSet.push_back(edgeInternalConst);
+                const std::vector<Constraint> & edgeInternalConst = getMinSliceLeavingEdgeInternalDemandConstraint(e,internalDemandList[i],demandList);
+                for (int a = 0; a < edgeInternalConst.size(); a++){
+                    constraintSet.push_back(edgeInternalConst[a]);
+                }
             }
         }
     }
     std::cout << "Min Slice leaving edge internal demand constraints have been defined..." << std::endl;
 }
 
-Constraint TFlowForm::getMinSliceLeavingEdgeInternalDemandConstraint(ListGraph::Edge &e, int intDemand, std::vector<int> demandList){
+std::vector<Constraint>  TFlowForm::getMinSliceLeavingEdgeInternalDemandConstraint(ListGraph::Edge &e, int intDemand, std::vector<int> demandList){
     int edgeMinLoad = 0;
     ListGraph::Node u = compactGraph.u(e);
     ListGraph::Node v = compactGraph.v(e);
@@ -2485,7 +2487,7 @@ Constraint TFlowForm::getMinSliceLeavingEdgeInternalDemandConstraint(ListGraph::
 
     std::cout << "sminv (max term): " << sminv1v2<< std::endl;
     std::cout << "sminvk (max term with k): " << sminv1v2k<< std::endl;
-
+    std::vector<Constraint> constraints;
     Expression exp;
     int rhs = -sminv1v2k;
     int lhs = -getNbSlicesGlobalLimit()-(sminv1v2k-sminv1v2);
@@ -2499,9 +2501,31 @@ Constraint TFlowForm::getMinSliceLeavingEdgeInternalDemandConstraint(ListGraph::
     Term term3(maxSliceOverall, -1);
     exp.addTerm(term3);
     std::ostringstream constraintName;
-    constraintName << "MinSliceLeavingEdgeInternalDemand_"<< uLabel+1<< "_"<< vLabel+1;
+    constraintName << "MinSliceLeavingEdgeInternalDemandP_"<< uLabel+1<< "_"<< vLabel+1;
     Constraint constraint(lhs, exp, rhs, constraintName.str());
-    return constraint;
+    constraints.push_back(constraint);
+
+    Expression exp2;
+    int rhs2 = demands+1;
+    int lhs2 = 1;
+    demandList.push_back(intDemand);
+    for (int k = 0; k < demandList.size(); k++){  
+        int demand = demandList[k];
+        for (int s = sminv1v2k -1; s < slicesTotal; s++){
+            Term term(y[s][demand], 1);
+            exp2.addTerm(term);
+        }
+    }
+    Term termA(x[edge][intDemand], 1);
+    Term termB(x[edge + nbEdges][intDemand], 1);
+    exp2.addTerm(termA);
+    exp2.addTerm(termB);
+    std::ostringstream constraintName2;
+    constraintName2 << "MinSliceLeavingEdgeInternalDemandSminK_"<< uLabel+1<< "_"<< vLabel+1;
+    Constraint constraint2(lhs2, exp2, rhs2, constraintName2.str());
+    constraints.push_back(constraint2);
+
+    return constraints;
 }
 
 
