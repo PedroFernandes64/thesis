@@ -987,9 +987,9 @@ void FlowForm::setMaxUsedSliceOverallConstraints(){
 
 void FlowForm::setLowerBoundReinforcementsConstraints(){
     const std::vector<Input::ObjectiveMetric> & obj = instance.getInput().getChosenObj();
-    if((obj[0] == Input::OBJECTIVE_METRIC_TUS)&&(instance.getInput().activateLB())){
-        this->setLBTUSConstraints();
-    }
+    //if((obj[0] == Input::OBJECTIVE_METRIC_TUS)&&(instance.getInput().activateLB())){
+    //    this->setLBTUSConstraints();
+    //}
     if((obj[0] == Input::OBJECTIVE_METRIC_NLUS)&&(instance.getInput().activateLB())){
         this->setLinkLoadConstraints();
         this->setMinSliceAtOriginConstraints();
@@ -1067,7 +1067,7 @@ Constraint FlowForm::getMinSliceAtOriginConstraint(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
         for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
             if (getToBeRouted_k(d).getSource() == getNodeLabel((*vecGraph[d]).source(a), d)){
-                if (getArcSlice(a, d) >= getComputedLB()-1){
+                if (getArcSlice(a, d) >= static_cast<int>(getComputedLB())-1){
                     int arc = getArcIndex(a, d);
                     Term term(x[d][arc], 1);
                     exp.addTerm(term);

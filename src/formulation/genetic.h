@@ -11,17 +11,19 @@ class Routing{
 public:
     std::vector<const std::vector<Fiber>* > routes;
     std::vector<int> loads;
+    std::vector<double> spectralEff;
     std::vector<int> colors;
     bool colored;
     bool feasible;
     int nbEdges;
     int nbSlots;
-    int metricVal;
+    double metricVal;
 
-    Routing(std::vector<const std::vector<Fiber>* > routes, std::vector<int> loads);
+    Routing(std::vector<const std::vector<Fiber>* > routes, std::vector<int> loads, std::vector<double> spectralEff);
     Routing(const Routing& other)
         : routes(other.routes),         // Deep copy the vector of vectors
           loads(other.loads),           // Deep copy the loads vector
+          spectralEff(other.spectralEff), 
           colors(other.colors),         // Deep copy the colors vector
           colored(other.colored),       // Copy the boolean value
           feasible(other.feasible),     // Copy the boolean value
@@ -76,6 +78,10 @@ struct sortPrePathByAmps{
     bool operator() (prePath a, prePath b){return (a.amplis<b.amplis);}
 };
 
+struct sortPrePathByLength{
+    bool operator() (prePath a, prePath b){return (a.length<b.length);}
+};
+
 class Genetic{
 
 protected: 
@@ -83,6 +89,7 @@ protected:
     Instance instance;                  /**< An instance describing the initial mapping. **/
     std::vector<Demand> toBeRouted;     /**< The list of demands to be routed in the next optimization. **/
     std::vector<int> loads;
+    std::vector<double> spectralEff;
 
     std::vector<std::vector<int>> edgeSlotMap;
     std::vector<int> lastSlotDemand;
@@ -117,7 +124,7 @@ protected:
     double consolidatingSelectedTime;
     double selectionTime;
 
-    int computedLB;
+    double computedLB;
 
     std::mt19937 rng;  // Mersenne Twister PRNG
 
@@ -152,7 +159,7 @@ public:
     int getItToBest(){ return itToBest;};
     int getBestSol(){ return currentBest;};
 
-    int getComputedLB(){ return computedLB;};
+    double getComputedLB(){ return computedLB;};
     
     int getRandomNumber(int min, int max);
 
@@ -164,6 +171,7 @@ public:
     /** Changes the vector of demands to be routed. @param vec The new vector of demands. **/
     void setToBeRouted(const std::vector<Demand> &vec){this->toBeRouted = vec;}
     void setLoadVector();
+    void setSpectralEffVector();
 
 
 	/****************************************************************************************/

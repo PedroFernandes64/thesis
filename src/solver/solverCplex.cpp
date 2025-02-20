@@ -277,6 +277,8 @@ void SolverCplex::exportFormulation(const Instance &instance){
 void SolverCplex::setCplexParams(const Input &input){
     //cplex.setParam(IloCplex::Param::Preprocessing::Presolve, 0);
     cplex.setParam(IloCplex::Param::MIP::Display, 2);
+    //cplex.setParam(IloCplex::Param::MIP::Tolerances::LowerCutoff, 1000);
+    //cplex.setParam(IloCplex::Param::Simplex::Limits::LowerObj, 1000);
     cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 16384);
     cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
     cplex.setParam(IloCplex::Param::Threads, 8); //CHANGE TO 4

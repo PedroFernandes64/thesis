@@ -1,27 +1,44 @@
 #include "genetic.h"
 
-Routing::Routing(std::vector<const std::vector<Fiber>* > r, std::vector<int> l) : routes(r), loads(l), colors(), colored(false){
+Routing::Routing(std::vector<const std::vector<Fiber>* > r, std::vector<int> l,std::vector<double> s) : routes(r), loads(l), spectralEff(s), colors(), colored(false){
 	for (int d = 0; d < routes.size(); ++d){
 		colors.push_back(0) ;
 	}
-	metricVal = 0;
+	metricVal = 0.0;
 }
 
 void Routing::computeMetric(int m){
 	if(m == 1){
 		for (int a = 0; a < this->routes.size(); a++){
-			metricVal= metricVal+ this->routes[a]->size()*loads[a];
+			metricVal= metricVal + this->routes[a]->size()*loads[a];
 		}
-	}else{
-		if(m == 2){
-			metricVal= 1;
-			for(int i = 0; i < colors.size(); ++i){
-				if((colors[i]+loads[i]-1)>=metricVal){
-					metricVal=(colors[i]+loads[i]-1);
-				}
+	}
+	if(m == 2){
+		metricVal= 1;
+		for(int i = 0; i < colors.size(); ++i){
+			if((colors[i]+loads[i]-1)>=metricVal){
+				metricVal=(colors[i]+loads[i]-1);
 			}
 		}
 	}
+	if(m == 3){
+		for (int a = 0; a < this->routes.size(); a++){
+			for (int b = 0; b < this->routes[a]->size(); b++){
+				metricVal= metricVal+ (*this->routes[a])[b].getLength();
+			}
+		}
+	}
+	if(m == 4){
+		for (int a = 0; a < this->routes.size(); a++){
+			int amplis = 0;
+			for (int b = 0; b < this->routes[a]->size(); b++){
+				amplis = amplis + (*this->routes[a])[b].getLineAmplifiers();
+			}
+			amplis = amplis + this->routes[a]->size();
+			metricVal= metricVal+ amplis*spectralEff[a];
+		}
+	}
+
 }
 
 void Routing::building(int metr, int edges, int slots) {
@@ -275,7 +292,7 @@ void Routing::setNbSlots(int nb){
 }
 
 void Routing::display(){
-	for (int a = 0; a < routes.size(); a++){
+	/*for (int a = 0; a < routes.size(); a++){
 		std::cout << "Demand "<< a + 1 << " || Slots : "<<colors[a]<<"-"<< colors[a] + loads[a] -1 << " |||";
 		for (int b = 0; b < routes[a]->size(); b++){
 			std::cout << (*routes[a])[b].getSource()+1 << "-" << (*routes[a])[b].getTarget()+1 << "|" ;
@@ -286,7 +303,7 @@ void Routing::display(){
 		std::cout<< "no coloring" <<std::endl ;
 	}else{
 		std::cout<< "coloring" <<std::endl ;
-	}    
+	}    */
 	std::cout<< "metric "<< metricVal <<std::endl ;
 }
 
@@ -336,6 +353,9 @@ void Genetic::run(){
 		//	thisIterationMutation[i].display();
 		//}
 		doSelection();
+		//for (int i = 0; i < 10; i++){
+		//	population[i].display();
+		//}
 		std::cout<<"First place: "<< population[0].metricVal<<std::endl;
 		std::cout<<"Last place: "<< population[population.size()-1].metricVal<<std::endl;
 		std::cout<<"==========FIN IT: "<< currentIt<<std::endl;
@@ -367,9 +387,7 @@ void Genetic::run(){
 			}
 		}
 	}
-	//for (int i = 0; i < 2; i++){
-	//	population[i].display();
-	//}
+
 	heuristicTime = clockHeuristc.getTimeInSecFromStart();
 	std::cout<<"Best SOL: "<< currentBest<<std::endl;
 	std::cout<<"Found at it: "<< itToBest<<" after " << timeToBest <<std::endl;
@@ -387,6 +405,7 @@ void Genetic::run(){
 Genetic::Genetic(const Instance &inst) : instance(inst),rng(std::random_device{}()){
 	this->setToBeRouted(instance.getNextDemands());
 	setLoadVector();
+	setSpectralEffVector();
     //displayToBeRouted();
 	chosenK = instance.getInput().geneticGetChosenK();
 	extraK = instance.getInput().geneticGetExtraK();
@@ -488,6 +507,12 @@ void Genetic::setLoadVector(){
 	}
 }
 
+void Genetic::setSpectralEffVector(){
+	for (int i = 0; i < toBeRouted.size(); ++i){
+		spectralEff.push_back(toBeRouted[i].getGBits()/toBeRouted[i].getLoadC());
+	}
+}
+
 void Genetic::doSelection(){
 	ClockTime clockConsolidate(ClockTime::getTimeNow());
 	clockConsolidate.setStart(ClockTime::getTimeNow());
@@ -563,7 +588,7 @@ void Genetic::doSelection(){
 			for (int d = 0; d < population[element].routes.size(); ++d){
 				routes.push_back(population[element].routes[d]);
 			}
-			Routing member(routes,loads);
+			Routing member(routes,loads,spectralEff);
 			member.copying(population[element]);
 			thisIterationTotalPop.push_back(member);
 		}else{
@@ -574,7 +599,7 @@ void Genetic::doSelection(){
 					routes.push_back(thisIterationCrossing[element].routes[d]);
 				}
 
-				Routing member(routes,loads);
+				Routing member(routes,loads,spectralEff);
 				member.copying(thisIterationCrossing[element]);
 				thisIterationTotalPop.push_back(member);
 			}else{
@@ -584,7 +609,7 @@ void Genetic::doSelection(){
 					for (int d = 0; d < thisIterationMutation[element].routes.size(); ++d){
 						routes.push_back(thisIterationMutation[element].routes[d]);
 					}
-					Routing member(routes,loads);
+					Routing member(routes,loads,spectralEff);
 					member.copying(thisIterationMutation[element]);
 					thisIterationTotalPop.push_back(member);
 				}else{
@@ -776,7 +801,7 @@ void Genetic::doMutation(){
 				routes.push_back(population[mutant].routes[d]);
 			}
 		}
-		Routing member(routes,loads);
+		Routing member(routes,loads,spectralEff);
 		mutationTime = mutationTime + clockMutation.getTimeInSecFromStart();
 		ClockTime clockColoring(ClockTime::getTimeNow());
 		clockColoring.setStart(ClockTime::getTimeNow());
@@ -818,7 +843,7 @@ void Genetic::doCrossing(){
 			}
 		}
 		
-		Routing member(routes,loads);
+		Routing member(routes,loads,spectralEff);
 		crossingTime = crossingTime + clockCrossing.getTimeInSecFromStart();
 		ClockTime clockColoring(ClockTime::getTimeNow());
 		clockColoring.setStart(ClockTime::getTimeNow());
@@ -857,7 +882,7 @@ void Genetic::GenerateInitialPopulation(int nbPop){
 		}
 		
             
-		Routing member(routes,loads);
+		Routing member(routes,loads,spectralEff);
 		initialPopTime = initialPopTime + clockInitial.getTimeInSecFromStart();
 		ClockTime clockColoring(ClockTime::getTimeNow());
 		clockColoring.setStart(ClockTime::getTimeNow());
@@ -1043,28 +1068,34 @@ void Genetic::GenerateShortestRoutes2(){
 		
 		sortPrePathByEdges sorterA;
 		sortPrePathByAmps sorterB;
+		sortPrePathByLength sorterC;
 
 		if(metric==1){
 			//std::cout << "Sorting by nb edges"<< std::endl;
 			std::sort(qualifiedForThisDemand.begin(),qualifiedForThisDemand.end(),sorterA);
 		}
-		if(metric==2){
+		if((metric==2)||(metric==4)){
 			//std::cout << "Sorting by amplis"<< std::endl;
 			std::sort(qualifiedForThisDemand.begin(),qualifiedForThisDemand.end(),sorterB);
 		}
-
-		//std::cout << "demand " <<i+1 << std::endl;
-		/*
+		if(metric==3){
+			//std::cout << "Sorting by length"<< std::endl;
+			std::sort(qualifiedForThisDemand.begin(),qualifiedForThisDemand.end(),sorterC);
+		}
+		std::cout << "demand " <<i+1 << std::endl;
+		
 		for (int i = 0; i <qualifiedForThisDemand.size(); ++i){
 			for (int j = 0; j <qualifiedForThisDemand[i].links.size(); ++j){
 				std::cout << qualifiedForThisDemand[i].links[j].getSource()+1 << "-" << qualifiedForThisDemand[i].links[j].getTarget()+1 << "|" ;
 			}
-			std::cout <<  " cd " << qualifiedForThisDemand[i].length*17 << "|" ;
-			std::cout <<  " noise " << qualifiedForThisDemand[i].noise << "|" ;
+			std::cout <<  " nb edges " << qualifiedForThisDemand[i].nbEdges << "|";
+			std::cout <<  " length " << qualifiedForThisDemand[i].length << "|" ;
 			std::cout <<  " amplis " << qualifiedForThisDemand[i].amplis << "|";
-			std::cout <<  " nb edges " << qualifiedForThisDemand[i].nbEdges << "|"<<std::endl;
+			std::cout <<  " cd " << qualifiedForThisDemand[i].length*17 << "|" ;
+			std::cout <<  " noise " << qualifiedForThisDemand[i].noise << "|" <<std::endl;
+			
 		}
-		*/
+		
 		std::vector<std::vector<Fiber> > kcandidates;
 		int limit = chosenK+extraK;
 
@@ -1530,6 +1561,7 @@ std::vector<int> Genetic::dijkstra(std::vector<std::vector<int> > graph, int src
 	*/
 	
 	double chosendistance = dist[dest];
+	pathdistance =chosendistance;
     /*
 	std::cout << "Chosen distance " << chosendistance << endl;
     // print the constructed distance array
@@ -1550,11 +1582,12 @@ std::vector<int> Genetic::dijkstra(std::vector<std::vector<int> > graph, int src
 
 void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessingErasedArcs,bool prepro)
 {
-	double totalMinimumSlots=0.0;
+	double totalMinimumMetric=0.0;
+
 	//DJIKISTRA MODULE     	
     int originDjikistra;
     int destinationDijikistra;
-	int thisDemandMinimumSlots = 0;
+	double thisDemandMinimumMetric = 0.0;
 	int nbEdges = getInstance().getTabEdge().size();
 	
 	std::vector<double> linkCharge(nbEdges, 0.0);
@@ -1582,12 +1615,28 @@ void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessi
                 //std::cout << "origin "<< edgeorigin<< std::endl;
                 //std::cout << "dest "<< edgedestination<< std::endl;
                 if (edgedestination == demandorigin){
-                    adjmatrix[i][edgeorigin] = 1;
+					if((metric==1)||(metric==2)){
+                    	adjmatrix[i][edgeorigin] = 1;
+					}
+					if(metric==3){
+                    	adjmatrix[i][edgeorigin] = getInstance().getTabEdge()[j].getLength();
+					}
+					if(metric==4){
+                    	adjmatrix[i][edgeorigin] = getInstance().getTabEdge()[j].getLineAmplifiers()+1;
+					}
                 }
                 else{
                     if (edgeorigin == demandorigin){
-                        adjmatrix[i][edgedestination] = 1;
-                    }
+						if((metric==1)||(metric==2)){
+							adjmatrix[i][edgedestination] = 1;
+						}
+						if(metric==3){
+							adjmatrix[i][edgedestination] = getInstance().getTabEdge()[j].getLength();
+						}
+						if(metric==4){
+							adjmatrix[i][edgedestination] = getInstance().getTabEdge()[j].getLineAmplifiers()+1;
+						}
+					}
                 }
             }
         }
@@ -1595,8 +1644,19 @@ void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessi
 
 		double dist;
 		djikistraSolution = dijkstra(adjmatrix,originDjikistra,destinationDijikistra,dist);
-		thisDemandMinimumSlots = (djikistraSolution.size()-1)*toBeRouted[i].getLoadC();
-		totalMinimumSlots = totalMinimumSlots + thisDemandMinimumSlots;
+		if((metric==1)||(metric==2)){
+			thisDemandMinimumMetric = (djikistraSolution.size()-1)*toBeRouted[i].getLoadC();
+		}
+		if(metric==3){
+			thisDemandMinimumMetric = dist;
+		}
+		if(metric==4){
+			thisDemandMinimumMetric = dist*(toBeRouted[i].getGBits()/toBeRouted[i].getLoadC());
+		}
+		std::cout << "Demand  " << i +1 <<  " metric " << thisDemandMinimumMetric << std::endl;
+		
+		totalMinimumMetric = totalMinimumMetric + thisDemandMinimumMetric;
+
 		//std::cout << "Demand  " << i +1 <<  " used at least " << djikistraSolution.size()-1 <<  " edges so total s " <<thisDemandMinimumSlots<<std::endl;
 		//std::cout << "total  " << totalMinimumSlots << std::endl;
 		/*if (prepro == true){
@@ -1643,14 +1703,22 @@ void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessi
 
 
 	if(metric==1){
-		computedLB = totalMinimumSlots;
+		computedLB = totalMinimumMetric;
 		//std::cout << "LB  " << computedLB << std::endl;
 	}
 	if(metric==2){
-		computedLB = ceil(totalMinimumSlots/instance.getNbEdges());
+		computedLB = ceil(totalMinimumMetric/instance.getNbEdges());
 		//std::cout << "LB non round  " << totalMinimumSlots/instance.getNbEdges() << std::endl;
 		std::cout << "LB dividing charge by all links  " << computedLB << std::endl;
 		//std::cout << "LB dividing charge by preprocessed links  " << ceil(maxLinkCharge) << std::endl;
+	}
+	if(metric==3){
+		computedLB = totalMinimumMetric;
+		//std::cout << "LB  " << computedLB << std::endl;
+	}
+	if(metric==4){
+		computedLB = totalMinimumMetric;
+		//std::cout << "LB  " << computedLB << std::endl;
 	}
 }
 

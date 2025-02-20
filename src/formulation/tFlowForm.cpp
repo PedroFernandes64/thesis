@@ -2108,7 +2108,7 @@ Constraint TFlowForm::getMinSliceAtOriginConstraint(){
     rhs = getNbDemandsToBeRouted();
     rls = 1;
     for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        for (int s = getComputedLB()-1; s < slicesTotal; s++){
+        for (int s = static_cast<int>(getComputedLB())-1; s < slicesTotal; s++){
             Term term(y[s][k], 1);
             exp.addTerm(term);
         }
