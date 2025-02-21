@@ -987,9 +987,21 @@ void FlowForm::setMaxUsedSliceOverallConstraints(){
 
 void FlowForm::setLowerBoundReinforcementsConstraints(){
     const std::vector<Input::ObjectiveMetric> & obj = instance.getInput().getChosenObj();
-    //if((obj[0] == Input::OBJECTIVE_METRIC_TUS)&&(instance.getInput().activateLB())){
-    //    this->setLBTUSConstraints();
-    //}
+    if((obj[0] == Input::OBJECTIVE_METRIC_TUS)&&(instance.getInput().activateLB())){
+        Constraint lbConst = getLbTUSConstraints();
+        constraintSet.push_back(lbConst);
+        std::cout << "LB TUS constraints have been defined..." << std::endl;
+    }
+    if((obj[0] == Input::OBJECTIVE_METRIC_TRL)&&(instance.getInput().activateLB())){
+        Constraint lbConst = getLbTRLConstraints();
+        constraintSet.push_back(lbConst);
+        std::cout << "LB TRL constraints have been defined..." << std::endl;
+    }
+    if((obj[0] == Input::OBJECTIVE_METRIC_TASE)&&(instance.getInput().activateLB())){
+        Constraint lbConst = getLbTASEConstraints();
+        constraintSet.push_back(lbConst);
+        std::cout << "LB TASE constraints have been defined..." << std::endl;
+    }
     if((obj[0] == Input::OBJECTIVE_METRIC_NLUS)&&(instance.getInput().activateLB())){
         this->setLinkLoadConstraints();
         this->setMinSliceAtOriginConstraints();
@@ -1000,15 +1012,9 @@ void FlowForm::setLowerBoundReinforcementsConstraints(){
 }
 
 
-void FlowForm::setLBTUSConstraints(){
-    Constraint lbConst = getLbTUSConstraints();
-    constraintSet.push_back(lbConst);
-    std::cout << "LB TUS constraints have been defined..." << std::endl;
-}
-
 Constraint FlowForm::getLbTUSConstraints(){
     Expression exp;
-    int upperBound = instance.getNbEdges()*getNbSlicesGlobalLimit();
+    //int upperBound = instance.getNbEdges()*getNbSlicesGlobalLimit();
     int lowerBound = getComputedLB();
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
@@ -1020,7 +1026,43 @@ Constraint FlowForm::getLbTUSConstraints(){
     }
     std::ostringstream constraintName;
     constraintName << "LB_TUS_" ;
-    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    Constraint constraint(lowerBound, exp, exp.getTrivialUb(), constraintName.str());
+    return constraint;
+}
+
+Constraint FlowForm::getLbTRLConstraints(){
+    Expression exp;
+    //int upperBound = instance.getNbEdges()*getNbSlicesGlobalLimit();
+    int lowerBound = getComputedLB();
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+            int arc = getArcIndex(a, d);
+            double coeff = getCoeffObjTRL(a, d);
+            Term term(x[d][arc], coeff);
+            exp.addTerm(term);
+        }
+    }
+    std::ostringstream constraintName;
+    constraintName << "LB_TRL_" ;
+    Constraint constraint(lowerBound, exp, exp.getTrivialUb(), constraintName.str());
+    return constraint;
+}
+
+Constraint FlowForm::getLbTASEConstraints(){
+    Expression exp;
+    //int upperBound = instance.getNbEdges()*getNbSlicesGlobalLimit();
+    double lowerBound = getComputedLB();
+    for (int d = 0; d < getNbDemandsToBeRouted(); d++){
+        for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+            int arc = getArcIndex(a, d);
+            double coeff = getCoeffObjTASE(a, d);
+            Term term(x[d][arc], coeff);
+            exp.addTerm2(term);
+        }
+    }
+    std::ostringstream constraintName;
+    constraintName << "LB_TASE_" ;
+    Constraint constraint(lowerBound, exp, exp.getTrivialUb(), constraintName.str());
     return constraint;
 }
 

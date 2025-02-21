@@ -149,8 +149,9 @@ public:
 
 	void setLowerBoundReinforcementsConstraints();
 	
-	void setLBTUSConstraints();
 	Constraint getLbTUSConstraints();
+	Constraint getLbTRLConstraints();
+	Constraint getLbTASEConstraints();
 
 	void setLinkLoadConstraints();
 	Constraint getLinkLoadConstraints(int linkLabel);

@@ -2029,7 +2029,19 @@ Constraint TFlowForm::getMultibandConstraint5(int e){
 void TFlowForm::setLowerBoundReinforcementsConstraints(){
     const std::vector<Input::ObjectiveMetric> & obj = instance.getInput().getChosenObj();
     if((obj[0] == Input::OBJECTIVE_METRIC_TUS)&&(instance.getInput().activateLB())){
-        this->setLBTUSConstraints();
+        Constraint lbConst = getLbTUSConstraints();
+        constraintSet.push_back(lbConst);
+        std::cout << "LB TUS constraints have been defined..." << std::endl;
+    }
+    if((obj[0] == Input::OBJECTIVE_METRIC_TRL)&&(instance.getInput().activateLB())){
+        Constraint lbConst = getLbTRLConstraints();
+        constraintSet.push_back(lbConst);
+        std::cout << "LB TRL constraints have been defined..." << std::endl;
+    }
+    if((obj[0] == Input::OBJECTIVE_METRIC_TASE)&&(instance.getInput().activateLB())){
+        Constraint lbConst = getLbTASEConstraints();
+        constraintSet.push_back(lbConst);
+        std::cout << "LB TASE constraints have been defined..." << std::endl;
     }
     if((obj[0] == Input::OBJECTIVE_METRIC_NLUS)&&(instance.getInput().activateLB())){
         this->setLinkLoadConstraints();
@@ -2040,16 +2052,9 @@ void TFlowForm::setLowerBoundReinforcementsConstraints(){
     }
 }
 
-
-void TFlowForm::setLBTUSConstraints(){
-    Constraint lbConst = getLbTUSConstraints();
-    constraintSet.push_back(lbConst);
-    std::cout << "LB TUS constraints have been defined..." << std::endl;
-}
-
 Constraint TFlowForm::getLbTUSConstraints(){
     Expression exp;
-    int upperBound = instance.getNbEdges()*getNbSlicesGlobalLimit();
+    //int upperBound = instance.getNbEdges()*getNbSlicesGlobalLimit();
     int lowerBound = getComputedLB();
     int nbEdges = countEdges(compactGraph);
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
@@ -2063,7 +2068,47 @@ Constraint TFlowForm::getLbTUSConstraints(){
     }
     std::ostringstream constraintName;
     constraintName << "LB_TUS_" ;
-    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    Constraint constraint(lowerBound, exp, exp.getTrivialUb(), constraintName.str());
+    return constraint;
+}
+
+Constraint TFlowForm::getLbTRLConstraints(){
+    Expression exp;
+    //int upperBound = instance.getNbEdges()*getNbSlicesGlobalLimit();
+    int lowerBound = getComputedLB();
+    int nbEdges = countEdges(compactGraph);
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+            Term term(x[edge][k], getCompactLength(e));
+            Term term2(x[edge + nbEdges][k], getCompactLength(e));
+            exp.addTerm(term);
+            exp.addTerm(term2);
+        }
+    }
+    std::ostringstream constraintName;
+    constraintName << "LB_TRL_" ;
+    Constraint constraint(lowerBound, exp, exp.getTrivialUb(), constraintName.str());
+    return constraint;
+}
+
+Constraint TFlowForm::getLbTASEConstraints(){
+    Expression exp;
+    //int upperBound = instance.getNbEdges()*getNbSlicesGlobalLimit();
+    int lowerBound = getComputedLB();
+    int nbEdges = countEdges(compactGraph);
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+            Term term(x[edge][k], (getCompactLineAmplifiers(e)+1)* (getToBeRouted_k(k).getGBits()/getToBeRouted_k(k).getLoadC()));
+            Term term2(x[edge + nbEdges][k], (getCompactLineAmplifiers(e)+1)* (getToBeRouted_k(k).getGBits()/getToBeRouted_k(k).getLoadC()));
+            exp.addTerm(term);
+            exp.addTerm(term2);
+        }
+    }
+    std::ostringstream constraintName;
+    constraintName << "LB_TASE_" ;
+    Constraint constraint(lowerBound, exp, exp.getTrivialUb(), constraintName.str());
     return constraint;
 }
 
