@@ -452,11 +452,11 @@ void TFlowForm::setWarmValues(){
                 int vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
                 int edge = getCompactEdgeLabel(e);
                 if((origin==uId)&&(destination==vId)){
-                    std::cout<<"f(" << k+1<<","<< uId<<","<< vId <<")"<<std::endl;
+                    //std::cout<<"f(" << k+1<<","<< uId<<","<< vId <<")"<<std::endl;
                     x[edge][k].setWarmstartValue(1.0);
                 }
                 if((destination==uId)&&(origin==vId)){
-                    std::cout<<"f(" << k+1<<","<< vId<<","<< uId <<")"<<std::endl;
+                    //std::cout<<"f(" << k+1<<","<< vId<<","<< uId <<")"<<std::endl;
                     x[edge + nbEdges][k].setWarmstartValue(1.0);
                 }
             }
@@ -466,7 +466,7 @@ void TFlowForm::setWarmValues(){
     // Variables y[s][d] OK
     for (int k = 0; k < getNbDemandsToBeRouted(); k++){
         int lastSlot = feasibleSolutionLastSlotDemand[k];
-        std::cout<<"c(" << k+1<<","<< lastSlot <<")"<<std::endl;             
+        //std::cout<<"c(" << k+1<<","<< lastSlot <<")"<<std::endl;             
         y[lastSlot-1][k].setWarmstartValue(1.0);
     }
     
@@ -483,7 +483,7 @@ void TFlowForm::setWarmValues(){
                         int v2 = feasibleSolutionNodesByDemand[b][node2+1];
                         if(((u1==u2) && (v1==v2)) || ((u1==v2) && (v1==u2))){
                             if(shareLink == false){
-                                std::cout<<"z(" << a+1<<","<< b+1<<")"<<std::endl;
+                                //std::cout<<"z(" << a+1<<","<< b+1<<")"<<std::endl;
                                 z[a][b].setWarmstartValue(1.0);
                                 shareLink = true;
                             }
@@ -507,7 +507,7 @@ void TFlowForm::setWarmValues(){
                     int edge = getCompactEdgeLabel(e);
                     if(((origin==uId)&&(destination==vId))||((destination==uId)&&(origin==vId))){
                         for (int w = 0; w < getToBeRouted_k(k).getLoadC(); w++){
-                            std::cout<<"h(" << k+1<<","<< uId<<","<< vId<<","<< lastSlot-w <<")"<<std::endl;
+                            //std::cout<<"h(" << k+1<<","<< uId<<","<< vId<<","<< lastSlot-w <<")"<<std::endl;
                             h[edge][k][lastSlot-1-w].setWarmstartValue(1.0);
                         }
                     }
@@ -525,7 +525,7 @@ void TFlowForm::setWarmValues(){
                 max=feasibleSolutionLastSlotDemand[i];
             }
         }
-        std::cout<<"p = " << max<<std::endl;                
+        //std::cout<<"p = " << max<<std::endl;                
         maxSliceOverall.setWarmstartValue(max);
     }    
 }
@@ -2045,6 +2045,8 @@ void TFlowForm::setLowerBoundReinforcementsConstraints(){
     }
     if((obj[0] == Input::OBJECTIVE_METRIC_NLUS)&&(instance.getInput().activateLB())){
         this->setLinkLoadConstraints();
+    }
+    if(instance.getInput().activateLB()){
         this->setMinSliceAtOriginConstraints();
         this->setMinSliceAtVertexConstraints();
         this->setMinSliceLeavingEdgeConstraints();
@@ -2153,7 +2155,7 @@ Constraint TFlowForm::getMinSliceAtOriginConstraint(){
     rhs = getNbDemandsToBeRouted();
     rls = 1;
     for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        for (int s = static_cast<int>(getComputedLB())-1; s < slicesTotal; s++){
+        for (int s = static_cast<int>(getLowerBoundUsedSlot())-1; s < slicesTotal; s++){
             Term term(y[s][k], 1);
             exp.addTerm(term);
         }
@@ -2191,19 +2193,19 @@ Constraint TFlowForm::getMinSliceAtVertexConstraint_v(ListGraph::Node &v){
     std::vector<int> demandList;
     //std::cout << "looking at node " << nodeLabel+1 <<std::endl;
     int degree = getDegree(v);
-    std::cout << "node " << nodeLabel+1<<std::endl;
+    //std::cout << "node " << nodeLabel+1<<std::endl;
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
         if( (nodeLabel == getToBeRouted_k(d).getSource()) || (nodeLabel == getToBeRouted_k(d).getTarget()) ){
             nodeMinLoad = nodeMinLoad + getToBeRouted_k(d).getLoadC();
-            std::cout <<  d+1  << "-";
+            //std::cout <<  d+1  << "-";
             demands = demands+1;
             demandList.push_back(d);
         }
     }
-    std::cout << std::endl;
-    std::cout << "node " << nodeLabel+1<< " minload " << nodeMinLoad << " degree " << degree  << " demands " << demands<<std::endl;
+    //std::cout << std::endl;
+    //std::cout << "node " << nodeLabel+1<< " minload " << nodeMinLoad << " degree " << degree  << " demands " << demands<<std::endl;
     int Av = static_cast<int>(std::ceil(static_cast<double>(nodeMinLoad) / degree));
-    std::cout << "Av (distributed load): " << Av <<std::endl;
+    //std::cout << "Av (distributed load): " << Av <<std::endl;
     if(Av>sminv){
         sminv=Av;
     }
@@ -2214,7 +2216,7 @@ Constraint TFlowForm::getMinSliceAtVertexConstraint_v(ListGraph::Node &v){
             maxWk=getToBeRouted_k(demand).getLoadC();
         }
     }
-    std::cout << "Bv (largest demand): " << maxWk<< std::endl;
+    //std::cout << "Bv (largest demand): " << maxWk<< std::endl;
     int Bv =maxWk;
     if(Bv>sminv){
         sminv=Bv;
@@ -2231,13 +2233,13 @@ Constraint TFlowForm::getMinSliceAtVertexConstraint_v(ListGraph::Node &v){
                 }
             }
         }
-        std::cout << "Cv (smallest demand pair): " << maxWkWk<< std::endl;
+        //std::cout << "Cv (smallest demand pair): " << maxWkWk<< std::endl;
         int Cv = maxWkWk;
         if(Cv>sminv){
             sminv=Cv;
         }
     }
-    std::cout << "sminv (max term): " << sminv<< std::endl;
+    //std::cout << "sminv (max term): " << sminv<< std::endl;
     Expression exp;
     int rhs = demands;
     int lhs = 1;
@@ -2250,11 +2252,11 @@ Constraint TFlowForm::getMinSliceAtVertexConstraint_v(ListGraph::Node &v){
     }
     std::ostringstream constraintName;
     //std::cout << "end node " << nodeLabel+1 <<std::endl;
-    if (maxSliceOverall.getLb() < sminv){      
-        std::cout<<"CHANGE OVERALL LB FROM "<< maxSliceOverall.getLb() <<" TO " << sminv <<std::endl;
-        maxSliceOverall.setLb( sminv);
-
-    }  
+    const std::vector<Input::ObjectiveMetric> & obj = instance.getInput().getChosenObj();
+    if ((obj[0] == Input::OBJECTIVE_METRIC_NLUS)&&(maxSliceOverall.getLb() < sminv)){      
+        //std::cout<<"CHANGE OVERALL LB FROM "<< maxSliceOverall.getLb() <<" TO " << sminv <<std::endl;
+        maxSliceOverall.setLb(sminv);
+    }   
     constraintName << "Min_Slice_n" << nodeLabel+1;
     Constraint constraint(lhs, exp, rhs, constraintName.str());
     return constraint;
@@ -2320,15 +2322,15 @@ Constraint TFlowForm::getMinSliceLeavingEdgeConstraint(ListGraph::Edge &e){
             
         }
     }
-    std::cout << "at edge " << uLabel+1 << "-" << vLabel+1  <<std::endl;
-    for (int d = 0; d < demandList.size(); d++){ 
-        std::cout << demandList[d]+1 << "-";
-    }
-    std::cout <<std::endl;
-    std::cout << "edge " << uLabel+1<< "-" << vLabel+1<< " minload " << edgeMinLoad << " degree " << degree  << " demands " << demands<<std::endl;
+    //std::cout << "at edge " << uLabel+1 << "-" << vLabel+1  <<std::endl;
+    //for (int d = 0; d < demandList.size(); d++){ 
+    //    std::cout << demandList[d]+1 << "-";
+    //}
+    //std::cout <<std::endl;
+    //std::cout << "edge " << uLabel+1<< "-" << vLabel+1<< " minload " << edgeMinLoad << " degree " << degree  << " demands " << demands<<std::endl;
     
     int Av1v2 = static_cast<int>(std::ceil(static_cast<double>(edgeMinLoad) / degree));
-    std::cout << "Av1v2 (distributed load): " << Av1v2 <<std::endl;
+    //std::cout << "Av1v2 (distributed load): " << Av1v2 <<std::endl;
     if(Av1v2>sminv1v2){
         sminv1v2=Av1v2;
     }
@@ -2339,7 +2341,7 @@ Constraint TFlowForm::getMinSliceLeavingEdgeConstraint(ListGraph::Edge &e){
             maxWk=getToBeRouted_k(demand).getLoadC();
         }
     }
-    std::cout << "Bv1v2 (largest demand): " << maxWk<< std::endl;
+    //std::cout << "Bv1v2 (largest demand): " << maxWk<< std::endl;
     int Bv1v2 =maxWk;
     if(Bv1v2>sminv1v2){
         sminv1v2=Bv1v2;
@@ -2356,13 +2358,13 @@ Constraint TFlowForm::getMinSliceLeavingEdgeConstraint(ListGraph::Edge &e){
                 }
             }
         }
-        std::cout << "Cv1v2 (smallest demand pair): " << maxWkWk<< std::endl;
+        //std::cout << "Cv1v2 (smallest demand pair): " << maxWkWk<< std::endl;
         int Cv1v2 = maxWkWk;
         if(Cv1v2>sminv1v2){
             sminv1v2=Cv1v2;
         }
     }
-    std::cout << "sminv (max term): " << sminv1v2<< std::endl;
+    //std::cout << "sminv (max term): " << sminv1v2<< std::endl;
 
     Expression exp;
     int rhs = demands;
@@ -2374,10 +2376,10 @@ Constraint TFlowForm::getMinSliceLeavingEdgeConstraint(ListGraph::Edge &e){
             exp.addTerm(term);
         }
     }
-    if (maxSliceOverall.getLb() < sminv1v2){      
-        std::cout<<"CHANGE OVERALL LB FROM "<< maxSliceOverall.getLb() <<" TO " << sminv1v2 <<std::endl;
+    const std::vector<Input::ObjectiveMetric> & obj = instance.getInput().getChosenObj();
+    if ((obj[0] == Input::OBJECTIVE_METRIC_NLUS)&&(maxSliceOverall.getLb() < sminv1v2)){        
+        //std::cout<<"CHANGE OVERALL LB FROM "<< maxSliceOverall.getLb() <<" TO " << sminv1v2 <<std::endl;
         maxSliceOverall.setLb( sminv1v2);
-
     }  
     std::ostringstream constraintName;
     constraintName << "MinSliceLeavingEdge_"<< uLabel+1<< "_"<< vLabel+1;
@@ -2395,7 +2397,7 @@ void TFlowForm::setMinSliceLeavingEdgeInternalDemandConstraints(){
         int demands = 0;
         int uLabel = getCompactNodeLabel(u);
         int vLabel = getCompactNodeLabel(v);
-        std::cout << "edge " << uLabel+1 << "-" << vLabel+1  <<std::endl;
+        //std::cout << "edge " << uLabel+1 << "-" << vLabel+1  <<std::endl;
         for (int d = 0; d < getNbDemandsToBeRouted(); d++){
             int dSource = getToBeRouted_k(d).getSource();
             int dTarget = getToBeRouted_k(d).getTarget();   
@@ -2442,18 +2444,18 @@ std::vector<Constraint>  TFlowForm::getMinSliceLeavingEdgeInternalDemandConstrai
         demands = demands+1;
         edgeMinLoad = edgeMinLoad + getToBeRouted_k(demandList[d]).getLoadC();
     }
-    std::cout << "at edge " << uLabel+1 << "-" << vLabel+1  <<std::endl;
-    for (int d = 0; d < demandList.size(); d++){ 
-        std::cout << demandList[d]+1 << "-";
-    }
-    std::cout <<std::endl;
-    std::cout << "edge " << uLabel+1<< "-" << vLabel+1<< " minload " << edgeMinLoad << " degree " << degree  << " demands " << demands<<std::endl;
-    std::cout << "internal demand k "<< intDemand+1 <<std::endl;  
+    //std::cout << "at edge " << uLabel+1 << "-" << vLabel+1  <<std::endl;
+    //for (int d = 0; d < demandList.size(); d++){ 
+    //    std::cout << demandList[d]+1 << "-";
+    //}
+    //std::cout <<std::endl;
+    //std::cout << "edge " << uLabel+1<< "-" << vLabel+1<< " minload " << edgeMinLoad << " degree " << degree  << " demands " << demands<<std::endl;
+    //std::cout << "internal demand k "<< intDemand+1 <<std::endl;  
     int Av1v2 = static_cast<int>(std::ceil(static_cast<double>(edgeMinLoad) / degree));
-    std::cout << "Av1v2 (distributed load): " << Av1v2 <<std::endl;
+    //std::cout << "Av1v2 (distributed load): " << Av1v2 <<std::endl;
     int edgeMinLoadWithk = edgeMinLoad + (2*getToBeRouted_k(intDemand).getLoadC());
     int Av1v2k = static_cast<int>(std::ceil(static_cast<double>(edgeMinLoadWithk) / degree));
-    std::cout << "Av1v2k (distributed load with k): " << Av1v2k <<std::endl;
+    //std::cout << "Av1v2k (distributed load with k): " << Av1v2k <<std::endl;
     if(Av1v2>sminv1v2){
         sminv1v2=Av1v2;
     }
@@ -2468,14 +2470,14 @@ std::vector<Constraint>  TFlowForm::getMinSliceLeavingEdgeInternalDemandConstrai
         }
     }
     int Bv1v2 =maxWk;
-    std::cout << "Bv1v2 (largest demand): " << Bv1v2<< std::endl;
+    //std::cout << "Bv1v2 (largest demand): " << Bv1v2<< std::endl;
 
     int maxWkWithK = maxWk;
     if (getToBeRouted_k(intDemand).getLoadC()>maxWkWithK){
         maxWkWithK = getToBeRouted_k(intDemand).getLoadC();
     }
     int Bv1v2k = maxWkWithK;
-    std::cout << "Bv1v2k (largest demand with k): " << Bv1v2k<< std::endl;
+    //std::cout << "Bv1v2k (largest demand with k): " << Bv1v2k<< std::endl;
 
     if(Bv1v2>sminv1v2){
         sminv1v2=Bv1v2;
@@ -2497,7 +2499,7 @@ std::vector<Constraint>  TFlowForm::getMinSliceLeavingEdgeInternalDemandConstrai
             }
         }
         int Cv1v2 = maxWkWk;
-        std::cout << "Cv1v2 (smallest demand pair): " << Cv1v2<< std::endl;       
+        //std::cout << "Cv1v2 (smallest demand pair): " << Cv1v2<< std::endl;       
         if(Cv1v2>sminv1v2){
             sminv1v2=Cv1v2;
         }
@@ -2523,33 +2525,35 @@ std::vector<Constraint>  TFlowForm::getMinSliceLeavingEdgeInternalDemandConstrai
 
         }
         int Cv1v2k = maxWkWkWithK;
-        std::cout << "Cv1v2k (smallest demand pair with k): " << Cv1v2k<< std::endl;
+        //std::cout << "Cv1v2k (smallest demand pair with k): " << Cv1v2k<< std::endl;
         if(Cv1v2k>sminv1v2k){
             sminv1v2k=Cv1v2k;
         }
     }
 
 
-    std::cout << "sminv (max term): " << sminv1v2<< std::endl;
-    std::cout << "sminvk (max term with k): " << sminv1v2k<< std::endl;
+    //std::cout << "sminv (max term): " << sminv1v2<< std::endl;
+    //std::cout << "sminvk (max term with k): " << sminv1v2k<< std::endl;
     std::vector<Constraint> constraints;
-    Expression exp;
-    int rhs = -sminv1v2k;
-    int lhs = -getNbSlicesGlobalLimit()-(sminv1v2k-sminv1v2);
     int edge = getCompactEdgeLabel(e);
     int nbEdges = countEdges(compactGraph);
-    Term term1(x[edge][intDemand], 1);
-    Term term2(x[edge + nbEdges][intDemand], 1);
-    exp.addTerm(term1);
-    exp.addTerm(term2);
+    const std::vector<Input::ObjectiveMetric> & obj = instance.getInput().getChosenObj();
+    if (obj[0] == Input::OBJECTIVE_METRIC_NLUS){   
+        Expression exp;
+        int rhs = -sminv1v2k;
+        int lhs = -getNbSlicesGlobalLimit()-(sminv1v2k-sminv1v2);
+        Term term1(x[edge][intDemand], 1);
+        Term term2(x[edge + nbEdges][intDemand], 1);
+        exp.addTerm(term1);
+        exp.addTerm(term2);
 
-    Term term3(maxSliceOverall, -1);
-    exp.addTerm(term3);
-    std::ostringstream constraintName;
-    constraintName << "MinSliceLeavingEdgeInternalDemandP_"<< uLabel+1<< "_"<< vLabel+1;
-    Constraint constraint(lhs, exp, rhs, constraintName.str());
-    constraints.push_back(constraint);
-
+        Term term3(maxSliceOverall, -1);
+        exp.addTerm(term3);
+        std::ostringstream constraintName;
+        constraintName << "MinSliceLeavingEdgeInternalDemandP_"<< uLabel+1<< "_"<< vLabel+1;
+        Constraint constraint(lhs, exp, rhs, constraintName.str());
+        constraints.push_back(constraint);
+    }
     Expression exp2;
     int rhs2 = demands+1;
     int lhs2 = 1;

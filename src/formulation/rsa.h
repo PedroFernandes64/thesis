@@ -79,6 +79,7 @@ protected:
     int itToBest;
     int bestSol;
     double computedLB;
+    double lowerBoundUsedSlot;
 
     std::vector<std::vector<int>> feasibleSolutionEdgeSlotMap;
     std::vector<int> feasibleSolutionLastSlotDemand;
@@ -370,8 +371,8 @@ public:
     int getItToBest(){ return itToBest;};
     int getBestSol(){ return bestSol;}
     double getComputedLB(){ return computedLB;}
-
-
+    double getLowerBoundUsedSlot(){ return lowerBoundUsedSlot;};
+    
     ListGraph::Node getCompactNodeFromLabel(int label) const;
     
     int getNbSlicesGlobalLimit() const{ return std::min(instance.getMaxSlice(), instance.getMaxUsedSlicePosition() + 1 + getTotalLoadsToBeRouted());}

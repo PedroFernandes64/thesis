@@ -167,8 +167,9 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
         Genetic genetic(instance);
         genetic.computeLB(preProcessingErasedArcs,prep);
         computedLB =  genetic.getComputedLB();
-        //
+        lowerBoundUsedSlot = genetic.getLowerBoundUsedSlot();
         std::cout << "Computed LB  " << computedLB << std::endl;
+        std::cout << "Computed min slot  " << lowerBoundUsedSlot << std::endl;
     }
     //PEDRO PEDRO PEDRO
 }

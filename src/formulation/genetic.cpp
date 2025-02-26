@@ -1082,7 +1082,7 @@ void Genetic::GenerateShortestRoutes2(){
 			//std::cout << "Sorting by length"<< std::endl;
 			std::sort(qualifiedForThisDemand.begin(),qualifiedForThisDemand.end(),sorterC);
 		}
-		std::cout << "demand " <<i+1 << std::endl;
+		/*std::cout << "demand " <<i+1 << std::endl;
 		
 		for (int i = 0; i <qualifiedForThisDemand.size(); ++i){
 			for (int j = 0; j <qualifiedForThisDemand[i].links.size(); ++j){
@@ -1095,7 +1095,7 @@ void Genetic::GenerateShortestRoutes2(){
 			std::cout <<  " noise " << qualifiedForThisDemand[i].noise << "|" <<std::endl;
 			
 		}
-		
+		*/
 		std::vector<std::vector<Fiber> > kcandidates;
 		int limit = chosenK+extraK;
 
@@ -1588,6 +1588,7 @@ void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessi
     int originDjikistra;
     int destinationDijikistra;
 	double thisDemandMinimumMetric = 0.0;
+	double minimumSlots = 0.0;
 	int nbEdges = getInstance().getTabEdge().size();
 	
 	std::vector<double> linkCharge(nbEdges, 0.0);
@@ -1653,10 +1654,9 @@ void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessi
 		if(metric==4){
 			thisDemandMinimumMetric = dist*(toBeRouted[i].getGBits()/toBeRouted[i].getLoadC());
 		}
-		std::cout << "Demand  " << i +1 <<  " metric " << thisDemandMinimumMetric << std::endl;
+		//std::cout << "Demand  " << i +1 <<  " metric " << thisDemandMinimumMetric << std::endl;
 		
 		totalMinimumMetric = totalMinimumMetric + thisDemandMinimumMetric;
-
 		//std::cout << "Demand  " << i +1 <<  " used at least " << djikistraSolution.size()-1 <<  " edges so total s " <<thisDemandMinimumSlots<<std::endl;
 		//std::cout << "total  " << totalMinimumSlots << std::endl;
 		/*if (prepro == true){
@@ -1709,7 +1709,7 @@ void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessi
 	if(metric==2){
 		computedLB = ceil(totalMinimumMetric/instance.getNbEdges());
 		//std::cout << "LB non round  " << totalMinimumSlots/instance.getNbEdges() << std::endl;
-		std::cout << "LB dividing charge by all links  " << computedLB << std::endl;
+		//std::cout << "LB dividing charge by all links  " << computedLB << std::endl;
 		//std::cout << "LB dividing charge by preprocessed links  " << ceil(maxLinkCharge) << std::endl;
 	}
 	if(metric==3){
@@ -1720,6 +1720,45 @@ void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessi
 		computedLB = totalMinimumMetric;
 		//std::cout << "LB  " << computedLB << std::endl;
 	}
+
+	for (int i = 0; i < toBeRouted.size(); ++i){
+		originDjikistra = toBeRouted[i].getSource();
+        destinationDijikistra = toBeRouted[i].getTarget();
+        //creating adj matrix
+        std::vector<std::vector<int> > adjmatrix;
+        std::vector<int> auxadj;
+        for (int i = 0; i < getInstance().getNbNodes(); ++i){
+            for (int j = 0; j < getInstance().getNbNodes(); ++j){
+                auxadj.push_back(0);
+            }
+            adjmatrix.push_back(auxadj);
+            auxadj.clear();
+        }
+        //filling adj matrix
+        for (int i = 0; i < getInstance().getNbNodes(); ++i){
+            int demandorigin = i;
+            for (int j = 0; j < getInstance().getTabEdge().size(); ++j){
+                int edgeorigin = getInstance().getTabEdge()[j].getSource();
+                int edgedestination = getInstance().getTabEdge()[j].getTarget();
+                if (edgedestination == demandorigin){
+                    adjmatrix[i][edgeorigin] = 1;
+                }
+                else{
+                    if (edgeorigin == demandorigin){
+						adjmatrix[i][edgedestination] = 1;
+					}
+                }
+            }
+        }
+		std::vector<int> djikistraSolution;
+		double dist;
+		djikistraSolution = dijkstra(adjmatrix,originDjikistra,destinationDijikistra,dist);
+		minimumSlots = minimumSlots+ ((djikistraSolution.size()-1)*toBeRouted[i].getLoadC());
+
+	}
+
+	lowerBoundUsedSlot = ceil(minimumSlots/instance.getNbEdges());	
+
 }
 
 

@@ -125,6 +125,7 @@ protected:
     double selectionTime;
 
     double computedLB;
+    double lowerBoundUsedSlot;
 
     std::mt19937 rng;  // Mersenne Twister PRNG
 
@@ -160,6 +161,7 @@ public:
     int getBestSol(){ return currentBest;};
 
     double getComputedLB(){ return computedLB;};
+    double getLowerBoundUsedSlot(){ return lowerBoundUsedSlot;};
     
     int getRandomNumber(int min, int max);
 
