@@ -275,16 +275,71 @@ void SolverCplex::exportFormulation(const Instance &instance){
 }
 
 void SolverCplex::setCplexParams(const Input &input){
-    //cplex.setParam(IloCplex::Param::Preprocessing::Presolve, 0);
-    cplex.setParam(IloCplex::Param::MIP::Display, 2);
+    
+    cplex.setParam(IloCplex::Param::MIP::Display, 2); //display dos nos standart
+    cplex.setParam(IloCplex::Param::MIP::Interval, 100); //display so a cada 100 nos
     cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, 0.0000001);
-    //cplex.setParam(IloCplex::Param::MIP::Tolerances::LowerCutoff, 1000);
-    //cplex.setParam(IloCplex::Param::Simplex::Limits::LowerObj, 1000);
-    cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 16384);
-    cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
     cplex.setParam(IloCplex::Param::Threads, 8); //CHANGE TO 4
-    cplex.setParam(IloCplex::IntParam::WriteLevel, 1);
+    cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 16384); //limite pro tamanho da tree
+    cplex.setParam(IloCplex::Param::MIP::Strategy::File, 3); //switch pra passar nodes pro disco
+    cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
 
+    int strategy = 1;
+    if (strategy == 1){
+        //AGGRESSIVE mais voltado quando tiver usando genetico
+        // Preprocessing
+        cplex.setParam(IloCplex::Param::Preprocessing::BoundStrength, 1); // Apply bound strengthening
+        cplex.setParam(IloCplex::Param::Preprocessing::Reduce, 1);        // even less aggressive reductions
+
+        // Search Strategy
+        cplex.setParam(IloCplex::MIPEmphasis, 2);   // Focus on improving lower bound
+        cplex.setParam(IloCplex::NodeSel, 3);       // Best-bound search strategy
+        cplex.setParam(IloCplex::RootAlg, IloCplex::Algorithm::Barrier); // Barrier method for root node
+        // Cutting Planes (Moderate Level to Balance Speed & Strength)
+        cplex.setParam(IloCplex::MIRCuts, 2);       // Moderate MIR cuts
+        cplex.setParam(IloCplex::FlowCovers, 2);    // Moderate flow cover cuts
+        cplex.setParam(IloCplex::ZeroHalfCuts, 2);  // Moderate zero-half cuts
+        cplex.setParam(IloCplex::FracCuts, 2);      // Moderate fractional Gomory cuts
+        cplex.setParam(IloCplex::LiftProjCuts, 2); //Moderate lift project cuts
+        cplex.setParam(IloCplex::MCFCuts, 2); //Moderate MCF cuts
+        // Heuristics (Disabled to Focus on Bound Improvement)
+        cplex.setParam(IloCplex::FPHeur, 0);        // Disable Feasibility Pump heuristic
+        cplex.setParam(IloCplex::HeurFreq, -1);     // Disable general heuristics
+        cplex.setParam(IloCplex::Param::MIP::Strategy::Probe,3); //probing agressivo
+        cplex.setParam(IloCplex::Param::MIP::Strategy::VariableSelect,3); //strong branching
+        cplex.setParam(IloCplex::Param::MIP::Strategy::Search, 2); //use dynamic search
+    }
+    if (strategy == 2){
+        //BALANCED BUT MORE AGRESSIVE THAN CPLEX
+        // Preprocessing - Strengthen LP Relaxation
+        cplex.setParam(IloCplex::Param::Preprocessing::BoundStrength, 1);  // Apply bound strengthening
+        cplex.setParam(IloCplex::Param::Preprocessing::Reduce, 2);         // less aggressive reductions
+
+        // Search Strategy - Prioritize Lower Bound but Allow Feasibility
+        cplex.setParam(IloCplex::MIPEmphasis, 3);   // Balance optimality and feasibility
+        cplex.setParam(IloCplex::NodeSel, 2);       // Best-estimate search (good mix of bound & feasibility)
+        cplex.setParam(IloCplex::RootAlg, IloCplex::Algorithm::Barrier); // Barrier method for strong LP relaxation
+        // Cutting Planes - Improve Bound Without Overloading Solver
+        cplex.setParam(IloCplex::MIRCuts, 2);       // Moderate MIR cuts
+        cplex.setParam(IloCplex::FlowCovers, 2);    // Moderate flow cover cuts
+        cplex.setParam(IloCplex::ZeroHalfCuts, 1);  // Light zero-half cuts (reduce complexity)
+        cplex.setParam(IloCplex::FracCuts, 1);      // Light fractional Gomory cuts
+        cplex.setParam(IloCplex::LiftProjCuts, 1); //light lift project cuts
+        cplex.setParam(IloCplex::MCFCuts, 1); //light MCF cuts
+        // Heuristics - Allow Some Feasibility Search but Not Too Aggressive
+        cplex.setParam(IloCplex::FPHeur, 1);        // Enable Feasibility Pump heuristic (but not aggressive)
+        cplex.setParam(IloCplex::HeurFreq, 10);     // Run heuristics occasionally
+        cplex.setParam(IloCplex::RINSHeur, 10);     // Apply RINS heuristic every 10 nodes (helps feasible solutions)
+        cplex.setParam(IloCplex::Param::MIP::Strategy::Probe,2); //probing moderado analisa implicaçoes logicas de fixar variavel no começo
+        cplex.setParam(IloCplex::Param::MIP::Strategy::VariableSelect,3); //strong branching
+        cplex.setParam(IloCplex::Param::MIP::Strategy::Search, 2); //use dynamic search
+    }
+    if (strategy == 3){
+        //CPLEX STANDART
+        
+
+        
+    }
     if(formulation->getInstance().getInput().isRelaxed()){
         Input::RootMethod rootMethod = formulation->getInstance().getInput().getChosenRootMethod();
         if (rootMethod == Input::ROOT_METHOD_AUTO){
