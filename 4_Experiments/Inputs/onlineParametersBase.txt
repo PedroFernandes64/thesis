@@ -12,10 +12,10 @@ OSNR_activation=
 
 ******* Thesis Pedro parameters *******
 Bands=1
-TFlow_Policy=
-Reinforcements=0
 All_paths_compute=0
 All_paths_print=0
+TFlow_Policy=
+Reinforcements=0
 Relaxation_variables=0
 Genetic=0
 Genetic_metric=1
