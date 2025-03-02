@@ -146,6 +146,7 @@ private:
 	int geneticChosenK;
 	int geneticExtraK;
 	bool lbActive;
+	int cplexStrategy;
 
 public:
 	/****************************************************************************************/
@@ -241,6 +242,7 @@ public:
 	int geneticGetChosenK() const { return geneticChosenK; }
 	int geneticGetExtraK() const { return geneticExtraK; }
 	bool activateLB() const { return lbActive; }
+	int getCplexStrategy() const { return cplexStrategy; }
 	
 	bool isObj8(int i) const;
 

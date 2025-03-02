@@ -35,6 +35,7 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
 	geneticMutation= std::stoi(getParameterValue("Genetic_mutation="));
     geneticChosenK= std::stoi(getParameterValue("Genetic_chosenK="));
     geneticExtraK= std::stoi(getParameterValue("Genetic_extraK="));
+    cplexStrategy = std::stoi(getParameterValue("CPLEX_Strategy="));
     lbActive = std::stoi(getParameterValue("ActivateLB="));
     std::cout << "Getting formulation parameters..." << std::endl;
 
@@ -103,6 +104,7 @@ Input::Input(const Input &i) : PARAMETER_FILE(i.getParameterFile()){
     geneticChosenK= i.geneticGetChosenK();
 	geneticExtraK= i.geneticGetExtraK();
     lbActive= i.activateLB();
+    cplexStrategy = i.getCplexStrategy();
     nbDemandsAtOnce = i.getNbDemandsAtOnce();
     chosenObj = i.getChosenObj();
     allowBlocking = i.isBlockingAllowed();

@@ -108,6 +108,7 @@ void SolverCplex::solve(){
         //cplex.use(solvecallback(cplex.getEnv(),outfile2,cplex,model,timeStart, var));
         
         std::cout << "Chosen objective: " << myObjectives[i].getName() << std::endl;
+        std::cout << "CPLEX strategy: " << formulation->getInstance().getInput().getCplexStrategy() << std::endl;
         //std::ofstream fout("mylog.log");
         //cplex.setOut(fout);
         //cplex.setWarning(fout);
@@ -191,6 +192,12 @@ void SolverCplex::solve(){
     setAlgorithm(cplex.getAlgorithm());
     std::cout << "User cuts "<< getCplex().getNcuts(IloCplex::CutUser)<< std::endl;
     std::cout << "Total cuts "<< getNbCutsFromCplex()<< std::endl;
+    std::cout << "Clique cuts " << getCplex().getNcuts(IloCplex::CutClique) << std::endl;
+    std::cout << "Cover cuts " << getCplex().getNcuts(IloCplex::CutCover)<< std::endl;
+    std::cout << "Gomory frac cuts " <<getCplex().getNcuts(IloCplex::CutFrac)<< std::endl;
+    std::cout << "GUB cuts " <<getCplex().getNcuts(IloCplex::CutGubCover)<< std::endl;
+    std::cout << "MIR cuts " <<getCplex().getNcuts(IloCplex::CutMir)<< std::endl;
+    std::cout << "MCF cuts " << getCplex().getNcuts(IloCplex::CutMCF)<< std::endl;
     //int root = cplex.getParam(IloCplex::RootAlg);
     //int node = cplex.getParam(IloCplex::NodeAlg);
     
@@ -279,66 +286,64 @@ void SolverCplex::setCplexParams(const Input &input){
     cplex.setParam(IloCplex::Param::MIP::Display, 2); //display dos nos standart
     cplex.setParam(IloCplex::Param::MIP::Interval, 100); //display so a cada 100 nos
     cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, 0.0000001);
-    cplex.setParam(IloCplex::Param::Threads, 8); //CHANGE TO 4
-    cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 16384); //limite pro tamanho da tree
+    cplex.setParam(IloCplex::Param::Threads, 4); //CHANGE TO 4
+    cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 12288); //limite pro tamanho da tree
     cplex.setParam(IloCplex::Param::MIP::Strategy::File, 3); //switch pra passar nodes pro disco
     cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
 
-    int strategy = 1;
+    int strategy = input.getCplexStrategy();
     if (strategy == 1){
         //AGGRESSIVE mais voltado quando tiver usando genetico
         // Preprocessing
-        cplex.setParam(IloCplex::Param::Preprocessing::BoundStrength, 1); // Apply bound strengthening
-        cplex.setParam(IloCplex::Param::Preprocessing::Reduce, 1);        // even less aggressive reductions
-
+        cplex.setParam(IloCplex::Param::Preprocessing::BoundStrength, 1);
+        cplex.setParam(IloCplex::Param::Preprocessing::Reduce, 2);        
         // Search Strategy
-        cplex.setParam(IloCplex::MIPEmphasis, 2);   // Focus on improving lower bound
-        cplex.setParam(IloCplex::NodeSel, 3);       // Best-bound search strategy
-        cplex.setParam(IloCplex::RootAlg, IloCplex::Algorithm::Barrier); // Barrier method for root node
+        cplex.setParam(IloCplex::MIPEmphasis, 3);
+        cplex.setParam(IloCplex::NodeSel, 1);
+        cplex.setParam(IloCplex::RootAlg, IloCplex::Algorithm::Dual); 
         // Cutting Planes (Moderate Level to Balance Speed & Strength)
-        cplex.setParam(IloCplex::MIRCuts, 2);       // Moderate MIR cuts
-        cplex.setParam(IloCplex::FlowCovers, 2);    // Moderate flow cover cuts
-        cplex.setParam(IloCplex::ZeroHalfCuts, 2);  // Moderate zero-half cuts
-        cplex.setParam(IloCplex::FracCuts, 2);      // Moderate fractional Gomory cuts
-        cplex.setParam(IloCplex::LiftProjCuts, 2); //Moderate lift project cuts
-        cplex.setParam(IloCplex::MCFCuts, 2); //Moderate MCF cuts
+        cplex.setParam(IloCplex::Cliques, 2);   
+        cplex.setParam(IloCplex::Covers, 2);  
+        cplex.setParam(IloCplex::FracCuts, 2);    
+        cplex.setParam(IloCplex::GUBCovers, 2);  
+        std::vector<ObjectiveFunction> myObjectives = formulation->getObjectiveSet();
+        if(myObjectives[0].getId() == Input::OBJECTIVE_METRIC_TASE){
+            cplex.setParam(IloCplex::MIRCuts, 2);
+        }
+        //cplex.setParam(IloCplex::MCFCuts, 2); //Moderate MCF cuts
         // Heuristics (Disabled to Focus on Bound Improvement)
-        cplex.setParam(IloCplex::FPHeur, 0);        // Disable Feasibility Pump heuristic
-        cplex.setParam(IloCplex::HeurFreq, -1);     // Disable general heuristics
-        cplex.setParam(IloCplex::Param::MIP::Strategy::Probe,3); //probing agressivo
-        cplex.setParam(IloCplex::Param::MIP::Strategy::VariableSelect,3); //strong branching
-        cplex.setParam(IloCplex::Param::MIP::Strategy::Search, 2); //use dynamic search
+        cplex.setParam(IloCplex::FPHeur, -1); 
+        cplex.setParam(IloCplex::HeurFreq, -1);   
+        cplex.setParam(IloCplex::RINSHeur, 500);     
+        cplex.setParam(IloCplex::Param::MIP::Strategy::Probe,2);
+        cplex.setParam(IloCplex::Param::MIP::Strategy::VariableSelect,3);
+        cplex.setParam(IloCplex::Param::MIP::Strategy::Search,0); 
     }
     if (strategy == 2){
-        //BALANCED BUT MORE AGRESSIVE THAN CPLEX
-        // Preprocessing - Strengthen LP Relaxation
-        cplex.setParam(IloCplex::Param::Preprocessing::BoundStrength, 1);  // Apply bound strengthening
-        cplex.setParam(IloCplex::Param::Preprocessing::Reduce, 2);         // less aggressive reductions
-
-        // Search Strategy - Prioritize Lower Bound but Allow Feasibility
-        cplex.setParam(IloCplex::MIPEmphasis, 3);   // Balance optimality and feasibility
-        cplex.setParam(IloCplex::NodeSel, 2);       // Best-estimate search (good mix of bound & feasibility)
-        cplex.setParam(IloCplex::RootAlg, IloCplex::Algorithm::Barrier); // Barrier method for strong LP relaxation
-        // Cutting Planes - Improve Bound Without Overloading Solver
-        cplex.setParam(IloCplex::MIRCuts, 2);       // Moderate MIR cuts
-        cplex.setParam(IloCplex::FlowCovers, 2);    // Moderate flow cover cuts
-        cplex.setParam(IloCplex::ZeroHalfCuts, 1);  // Light zero-half cuts (reduce complexity)
-        cplex.setParam(IloCplex::FracCuts, 1);      // Light fractional Gomory cuts
-        cplex.setParam(IloCplex::LiftProjCuts, 1); //light lift project cuts
-        cplex.setParam(IloCplex::MCFCuts, 1); //light MCF cuts
-        // Heuristics - Allow Some Feasibility Search but Not Too Aggressive
-        cplex.setParam(IloCplex::FPHeur, 1);        // Enable Feasibility Pump heuristic (but not aggressive)
-        cplex.setParam(IloCplex::HeurFreq, 10);     // Run heuristics occasionally
-        cplex.setParam(IloCplex::RINSHeur, 10);     // Apply RINS heuristic every 10 nodes (helps feasible solutions)
-        cplex.setParam(IloCplex::Param::MIP::Strategy::Probe,2); //probing moderado analisa implicaçoes logicas de fixar variavel no começo
-        cplex.setParam(IloCplex::Param::MIP::Strategy::VariableSelect,3); //strong branching
-        cplex.setParam(IloCplex::Param::MIP::Strategy::Search, 2); //use dynamic search
-    }
-    if (strategy == 3){
-        //CPLEX STANDART
-        
-
-        
+        // Preprocessing
+        cplex.setParam(IloCplex::Param::Preprocessing::BoundStrength, 1);
+        cplex.setParam(IloCplex::Param::Preprocessing::Reduce, 3);        
+        // Search Strategy
+        cplex.setParam(IloCplex::MIPEmphasis,2);
+        cplex.setParam(IloCplex::NodeSel, 1);
+        cplex.setParam(IloCplex::RootAlg, IloCplex::Algorithm::Dual); 
+        // Cutting Planes (Moderate Level to Balance Speed & Strength)
+        cplex.setParam(IloCplex::Cliques, 1);   
+        cplex.setParam(IloCplex::Covers, 1);  
+        cplex.setParam(IloCplex::FracCuts, 1);    
+        cplex.setParam(IloCplex::GUBCovers, 1);  
+        std::vector<ObjectiveFunction> myObjectives = formulation->getObjectiveSet();
+        if(myObjectives[0].getId() == Input::OBJECTIVE_METRIC_TASE){
+            cplex.setParam(IloCplex::MIRCuts, 2);
+        }
+        //cplex.setParam(IloCplex::MCFCuts, 1); //Moderate MCF cuts
+        // Heuristics (Disabled to Focus on Bound Improvement)
+        cplex.setParam(IloCplex::FPHeur, 1); 
+        cplex.setParam(IloCplex::HeurFreq, 25);   
+        cplex.setParam(IloCplex::RINSHeur, 100);     
+        cplex.setParam(IloCplex::Param::MIP::Strategy::Probe,1);
+        cplex.setParam(IloCplex::Param::MIP::Strategy::VariableSelect,2);
+        cplex.setParam(IloCplex::Param::MIP::Strategy::Search,0); 
     }
     if(formulation->getInstance().getInput().isRelaxed()){
         Input::RootMethod rootMethod = formulation->getInstance().getInput().getChosenRootMethod();

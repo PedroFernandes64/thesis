@@ -163,6 +163,7 @@ int main(int argc, char *argv[]) {
 			std::string	tase = to_string(solver->getTASE());
 			std::string	v0 = to_string(solver->getVariablesSetTo0());
 			std::string	ppC = to_string(solver->getPreprocessingConstraints());
+			std::string cplex = to_string(input.getCplexStrategy());
 
 			//AUXILIAR OUTPUT FILE
 			std::ofstream outfile;
@@ -195,7 +196,7 @@ int main(int argc, char *argv[]) {
 			//opening file and writing
   			outfile << "\n" + instanceName + ";" << ub + ";" + lb + ";" + gap +";" + time +";" + obj +";"+ formulation+ ";"
 				+maxCD+";" + minOsnr+";"+ gnpy+";"+ bands+";"+ reinforcements+";"+ cuts+";"+ prepro+";"+genetic+";"+it+";"
-				+pop+";"+cross+";"+mut+";"+cK+";"+eK+";"+genTime+";"+genSol+";"+genSolIt+";"+genSolTime+";"+lbAc+";"+cpLb+";"+preproTime +";"
+				+pop+";"+cross+";"+mut+";"+cK+";"+eK+";"+genTime+";"+genSol+";"+genSolIt+";"+genSolTime+";"+lbAc+";"+cpLb+";"+cplex+";"+preproTime +";"
 				+variables+";"+constraints+";"+v0+";"+ppC+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"
 				+onlyOsnrFeasiblePathsC+";"+onlyReachFeasiblePathsC+";"+feasiblePathsL+";"+infeasiblePathsL+";"+onlyOsnrFeasiblePathsL+";"
 				+onlyReachFeasiblePathsL+";"+ads+";"+dcb+";"+llb+";"+nlus+";"+slus+";"+suld+";"+trl+";"+tus+";"+tase;

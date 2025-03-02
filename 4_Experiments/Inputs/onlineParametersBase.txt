@@ -26,6 +26,7 @@ Genetic_mutation=100
 Genetic_chosenK=3
 Genetic_extraK=3
 ActivateLB=0
+CPLEX_Strategy=
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
@@ -49,5 +50,5 @@ relaxMethod=0
 outputPath=../Instances/Dump/
 outputLevel=0
 nbSlicesInOutputFile=0
-globalTimeLimit=14400
-timeLimit=14400
+globalTimeLimit=7200
+timeLimit=7200

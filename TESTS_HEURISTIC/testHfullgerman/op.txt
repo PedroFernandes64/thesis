@@ -26,6 +26,7 @@ Genetic_mutation=100
 Genetic_chosenK=5
 Genetic_extraK=5
 ActivateLB=0
+CPLEX_Strategy=1
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
