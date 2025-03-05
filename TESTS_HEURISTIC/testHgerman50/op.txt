@@ -25,12 +25,12 @@ Genetic_crossing=100
 Genetic_mutation=100
 Genetic_chosenK=5
 Genetic_extraK=5
-ActivateLB=1
-CPLEX_Strategy=1
+ActivateLB=0
+CPLEX_Strategy=0
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
-formulation=0
+formulation=3
 userCuts=0
 obj=TUS
 allowBlocking=0

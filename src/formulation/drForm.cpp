@@ -28,9 +28,14 @@ void DrFormulation::setVariables() {
     this->setDemandDemandVariables();
     this->setLeftVariables();
     this->setRightVariables();
-    this->setMaxUsedSliceOverallVariable();
-    this->setMaxUsedSlicePerEdgeVariable();
-    //this->setCBandRoutingVariable();
+    
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
+        this->setMaxUsedSlicePerEdgeVariable();
+    }
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+        this->setMaxUsedSliceOverallVariable();
+    }
     std::cout << "DR-AOV variables have been defined..." << std::endl;
 }
 
@@ -46,7 +51,7 @@ void DrFormulation::setVariables() {
         y[edge + nbEdges].resize(getNbDemandsToBeRouted());
         for (int k = 0; k < getNbDemandsToBeRouted(); k++){
             std::ostringstream varName;
-             std::ostringstream varName2;
+            std::ostringstream varName2;
             varName << "y";
             varName << "(" + std::to_string(uId) + "," ;
             varName << std::to_string(vId) + "," ;
@@ -64,7 +69,7 @@ void DrFormulation::setVariables() {
             }
             else{
                 y[edge][k] = Variable(varId, 0, upperBound, Variable::TYPE_BOOLEAN, 0, varName.str());
-               y[edge + nbEdges][k] = Variable(varId2, 0, upperBound, Variable::TYPE_BOOLEAN, 0, varName2.str());
+                y[edge + nbEdges][k] = Variable(varId2, 0, upperBound, Variable::TYPE_BOOLEAN, 0, varName2.str());
             }
             incNbVar(); 
             incNbVar(); 
@@ -72,7 +77,6 @@ void DrFormulation::setVariables() {
         }
 
      }
-    std::cout << "Yde variables have been defined"  << std::endl;
  }
 
 void DrFormulation::setLeftVariables() { 
@@ -84,7 +88,7 @@ void DrFormulation::setLeftVariables() {
             int varId = getNbVar();
             std::string varName = "lm ("+ std::to_string(getToBeRouted_k(d).getId() + 1) + ")";
            
-             if(instance.getInput().isRelaxed()){
+            if(instance.getInput().isRelaxed()){
                 lm[d] = Variable(varId, lowerBound,upperBound, Variable::TYPE_REAL, 0, varName);   
             }
             else{
@@ -101,16 +105,15 @@ void DrFormulation::setRightVariables() {
     rm.resize(getNbDemandsToBeRouted());
         for(int d=0;d <getNbDemandsToBeRouted(); d++){
             int upperBound = getNbSlicesGlobalLimit();
-            int lowerBound = 1;
+            int lowerBound = getToBeRouted_k(d).getLoadC();
             int varId = getNbVar();
             std::string varName = "rm ("+ std::to_string(getToBeRouted_k(d).getId() + 1) + ")";
             
-         if(instance.getInput().isRelaxed()){
-                rm[d] = Variable(varId, lowerBound,upperBound, Variable::TYPE_REAL, 0, varName);    
-            }
-            else{
-                rm[d]= Variable(varId, lowerBound, upperBound, Variable::TYPE_BOOLEAN, 0, varName);  
-            }
+        if(instance.getInput().isRelaxed()){
+            rm[d] = Variable(varId, lowerBound,upperBound, Variable::TYPE_REAL, 0, varName);    
+        }else{
+            rm[d]= Variable(varId, lowerBound, upperBound, Variable::TYPE_BOOLEAN, 0, varName);  
+        }
             incNbVar();
         }
 }
@@ -175,26 +178,6 @@ void DrFormulation::setMaxUsedSliceOverallVariable() {
     std::cout << "MaxSliceOverall variable was created."  << std::endl;    
 }
 
-void DrFormulation::setCBandRoutingVariable(){
-    // C Band routing variables
-    routedCBand.resize(getNbDemandsToBeRouted());
-    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        std::ostringstream varName;
-        varName << "C";
-        varName << "(" +  std::to_string(getToBeRouted_k(k).getId() + 1) + ")";
-        int upperBound = 1;
-        int varId = getNbVar();
-        if(instance.getInput().isRelaxed()){
-            routedCBand[k] = Variable(varId, 0, upperBound, Variable::TYPE_REAL, 0, varName.str());
-        }
-        else{
-            routedCBand[k] = Variable(varId, 0, upperBound, Variable::TYPE_BOOLEAN, 0, varName.str());
-        }   
-            incNbVar();
-    }
-    std::cout << "C Band routing variables have been defined..." << std::endl; 
-}
-
 
 VarArray DrFormulation::getVariables(){
     VarArray vec;
@@ -222,31 +205,29 @@ VarArray DrFormulation::getVariables(){
     }
     // Variables lm[d]
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
-            int pos = lm[d].getId();
-            vec[pos] = lm[d];
-        }
+        int pos = lm[d].getId();
+        vec[pos] = lm[d];
+    }
     // Variables rm[d]
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
-            int pos = rm[d].getId();
-            vec[pos] = rm[d];
-        }
-    // Max slice variables
-    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-        int edge = getCompactEdgeLabel(e);
-        int pos = maxSlicePerLink[edge].getId();
-        vec[pos] = maxSlicePerLink[edge];
-    }  
-
-    // Max slice overall
-    int pos = maxSliceOverall.getId();
-    vec[pos] = maxSliceOverall;
-
-    // C Band routing variables
-    //for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-    //    int pos = routedCBand[k].getId();
-    //    vec[pos] = routedCBand[k];
-   // }  
-
+        int pos = rm[d].getId();
+        vec[pos] = rm[d];
+    }
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
+        // Max slice variables
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            int pos = maxSlicePerLink[edge].getId();
+            vec[pos] = maxSlicePerLink[edge];
+        }  
+    }
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+        // Max slice overall
+        int pos = maxSliceOverall.getId();
+        vec[pos] = maxSliceOverall;
+    }
+        
     return vec;
     
 }
@@ -290,23 +271,22 @@ void DrFormulation::setVariableValues(const std::vector<double> &vals){
         rm[d].setVal(newValue);
     }
 
-    // Max slice variables
-    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-        int edge = getCompactEdgeLabel(e);
-        int pos = maxSlicePerLink[edge].getId();
-        double newValue = vals[pos];
-        maxSlicePerLink[edge].setVal(newValue);
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
+        // Max slice variables
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            int pos = maxSlicePerLink[edge].getId();
+            double newValue = vals[pos];
+            maxSlicePerLink[edge].setVal(newValue);
+        }
     }
-    // Max slice overall
-    int pos = maxSliceOverall.getId();
-    double newValue = vals[pos];
-    maxSliceOverall.setVal(newValue);   
-    // C Band routing variables
-    //for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-    //    int pos = routedCBand[k].getId();
-    //    double newValue = vals[pos];
-    //    routedCBand[k].setVal(newValue);
-    //}     
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+        // Max slice overall
+        int pos = maxSliceOverall.getId();
+        double newValue = vals[pos];
+        maxSliceOverall.setVal(newValue);  
+    }  
 }
 
 
@@ -325,6 +305,9 @@ void DrFormulation::setObjectives(){
         Expression myObjective = this->getObjFunctionFromMetric(chosenObjectives[i]);
         objectiveSet[i].setExpression(myObjective);
         objectiveSet[i].setDirection(ObjectiveFunction::DIRECTION_MIN);
+        if (chosenObjectives[i] == Input::OBJECTIVE_METRIC_ADS){
+            objectiveSet[i].setDirection(ObjectiveFunction::DIRECTION_MAX);
+        } 
         objectiveSet[i].setName(instance.getInput().getObjName(chosenObjectives[i]));
         objectiveSet[i].setId(chosenObjectives[i]);
         std::cout << "Objective " << objectiveSet[i].getName() << " has been defined." << std::endl;
@@ -426,9 +409,22 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
         }
 
         case Input::OBJECTIVE_METRIC_ADS:{
-            for (int k = 0; k < getNbDemandsToBeRouted(); k++){                
-                Term term(routedCBand[k], -getToBeRouted_k(k).getLoadC());
-                obj.addTerm(term);
+            int nbEdges = countEdges(compactGraph);
+            for (int k = 0; k < getNbDemandsToBeRouted(); k++){      
+                int origin = getToBeRouted_k(k).getSource();
+                for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                    int labelU = getCompactNodeLabel(compactGraph.u(e));
+                    int labelV = getCompactNodeLabel(compactGraph.v(e));
+                    int edge = getCompactEdgeLabel(e);
+                    if (labelU==origin){
+                        Term term(y[edge][k], 1);
+                        obj.addTerm(term);
+                    }
+                    if (labelV==origin){
+                        Term term2(y[edge + nbEdges][k], 1);
+                        obj.addTerm(term2);  
+                    }
+                }
             }
             break;
         }
@@ -450,23 +446,29 @@ Expression DrFormulation::getObjFunctionFromMetric(Input::ObjectiveMetric chosen
 	
 
 	this->setSlotsVolumeConstraints();
-    this->setSlotsVolumeConstraints2();
+
     this->setDegreeConstraints();
-	this->setOriginConstraints();
+	this->setSourceConstraints();
     this->setTargetConstraints();
     this->setFlowConstraints();
+
 	this->setNonOverlappingConstraints();
     this->setNonOverlappingConstraints2();
-    this->setDestinationConstraints();
-    this->setMaxUsedSlicePerLinkConstraints();
-    this->setMaxUsedSliceOverallConstraints();
-    //this->setCDConstraints();
+    
 
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
+        this->setMaxUsedSlicePerLinkConstraints();
+    }
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+        this->setMaxUsedSliceOverallConstraints();
+    }
+    
     if (this->getInstance().getInput().isMaxCDEnabled() == true){
         this->setCDConstraints();
     }
     if (this->getInstance().getInput().isMinOSNREnabled() == true){
-        this->setOsnrConstraints();
+        this->setOSNRConstraints();
     }
     //this->setCBandRoutingConstraints();
     nbConstraint = constraintSet.size();
@@ -484,9 +486,9 @@ void DrFormulation::setCDConstraints(){
     std::cout << "CD constraints have been defined..." << std::endl;
 }
 
-void DrFormulation::setOsnrConstraints(){
+void DrFormulation::setOSNRConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
-        const Constraint & osnrConstraint = getOsnrConstraint(d);
+        const Constraint & osnrConstraint = getOSNRConstraint(d);
         constraintSet.push_back(osnrConstraint);
     }
     std::cout << "OSNR constraints have been defined..." << std::endl;
@@ -500,7 +502,7 @@ Constraint DrFormulation::getCDConstraint(int d){
     int nbEdges = countEdges(compactGraph);
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
-        double coeff = getCompactLength(e);
+        double coeff = getCompactDispersionC(e);
         Term term(y[edge][d], coeff);
         exp.addTerm(term);
         Term term2(y[edge + nbEdges][d], coeff);
@@ -508,12 +510,12 @@ Constraint DrFormulation::getCDConstraint(int d){
     } 
     
     std::ostringstream constraintName;
-    constraintName << "TrasmissionReach(" << getToBeRouted_k(d).getId()+1 << ")"; 
+    constraintName << "ChromaticDispersion(" << getToBeRouted_k(d).getId()+1 << ")"; 
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }
 
-Constraint DrFormulation::getOsnrConstraint(int d){ //TODO
+Constraint DrFormulation::getOSNRConstraint(int d){
     Expression exp;
     double rhs; double lhs;
 
@@ -532,28 +534,12 @@ Constraint DrFormulation::getOsnrConstraint(int d){ //TODO
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int edge = getCompactEdgeLabel(e);
         
-        //First term
-        double coeff = getCompactPaseLineC(e)* roundingFactor;;
+        double coeff = getCompactNoiseC(e)* roundingFactor;
         coeff = ceil(coeff*100)/100; //ROUNDING
         Term term(y[edge][d], coeff);
         Term term2(y[edge + nbEdges][d], coeff);
         exp.addTerm(term);
         exp.addTerm(term2);
-
-        //Second term
-        coeff = 1.0 * ceil(instance.getPaseNodeC() * roundingFactor*100)/100; //ROUNDING
-        Term term3(y[edge][d], coeff);
-        Term term4(y[edge + nbEdges][d], coeff);
-        exp.addTerm(term3);
-        exp.addTerm(term4);
-
-        //Third term
-        coeff = getCompactPnliC(e)* roundingFactor;
-        coeff = ceil(coeff*100)/100; //ROUNDING
-        Term term5(y[edge][d], coeff);
-        Term term6(y[edge + nbEdges][d], coeff);
-        exp.addTerm(term5);
-        exp.addTerm(term6);
     } 
     std::ostringstream constraintName;
     constraintName << "OSNR(" << getToBeRouted_k(d).getId()+1 << ")"; 
@@ -584,35 +570,12 @@ Constraint DrFormulation::getSlotsVolumeConstraints(int d){
     return constraint;
 }
 
-void DrFormulation::setSlotsVolumeConstraints2(){
-    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
-        const Constraint & volumeDemandConstraints2 = getSlotsVolumeConstraints2(d);
-        constraintSet.push_back(volumeDemandConstraints2);
-    }
-    std::cout << "Volume constraints 2 have been defined..." << std::endl;
-}
-
-Constraint DrFormulation::getSlotsVolumeConstraints2(int d){
-    Expression exp;
-    int upperBound = getNbSlicesGlobalLimit();
-    int lowerBound =  0;
-    Term term_rm(rm[d], 1);
-    exp.addTerm(term_rm);
-    Term term_lm(lm[d], -1);
-    exp.addTerm(term_lm);
-    std::ostringstream constraintName;
-    constraintName << "Volume Slots 2 Demand (" << getToBeRouted_k(d).getId()+1 << ")";
-    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
-    return constraint;
-}
-
 /* Defines Degree constraints. At most two edges are adjacent to any node. */
 void DrFormulation::setDegreeConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){  
         for (ListGraph::NodeIt v(compactGraph); v != INVALID; ++v){
-                Constraint degreeConstraint = getDegreeConstraint_k(d, v);
-                constraintSet.push_back(degreeConstraint);
-            
+            Constraint degreeConstraint = getDegreeConstraint_k(d, v);
+            constraintSet.push_back(degreeConstraint);
         }
     }
     std::cout << "Degree constraints have been defined..." << std::endl;
@@ -629,11 +592,11 @@ Constraint DrFormulation::getDegreeConstraint_k(int k, const ListGraph::Node &v)
         int uId = getCompactNodeLabel(compactGraph.u(e)) + 1;
         int vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
         int edge = getCompactEdgeLabel(e);
-        if (vId == node) { 
+        if (uId == node) { 
             Term term(y[edge][k], 1);
             exp.addTerm(term);
         }
-        if (uId==node) { 
+        if (vId==node) { 
             Term term2(y[edge + nbEdges][k], 1);
             exp.addTerm(term2);
         }      
@@ -643,21 +606,16 @@ Constraint DrFormulation::getDegreeConstraint_k(int k, const ListGraph::Node &v)
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }
-void DrFormulation::setOriginConstraints(){
+void DrFormulation::setSourceConstraints(){
     for (int k = 0; k < getNbDemandsToBeRouted(); k++){  
-        for (ListGraph::NodeIt v(compactGraph); v != INVALID; ++v){
-            int node = getCompactNodeLabel(v);
-            if (node == getToBeRouted_k(k).getSource()){
-                Constraint originConstraint = getOriginConstraint_k(k,v);
-                constraintSet.push_back(originConstraint);
-            }
-        }
+        Constraint originConstraint = getSourceConstraint_k(k);
+        constraintSet.push_back(originConstraint);   
     }
-    std::cout << "Origin constraints have been defined..." << std::endl;
+    std::cout << "Source constraints have been defined..." << std::endl;
 }
 
-
-Constraint DrFormulation::getOriginConstraint_k(int k,const ListGraph::Node &v){
+//One arc must leave the origin, if ADS one arc can leave
+Constraint DrFormulation::getSourceConstraint_k(int k){
     Expression exp;
     int upperBound = -1;
     int lowerBound = -1;
@@ -666,22 +624,18 @@ Constraint DrFormulation::getOriginConstraint_k(int k,const ListGraph::Node &v){
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
         int labelU = getCompactNodeLabel(compactGraph.u(e));
         int labelV = getCompactNodeLabel(compactGraph.v(e));
-        
-    if (labelU == origin || labelV == origin){
-            int edge = getCompactEdgeLabel(e);
-            if (labelU==origin){
-                Term term(y[edge][k], -1);
-                exp.addTerm(term);
-                Term term2(y[edge + nbEdges][k], 1);
-                exp.addTerm(term2);  
-            }
-            if (labelV==origin){ 
-                Term term(y[edge][k], 1);
-                exp.addTerm(term);
-                Term term2(y[edge + nbEdges][k], -1);
-                exp.addTerm(term2);  
-            }
-            
+        int edge = getCompactEdgeLabel(e);
+        if (labelU==origin){
+            Term term(y[edge][k], -1);
+            exp.addTerm(term);
+            Term term2(y[edge + nbEdges][k], 1);
+            exp.addTerm(term2);  
+        }
+        if (labelV==origin){ 
+            Term term(y[edge][k], 1);
+            exp.addTerm(term);
+            Term term2(y[edge + nbEdges][k], -1);
+            exp.addTerm(term2);  
         }
     }
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
@@ -689,81 +643,36 @@ Constraint DrFormulation::getOriginConstraint_k(int k,const ListGraph::Node &v){
         upperBound = 0;
     }
     std::ostringstream constraintName;
-    constraintName << "Origin Demand" << getToBeRouted_k(k).getId()+1 << "_Node_" << getCompactNodeLabel(v)+1 ;
-    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
-    return constraint;
-}
-
-
-/* Defines Destination constraints. Exactly one arc enters the target. */
-void DrFormulation::setDestinationConstraints(){
-    for (int d = 0; d < getNbDemandsToBeRouted(); d++){   
-        Constraint destinationConstraint = getDestinationConstraint_k(d);
-        constraintSet.push_back(destinationConstraint);  
-        }
-
-    std::cout << "Destination constraints have been defined..." << std::endl;
-}
-/* Restrição Soma de todos arcos que saem do destino seja igual a 0. */
-Constraint DrFormulation::getDestinationConstraint_k(int d){
-    Expression exp;
-    int upperBound = 0;
-    int lowerBound = 0;
-    int destination = getToBeRouted_k(d).getTarget();
-    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-        int uId = getCompactNodeLabel(compactGraph.u(e));
-        int vId = getCompactNodeLabel(compactGraph.v(e));
-        if (uId == destination || vId == destination){ 
-            int edge = getCompactEdgeLabel(e);
-            int nbEdges= countEdges(compactGraph);
-            if (vId==destination) { 
-            Term term(y[edge + nbEdges][d], 1);
-            exp.addTerm(term);
-            }
-             if (uId==destination) { 
-            Term term2(y[edge][d], 1);
-            exp.addTerm(term2);
-             }
-        }
-    }
-
-    //std::cout << exp.to_string() << std::endl;
-    std::ostringstream constraintName;
-    constraintName << "Destination_" << getToBeRouted_k(d).getId()+1;
+    constraintName << "Origin Demand" << getToBeRouted_k(k).getId()+1 ;
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }
 
 void DrFormulation::setTargetConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){  
-        for (ListGraph::NodeIt v(compactGraph); v != INVALID; ++v){
-            int node = getCompactNodeLabel(v);
-            if ( node == getToBeRouted_k(d).getTarget()){
-                Constraint targetConstraint = getTargetConstraint_k(d, v);
-                constraintSet.push_back(targetConstraint);
-            }
-        }
+        Constraint targetConstraint = getTargetConstraint_k(d);
+        constraintSet.push_back(targetConstraint);
     }
     std::cout << "Target constraint have been defined..." << std::endl;
 }
-
-Constraint DrFormulation::getTargetConstraint_k(int d, const ListGraph::Node &v){
+//One arc must arrive at destination, if ADS one arc can arrive
+Constraint DrFormulation::getTargetConstraint_k(int d){
     Expression exp;
     int lowerBound = 1;
     int upperBound = 1;
-    int node = getCompactNodeLabel(v);
+    int destination = getToBeRouted_k(d).getTarget();
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-        int uId = getCompactNodeLabel(compactGraph.u(e)) ;
-        int vId = getCompactNodeLabel(compactGraph.v(e)) ;
+        int labelU = getCompactNodeLabel(compactGraph.u(e)) ;
+        int labelV = getCompactNodeLabel(compactGraph.v(e)) ;
         int edge = getCompactEdgeLabel(e);
-        if(node==uId){
+        if(labelU==destination){
             Term term(y[edge][d], -1);
             exp.addTerm(term);
             int nbEdges = countEdges(compactGraph);
             Term term2(y[edge + nbEdges][d], 1);
             exp.addTerm(term2);
         }
-        if(node==vId){
+        if(labelV==destination){
             Term term(y[edge][d], 1);
             exp.addTerm(term);
             int nbEdges = countEdges(compactGraph);
@@ -777,13 +686,13 @@ Constraint DrFormulation::getTargetConstraint_k(int d, const ListGraph::Node &v)
     }
     //std::cout << exp.to_string() << std::endl; 
     std::ostringstream constraintName;
-    constraintName << "Target" << "_"<<getToBeRouted_k(d).getId()+1 << "_" << getCompactNodeLabel(v)+1;
+    constraintName << "Target" << "_"<<getToBeRouted_k(d).getId()+1;
     Constraint constraint( lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }
 
 
-/* Defines Degree constraints. At most two edges are adjacent to any node. */
+/* Defines Flow constraints. At most two edges are adjacent to any node. */
 void DrFormulation::setFlowConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){  
         for (ListGraph::NodeIt v(compactGraph); v != INVALID; ++v){
@@ -794,7 +703,7 @@ void DrFormulation::setFlowConstraints(){
             }
         }
     }
-    std::cout << "Flux have been defined..." << std::endl;
+    std::cout << "Flow have been defined..." << std::endl;
 }
 Constraint DrFormulation::getFlowConstraint_k(int d, const ListGraph::Node &v){
     Expression exp;
@@ -826,7 +735,6 @@ Constraint DrFormulation::getFlowConstraint_k(int d, const ListGraph::Node &v){
     Constraint constraint( lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }
-
 
 /* Defines Non-Overlapping constraints. Demands must not overlap eachother's slices.*/ 
 void DrFormulation::setNonOverlappingConstraints() {
@@ -906,67 +814,6 @@ Constraint DrFormulation::getNonOverlappingConstraints2(int d, int d2) {
     Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
     return constraint;
 }
-
-
-void DrFormulation::setCBandRoutingConstraints(){
-    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-            const Constraint & CBandRoutingConstraint = getCBandRoutingConstraint(k);
-            constraintSet.push_back(CBandRoutingConstraint);
-            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-                int edge = getCompactEdgeLabel(e);
-                const Constraint & CBandRoutingConstraint2 = getCBandRoutingConstraint2(k,edge);
-                constraintSet.push_back(CBandRoutingConstraint2);
-            }
-        }
-    std::cout << "C Band routing constraints have been defined..." << std::endl;
-}
-
-// if the demand is routed, it must be in C band (monoband case)
-Constraint DrFormulation::getCBandRoutingConstraint(int k){
-    Expression exp;
-    int upperBound = 0;
-    int lowerBound = 0;
-    int nbEdges = countEdges(compactGraph);
-    int origin = getToBeRouted_k(k).getSource();
-    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-        int labelU = getCompactNodeLabel(compactGraph.u(e));
-        int labelV = getCompactNodeLabel(compactGraph.v(e));
-        int edge = getCompactEdgeLabel(e);
-        if (labelU==origin){
-            Term term(y[edge][k], 1);
-            exp.addTerm(term);
-        }else{
-            if (labelV==origin){
-                Term term2(y[edge + nbEdges][k], 1);
-                exp.addTerm(term2);  
-            }
-        }
-    }
-    Term term2(routedCBand[k], -1);
-    exp.addTerm(term2);
-    std::ostringstream constraintName;
-    constraintName << "CBandRouting1_" << getToBeRouted_k(k).getId()+1 ;
-    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
-    return constraint;
-}
-
-Constraint DrFormulation::getCBandRoutingConstraint2(int k, int e){
-    Expression exp;
-    int upperBound = 0;
-    int lowerBound = -1;
-    int nbEdges = countEdges(compactGraph);
-    Term term1(y[e][k], 1);
-    exp.addTerm(term1);
-    Term term2(y[e + nbEdges][k], 1);
-    exp.addTerm(term2);
-    Term term3(routedCBand[k], -1);
-    exp.addTerm(term3);
-    std::ostringstream constraintName;
-    constraintName << "CBandRouting2_" << getToBeRouted_k(k).getId()+1 ;
-    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
-    return constraint;
-}
-
 
 void DrFormulation::setPreprocessingConstraints(){
     for (int k = 0; k < getNbDemandsToBeRouted(); k++){
@@ -1365,16 +1212,21 @@ void DrFormulation::displayVariableValues(){
         }
         std::cout << std::endl;
     }
-    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-        int edge = getCompactEdgeLabel(e);
-        std::cout << maxSlicePerLink[edge].getName() << " = " << maxSlicePerLink[edge].getVal() << "   ";
+    const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            std::cout << maxSlicePerLink[edge].getName() << " = " << maxSlicePerLink[edge].getVal() << "   ";
+        }
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
-    std::cout << maxSliceOverall.getName() << " = " << maxSliceOverall.getVal() << std::endl;
-    std::cout << std::endl;
-    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+    if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_NLUS){
+        std::cout << maxSliceOverall.getName() << " = " << maxSliceOverall.getVal() << std::endl;
+        std::cout << std::endl; 
+    }
+    /*for (int k = 0; k < getNbDemandsToBeRouted(); k++){
         std::cout << routedCBand[k].getName() << " = " << routedCBand[k].getVal() << "   ";
-    }
+    }*/
     std::cout << std::endl;
 }
 
