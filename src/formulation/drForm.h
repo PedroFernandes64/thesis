@@ -97,7 +97,9 @@ class DrFormulation : public AbstractFormulation{
 /** Returns the flow conservation constraint associated with a demand and a node. @param v The node. @param demand The demand. @param d The demand index. **/
 	Constraint getDegreeConstraint_k(int k, const ListGraph::Node &v);
 	Constraint getSourceConstraint_k(int k);
+	Constraint getOriginConstraint_k(int k);
 	Constraint getTargetConstraint_k(int d);
+	Constraint getDestinationConstraint_k(int d);
 	Constraint getFlowConstraint_k(int d, const ListGraph::Node &v);
 	
 

@@ -608,8 +608,10 @@ Constraint DrFormulation::getDegreeConstraint_k(int k, const ListGraph::Node &v)
 }
 void DrFormulation::setSourceConstraints(){
     for (int k = 0; k < getNbDemandsToBeRouted(); k++){  
-        Constraint originConstraint = getSourceConstraint_k(k);
-        constraintSet.push_back(originConstraint);   
+        Constraint sourceConstraint = getSourceConstraint_k(k);
+        constraintSet.push_back(sourceConstraint);  
+        Constraint originConstraint = getOriginConstraint_k(k);
+        constraintSet.push_back(originConstraint);  
     }
     std::cout << "Source constraints have been defined..." << std::endl;
 }
@@ -617,8 +619,8 @@ void DrFormulation::setSourceConstraints(){
 //One arc must leave the origin, if ADS one arc can leave
 Constraint DrFormulation::getSourceConstraint_k(int k){
     Expression exp;
-    int upperBound = -1;
-    int lowerBound = -1;
+    int upperBound = 1;
+    int lowerBound = 1;
     int nbEdges = countEdges(compactGraph);
     int origin = getToBeRouted_k(k).getSource();
     for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
@@ -626,21 +628,43 @@ Constraint DrFormulation::getSourceConstraint_k(int k){
         int labelV = getCompactNodeLabel(compactGraph.v(e));
         int edge = getCompactEdgeLabel(e);
         if (labelU==origin){
-            Term term(y[edge][k], -1);
-            exp.addTerm(term);
-            Term term2(y[edge + nbEdges][k], 1);
-            exp.addTerm(term2);  
-        }
-        if (labelV==origin){ 
             Term term(y[edge][k], 1);
             exp.addTerm(term);
-            Term term2(y[edge + nbEdges][k], -1);
+        }
+        if (labelV==origin){ 
+            Term term2(y[edge + nbEdges][k], 1);
             exp.addTerm(term2);  
         }
     }
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
     if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_ADS){
-        upperBound = 0;
+        lowerBound = 0;
+    }
+    std::ostringstream constraintName;
+    constraintName << "Source Demand" << getToBeRouted_k(k).getId()+1 ;
+    Constraint constraint(lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+//no arc must enter the origin
+Constraint DrFormulation::getOriginConstraint_k(int k){
+    Expression exp;
+    int upperBound = 0;
+    int lowerBound = 0;
+    int nbEdges = countEdges(compactGraph);
+    int origin = getToBeRouted_k(k).getSource();
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int labelU = getCompactNodeLabel(compactGraph.u(e));
+        int labelV = getCompactNodeLabel(compactGraph.v(e));
+        int edge = getCompactEdgeLabel(e);
+        if (labelU==origin){
+            Term term2(y[edge + nbEdges][k], 1);
+            exp.addTerm(term2);  
+        }
+        if (labelV==origin){ 
+            Term term(y[edge][k], 1);
+            exp.addTerm(term); 
+        }
     }
     std::ostringstream constraintName;
     constraintName << "Origin Demand" << getToBeRouted_k(k).getId()+1 ;
@@ -652,6 +676,8 @@ void DrFormulation::setTargetConstraints(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){  
         Constraint targetConstraint = getTargetConstraint_k(d);
         constraintSet.push_back(targetConstraint);
+        Constraint destinationConstraint = getDestinationConstraint_k(d);
+        constraintSet.push_back(destinationConstraint);
     }
     std::cout << "Target constraint have been defined..." << std::endl;
 }
@@ -666,8 +692,6 @@ Constraint DrFormulation::getTargetConstraint_k(int d){
         int labelV = getCompactNodeLabel(compactGraph.v(e)) ;
         int edge = getCompactEdgeLabel(e);
         if(labelU==destination){
-            Term term(y[edge][d], -1);
-            exp.addTerm(term);
             int nbEdges = countEdges(compactGraph);
             Term term2(y[edge + nbEdges][d], 1);
             exp.addTerm(term2);
@@ -675,14 +699,38 @@ Constraint DrFormulation::getTargetConstraint_k(int d){
         if(labelV==destination){
             Term term(y[edge][d], 1);
             exp.addTerm(term);
-            int nbEdges = countEdges(compactGraph);
-            Term term2(y[edge + nbEdges][d], -1);
-            exp.addTerm(term2);
         }
     }
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
     if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_ADS){
         lowerBound = 0;
+    }
+    //std::cout << exp.to_string() << std::endl; 
+    std::ostringstream constraintName;
+    constraintName << "Target" << "_"<<getToBeRouted_k(d).getId()+1;
+    Constraint constraint( lowerBound, exp, upperBound, constraintName.str());
+    return constraint;
+}
+
+//no arc must leave at destination
+Constraint DrFormulation::getDestinationConstraint_k(int d){
+    Expression exp;
+    int lowerBound = 0;
+    int upperBound = 0;
+    int destination = getToBeRouted_k(d).getTarget();
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int labelU = getCompactNodeLabel(compactGraph.u(e)) ;
+        int labelV = getCompactNodeLabel(compactGraph.v(e)) ;
+        int edge = getCompactEdgeLabel(e);
+        if(labelU==destination){
+            Term term(y[edge][d], 1);
+            exp.addTerm(term);
+        }
+        if(labelV==destination){
+            int nbEdges = countEdges(compactGraph);
+            Term term2(y[edge + nbEdges][d], 1);
+            exp.addTerm(term2);
+        }
     }
     //std::cout << exp.to_string() << std::endl; 
     std::ostringstream constraintName;
@@ -973,7 +1021,7 @@ void DrFormulation::updatePath(const std::vector<double> &vals){
                 int u = getNodeLabel((*vecGraph[d]).source(a), d) + 1;
                 int v = getNodeLabel((*vecGraph[d]).target(a), d) + 1;
                 if (u < v){
-                    if ((y[edge][d].getVal() >= 1 - EPS ) && (rm[d].getVal()+EPS >= slice)&& (rm[d].getVal()+EPS <= slice+1)){
+                    if ((y[edge][d].getVal() >= 1 - EPS ) && (rm[d].getVal()+EPS >= slice)&& (rm[d].getVal()+EPS < slice+1)){
                         (*vecOnPath[d])[a] = getToBeRouted_k(d).getId();
                         previousArc = a;
                         leftTarget = true;
