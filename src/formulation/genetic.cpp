@@ -38,6 +38,13 @@ void Routing::computeMetric(int m){
 			metricVal= metricVal+ amplis*spectralEff[a];
 		}
 	}
+	if(m == 5){
+		for(int i = 0; i < colors.size(); ++i){
+			if(colors[i] == 0){
+				metricVal=metricVal+1;
+			}
+		}
+	}
 
 }
 
@@ -45,7 +52,7 @@ void Routing::building(int metr, int edges, int slots) {
 	setNbEdges(edges);
 	setNbSlots(slots);
 	//std::cout << " COLORING " << std::endl;
-	feasible = tryColoring(1);
+	feasible = tryColoring(1,metr);
 	if(feasible == true){
 		colored = true;
 		computeMetric(metr);
@@ -54,7 +61,7 @@ void Routing::building(int metr, int edges, int slots) {
 		for (int d = 0; d < routes.size(); ++d){
 			colors[d]=0 ;
 		}
-		feasible = tryColoring(2);
+		feasible = tryColoring(2,metr);
 
 		if(feasible == true){
 			colored = true;
@@ -85,7 +92,7 @@ Routing::~Routing() {
 	}
 }
 
-bool Routing::tryColoring(int prio){
+bool Routing::tryColoring(int prio, int metric){
 	std::vector<std::vector<int> > demandsOnThisEdge;
 	std::vector<std::vector<int> > matrixDd;
 	std::vector<int> priorityList;
@@ -153,7 +160,7 @@ bool Routing::tryColoring(int prio){
 			sequenceVector.push_back(demand);
 		}
 		//for (int d = 0; d < sequenceVector.size(); ++d){
-		//	std::cout << "Demand " << sequenceVector[d].id << " h as " << sequenceVector[d].criteria << std::endl;
+		//	std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
 		//}
 		sortSequenciatorHigher sorter;
 		std::sort (sequenceVector.begin(),sequenceVector.end(),sorter);
@@ -176,25 +183,32 @@ bool Routing::tryColoring(int prio){
 		sortSequenciatorHigher sorter;
 		std::sort (sequenceVector.begin(),sequenceVector.end(),sorter);
 	}
-	
-	//std::cout << "SORTED" << std::endl;
-	//	for (int d = 0; d < sequenceVector.size(); ++d){
-	//		std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
-	//}
 	/*
+	for (int a = 0; a < routes.size(); a++){
+		std::cout << "Demand "<< a + 1 << " || Slots : "<<colors[a]<<"-"<< colors[a] + loads[a] -1 << " |||";
+		for (int b = 0; b < routes[a]->size(); b++){
+			std::cout << (*routes[a])[b].getSource()+1 << "-" << (*routes[a])[b].getTarget()+1 << "|" ;
+		}
+		std::cout <<std::endl ;
+	}
+	std::cout << "SORTED" << std::endl;
+		for (int d = 0; d < sequenceVector.size(); ++d){
+			std::cout << "Demand " << sequenceVector[d].id +1<< " has " << sequenceVector[d].criteria << std::endl;
+	}
+
 	for (int d = 0; d < routes.size(); ++d){
 		for (int d2 = 0; d2 < routes.size(); ++d2){
 			std::cout << matrixDd[d][d2] << "|";
 		}
 		std::cout << std::endl;
 		
-	}
+	
 	std::cout<< "TRYING TO COLOR" <<std::endl ;
 
 	for (int d = 0; d < routes.size(); ++d){
 		std::cout<< "demand " << d << " with "<< loads[d] << std::endl;
 	}
-	*/
+	}*/
 	bool canColor = true;
 	for (int d = 0; d < routes.size(); ++d){
 
@@ -237,6 +251,12 @@ bool Routing::tryColoring(int prio){
 			if((nextLowestColor > nbSlots-loads[coloringTarget] + 1)){
 				feasible = false;
 				ovDetected = false;
+				if(metric ==5){
+					feasible = true;
+					ovDetected = false;
+					chosenColor = 0;
+					colors[coloringTarget]=chosenColor;
+				}
 			}else{
 				if(ovDetected == false){
 					feasible = true;
@@ -258,17 +278,21 @@ bool Routing::tryColoring(int prio){
 		for (int d = 0; d < routes.size(); ++d){
 			int leftSlot1 = colors[d];
 			int rightSlot1 = colors[d] + loads[d] -1;
-			//std::cout<< " verificando demanda "<< d << " entre " << leftSlot1 <<"-"<< rightSlot1 << std::endl;	
-			for (int d2 = 0; d2 < routes.size(); ++d2){
-				int leftSlot2 = colors[d2];
-				int rightSlot2 = colors[d2] + loads[d2] -1;
-				//std::cout<< " contra "<< d2 << " entre " << leftSlot2 <<"-"<< rightSlot2 << std::endl;
-				if((matrixDd[d][d2] == 1)||(matrixDd[d2][d])){
-					//std::cout<< " ESSES PODEM OVERLAPAR " << std::endl;
-					for (int s1 = leftSlot1; s1 <= rightSlot1; ++s1){
-						for (int s2 = leftSlot2; s2 <= rightSlot2; ++s2){
-							if(s1==s2){
-								std::cout<< " AI FUDEU " << std::endl;
+			if (leftSlot1 != 0){
+				//std::cout<< " verificando demanda "<< d << " entre " << leftSlot1 <<"-"<< rightSlot1 << std::endl;	
+				for (int d2 = 0; d2 < routes.size(); ++d2){
+					int leftSlot2 = colors[d2];
+					int rightSlot2 = colors[d2] + loads[d2] -1;
+					if (leftSlot2 != 0){
+						//std::cout<< " contra "<< d2 << " entre " << leftSlot2 <<"-"<< rightSlot2 << std::endl;
+						if((matrixDd[d][d2] == 1)||(matrixDd[d2][d])){
+							//std::cout<< " ESSES PODEM OVERLAPAR " << std::endl;
+							for (int s1 = leftSlot1; s1 <= rightSlot1; ++s1){
+								for (int s2 = leftSlot2; s2 <= rightSlot2; ++s2){
+									if(s1==s2){
+										std::cout<< " AI FUDEU " << std::endl;
+									}
+								}
 							}
 						}
 					}
@@ -292,8 +316,12 @@ void Routing::setNbSlots(int nb){
 }
 
 void Routing::display(){
-	/*for (int a = 0; a < routes.size(); a++){
-		std::cout << "Demand "<< a + 1 << " || Slots : "<<colors[a]<<"-"<< colors[a] + loads[a] -1 << " |||";
+	for (int a = 0; a < routes.size(); a++){
+		if (colors[a]!=0){
+			std::cout << "Demand "<< a + 1 << " || Slots : "<<colors[a]<<"-"<< colors[a] + loads[a] -1 << " |||";
+		}else{
+			std::cout << "Demand "<< a + 1 << " || Slots : "<<colors[a]<<"-"<< colors[a] << " |||";
+		}
 		for (int b = 0; b < routes[a]->size(); b++){
 			std::cout << (*routes[a])[b].getSource()+1 << "-" << (*routes[a])[b].getTarget()+1 << "|" ;
 		}
@@ -303,7 +331,7 @@ void Routing::display(){
 		std::cout<< "no coloring" <<std::endl ;
 	}else{
 		std::cout<< "coloring" <<std::endl ;
-	}    */
+	}    
 	std::cout<< "metric "<< metricVal <<std::endl ;
 }
 
@@ -341,6 +369,10 @@ void Genetic::run(){
 	int currentIt = 0;
 	int itWithoutImprovement=0;
 	bool improvementPhase = false;
+
+	std::ofstream outfile;
+	outfile.open("genetic.csv");
+	outfile << "\nfirst;last";
 	while(stop == false){
 		currentIt = currentIt +1;
 		std::cout<<"==========BEGIN IT: "<< currentIt<<std::endl;
@@ -353,11 +385,15 @@ void Genetic::run(){
 		//	thisIterationMutation[i].display();
 		//}
 		doSelection();
-		//for (int i = 0; i < 10; i++){
+		//for (int i = 0; i < population.size(); i++){
 		//	population[i].display();
 		//}
 		std::cout<<"First place: "<< population[0].metricVal<<std::endl;
 		std::cout<<"Last place: "<< population[population.size()-1].metricVal<<std::endl;
+		std::string	f = std::to_string(population[0].metricVal);
+		std::string	l = std::to_string(population[population.size()-1].metricVal);
+		outfile << "\n" + f + ";" << l;
+
 		std::cout<<"==========FIN IT: "<< currentIt<<std::endl;
 		if(improvementPhase ==false){
 			if (currentBest > population[0].metricVal) {
@@ -384,6 +420,9 @@ void Genetic::run(){
 			}
 			if (itWithoutImprovement >= 10) {
 				stop = true;
+				for (int i = 0; i < 1; i++){
+					population[i].display();
+				}
 			}
 		}
 	}
@@ -435,13 +474,15 @@ Genetic::Genetic(const Instance &inst) : instance(inst),rng(std::random_device{}
 		int lastSlot = population[k].colors[a] + population[k].loads[a] -1;
 		for (int b = 0; b < population[k].routes[a]->size(); b++){
 			int edge = (*population[k].routes[a])[b].getIndex();
-			edgeSlotMap[edge][lastSlot-1] = demand;
+			if (population[k].colors[a] != 0){
+				edgeSlotMap[edge][lastSlot-1] = demand;
+			}
 		}
 	}
-	/*
+	/*std::cout <<  "Edge slot map "<< std::endl; 
 	for (int i = 0; i < edgeSlotMap.size(); ++i){	
 		std::vector<int> thisEdgeSlots;
-		//std::cout << i + 1 <<  "|  ";
+		std::cout << i + 1 <<  "|  ";
 		for (int j = 0; j < edgeSlotMap[i].size(); ++j){	
 			std::cout << edgeSlotMap[i][j] << " ";
 		}
@@ -454,13 +495,18 @@ std::vector<int> Genetic::buildLastSlotByDemand(int k){
 	std::vector<int> slotsByDemand;
 	//population[k].display();
 	for (int a = 0; a < population[k].colors.size(); a++){
-		slotsByDemand.push_back(population[k].colors[a] + population[k].loads[a] -1);
+		if (population[k].colors[a] != 0){
+			slotsByDemand.push_back(population[k].colors[a] + population[k].loads[a] -1);
+		}else{
+			slotsByDemand.push_back(0);
+		}
+		
 	}
-	/*
+	/*std::cout <<  "Last slot by demand "<< std::endl; 
 	for (int a = 0; a < slotsByDemand.size(); a++){
 		std::cout << "Demand " << a+1 << " s: " << slotsByDemand[a] << std::endl;
-	}
-	*/
+	}*/
+	
 	lastSlotDemand = slotsByDemand;
 	return lastSlotDemand;
 }
@@ -471,27 +517,30 @@ std::vector<std::vector<int>> Genetic::buildPathNodesByDemand(int k){
 	for (int a = 0; a < population[k].routes.size(); a++){
 		//std::cout  << "Demand " << a+1<< std::endl;
 		std::vector<int> nodesThisDemand;
-		int currentNode = toBeRouted[a].getSource()+1;
-		//std::cout  << "First Node " << currentNode<< std::endl;
-		nodesThisDemand.push_back(currentNode);
-		for (int b = 0; b < (*population[k].routes[a]).size(); b++){
-			int u = (*population[k].routes[a])[b].getSource()+1;
-			int v = (*population[k].routes[a])[b].getTarget()+1;
-			//std::cout  << "looking edge " <<  u  << " " << v << std::endl;
-			//std::cout  << "for" <<  currentNode << std::endl;
-			if (u != currentNode){
-				nodesThisDemand.push_back(u);
-				currentNode = u;
-			}else{
-				if ( v != currentNode){
-					nodesThisDemand.push_back(v);
-					currentNode = v;
+		if (population[k].colors[a] != 0){
+			int currentNode = toBeRouted[a].getSource()+1;
+			//std::cout  << "First Node " << currentNode<< std::endl;
+			nodesThisDemand.push_back(currentNode);
+			for (int b = 0; b < (*population[k].routes[a]).size(); b++){
+				int u = (*population[k].routes[a])[b].getSource()+1;
+				int v = (*population[k].routes[a])[b].getTarget()+1;
+				//std::cout  << "looking edge " <<  u  << " " << v << std::endl;
+				//std::cout  << "for" <<  currentNode << std::endl;
+				if (u != currentNode){
+					nodesThisDemand.push_back(u);
+					currentNode = u;
+				}else{
+					if ( v != currentNode){
+						nodesThisDemand.push_back(v);
+						currentNode = v;
+					}
 				}
 			}
 		}
 		nodesListDemand.push_back(nodesThisDemand);
 	}
-	/*
+	/*std::cout <<  "Node List by demand "<< std::endl; 
+	
 	for (int i = 0; i < nodesListDemand.size(); ++i){	
 		for (int j = 0; j < nodesListDemand[i].size(); ++j){	
 			std::cout << nodesListDemand[i][j] << " ";
@@ -526,7 +575,7 @@ void Genetic::doSelection(){
 	//std::cout << "pos 1: " << posMaxOldPop << std::endl;
 	//std::cout << "pos 2: " << posMaxCrossingPop << std::endl;
 	//std::cout << "pos 3: " << posMaxMutationPop << std::endl;
-	std::cout << "OLD POP: " << population.size();
+	//std::cout << "OLD POP: " << population.size();
 	for (int i = 0; i < population.size(); ++i){
 		sequenciator popMember;
 		popMember.id = pos;
@@ -534,7 +583,7 @@ void Genetic::doSelection(){
 		sequenceVector.push_back(popMember);
 		pos = pos +1;
 	}
-	std::cout << ", ADDING CROSSED: " << thisIterationCrossing.size() ;
+	//std::cout << ", ADDING CROSSED: " << thisIterationCrossing.size() ;
 	for (int i = 0; i < thisIterationCrossing.size(); ++i){
 		sequenciator popMember;
 		popMember.id = pos;
@@ -542,7 +591,7 @@ void Genetic::doSelection(){
 		sequenceVector.push_back(popMember);
 		pos = pos +1;
 	}
-	std::cout << ", ADDING MUTANTS: " << thisIterationMutation.size();
+	//std::cout << ", ADDING MUTANTS: " << thisIterationMutation.size();
 	for (int i = 0; i < thisIterationMutation.size(); ++i){
 		sequenciator popMember;
 		popMember.id = pos;
@@ -550,7 +599,7 @@ void Genetic::doSelection(){
 		sequenceVector.push_back(popMember);
 		pos = pos +1;
 	}
-	std::cout << " = TOTAL POP : " << totalPop << std::endl;
+	//std::cout << " = TOTAL POP : " << totalPop << std::endl;
 	consolidatingSelectedTime = consolidatingSelectedTime+ clockConsolidate.getTimeInSecFromStart();
 	//for (int d = 0; d < sequenceVector.size(); ++d){
 	//	std::cout << "id : " << sequenceVector[d].id  << "metric : " << sequenceVector[d].criteria << std::endl;
@@ -559,7 +608,7 @@ void Genetic::doSelection(){
 
 	ClockTime clockSelect(ClockTime::getTimeNow());
 	clockSelect.setStart(ClockTime::getTimeNow());
-	std::cout << "SELECTING POP";
+	//std::cout << "SELECTING POP";
 	
 	// SORTING
 	sortSequenciatorLower sorter2;
@@ -572,8 +621,8 @@ void Genetic::doSelection(){
 	if (toDelete < 0){
 		toDelete = 0;
 	}
-	std::cout << ", TO DELETE: " << toDelete << std::endl;
-	std::cout << "BUILDING NEW POP" << std::endl;
+	//std::cout << ", TO DELETE: " << toDelete << std::endl;
+	//std::cout << "BUILDING NEW POP" << std::endl;
 	int limit = nbInitialPop;
 	if (limit > totalPop){
 		limit = totalPop;
@@ -636,126 +685,8 @@ void Genetic::doSelection(){
 	consolidatingSelectedTime = consolidatingSelectedTime+ clockConsolidate.getTimeInSecFromStart();
 }
 
-/*
-void Genetic::doSelection(){
-	ClockTime clockConsolidate(ClockTime::getTimeNow());
-	clockConsolidate.setStart(ClockTime::getTimeNow());
-	std::cout << "ADDING OLD POP: " << population.size() << std::endl;
-	for (int i = 0; i < population.size(); ++i){
-		//population[i].display();
-		std::vector<std::vector<Fiber> > routes;
-		for (int d = 0; d < population[i].routes.size(); ++d){
-			std::vector<Fiber> route;
-			for (int l = 0; l < population[i].routes[d].size(); ++l){
-				route.push_back(population[i].routes[d][l]);
-			}
-			routes.push_back(route);
-		}
-		Routing member(routes,loads);
-		
-		member.copying(population[i]);
-		thisIterationTotalPop.push_back(member);
-	}
-	std::cout << "ADDING CROSSED: " << thisIterationCrossing.size() << std::endl;
-	for (int i = 0; i < thisIterationCrossing.size(); ++i){
-		std::vector<std::vector<Fiber> > routes;
-		//std::cout << "1" << std::endl;
-		for (int d = 0; d < thisIterationCrossing[i].routes.size(); ++d){
-			std::vector<Fiber> route;
-			for (int l = 0; l < thisIterationCrossing[i].routes[d].size(); ++l){
-				route.push_back(thisIterationCrossing[i].routes[d][l]);
-			}
-			routes.push_back(route);
-		}
-		Routing member(routes,loads);	
-		member.copying(thisIterationCrossing[i]);
-		thisIterationTotalPop.push_back(member);
-	}
-	std::cout << "ADDING MUTANTS: " << thisIterationMutation.size() << std::endl;
-	for (int i = 0; i < thisIterationMutation.size(); ++i){
-		std::vector<std::vector<Fiber> > routes;
-		//std::cout << "1" << std::endl;
-		for (int d = 0; d < thisIterationMutation[i].routes.size(); ++d){
-			std::vector<Fiber> route;
-			for (int l = 0; l < thisIterationMutation[i].routes[d].size(); ++l){
-				route.push_back(thisIterationMutation[i].routes[d][l]);
-			}
-			routes.push_back(route);
-		}
-		Routing member(routes,loads);
-		member.copying(thisIterationMutation[i]);
-		thisIterationTotalPop.push_back(member);
-	}
-	std::cout << "TOTAL POP : " << thisIterationTotalPop.size() << std::endl;
-	consolidatingSelectedTime = consolidatingSelectedTime+ clockConsolidate.getTimeInSecFromStart();
-
-	ClockTime clockSelect(ClockTime::getTimeNow());
-	clockSelect.setStart(ClockTime::getTimeNow());
-	std::cout << "SELECTING POP" << std::endl;
-	
-	// SORTING
-	std::vector<sequenciator> sequenceVector;
-	int pos = 0;
-	for (int i = 0; i < thisIterationTotalPop.size(); ++i){
-		//std::cout << "Demand " << d << " has " << counter << " links";
-		//std::cout << " and uses " << counter*loads[d] << " slots " << std::endl;
-		sequenciator popMember;
-		popMember.id = pos;
-		popMember.criteria = thisIterationTotalPop[i].metricVal;
-		sequenceVector.push_back(popMember);
-		pos = pos +1;
-	}
-	sortSequenciatorLower sorter2;
-	std::sort (sequenceVector.begin(),sequenceVector.end(),sorter2);
-	selectionTime = selectionTime+ clockSelect.getTimeInSecFromStart();
-	std::cout << "CONSOLIDATING DATA" << std::endl;
-
-	clockConsolidate.setStart(ClockTime::getTimeNow());
-	int toDelete = thisIterationTotalPop.size() - nbInitialPop;
-	if (toDelete < 0){
-		toDelete = 0;
-	}
-	std::cout << "TO DELETE: " << toDelete << std::endl;
-	while(population.size()>0){
-		population.pop_back();
-	}
-	while(thisIterationCrossing.size()>0){
-		thisIterationCrossing.pop_back();
-	}
-	while(thisIterationMutation.size()>0){
-		thisIterationMutation.pop_back();
-	}
-	std::cout << "BUILDING NEW POP" << std::endl;
-	int limit = nbInitialPop;
-	if (limit > thisIterationTotalPop.size()){
-		limit = thisIterationTotalPop.size();
-	}
-	for (int i = 0; i < limit; ++i){
-		std::vector<std::vector<Fiber> > routes;
-		//std::cout << "1" << std::endl;
-		for (int d = 0; d < thisIterationTotalPop[sequenceVector[i].id].routes.size(); ++d){
-			std::vector<Fiber> route;
-			for (int l = 0; l < thisIterationTotalPop[sequenceVector[i].id].routes[d].size(); ++l){
-				route.push_back(thisIterationTotalPop[sequenceVector[i].id].routes[d][l]);
-			}
-			routes.push_back(route);
-		}
-		Routing member(routes,loads);
-		member.copying(thisIterationTotalPop[sequenceVector[i].id]);
-		population.push_back(member);
-	}
-
-	std::cout << "CLEANING SELECTED VECTOR" << std::endl;
-	while(thisIterationTotalPop.size()>0){
-		thisIterationTotalPop.pop_back();
-	}
-	consolidatingSelectedTime = consolidatingSelectedTime+ clockConsolidate.getTimeInSecFromStart();
-}
-*/
-
-
 void Genetic::doMutation(){
-	std::cout << "MUTATION OPERATION" << std::endl;
+	//std::cout << "MUTATION OPERATION" << std::endl;
 
 	int nbMutations = floor(population.size()* ((double)instance.getInput().geneticAlgorithmMutation()/100.0));
 	//int nbMutations = floor(population.size());  
@@ -766,26 +697,70 @@ void Genetic::doMutation(){
 			canMutate.push_back(d);
 		}
 	}
-	//std::cout << "DEMANDES AVEC MUTATION POSSIBLE" << canMutate.size() << std::endl;
-	//for (int d = 0; d < canMutate.size(); ++d){
-	//	std::cout <<  canMutate[d] << std::endl;
-	//}
+	/*
+	std::cout << "DEMANDES AVEC MUTATION POSSIBLE " << canMutate.size() << std::endl;
+	for (int d = 0; d < canMutate.size(); ++d){
+		std::cout <<  canMutate[d]+1 << std::endl;
+	}*/
 	int mutationsByMember = ceil(canMutate.size()/10.0);
-	//std::cout << "MUTATION AUTORISES" << mutationsByMember << std::endl;
+	//std::cout << "MUTATION AUTORISES " << mutationsByMember << std::endl;
 	for (int i = 0; i < nbMutations; ++i){
 		ClockTime clockMutation(ClockTime::getTimeNow());
 		clockMutation.setStart(ClockTime::getTimeNow());
 		int mutant = getRandomNumber(0, population.size()-1);
+		//std::cout << "MUTANT " << mutant + 1 << std::endl;
+		std::vector<int> refusedInThisMutant;
+		std::vector<int> priorityMutateList;
+		if (metric == 5){
+			for (int d = 0; d < toBeRouted.size(); ++d){
+				if (population[mutant].colors[d] == 0){
+					refusedInThisMutant.push_back(d);
+				}
+			}
+			/*
+			std::cout << "DEMANDES REFUSES IN MUTANT " << refusedInThisMutant.size() << std::endl;
+			for (int d = 0; d < refusedInThisMutant.size(); ++d){
+				std::cout <<  refusedInThisMutant[d]+1 << std::endl;
+			}
+			*/
+			for (int d = 0; d < refusedInThisMutant.size(); ++d){
+				bool refusedAndCanMutate = std::find(std::begin(canMutate),std::end(canMutate), refusedInThisMutant[d]) != std::end(canMutate);		
+				if (refusedAndCanMutate == true){
+					priorityMutateList.push_back(refusedInThisMutant[d]);
+				}
+			}
+			/*
+			std::cout << "PRIORITY TO MUTATE " << priorityMutateList.size() << std::endl;
+			for (int d = 0; d < priorityMutateList.size(); ++d){
+				std::cout <<  priorityMutateList[d]+1 << std::endl;
+			}
+			*/
+		}
+		
 		std::vector<const std::vector<Fiber>* > routes;
-		//std::cout << "mutating " << mutant + 1 << std::endl;
+		
 		int genesMutated = 0;
 		std::vector<int> thisMutationList;
 		while(genesMutated < mutationsByMember){
-			int positionInAuxiliary = getRandomNumber(0, canMutate.size()-1);
-			int toMutateNow = canMutate[positionInAuxiliary];
-			//std::cout << "CHOICE" << toMutateNow << std::endl;
-			thisMutationList.push_back(toMutateNow);
-			genesMutated = genesMutated +1;
+			if (priorityMutateList.size()>0){
+				int positionInAuxiliary = getRandomNumber(0, priorityMutateList.size()-1);
+				int toMutateNow = priorityMutateList[positionInAuxiliary];
+				thisMutationList.push_back(toMutateNow);
+				priorityMutateList.erase(priorityMutateList.begin()+positionInAuxiliary);
+				genesMutated = genesMutated +1;
+				//std::cout << "ADD " << toMutateNow+1 << std::endl;
+			}else{
+				//Aqui eu posso melhorar para pegar e deletar de um vetor auxiliar ao inves de insistir no random
+				int positionInAuxiliary = getRandomNumber(0, canMutate.size()-1);
+				int toMutateNow = canMutate[positionInAuxiliary];
+				//std::cout << "CHOICE " << toMutateNow << std::endl;
+				bool alreadyChosen = std::find(std::begin(thisMutationList),std::end(thisMutationList), toMutateNow) != std::end(thisMutationList);
+				if(alreadyChosen == false){
+					thisMutationList.push_back(toMutateNow);
+					genesMutated = genesMutated +1;
+					//std::cout << "ADD " << toMutateNow << std::endl;
+				}
+			}
 		}
 		for (int d = 0; d < toBeRouted.size(); ++d){
 			bool mutantGene = std::find(std::begin(thisMutationList),std::end(thisMutationList), d) != std::end(thisMutationList);
@@ -820,7 +795,7 @@ void Genetic::doMutation(){
 
 
 void Genetic::doCrossing(){
-	std::cout << "CROSSING OPERATION" << std::endl;
+	//std::cout << "CROSSING OPERATION" << std::endl;
 
 	int nbCrossings = floor(population.size()* ((double)instance.getInput().geneticAlgorithmCrossing()/100.0)); 
 	//int nbCrossings = floor(population.size()); 
@@ -834,7 +809,6 @@ void Genetic::doCrossing(){
 		std::vector<const std::vector<Fiber>* > routes;
 		//std::cout << "crossing " << progenitor1 + 1<< "and " << progenitor2 + 1<< std::endl;
 		for (int d = 0; d < toBeRouted.size(); ++d){
-			std::vector<Fiber> route;
 			int randProgenitor = getRandomNumber(1, 2); //random between 1 and 2
 			if (randProgenitor == 1){
 				routes.push_back(population[progenitor1].routes[d]);
@@ -1074,7 +1048,7 @@ void Genetic::GenerateShortestRoutes2(){
 			//std::cout << "Sorting by nb edges"<< std::endl;
 			std::sort(qualifiedForThisDemand.begin(),qualifiedForThisDemand.end(),sorterA);
 		}
-		if((metric==2)||(metric==4)){
+		if((metric==2)||(metric==4)||(metric==5)){
 			//std::cout << "Sorting by amplis"<< std::endl;
 			std::sort(qualifiedForThisDemand.begin(),qualifiedForThisDemand.end(),sorterB);
 		}
@@ -1580,7 +1554,7 @@ std::vector<int> Genetic::dijkstra(std::vector<std::vector<int> > graph, int src
 	return sol;
 }
 
-void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessingErasedArcs,bool prepro)
+void Genetic::computeLB()
 {
 	double totalMinimumMetric=0.0;
 
@@ -1659,41 +1633,6 @@ void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessi
 		totalMinimumMetric = totalMinimumMetric + thisDemandMinimumMetric;
 		//std::cout << "Demand  " << i +1 <<  " used at least " << djikistraSolution.size()-1 <<  " edges so total s " <<thisDemandMinimumSlots<<std::endl;
 		//std::cout << "total  " << totalMinimumSlots << std::endl;
-		/*if (prepro == true){
-			std::vector<int> thisDemandEdges(nbEdges, 1);
-			std::cout << "Normally this demand could use these links " <<std::endl;
-			for (int a = 0; a < thisDemandEdges.size(); ++a){ 
-				std::cout<< thisDemandEdges[a] << " ";
-			}
-			int forbiddenLinks = 0;
-			for (int edge = 0; edge < nbEdges; ++edge){ 
-				if ((preProcessingErasedArcs[i][edge][0] == 1) && (preProcessingErasedArcs[i][edge + nbEdges][0] == 1)){
-					thisDemandEdges[edge] = 0;
-					forbiddenLinks = forbiddenLinks+ 1;
-				}
-			}
-			std::cout << "but prepro says  " <<std::endl;
-			for (int a = 0; a < thisDemandEdges.size(); ++a){ 
-				std::cout<< thisDemandEdges[a] << " ";
-			}
-
-			int divideOverXLinks = getInstance().getTabEdge().size()-forbiddenLinks;
-			std::cout << "So to distribute "<< thisDemandMinimumSlots<<  "over " << divideOverXLinks << std::endl;
-			double slotsToDistribute = static_cast<double>(thisDemandMinimumSlots) / divideOverXLinks;
-			std::cout << "Results in these slots for each " << slotsToDistribute << std::endl;
-			std::cout << "Link charge for the moment " << slotsToDistribute << std::endl;
-			for (int a = 0; a < getInstance().getTabEdge().size(); ++a){
-				if (thisDemandEdges[a] ==1 ){
-					linkCharge[a] = linkCharge[a] + slotsToDistribute;
-				}
-				
-			}
-			for (int a = 0; a < getInstance().getTabEdge().size(); ++a){ 
-				std::cout<< linkCharge[a] << " ";
-			}
-			std::cout << std::endl<< std::endl;
-		}*/
-
 	}
 	/*
 	double maxLinkCharge =0;
@@ -1754,11 +1693,9 @@ void Genetic::computeLB(std::vector<std::vector<std::vector<int> > > preProcessi
 		double dist;
 		djikistraSolution = dijkstra(adjmatrix,originDjikistra,destinationDijikistra,dist);
 		minimumSlots = minimumSlots+ ((djikistraSolution.size()-1)*toBeRouted[i].getLoadC());
-
 	}
 
 	lowerBoundUsedSlot = ceil(minimumSlots/instance.getNbEdges());	
-
 }
 
 

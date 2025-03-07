@@ -159,13 +159,9 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
         bestSol= genetic.getBestSol();
     }
 
-    if(instance.getInput().activateLB()){
-        bool prep = false;
-        if (getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_PARTIAL){
-            prep = true;
-        }
+    if((instance.getInput().activateLB())&&(instance.getInput().getChosenObj_k(0)!=Input::OBJECTIVE_METRIC_ADS)){
         Genetic genetic(instance);
-        genetic.computeLB(preProcessingErasedArcs,prep);
+        genetic.computeLB();
         computedLB =  genetic.getComputedLB();
         lowerBoundUsedSlot = genetic.getLowerBoundUsedSlot();
         std::cout << "Computed LB  " << computedLB << std::endl;

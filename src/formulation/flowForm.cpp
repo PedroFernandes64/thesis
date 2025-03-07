@@ -232,19 +232,21 @@ void FlowForm::setWarmValues(){
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         int demand = d;
         int lastSlot = feasibleSolutionLastSlotDemand[d];
-        for (int node = 0; node < feasibleSolutionNodesByDemand[d].size()-1; node++){
-            int origin = feasibleSolutionNodesByDemand[d][node];
-            int destination = feasibleSolutionNodesByDemand[d][node+1];
-            //verifying VAR
-            for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
-                int labelSource = getNodeLabel((*vecGraph[d]).source(a), d)+1 ;
-                int labelTarget = getNodeLabel((*vecGraph[d]).target(a), d)+1 ;
-                int slice = getArcSlice(a, d)+1;
-                if((lastSlot == slice)&&(origin == labelSource)&&(destination == labelTarget)){
-                    //std::cout<<"f(" << d+1<<","<< origin<<","<< destination<<","<< lastSlot<<")"<<std::endl;
-                    //std::cout<<"f(" << d+1<<","<< labelSource<<","<< labelTarget<<","<< slice<<")"<<std::endl;
-                    int arc = getArcIndex(a, d); 
-                    x[d][arc].setWarmstartValue(1.0);
+        if (lastSlot!=0){        
+            for (int node = 0; node < feasibleSolutionNodesByDemand[d].size()-1; node++){
+                int origin = feasibleSolutionNodesByDemand[d][node];
+                int destination = feasibleSolutionNodesByDemand[d][node+1];
+                //verifying VAR
+                for (ListDigraph::ArcIt a(*vecGraph[d]); a != INVALID; ++a){
+                    int labelSource = getNodeLabel((*vecGraph[d]).source(a), d)+1 ;
+                    int labelTarget = getNodeLabel((*vecGraph[d]).target(a), d)+1 ;
+                    int slice = getArcSlice(a, d)+1;
+                    if((lastSlot == slice)&&(origin == labelSource)&&(destination == labelTarget)){
+                        //std::cout<<"f(" << d+1<<","<< origin<<","<< destination<<","<< lastSlot<<")"<<std::endl;
+                        //std::cout<<"f(" << d+1<<","<< labelSource<<","<< labelTarget<<","<< slice<<")"<<std::endl;
+                        int arc = getArcIndex(a, d); 
+                        x[d][arc].setWarmstartValue(1.0);
+                    }
                 }
             }
         }
@@ -1005,7 +1007,7 @@ void FlowForm::setLowerBoundReinforcementsConstraints(){
     if((obj[0] == Input::OBJECTIVE_METRIC_NLUS)&&(instance.getInput().activateLB())){
         this->setLinkLoadConstraints();
     }
-    if(instance.getInput().activateLB()){
+    if((obj[0] != Input::OBJECTIVE_METRIC_ADS)&&(instance.getInput().activateLB())){
         this->setMinSliceAtOriginConstraints();
         this->setMinSliceAtVertexConstraints();
         this->setMinSliceLeavingEdgeConstraints();

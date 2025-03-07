@@ -4,7 +4,7 @@
 DrFormulation::DrFormulation(const Instance &inst) : AbstractFormulation(inst){
     ClockTime time(ClockTime::getTimeNow());
     ClockTime time2(ClockTime::getTimeNow());
-    std::cout <<"DrAOV formulation has been chosen." << displayDimensions() << "---" << std::endl; 
+    std::cout <<"DRAOV formulation has been chosen." << displayDimensions() << "---" << std::endl; 
     this->setVariables();
     varImpleTime = time.getTimeInSecFromStart() ;
     time.setStart(ClockTime::getTimeNow());
@@ -25,9 +25,9 @@ std::vector<Variable>  DrFormulation::objective8_fixing(const double upperBound)
 
 void DrFormulation::setVariables() { 
     this->setRoutingVariables();
-    this->setDemandDemandVariables();
     this->setLeftVariables();
     this->setRightVariables();
+    this->setDemandDemandVariables();
     
     const std::vector<Input::ObjectiveMetric> & chosenObjectives = instance.getInput().getChosenObj();
     if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_SLUS){
@@ -43,23 +43,23 @@ void DrFormulation::setVariables() {
     // Variables y[a][d]
     int nbEdges = countEdges(compactGraph);
     y.resize(2*nbEdges);
-    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-        int edge = getCompactEdgeLabel(e);
-        int uId = getCompactNodeLabel(compactGraph.u(e)) + 1;
-        int vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
-        y[edge].resize(getNbDemandsToBeRouted());  
-        y[edge + nbEdges].resize(getNbDemandsToBeRouted());
-        for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            int uId = getCompactNodeLabel(compactGraph.u(e)) + 1;
+            int vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
+            y[edge].resize(getNbDemandsToBeRouted());  
+            y[edge + nbEdges].resize(getNbDemandsToBeRouted());
             std::ostringstream varName;
             std::ostringstream varName2;
             varName << "y";
-            varName << "(" + std::to_string(uId) + "," ;
-            varName << std::to_string(vId) + "," ;
-            varName << std::to_string(getToBeRouted_k(k).getId() + 1) + ")";
+            varName << "(" + std::to_string(getToBeRouted_k(k).getId() + 1) + "," ;
+            varName << std::to_string(uId) + "," ;
+            varName << std::to_string(vId) + ")";
             varName2 << "y";
-            varName2 << "(" + std::to_string(vId) + "," ;
-            varName2 << std::to_string(uId) + "," ;
-            varName2 << std::to_string(getToBeRouted_k(k).getId() + 1) + ")";
+            varName2 << "(" + std::to_string(getToBeRouted_k(k).getId() + 1) + "," ;
+            varName2 << std::to_string(vId) + "," ;
+            varName2 << std::to_string(uId) + ")";
             int upperBound = 1;
             int varId = getNbVar(); 
             int varId2 = varId + 1;
@@ -86,7 +86,7 @@ void DrFormulation::setLeftVariables() {
             int upperBound = getNbSlicesGlobalLimit();
             int lowerBound = 1;
             int varId = getNbVar();
-            std::string varName = "lm ("+ std::to_string(getToBeRouted_k(d).getId() + 1) + ")";
+            std::string varName = "l("+ std::to_string(getToBeRouted_k(d).getId() + 1) + ")";
            
             if(instance.getInput().isRelaxed()){
                 lm[d] = Variable(varId, lowerBound,upperBound, Variable::TYPE_REAL, 0, varName);   
@@ -107,7 +107,7 @@ void DrFormulation::setRightVariables() {
             int upperBound = getNbSlicesGlobalLimit();
             int lowerBound = getToBeRouted_k(d).getLoadC();
             int varId = getNbVar();
-            std::string varName = "rm ("+ std::to_string(getToBeRouted_k(d).getId() + 1) + ")";
+            std::string varName = "r("+ std::to_string(getToBeRouted_k(d).getId() + 1) + ")";
             
         if(instance.getInput().isRelaxed()){
             rm[d] = Variable(varId, lowerBound,upperBound, Variable::TYPE_REAL, 0, varName);    
@@ -129,7 +129,7 @@ void DrFormulation::setDemandDemandVariables() {
         int upperBound = 1;
         int lowerBound = 0;
         int varId = getNbVar();
-        std::string varName = "n ("+ std::to_string(getToBeRouted_k(d).getId()  + 1) + ","  + std::to_string(getToBeRouted_k(d2).getId()  + 1) + ")";
+        std::string varName = "n("+ std::to_string(getToBeRouted_k(d).getId()  + 1) + ","  + std::to_string(getToBeRouted_k(d2).getId()  + 1) + ")";
         
         if(instance.getInput().isRelaxed()){
             n[d2][d] = Variable(varId, lowerBound,upperBound, Variable::TYPE_REAL, 0, varName);    

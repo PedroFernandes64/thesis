@@ -284,11 +284,11 @@ void SolverCplex::exportFormulation(const Instance &instance){
 void SolverCplex::setCplexParams(const Input &input){
     
     cplex.setParam(IloCplex::Param::MIP::Display, 2); //display dos nos standart
-    cplex.setParam(IloCplex::Param::MIP::Interval, 100); //display so a cada 100 nos
+    //cplex.setParam(IloCplex::Param::MIP::Interval, 100); //display so a cada 100 nos
     cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, 0.0000001);
     cplex.setParam(IloCplex::Param::Threads, 4); //CHANGE TO 4
     cplex.setParam(IloCplex::Param::MIP::Limits::TreeMemory, 12288); //limite pro tamanho da tree
-    cplex.setParam(IloCplex::Param::MIP::Strategy::File, 3); //switch pra passar nodes pro disco
+    cplex.setParam(IloCplex::Param::MIP::Strategy::File, 1); //switch pra passar nodes pro disco
     cplex.setParam(IloCplex::Param::TimeLimit, input.getIterationTimeLimit());
 
     int strategy = input.getCplexStrategy();

@@ -3,7 +3,7 @@
 
 #include "../topology/instance.h"
 #include "../tools/clockTime.h"
-
+#include <string>
 
 using namespace lemon;
 
@@ -37,7 +37,7 @@ public:
     void setNbEdges(int nb);
     void setNbSlots(int nb);
     bool isColored() const {return colored;}
-    bool tryColoring(int prio);
+    bool tryColoring(int prio, int metric);
     void copyColoring(std::vector<int> c);
     void display();
     void setMetric(double m);
@@ -96,7 +96,7 @@ protected:
     std::vector<std::vector<int>> nodesByDemand;
     
     std::vector<std::vector<int> > adj_list;
-    std::vector<std::vector<int> >  pathsdemand;
+    std::vector<std::vector<int> > pathsdemand;
     std::vector<std::vector<std::vector<int> > > allpaths;
 
     std::vector<std::vector<std::vector<Fiber> > > shortestRoutesByDemand;
@@ -198,7 +198,7 @@ public:
     std::vector<std::vector<int> > buildPathNodesByDemand(int k);
     std::vector<int> buildLastSlotByDemand(int k);
 
-    void computeLB(std::vector<std::vector<std::vector<int> > > preProcessingErasedArcs, bool prepro);
+    void computeLB();
 
 
 	/****************************************************************************************/

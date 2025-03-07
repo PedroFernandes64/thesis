@@ -444,20 +444,23 @@ void TFlowForm::setWarmValues(){
     
     // Variables f[k][a] OK
     for (int k = 0; k < getNbDemandsToBeRouted(); k++){
-        for (int node = 0; node < feasibleSolutionNodesByDemand[k].size()-1; node++){
-            int origin = feasibleSolutionNodesByDemand[k][node];
-            int destination = feasibleSolutionNodesByDemand[k][node+1];
-            for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-                int uId = getCompactNodeLabel(compactGraph.u(e)) + 1;
-                int vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
-                int edge = getCompactEdgeLabel(e);
-                if((origin==uId)&&(destination==vId)){
-                    //std::cout<<"f(" << k+1<<","<< uId<<","<< vId <<")"<<std::endl;
-                    x[edge][k].setWarmstartValue(1.0);
-                }
-                if((destination==uId)&&(origin==vId)){
-                    //std::cout<<"f(" << k+1<<","<< vId<<","<< uId <<")"<<std::endl;
-                    x[edge + nbEdges][k].setWarmstartValue(1.0);
+        int lastSlot = feasibleSolutionLastSlotDemand[k];
+        if (lastSlot!=0){    
+            for (int node = 0; node < feasibleSolutionNodesByDemand[k].size()-1; node++){
+                int origin = feasibleSolutionNodesByDemand[k][node];
+                int destination = feasibleSolutionNodesByDemand[k][node+1];
+                for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                    int uId = getCompactNodeLabel(compactGraph.u(e)) + 1;
+                    int vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
+                    int edge = getCompactEdgeLabel(e);
+                    if((origin==uId)&&(destination==vId)){
+                        //std::cout<<"f(" << k+1<<","<< uId<<","<< vId <<")"<<std::endl;
+                        x[edge][k].setWarmstartValue(1.0);
+                    }
+                    if((destination==uId)&&(origin==vId)){
+                        //std::cout<<"f(" << k+1<<","<< vId<<","<< uId <<")"<<std::endl;
+                        x[edge + nbEdges][k].setWarmstartValue(1.0);
+                    }
                 }
             }
         }
@@ -466,26 +469,34 @@ void TFlowForm::setWarmValues(){
     // Variables y[s][d] OK
     for (int k = 0; k < getNbDemandsToBeRouted(); k++){
         int lastSlot = feasibleSolutionLastSlotDemand[k];
-        //std::cout<<"c(" << k+1<<","<< lastSlot <<")"<<std::endl;             
-        y[lastSlot-1][k].setWarmstartValue(1.0);
+        if (lastSlot!=0){    
+            //std::cout<<"c(" << k+1<<","<< lastSlot <<")"<<std::endl;             
+            y[lastSlot-1][k].setWarmstartValue(1.0);
+        }
     }
     
     // Variables z[a][b]
     if(NonOverlappingType == 2){
         for (int a = 0; a < getNbDemandsToBeRouted(); a++){
-            for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
-                double shareLink = false;
-                for (int node1 = 0; node1 < feasibleSolutionNodesByDemand[a].size()-1; node1++){
-                    int u1 = feasibleSolutionNodesByDemand[a][node1];
-                    int v1 = feasibleSolutionNodesByDemand[a][node1+1];
-                    for (int node2 = 0; node2 < feasibleSolutionNodesByDemand[b].size()-1; node2++){
-                        int u2 = feasibleSolutionNodesByDemand[b][node2];
-                        int v2 = feasibleSolutionNodesByDemand[b][node2+1];
-                        if(((u1==u2) && (v1==v2)) || ((u1==v2) && (v1==u2))){
-                            if(shareLink == false){
-                                //std::cout<<"z(" << a+1<<","<< b+1<<")"<<std::endl;
-                                z[a][b].setWarmstartValue(1.0);
-                                shareLink = true;
+            int lastSlotA = feasibleSolutionLastSlotDemand[a];
+            if (lastSlotA !=0){
+                for (int b = a + 1; b < getNbDemandsToBeRouted(); b++){
+                    int lastSlotB = feasibleSolutionLastSlotDemand[b];
+                    if (lastSlotB !=0){
+                        double shareLink = false;
+                        for (int node1 = 0; node1 < feasibleSolutionNodesByDemand[a].size()-1; node1++){
+                            int u1 = feasibleSolutionNodesByDemand[a][node1];
+                            int v1 = feasibleSolutionNodesByDemand[a][node1+1];
+                            for (int node2 = 0; node2 < feasibleSolutionNodesByDemand[b].size()-1; node2++){
+                                int u2 = feasibleSolutionNodesByDemand[b][node2];
+                                int v2 = feasibleSolutionNodesByDemand[b][node2+1];
+                                if(((u1==u2) && (v1==v2)) || ((u1==v2) && (v1==u2))){
+                                    if(shareLink == false){
+                                        //std::cout<<"z(" << a+1<<","<< b+1<<")"<<std::endl;
+                                        z[a][b].setWarmstartValue(1.0);
+                                        shareLink = true;
+                                    }
+                                }
                             }
                         }
                     }
@@ -498,17 +509,19 @@ void TFlowForm::setWarmValues(){
     if(NonOverlappingType == 3){
         for (int k = 0; k < getNbDemandsToBeRouted(); k++){
             int lastSlot = feasibleSolutionLastSlotDemand[k];
-            for (int node = 0; node < feasibleSolutionNodesByDemand[k].size()-1; node++){
-                int origin = feasibleSolutionNodesByDemand[k][node];
-                int destination = feasibleSolutionNodesByDemand[k][node+1];
-                for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
-                    int uId = getCompactNodeLabel(compactGraph.u(e)) + 1;
-                    int vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
-                    int edge = getCompactEdgeLabel(e);
-                    if(((origin==uId)&&(destination==vId))||((destination==uId)&&(origin==vId))){
-                        for (int w = 0; w < getToBeRouted_k(k).getLoadC(); w++){
-                            //std::cout<<"h(" << k+1<<","<< uId<<","<< vId<<","<< lastSlot-w <<")"<<std::endl;
-                            h[edge][k][lastSlot-1-w].setWarmstartValue(1.0);
+            if (lastSlot !=0){
+                for (int node = 0; node < feasibleSolutionNodesByDemand[k].size()-1; node++){
+                    int origin = feasibleSolutionNodesByDemand[k][node];
+                    int destination = feasibleSolutionNodesByDemand[k][node+1];
+                    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+                        int uId = getCompactNodeLabel(compactGraph.u(e)) + 1;
+                        int vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
+                        int edge = getCompactEdgeLabel(e);
+                        if(((origin==uId)&&(destination==vId))||((destination==uId)&&(origin==vId))){
+                            for (int w = 0; w < getToBeRouted_k(k).getLoadC(); w++){
+                                //std::cout<<"h(" << k+1<<","<< uId<<","<< vId<<","<< lastSlot-w <<")"<<std::endl;
+                                h[edge][k][lastSlot-1-w].setWarmstartValue(1.0);
+                            }
                         }
                     }
                 }
@@ -2046,7 +2059,7 @@ void TFlowForm::setLowerBoundReinforcementsConstraints(){
     if((obj[0] == Input::OBJECTIVE_METRIC_NLUS)&&(instance.getInput().activateLB())){
         this->setLinkLoadConstraints();
     }
-    if(instance.getInput().activateLB()){
+    if((obj[0] != Input::OBJECTIVE_METRIC_ADS)&&(instance.getInput().activateLB())){
         this->setMinSliceAtOriginConstraints();
         this->setMinSliceAtVertexConstraints();
         this->setMinSliceLeavingEdgeConstraints();
