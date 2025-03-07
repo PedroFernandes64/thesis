@@ -1,0 +1,15 @@
+#!/bin/bash
+ 
+#================= OPTIONS (s'applique à chaque job du tableau) =========================
+#SBATCH --array=0-19             # création d'un tableau de 20 jobs indicés de 0 à 19
+#SBATCH --partition=court        # choix de la partition
+#SBATCH --ntasks=1               # chaque job possède une seule task
+#SBATCH --cpus-per-task=4        # une task nécessite 4 CPU
+#SBATCH --mem-per-cpu=16384      # 16 Go de RAM par CPU
+#SBATCH --output=batch_8_%a      # modifie le nom du fichier de sortie par défaut
+ 
+#========================== TASKS ================================
+
+tab1=(/oP_L1.25x_Tran_iEuropean_18_40_d40_ofADS_f3_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofTRL_f3_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d40_ofNLUS_f3_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d40_ofADS_f0_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofTUS_f0_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofTASE_f3_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofNLUS_f3_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofADS_f3_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofTASE_f0_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofTUS_f2_tf2_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofTRL_f0_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofTRL_f2_tf2_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofADS_f2_tf2_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofNLUS_f0_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofTASE_f2_tf2_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofNLUS_f2_tf2_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d40_ofADS_f2_tf2_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofTUS_f3_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d40_ofNLUS_f2_tf2_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 /oP_L1.25x_Tran_iEuropean_18_40_d20_ofADS_f0_cd1_os1_gn0_b1_r0_cu0_p2_g0_it50_p500_c100_m100_cK10_eK15_lb0_cp0 )
+echo parametersSet/batch_8/${tab1[$SLURM_ARRAY_TASK_ID]}
+./exec parametersSet/batch_8/${tab1[$SLURM_ARRAY_TASK_ID]}.txt >> executionOutputs${tab1[$SLURM_ARRAY_TASK_ID]}.txt
