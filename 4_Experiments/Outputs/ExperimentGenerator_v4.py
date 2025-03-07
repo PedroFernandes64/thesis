@@ -28,10 +28,10 @@ for linkStrategy in linkStrategies:
 
 #testUnitVerifier(testSet)
 
-formulationSet = ["0","2","3"]
+formulationSet = ["0","2"]
 TFlowSet=["2"]
 userCuts = ["0"]
-objSet = ["TUS","TRL","TASE","NLUS","ADS"]
+objSet = ["ADS"]
 
 gnpyActivation = ["0"]
 CDSet=["1"]
@@ -41,9 +41,9 @@ preprocessingSet= ["2"]
 bands=["1"]
 
 #reinforcements=["0"]
-genetic= ["0"]
+genetic= ["0","1"]
 geneticIterationsXPopulation= [["50","500"]]
-geneticCrossingXMutation=[["100","100"]]
+geneticCrossingXMutation=[["100","200"]]
 geneticKs= [["10","15"]]
 LBset= ["0"]
 CPLEXset= ["0"]
@@ -162,6 +162,8 @@ with open("../Outputs/experimentList.csv", "w") as list:
                                                                 stringGeneticM = "Genetic_metric=3" + "\n"
                                                             if (obj == "TASE"):
                                                                 stringGeneticM = "Genetic_metric=4" + "\n"
+                                                            if (obj == "ADS"):
+                                                                stringGeneticM = "Genetic_metric=5" + "\n"
                                                             lines[20] = stringGeneticM
                                                             firstPassage = "0"
                                                             tflowAlreadyDone0 = []
