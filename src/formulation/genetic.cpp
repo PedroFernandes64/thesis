@@ -52,6 +52,36 @@ void Routing::building(int metr, int edges, int slots) {
 	setNbEdges(edges);
 	setNbSlots(slots);
 	//std::cout << " COLORING " << std::endl;
+	/*
+	double competitor1 = 0;
+	double competitor2 = 0;
+	bool a = tryColoring(1,metr);
+	computeMetric(metr);
+	competitor1 = metricVal;
+	for (int d = 0; d < routes.size(); ++d){
+		colors[d]=0 ;
+	}
+	metricVal = 0.0;
+	bool b = tryColoring(2,metr);
+	computeMetric(metr);
+	competitor2 = metricVal;
+	for (int d = 0; d < routes.size(); ++d){
+		colors[d]=0 ;
+	}
+	metricVal = 0.0;
+	if (competitor1==competitor2)
+	{
+		std::cout << "EMPATE" << std::endl;
+	}
+	if (competitor1<competitor2)
+	{
+		std::cout << "1 GANHA" << std::endl;
+	}
+	if (competitor1>competitor2)
+	{
+		std::cout << "2 GANHA" << std::endl;
+	}
+	*/
 	feasible = tryColoring(1,metr);
 	if(feasible == true){
 		colored = true;
@@ -69,6 +99,7 @@ void Routing::building(int metr, int edges, int slots) {
 			//std::cout << "ALTERNATIVE COLORING ACCEPTED " << std::endl;
 		}
 	}
+	//so fazer um if else guardando o resultado da primeira e depois comaprando com asegunda e substituindo
 }
 
 void Routing::copying(Routing r) {
@@ -371,8 +402,8 @@ void Genetic::run(){
 	bool improvementPhase = false;
 
 	std::ofstream outfile;
-	outfile.open("genetic.csv");
-	outfile << "\nfirst;last";
+	//outfile.open("genetic.csv");
+	//outfile << "\nfirst;last";
 	while(stop == false){
 		currentIt = currentIt +1;
 		std::cout<<"==========BEGIN IT: "<< currentIt<<std::endl;
@@ -392,7 +423,7 @@ void Genetic::run(){
 		std::cout<<"Last place: "<< population[population.size()-1].metricVal<<std::endl;
 		std::string	f = std::to_string(population[0].metricVal);
 		std::string	l = std::to_string(population[population.size()-1].metricVal);
-		outfile << "\n" + f + ";" << l;
+		//outfile << "\n" + f + ";" << l;
 
 		std::cout<<"==========FIN IT: "<< currentIt<<std::endl;
 		if(improvementPhase ==false){
