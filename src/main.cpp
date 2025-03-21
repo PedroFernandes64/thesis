@@ -11,6 +11,8 @@ ILOSTLBEGIN
 #include "topology/instance.h"
 #include "solver/solverFactory.h"
 
+#include "solver/solverCP.h"
+
 using namespace lemon;
 
 int main(int argc, char *argv[]) {
@@ -80,6 +82,12 @@ int main(int argc, char *argv[]) {
 			SolverFactory factory;
 			AbstractSolver *solver = factory.createSolver(instance);
 			solver->solve();
+			/*
+			std::cout << " CP CP CP CP CP " << std::endl;
+			SolverCP cp(instance);
+			cp.solve();
+			std::cout << " CP CP CP CP CP " << std::endl;
+			*/
 			//solver->outputLogResults(outputCode);
 			std::cout << " Time: " << solver->getDurationTime() << std::endl << std::endl;
 			solver->updateRSA(instance);

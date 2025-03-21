@@ -26,6 +26,12 @@ CPLEXINCDIR = $(CPLEXDIR)/include/
 CPLEXLIBDIR = $(CPLEXDIR)/lib/$(SYSTEM)/$(LIBFORMAT)
 CPLEXLIBFLAGS = -L$(CPLEXLIBDIR) -lilocplex -lcplex 
 
+# CHANGEME: Cp paths ok
+CPDIR = /opt/ibm/ILOG/$(CPLEXVERSION)/cpoptimizer
+CPINCDIR = $(CPDIR)/include/
+CPLIBDIR = $(CPDIR)/lib/$(SYSTEM)/$(LIBFORMAT)
+CPLIBFLAGS = -L$(CPLIBDIR) -lcp
+
 # CHANGEME: Concert paths ok
 CONCERTVERSION = concert
 CONCERTDIR = /opt/ibm/ILOG/$(CPLEXVERSION)/$(CONCERTVERSION)
@@ -52,15 +58,15 @@ EXE = $(DRIVER)
 
 # CHANGEME: Here is the name of all object files corresponding to the source
 #           code that you wrote in order to define the problem statement
-OBJS = main.o formulation/flowForm.o formulation/edgeNodeForm.o formulation/tFlowForm.o formulation/drForm.o formulation/formulationComponents.o formulation/genetic.o formulation/rsa.o solver/abstractSolver.o solver/solverCplex.o solver/callbackCplex.o tools/CSVReader.o topology/demand.o topology/input.o topology/instance.o topology/physicalLink.o topology/slice.o solver/solverSCIP.o
+OBJS = main.o formulation/flowForm.o formulation/edgeNodeForm.o formulation/tFlowForm.o formulation/drForm.o formulation/formulationComponents.o formulation/genetic.o formulation/rsa.o solver/abstractSolver.o solver/solverCplex.o solver/callbackCplex.o solver/solverCP.o tools/CSVReader.o topology/demand.o topology/input.o topology/instance.o topology/physicalLink.o topology/slice.o solver/solverSCIP.o
 
 # extra object files that are required by some examples (we just link them into each one)
 # CHANGEME: Additional libraries
 # e.g., for driver2, put -lOsiCbc here
-ADDLIBS = $(CPLEXLIBFLAGS) $(CONCERTLIBFLAGS) $(LEMONLIBFLAGS)
+ADDLIBS = $(CPLIBFLAGS) $(CPLEXLIBFLAGS) $(CONCERTLIBFLAGS) $(LEMONLIBFLAGS)
 
 # CHANGEME: Additional flags for compilation (e.g., include flags)
-ADDINCFLAGS = -std=c++11 -g $(CCOPT) -I$(CPLEXINCDIR) -I$(CONCERTINCDIR) $(LEMONINCFLAGS) $(BOOSTINCFLAGS) 
+ADDINCFLAGS = -std=c++11 -g $(CCOPT) -I$(CPINCDIR) -I$(CPLEXINCDIR) -I$(CONCERTINCDIR) $(LEMONINCFLAGS) $(BOOSTINCFLAGS)
 
 # CHANGEME: Directory to the sources for the (example) problem definition
 # files
@@ -127,7 +133,7 @@ SCIPLIBFLAGS = -L$(SCIPLIBDIR) -lscip
 
 # CHANGEME: Additional libraries
 # e.g., for driver2, put -lOsiCbc here
-ADDLIBS = $(CPLEXLIBFLAGS) $(CONCERTLIBFLAGS) $(SCIPLIBFLAGS) $(LEMONLIBFLAGS)
+ADDLIBS =  $(CPLIBFLAGS) $(CPLEXLIBFLAGS) $(CONCERTLIBFLAGS) $(SCIPLIBFLAGS) $(LEMONLIBFLAGS)
 
 # CHANGEME: Additional flags for compilation (e.g., include flags)
-ADDINCFLAGS = -std=c++11 -g $(CCOPT) -I$(CPLEXINCDIR) -I$(CONCERTINCDIR) $(SCIPIINCFLAGS) $(LEMONINCFLAGS) $(BOOSTINCFLAGS)
+ADDINCFLAGS = -std=c++11 -g $(CCOPT) -I$(CPINCDIR) -I$(CPLEXINCDIR) -I$(CONCERTINCDIR) $(SCIPIINCFLAGS) $(LEMONINCFLAGS) $(BOOSTINCFLAGS)

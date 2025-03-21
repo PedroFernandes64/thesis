@@ -28,7 +28,7 @@ Input::Input(std::string parameterFile) : PARAMETER_FILE(parameterFile){
 	allPathsPrint = std::stoi(getParameterValue("All_paths_print="));
 	relaxationVariables= std::stoi(getParameterValue("Relaxation_variables="));
 	geneticUse= std::stoi(getParameterValue("Genetic="));
-	geneticMetric= std::stoi(getParameterValue("Genetic_metric="));
+	geneticMetric= to_ObjectiveMetric(getParameterValue("Genetic_metric="))[0];
 	geneticIterations= std::stoi(getParameterValue("Genetic_iterations="));
 	geneticPopulation= std::stoi(getParameterValue("Genetic_population="));
 	geneticCrossing= std::stoi(getParameterValue("Genetic_crossing="));

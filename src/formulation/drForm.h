@@ -72,6 +72,7 @@ class DrFormulation : public AbstractFormulation{
    
 	/** Defines the set of constraints. **/
     void setConstraints()override;
+	void setNonLinearConstraints() override {} ;
 
 	/** Defines Flow Conservation constraints. If an arc enters a node, then an arc must leave it. **/	
 	void setFlowConstraints();	

@@ -386,9 +386,6 @@ void SolverCplex::implementFormulation(){
     catch(IloException& ex) {
         std::cerr << "Error: " << ex << std::endl;
     }
-    catch(...) {
-        std::cerr << "Error: que pasa wey" << std::endl;
-    }
     //std::cout << "Time: " << time.getTimeInSecFromStart() << std::endl;
     constChargeTime = time.getTimeInSecFromStart();
     time.setStart(ClockTime::getTimeNow());

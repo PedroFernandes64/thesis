@@ -50,6 +50,7 @@ public:
 	/****************************************************************************************/
 	/** Defines the set of constraints. **/
     void setConstraints() override;
+	void setNonLinearConstraints() override {} ;
 
 	/** Defines Origin constraints. At most one arc leaves each node and exactly one arc leaves the source. @param var The variable matrix. @param mod The CPLEX model. **/
     void setOriginConstraints();

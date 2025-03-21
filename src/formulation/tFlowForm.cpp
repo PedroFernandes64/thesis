@@ -24,6 +24,7 @@ TFlowForm::TFlowForm(const Instance &instance) : AbstractFormulation(instance){
     varImpleTime = time.getTimeInSecFromStart() ;
     time.setStart(ClockTime::getTimeNow());
     this->setConstraints();
+    this->setNonLinearConstraints();
     std::cout << "Variables set to 0: " << variablesSetTo0 << std::endl;
     std::cout << "Preprocessing constraints : " << preprocessingConstraints << std::endl;
     constImpleTime = time.getTimeInSecFromStart() ;
@@ -781,8 +782,60 @@ void TFlowForm::setConstraints(){
     }
 }
 
-/* Returns the source constraint associated with a demand. */
+void TFlowForm::setNonLinearConstraints(){
+    if (NonOverlappingType == 4){
+        setNonOverlappingConstraintsNonLinear();
+        std::cout << "WARNING: Setting non linear no Non-overlapping constraints" << std::endl;
+    }
+}
 
+void TFlowForm::setNonOverlappingConstraintsNonLinear(){
+    for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+        int edge = getCompactEdgeLabel(e);
+        for (int s = 0; s < slicesTotal; s++){
+            const NonLinearConstraint & nonOverlapping = getNonOverlappingConstraintsNonLinear_e_s(edge,s);
+            nonLinearConstraintSet.push_back(nonOverlapping);
+        }
+    }
+    std::cout << "Non Overlapping non linear constraints have been defined..." << std::endl;
+}
+
+NonLinearConstraint TFlowForm::getNonOverlappingConstraintsNonLinear_e_s(int e, int s){
+    NonLinearExpression exp;
+    int lowerBound = 0;
+    int upperBound = 1;
+    int nbEdges = countEdges(compactGraph);
+    for (int k = 0; k < getNbDemandsToBeRouted(); k++){
+        int sliceLimit = slicesC;
+        int sWk_1 = s + getToBeRouted_k(k).getLoadC()-1;;
+        if (sWk_1 >= sliceLimit){
+            sWk_1 = sliceLimit-1;
+        }
+        for (int sa = s; sa <= sWk_1; sa++){
+            std::vector<Variable> variablesToMultiply;
+            variablesToMultiply.push_back(y[sa][k]);
+            variablesToMultiply.push_back(x[e][k]);
+            NonLinearTerm term(variablesToMultiply,1);
+            exp.addNonLinearTerm(term);
+        }
+        for (int sa = s; sa <= sWk_1; sa++){
+            std::vector<Variable> variablesToMultiply;
+            variablesToMultiply.push_back(y[sa][k]);
+            variablesToMultiply.push_back(x[e+nbEdges][k]);
+            NonLinearTerm term(variablesToMultiply,1);
+            exp.addNonLinearTerm(term);
+        }
+    }
+   
+    std::ostringstream constraintName;
+    constraintName << "NonOverlappingNonLinear_" << e+1 << "_" << s+1;
+    NonLinearConstraint constraint(lowerBound, exp, upperBound, constraintName.str());
+
+    return constraint;
+}
+
+
+/* Returns the source constraint associated with a demand. */
 //ONE SLOT MUST BE CHOSEN
 //IF MIN REJECTION CAN BE CHOSEN
 Constraint TFlowForm::getSourceConstraint_k(int k){
@@ -2768,8 +2821,12 @@ void TFlowForm::setNonOverlappingType(){
                 if(this->getInstance().getInput().getNonOverTFlow() == 3){
                     this->NonOverlappingType = 3;
                 } else{
-                    std::cout << "WARNING: No Non-overlapping policy chosen." << std::endl;
-                }
+                    if(this->getInstance().getInput().getNonOverTFlow() == 4){
+                        this->NonOverlappingType = 4;
+                    } else{
+                        std::cout << "WARNING: No Non-overlapping policy chosen." << std::endl;
+                    }
+                 }
             }
         }
     }

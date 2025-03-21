@@ -138,7 +138,7 @@ private:
 	int reinforcements;
 	int relaxationVariables;
 	int geneticUse;
-	int geneticMetric;
+	Input::ObjectiveMetric geneticMetric;
 	int geneticIterations;
 	int geneticPopulation;
 	int geneticCrossing;
@@ -234,7 +234,7 @@ public:
 	bool areReinforcementsEnabled() const { return reinforcements; }
 	bool recoverRelaxationVariables() const { return relaxationVariables; }
 	bool activateGeneticAlgorithm() const { return geneticUse; }
-	int geneticAlgorithmMetric() const { return geneticMetric; }
+	Input::ObjectiveMetric geneticAlgorithmMetric() const { return geneticMetric; }
 	int geneticAlgorithmIterations() const { return geneticIterations; }
 	int geneticAlgorithmPopulation() const { return geneticPopulation; }
 	int geneticAlgorithmCrossing() const { return geneticCrossing; }

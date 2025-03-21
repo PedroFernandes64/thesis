@@ -75,7 +75,8 @@ public:
 
 	/** Defines the set of constraints. **/
     void setConstraints() override;
-
+	void setNonLinearConstraints() override {} ;
+	
 	/** Defines the set of constraints considered in the lagrangian formulation. **/
 	void setLagConstraints();
 

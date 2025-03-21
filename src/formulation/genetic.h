@@ -31,13 +31,13 @@ public:
           nbSlots(other.nbSlots),       // Copy the integer value
           metricVal(other.metricVal) {} // Copy the integer value
 
-    void building(int metr, int edges, int slots);
+    void building(Input::ObjectiveMetric metr, int edges, int slots);
     void copying(Routing r);
-    void computeMetric(int m);
+    void computeMetric(Input::ObjectiveMetric m);
     void setNbEdges(int nb);
     void setNbSlots(int nb);
     bool isColored() const {return colored;}
-    bool tryColoring(int prio, int metric);
+    bool tryColoring(int prio, Input::ObjectiveMetric metric);
     void copyColoring(std::vector<int> c);
     void display();
     void setMetric(double m);
@@ -102,7 +102,7 @@ protected:
     std::vector<std::vector<std::vector<Fiber> > > shortestRoutesByDemand;
     int chosenK;
     int extraK;
-    int metric;
+    Input::ObjectiveMetric metric;
 
     int nbInitialPop;
     std::vector<Routing> population;
@@ -126,6 +126,8 @@ protected:
 
     double computedLB;
     double lowerBoundUsedSlot;
+
+    int nbBands;
 
     std::mt19937 rng;  // Mersenne Twister PRNG
 

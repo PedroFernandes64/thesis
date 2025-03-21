@@ -148,15 +148,23 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     if(instance.getInput().activateGeneticAlgorithm()){
         std::cout << "Heuristic" << std::endl;
         Genetic genetic(instance);
-        genetic.run();
-        feasibleSolutionEdgeSlotMap = genetic.buildMatrixKsol(0);
-        feasibleSolutionLastSlotDemand = genetic.buildLastSlotByDemand(0);
-        feasibleSolutionNodesByDemand = genetic.buildPathNodesByDemand(0);
-        std::cout << "Feasible SOL" << std::endl;
-        heuristicTime= genetic.getHeuristicTime();
-        timeToBest= genetic.getTimeToBest();
-        itToBest= genetic.getItToBest();
-        bestSol= genetic.getBestSol();
+        try {
+            // Attempt to run the genetic algorithm
+            genetic.run();
+            // If successful, proceed with the rest of the code
+            feasibleSolutionEdgeSlotMap = genetic.buildMatrixKsol(0);
+            feasibleSolutionLastSlotDemand = genetic.buildLastSlotByDemand(0);
+            feasibleSolutionNodesByDemand = genetic.buildPathNodesByDemand(0);
+            
+            std::cout << "Feasible SOL" << std::endl;
+            heuristicTime = genetic.getHeuristicTime();
+            timeToBest = genetic.getTimeToBest();
+            itToBest = genetic.getItToBest();
+            bestSol = genetic.getBestSol();
+        } catch (const std::exception& e) {
+            // If an error occurs during genetic.run(), just print the error and continue
+            std::cout << "Error during genetic.run(): " << e.what() << std::endl;
+        }
     }
 
     if((instance.getInput().activateLB())&&(instance.getInput().getChosenObj_k(0)!=Input::OBJECTIVE_METRIC_ADS)){

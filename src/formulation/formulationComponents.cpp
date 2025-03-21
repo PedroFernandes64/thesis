@@ -107,3 +107,48 @@ void Constraint::display(){
     }
     std::cout << " <= " << this->getUb() << std::endl;
 }
+
+NonLinearTerm::NonLinearTerm(std::vector<Variable> variableVector, double coefficient): coeff(coefficient), varVec(variableVector){}
+
+NonLinearTerm::NonLinearTerm(const NonLinearTerm & nonLinearTerm):coeff(nonLinearTerm.coeff),varVec(nonLinearTerm.varVec){}
+
+NonLinearExpression::NonLinearExpression(const NonLinearExpression &e): nonLinearTermsArray(e.getNonLinearTerms()){}
+
+double NonLinearExpression::getExpressionValue(){
+    double val = 0.0;
+    for (unsigned int i = 0; i < nonLinearTermsArray.size(); i++){
+        double auxVal = 1.0;
+        for(unsigned int j = 0; j < nonLinearTermsArray[i].getVarVec().size(); j++){
+            auxVal = auxVal *nonLinearTermsArray[i].getVarVec()[j].getVal();
+        }
+        val += nonLinearTermsArray[i].getCoeff()*auxVal;
+    }
+    return val;
+}
+
+NonLinearConstraint::NonLinearConstraint(double lowerBound, NonLinearExpression &e, double upperBound, std::string constName): lb(lowerBound), expr(e), ub(upperBound), name(constName){}
+
+void NonLinearConstraint::display() const{
+    int size = this->getExpression().getNbTerms();
+    std::cout << this->getLb() << " <= " << std::endl;
+    for (int i = 0; i < size; i++){
+        std::string coefficient = "";
+        double c = this->getExpression().getNonLinearTerm_i(i).getCoeff();
+        if (c < 0){
+            coefficient = "(" + std::to_string(c) + ")";
+        }
+        else{
+            coefficient = std::to_string(c);
+        }
+        if (i > 0){
+            std::cout << " + ";
+        }
+        std::cout << coefficient << " * ";
+        int nbMultiplied = this->getExpression().getNonLinearTerm_i(i).getVarVec().size();
+        for(unsigned int j = 0; j < nbMultiplied-1; j++){
+            std::cout << this->getExpression().getNonLinearTerm_i(i).getVarVec()[j].getName() << " * ";
+        } 
+        std::cout <<this->getExpression().getNonLinearTerm_i(i).getVarVec()[nbMultiplied-1].getName();
+    }
+    std::cout << " <= " << this->getUb() << std::endl;
+}

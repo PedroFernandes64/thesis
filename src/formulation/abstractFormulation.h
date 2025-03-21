@@ -19,6 +19,7 @@ protected:
 	int nbConstraint;                               /**< The total number of constraints. **/
     
     std::vector<Constraint> constraintSet;			/**< The set of constraints. **/
+	std::vector<NonLinearConstraint> nonLinearConstraintSet;/**< The set of constraints. **/
     std::vector<Constraint> cutPool;				/**< The set of cuts. **/
     std::vector<ObjectiveFunction> objectiveSet;	/**< The set of objectives to be optimized (in order). **/
 	double upperBound;
@@ -76,12 +77,17 @@ public:
 	/** Returns the set of constraints. **/
 	const std::vector<Constraint> & getConstraints(){ return constraintSet; }
 
+	const std::vector<NonLinearConstraint> & getNonLinearConstraints(){ return nonLinearConstraintSet; }
+
 	/** Clears the set of constraints. **/
 	void clearConstraints(){ constraintSet.clear(); }
+	void clearNonLinearConstraints(){ nonLinearConstraintSet.clear(); }
 
 
 	/** Defines the set of constraints. **/
     virtual void setConstraints() = 0;
+	virtual void setNonLinearConstraints() = 0;
+
 	/** Defines the pool of cuts. **/
     virtual void setCutPool() { std::cout << "WARNING: Cut pool is empty." << std::endl; }
 
@@ -153,6 +159,7 @@ public:
 	/** Destructor. Clears the variable matrices, cplex model and environment. **/
 	virtual ~AbstractFormulation(){
         constraintSet.clear();
+		nonLinearConstraintSet.clear();
         objectiveSet.clear();
     }
 

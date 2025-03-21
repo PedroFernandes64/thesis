@@ -90,6 +90,8 @@ public:
 
     /** Defines the set of constraints. **/
     void setConstraints() override;
+	   
+	void setNonLinearConstraints() override ;
 	
 	void setSourceConstraints();
 
@@ -112,6 +114,7 @@ public:
 	void setNonOverlappingConstraintsPair();
 	void setNonOverlappingConstraintsSharedLink();
 	void setNonOverlappingConstraintsHybrid();
+	void setNonOverlappingConstraintsNonLinear();
 
 
 	void setThresholdConstraints();
@@ -156,6 +159,8 @@ public:
 	Constraint getHybridConstraint2(int e, int k, int s);
 	Constraint getHybridConstraint3(int e, int k, int s);
 	Constraint getHybridConstraint4(int e, int s);
+
+	NonLinearConstraint getNonOverlappingConstraintsNonLinear_e_s(int e, int s);
 	
 	Constraint getThresholdConstraint(int e);
 
