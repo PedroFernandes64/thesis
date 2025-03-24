@@ -155,15 +155,19 @@ with open("../Outputs/experimentList.csv", "w") as list:
                                                             lines[19] = stringGenetic
 
                                                             if (obj == "NLUS"):
-                                                                stringGeneticM = "Genetic_metric=2" + "\n"
+                                                                stringGeneticM = "Genetic_metric=NLUS" + "\n"
                                                             if (obj == "TUS"):
-                                                                stringGeneticM = "Genetic_metric=1" + "\n"
+                                                                stringGeneticM = "Genetic_metric=TUS" + "\n"
                                                             if (obj == "TRL"):
-                                                                stringGeneticM = "Genetic_metric=3" + "\n"
+                                                                stringGeneticM = "Genetic_metric=TRL" + "\n"
                                                             if (obj == "TASE"):
-                                                                stringGeneticM = "Genetic_metric=4" + "\n"
+                                                                stringGeneticM = "Genetic_metric=TASE" + "\n"
                                                             if (obj == "ADS"):
-                                                                stringGeneticM = "Genetic_metric=5" + "\n"
+                                                                stringGeneticM = "Genetic_metric=ADS" + "\n"
+                                                            if (obj == "LLB"):
+                                                                stringGeneticM = "Genetic_metric=LLB" + "\n"
+                                                            if (obj == "DCB"):
+                                                                stringGeneticM = "Genetic_metric=DCB" + "\n"
                                                             lines[20] = stringGeneticM
                                                             firstPassage = "0"
                                                             tflowAlreadyDone0 = []

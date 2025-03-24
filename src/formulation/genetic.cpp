@@ -45,60 +45,149 @@ void Routing::computeMetric(Input::ObjectiveMetric m){
 			}
 		}
 	}
+	if(m ==Input::OBJECTIVE_METRIC_LLB){
+		std::vector<std::vector<int> > demandsOnThisEdge;
+		for (int e = 0; e < nbEdges; ++e){
+			std::vector<int> list;
+			demandsOnThisEdge.push_back(list) ;
+		}
+		for(int d = 0; d < routes.size(); ++d){
+			int currentDemand = d;
+			for(int l = 0; l < routes[d]->size(); ++l){
+				demandsOnThisEdge[(*routes[d])[l].getId()].push_back(d);
+			}
+		}
+		for (int e = 0; e < demandsOnThisEdge.size(); ++e){
+			bool lUsed = false;
+			int charge =0;
+			for(int d = 0; d < demandsOnThisEdge[e].size(); ++d){
+				int demand = demandsOnThisEdge[e][d];
+				if(colors[demand] > (nbSlots/2)){
+					lUsed = true;
+				}else{
+					charge = charge+loads[demand];
+				}
+			}
+			if ((lUsed==true) || (charge>ceil(0.8*(nbSlots/2)))){
+				metricVal = metricVal + 1;
+			}
+		}
+	}
+	if(m ==Input::OBJECTIVE_METRIC_DCB){
+		for(int i = 0; i < colors.size(); ++i){
+			if(colors[i] > (nbSlots/2)){
+				metricVal=metricVal+1;
+			}
+		}
+	}
 
 }
 
 void Routing::building(Input::ObjectiveMetric metr, int edges, int slots) {
 	setNbEdges(edges);
-	setNbSlots(slots);
-	//std::cout << " COLORING " << std::endl;
+	setNbSlots(slots);	
 	/*
-	double competitor1 = 0;
-	double competitor2 = 0;
-	bool a = tryColoring(1,metr);
-	computeMetric(metr);
-	competitor1 = metricVal;
+	std::ofstream outfile;
+	outfile.open("coloring.csv", std::ios_base::app);
+	double cm0;
+	double cm1;
+	double cm2;
+	double cm3;
+	double cm4;
+	feasible = tryColoring(0,metr);
+	if(feasible == true){
+		colored = true;
+		computeMetric(metr);
+	}
+	cm0 = metricVal;
+	metricVal =0;
 	for (int d = 0; d < routes.size(); ++d){
 		colors[d]=0 ;
 	}
-	metricVal = 0.0;
-	bool b = tryColoring(2,metr);
-	computeMetric(metr);
-	competitor2 = metricVal;
-	for (int d = 0; d < routes.size(); ++d){
-		colors[d]=0 ;
-	}
-	metricVal = 0.0;
-	if (competitor1==competitor2)
-	{
-		std::cout << "EMPATE" << std::endl;
-	}
-	if (competitor1<competitor2)
-	{
-		std::cout << "1 GAGNE" << std::endl;
-	}
-	if (competitor1>competitor2)
-	{
-		std::cout << "2 GAGNE" << std::endl;
-	}
-	*/
 	feasible = tryColoring(1,metr);
 	if(feasible == true){
 		colored = true;
 		computeMetric(metr);
-	}else{
-		//std::cout << "Trying ALTERNATIVE COLORING " << std::endl;
-		for (int d = 0; d < routes.size(); ++d){
-			colors[d]=0 ;
-		}
-		feasible = tryColoring(2,metr);
+	}
+	cm1 = metricVal;
+	metricVal =0;
+	for (int d = 0; d < routes.size(); ++d){
+		colors[d]=0 ;
+	}
+	feasible = tryColoring(2,metr);
+	if(feasible == true){
+		colored = true;
+		computeMetric(metr);
+	}
+	cm2 = metricVal;
+	metricVal =0;
+	for (int d = 0; d < routes.size(); ++d){
+		colors[d]=0 ;
+	}
+	feasible = tryColoring(3,metr);
+	if(feasible == true){
+		colored = true;
+		computeMetric(metr);
+	}
+	cm3 = metricVal;
+	metricVal =0;
+	for (int d = 0; d < routes.size(); ++d){
+		colors[d]=0 ;
+	}
+	feasible = tryColoring(4,metr);
+	if(feasible == true){
+		colored = true;
+		computeMetric(metr);
+	}
+	cm4 = metricVal;
+	metricVal =0;
+	for (int d = 0; d < routes.size(); ++d){
+		colors[d]=0 ;
+	}
+	outfile << "\n" << cm0 << ";" << cm1 << ";"<< cm2 << ";"<< cm3 << ";"<< cm4;
+	//std::cout<<" m0: " << cm0<<" m1: " << cm1<<" m2: " << cm2<<" m3: " << cm3<<" m4: " << cm4 <<std::endl; 
+	*/
 
+	if((metr ==Input::OBJECTIVE_METRIC_TUS) || (metr ==Input::OBJECTIVE_METRIC_NLUS) 
+	|| (metr ==Input::OBJECTIVE_METRIC_TRL) || (metr ==Input::OBJECTIVE_METRIC_TASE) 
+	|| (metr ==Input::OBJECTIVE_METRIC_ADS)){
+		feasible = tryColoring(1,metr);
 		if(feasible == true){
 			colored = true;
 			computeMetric(metr);
-			//std::cout << "ALTERNATIVE COLORING ACCEPTED " << std::endl;
+		}else{
+			//std::cout << "Trying ALTERNATIVE COLORING " << std::endl;
+			for (int d = 0; d < routes.size(); ++d){
+				colors[d]=0 ;
+			}
+			feasible = tryColoring(2,metr);
+
+			if(feasible == true){
+				colored = true;
+				computeMetric(metr);
+				//std::cout << "ALTERNATIVE COLORING ACCEPTED " << std::endl;
+			}
 		}
 	}
+	if((metr ==Input::OBJECTIVE_METRIC_LLB) || (metr ==Input::OBJECTIVE_METRIC_DCB)){
+		feasible = tryColoring(3,metr);
+		if(feasible == true){
+			colored = true;
+			computeMetric(metr);
+		}else{
+			//std::cout << "Trying ALTERNATIVE COLORING " << std::endl;
+			for (int d = 0; d < routes.size(); ++d){
+				colors[d]=0 ;
+			}
+			feasible = tryColoring(4,metr);
+
+			if(feasible == true){
+				colored = true;
+				computeMetric(metr);
+				//std::cout << "ALTERNATIVE COLORING ACCEPTED " << std::endl;
+			}
+		}
+	}	
 	//so fazer um if else guardando o resultado da primeira e depois comaprando com asegunda e substituindo
 }
 
@@ -167,6 +256,7 @@ bool Routing::tryColoring(int prio, Input::ObjectiveMetric metric){
 			}
 		}
 	}
+	//arbirtrary priority
 	if(priorityParam==0){
 		for (int d = 0; d < matrixDd.size(); ++d){
 			sequenciator demand;
@@ -175,6 +265,7 @@ bool Routing::tryColoring(int prio, Input::ObjectiveMetric metric){
 			sequenceVector.push_back(demand);
 		}
 	}
+	//std::cout << "more neighboors priority " << std::endl;
 	if(priorityParam==1){
 		for (int d = 0; d < matrixDd.size(); ++d){
 			int counter = 0;
@@ -190,14 +281,19 @@ bool Routing::tryColoring(int prio, Input::ObjectiveMetric metric){
 			demand.criteria = counter;
 			sequenceVector.push_back(demand);
 		}
-		//for (int d = 0; d < sequenceVector.size(); ++d){
-		//	std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
-		//}
+		/*
+		std::cout << "Presort " << std::endl;
+		for (int d = 0; d < sequenceVector.size(); ++d){
+			std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
+		}*/
 		sortSequenciatorHigher sorter;
 		std::sort (sequenceVector.begin(),sequenceVector.end(),sorter);
-
-
+		/*std::cout << "Postsort " << std::endl;
+		for (int d = 0; d < sequenceVector.size(); ++d){
+			std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
+		}*/
 	}
+	//std::cout << "used slots priority " << std::endl;
 	if(priorityParam==2){
 		for (int d = 0; d < routes.size(); ++d){
 			int counter = routes[d]->size();
@@ -207,12 +303,129 @@ bool Routing::tryColoring(int prio, Input::ObjectiveMetric metric){
 			demand.id = d;
 			demand.criteria = counter*loads[d];
 			sequenceVector.push_back(demand);
-		}
-		//for (int d = 0; d < sequenceVector.size(); ++d){
-			//std::cout << "Demand " << sequenceVector[d].id << " h as " << sequenceVector[d].criteria << std::endl;
-		//}
+		}/*
+		std::cout << "Presort " << std::endl;
+		for (int d = 0; d < sequenceVector.size(); ++d){
+			std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
+		}*/
 		sortSequenciatorHigher sorter;
 		std::sort (sequenceVector.begin(),sequenceVector.end(),sorter);
+		/*std::cout << "Postsort " << std::endl;
+		for (int d = 0; d < sequenceVector.size(); ++d){
+			std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
+		}*/
+	}
+	//priorityParam = 3;
+	//std::cout << "used links priority " << std::endl;
+	if(priorityParam==3){
+		for (int d = 0; d < routes.size(); ++d){
+			int counter = routes[d]->size();
+			//std::cout << "Demand " << d << " has " << counter << " links";
+			//std::cout << " and uses " << counter*loads[d] << " slots " << std::endl;
+			sequenciator demand;
+			demand.id = d;
+			demand.criteria = counter;
+			sequenceVector.push_back(demand);
+		}
+		/*std::cout << "Presort " << std::endl;
+		for (int d = 0; d < sequenceVector.size(); ++d){
+			std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
+		}*/
+		sortSequenciatorHigher sorter;
+		std::sort (sequenceVector.begin(),sequenceVector.end(),sorter);
+		/*std::cout << "Postsort " << std::endl;
+		for (int d = 0; d < sequenceVector.size(); ++d){
+			std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
+		}*/
+	}
+	//std::cout << "most charged links priority " << std::endl;
+	if(priorityParam==4){
+		std::vector<int> charges;
+		std::vector<sequenciator> monobandChanceEdgeOrder;
+		std::vector<sequenciator> bibandEdgeOrder;
+		for (int e = 0; e < nbEdges; ++e){
+			int charge = 0;
+			for (int d = 0; d < demandsOnThisEdge[e].size(); ++d){
+				int demandId = demandsOnThisEdge[e][d];
+				charge = charge + loads[demandId];
+			}
+			sequenciator edge;
+			edge.criteria=charge;
+			edge.id=e;
+			if((metric ==Input::OBJECTIVE_METRIC_LLB) || (metric ==Input::OBJECTIVE_METRIC_DCB)){
+				if (charge>(ceil(0.8*(nbSlots/2)))){
+					bibandEdgeOrder.push_back(edge);
+					//std::cout << "Edge " << e << " is biband "<<std::endl;
+				}else{
+					monobandChanceEdgeOrder.push_back(edge);
+				}	
+			}else{
+				monobandChanceEdgeOrder.push_back(edge);
+			}
+		}
+
+		/*std::cout << "Presort mono chance" << std::endl;
+		for (int e = 0; e < monobandChanceEdgeOrder.size(); ++e){
+			std::cout << "Edge " << monobandChanceEdgeOrder[e].id << " has " << monobandChanceEdgeOrder[e].criteria << std::endl;
+		}*/
+		sortSequenciatorHigher esorter;
+		std::sort (monobandChanceEdgeOrder.begin(),monobandChanceEdgeOrder.end(),esorter);
+		/*std::cout << "Postsort mono chance" << std::endl;
+		for (int e = 0; e < monobandChanceEdgeOrder.size(); ++e){
+			std::cout << "Edge " << monobandChanceEdgeOrder[e].id << " has " << monobandChanceEdgeOrder[e].criteria << std::endl;
+		}
+		std::cout << "Presort dual sure" << std::endl;
+		for (int e = 0; e < bibandEdgeOrder.size(); ++e){
+			std::cout << "Edge " << bibandEdgeOrder[e].id << " has " << bibandEdgeOrder[e].criteria << std::endl;
+		}*/
+		sortSequenciatorHigher esorter2;
+		std::sort (bibandEdgeOrder.begin(),bibandEdgeOrder.end(),esorter2);
+		/*std::cout << "Postsort dual sure" << std::endl;
+		for (int e = 0; e < bibandEdgeOrder.size(); ++e){
+			std::cout << "Edge " << bibandEdgeOrder[e].id << " has " << bibandEdgeOrder[e].criteria << std::endl;
+		}*/
+		std::vector<int> alreadyPriorized;
+		for (int d = 0; d < loads.size(); ++d){
+			alreadyPriorized.push_back(0);
+		}
+		for (int e = 0; e < monobandChanceEdgeOrder.size(); ++e){
+			int edgeToSort = monobandChanceEdgeOrder[e].id;
+			for (int d = 0; d < demandsOnThisEdge[edgeToSort].size(); ++d){
+				int demandId = demandsOnThisEdge[edgeToSort][d];
+				//std::cout << "On edge " << edgeToSort << " passes " << demandId << std::endl;
+				if (alreadyPriorized[demandId]==0){
+					sequenciator demand;
+					demand.id = demandId;
+					demand.criteria = edgeToSort;
+					sequenceVector.push_back(demand);
+					alreadyPriorized[demandId]=1;
+				}else{
+					//std::cout << "already added " << std::endl;
+				}
+			}
+		}
+		for (int e = 0; e < bibandEdgeOrder.size(); ++e){
+			int edgeToSort = bibandEdgeOrder[e].id;
+			for (int d = 0; d < demandsOnThisEdge[edgeToSort].size(); ++d){
+				int demandId = demandsOnThisEdge[edgeToSort][d];
+				//std::cout << "On edge " << edgeToSort << " passes " << demandId << std::endl;
+				if (alreadyPriorized[demandId]==0){
+					sequenciator demand;
+					demand.id = demandId;
+					demand.criteria = edgeToSort;
+					sequenceVector.push_back(demand);
+					alreadyPriorized[demandId]=1;
+				}
+				else{
+					//std::cout << "already added " << std::endl;
+				}
+			}
+		}
+		/*
+		std::cout << "Postsort " << std::endl;
+		for (int d = 0; d < sequenceVector.size(); ++d){
+			std::cout << "Demand " << sequenceVector[d].id << " has " << sequenceVector[d].criteria << std::endl;
+		}*/
 	}
 	/*
 	for (int a = 0; a < routes.size(); a++){
@@ -251,8 +464,9 @@ bool Routing::tryColoring(int prio, Input::ObjectiveMetric metric){
 		int chosenColor = 0;
 		bool ovDetected = true;
 		int slotLimit = nbSlots-loads[coloringTarget] + 1;
-		if((metric ==Input::OBJECTIVE_METRIC_NLUS) || (metric ==Input::OBJECTIVE_METRIC_DCB)){
-			slotLimit= 2*nbSlots-loads[coloringTarget] + 1;
+		int bandLimit = slotLimit;
+		if((metric ==Input::OBJECTIVE_METRIC_LLB) || (metric ==Input::OBJECTIVE_METRIC_DCB)){
+			bandLimit= (nbSlots/2)-loads[coloringTarget] + 1;
 		}
 		//std::cout<< "demand " << coloringTarget << std::endl ;
 		while(ovDetected == true){
@@ -298,11 +512,11 @@ bool Routing::tryColoring(int prio, Input::ObjectiveMetric metric){
 					colors[coloringTarget]=chosenColor;
 				}else{
 					candidateColor = nextLowestColor;
-					if((metric ==Input::OBJECTIVE_METRIC_NLUS) || (metric ==Input::OBJECTIVE_METRIC_DCB)){
-						if (candidateColor > nbSlots-loads[coloringTarget] + 1){
-							if(candidateColor <= nbSlots){
-								candidateColor = nbSlots+1;
-								std::cout << "cant be between bands, next candidate = " <<candidateColor <<std::endl;
+					if((metric ==Input::OBJECTIVE_METRIC_LLB) || (metric ==Input::OBJECTIVE_METRIC_DCB)){
+						if (candidateColor > bandLimit){
+							if(candidateColor <= bandLimit+loads[coloringTarget] - 1){
+								candidateColor = bandLimit+loads[coloringTarget];
+								//std::cout << "cant be between bands, next candidate = " <<candidateColor <<std::endl;
 							}
 						}
 					}
@@ -400,22 +614,25 @@ void Genetic::run(){
 
 	nbInitialPop =  instance.getInput().geneticAlgorithmPopulation();
 	
+	std::ofstream outfile;
+	//outfile.open("coloring.csv", std::ios_base::app);
+	//outfile << "\ncm0;cm1;cm2;cm3;cm4;";
+	//std::ofstream outfile;
+	//outfile.open("genetic.csv");
+	//outfile << "\nfirst;last";
 	GenerateInitialPopulation(nbInitialPop);
 	if (population.size() == 0){
 		throw std::runtime_error("Not found feasible member for the population");
 	}
-	for (int i = 0; i < population.size(); i++){
-		population[i].display();
-	}
+	//for (int i = 0; i < population.size(); i++){
+	//	population[i].display();
+	//}
 	currentBest = INT_MAX;
 	int inputIterations = instance.getInput().geneticAlgorithmIterations();
 	int currentIt = 0;
 	int itWithoutImprovement=0;
 	bool improvementPhase = false;
 
-	std::ofstream outfile;
-	//outfile.open("genetic.csv");
-	//outfile << "\nfirst;last";
 	while(stop == false){
 		currentIt = currentIt +1;
 		std::cout<<"==========BEGIN IT: "<< currentIt<<std::endl;
@@ -493,12 +710,13 @@ Genetic::Genetic(const Instance &inst) : instance(inst),rng(std::random_device{}
 	extraK = instance.getInput().geneticGetExtraK();
 	metric = instance.getInput().geneticAlgorithmMetric();
 	nbBands = instance.getInput().getNbBands();
+	nbSlots = nbBands*instance.getTabEdge()[0].getNbSlicesC();
 }
 	
 std::vector<std::vector<int>> Genetic::buildMatrixKsol(int k){
 	for (int i = 0; i < instance.getTabEdge().size(); ++i){	
 		std::vector<int> thisEdgeSlots;
-		for (int j = 0; j < instance.getTabEdge()[0].getNbSlicesC(); ++j){	
+		for (int j = 0; j < nbSlots; ++j){	
 			thisEdgeSlots.push_back(0);
 		}
 		edgeSlotMap.push_back(thisEdgeSlots);
@@ -586,6 +804,7 @@ std::vector<std::vector<int>> Genetic::buildPathNodesByDemand(int k){
 	/*std::cout <<  "Node List by demand "<< std::endl; 
 	
 	for (int i = 0; i < nodesListDemand.size(); ++i){	
+		std::cout << "Demand " << i+1 << " : ";
 		for (int j = 0; j < nodesListDemand[i].size(); ++j){	
 			std::cout << nodesListDemand[i][j] << " ";
 		}
@@ -824,7 +1043,7 @@ void Genetic::doMutation(){
 		mutationTime = mutationTime + clockMutation.getTimeInSecFromStart();
 		ClockTime clockColoring(ClockTime::getTimeNow());
 		clockColoring.setStart(ClockTime::getTimeNow());
-		member.building(metric,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC());
+		member.building(metric,instance.getTabEdge().size(),nbSlots);
 		coloringTime =coloringTime+ clockColoring.getTimeInSecFromStart();
 		if(member.feasible == true){
 			//std::cout << "Member accepted "<< i << std::endl;
@@ -865,7 +1084,7 @@ void Genetic::doCrossing(){
 		crossingTime = crossingTime + clockCrossing.getTimeInSecFromStart();
 		ClockTime clockColoring(ClockTime::getTimeNow());
 		clockColoring.setStart(ClockTime::getTimeNow());
-		member.building(metric,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC());
+		member.building(metric,instance.getTabEdge().size(),nbSlots);
 		coloringTime =coloringTime+ clockColoring.getTimeInSecFromStart();
 		if(member.feasible == true){
 			//std::cout << "Member accepted "<< i << std::endl;
@@ -904,7 +1123,7 @@ void Genetic::GenerateInitialPopulation(int nbPop){
 		initialPopTime = initialPopTime + clockInitial.getTimeInSecFromStart();
 		ClockTime clockColoring(ClockTime::getTimeNow());
 		clockColoring.setStart(ClockTime::getTimeNow());
-		member.building(metric,instance.getTabEdge().size(),instance.getTabEdge()[0].getNbSlicesC());
+		member.building(metric,instance.getTabEdge().size(),nbSlots);
 		coloringTime =coloringTime+ clockColoring.getTimeInSecFromStart();
 		if(member.feasible == true){
 			//std::cout << "Member accepted "<< i << std::endl;
@@ -972,11 +1191,15 @@ void Genetic::GenerateShortestRoutes2(){
 	std::vector<std::vector<double> > alldemandsdistances;
 	std::vector<std::vector<double> > alldemandsDispersionC;
 	std::vector<std::vector<double> > alldemandsNoiseC;
+	std::vector<std::vector<double> > alldemandsDispersionL;
+	std::vector<std::vector<double> > alldemandsNoiseL;
 	std::vector<std::vector<int> > alldemandsNbEdges;
 	std::vector<std::vector<int> > alldemandsAmplis;
 	std::vector<double> thisdemanddistances;
 	std::vector<double> thisdemandDispersionC;
 	std::vector<double> thisdemandNoiseC;
+	std::vector<double> thisdemandDispersionL;
+	std::vector<double> thisdemandNoiseL;
 	std::vector<int> thisdemandNbEdges;
 	std::vector<int> thisdemandAmplis;
 	int currentnode;
@@ -984,6 +1207,8 @@ void Genetic::GenerateShortestRoutes2(){
     double length;
 	double dispersionPathC;
     double noisePathC;
+	double dispersionPathL;
+    double noisePathL;
 	int nbEdges;
 	int amplis;
 
@@ -994,18 +1219,24 @@ void Genetic::GenerateShortestRoutes2(){
 			nbEdges= 0;
 			dispersionPathC =0.0;
 			amplis = 0;
+			noisePathL = 0.0;
+			dispersionPathL =0.0;
             for (int k = 0; k <allpaths[i][j].size()-1; ++k){
                 currentnode = allpaths[i][j][k];
                 nextnode = allpaths[i][j][k+1];
                 length += instance.getPhysicalLinkBetween(currentnode,nextnode).getLength();
 				dispersionPathC += (instance.getPhysicalLinkBetween(currentnode,nextnode).getDispersionCoeffC()*instance.getPhysicalLinkBetween(currentnode,nextnode).getLength());
                 noisePathC += instance.getPhysicalLinkBetween(currentnode,nextnode).getNoiseC();
+				dispersionPathL += (instance.getPhysicalLinkBetween(currentnode,nextnode).getDispersionCoeffL()*instance.getPhysicalLinkBetween(currentnode,nextnode).getLength());
+                noisePathL += instance.getPhysicalLinkBetween(currentnode,nextnode).getNoiseL();
 				nbEdges = nbEdges+1;
 				amplis += instance.getPhysicalLinkBetween(currentnode,nextnode).getLineAmplifiers();
 			}			
 			thisdemanddistances.push_back(length);
 			thisdemandDispersionC.push_back(dispersionPathC);
             thisdemandNoiseC.push_back(noisePathC);
+			thisdemandDispersionL.push_back(dispersionPathL);
+            thisdemandNoiseL.push_back(noisePathL);
             thisdemandNbEdges.push_back(nbEdges);
 			thisdemandAmplis.push_back(amplis+nbEdges); //summing line amplifiers + node amplifiers
 
@@ -1013,11 +1244,15 @@ void Genetic::GenerateShortestRoutes2(){
         alldemandsdistances.push_back(thisdemanddistances);
 		alldemandsDispersionC.push_back(thisdemandDispersionC);
         alldemandsNoiseC.push_back(thisdemandNoiseC);
+		alldemandsDispersionL.push_back(thisdemandDispersionL);
+        alldemandsNoiseL.push_back(thisdemandNoiseL);
         alldemandsNbEdges.push_back(thisdemandNbEdges);
 		alldemandsAmplis.push_back(thisdemandAmplis);
         thisdemanddistances.clear();
 		thisdemandDispersionC.clear();
         thisdemandNoiseC.clear();
+		thisdemandDispersionL.clear();
+        thisdemandNoiseL.clear();
 		thisdemandNbEdges.clear();
 		thisdemandAmplis.clear();
     }
@@ -1047,30 +1282,62 @@ void Genetic::GenerateShortestRoutes2(){
 		//for route we will evaluate QoT
 			double dbOsnrC = osnrPath(alldemandsNoiseC[i][j], toBeRouted[i].getPchC());
 			double dispersionC = alldemandsDispersionC[i][j];
-			if (dispersionC <= (toBeRouted[i].getmaxCDC()) && dbOsnrC >= toBeRouted[i].getOsnrLimitC()){
-                //if qot ok we add it to set
-				prePath aux;
-				aux.length = alldemandsdistances[i][j];
-    			aux.noise = alldemandsNoiseC[i][j];
-    			aux.nbEdges = alldemandsNbEdges[i][j];
-				aux.amplis = alldemandsAmplis[i][j];
-				std::vector<Fiber> auxin;
-				for (int k = 0; k <allpaths[i][j].size()-1; ++k){
-					auxin.push_back(instance.getPhysicalLinkBetween(allpaths[i][j][k],allpaths[i][j][k+1]));
-				}	
-				aux.links = auxin;
-				qualifiedForThisDemand.push_back(aux);
-				/*
-				for (int i = 0; i <aux.links.size(); ++i){
-					std::cout << aux.links[i].getSource()+1 << "-" << aux.links[i].getTarget()+1 << "|" ;
+			double dbOsnrL = osnrPath(alldemandsNoiseL[i][j], toBeRouted[i].getPchL());
+			double dispersionL = alldemandsDispersionL[i][j];
+			if((metric ==Input::OBJECTIVE_METRIC_TUS) || (metric ==Input::OBJECTIVE_METRIC_NLUS) 
+			|| (metric ==Input::OBJECTIVE_METRIC_TRL) || (metric ==Input::OBJECTIVE_METRIC_TASE) 
+			|| (metric ==Input::OBJECTIVE_METRIC_ADS)){
+				if (dispersionC <= (toBeRouted[i].getmaxCDC()) && dbOsnrC >= toBeRouted[i].getOsnrLimitC()){
+					//if qot ok we add it to set
+					prePath aux;
+					aux.length = alldemandsdistances[i][j];
+					aux.noise = alldemandsNoiseC[i][j];
+					aux.nbEdges = alldemandsNbEdges[i][j];
+					aux.amplis = alldemandsAmplis[i][j];
+					std::vector<Fiber> auxin;
+					for (int k = 0; k <allpaths[i][j].size()-1; ++k){
+						auxin.push_back(instance.getPhysicalLinkBetween(allpaths[i][j][k],allpaths[i][j][k+1]));
+					}	
+					aux.links = auxin;
+					qualifiedForThisDemand.push_back(aux);
+					/*
+					for (int i = 0; i <aux.links.size(); ++i){
+						std::cout << aux.links[i].getSource()+1 << "-" << aux.links[i].getTarget()+1 << "|" ;
+					}
+					std::cout <<  " dispersion " << aux.length*17 << "|" ;
+					std::cout <<  " noise " << aux.noise << "|" ;
+					std::cout <<  " nb edges " << aux.nbEdges << "|";
+					std::cout <<  " amplis " << aux.amplis << "|";
+					std::cout <<  " osnr " << dbOsnrC << "|" <<std::endl;
+					*/
 				}
-                std::cout <<  " dispersion " << aux.length*17 << "|" ;
-				std::cout <<  " noise " << aux.noise << "|" ;
-				std::cout <<  " nb edges " << aux.nbEdges << "|";
-				std::cout <<  " amplis " << aux.amplis << "|";
-				std::cout <<  " osnr " << dbOsnrC << "|" <<std::endl;
-				*/
-            }
+			}
+			if((metric ==Input::OBJECTIVE_METRIC_LLB) || (metric ==Input::OBJECTIVE_METRIC_DCB)){
+				if ((dispersionC <= (toBeRouted[i].getmaxCDC())) && (dbOsnrC >= toBeRouted[i].getOsnrLimitC()) &&  (dispersionL <= (toBeRouted[i].getmaxCDL())) && (dbOsnrL >= toBeRouted[i].getOsnrLimitL())){
+					//if qot ok we add it to set
+					prePath aux;
+					aux.length = alldemandsdistances[i][j];
+					aux.noise = alldemandsNoiseC[i][j];
+					aux.nbEdges = alldemandsNbEdges[i][j];
+					aux.amplis = alldemandsAmplis[i][j];
+					std::vector<Fiber> auxin;
+					for (int k = 0; k <allpaths[i][j].size()-1; ++k){
+						auxin.push_back(instance.getPhysicalLinkBetween(allpaths[i][j][k],allpaths[i][j][k+1]));
+					}	
+					aux.links = auxin;
+					qualifiedForThisDemand.push_back(aux);
+					/*
+					for (int i = 0; i <aux.links.size(); ++i){
+						std::cout << aux.links[i].getSource()+1 << "-" << aux.links[i].getTarget()+1 << "|" ;
+					}
+					std::cout <<  " dispersion " << aux.length*17 << "|" ;
+					std::cout <<  " noise " << aux.noise << "|" ;
+					std::cout <<  " nb edges " << aux.nbEdges << "|";
+					std::cout <<  " amplis " << aux.amplis << "|";
+					std::cout <<  " osnr " << dbOsnrC << "|" <<std::endl;
+					*/
+				}
+			}
 		}
 		/*std::cout << "for demand " << i +1 <<std::endl;
 		for (int i = 0; i <qualifiedForThisDemand.size(); ++i){
@@ -1089,11 +1356,11 @@ void Genetic::GenerateShortestRoutes2(){
 		sortPrePathByLength sorterC;
 		//ClockTime bilula(ClockTime::getTimeNow());
 		//bilula.setStart(ClockTime::getTimeNow());
-		if(metric==Input::OBJECTIVE_METRIC_TUS){
+		if((metric==Input::OBJECTIVE_METRIC_TUS)||(metric ==Input::OBJECTIVE_METRIC_LLB)){
 			//std::cout << "Sorting by nb edges"<< std::endl;
 			std::sort(qualifiedForThisDemand.begin(),qualifiedForThisDemand.end(),sorterA);
 		}
-		if((metric==Input::OBJECTIVE_METRIC_NLUS)||(metric==Input::OBJECTIVE_METRIC_TASE)||(metric==Input::OBJECTIVE_METRIC_ADS)){
+		if((metric==Input::OBJECTIVE_METRIC_NLUS)||(metric==Input::OBJECTIVE_METRIC_TASE)||(metric==Input::OBJECTIVE_METRIC_ADS)||(metric ==Input::OBJECTIVE_METRIC_DCB)){
 			//std::cout << "Sorting by amplis"<< std::endl;
 			std::sort(qualifiedForThisDemand.begin(),qualifiedForThisDemand.end(),sorterB);
 		}

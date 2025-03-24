@@ -24,7 +24,7 @@ FlowForm::FlowForm(const Instance &inst) : AbstractFormulation(inst){
     time.setStart(ClockTime::getTimeNow());
     this->setObjectives();
     objImpleTime = time.getTimeInSecFromStart() ;
-    if (instance.getInput().activateGeneticAlgorithm()){
+    if ((instance.getInput().activateGeneticAlgorithm())&&(heuristicWorked==true)){
         this->setWarmValues();
     }
     
@@ -263,6 +263,35 @@ void FlowForm::setWarmValues(){
         }
         //std::cout<<"p = " << max<<std::endl;                
         maxSliceOverall.setWarmstartValue(max);
+    }
+    // multiband variables
+    if(nbBands>1){
+        for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            int edge = getCompactEdgeLabel(e);
+            int thisEdgeChargeC = 0;
+            int lastUsedSlot =0;
+            for (int j = 0; j < feasibleSolutionEdgeSlotMap[edge].size(); ++j){
+                int demand = feasibleSolutionEdgeSlotMap[edge][j];
+                if (j<slicesC){
+                    if (demand != 0){
+                        thisEdgeChargeC =thisEdgeChargeC+ getToBeRouted_k(demand).getLoadC();
+                    }
+                }
+                if (demand != 0){
+                    lastUsedSlot = j;
+                }                
+            }
+            if ((lastUsedSlot >= slicesC) || (thisEdgeChargeC>ceil(0.8*slicesC))){
+                //std::cout<<"Edge " << edge << " has charge " << thisEdgeChargeC 
+                //    << " and last slot " <<lastUsedSlot+1 << std::endl;
+                l[edge].setWarmstartValue(1.0);
+                //std::cout<<"l("<<edge+1<<")"<<std::endl; 
+            }/*else{
+                l[edge].setWarmstartValue(1.0);
+                std::cout<<"l("<<edge+1<<")"<<std::endl; 
+            }*/
+        }
+
     }
     
 }
@@ -1715,14 +1744,17 @@ void FlowForm::setThresholdConstraints(){
 
 Constraint FlowForm::getThresholdConstraint(int linkIndex){
     Expression exp;
-    int upperBound = ceil(0.7*slicesC);
+    int upperBound = ceil(0.8*slicesC);
     int lowerBound = -slicesC;
     int linkLabel = instance.getPhysicalLinkFromIndex(linkIndex).getId();
     for (int d = 0; d < getNbDemandsToBeRouted(); d++){
         for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[d]),linkLabel); a != INVALID; ++a){ 
             int index = getArcIndex(a, d);
-            Term term(x[d][index], getToBeRouted_k(d).getLoadC());
-            exp.addTerm(term);
+            int slice = getArcSlice(a, d);
+            if (slice < slicesC){     
+                Term term(x[d][index], getToBeRouted_k(d).getLoadC());
+                exp.addTerm(term);
+            }
         }
     }
     Term term3(l[linkIndex], -slicesC);

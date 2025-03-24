@@ -57,6 +57,9 @@ public:
 	/** Defines the objective function. **/
     void setObjective(const ObjectiveFunction &myObjective);
 
+	/** Defines the constraints needed in the MIP formulation. **/
+	void setNonLinearConstraints(const std::vector<NonLinearConstraint> &myNonLinearConstraints);
+
 	/** Defines the cplex optimization parameters. **/
 	void setCplexParams(const Input &input);
 

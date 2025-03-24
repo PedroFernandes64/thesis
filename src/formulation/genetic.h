@@ -128,6 +128,7 @@ protected:
     double lowerBoundUsedSlot;
 
     int nbBands;
+    int nbSlots;
 
     std::mt19937 rng;  // Mersenne Twister PRNG
 

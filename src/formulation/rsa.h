@@ -74,6 +74,7 @@ protected:
     double TRL;
     int TUS;
     double TASE;
+    bool heuristicWorked;
     double heuristicTime;
     double timeToBest;
     int itToBest;
@@ -365,7 +366,7 @@ public:
     double getTASE(){ return TASE;};
     int getVariablesSetTo0(){ return variablesSetTo0;};
     int getPreprocessingConstraints(){ return preprocessingConstraints;};
-
+    bool getHeuristicWork(){ return heuristicWorked;}
     double getHeuristicTime(){ return heuristicTime;}
     double getTimeToBest(){ return timeToBest;}; 
     int getItToBest(){ return itToBest;};

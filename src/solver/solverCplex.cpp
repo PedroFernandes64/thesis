@@ -123,7 +123,7 @@ void SolverCplex::solve(){
                 std::cerr << "No firstRound.sol " << ex << std::endl;
             }
         }
-        if( formulation->getInstance().getInput().activateGeneticAlgorithm()){
+        if((formulation->getInstance().getInput().activateGeneticAlgorithm())&&(formulation->getHeuristicWork()==true)){
             setWarmVariables(formulation->getVariables());
             cplex.addMIPStart(var,warmVar);
             //std::remove(filename.c_str());
@@ -132,7 +132,7 @@ void SolverCplex::solve(){
             cplex.solve();
         }
         catch(IloException& ex) {
-            std::cerr << "Error: " << ex << std::endl;
+            std::cerr << "Error during solve: " << ex << std::endl;
         }
         //outfile.close();
         if ((cplex.getStatus() == IloAlgorithm::Optimal) || (cplex.getStatus() == IloAlgorithm::Feasible)){
@@ -386,6 +386,18 @@ void SolverCplex::implementFormulation(){
     catch(IloException& ex) {
         std::cerr << "Error: " << ex << std::endl;
     }
+    
+    if (formulation->getInstance().getInput().getChosenFormulation() == Input::FORMULATION_T_FLOW){
+        if (formulation->getInstance().getInput().getNonOverTFlow() == 4){
+            try {
+                setNonLinearConstraints(formulation->getNonLinearConstraints());
+            }
+            catch(IloException& ex) {
+                std::cerr << "Error: " << ex << std::endl;
+            }
+        }
+    }
+ 
     //std::cout << "Time: " << time.getTimeInSecFromStart() << std::endl;
     constChargeTime = time.getTimeInSecFromStart();
     time.setStart(ClockTime::getTimeNow());
@@ -451,6 +463,33 @@ void SolverCplex::setConstraints(const std::vector<Constraint> &myConstraints){
     }
     std::cout << "CPLEX constraints have been defined..." << std::endl;
 }
+
+/* Defines the constraints needed in the MIP formulation. */
+void SolverCplex::setNonLinearConstraints(const std::vector<NonLinearConstraint> &myNonLinearConstraints) {
+    int index; 
+    double coefficient; 
+    int n;
+    for (unsigned int i = 0; i < myNonLinearConstraints.size(); i++) {    
+        IloExpr exp(model.getEnv());  // Create expression in the environment
+        NonLinearExpression expression = myNonLinearConstraints[i].getExpression();
+        n = expression.getNonLinearTerms().size();  
+        for (unsigned int j = 0; j < n; j++) {
+            NonLinearTerm term = expression.getNonLinearTerm_i(j);
+            int index0 = term.getVarVec()[0].getId();
+            int index1 = term.getVarVec()[1].getId();
+            //std::cout<<std::flush<< var[index0].getName() <<" * "<<var[index1].getName();
+            //exp = exp + var[index0] * var[index0];
+            exp += var[index0]*var[index1];
+        }
+        IloRange constraint(model.getEnv(), myNonLinearConstraints[i].getLb(), exp, myNonLinearConstraints[i].getUb(), myNonLinearConstraints[i].getName().c_str());
+        //model.add(constraint);
+        model.add(exp<=1);
+        exp.end();
+    }
+
+    std::cout << "CPLEX constraints have been defined..." << std::endl;
+}
+
 
 void SolverCplex::setVariables(const std::vector<Variable> &myVars){
     var = IloNumVarArray(model.getEnv(), myVars.size());

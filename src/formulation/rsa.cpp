@@ -126,6 +126,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     auxNbSlicesGlobalLimit = getNbSlicesGlobalLimit();
 
     //PEDRO PEDRO PEDRO
+    heuristicWorked == false;
     //ALL PATHS MODULE
     possiblePaths = 0;
     feasiblePathsC = 0;
@@ -161,6 +162,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
             timeToBest = genetic.getTimeToBest();
             itToBest = genetic.getItToBest();
             bestSol = genetic.getBestSol();
+            heuristicWorked = true;
         } catch (const std::exception& e) {
             // If an error occurs during genetic.run(), just print the error and continue
             std::cout << "Error during genetic.run(): " << e.what() << std::endl;
