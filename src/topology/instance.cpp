@@ -214,7 +214,7 @@ void Instance::readDemands(){
 		int demandSource = std::stoi(dataList[i][1]) - 1;
 		int demandTarget = std::stoi(dataList[i][2]) - 1;
 		int demandLoadC = std::stoi(dataList[i][3]);
-		double demandMaxCDC = std::stod(dataList[i][4]); // dataList[i][5])
+		double demandMaxCDC = std::stod(dataList[i][4]);
 		double transpIdC = std::stod(dataList[i][6]);
 		double demandOsnrLimitC=0.0;
 		int demandLoadL = 0.0;

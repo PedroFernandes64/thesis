@@ -552,7 +552,7 @@ void TFlowForm::setWarmValues(){
                 int demand = feasibleSolutionEdgeSlotMap[edge][j];                
                 if (j<slicesC){
                     if (demand != 0){
-                        thisEdgeChargeC =thisEdgeChargeC+ getToBeRouted_k(demand).getLoadC();
+                        thisEdgeChargeC =thisEdgeChargeC+ getToBeRouted_k(demand-1).getLoadC();
                     }
                 }
                 if (demand != 0){
@@ -768,7 +768,7 @@ void TFlowForm::setConstraints(){
                 if(NonOverlappingType == 3){
                     setNonOverlappingConstraintsHybrid();
                 }else{
-                    std::cout << "WARNING: No Non-overlapping constraints policy chosen." << std::endl;
+                    std::cout << "WARNING: No Linear Non-overlapping constraints policy chosen." << std::endl;
                 }
             }
         }
@@ -808,7 +808,7 @@ void TFlowForm::setConstraints(){
 void TFlowForm::setNonLinearConstraints(){
     if (NonOverlappingType == 4){
         setNonOverlappingConstraintsNonLinear();
-        std::cout << "WARNING: Setting non linear no Non-overlapping constraints" << std::endl;
+        std::cout << "ATTENTION: Setting non linear no Non-overlapping constraints" << std::endl;
     }
 }
 

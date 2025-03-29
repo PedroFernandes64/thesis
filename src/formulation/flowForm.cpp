@@ -267,6 +267,7 @@ void FlowForm::setWarmValues(){
     // multiband variables
     if(nbBands>1){
         for (ListGraph::EdgeIt e(compactGraph); e != INVALID; ++e){
+            //std::cout<<"shombiro)"<<std::endl; 
             int edge = getCompactEdgeLabel(e);
             int thisEdgeChargeC = 0;
             int lastUsedSlot =0;
@@ -274,13 +275,14 @@ void FlowForm::setWarmValues(){
                 int demand = feasibleSolutionEdgeSlotMap[edge][j];
                 if (j<slicesC){
                     if (demand != 0){
-                        thisEdgeChargeC =thisEdgeChargeC+ getToBeRouted_k(demand).getLoadC();
+                        thisEdgeChargeC = thisEdgeChargeC+ getToBeRouted_k(demand-1).getLoadC();
                     }
                 }
                 if (demand != 0){
                     lastUsedSlot = j;
                 }                
             }
+
             if ((lastUsedSlot >= slicesC) || (thisEdgeChargeC>ceil(0.8*slicesC))){
                 //std::cout<<"Edge " << edge << " has charge " << thisEdgeChargeC 
                 //    << " and last slot " <<lastUsedSlot+1 << std::endl;

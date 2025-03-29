@@ -10,8 +10,11 @@ using namespace lemon;
 class Routing{  
 public:
     std::vector<const std::vector<Fiber>* > routes;
-    std::vector<int> loads;
+    std::vector<int> loadsC;
+    std::vector<int> loadsL;
     std::vector<double> spectralEff;
+    int bands;
+
     std::vector<int> colors;
     bool colored;
     bool feasible;
@@ -19,11 +22,13 @@ public:
     int nbSlots;
     double metricVal;
 
-    Routing(std::vector<const std::vector<Fiber>* > routes, std::vector<int> loads, std::vector<double> spectralEff);
+    Routing(std::vector<const std::vector<Fiber>* > routes, std::vector<int> loadsC, std::vector<int> loadsL, std::vector<double> spectralEff, int bands);
     Routing(const Routing& other)
         : routes(other.routes),         // Deep copy the vector of vectors
-          loads(other.loads),           // Deep copy the loads vector
+          loadsC(other.loadsC),           // Deep copy the loads vector
+          loadsL(other.loadsL),
           spectralEff(other.spectralEff), 
+          bands(other.bands),
           colors(other.colors),         // Deep copy the colors vector
           colored(other.colored),       // Copy the boolean value
           feasible(other.feasible),     // Copy the boolean value
@@ -88,8 +93,9 @@ protected:
 
     Instance instance;                  /**< An instance describing the initial mapping. **/
     std::vector<Demand> toBeRouted;     /**< The list of demands to be routed in the next optimization. **/
-    std::vector<int> loads;
-    std::vector<double> spectralEff;
+    std::vector<int> loadsC;
+    std::vector<int> loadsL;
+    std::vector<double> spectralEffC;
 
     std::vector<std::vector<int>> edgeSlotMap;
     std::vector<int> lastSlotDemand;
@@ -175,7 +181,8 @@ public:
 
     /** Changes the vector of demands to be routed. @param vec The new vector of demands. **/
     void setToBeRouted(const std::vector<Demand> &vec){this->toBeRouted = vec;}
-    void setLoadVector();
+    void setLoadCVector();
+    void setLoadLVector();
     void setSpectralEffVector();
 
 
