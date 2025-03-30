@@ -11,7 +11,7 @@ ILOSTLBEGIN
 #include "topology/instance.h"
 #include "solver/solverFactory.h"
 
-#include "solver/solverCP.h"
+//#include "solver/solverCP.h"
 
 using namespace lemon;
 
