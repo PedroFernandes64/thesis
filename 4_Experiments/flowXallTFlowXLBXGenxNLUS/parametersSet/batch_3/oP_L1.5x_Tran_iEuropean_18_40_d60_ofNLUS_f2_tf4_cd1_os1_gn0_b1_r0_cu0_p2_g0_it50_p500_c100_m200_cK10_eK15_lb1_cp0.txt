@@ -1,0 +1,54 @@
+******* Input File Paths *******
+topologyFile=Instances/1.5x/random/European_18_40/Links/60_demands/Link.csv
+initialMappingDemandFile=
+initialMappingAssignmentFile=
+demandToBeRoutedFolder=Instances/1.5x/random/European_18_40/Demands/60_demands
+
+******* QoT parameters *******
+GNPY_activation=0
+QoTFolder=none
+ChromaticDispersion_activation=1
+OSNR_activation=1
+
+******* Thesis Pedro parameters *******
+Bands=1
+All_paths_compute=0
+All_paths_print=0
+TFlow_Policy=4
+Reinforcements=0
+Relaxation_variables=0
+Genetic=0
+Genetic_metric=NLUS
+Genetic_iterations=50
+Genetic_population=500
+Genetic_crossing=100
+Genetic_mutation=200
+Genetic_chosenK=10
+Genetic_extraK=15
+ActivateLB=1
+CPLEX_Strategy=0
+
+******* Formulation parameters *******
+nbDemandsAtOnce=1000
+formulation=2
+userCuts=0
+obj=NLUS
+allowBlocking=0
+hopPenalty=0
+partitionPolicy=0
+partitionLoad=0
+partitionSlice=0
+
+******* Optimization parameters *******
+solver=0
+method=0 
+preprocessingLevel=2
+linearRelaxation=0
+relaxMethod=0 
+
+******* Execution parameters *******
+outputPath=../Instances/Dump/
+outputLevel=0
+nbSlicesInOutputFile=0
+globalTimeLimit=7200
+timeLimit=7200
