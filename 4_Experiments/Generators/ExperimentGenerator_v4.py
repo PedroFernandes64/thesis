@@ -34,9 +34,9 @@ userCuts = ["0"]
 objSet = ["LLB", "DCB"]
 
 gnpyActivation = ["0"]
-CDSet=["1","0"]
-osnrSet=["1","0"]
-preprocessingSet= ["2"]
+CDSet=["0"]
+osnrSet=["0"]
+preprocessingSet= ["0"]
 
 bands=["2"]
 

@@ -1,24 +1,38 @@
 ******* Input File Paths *******
-topologyFile=../Instances/DONNY/6nodes9links_6_9/Links/15_demands/Link.csv
+topologyFile=../tests_bbm/Instances/6nodes9links_6_9/Links/7_demands/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../Instances/DONNY/6nodes9links_6_9/Demands/12_demands
+demandToBeRoutedFolder=../tests_bbm/Instances/6nodes9links_6_9/Demands/7_demands
 
-******* GNPY parameters *******
-GNPY_activation=1
+******* QoT parameters *******
+GNPY_activation=0
+QoTFolder=
+ChromaticDispersion_activation=0
+OSNR_activation=0
 
 ******* Thesis Pedro parameters *******
-MaxReach_activation=1
-OSNR_activation=1
-Bands=1
+Bands=2
+All_paths_compute=0
+All_paths_print=0
 TFlow_Policy=2
 Reinforcements=0
+Relaxation_variables=0
+Genetic=0
+Genetic_metric=1
+Genetic_iterations=50
+Genetic_population=500
+Genetic_crossing=100
+Genetic_mutation=100
+Genetic_chosenK=5
+Genetic_extraK=5
+ActivateLB=0
+CPLEX_Strategy=0
 
 ******* Formulation parameters *******
 nbDemandsAtOnce=1000
-formulation=0
+formulation=3
 userCuts=0
-obj=TUS
+obj=LLB
 allowBlocking=0
 hopPenalty=0
 partitionPolicy=0
@@ -36,5 +50,5 @@ relaxMethod=0
 outputPath=../Instances/Dump/
 outputLevel=0
 nbSlicesInOutputFile=0
-globalTimeLimit=50400 
-timeLimit=50400
+globalTimeLimit=14400
+timeLimit=14400

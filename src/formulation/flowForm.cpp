@@ -516,7 +516,7 @@ void FlowForm::setConstraints(){
         if (chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB){
             this->setMultibandConstraints();
         }
-        this->setThresholdConstraints();
+        //this->setThresholdConstraints();
     }
        
     nbConstraint = constraintSet.size();

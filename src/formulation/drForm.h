@@ -5,6 +5,7 @@
 
 typedef std::vector<Variable> VarArray; 
 typedef std::vector<VarArray> VarMatrix;
+typedef std::vector<VarMatrix> VarMatrix3d;
 
 #define EPS 1e-4
 #define INFTY std::numeric_limits<double>::max()
@@ -20,6 +21,14 @@ class DrFormulation : public AbstractFormulation{
 		VarArray rm; //  right-most slot occupe par la demand. 
 		VarArray maxSlicePerLink;	// The array of variables used in the MIP for verifying the max used slice position for each link in the topology network. maxSlicePerLink[i]=p if p is the max used slice position from the link with id i. *
 	 	Variable maxSliceOverall;	// The max used slice position throughout all the network. *
+
+		//MB
+		VarMatrix3d ydb;
+		VarArray lambda;
+		VarArray left;
+		int slicesC;
+		int slicesL;
+		int slicesTotal;
 
 	public:
 	/**************************************************************************************
@@ -65,6 +74,11 @@ class DrFormulation : public AbstractFormulation{
 
 	/** Changes the variable values. @param value The vector of values. **/
     void setVariableValues(const std::vector<double> &value)override;
+
+	//MB
+	void setDemandLinkBandVariablesMB();
+	void setLinkOpeningVariablesMB();
+	void setLeftVariablesMB();
 
 	/****************************************************************************************/
 	/*										Constraints										*/
@@ -122,6 +136,29 @@ class DrFormulation : public AbstractFormulation{
 	
 	Constraint getPreprocessingConstraint(int k);
 
+	//MB
+	void setFlowConstraintsMB();	
+	void setDegreeConstraintsMB();
+	void setSourceConstraintsMB();
+	void setTargetConstraintsMB();
+	Constraint getDegreeConstraint_kMB(int k, const ListGraph::Node &v);
+	Constraint getSourceConstraint_kMB(int k);
+	Constraint getOriginConstraint_kMB(int k);
+	Constraint getTargetConstraint_kMB(int d);
+	Constraint getDestinationConstraint_kMB(int d);
+	Constraint getFlowConstraint_kMB(int b, int d, const ListGraph::Node &v);
+	void setCouplingConstraintsMB();
+	Constraint getCouplingConstraintsMB(int b, int e,int d, int d2);
+	void setSAConstraintsMB();
+	Constraint getSAConstraint_k_kMB(int k, int k2);
+	Constraint getSA1Constraint_kMB(int k);
+	Constraint getSA2Constraint_kMB(int k);
+	Constraint getSA3Constraint_kMB(int k);
+	void setBandOpeningConstraintsMB();
+	Constraint getBandOpeningConstraintsMB(int k, int e);
+	void setForcedMonobandConstraints();
+	Constraint getForcedMonobandConstraint_k(int k);
+
 	/****************************************************************************************/
 	/*									Objective Functions									*/
 	/****************************************************************************************/
@@ -168,9 +205,3 @@ class DrFormulation : public AbstractFormulation{
 
 
 #endif
-
-
-
-
-
-	
