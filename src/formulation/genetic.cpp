@@ -80,7 +80,7 @@ void Routing::computeMetric(Input::ObjectiveMetric m){
 					charge = charge+loadsC[demand];
 				}
 			}
-			if ((lUsed==true) || (charge>ceil(0.8*(nbSlots/2)))){
+			if (lUsed == true){
 				metricVal = metricVal + 1;
 			}
 		}
@@ -554,7 +554,7 @@ bool Routing::tryColoring(int prio, Input::ObjectiveMetric metric){
 			bandLimit= (nbSlots/2)-loadsC[coloringTarget] + 1;
 			slotLimit = nbSlots-loadsL[coloringTarget] + 1;
 			if (loadsL[coloringTarget]==0){
-				slotLimit = nbSlots-loadsC[coloringTarget] + 1;
+				slotLimit = bandLimit;
 				bandLimit = slotLimit;
 			}
 		}
@@ -851,7 +851,7 @@ std::vector<std::vector<int>> Genetic::buildMatrixKsol(int k){
 	for (int a = 0; a < population[k].routes.size(); a++){
 		int demand = a +1;
 		int slots = population[k].loadsC[a];
-		if (nbBands=2){
+		if (nbBands==2){
 			if (population[k].colors[a]>nbSlots/2){
 				slots = population[k].loadsL[a];
 			}
@@ -881,7 +881,7 @@ std::vector<int> Genetic::buildLastSlotByDemand(int k){
 	//population[k].display();
 	for (int a = 0; a < population[k].colors.size(); a++){
 		int slots = population[k].loadsC[a];
-		if (nbBands=2){
+		if (nbBands==2){
 			if (population[k].colors[a]>nbSlots/2){
 				slots = population[k].loadsL[a];
 			}

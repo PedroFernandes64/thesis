@@ -283,7 +283,7 @@ void FlowForm::setWarmValues(){
                 }                
             }
 
-            if ((lastUsedSlot >= slicesC) || (thisEdgeChargeC>ceil(0.8*slicesC))){
+            if (lastUsedSlot >= slicesC){
                 //std::cout<<"Edge " << edge << " has charge " << thisEdgeChargeC 
                 //    << " and last slot " <<lastUsedSlot+1 << std::endl;
                 l[edge].setWarmstartValue(1.0);
@@ -788,7 +788,9 @@ Constraint FlowForm::getStrongOSNRConstraint(const Demand &demand, int d, int s)
     
     double osnrLim = pow(10,osnrLimdb/10);
     double pch = demand.getPchC();
-
+    if (s >= slicesC){
+        pch = demand.getPchL();
+    }
     double roundingFactor = pow(10,8);
     
     rhs = pch/osnrLim ;//- instance.getPaseNodeC() ; //RETIRANDO AMPLI. O AMPLI DO NO DE ORIGEM DO LINK JA ESTA INCLUINDO NO NOISE DO LINK
@@ -817,7 +819,7 @@ Constraint FlowForm::getStrongOSNRConstraint(const Demand &demand, int d, int s)
             for (ListDigraph::OutArcIt a((*vecGraph[d]), v); a != INVALID; ++a){
                 if (getArcSlice(a, d) == s){
                     int arc = getArcIndex(a, d);
-                    int coeff2 = -rhs;
+                    double coeff2 = -rhs;
                     Term term(x[d][arc], coeff2);
                     exp.addTerm(term);
                 }
@@ -1215,7 +1217,7 @@ Constraint FlowForm::getMinSliceAtVertexConstraint_v(ListGraph::Node &v){
         sminv=Bv;
     }
     if(degree<demands){
-        int maxWkWk = 100;
+        int maxWkWk = INT_MAX;
         for (int d1 = 0; d1 < demandList.size(); d1++){
             int demand1 = demandList[d1];
             for (int d2 = d1+1; d2 < demandList.size(); d2++){   
@@ -1361,8 +1363,8 @@ Constraint FlowForm::getMinSliceLeavingEdgeConstraint(ListGraph::Edge &e){
     if(Bv1v2>sminv1v2){
         sminv1v2=Bv1v2;
     }
-    if(degree-2<demands){
-        int maxWkWk = 100;
+    if(degree<demands){
+        int maxWkWk = INT_MAX;
         for (int d1 = 0; d1 < demandList.size(); d1++){
             int demand1 = demandList[d1];
             for (int d2 = d1+1; d2 < demandList.size(); d2++){   
@@ -1561,8 +1563,8 @@ std::vector<Constraint> FlowForm::getMinSliceLeavingEdgeInternalDemandConstraint
         sminv1v2k=Bv1v2k;
     }
 
-    if(degree-2<demands){
-        int maxWkWk = 100;
+    if(degree<demands){
+        int maxWkWk = INT_MAX;
         for (int d1 = 0; d1 < demandList.size(); d1++){
             int demand1 = demandList[d1];
             for (int d2 = d1+1; d2 < demandList.size(); d2++){   
@@ -1579,8 +1581,8 @@ std::vector<Constraint> FlowForm::getMinSliceLeavingEdgeInternalDemandConstraint
             sminv1v2=Cv1v2;
         }
     }
-    if(degree-2<demands+1){
-        int maxWkWkWithK = 100;
+    if(degree<demands+1){
+        int maxWkWkWithK = INT_MAX;
         for (int d1 = 0; d1 < demandList.size(); d1++){
             int demand1 = demandList[d1];
             for (int d2 = d1+1; d2 < demandList.size(); d2++){   
@@ -1614,14 +1616,20 @@ std::vector<Constraint> FlowForm::getMinSliceLeavingEdgeInternalDemandConstraint
     const std::vector<Input::ObjectiveMetric> & obj = instance.getInput().getChosenObj();
     if (obj[0] == Input::OBJECTIVE_METRIC_NLUS){      
         Expression exp;
+        int delta = sminv1v2k - sminv1v2;
+        if (delta < 0) {
+            delta = 0;
+        }
+
         int rhs = -sminv1v2k;
-        int lhs = -getNbSlicesGlobalLimit()-(sminv1v2k-sminv1v2);
-        
+        int lhs = -getNbSlicesGlobalLimit();
+
         for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[intDemand]),linkLabel); a != INVALID; ++a){   
             int index = getArcIndex(a, intDemand);
-            Term term(x[intDemand][index], -(sminv1v2k-sminv1v2));
+            Term term(x[intDemand][index], -delta);
             exp.addTerm(term);
-        }    
+        }
+
         Term term2(maxSliceOverall, -1);
         exp.addTerm(term2);
         std::ostringstream constraintName;
@@ -1682,7 +1690,7 @@ std::vector<Constraint> FlowForm::getMinSliceLeavingEdgeInternalDemandConstraint
     }
     for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[intDemand]),linkLabel); a != INVALID; ++a){   
         int index = getArcIndex(a, intDemand);
-        Term term(x[intDemand][index], -1);
+        Term term(x[intDemand][index], 1);
         exp2.addTerm(term);
     }    
     std::ostringstream constraintName2;
@@ -2298,6 +2306,5 @@ FlowForm::~FlowForm(){
     x.clear();
     maxSlicePerLink.clear();
 }
-
 
 

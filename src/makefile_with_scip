@@ -55,9 +55,7 @@ EXE = $(DRIVER)
 
 # CHANGEME: Here is the name of all object files corresponding to the source
 #           code that you wrote in order to define the problem statement
-# Descomentar se quiser voltar suporte ao SCIP.
-# OBJS = main.o formulation/flowForm.o formulation/edgeNodeForm.o formulation/tFlowForm.o formulation/drForm.o formulation/formulationComponents.o formulation/genetic.o formulation/rsa.o solver/abstractSolver.o solver/solverCplex.o solver/callbackCplex.o tools/CSVReader.o topology/demand.o topology/input.o topology/instance.o topology/physicalLink.o topology/slice.o solver/solverSCIP.o
-OBJS = main.o formulation/flowForm.o formulation/edgeNodeForm.o formulation/tFlowForm.o formulation/drForm.o formulation/formulationComponents.o formulation/genetic.o formulation/rsa.o solver/abstractSolver.o solver/solverCplex.o solver/callbackCplex.o tools/CSVReader.o topology/demand.o topology/input.o topology/instance.o topology/physicalLink.o topology/slice.o
+OBJS = main.o formulation/flowForm.o formulation/edgeNodeForm.o formulation/tFlowForm.o formulation/drForm.o formulation/formulationComponents.o formulation/genetic.o formulation/rsa.o solver/abstractSolver.o solver/solverCplex.o solver/callbackCplex.o tools/CSVReader.o topology/demand.o topology/input.o topology/instance.o topology/physicalLink.o topology/slice.o solver/solverSCIP.o
 
 # extra object files that are required by some examples (we just link them into each one)
 # CHANGEME: Additional libraries
@@ -120,23 +118,19 @@ clean:
 .c.obj:
 	$(CC) $(CFLAGS) $(INCL) -c -o $@ `if test -f '$<'; then $(CYGPATH_W) '$<'; else $(CYGPATH_W) '$(SRCDIR)/$<'; fi`
  
-# Descomentar se quiser voltar suporte ao SCIP.
 # CHANGEME: SCIP paths
-# SCIPLIBDIR = /
-# SCIPLIBFLAGS = -L$(SCIPLIBDIR) -lscip
+SCIPLIBDIR = /
+SCIPLIBFLAGS = -L$(SCIPLIBDIR) -lscip
 
-# Descomentar se quiser voltar suporte ao SCIP.
 # CHANGEME: SCIP include directories
-# SCIPIFLDIR = /home/kafavoreto/Projeto/include
-# SCIPIBIDIR = /home/kafavoreto/Projeto/include/scip
-# SCIPLIBIDIR = /home/kafavoreto/Projeto/include/scip/pub
-# SCIPIINCFLAGS = -I$(SCIPIFLDIR) -I$(SCIPIBIDIR) -I$(SCIPLIBIDIR)
+#SCIPIFLDIR = /home/kafavoreto/Projeto/include
+#SCIPIBIDIR = /home/kafavoreto/Projeto/include/scip
+#SCIPLIBIDIR = /home/kafavoreto/Projeto/include/scip/pub
+#SCIPIINCFLAGS = -I$(SCIPIFLDIR) -I$(SCIPIBIDIR) -I$(SCIPLIBIDIR)
 
-# Descomentar se quiser voltar suporte ao SCIP.
 # CHANGEME: Additional libraries
 # e.g., for driver2, put -lOsiCbc here
-# ADDLIBS =  $(CPLEXLIBFLAGS) $(CONCERTLIBFLAGS) $(SCIPLIBFLAGS) $(LEMONLIBFLAGS)
+ADDLIBS =  $(CPLEXLIBFLAGS) $(CONCERTLIBFLAGS) $(SCIPLIBFLAGS) $(LEMONLIBFLAGS)
 
-# Descomentar se quiser voltar suporte ao SCIP.
 # CHANGEME: Additional flags for compilation (e.g., include flags)
-# ADDINCFLAGS = -std=c++11 -g $(CCOPT) -I$(CPLEXINCDIR) -I$(CONCERTINCDIR) $(SCIPIINCFLAGS) $(LEMONINCFLAGS) $(BOOSTINCFLAGS)
+ADDINCFLAGS = -std=c++11 -g $(CCOPT) -I$(CPLEXINCDIR) -I$(CONCERTINCDIR) $(SCIPIINCFLAGS) $(LEMONINCFLAGS) $(BOOSTINCFLAGS)

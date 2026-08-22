@@ -126,7 +126,7 @@ RSA::RSA(const Instance &inst) : instance(inst), compactEdgeId(compactGraph), co
     auxNbSlicesGlobalLimit = getNbSlicesGlobalLimit();
 
     //PEDRO PEDRO PEDRO
-    heuristicWorked == false;
+    heuristicWorked = false;
     //ALL PATHS MODULE
     possiblePaths = 0;
     feasiblePathsC = 0;
@@ -828,25 +828,20 @@ void RSA::preprocessing(){
             }
         }
         //Tflow test
-        bool keepPreprocessing;
+        bool keepPreprocessing = false;
         if (getInstance().getInput().isMaxCDEnabled() == true)
-            keepPreprocessing = CDPreprocessing();
+            keepPreprocessing = CDPreprocessing() || keepPreprocessing;
         if (getInstance().getInput().isMinOSNREnabled() == true)
-            keepPreprocessing = OSNRPreprocessing();
+            keepPreprocessing = OSNRPreprocessing() || keepPreprocessing;
             
         if (getInstance().getInput().getChosenPreprLvl() >= Input::PREPROCESSING_LVL_FULL){
             // do full preprocessing;
-            if (getInstance().getInput().isMaxCDEnabled() == true){
-                while (keepPreprocessing){
-                    pathExistencePreprocessing(); 
-                    keepPreprocessing = CDPreprocessing();
-                }
-            }
-            if (getInstance().getInput().isMinOSNREnabled() == true){
-                while (keepPreprocessing){
-                    pathExistencePreprocessing(); 
-                    keepPreprocessing = OSNRPreprocessing();
-                }
+            while (keepPreprocessing){
+                keepPreprocessing = false;
+                if (getInstance().getInput().isMaxCDEnabled() == true)
+                    keepPreprocessing = CDPreprocessing() || keepPreprocessing;
+                if (getInstance().getInput().isMinOSNREnabled() == true)
+                    keepPreprocessing = OSNRPreprocessing() || keepPreprocessing;
             }           
         }
         /*

@@ -125,7 +125,7 @@ void DrFormulation::setRightVariables() {
         if(instance.getInput().isRelaxed()){
             rm[d] = Variable(varId, lowerBound,upperBound, Variable::TYPE_REAL, 0, varName);    
         }else{
-            rm[d]= Variable(varId, lowerBound, upperBound, Variable::TYPE_BOOLEAN, 0, varName);  
+            rm[d]= Variable(varId, lowerBound, upperBound, Variable::TYPE_INTEGER, 0, varName);  
         }
             incNbVar();
         }

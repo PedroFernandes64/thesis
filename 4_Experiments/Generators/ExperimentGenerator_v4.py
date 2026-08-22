@@ -29,7 +29,7 @@ for linkStrategy in linkStrategies:
 #testUnitVerifier(testSet)
 
 formulationSet = ["0","3"]
-TFlowSet=["0","1","2","3","4"]
+TFlowSet=["0","1","2","3"]
 userCuts = ["0"]
 objSet = ["LLB", "DCB"]
 
@@ -358,7 +358,7 @@ f.close()
 print("Experiments script created")
 
 with open("../Outputs/results.csv", "w") as f:
-    line = "LinkS;TranspS;Instance;Demands;UB;LB;GAP;Time;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro;Genetic;It;Pop;Cross;Mut;cK;eK;GenTime;GenSol;GenSolIt;GenSolTime;LBactive;ComputedLB;CplexStrategy;PreproTime;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tase;programTime"
+    line = "LinkS;TranspS;Instance;Demands;UB;LB;GAP;Status;Time;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro;Genetic;It;Pop;Cross;Mut;cK;eK;GenTime;GenSol;GenSolIt;GenSolTime;LBactive;ComputedLB;CplexStrategy;PreproTime;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tase;programTime"
     f.write(line)
     f.close() 
 print("Result table created")   

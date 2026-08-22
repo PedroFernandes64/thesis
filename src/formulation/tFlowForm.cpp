@@ -510,6 +510,10 @@ void TFlowForm::setWarmValues(){
     if(NonOverlappingType == 3){
         for (int k = 0; k < getNbDemandsToBeRouted(); k++){
             int lastSlot = feasibleSolutionLastSlotDemand[k];
+            int demandLoad = getToBeRouted_k(k).getLoadC();
+            if (lastSlot > slicesC){
+                demandLoad = getToBeRouted_k(k).getLoadL();
+            }
             if (lastSlot !=0){
                 for (int node = 0; node < feasibleSolutionNodesByDemand[k].size()-1; node++){
                     int origin = feasibleSolutionNodesByDemand[k][node];
@@ -519,7 +523,7 @@ void TFlowForm::setWarmValues(){
                         int vId = getCompactNodeLabel(compactGraph.v(e)) + 1;
                         int edge = getCompactEdgeLabel(e);
                         if(((origin==uId)&&(destination==vId))||((destination==uId)&&(origin==vId))){
-                            for (int w = 0; w < getToBeRouted_k(k).getLoadC(); w++){
+                            for (int w = 0; w < demandLoad; w++){
                                 //std::cout<<"h(" << k+1<<","<< uId<<","<< vId<<","<< lastSlot-w <<")"<<std::endl;
                                 h[edge][k][lastSlot-1-w].setWarmstartValue(1.0);
                             }
@@ -559,7 +563,7 @@ void TFlowForm::setWarmValues(){
                     lastUsedSlot = j;
                 }                
             }
-            if ((lastUsedSlot >= slicesC) || (thisEdgeChargeC>ceil(0.8*slicesC))){
+            if (lastUsedSlot >= slicesC){
                 l[edge].setWarmstartValue(1.0);
             }
         }
@@ -788,7 +792,7 @@ void TFlowForm::setConstraints(){
         if ((chosenObjectives[0] == Input::OBJECTIVE_METRIC_LLB) || (chosenObjectives.size()>1)){
             this->setMultibandConstraints();
         }
-        this->setThresholdConstraints();
+        //this->setThresholdConstraints();
     }
 
     
@@ -2311,7 +2315,7 @@ Constraint TFlowForm::getMinSliceAtVertexConstraint_v(ListGraph::Node &v){
         sminv=Bv;
     }
     if(degree<demands){
-        int maxWkWk = 100;
+        int maxWkWk = INT_MAX;
         for (int d1 = 0; d1 < demandList.size(); d1++){
             int demand1 = demandList[d1];
             for (int d2 = d1+1; d2 < demandList.size(); d2++){   
@@ -2435,8 +2439,8 @@ Constraint TFlowForm::getMinSliceLeavingEdgeConstraint(ListGraph::Edge &e){
     if(Bv1v2>sminv1v2){
         sminv1v2=Bv1v2;
     }
-    if(degree-2<demands){
-        int maxWkWk = 100;
+    if(degree<demands){
+        int maxWkWk = INT_MAX;
         for (int d1 = 0; d1 < demandList.size(); d1++){
             int demand1 = demandList[d1];
             for (int d2 = d1+1; d2 < demandList.size(); d2++){   
@@ -2575,8 +2579,8 @@ std::vector<Constraint>  TFlowForm::getMinSliceLeavingEdgeInternalDemandConstrai
         sminv1v2k=Bv1v2k;
     }
 
-    if(degree-2<demands){
-        int maxWkWk = 100;
+    if(degree<demands){
+        int maxWkWk = INT_MAX;
         for (int d1 = 0; d1 < demandList.size(); d1++){
             int demand1 = demandList[d1];
             for (int d2 = d1+1; d2 < demandList.size(); d2++){   
@@ -2593,8 +2597,8 @@ std::vector<Constraint>  TFlowForm::getMinSliceLeavingEdgeInternalDemandConstrai
             sminv1v2=Cv1v2;
         }
     }
-    if(degree-2<demands+1){
-        int maxWkWkWithK = 100;
+    if(degree<demands+1){
+        int maxWkWkWithK = INT_MAX;
         for (int d1 = 0; d1 < demandList.size(); d1++){
             int demand1 = demandList[d1];
             for (int d2 = d1+1; d2 < demandList.size(); d2++){   
@@ -2629,10 +2633,17 @@ std::vector<Constraint>  TFlowForm::getMinSliceLeavingEdgeInternalDemandConstrai
     const std::vector<Input::ObjectiveMetric> & obj = instance.getInput().getChosenObj();
     if (obj[0] == Input::OBJECTIVE_METRIC_NLUS){   
         Expression exp;
+        int delta = sminv1v2k - sminv1v2;
+
+        if (delta < 0) {
+            delta = 0;
+        }
+
         int rhs = -sminv1v2k;
-        int lhs = -getNbSlicesGlobalLimit()-(sminv1v2k-sminv1v2);
-        Term term1(x[edge][intDemand], 1);
-        Term term2(x[edge + nbEdges][intDemand], 1);
+        int lhs = -getNbSlicesGlobalLimit();
+
+        Term term1(x[edge][intDemand], -delta);
+        Term term2(x[edge + nbEdges][intDemand], -delta);
         exp.addTerm(term1);
         exp.addTerm(term2);
 
@@ -3233,7 +3244,7 @@ std::vector<Constraint> TFlowForm::solveSeparationProblemInt(const std::vector<d
             int sliceLimit;
             int largestOverlappingSlot = 0;
             if(s>=slicesC){
-                sliceLimit = slicesL;
+                sliceLimit = slicesC+slicesL;
             }else{
                 sliceLimit = slicesC;
             }

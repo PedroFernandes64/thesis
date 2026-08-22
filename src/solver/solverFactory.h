@@ -3,7 +3,8 @@
 
 // include all concrete solvers
 #include "solverCplex.h"
-#include "solverSCIP.h"
+// Descomentar se quiser voltar suporte ao SCIP.
+// #include "solverSCIP.h"
 
 /*********************************************************************************************
 * This class implements a factory for Formulations. It provides a concrete formulation.
@@ -20,7 +21,10 @@ public:
                 break;
             }
             case Input::MIP_SOLVER_SCIP:{
-                return new SolverSCIP(instance);
+                // Descomentar se quiser voltar suporte ao SCIP.
+                // return new SolverSCIP(instance);
+                std::cout << "SCIP support disabled in this build. Use solver=0 for CPLEX or re-enable SCIP in solverFactory.h and makefile." << std::endl;
+                exit(0);
                 break;
             }
             case Input::MIP_SOLVER_GUROBI:{

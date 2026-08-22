@@ -173,16 +173,22 @@ void Instance::readTopology(){
 		double edgeDispersionL = 0.0;
 		double edgeNoiseS = 0.0;
 		double edgeDispersionS = 0.0;
-		if (this->input.isMinOSNREnabled() == true ){
+		if (this->input.isMinOSNREnabled() == true){
 			edgeAmplis = std::stoi(dataList[i][6]);
 			edgeNoiseC = std::stod(dataList[i][7]);
-			edgeDispersionC = std::stod(dataList[i][10]);
 			if (getInput().getNbBands() >= 2){
 				edgeNoiseL = std::stod(dataList[i][8]);
-				edgeDispersionL = std::stod(dataList[i][11]);
 			}
 			if (getInput().getNbBands() == 3){
 				edgeNoiseS = std::stod(dataList[i][9]);
+			}
+		}
+		if (this->input.isMaxCDEnabled() == true ){
+			edgeDispersionC = std::stod(dataList[i][10]);
+			if (getInput().getNbBands() >= 2){
+				edgeDispersionL = std::stod(dataList[i][11]);
+			}
+			if (getInput().getNbBands() == 3){
 				edgeDispersionS = std::stod(dataList[i][12]);
 			}
 		}
