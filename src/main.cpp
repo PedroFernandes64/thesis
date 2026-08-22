@@ -118,6 +118,10 @@ int main(int argc, char *argv[]) {
 			std::string gap = to_string(solver->getMipGap());
 			std::string status = to_string(static_cast<int>(solver->getStatus()));
 			std::string time = to_string(round(solver->getDurationTime()*1000)/1000);
+			std::string nodesProcessed = to_string(solver->getNodesProcessed());
+			std::string nodesRemaining = to_string(solver->getNodesRemaining());
+			std::string totalCplexCuts = to_string(solver->getTotalCplexCuts());
+			std::string terminationReason = to_string(solver->getTerminationReason());
 			std::string obj = to_string(input.getChosenObj_k(0));
 			if(input.getChosenObj().size()>1){
 				obj = obj + "-" + to_string(input.getChosenObj_k(1));
@@ -204,7 +208,8 @@ int main(int argc, char *argv[]) {
 				}
 			}
 			//opening file and writing
-  			outfile << "\n" + instanceName + ";" << ub + ";" + lb + ";" + gap +";" + status + ";" + time +";" + obj +";"+ formulation+ ";"
+			outfile << "\n" + instanceName + ";" << ub + ";" + lb + ";" + gap +";" + status + ";" + time +";" + nodesProcessed + ";"
+				+nodesRemaining+";"+totalCplexCuts+";"+terminationReason+";"+obj+";"+formulation+ ";"
 				+maxCD+";" + minOsnr+";"+ gnpy+";"+ bands+";"+ reinforcements+";"+ cuts+";"+ prepro+";"+genetic+";"+it+";"
 				+pop+";"+cross+";"+mut+";"+cK+";"+eK+";"+genTime+";"+genSol+";"+genSolIt+";"+genSolTime+";"+lbAc+";"+cpLb+";"+cplex+";"+preproTime +";"
 				+variables+";"+constraints+";"+v0+";"+ppC+";"+possiblePaths+";"+feasiblePathsC+";"+infeasiblePathsC+";"

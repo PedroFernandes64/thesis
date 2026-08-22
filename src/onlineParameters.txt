@@ -1,8 +1,8 @@
 ******* Input File Paths *******
-topologyFile=../4_Experiments/QoTPaper/Instances/1x/efficient/Nsfnet_14_21/Links/20_demands/Link.csv
+topologyFile=../4_Experiments/old/better/QoTPaper/Instances/1x/efficient/Nsfnet_14_21/Links/20_demands/Link.csv
 initialMappingDemandFile=
 initialMappingAssignmentFile=
-demandToBeRoutedFolder=../4_Experiments/QoTPaper/Instances/1x/efficient/Nsfnet_14_21/Demands/20_demands
+demandToBeRoutedFolder=../4_Experiments/old/better/QoTPaper/Instances/1x/efficient/Nsfnet_14_21/Demands/20_demands
 
 ******* QoT parameters *******
 GNPY_activation=0

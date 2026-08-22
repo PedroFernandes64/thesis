@@ -188,10 +188,36 @@ void SolverCplex::solve(){
             }
         }
     }
-	setTreeSize(cplex.getNnodes());
+    try {
+        const long long value = static_cast<long long>(cplex.getNnodes());
+        setNodesProcessed(value);
+        setTreeSize(static_cast<int>(value));
+    }
+    catch (...) {
+        setNodesProcessed(-1);
+        setTreeSize(-1);
+    }
+    try {
+        setNodesRemaining(static_cast<long long>(cplex.getNnodesLeft()));
+    }
+    catch (...) {
+        setNodesRemaining(-1);
+    }
+    try {
+        setTotalCplexCuts(static_cast<long long>(getNbCutsFromCplex()));
+    }
+    catch (...) {
+        setTotalCplexCuts(-1);
+    }
+    try {
+        setTerminationReason(static_cast<int>(cplex.getCplexStatus()));
+    }
+    catch (...) {
+        setTerminationReason(-1);
+    }
     setAlgorithm(cplex.getAlgorithm());
     std::cout << "User cuts "<< getCplex().getNcuts(IloCplex::CutUser)<< std::endl;
-    std::cout << "Total cuts "<< getNbCutsFromCplex()<< std::endl;
+    std::cout << "Total cuts "<< getTotalCplexCuts() << std::endl;
     std::cout << "Clique cuts " << getCplex().getNcuts(IloCplex::CutClique) << std::endl;
     std::cout << "Cover cuts " << getCplex().getNcuts(IloCplex::CutCover)<< std::endl;
     std::cout << "Gomory frac cuts " <<getCplex().getNcuts(IloCplex::CutFrac)<< std::endl;

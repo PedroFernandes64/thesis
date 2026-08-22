@@ -36,6 +36,10 @@ protected:
 	double gap;
 	int treeSize;
 	double rootValue;
+	long long nodesProcessed;
+	long long nodesRemaining;
+	long long totalCplexCuts;
+	int terminationReason;
 
 	double totalChargeTime;
 	double varChargeTime;
@@ -68,6 +72,10 @@ public:
 	double getLowerBound() const { return lowerBound; }
 	int getTreeSize() const { return treeSize; }
 	double getRootValue() const { return rootValue; }
+	long long getNodesProcessed() const { return nodesProcessed; }
+	long long getNodesRemaining() const { return nodesRemaining; }
+	long long getTotalCplexCuts() const { return totalCplexCuts; }
+	int getTerminationReason() const { return terminationReason; }
 	virtual double getObjValue() = 0;
 
 	double getTotalChargeTime() const { return totalChargeTime;}
@@ -123,6 +131,10 @@ public:
 	void setLowerBound(const double lb) { lowerBound = lb; }
 	void setTreeSize(const int t) { treeSize = t; }
 	void setRootValue(const double v) { rootValue = v; }
+	void setNodesProcessed(const long long value) { nodesProcessed = value >= 0 ? value : -1; }
+	void setNodesRemaining(const long long value) { nodesRemaining = value >= 0 ? value : -1; }
+	void setTotalCplexCuts(const long long value) { totalCplexCuts = value >= 0 ? value : -1; }
+	void setTerminationReason(const int value) { terminationReason = value >= 0 ? value : -1; }
 	
 	/****************************************************************************************/
 	/*											Methods										*/

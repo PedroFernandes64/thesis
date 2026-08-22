@@ -13,6 +13,10 @@ AbstractSolver::AbstractSolver(const Instance &instance, const Status &s) : curr
 	gap = -1;
 	treeSize = -1;
 	rootValue = -1;
+	nodesProcessed = -1;
+	nodesRemaining = -1;
+	totalCplexCuts = -1;
+	terminationReason = -1;
     FormulationFactory factory;
     formulation = factory.createFormulation(instance);
 }
@@ -35,5 +39,4 @@ void AbstractSolver::updateRSA(Instance &instance){
         instance.setWasBlocked(true);
     }
 }
-
 

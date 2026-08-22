@@ -1,6 +1,6 @@
 make clean
 make -f makefilePedroHPC
-cp exec ../4_Experiments/flowXallTFlowXGenxLLBDCB
-cp exec ../4_Experiments/flowXallTFlowXGenxADS
-cp exec ../4_Experiments/flowXallTFlowXLBXGenxNLUS
-cp exec ../4_Experiments/flowXallTFlowXLBXGenxTUSTRLTASE
+cp exec ../4_Experiments/FINAL/Tflow_x_Tflow/exec
+cp exec ../4_Experiments/FINAL/Tflow_x_Flow_x_DRAOV/exec
+cp exec ../4_Experiments/FINAL/Tflow_x_Flow_improvements/exec
+cp exec ../4_Experiments/FINAL/Tflow_x_Flow_MB_improvements/exec
