@@ -1,0 +1,9 @@
+Bateria: comparacao fatorial das melhorias no Flow e no TFlow campeao.
+
+Instancias: single-band, fatores 1.0x e 1.5x; estrategia random; topologias Nsfnet_14_21, German_17_26 e European_18_40; demandas de 20 a 100, com tres replicas.
+Tratamentos: formulation=0,2; TFlow_Policy=2 para TFlow; obj=TUS,TRL,NLUS; Genetic=0,1; ActivateLB=0,1; Bands=1.
+Total: 3888 configuracoes em 39 arrays SLURM.
+Recursos por tarefa: 4 CPUs e 32 GiB de RAM.
+
+Executar todos os arrays a partir desta pasta:
+bash script.sh

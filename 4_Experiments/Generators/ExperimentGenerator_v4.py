@@ -28,17 +28,17 @@ for linkStrategy in linkStrategies:
 
 #testUnitVerifier(testSet)
 
-formulationSet = ["0","3"]
+formulationSet = ["2"]
 TFlowSet=["0","1","2","3"]
 userCuts = ["0"]
-objSet = ["LLB", "DCB"]
+objSet = ["TUS", "TRL", "TASE"]
 
 gnpyActivation = ["0"]
-CDSet=["0"]
-osnrSet=["0"]
-preprocessingSet= ["0"]
+CDSet=["1"]
+osnrSet=["1"]
+preprocessingSet=["2"]
 
-bands=["2"]
+bands=["1"]
 
 #reinforcements=["0"]
 genetic= ["0"]
@@ -358,7 +358,7 @@ f.close()
 print("Experiments script created")
 
 with open("../Outputs/results.csv", "w") as f:
-    line = "LinkS;TranspS;Instance;Demands;UB;LB;GAP;Status;Time;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro;Genetic;It;Pop;Cross;Mut;cK;eK;GenTime;GenSol;GenSolIt;GenSolTime;LBactive;ComputedLB;CplexStrategy;PreproTime;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tase;programTime"
+    line = "LinkS;TranspS;Instance;Demands;UB;LB;GAP;Status;Time;NodesProcessed;NodesRemaining;TotalCplexCuts;TerminationReason;OF;Formulation;CD;OSNR;GNpy;Bands;Reinforcements;Cuts;Prepro;Genetic;It;Pop;Cross;Mut;cK;eK;GenTime;GenSol;GenSolIt;GenSolTime;LBactive;ComputedLB;CplexStrategy;PreproTime;Variables;Constraints;v0;preproC;Paths;FeasibleC;InfeasibleC;OnlyOsnrC;OnlyReachC;FeasibleL;InfeasibleL;OnlyOsnrL;OnlyReachL;ads;dcb;llb;nlus;slus;suld;trl;tus;tase;programTime"
     f.write(line)
     f.close() 
 print("Result table created")   

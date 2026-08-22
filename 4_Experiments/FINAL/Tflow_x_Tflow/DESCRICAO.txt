@@ -1,0 +1,9 @@
+Bateria: comparacao entre as quatro politicas de nao sobreposicao do TFlow.
+
+Instancias: single-band, fatores 1.0x e 1.5x; estrategia random; topologias Nsfnet_14_21, German_17_26 e European_18_40; demandas de 20 a 100, com tres replicas.
+Tratamentos: formulation=2; TFlow_Policy=0,1,2,3; obj=TUS,TRL,NLUS; Genetic=0; ActivateLB=0; Bands=1.
+Total: 1944 configuracoes em 20 arrays SLURM.
+Recursos por tarefa: 4 CPUs e 32 GiB de RAM.
+
+Executar todos os arrays a partir desta pasta:
+bash script.sh
