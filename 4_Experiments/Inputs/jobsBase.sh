@@ -5,7 +5,7 @@
 #SBATCH --partition=court        # choix de la partition
 #SBATCH --ntasks=1               # chaque job possède une seule task
 #SBATCH --cpus-per-task=4        # une task nécessite 4 CPU
-#SBATCH --mem-per-cpu=8192      # 8 Go de RAM par CPU
+#SBATCH --mem-per-cpu=6144      # 6 GiB de RAM por CPU (24 GiB no total)
 #SBATCH --output=nouveau-nom_%a  # modifie le nom du fichier de sortie par défaut
  
 #========================== TASKS ================================
