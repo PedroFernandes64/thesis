@@ -1,0 +1,10 @@
+Bateria: retificação das execuções afetadas pela antiga implementação da valid inequality condicional de NLUS.
+
+Instâncias: single-band, somente fator 1.5x; estratégia random; topologias Nsfnet_14_21, German_17_26 e European_18_40; demandas de 20 a 100, com três réplicas.
+Tratamentos: Flow (formulation=0) e T-Flow P2 (formulation=2, TFlow_Policy=2); obj=NLUS; Genetic=0,1; ActivateLB=1; Bands=1.
+Total: 324 configurações em quatro arrays SLURM (100, 100, 100 e 24 jobs).
+Limites do programa: globalTimeLimit=7200 e timeLimit=7200.
+Recursos por tarefa: quatro CPUs e 24 GiB de RAM, na partição normal. Nenhum limite de tempo SLURM foi definido.
+
+Executar todos os arrays a partir desta pasta:
+bash script.sh

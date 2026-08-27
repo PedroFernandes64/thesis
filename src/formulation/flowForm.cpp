@@ -1622,7 +1622,6 @@ std::vector<Constraint> FlowForm::getMinSliceLeavingEdgeInternalDemandConstraint
         }
 
         int rhs = -sminv1v2k;
-        int lhs = -getNbSlicesGlobalLimit();
 
         for(IterableIntMap< ListDigraph, ListDigraph::Arc >::ItemIt a((*mapItArcLabel[intDemand]),linkLabel); a != INVALID; ++a){   
             int index = getArcIndex(a, intDemand);
@@ -1632,6 +1631,7 @@ std::vector<Constraint> FlowForm::getMinSliceLeavingEdgeInternalDemandConstraint
 
         Term term2(maxSliceOverall, -1);
         exp.addTerm(term2);
+        double lhs = exp.getTrivialLb();
         std::ostringstream constraintName;
         constraintName << "MinSliceLeavingEdgeInternalDemandP_"<< uLabel+1<< "_"<< vLabel+1;
         Constraint constraint(lhs, exp, rhs, constraintName.str());
@@ -2306,5 +2306,4 @@ FlowForm::~FlowForm(){
     x.clear();
     maxSlicePerLink.clear();
 }
-
 

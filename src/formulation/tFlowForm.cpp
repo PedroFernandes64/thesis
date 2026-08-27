@@ -2640,7 +2640,6 @@ std::vector<Constraint>  TFlowForm::getMinSliceLeavingEdgeInternalDemandConstrai
         }
 
         int rhs = -sminv1v2k;
-        int lhs = -getNbSlicesGlobalLimit();
 
         Term term1(x[edge][intDemand], -delta);
         Term term2(x[edge + nbEdges][intDemand], -delta);
@@ -2649,6 +2648,7 @@ std::vector<Constraint>  TFlowForm::getMinSliceLeavingEdgeInternalDemandConstrai
 
         Term term3(maxSliceOverall, -1);
         exp.addTerm(term3);
+        double lhs = exp.getTrivialLb();
         std::ostringstream constraintName;
         constraintName << "MinSliceLeavingEdgeInternalDemandP_"<< uLabel+1<< "_"<< vLabel+1;
         Constraint constraint(lhs, exp, rhs, constraintName.str());
