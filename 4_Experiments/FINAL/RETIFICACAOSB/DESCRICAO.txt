@@ -1,0 +1,13 @@
+Bateria de retificacao single-band da restricao MinSliceLeavingEdgeInternalDemandSminK.
+
+Escopo: somente 1.5x, T-Flow P2 (formulation=2; Formulation=22 no CSV), Bands=1, ActivateLB=1, objetivos TUS/TRL/NLUS e Genetic=0/1.
+Casos: 3 topologias x 9 tamanhos de demanda x 3 replicas = 81.
+Total esperado: 81 x 3 objetivos x 2 valores de Genetic = 486 configuracoes, em 5 arrays.
+Limites do programa: globalTimeLimit=7200 e timeLimit=7200.
+Recursos: particao normal, 4 CPUs e 24 GiB por tarefa; sem limite SLURM.
+
+Gerar os arquivos a partir desta pasta:
+python3 generate_retificacao_sb.py
+
+Depois de conferir a geracao, submeter:
+bash script.sh

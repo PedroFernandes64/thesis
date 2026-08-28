@@ -2655,7 +2655,6 @@ std::vector<Constraint>  TFlowForm::getMinSliceLeavingEdgeInternalDemandConstrai
         constraints.push_back(constraint);
     }
     Expression exp2;
-    int rhs2 = demands+1;
     int lhs2 = 1;
     demandList.push_back(intDemand);
     for (int k = 0; k < demandList.size(); k++){  
@@ -2669,6 +2668,7 @@ std::vector<Constraint>  TFlowForm::getMinSliceLeavingEdgeInternalDemandConstrai
     Term termB(x[edge + nbEdges][intDemand], 1);
     exp2.addTerm(termA);
     exp2.addTerm(termB);
+    double rhs2 = exp2.getTrivialUb();
     std::ostringstream constraintName2;
     constraintName2 << "MinSliceLeavingEdgeInternalDemandSminK_"<< uLabel+1<< "_"<< vLabel+1;
     Constraint constraint2(lhs2, exp2, rhs2, constraintName2.str());
